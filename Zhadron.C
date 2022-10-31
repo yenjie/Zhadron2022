@@ -1,0 +1,53 @@
+#include "HiForest.h"
+#include <TFile.h>
+#include <TTree.h>
+#include <TNtuple.h>
+
+class ZhadronData
+{
+   public:
+   vector<double> Zmass;
+   vector<double> Zeta;
+   vector<double> Zphi;
+   
+   ZhadronData(){};
+   ~ZhadronData(){};
+//   setBranch(TTree *t){};
+   
+   
+};
+
+void Zhadron()
+{
+   HiForest f("hydjet.root");
+   f.doGenParticle=1;
+   f.doPbPbTracks=1;
+   f.doMuTree=1;
+   f.Init();
+   
+   TFile *outfile = new TFile("output.root","recreate");
+   
+   TNtuple *nt = new TNtuple("ntZ","Z tree","mass:pt:eta");
+
+   
+   for (int i=0;i<f.GetEntries();i++)
+   {
+     f.GetEntry(i);
+     if (i%1000==0) cout <<i<<"/"<<f.GetEntries()<<endl;
+     for (int ipair=0;ipair<f.muTree.Di_npair;ipair++) {
+        //cout <<ipair<<" "<<f.muTree.Di_mass[ipair]<<endl;
+	if (f.muTree.Di_charge1[ipair]==f.muTree.Di_charge2[ipair]) continue;
+	if (fabs(f.muTree.Di_eta1[ipair])>2.4) continue;
+	if (fabs(f.muTree.Di_eta2[ipair])>2.4) continue;
+	if (fabs(f.muTree.Di_pt1[ipair])<20) continue;
+	if (fabs(f.muTree.Di_pt2[ipair])<20) continue;
+	nt->Fill(f.muTree.Di_mass[ipair],f.muTree.Di_pt[ipair], f.muTree.Di_eta[ipair], f.muTree.Di_phi[ipair]);
+     }
+   }
+   
+   nt->Write();
+   outfile->Write();
+   outfile->Close();      
+
+}
+
