@@ -26,6 +26,7 @@ class ZhadronData
       Zmass.clear();
       Zeta.clear();
       Zphi.clear();
+      Zpt.clear();
    }
    
 };
