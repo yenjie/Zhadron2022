@@ -43,9 +43,7 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
    ZhadronData data;
    data.setBranch(t);
    data.clear();
-   
-   
-
+  
    
    for (int i=0;i<f.GetEntries();i++)
    {
