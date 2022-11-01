@@ -48,19 +48,19 @@ void HiForest::Init()
 {
    if (doGenParticle) {
        tGenParticle = (TTree*) hiForestFile->Get("HiGenParticleAna/hi");
-       if (tGenParticle==0) cout <<"Error"<<endl;
+       if (tGenParticle==0) cout <<"Error! GenParticle"<<endl;
        genParticle.Init(tGenParticle);
        nEntries=tGenParticle->GetEntries();
    }   
    if (doMuTree) {
        tMuTree = (TTree*) hiForestFile->Get("hltMuTree/HLTMuTree");
-       if (tMuTree==0) cout <<"Error"<<endl;
+       if (tMuTree==0) cout <<"Error! MuTree"<<endl;
        muTree.Init(tMuTree);
        nEntries=tMuTree->GetEntries();
    }   
    if (doPbPbTracks) {
        tPbPbTracks = (TTree*) hiForestFile->Get("PbPbTracks/trackTree");
-       if (tPbPbTracks==0) cout <<"Error"<<endl;
+       if (tPbPbTracks==0) cout <<"Error! PbPbTrack"<<endl;
        tracks.Init(tPbPbTracks);
        nEntries=tPbPbTracks->GetEntries();
    }   
