@@ -17,15 +17,16 @@ class ZhadronData
    
 };
 
-void Zhadron()
+void Zhadron(string
+infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root", string outfname="output.root")
 {
-   HiForest f("hydjet.root");
+   HiForest f(infname.c_str());
    f.doGenParticle=1;
-   f.doPbPbTracks=1;
+   f.doPbPbTracks=0;
    f.doMuTree=1;
    f.Init();
    
-   TFile *outfile = new TFile("output.root","recreate");
+   TFile *outfile = new TFile(outfname.c_str(),"recreate");
    
    TNtuple *nt = new TNtuple("ntZ","Z tree","mass:pt:eta");
 

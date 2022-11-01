@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Fri Oct 28 13:51:10 2022 by ROOT version 6.22/00
+// Tue Nov  1 08:08:39 2022 by ROOT version 6.24/06
 // from TTree hi/Tree of Hi gen Event
-// found on file: z.root
+// found on file: DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root
 //////////////////////////////////////////////////////////
 
 #ifndef GenParticle_h
@@ -98,11 +98,11 @@ GenParticle::GenParticle(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("z.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("z.root");
+         f = new TFile("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("z.root:/HiGenParticleAna");
+      TDirectory * dir = (TDirectory*)f->Get("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root:/HiGenParticleAna");
       dir->GetObject("hi",tree);
 
    }

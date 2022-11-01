@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Fri Oct 28 14:05:27 2022 by ROOT version 6.22/00
+// Tue Nov  1 08:09:06 2022 by ROOT version 6.24/06
 // from TTree trackTree/v1
-// found on file: z.root
+// found on file: DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root
 //////////////////////////////////////////////////////////
 
 #ifndef PbPbTracks_h
@@ -119,11 +119,11 @@ PbPbTracks::PbPbTracks(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("z.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("z.root");
+         f = new TFile("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("z.root:/PbPbTracks");
+      TDirectory * dir = (TDirectory*)f->Get("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root:/PbPbTracks");
       dir->GetObject("trackTree",tree);
 
    }

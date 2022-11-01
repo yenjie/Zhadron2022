@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Fri Oct 28 13:58:37 2022 by ROOT version 6.22/00
+// Tue Nov  1 08:08:05 2022 by ROOT version 6.24/06
 // from TTree HLTMuTree/HLTMuTree
-// found on file: z.root
+// found on file: DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root
 //////////////////////////////////////////////////////////
 
 #ifndef MuTree_h
@@ -29,78 +29,78 @@ public :
    Float_t         vy;
    Float_t         vz;
    Int_t           Gen_nptl;
-   Int_t           Gen_pid[14];   //[Gen_nptl]
-   Int_t           Gen_mom[14];   //[Gen_nptl]
-   Int_t           Gen_status[14];   //[Gen_nptl]
-   Float_t         Gen_p[14];   //[Gen_nptl]
-   Float_t         Gen_pt[14];   //[Gen_nptl]
-   Float_t         Gen_eta[14];   //[Gen_nptl]
-   Float_t         Gen_phi[14];   //[Gen_nptl]
+   Int_t           Gen_pid[17];   //[Gen_nptl]
+   Int_t           Gen_mom[17];   //[Gen_nptl]
+   Int_t           Gen_status[17];   //[Gen_nptl]
+   Float_t         Gen_p[17];   //[Gen_nptl]
+   Float_t         Gen_pt[17];   //[Gen_nptl]
+   Float_t         Gen_eta[17];   //[Gen_nptl]
+   Float_t         Gen_phi[17];   //[Gen_nptl]
    Int_t           Glb_nptl;
-   Int_t           Glb_charge[5];   //[Glb_nptl]
-   Float_t         Glb_p[5];   //[Glb_nptl]
-   Float_t         Glb_pt[5];   //[Glb_nptl]
-   Float_t         Glb_eta[5];   //[Glb_nptl]
-   Float_t         Glb_phi[5];   //[Glb_nptl]
-   Float_t         Glb_dxy[5];   //[Glb_nptl]
-   Float_t         Glb_dz[5];   //[Glb_nptl]
-   Int_t           Glb_nValMuHits[5];   //[Glb_nptl]
-   Int_t           Glb_nValTrkHits[5];   //[Glb_nptl]
-   Int_t           Glb_nValPixHits[5];   //[Glb_nptl]
-   Int_t           Glb_trkLayerWMeas[5];   //[Glb_nptl]
-   Int_t           Glb_nMatchedStations[5];   //[Glb_nptl]
-   Int_t           Glb_nTrkFound[5];   //[Glb_nptl]
-   Float_t         Glb_glbChi2_ndof[5];   //[Glb_nptl]
-   Float_t         Glb_trkChi2_ndof[5];   //[Glb_nptl]
-   Int_t           Glb_pixLayerWMeas[5];   //[Glb_nptl]
-   Float_t         Glb_trkDxy[5];   //[Glb_nptl]
-   Float_t         Glb_trkDz[5];   //[Glb_nptl]
+   Int_t           Glb_charge[7];   //[Glb_nptl]
+   Float_t         Glb_p[7];   //[Glb_nptl]
+   Float_t         Glb_pt[7];   //[Glb_nptl]
+   Float_t         Glb_eta[7];   //[Glb_nptl]
+   Float_t         Glb_phi[7];   //[Glb_nptl]
+   Float_t         Glb_dxy[7];   //[Glb_nptl]
+   Float_t         Glb_dz[7];   //[Glb_nptl]
+   Int_t           Glb_nValMuHits[7];   //[Glb_nptl]
+   Int_t           Glb_nValTrkHits[7];   //[Glb_nptl]
+   Int_t           Glb_nValPixHits[7];   //[Glb_nptl]
+   Int_t           Glb_trkLayerWMeas[7];   //[Glb_nptl]
+   Int_t           Glb_nMatchedStations[7];   //[Glb_nptl]
+   Int_t           Glb_nTrkFound[7];   //[Glb_nptl]
+   Float_t         Glb_glbChi2_ndof[7];   //[Glb_nptl]
+   Float_t         Glb_trkChi2_ndof[7];   //[Glb_nptl]
+   Int_t           Glb_pixLayerWMeas[7];   //[Glb_nptl]
+   Float_t         Glb_trkDxy[7];   //[Glb_nptl]
+   Float_t         Glb_trkDz[7];   //[Glb_nptl]
    Int_t           Sta_nptl;
-   Int_t           Sta_charge[8];   //[Sta_nptl]
-   Float_t         Sta_p[8];   //[Sta_nptl]
-   Float_t         Sta_pt[8];   //[Sta_nptl]
-   Float_t         Sta_eta[8];   //[Sta_nptl]
-   Float_t         Sta_phi[8];   //[Sta_nptl]
-   Float_t         Sta_dxy[8];   //[Sta_nptl]
-   Float_t         Sta_dz[8];   //[Sta_nptl]
-   Int_t           Glb_isArbitrated[5];   //[Glb_nptl]
+   Int_t           Sta_charge[9];   //[Sta_nptl]
+   Float_t         Sta_p[9];   //[Sta_nptl]
+   Float_t         Sta_pt[9];   //[Sta_nptl]
+   Float_t         Sta_eta[9];   //[Sta_nptl]
+   Float_t         Sta_phi[9];   //[Sta_nptl]
+   Float_t         Sta_dxy[9];   //[Sta_nptl]
+   Float_t         Sta_dz[9];   //[Sta_nptl]
+   Int_t           Glb_isArbitrated[7];   //[Glb_nptl]
    Int_t           Di_npair;
-   Float_t         Di_vProb[10];   //[Di_npair]
-   Float_t         Di_mass[10];   //[Di_npair]
-   Float_t         Di_e[10];   //[Di_npair]
-   Float_t         Di_pt[10];   //[Di_npair]
-   Float_t         Di_pt1[10];   //[Di_npair]
-   Float_t         Di_pt2[10];   //[Di_npair]
-   Float_t         Di_eta[10];   //[Di_npair]
-   Float_t         Di_eta1[10];   //[Di_npair]
-   Float_t         Di_eta2[10];   //[Di_npair]
-   Float_t         Di_rapidity[10];   //[Di_npair]
-   Float_t         Di_phi[10];   //[Di_npair]
-   Float_t         Di_phi1[10];   //[Di_npair]
-   Float_t         Di_phi2[10];   //[Di_npair]
-   Int_t           Di_charge[10];   //[Di_npair]
-   Int_t           Di_charge1[10];   //[Di_npair]
-   Int_t           Di_charge2[10];   //[Di_npair]
-   Int_t           Di_isArb1[10];   //[Di_npair]
-   Int_t           Di_isArb2[10];   //[Di_npair]
-   Int_t           Di_nTrkHit1[10];   //[Di_npair]
-   Int_t           Di_nTrkHit2[10];   //[Di_npair]
-   Int_t           Di_nMuHit1[10];   //[Di_npair]
-   Int_t           Di_nMuHit2[10];   //[Di_npair]
-   Int_t           Di_nTrkLayers1[10];   //[Di_npair]
-   Int_t           Di_nTrkLayers2[10];   //[Di_npair]
-   Int_t           Di_nPixHit1[10];   //[Di_npair]
-   Int_t           Di_nPixHit2[10];   //[Di_npair]
-   Int_t           Di_nMatchedStations1[10];   //[Di_npair]
-   Int_t           Di_nMatchedStations2[10];   //[Di_npair]
-   Float_t         Di_trkChi2_1[10];   //[Di_npair]
-   Float_t         Di_trkChi2_2[10];   //[Di_npair]
-   Float_t         Di_glbChi2_1[10];   //[Di_npair]
-   Float_t         Di_glbChi2_2[10];   //[Di_npair]
-   Float_t         Di_dxy1[10];   //[Di_npair]
-   Float_t         Di_dxy2[10];   //[Di_npair]
-   Float_t         Di_dz1[10];   //[Di_npair]
-   Float_t         Di_dz2[10];   //[Di_npair]
+   Float_t         Di_vProb[21];   //[Di_npair]
+   Float_t         Di_mass[21];   //[Di_npair]
+   Float_t         Di_e[21];   //[Di_npair]
+   Float_t         Di_pt[21];   //[Di_npair]
+   Float_t         Di_pt1[21];   //[Di_npair]
+   Float_t         Di_pt2[21];   //[Di_npair]
+   Float_t         Di_eta[21];   //[Di_npair]
+   Float_t         Di_eta1[21];   //[Di_npair]
+   Float_t         Di_eta2[21];   //[Di_npair]
+   Float_t         Di_rapidity[21];   //[Di_npair]
+   Float_t         Di_phi[21];   //[Di_npair]
+   Float_t         Di_phi1[21];   //[Di_npair]
+   Float_t         Di_phi2[21];   //[Di_npair]
+   Int_t           Di_charge[21];   //[Di_npair]
+   Int_t           Di_charge1[21];   //[Di_npair]
+   Int_t           Di_charge2[21];   //[Di_npair]
+   Int_t           Di_isArb1[21];   //[Di_npair]
+   Int_t           Di_isArb2[21];   //[Di_npair]
+   Int_t           Di_nTrkHit1[21];   //[Di_npair]
+   Int_t           Di_nTrkHit2[21];   //[Di_npair]
+   Int_t           Di_nMuHit1[21];   //[Di_npair]
+   Int_t           Di_nMuHit2[21];   //[Di_npair]
+   Int_t           Di_nTrkLayers1[21];   //[Di_npair]
+   Int_t           Di_nTrkLayers2[21];   //[Di_npair]
+   Int_t           Di_nPixHit1[21];   //[Di_npair]
+   Int_t           Di_nPixHit2[21];   //[Di_npair]
+   Int_t           Di_nMatchedStations1[21];   //[Di_npair]
+   Int_t           Di_nMatchedStations2[21];   //[Di_npair]
+   Float_t         Di_trkChi2_1[21];   //[Di_npair]
+   Float_t         Di_trkChi2_2[21];   //[Di_npair]
+   Float_t         Di_glbChi2_1[21];   //[Di_npair]
+   Float_t         Di_glbChi2_2[21];   //[Di_npair]
+   Float_t         Di_dxy1[21];   //[Di_npair]
+   Float_t         Di_dxy2[21];   //[Di_npair]
+   Float_t         Di_dz1[21];   //[Di_npair]
+   Float_t         Di_dz2[21];   //[Di_npair]
 
    // List of branches
    TBranch        *b_run;   //!
@@ -202,11 +202,11 @@ MuTree::MuTree(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("z.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("z.root");
+         f = new TFile("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("z.root:/hltMuTree");
+      TDirectory * dir = (TDirectory*)f->Get("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root:/hltMuTree");
       dir->GetObject("HLTMuTree",tree);
 
    }
