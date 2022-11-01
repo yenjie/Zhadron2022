@@ -12,8 +12,17 @@ class ZhadronData
    
    ZhadronData(){};
    ~ZhadronData(){};
-//   setBranch(TTree *t){};
+   void setBranch(TTree *t){
+      t->Branch("Zmass",&Zmass);
+      t->Branch("Zeta",&Zeta);
+      t->Branch("Zphi",&Zphi);
+   };
    
+   void clear() {
+      Zmass.clear();
+      Zeta.clear();
+      Zphi.clear();
+   }
    
 };
 
@@ -29,6 +38,13 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
    TFile *outfile = new TFile(outfname.c_str(),"recreate");
    
    TNtuple *nt = new TNtuple("ntZ","Z tree","mass:pt:eta");
+   TTree *t = new TTree("t","tree");
+   
+   ZhadronData data;
+   data.setBranch(t);
+   data.clear();
+   
+   
 
    
    for (int i=0;i<f.GetEntries();i++)
@@ -42,8 +58,13 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
 	if (fabs(f.muTree.Di_eta2[ipair])>2.4) continue;
 	if (fabs(f.muTree.Di_pt1[ipair])<20) continue;
 	if (fabs(f.muTree.Di_pt2[ipair])<20) continue;
+	data.Zmass.push_back(f.muTree.Di_mass[ipair]);
+	data.Zeta.push_back(f.muTree.Di_eta[ipair]);
+	data.Zeta.push_back(f.muTree.Di_phi[ipair]);
 	nt->Fill(f.muTree.Di_mass[ipair],f.muTree.Di_pt[ipair], f.muTree.Di_eta[ipair], f.muTree.Di_phi[ipair]);
      }
+     t->Fill();
+     data.clear();
    }
    
    nt->Write();
