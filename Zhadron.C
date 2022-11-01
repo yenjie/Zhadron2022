@@ -30,7 +30,7 @@ void Zhadron(string
 infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root", string outfname="output.root")
 {
    HiForest f(infname.c_str());
-   f.doGenParticle=1;
+   f.doGenParticle=0;
    f.doPbPbTracks=0;
    f.doMuTree=1;
    f.Init();
