@@ -5,6 +5,7 @@
 #include "GenParticle.C"
 #include "MuTree.C"
 #include "PbPbTracks.C"
+#include "HiTree.C"
 
 
 class HiForest
@@ -16,15 +17,18 @@ class HiForest
    bool doGenParticle;
    bool doMuTree;
    bool doPbPbTracks;
+   bool doHiTree;
 
 
    TTree *tGenParticle;
    TTree *tMuTree;
    TTree *tPbPbTracks;
+   TTree *tHiTree;
    
    GenParticle genParticle;
    MuTree muTree;
    PbPbTracks tracks;
+   HiTree hi;
    
    
    HiForest(string fileName="hiForest.root"){
@@ -70,6 +74,14 @@ void HiForest::Init()
           nEntries=tPbPbTracks->GetEntries();
        }
    }   
+   if (doHiTree) {
+       tHiTree = (TTree*) hiForestFile->Get("hiEvtAnalyzer/HiTree");
+       if (tHiTree==0) cout <<"Error! HiTree"<<endl;
+       else {       
+          hi.Init(tHiTree);
+          nEntries=tHiTree->GetEntries();
+       }
+   }   
 }
 
 int HiForest::GetEntry(int i)
@@ -82,6 +94,9 @@ int HiForest::GetEntry(int i)
    }
    if (doPbPbTracks) {
        tPbPbTracks->GetEntry(i);
+   }
+   if (doHiTree) {
+       tHiTree->GetEntry(i);
    }
    return 1;
 }

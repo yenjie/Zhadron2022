@@ -9,6 +9,7 @@ class ZhadronData
    vector<double> Zmass;
    vector<double> Zeta;
    vector<double> Zphi;
+   int hiBin;
    
    ZhadronData(){};
    ~ZhadronData(){};
@@ -16,6 +17,7 @@ class ZhadronData
       t->Branch("Zmass",&Zmass);
       t->Branch("Zeta",&Zeta);
       t->Branch("Zphi",&Zphi);
+      t->Branch("hiBin",&hiBin);
    };
    
    void clear() {
@@ -33,6 +35,7 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
    f.doGenParticle=0;
    f.doPbPbTracks=0;
    f.doMuTree=1;
+   f.doHiTree=1;
    f.Init();
    
    TFile *outfile = new TFile(outfname.c_str(),"recreate");
@@ -59,6 +62,7 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
 	data.Zmass.push_back(f.muTree.Di_mass[ipair]);
 	data.Zeta.push_back(f.muTree.Di_eta[ipair]);
 	data.Zeta.push_back(f.muTree.Di_phi[ipair]);
+	data.hiBin=f.hi.hiBin;
 	nt->Fill(f.muTree.Di_mass[ipair],f.muTree.Di_pt[ipair], f.muTree.Di_eta[ipair], f.muTree.Di_phi[ipair]);
      }
      t->Fill();

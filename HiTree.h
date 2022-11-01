@@ -52,15 +52,6 @@ public :
    Float_t         qScale;
    Int_t           nMEPartons;
    Int_t           nMEPartonsFiltered;
- //pair<int,int>   *pdfID;
-   Int_t           first;
-   Int_t           second;
- //pair<float,float> *pdfX;
-   Float_t         first;
-   Float_t         second;
- //pair<float,float> *pdfXpdf;
-   Float_t         first;
-   Float_t         second;
    vector<float>   *ttbar_w;
    vector<int>     *npus;
    vector<float>   *tnpus;
@@ -128,12 +119,6 @@ public :
    TBranch        *b_qScale;   //!
    TBranch        *b_nMEPartons;   //!
    TBranch        *b_nMEPartonsFiltered;   //!
-   TBranch        *b_pdfID_first;   //!
-   TBranch        *b_pdfID_second;   //!
-   TBranch        *b_pdfX_first;   //!
-   TBranch        *b_pdfX_second;   //!
-   TBranch        *b_pdfXpdf_first;   //!
-   TBranch        *b_pdfXpdf_second;   //!
    TBranch        *b_ttbar_w;   //!
    TBranch        *b_npus;   //!
    TBranch        *b_tnpus;   //!
@@ -192,16 +177,6 @@ HiTree::HiTree(TTree *tree) : fChain(0)
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
-   if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root");
-      if (!f || !f->IsOpen()) {
-         f = new TFile("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root");
-      }
-      TDirectory * dir = (TDirectory*)f->Get("DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root:/hiEvtAnalyzer");
-      dir->GetObject("HiTree",tree);
-
-   }
-   Init(tree);
 }
 
 HiTree::~HiTree()
@@ -275,12 +250,6 @@ void HiTree::Init(TTree *tree)
    fChain->SetBranchAddress("qScale", &qScale, &b_qScale);
    fChain->SetBranchAddress("nMEPartons", &nMEPartons, &b_nMEPartons);
    fChain->SetBranchAddress("nMEPartonsFiltered", &nMEPartonsFiltered, &b_nMEPartonsFiltered);
-   fChain->SetBranchAddress("first", &first, &b_pdfID_first);
-   fChain->SetBranchAddress("second", &second, &b_pdfID_second);
-//    fChain->SetBranchAddress("first", &first, &b_pdfX_first);
-//    fChain->SetBranchAddress("second", &second, &b_pdfX_second);
-//    fChain->SetBranchAddress("first", &first, &b_pdfXpdf_first);
-//    fChain->SetBranchAddress("second", &second, &b_pdfXpdf_second);
    fChain->SetBranchAddress("ttbar_w", &ttbar_w, &b_ttbar_w);
    fChain->SetBranchAddress("npus", &npus, &b_npus);
    fChain->SetBranchAddress("tnpus", &tnpus, &b_tnpus);
