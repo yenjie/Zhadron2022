@@ -57,11 +57,17 @@ void Zhadron(string
 infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root", string outfname="output.root")
 {
    HiForest f(infname.c_str());
+   HiForest fBkg("/data3/yjlee/ZhadronMerged/hydjetMB.root");
    f.doGenParticle=0;
    f.doPbPbTracks=1;
    f.doMuTree=1;
    f.doHiTree=1;
    f.Init();
+   fBkg.doGenParticle=0;
+   fBkg.doPbPbTracks=1;
+   fBkg.doMuTree=0;
+   fBkg.doHiTree=0;
+   fBkg.Init();
    
    TFile *outfile = new TFile(outfname.c_str(),"recreate");
    
@@ -108,12 +114,12 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
 	   data.trackDeta.push_back(deltaEta);
 	   data.trackPt.push_back(f.tracks.trkPt->at(itrack));
 	}
-	f.GetEntry(i+1);
-	if (i+1==f.GetEntries()) f.GetEntry(0);
-        for (int itrack=0;itrack<f.tracks.trkPt->size();itrack++) {
-	   if (!f.tracks.highPurity) continue;
-           double deltaPhi = dphi(data.zPhi.at(0),f.tracks.trkPhi->at(itrack)-TMath::Pi());
-	   double deltaEta = fabs(data.zEta.at(0)-f.tracks.trkEta->at(itrack));
+	fBkg.GetEntry(i+1%fBkg.GetEntries());
+	if (i+1==fBkg.GetEntries()) fBkg.GetEntry(0);
+        for (int itrack=0;itrack<fBkg.tracks.trkPt->size();itrack++) {
+	   if (!fBkg.tracks.highPurity) continue;
+           double deltaPhi = dphi(data.zPhi.at(0),fBkg.tracks.trkPhi->at(itrack)-TMath::Pi());
+	   double deltaEta = fabs(data.zEta.at(0)-fBkg.tracks.trkEta->at(itrack));
 	   h2Dmix->Fill(deltaEta,deltaPhi,0.25);
 	   h2Dmix->Fill(-deltaEta,deltaPhi,0.25);
 	   h2Dmix->Fill(-deltaEta,-deltaPhi,0.25);
