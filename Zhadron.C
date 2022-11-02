@@ -98,7 +98,7 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
      if (data.zMass.size()>0&&data.zPt.at(0)>30) {
         for (int itrack=0;itrack<f.tracks.trkPt->size();itrack++) {
 	   if (!f.tracks.highPurity) continue;
-           double deltaPhi = dphi(data.zPhi.at(0),f.tracks.trkPhi->at(itrack));
+           double deltaPhi = dphi(data.zPhi.at(0),f.tracks.trkPhi->at(itrack)-TMath::Pi());
 	   double deltaEta = fabs(data.zEta.at(0)-f.tracks.trkEta->at(itrack));
 	   h2D->Fill(deltaEta,deltaPhi,0.25);
 	   h2D->Fill(-deltaEta,deltaPhi,0.25);
@@ -112,7 +112,7 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
 	if (i+1==f.GetEntries()) f.GetEntry(0);
         for (int itrack=0;itrack<f.tracks.trkPt->size();itrack++) {
 	   if (!f.tracks.highPurity) continue;
-           double deltaPhi = dphi(data.zPhi.at(0),f.tracks.trkPhi->at(itrack));
+           double deltaPhi = dphi(data.zPhi.at(0),f.tracks.trkPhi->at(itrack)-TMath::Pi());
 	   double deltaEta = fabs(data.zEta.at(0)-f.tracks.trkEta->at(itrack));
 	   h2Dmix->Fill(deltaEta,deltaPhi,0.25);
 	   h2Dmix->Fill(-deltaEta,deltaPhi,0.25);
