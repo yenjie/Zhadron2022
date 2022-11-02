@@ -95,7 +95,7 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
 	nt->Fill(f.muTree.Di_mass[ipair],f.muTree.Di_pt[ipair], f.muTree.Di_eta[ipair], f.muTree.Di_phi[ipair]);
      }
      
-     if (data.zMass.size()>0&&data.zPt.at(0)>0) {
+     if (data.zMass.size()>0&&data.zPt.at(0)>30) {
         for (int itrack=0;itrack<f.tracks.trkPt->size();itrack++) {
 	   if (!f.tracks.highPurity) continue;
            double deltaPhi = dphi(data.zPhi.at(0),f.tracks.trkPhi->at(itrack));
