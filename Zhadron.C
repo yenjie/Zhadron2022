@@ -68,7 +68,8 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
    TNtuple *nt = new TNtuple("ntZ","Z tree","mass:pt:eta");
    TTree *t = new TTree("t","tree");
    
-   TH2D *h2D = new TH2D("h","",100,-6,6,100,-3.14159,3.14159);
+   TH2D *h2D = new TH2D("h2D","",100,-6,6,100,-3.14159,3.14159);
+   TH2D *h2Dmix = new TH2D("h2Dmix","",100,-6,6,100,-3.14159,3.14159);
    
    ZhadronData data;
    data.setBranch(t);
@@ -106,6 +107,20 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
 	   data.trackDphi.push_back(deltaPhi);
 	   data.trackDeta.push_back(deltaEta);
 	   data.trackPt.push_back(f.tracks.trkPt->at(itrack));
+	}
+	f.GetEntry(i+1);
+	if (i+1==f.GetEntries()) f.GetEntry(0);
+        for (int itrack=0;itrack<f.tracks.trkPt->size();itrack++) {
+	   if (!f.tracks.highPurity) continue;
+           double deltaPhi = dphi(data.zPhi.at(0),f.tracks.trkPhi->at(itrack));
+	   double deltaEta = fabs(data.zEta.at(0)-f.tracks.trkEta->at(itrack));
+	   h2Dmix->Fill(deltaEta,deltaPhi,0.25);
+	   h2Dmix->Fill(-deltaEta,deltaPhi,0.25);
+	   h2Dmix->Fill(-deltaEta,-deltaPhi,0.25);
+	   h2Dmix->Fill(deltaEta,-deltaPhi,0.25);
+//	   data.trackDphi.push_back(deltaPhi);
+//	   data.trackDeta.push_back(deltaEta);
+//	   data.trackPt.push_back(f.tracks.trkPt->at(itrack));
 	}
      }
      t->Fill();
