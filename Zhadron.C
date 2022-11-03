@@ -4,6 +4,9 @@
 #include <TNtuple.h>
 #include <TH2D.h>
 #include <TMath.h>
+#include <TLorentzVector.h>
+
+#define M_MU 0.1056583755
 
 double dphi(double phi1,double phi2)
 {
@@ -23,6 +26,10 @@ class ZhadronData
    vector<double> zEta;
    vector<double> zPhi;
    vector<double> zPt;
+   vector<double> genZMass;
+   vector<double> genZEta;
+   vector<double> genZPhi;
+   vector<double> genZPt;
    vector<double> trackDphi;
    vector<double> trackPt;
    vector<double> trackDeta;
@@ -35,6 +42,10 @@ class ZhadronData
       t->Branch("zEta",&zEta);
       t->Branch("zPhi",&zPhi);
       t->Branch("zPt",&zPt);
+      t->Branch("genZMass",&genZMass);
+      t->Branch("genZEta",&genZEta);
+      t->Branch("genZPhi",&genZPhi);
+      t->Branch("genZPt",&genZPt);
       t->Branch("trackDphi",&trackDphi);
       t->Branch("trackDeta",&trackDeta);
       t->Branch("trackPt",&trackPt);
@@ -46,6 +57,10 @@ class ZhadronData
       zEta.clear();
       zPhi.clear();
       zPt.clear();
+      genZMass.clear();
+      genZEta.clear();
+      genZPhi.clear();
+      genZPt.clear();
       trackDphi.clear();
       trackPt.clear();
       trackDeta.clear();
@@ -57,7 +72,7 @@ void Zhadron(string
 infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root", string outfname="output.root")
 {
    HiForest f(infname.c_str());
-   HiForest fBkg("/data3/yjlee/ZhadronMerged/hydjetMB.root");
+   HiForest fBkg("hydjet.root");
    f.doGenParticle=0;
    f.doPbPbTracks=1;
    f.doMuTree=1;
@@ -82,10 +97,43 @@ infname="DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_mer
    data.clear();
   
    
+   TLorentzVector LgenMu1;
+   TLorentzVector LgenMu2;
+   TLorentzVector LgenZ;
+   
    for (int i=0;i<f.GetEntries();i++)
    {
      f.GetEntry(i);
+
+     // display the progress
      if (i%1000==0) cout <<i<<"/"<<f.GetEntries()<<endl;
+     // Loop over Gen information (single muons)
+     if (f.muTree.Gen_nptl>1) {
+        for (int igen1=0;igen1<f.muTree.Gen_nptl;igen1++) {
+           if (f.muTree.Gen_mom[igen1]==23) {
+              LgenMu1.SetPtEtaPhiM(f.muTree.Gen_pt[igen1],
+	                          f.muTree.Gen_eta[igen1],
+	                          f.muTree.Gen_phi[igen1],
+	                          M_MU);
+	      for (int igen2=igen1+1;igen2<f.muTree.Gen_nptl;igen2++) {
+                 if (f.muTree.Gen_mom[igen2]==23) {
+                    LgenMu2.SetPtEtaPhiM(f.muTree.Gen_pt[igen2],
+	                                f.muTree.Gen_eta[igen2],
+	                                f.muTree.Gen_phi[igen2],
+	                                M_MU);
+		    
+		    LgenZ=LgenMu1+LgenMu2;
+		    data.genZMass.push_back(LgenZ.M());
+		    data.genZPt.push_back  (LgenZ.Pt());
+		    data.genZPhi.push_back (LgenZ.Phi());
+		    data.genZEta.push_back (LgenZ.Eta());
+		 }
+              }
+	   }   
+        }
+     }
+
+     // loop over RECO information (dimuons)
      for (int ipair=0;ipair<f.muTree.Di_npair;ipair++) {
         //cout <<ipair<<" "<<f.muTree.Di_mass[ipair]<<endl;
 	if (f.muTree.Di_charge1[ipair]==f.muTree.Di_charge2[ipair]) continue;
