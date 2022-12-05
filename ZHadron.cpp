@@ -130,30 +130,30 @@ void Zhadron(string infname, string outfname)
       {
          for(int igen1 = 0; igen1 < MSignalMu.NGen; igen1++)
          {
-            if(MSignalMu.GenMom[igen1] == 23)
+            if(MSignalMu.GenMon[igen1] != 23)
+               continue;
+
+            LgenMu1.SetPtEtaPhiM(MSignalMu.GenPT[igen1],
+                                 MSignalMu.GenEta[igen1],
+                                 MSignalMu.GenPhi[igen1],
+                                 M_MU);
+
+            for(int igen2 = igen1 + 1; igen2 < MSignalMu.NGen; igen2++)
             {
-               LgenMu1.SetPtEtaPhiM(MSignalMu.GenPT[igen1],
-                                    MSignalMu.GenEta[igen1],
-                                    MSignalMu.GenPhi[igen1],
+               if(MSignalMu.GenMom[igen2] != 23)
+                  continue;
+               
+               LgenMu2.SetPtEtaPhiM(MSignalMu.GenPT[igen2],
+                                    MSignalMu.GenEta[igen2],
+                                    MSignalMu.GenPhi[igen2],
                                     M_MU);
 
-               for(int igen2 = igen1 + 1; igen2 < MSignalMu.NGen; igen2++)
-               {
-                  if(MSignalMu.GenMom[igen2] == 23)
-                  {
-                     LgenMu2.SetPtEtaPhiM(MSignalMu.GenPT[igen2],
-                                          MSignalMu.GenEta[igen2],
-                                          MSignalMu.GenPhi[igen2],
-                                          M_MU);
-
-                     LgenZ = LgenMu1 + LgenMu2;
-                     data.genZMass.push_back(LgenZ.M());
-                     data.genZPt.push_back  (LgenZ.Pt());
-                     data.genZPhi.push_back (LgenZ.Phi());
-                     data.genZEta.push_back (LgenZ.Eta());
-                  }
-               }
-            }   
+               LgenZ = LgenMu1 + LgenMu2;
+               data.genZMass.push_back(LgenZ.M());
+               data.genZPt.push_back  (LgenZ.Pt());
+               data.genZPhi.push_back (LgenZ.Phi());
+               data.genZEta.push_back (LgenZ.Eta());
+            }
          }
       }
 
