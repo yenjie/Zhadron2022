@@ -130,7 +130,7 @@ void Zhadron(string infname, string outfname)
       {
          for(int igen1 = 0; igen1 < MSignalMu.NGen; igen1++)
          {
-            if(MSignalMu.GenMon[igen1] != 23)
+            if(MSignalMu.GenMom[igen1] != 23)
                continue;
 
             LgenMu1.SetPtEtaPhiM(MSignalMu.GenPT[igen1],
@@ -209,17 +209,17 @@ void Zhadron(string infname, string outfname)
             if(MBackgroundTrack.TrackHighPurity->at(itrack) == false)
                continue;
             
-            double deltaPhi = DPhi(data.zPhi.at(0), MBackgroundTrack.TrackPhi ->at(itrack) - M_PI);
-            double deltaEta = fabs(data.zEta.at(0) - MBackgroundTrack.TrackEta ->at(itrack));
+            double deltaPhi = DPhi(data.zPhi.at(0), MBackgroundTrack.TrackPhi->at(itrack) - M_PI);
+            double deltaEta = fabs(data.zEta.at(0) - MBackgroundTrack.TrackEta->at(itrack));
             
             h2Dmix->Fill(deltaEta, deltaPhi, 0.25);
             h2Dmix->Fill(-deltaEta, deltaPhi, 0.25);
             h2Dmix->Fill(-deltaEta, -deltaPhi, 0.25);
             h2Dmix->Fill(deltaEta, -deltaPhi, 0.25);
             
-            //	   data.trackDphi.push_back(deltaPhi);
-            //	   data.trackDeta.push_back(deltaEta);
-            //	   data.trackPt.push_back(MSignalTrack.trkPt->at(itrack));
+            // data.trackDphi.push_back(deltaPhi);
+            // data.trackDeta.push_back(deltaEta);
+            // data.trackPt.push_back(MSignalTrack.TrackPT->at(itrack));
          }
       }
 
