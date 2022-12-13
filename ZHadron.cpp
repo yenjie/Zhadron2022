@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #include "TFile.h"
@@ -9,12 +10,13 @@ using namespace std;
 #include "TLorentzVector.h"
 
 #include "Messenger.h"
+#include "CommandLine.h"
 
 #define M_MU 0.1056583755
 
 double DPhi(double phi1, double phi2);
 class ZhadronData;
-void Zhadron(string infname, string outfname);
+void Zhadron(vector<string> infname, string outfname);
 
 double DPhi(double phi1, double phi2)
 {
@@ -76,23 +78,17 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Arg1 = "DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root";
-   string Arg2 = "output.root";
+   CommandLine CL(argc, argv);
 
-   if(argc >= 2)   Arg1 = argv[1];
-   if(argc >= 3)   Arg2 = argv[2];
+   string Default = "DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8_merged.root";
+   vector<string> Input = CL.GetStringVector("Input", {Default});
+   string Output        = CL.Get("Output", "output.root");
 
-   Zhadron(Arg1, Arg2);
+   Zhadron(Input, Output);
 }
 
-void Zhadron(string infname, string outfname)
+void Zhadron(vector<string> infname, string outfname)
 {
-   TFile SignalFile(infname.c_str());
-
-   HiEventTreeMessenger   MSignalEvent(SignalFile);
-   PbPbTrackTreeMessenger MSignalTrack(SignalFile);
-   MuTreeMessenger        MSignalMu(SignalFile);
-   
    TFile BackgroundFile("hydjet.root");
 
    HiEventTreeMessenger   MBackgroundEvent(BackgroundFile);
@@ -115,116 +111,127 @@ void Zhadron(string infname, string outfname)
    TLorentzVector LgenMu2;
    TLorentzVector LgenZ;
 
-   for(int i = 0; i < MSignalEvent.GetEntries(); i++)
+   for(string inputfilename : infname)
    {
-      MSignalEvent.GetEntry(i);
-      MSignalTrack.GetEntry(i);
-      MSignalMu.GetEntry(i);
+      TFile SignalFile(inputfilename.c_str());
 
-      // display the progress
-      if(i % 1000 == 0)
-         cout << i << "/" << MSignalEvent.GetEntries() << endl;
+      HiEventTreeMessenger   MSignalEvent(SignalFile);
+      PbPbTrackTreeMessenger MSignalTrack(SignalFile);
+      MuTreeMessenger        MSignalMu(SignalFile);
 
-      // Loop over Gen information (single muons)
-      if(MSignalMu.NGen > 1)
+      for(int i = 0; i < MSignalEvent.GetEntries(); i++)
       {
-         for(int igen1 = 0; igen1 < MSignalMu.NGen; igen1++)
+         MSignalEvent.GetEntry(i);
+         MSignalTrack.GetEntry(i);
+         MSignalMu.GetEntry(i);
+
+         // display the progress
+         if(i % 1000 == 0)
+            cout << i << "/" << MSignalEvent.GetEntries() << endl;
+
+         // Loop over Gen information (single muons)
+         if(MSignalMu.NGen > 1)
          {
-            if(MSignalMu.GenMom[igen1] != 23)
-               continue;
-
-            LgenMu1.SetPtEtaPhiM(MSignalMu.GenPT[igen1],
-                                 MSignalMu.GenEta[igen1],
-                                 MSignalMu.GenPhi[igen1],
-                                 M_MU);
-
-            for(int igen2 = igen1 + 1; igen2 < MSignalMu.NGen; igen2++)
+            for(int igen1 = 0; igen1 < MSignalMu.NGen; igen1++)
             {
-               if(MSignalMu.GenMom[igen2] != 23)
+               if(MSignalMu.GenMom[igen1] != 23)
                   continue;
-               
-               LgenMu2.SetPtEtaPhiM(MSignalMu.GenPT[igen2],
-                                    MSignalMu.GenEta[igen2],
-                                    MSignalMu.GenPhi[igen2],
-                                    M_MU);
 
-               LgenZ = LgenMu1 + LgenMu2;
-               data.genZMass.push_back(LgenZ.M());
-               data.genZPt.push_back  (LgenZ.Pt());
-               data.genZPhi.push_back (LgenZ.Phi());
-               data.genZEta.push_back (LgenZ.Eta());
+               LgenMu1.SetPtEtaPhiM(MSignalMu.GenPT[igen1],
+                     MSignalMu.GenEta[igen1],
+                     MSignalMu.GenPhi[igen1],
+                     M_MU);
+
+               for(int igen2 = igen1 + 1; igen2 < MSignalMu.NGen; igen2++)
+               {
+                  if(MSignalMu.GenMom[igen2] != 23)
+                     continue;
+
+                  LgenMu2.SetPtEtaPhiM(MSignalMu.GenPT[igen2],
+                        MSignalMu.GenEta[igen2],
+                        MSignalMu.GenPhi[igen2],
+                        M_MU);
+
+                  LgenZ = LgenMu1 + LgenMu2;
+                  data.genZMass.push_back(LgenZ.M());
+                  data.genZPt.push_back  (LgenZ.Pt());
+                  data.genZPhi.push_back (LgenZ.Phi());
+                  data.genZEta.push_back (LgenZ.Eta());
+               }
             }
          }
-      }
 
-      // loop over RECO information (dimuons)
-      for(int ipair = 0; ipair < MSignalMu.NDi; ipair++)
-      {
-         //cout <<ipair<<" "<<MSignalMu.Di_mass[ipair]<<endl;
-         if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])   continue;
-         if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                        continue;
-         if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                        continue;
-         if(fabs(MSignalMu.DiPT1[ipair]) < 20)                          continue;
-         if(fabs(MSignalMu.DiPT2[ipair]) < 20)                          continue;
-
-         data.zMass.push_back(MSignalMu.DiMass[ipair]);
-         data.zEta.push_back(MSignalMu.DiEta[ipair]);
-         data.zPhi.push_back(MSignalMu.DiPhi[ipair]);
-         data.zPt.push_back(MSignalMu.DiPT[ipair]);
-         data.hiBin = MSignalEvent.hiBin;
-
-         nt->Fill(MSignalMu.DiMass[ipair],MSignalMu.DiPT[ipair], MSignalMu.DiEta[ipair], MSignalMu.DiPhi[ipair]);
-      }
-
-      if(data.zMass.size() > 0 && data.zPt.at(0) > 30)
-      {
-         for(int itrack=0;itrack<MSignalTrack.TrackPT->size();itrack++)
+         // loop over RECO information (dimuons)
+         for(int ipair = 0; ipair < MSignalMu.NDi; ipair++)
          {
-            if(MSignalTrack.TrackHighPurity->at(itrack) == false)
-               continue;
+            //cout <<ipair<<" "<<MSignalMu.Di_mass[ipair]<<endl;
+            if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])   continue;
+            if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                        continue;
+            if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                        continue;
+            if(fabs(MSignalMu.DiPT1[ipair]) < 20)                          continue;
+            if(fabs(MSignalMu.DiPT2[ipair]) < 20)                          continue;
 
-            double deltaPhi = DPhi(data.zPhi.at(0), MSignalTrack.TrackPhi->at(itrack) - M_PI);
-            double deltaEta = fabs(data.zEta.at(0) - MSignalTrack.TrackEta->at(itrack));
+            data.zMass.push_back(MSignalMu.DiMass[ipair]);
+            data.zEta.push_back(MSignalMu.DiEta[ipair]);
+            data.zPhi.push_back(MSignalMu.DiPhi[ipair]);
+            data.zPt.push_back(MSignalMu.DiPT[ipair]);
+            data.hiBin = MSignalEvent.hiBin;
 
-            h2D->Fill(deltaEta, deltaPhi, 0.25);
-            h2D->Fill(-deltaEta, deltaPhi, 0.25);
-            h2D->Fill(-deltaEta, -deltaPhi, 0.25);
-            h2D->Fill(deltaEta, -deltaPhi, 0.25);
-            
-            data.trackDphi.push_back(deltaPhi);
-            data.trackDeta.push_back(deltaEta);
-            data.trackPt.push_back(MSignalTrack.TrackPT->at(itrack));
+            nt->Fill(MSignalMu.DiMass[ipair],MSignalMu.DiPT[ipair], MSignalMu.DiEta[ipair], MSignalMu.DiPhi[ipair]);
          }
 
-         int BackgroundEntry = (i + 1) % MBackgroundEvent.GetEntries();
-         if(i + 1 == MBackgroundEvent.GetEntries())
-            BackgroundEntry = 0;
-
-         MBackgroundEvent.GetEntry(BackgroundEntry);
-         MBackgroundTrack.GetEntry(BackgroundEntry);
-         MBackgroundMu.GetEntry(BackgroundEntry);
-
-         for(int itrack = 0; itrack < MBackgroundTrack.TrackPT->size(); itrack++)
+         if(data.zMass.size() > 0 && data.zPt.at(0) > 30)
          {
-            if(MBackgroundTrack.TrackHighPurity->at(itrack) == false)
-               continue;
-            
-            double deltaPhi = DPhi(data.zPhi.at(0), MBackgroundTrack.TrackPhi->at(itrack) - M_PI);
-            double deltaEta = fabs(data.zEta.at(0) - MBackgroundTrack.TrackEta->at(itrack));
-            
-            h2Dmix->Fill(deltaEta, deltaPhi, 0.25);
-            h2Dmix->Fill(-deltaEta, deltaPhi, 0.25);
-            h2Dmix->Fill(-deltaEta, -deltaPhi, 0.25);
-            h2Dmix->Fill(deltaEta, -deltaPhi, 0.25);
-            
-            // data.trackDphi.push_back(deltaPhi);
-            // data.trackDeta.push_back(deltaEta);
-            // data.trackPt.push_back(MSignalTrack.TrackPT->at(itrack));
-         }
-      }
+            for(int itrack=0;itrack<MSignalTrack.TrackPT->size();itrack++)
+            {
+               if(MSignalTrack.TrackHighPurity->at(itrack) == false)
+                  continue;
 
-      t->Fill();
-      data.clear();
+               double deltaPhi = DPhi(data.zPhi.at(0), MSignalTrack.TrackPhi->at(itrack) - M_PI);
+               double deltaEta = fabs(data.zEta.at(0) - MSignalTrack.TrackEta->at(itrack));
+
+               h2D->Fill(deltaEta, deltaPhi, 0.25);
+               h2D->Fill(-deltaEta, deltaPhi, 0.25);
+               h2D->Fill(-deltaEta, -deltaPhi, 0.25);
+               h2D->Fill(deltaEta, -deltaPhi, 0.25);
+
+               data.trackDphi.push_back(deltaPhi);
+               data.trackDeta.push_back(deltaEta);
+               data.trackPt.push_back(MSignalTrack.TrackPT->at(itrack));
+            }
+
+            int BackgroundEntry = (i + 1) % MBackgroundEvent.GetEntries();
+            if(i + 1 == MBackgroundEvent.GetEntries())
+               BackgroundEntry = 0;
+
+            MBackgroundEvent.GetEntry(BackgroundEntry);
+            MBackgroundTrack.GetEntry(BackgroundEntry);
+            MBackgroundMu.GetEntry(BackgroundEntry);
+
+            for(int itrack = 0; itrack < MBackgroundTrack.TrackPT->size(); itrack++)
+            {
+               if(MBackgroundTrack.TrackHighPurity->at(itrack) == false)
+                  continue;
+
+               double deltaPhi = DPhi(data.zPhi.at(0), MBackgroundTrack.TrackPhi->at(itrack) - M_PI);
+               double deltaEta = fabs(data.zEta.at(0) - MBackgroundTrack.TrackEta->at(itrack));
+
+               h2Dmix->Fill(deltaEta, deltaPhi, 0.25);
+               h2Dmix->Fill(-deltaEta, deltaPhi, 0.25);
+               h2Dmix->Fill(-deltaEta, -deltaPhi, 0.25);
+               h2Dmix->Fill(deltaEta, -deltaPhi, 0.25);
+
+               // data.trackDphi.push_back(deltaPhi);
+               // data.trackDeta.push_back(deltaEta);
+               // data.trackPt.push_back(MSignalTrack.TrackPT->at(itrack));
+            }
+         }
+
+         t->Fill();
+         data.clear();
+      }
+   
+      SignalFile.Close();
    }
 
    h2D->Write();   
@@ -233,6 +240,5 @@ void Zhadron(string infname, string outfname)
    outfile.Close();      
 
    BackgroundFile.Close();
-   SignalFile.Close();
 }
 

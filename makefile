@@ -5,3 +5,6 @@ Messenger.o: Messenger.cpp Messenger.h
 
 ExecuteZHadron: ZHadron.cpp Messenger.o
 	g++ ZHadron.cpp -I. -o ExecuteZHadron `root-config --cflags --glibs` -std=c++17 Messenger.o
+
+TestRun: ExecuteZHadron
+	./ExecuteZHadron --Input XXX1.root,XXX2.root --Output output.root
