@@ -19,7 +19,8 @@ And have fun with things!
 
 ## Code structure
 
-The folders for codes follow a two-layer structure.  The base folder is like the category, and the subfolder is the unit for specific piece of code.
+The folders for codes follow a two-layer structure.  The base folder is like the category, and the subfolder is the unit for specific piece of code.  The idea is that each subfolder is some code that specializes in one thing only, and we set things up so that all the parameters are passed in through command line for easier analysis steering.
+
 
 | Base folder | Explanation |
 |---|---|
