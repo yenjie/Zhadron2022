@@ -22,6 +22,7 @@ And have fun with things!
 The folders for codes follow a two-layer structure.  The base folder is like the category, and the subfolder is the unit for specific piece of code.
 
 | Base folder | Explanation |
+|---|---|
 | `CommonCode` | contains all the necessary shared header files |
 | `ExampleCode` | contains some examples to run things |
 | `BasicDistributions` | code to make basic distribution plots |
