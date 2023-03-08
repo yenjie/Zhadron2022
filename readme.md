@@ -5,7 +5,7 @@
 
 First clone this repository somewhere
 
-Make sure you have `root` setup
+Make sure you have CERN `root` setup
 
 Every time you start a new shell, this will need to be done: at the base directory, execute the `SetupAnalysis.sh` which will set the necessary environment variables
 ```
