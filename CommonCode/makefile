@@ -1,7 +1,7 @@
 default: all
 
-all: Messenger.o
+all: library/Messenger.o
 
-Messenger.o: Messenger.cpp Messenger.h
-	g++ Messenger.cpp -I. -c -o Messenger.o `root-config --cflags` -std=c++17
+library/Messenger.o: source/Messenger.cpp include/Messenger.h
+	g++ source/Messenger.cpp -Iinclude -c -o library/Messenger.o `root-config --cflags` -std=c++17
 
