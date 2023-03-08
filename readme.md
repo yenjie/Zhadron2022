@@ -24,8 +24,8 @@ The folders for codes follow a two-layer structure.  The base folder is like the
 | Base folder | Explanation |
 |---|---|
 | `CommonCode` | contains all the necessary shared header files |
-| `ExampleCode` | contains some examples to run things |
-| `BasicDistributions` | code to make basic distribution plots |
+| `Example` | contains some examples to run things |
+| `BasicDistribution` | code to make basic distribution plots |
 
 
 
