@@ -22,6 +22,7 @@ class TriggerObjectTreeMessenger;
 class TrackTreeMessenger;
 class MuTreeMessenger;
 class PbPbTrackTreeMessenger;
+class ZHadronMessenger;
 
 class HiEventTreeMessenger
 {
@@ -453,5 +454,71 @@ public:
    bool Initialize(TTree *PbPbTrackTree);
    bool Initialize();
    bool GetEntry(int iEntry);
+};
+
+class ZHadronMessenger
+{
+public:
+   TTree *Tree;
+   int Run;
+   int Event;
+   int Lumi;
+   
+   int hiBin;
+   float hiHF;
+   
+   std::vector<double> *zMass;
+   std::vector<double> *zEta;
+   std::vector<double> *zPhi;
+   std::vector<double> *zPt;
+   std::vector<double> *genZMass;
+   std::vector<double> *genZEta;
+   std::vector<double> *genZPhi;
+   std::vector<double> *genZPt;
+   std::vector<double> *trackDphi;
+   std::vector<double> *trackPt;
+   std::vector<double> *trackDeta;
+   std::vector<double> *trackPDFId;
+   std::vector<double> *trackEta;
+   std::vector<double> *trackPhi;
+
+   std::vector<double> *muEta1;
+   std::vector<double> *muEta2;
+   std::vector<double> *muPhi1;
+   std::vector<double> *muPhi2;
+   std::vector<double> *muPt1;
+   std::vector<double> *muPt2;
+
+   std::vector<double> *muDeta;
+   std::vector<double> *muDphi;
+   std::vector<double> *muDR;
+   std::vector<double> *muDphiS;
+
+   std::vector<double> *genMuPt1;
+   std::vector<double> *genMuPt2;
+   std::vector<double> *genMuEta1;
+   std::vector<double> *genMuEta2;
+   std::vector<double> *genMuPhi1;
+   std::vector<double> *genMuPhi2;
+
+   std::vector<double> *genMuDeta;
+   std::vector<double> *genMuDphi;
+   std::vector<double> *genMuDR;
+   std::vector<double> *genMuDphiS;
+
+private:
+   bool WriteMode;
+   bool Initialized;
+
+public:   
+   ZHadronMessenger(TFile &File, std::string TreeName = "tree");
+   ZHadronMessenger(TFile *File, std::string TreeName = "tree");
+   ZHadronMessenger(TTree *ZHadronTree = nullptr);
+   bool Initialize(TTree *ZHadronTree);
+   bool Initialize();
+   bool GetEntry(int iEntry);
+   bool SetBranch(TTree *T);
+   void Clear();
+   bool FillEntry();
 };
 

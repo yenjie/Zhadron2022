@@ -5,18 +5,27 @@
 // Function declarations
 
 double DeltaPhi(double Phi1, double Phi2);
-
-
+double PhiRangePositive(double Phi);
+double PhiRangeSymmetric(double Phi);
 
 
 // Function implementations
 
 double DeltaPhi(double Phi1, double Phi2)
 {
-   double DPhi = Phi1 - Phi2;
-   while(DPhi < -M_PI)   DPhi = DPhi + 2 * M_PI;
-   while(DPhi > +M_PI)   DPhi = DPhi - 2 * M_PI;
-   return DPhi;
+   return PhiRangeSymmetric(Phi1 - Phi2);
 }
 
+double PhiRangePositive(double Phi)
+{
+   while(Phi < 0)   Phi = Phi + 2 * M_PI;
+   return Phi;
+}
+
+double PhiRangeSymmetric(double Phi)
+{
+   while(Phi < -M_PI)   Phi = Phi + 2 * M_PI;
+   while(Phi > +M_PI)   Phi = Phi - 2 * M_PI;
+   return Phi;
+}
 

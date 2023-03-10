@@ -1469,4 +1469,301 @@ bool PbPbTrackTreeMessenger::GetEntry(int iEntry)
    return true;
 }
 
+ZHadronMessenger::ZHadronMessenger(TFile &File, std::string TreeName)
+{
+   Initialized = false;
+   WriteMode = false;
+   
+   Tree = (TTree *)File.Get(TreeName.c_str());
+   Initialize();
+}
 
+ZHadronMessenger::ZHadronMessenger(TFile *File, std::string TreeName)
+{
+   Initialized = false;
+   WriteMode = false;
+   
+   if(File != nullptr)
+      Tree = (TTree *)File->Get(TreeName.c_str());
+   else
+      Tree = nullptr;
+   Initialize();
+}
+
+ZHadronMessenger::ZHadronMessenger(TTree *ZHadronTree)
+{
+   Initialized = false;
+   WriteMode = false;
+
+   Initialize(ZHadronTree);
+}
+   
+bool ZHadronMessenger::Initialize(TTree *ZHadronTree)
+{
+   Tree = ZHadronTree;
+   return Initialize();
+}
+
+bool ZHadronMessenger::Initialize()
+{
+   if(Tree == nullptr)
+      return false;
+
+   Initialized = true;
+
+   int Run;
+   int Event;
+   int Lumi;
+   
+   int hiBin;
+   float hiHF;
+   
+   zMass = nullptr;
+   zEta = nullptr;
+   zPhi = nullptr;
+   zPt = nullptr;
+   genZMass = nullptr;
+   genZEta = nullptr;
+   genZPhi = nullptr;
+   genZPt = nullptr;
+   trackDphi = nullptr;
+   trackPt = nullptr;
+   trackDeta = nullptr;
+   trackPDFId = nullptr;
+   trackEta = nullptr;
+   trackPhi = nullptr;
+
+   muEta1 = nullptr;
+   muEta2 = nullptr;
+   muPhi1 = nullptr;
+   muPhi2 = nullptr;
+   muPt1 = nullptr;
+   muPt2 = nullptr;
+
+   muDeta = nullptr;
+   muDphi = nullptr;
+   muDR = nullptr;
+   muDphiS = nullptr;
+
+   genMuPt1 = nullptr;
+   genMuPt2 = nullptr;
+   genMuEta1 = nullptr;
+   genMuEta2 = nullptr;
+   genMuPhi1 = nullptr;
+   genMuPhi2 = nullptr;
+
+   genMuDeta = nullptr;
+   genMuDphi = nullptr;
+   genMuDR = nullptr;
+   genMuDphiS = nullptr;
+
+   Tree->SetBranchAddress("Run", &Run);
+   Tree->SetBranchAddress("Event", &Event);
+   Tree->SetBranchAddress("Lumi", &Lumi);
+
+   Tree->SetBranchAddress("hiBin", &hiBin);
+   Tree->SetBranchAddress("hiHF", &hiHF);
+   
+   Tree->SetBranchAddress("zMass", zMass);
+   Tree->SetBranchAddress("zEta", zEta);
+   Tree->SetBranchAddress("zPhi", zPhi);
+   Tree->SetBranchAddress("zPt", zPt);
+   Tree->SetBranchAddress("genZMass", genZMass);
+   Tree->SetBranchAddress("genZEta", genZEta);
+   Tree->SetBranchAddress("genZPhi", genZPhi);
+   Tree->SetBranchAddress("genZPt", genZPt);
+   Tree->SetBranchAddress("trackDphi", trackDphi);
+   Tree->SetBranchAddress("trackPt", trackPt);
+   Tree->SetBranchAddress("trackDeta", trackDeta);
+   Tree->SetBranchAddress("trackPDFId", trackPDFId);
+   Tree->SetBranchAddress("trackEta", trackEta);
+   Tree->SetBranchAddress("trackPhi", trackPhi);
+
+   Tree->SetBranchAddress("muEta1", muEta1);
+   Tree->SetBranchAddress("muEta2", muEta2);
+   Tree->SetBranchAddress("muPhi1", muPhi1);
+   Tree->SetBranchAddress("muPhi2", muPhi2);
+   Tree->SetBranchAddress("muPt1", muPt1);
+   Tree->SetBranchAddress("muPt2", muPt2);
+ 
+   Tree->SetBranchAddress("muDeta", muDeta);
+   Tree->SetBranchAddress("muDphi", muDphi);
+   Tree->SetBranchAddress("muDR", muDR);
+   Tree->SetBranchAddress("muDphiS", muDphiS);
+  
+   Tree->SetBranchAddress("genMuPt1", genMuPt1);
+   Tree->SetBranchAddress("genMuPt2", genMuPt2);
+   Tree->SetBranchAddress("genMuEta1", genMuEta1);
+   Tree->SetBranchAddress("genMuEta2", genMuEta2);
+   Tree->SetBranchAddress("genMuPhi1", genMuPhi1);
+   Tree->SetBranchAddress("genMuPhi2", genMuPhi2);
+   
+   Tree->SetBranchAddress("genMuDeta", genMuDeta);
+   Tree->SetBranchAddress("genMuDphi", genMuDphi);
+   Tree->SetBranchAddress("genMuDR", genMuDR);
+   Tree->SetBranchAddress("genMuDphiS", genMuDphiS);
+   
+   return true;
+}
+
+bool ZHadronMessenger::GetEntry(int iEntry)
+{
+   if(Tree == nullptr)
+      return false;
+
+   Tree->GetEntry(iEntry);
+   return true;
+}
+
+bool ZHadronMessenger::SetBranch(TTree *T)
+{
+   if(T == nullptr)
+      return false;
+
+   Initialized = true;
+   WriteMode = true;
+
+   zMass = new std::vector<double>();
+   zEta = new std::vector<double>();
+   zPhi = new std::vector<double>();
+   zPt = new std::vector<double>();
+   genZMass = new std::vector<double>();
+   genZEta = new std::vector<double>();
+   genZPhi = new std::vector<double>();
+   genZPt = new std::vector<double>();
+   trackDphi = new std::vector<double>();
+   trackPt = new std::vector<double>();
+   trackDeta = new std::vector<double>();
+   trackPDFId = new std::vector<double>();
+   trackEta = new std::vector<double>();
+   trackPhi = new std::vector<double>();
+
+   muEta1 = new std::vector<double>();
+   muEta2 = new std::vector<double>();
+   muPhi1 = new std::vector<double>();
+   muPhi2 = new std::vector<double>();
+   muPt1 = new std::vector<double>();
+   muPt2 = new std::vector<double>();
+
+   muDeta = new std::vector<double>();
+   muDphi = new std::vector<double>();
+   muDR = new std::vector<double>();
+   muDphiS = new std::vector<double>();
+
+   genMuPt1 = new std::vector<double>();
+   genMuPt2 = new std::vector<double>();
+   genMuEta1 = new std::vector<double>();
+   genMuEta2 = new std::vector<double>();
+   genMuPhi1 = new std::vector<double>();
+   genMuPhi2 = new std::vector<double>();
+
+   genMuDeta = new std::vector<double>();
+   genMuDphi = new std::vector<double>();
+   genMuDR = new std::vector<double>();
+   genMuDphiS = new std::vector<double>();
+
+   Tree = T;
+
+   Tree->Branch("zMass",      &zMass);
+   Tree->Branch("zEta",       &zEta);
+   Tree->Branch("zPhi",       &zPhi);
+   Tree->Branch("zPt",        &zPt);
+   Tree->Branch("genZMass",   &genZMass);
+   Tree->Branch("genZEta",    &genZEta);
+   Tree->Branch("genZPhi",    &genZPhi);
+   Tree->Branch("genZPt",     &genZPt);
+   Tree->Branch("trackDphi",  &trackDphi);
+   Tree->Branch("trackDeta",  &trackDeta);
+   Tree->Branch("trackPt",    &trackPt);
+   Tree->Branch("trackPDFId", &trackPDFId);
+   Tree->Branch("trackPhi",   &trackPhi);
+   Tree->Branch("trackEta",   &trackEta);
+   Tree->Branch("hiBin",      &hiBin);
+   Tree->Branch("hiHF",       &hiHF);
+
+   Tree->Branch("muEta1",     &muEta1);
+   Tree->Branch("muEta2",     &muEta2);
+   Tree->Branch("muPhi1",     &muPhi1);
+   Tree->Branch("muPhi2",     &muPhi2);
+   Tree->Branch("muPt1",      &muPt1);
+   Tree->Branch("muPt2",      &muPt2);
+
+   Tree->Branch("genMuPt1",   &genMuPt1);
+   Tree->Branch("genMuPt2",   &genMuPt2);
+   Tree->Branch("genMuEta1",  &genMuEta1);
+   Tree->Branch("genMuEta2",  &genMuEta2);
+   Tree->Branch("genMuPhi1",  &genMuPhi1);
+   Tree->Branch("genMuPhi2",  &genMuPhi2);
+
+   Tree->Branch("muDeta",     &muDeta);
+   Tree->Branch("muDphi",     &muDphi);
+   Tree->Branch("muDR",       &muDR);
+   Tree->Branch("muDphiS",    &muDphiS);
+
+   Tree->Branch("genMuDeta",  &genMuDeta);
+   Tree->Branch("genMuDphi",  &genMuDphi);
+   Tree->Branch("genMuDR",    &genMuDR);
+   Tree->Branch("genMuDphiS", &genMuDphiS);
+
+   return true;
+}
+   
+void ZHadronMessenger::Clear()
+{
+   if(Initialized == false)
+      return;
+
+   zMass->clear();
+   zEta->clear();
+   zPhi->clear();
+   zPt->clear();
+   genZMass->clear();
+   genZEta->clear();
+   genZPhi->clear();
+   genZPt->clear();
+   trackDphi->clear();
+   trackPt->clear();
+   trackDeta->clear();
+   trackPDFId->clear();
+   trackPhi->clear();
+   trackEta->clear();
+
+   muEta1->clear();
+   muEta2->clear();
+   muPhi1->clear();
+   muPhi2->clear();
+   muPt1->clear();
+   muPt2->clear();
+
+   genMuPt1->clear();
+   genMuPt2->clear();
+   genMuEta1->clear();
+   genMuEta2->clear();
+   genMuPhi1->clear();
+   genMuPhi2->clear();
+
+   muDeta->clear();
+   muDphi->clear();
+   muDR->clear();
+   muDphiS->clear();
+   genMuDeta->clear();
+   genMuDphi->clear();
+   genMuDR->clear();
+   genMuDphiS->clear();
+}
+
+bool ZHadronMessenger::FillEntry()
+{
+   if(Initialized == false)
+      return false;
+   if(WriteMode == false)
+      return false;
+
+   if(Tree == nullptr)
+      return false;
+
+   Tree->Fill();
+   Clear();
+
+   return true;
+}
