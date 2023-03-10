@@ -461,7 +461,7 @@ class ZHadronMessenger
 public:
    TTree *Tree;
    int Run;
-   int Event;
+   long long Event;
    int Lumi;
    
    int hiBin;
