@@ -25,9 +25,10 @@ int main(int argc, char *argv[])
 
    vector<string> InputFileNames = CL.GetStringVector("Input");
    string OutputFileName         = CL.Get("Output");
-   bool DoGenLevel               = CL.GetBool("DoGenLevel", false);
-   int PartNumber                = CL.GetInteger("ParNumber", 0);
-   int NumberOfParts             = CL.GetInteger("NumberOfParts", 50);
+   bool DoGenLevel               = CL.GetBool("DoGenLevel", true);
+   double Fraction               = CL.GetDouble("Fraction", 1.00);
+   // int PartNumber                = CL.GetInteger("ParNumber", 0);
+   // int NumberOfParts             = CL.GetInteger("NumberOfParts", 50);
 
    TFile OutputFile(OutputFileName.c_str(), "RECREATE");
 
@@ -49,11 +50,11 @@ int main(int argc, char *argv[])
       PbPbTrackTreeMessenger MSignalTrack(InputFile);
       MuTreeMessenger        MSignalMu(InputFile);
 
-      int EntryCount = MSignalEvent.GetEntries();
+      int EntryCount = MSignalEvent.GetEntries() * Fraction;
       ProgressBar Bar(cout, EntryCount);
       Bar.SetStyle(-1);
 
-      for(int iE = 0; iE < MSignalEvent.GetEntries(); iE++)
+      for(int iE = 0; iE < EntryCount; iE++)
       {
          if(EntryCount < 500 || (iE % (EntryCount / 500)) == 0)
          {
