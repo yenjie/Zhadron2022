@@ -27,8 +27,6 @@ int main(int argc, char *argv[])
    string OutputFileName         = CL.Get("Output");
    bool DoGenLevel               = CL.GetBool("DoGenLevel", true);
    double Fraction               = CL.GetDouble("Fraction", 1.00);
-   // int PartNumber                = CL.GetInteger("ParNumber", 0);
-   // int NumberOfParts             = CL.GetInteger("NumberOfParts", 50);
 
    TFile OutputFile(OutputFileName.c_str(), "RECREATE");
 
@@ -44,18 +42,22 @@ int main(int argc, char *argv[])
    {
       MZHadron.Clear();
 
+      // Get the input file
       TFile InputFile(InputFileName.c_str());
 
+      // Setup all the messengers.  In the future we'll add more for triggers etc.
       HiEventTreeMessenger   MSignalEvent(InputFile);
       PbPbTrackTreeMessenger MSignalTrack(InputFile);
       MuTreeMessenger        MSignalMu(InputFile);
 
+      // Start looping over events
       int EntryCount = MSignalEvent.GetEntries() * Fraction;
       ProgressBar Bar(cout, EntryCount);
       Bar.SetStyle(-1);
 
       for(int iE = 0; iE < EntryCount; iE++)
       {
+         // Progress bar stuff
          if(EntryCount < 300 || (iE % (EntryCount / 250)) == 0)
          {
             Bar.Update(iE);
@@ -68,6 +70,9 @@ int main(int argc, char *argv[])
          MSignalTrack.GetEntry(iE);
          MSignalMu.GetEntry(iE);
 
+         // TODO: add event selection here.  Filters & triggers
+         // ...
+
          MZHadron.Run   = MSignalEvent.Run;
          MZHadron.Lumi  = MSignalEvent.Lumi;
          MZHadron.Event = MSignalEvent.Event;
@@ -79,6 +84,7 @@ int main(int argc, char *argv[])
          {
             for(int igen1 = 0; igen1 < MSignalMu.NGen; igen1++)
             {
+               // We only want muon from Z's
                if(MSignalMu.GenMom[igen1] != 23)
                   continue;
 
@@ -89,6 +95,7 @@ int main(int argc, char *argv[])
 
                for(int igen2 = igen1 + 1; igen2 < MSignalMu.NGen; igen2++)
                {
+                  // We only want muon from Z's
                   if(MSignalMu.GenMom[igen2] != 23)
                      continue;
 
@@ -127,6 +134,7 @@ int main(int argc, char *argv[])
          // Loop over reco dimuon pairs
          for(int ipair = 0; ipair < MSignalMu.NDi; ipair++)
          {
+            // We want opposite-charge muons with some basic kinematic cuts
             if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])   continue;
             if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                        continue;
             if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                        continue;
@@ -163,6 +171,8 @@ int main(int argc, char *argv[])
          // Z-track correlation
          if(MZHadron.zMass->size() > 0 && MZHadron.zPt->at(0) > 30)
          {
+            // Loop over tracks!  In the future this is the place to implement background correlation functions
+            // TODO: Add a switch above, and implement MBackgroundTrack to loop and find another event
             for(int itrack = 0; itrack < MSignalTrack.TrackPT->size(); itrack++)
             {
                if(MSignalTrack.TrackHighPurity->at(itrack) == false)

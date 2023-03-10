@@ -20,7 +20,7 @@ OutputBase=$1
 shift
 
 Count=0
-for i in `ls $Directory | Reformat $Number | sed "s/ /,/g" | sed "s/[,]*$//"`
+for i in `ls $Directory/*root | Reformat $Number | sed "s/ /,/g" | sed "s/[,]*$//"`
 do
    echo "./Execute --Input $i --Output $OutputBase/Result${Count}.root $@"
    Count=$(($Count + 1))
