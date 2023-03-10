@@ -1274,7 +1274,7 @@ bool MuTreeMessenger::Initialize()
    Tree->SetBranchAddress("Gen_mom", &GenMom);
    Tree->SetBranchAddress("Gen_status", &GenStatus);
    Tree->SetBranchAddress("Gen_p", &GenP);
-   Tree->SetBranchAddress("Gen_pT", &GenPT);
+   Tree->SetBranchAddress("Gen_pt", &GenPT);
    Tree->SetBranchAddress("Gen_eta", &GenEta);
    Tree->SetBranchAddress("Gen_phi", &GenPhi);
    Tree->SetBranchAddress("Glb_nptl", &NGlb);
@@ -1291,8 +1291,8 @@ bool MuTreeMessenger::Initialize()
    Tree->SetBranchAddress("Glb_trkLayerWMeas", &GlbTrkLayerWMeas);
    Tree->SetBranchAddress("Glb_nMatchedStations", &GlbNMatchedStations);
    Tree->SetBranchAddress("Glb_nTrkFound", &GlbNTrkFound);
-   Tree->SetBranchAddress("Glb_glbChi2NDof", &GlbGlbChi2NDof);
-   Tree->SetBranchAddress("Glb_trkChi2NDof", &GlbTrkChi2NDof);
+   Tree->SetBranchAddress("Glb_glbChi2_ndof", &GlbGlbChi2NDof);
+   Tree->SetBranchAddress("Glb_trkChi2_ndof", &GlbTrkChi2NDof);
    Tree->SetBranchAddress("Glb_pixLayerWMeas", &GlbPixLayerWMeas);
    Tree->SetBranchAddress("Glb_trkDxy", &GlbTrkDxy);
    Tree->SetBranchAddress("Glb_trkDz", &GlbTrkDz);
@@ -1420,42 +1420,42 @@ bool PbPbTrackTreeMessenger::Initialize()
    TrackFirstVertexDxy = nullptr;
    TrackFirstVertexDxyError = nullptr;   
 
-   Tree->SetBranchAddress("Run", &Run);
-   Tree->SetBranchAddress("Event", &Event);
-   Tree->SetBranchAddress("Lumi", &Lumi);
-   Tree->SetBranchAddress("VX", &VX);
-   Tree->SetBranchAddress("VY", &VY);
-   Tree->SetBranchAddress("VZ", &VZ);
-   Tree->SetBranchAddress("VXError", &VXError);
-   Tree->SetBranchAddress("VYError", &VYError);
-   Tree->SetBranchAddress("VZError", &VZError);
-   Tree->SetBranchAddress("VChi2", &VChi2);
-   Tree->SetBranchAddress("VNDof", &VNDof);
-   Tree->SetBranchAddress("VIsFake", &VIsFake);
-   Tree->SetBranchAddress("VNTracks", &VNTracks);
-   Tree->SetBranchAddress("VPTSum", &VPTSum);
-   Tree->SetBranchAddress("TrackPT", &TrackPT);
-   Tree->SetBranchAddress("TrackPTError", &TrackPTError);
-   Tree->SetBranchAddress("TrackEta", &TrackEta);
-   Tree->SetBranchAddress("TrackPhi", &TrackPhi);
-   Tree->SetBranchAddress("TrackCharge", &TrackCharge);
-   Tree->SetBranchAddress("TrackPDFID", &TrackPDFID);
-   Tree->SetBranchAddress("TrackNHits", &TrackNHits);
-   Tree->SetBranchAddress("TrackNPixHits", &TrackNPixHits);
-   Tree->SetBranchAddress("TrackNLayers", &TrackNLayers);
-   Tree->SetBranchAddress("TrackNormChi2", &TrackNormChi2);
-   Tree->SetBranchAddress("TrackHighPurity", &TrackHighPurity);
-   Tree->SetBranchAddress("TrackAssociatedVertexIndex", &TrackAssociatedVertexIndex);
-   Tree->SetBranchAddress("TrackAssociatedVertexQuality", &TrackAssociatedVertexQuality);
-   Tree->SetBranchAddress("TrackAssociatedVertexDz", &TrackAssociatedVertexDz);
-   Tree->SetBranchAddress("TrackAssociatedVertexDzError", &TrackAssociatedVertexDzError);
-   Tree->SetBranchAddress("TrackAssociatedVertexDxy", &TrackAssociatedVertexDxy);
-   Tree->SetBranchAddress("TrackAssociatedVertexDxyError", &TrackAssociatedVertexDxyError);
-   Tree->SetBranchAddress("TrackFirstVertexQuality", &TrackFirstVertexQuality);
-   Tree->SetBranchAddress("TrackFirstVertexDz", &TrackFirstVertexDz);
-   Tree->SetBranchAddress("TrackFirstVertexDzError", &TrackFirstVertexDzError);
-   Tree->SetBranchAddress("TrackFirstVertexDxy", &TrackFirstVertexDxy);
-   Tree->SetBranchAddress("TrackFirstVertexDxyError", &TrackFirstVertexDxyError);
+   Tree->SetBranchAddress("nRun", &Run);
+   Tree->SetBranchAddress("nEv", &Event);
+   Tree->SetBranchAddress("nLumi", &Lumi);
+   Tree->SetBranchAddress("xVtx", &VX);
+   Tree->SetBranchAddress("yVtx", &VY);
+   Tree->SetBranchAddress("zVtx", &VZ);
+   Tree->SetBranchAddress("xErrVtx", &VXError);
+   Tree->SetBranchAddress("yErrVtx", &VYError);
+   Tree->SetBranchAddress("zErrVtx", &VZError);
+   Tree->SetBranchAddress("chi2Vtx", &VChi2);
+   Tree->SetBranchAddress("ndofVtx", &VNDof);
+   Tree->SetBranchAddress("isFakeVtx", &VIsFake);
+   Tree->SetBranchAddress("nTracksVtx", &VNTracks);
+   Tree->SetBranchAddress("ptSumVtx", &VPTSum);
+   Tree->SetBranchAddress("trkPt", &TrackPT);
+   Tree->SetBranchAddress("trkPtError", &TrackPTError);
+   Tree->SetBranchAddress("trkEta", &TrackEta);
+   Tree->SetBranchAddress("trkPhi", &TrackPhi);
+   Tree->SetBranchAddress("trkCharge", &TrackCharge);
+   Tree->SetBranchAddress("trkPDFId", &TrackPDFID);
+   Tree->SetBranchAddress("trkNHits", &TrackNHits);
+   Tree->SetBranchAddress("trkNPixHits", &TrackNPixHits);
+   Tree->SetBranchAddress("trkNLayers", &TrackNLayers);
+   Tree->SetBranchAddress("trkNormChi2", &TrackNormChi2);
+   Tree->SetBranchAddress("highPurity", &TrackHighPurity);
+   Tree->SetBranchAddress("trkAssociatedVtxIndx", &TrackAssociatedVertexIndex);
+   Tree->SetBranchAddress("trkAssociatedVtxQuality", &TrackAssociatedVertexQuality);
+   Tree->SetBranchAddress("trkDzAssociatedVtx", &TrackAssociatedVertexDz);
+   Tree->SetBranchAddress("trkDzErrAssociatedVtx", &TrackAssociatedVertexDzError);
+   Tree->SetBranchAddress("trkDxyAssociatedVtx", &TrackAssociatedVertexDxy);
+   Tree->SetBranchAddress("trkDxyErrAssociatedVtx", &TrackAssociatedVertexDxyError);
+   Tree->SetBranchAddress("trkFirstVtxQuality", &TrackFirstVertexQuality);
+   Tree->SetBranchAddress("trkDzFirstVtx", &TrackFirstVertexDz);
+   Tree->SetBranchAddress("trkDzErrFirstVtx", &TrackFirstVertexDzError);
+   Tree->SetBranchAddress("trkDxyFirstVtx", &TrackFirstVertexDxy);
+   Tree->SetBranchAddress("trkDxyErrFirstVtx", &TrackFirstVertexDxyError);
 
    return true;
 }
@@ -1496,6 +1496,51 @@ ZHadronMessenger::ZHadronMessenger(TTree *ZHadronTree)
    WriteMode = false;
 
    Initialize(ZHadronTree);
+}
+   
+ZHadronMessenger::~ZHadronMessenger()
+{
+   if(Initialized == true && WriteMode == true)
+   {
+      delete zMass;
+      delete zEta;
+      delete zPhi;
+      delete zPt;
+      delete genZMass;
+      delete genZEta;
+      delete genZPhi;
+      delete genZPt;
+      delete trackDphi;
+      delete trackPt;
+      delete trackDeta;
+      delete trackPDFId;
+      delete trackEta;
+      delete trackPhi;
+
+      delete muEta1;
+      delete muEta2;
+      delete muPhi1;
+      delete muPhi2;
+      delete muPt1;
+      delete muPt2;
+
+      delete muDeta;
+      delete muDphi;
+      delete muDR;
+      delete muDphiS;
+
+      delete genMuPt1;
+      delete genMuPt2;
+      delete genMuEta1;
+      delete genMuEta2;
+      delete genMuPhi1;
+      delete genMuPhi2;
+
+      delete genMuDeta;
+      delete genMuDphi;
+      delete genMuDR;
+      delete genMuDphiS;
+   }
 }
    
 bool ZHadronMessenger::Initialize(TTree *ZHadronTree)
@@ -1664,6 +1709,9 @@ bool ZHadronMessenger::SetBranch(TTree *T)
 
    Tree = T;
 
+   Tree->Branch("hiBin",      &hiBin,   "hiBin/I");
+   Tree->Branch("hiHF",       &hiHF,    "hiHF/F");
+   
    Tree->Branch("zMass",      &zMass);
    Tree->Branch("zEta",       &zEta);
    Tree->Branch("zPhi",       &zPhi);
@@ -1678,8 +1726,6 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("trackPDFId", &trackPDFId);
    Tree->Branch("trackPhi",   &trackPhi);
    Tree->Branch("trackEta",   &trackEta);
-   Tree->Branch("hiBin",      &hiBin);
-   Tree->Branch("hiHF",       &hiHF);
 
    Tree->Branch("muEta1",     &muEta1);
    Tree->Branch("muEta2",     &muEta2);

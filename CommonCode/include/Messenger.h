@@ -514,6 +514,7 @@ public:
    ZHadronMessenger(TFile &File, std::string TreeName = "tree");
    ZHadronMessenger(TFile *File, std::string TreeName = "tree");
    ZHadronMessenger(TTree *ZHadronTree = nullptr);
+   ~ZHadronMessenger();
    bool Initialize(TTree *ZHadronTree);
    bool Initialize();
    bool GetEntry(int iEntry);
