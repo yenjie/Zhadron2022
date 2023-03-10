@@ -56,9 +56,9 @@ int main(int argc, char *argv[])
 
       for(int iE = 0; iE < EntryCount; iE++)
       {
-         if(EntryCount < 500 || (iE % (EntryCount / 500)) == 0)
+         if(EntryCount < 300 || (iE % (EntryCount / 250)) == 0)
          {
-            Bar.Update(EntryCount);
+            Bar.Update(iE);
             Bar.Print();
          }
 
@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
                   continue;
 
                double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MSignalTrack.TrackPhi->at(itrack) - M_PI);
-               double deltaEta = fabs(MZHadron.zEta->at(0) - MSignalTrack.TrackEta->at(itrack));
+               double deltaEta = MZHadron.zEta->at(0) - MSignalTrack.TrackEta->at(itrack);
 
                H2D.Fill(deltaEta, deltaPhi, 0.25);
                H2D.Fill(-deltaEta, deltaPhi, 0.25);
@@ -196,6 +196,8 @@ int main(int argc, char *argv[])
    H2D.Write();
    NTuple.Write();
    Tree.Write();
+
+   // gROOT->GetListOfFiles()->Remove(&OutputFile);
    OutputFile.Close();
 
    return 0;
