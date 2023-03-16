@@ -466,6 +466,8 @@ public:
    
    int hiBin;
    float hiHF;
+
+   float NCollWeight;
    
    std::vector<double> *zMass;
    std::vector<double> *zEta;

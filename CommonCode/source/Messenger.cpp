@@ -1725,6 +1725,8 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("lumi",       &Lumi,    "lumi/I");
    Tree->Branch("hiBin",      &hiBin,   "hiBin/I");
    Tree->Branch("hiHF",       &hiHF,    "hiHF/F");
+
+   Tree->Branch("NCollWeight", &NCollWeight, "NCollWeight/D");
    
    Tree->Branch("zMass",      &zMass);
    Tree->Branch("zEta",       &zEta);
