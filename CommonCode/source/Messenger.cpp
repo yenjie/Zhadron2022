@@ -1007,6 +1007,17 @@ void TriggerTreeMessenger::FillTriggerNames()
    Name.push_back("HLT_AK4PFJet70FWD_v14");
    Name.push_back("HLT_AK4PFJet80FWD_v14");
 
+   // muon triggers
+   Name.push_back("HLT_HIL3Mu12_v1");
+   Name.push_back("HLT_HIL3Mu12_v2");
+   Name.push_back("HLT_HIL3Mu12_v3");
+   Name.push_back("HLT_HIL3Mu15_v1");
+   Name.push_back("HLT_HIL3Mu15_v2");
+   Name.push_back("HLT_HIL3Mu15_v3");
+   Name.push_back("HLT_HIL3Mu20_v1");
+   Name.push_back("HLT_HIL3Mu20_v2");
+   Name.push_back("HLT_HIL3Mu20_v3");
+
    std::sort(Name.begin(), Name.end());
    std::vector<std::string>::iterator iter = std::unique(Name.begin(), Name.end());
    Name.erase(iter, Name.end());
