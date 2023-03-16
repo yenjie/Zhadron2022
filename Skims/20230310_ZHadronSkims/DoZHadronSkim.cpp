@@ -72,6 +72,7 @@ int main(int argc, char *argv[])
          MSignalTrack.GetEntry(iE);
          MSignalMu.GetEntry(iE);
          MSignalSkim.GetEntry(iE);
+         MSignalTrigger.GetEntry(iE);
 
          // TODO: add event selection here.  Filters & triggers
          // ...
