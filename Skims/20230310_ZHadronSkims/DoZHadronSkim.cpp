@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
       PbPbTrackTreeMessenger MSignalTrack(InputFile);
       MuTreeMessenger        MSignalMu(InputFile);
       SkimTreeMessenger      MSignalSkim(InputFile);
+      TriggerTreeMessenger   MSignalTrigger(InputFile);
 
       // Start looping over events
       int EntryCount = MSignalEvent.GetEntries() * Fraction;
@@ -87,6 +88,10 @@ int main(int argc, char *argv[])
 
          //Event selection criteria, see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
          if(pprimaryVertexFilter==0||phfCoincFilter2Th4==0||pclusterCompatibilityFilter==0) continue;
+
+         //HLT trigger to select dimuon events, see Kaya's note: AN2019_143_v12, p.5
+         int HLT_HIL3Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL3Mu12");
+         if(HLT_HIL3Mu12==0) continue;
 
          // Loop over gen muons
          if(MSignalMu.NGen > 1)
