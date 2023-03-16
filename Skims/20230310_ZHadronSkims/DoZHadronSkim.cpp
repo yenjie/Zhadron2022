@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
    string OutputFileName         = CL.Get("Output");
    bool DoGenLevel               = CL.GetBool("DoGenLevel", true);
    double Fraction               = CL.GetDouble("Fraction", 1.00);
+   bool IsData                   = CL.GetBool("IsData", false);
+   bool IsPP                     = CL.GetBool("IsPP", false);
 
    TFile OutputFile(OutputFileName.c_str(), "RECREATE");
 
@@ -49,6 +51,8 @@ int main(int argc, char *argv[])
       HiEventTreeMessenger   MSignalEvent(InputFile);
       PbPbTrackTreeMessenger MSignalTrack(InputFile);
       MuTreeMessenger        MSignalMu(InputFile);
+      SkimTreeMessenger      MSignalSkim(InputFile);
+      TriggerTreeMessenger   MSignalTrigger(InputFile);
 
       // Start looping over events
       int EntryCount = MSignalEvent.GetEntries() * Fraction;
@@ -69,6 +73,8 @@ int main(int argc, char *argv[])
          MSignalEvent.GetEntry(iE);
          MSignalTrack.GetEntry(iE);
          MSignalMu.GetEntry(iE);
+         MSignalSkim.GetEntry(iE);
+         MSignalTrigger.GetEntry(iE);
 
          // TODO: add event selection here.  Filters & triggers
          // ...
@@ -78,6 +84,23 @@ int main(int argc, char *argv[])
          MZHadron.Event = MSignalEvent.Event;
          MZHadron.hiBin = MSignalEvent.hiBin;
          MZHadron.hiHF  = MSignalEvent.hiHF;
+
+         if(IsPP == true){
+            cerr << "Warning!  pp mode not implemented yet!" << endl;
+         }else{
+            if(IsData == true){
+               int pprimaryVertexFilter = MSignalSkim.PVFilter;
+               int phfCoincFilter2Th4 = MSignalSkim.HFCoincidenceFilter2Th4;
+               int pclusterCompatibilityFilter = MSignalSkim.ClusterCompatibilityFilter;
+      
+               //Event selection criteria, see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
+               if(pprimaryVertexFilter==0||phfCoincFilter2Th4==0||pclusterCompatibilityFilter==0) continue;
+      
+               //HLT trigger to select dimuon events, see Kaya's note: AN2019_143_v12, p.5
+               int HLT_HIL3Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL3Mu12");
+               if(HLT_HIL3Mu12==0) continue;
+            }
+         }
 
          // Loop over gen muons
          if(MSignalMu.NGen > 1)
