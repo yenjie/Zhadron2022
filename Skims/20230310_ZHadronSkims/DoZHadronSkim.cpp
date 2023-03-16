@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
       HiEventTreeMessenger   MSignalEvent(InputFile);
       PbPbTrackTreeMessenger MSignalTrack(InputFile);
       MuTreeMessenger        MSignalMu(InputFile);
+      SkimTreeMessenger      MSignalSkim(InputFile);
 
       // Start looping over events
       int EntryCount = MSignalEvent.GetEntries() * Fraction;
@@ -69,6 +70,7 @@ int main(int argc, char *argv[])
          MSignalEvent.GetEntry(iE);
          MSignalTrack.GetEntry(iE);
          MSignalMu.GetEntry(iE);
+         MSignalSkim.GetEntry(iE);
 
          // TODO: add event selection here.  Filters & triggers
          // ...
@@ -78,6 +80,13 @@ int main(int argc, char *argv[])
          MZHadron.Event = MSignalEvent.Event;
          MZHadron.hiBin = MSignalEvent.hiBin;
          MZHadron.hiHF  = MSignalEvent.hiHF;
+
+         int pprimaryVertexFilter = MSignalSkim.PVFilter;
+         int phfCoincFilter2Th4 = MSignalSkim.HFCoincidenceFilter2Th4;
+         int pclusterCompatibilityFilter = MSignalSkim.ClusterCompatibilityFilter;
+
+         //Event selection criteria, see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
+         if(pprimaryVertexFilter==0||phfCoincFilter2Th4==0||pclusterCompatibilityFilter==0) continue;
 
          // Loop over gen muons
          if(MSignalMu.NGen > 1)
