@@ -166,7 +166,8 @@ int main(int argc, char *argv[])
             if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                        continue;
             if(fabs(MSignalMu.DiPT1[ipair]) < 20)                          continue;
             if(fabs(MSignalMu.DiPT2[ipair]) < 20)                          continue;
-
+            if(MSignalMu.DimuonPassTightCut(ipair) == false)               continue;
+            
             MZHadron.zMass->push_back(MSignalMu.DiMass[ipair]);
             MZHadron.zEta->push_back(MSignalMu.DiEta[ipair]);
             MZHadron.zPhi->push_back(MSignalMu.DiPhi[ipair]);

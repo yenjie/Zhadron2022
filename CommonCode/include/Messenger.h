@@ -405,6 +405,7 @@ public:
    bool Initialize(TTree *MuTree);
    bool Initialize();
    bool GetEntry(int iEntry);
+   bool DimuonPassTightCut(int index);
 };
 
 class PbPbTrackTreeMessenger
