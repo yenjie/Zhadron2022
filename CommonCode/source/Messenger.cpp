@@ -1388,6 +1388,8 @@ bool MuTreeMessenger::DimuonPassTightCut(int index)
       TightCut = false;
    if(DiNTrkLayers1[index] <= 5 || DiNTrkLayers2[index] <= 5)
       TightCut = false;
+
+   // Note that the PF muon is not checked right now due to information not stored in the tree
    
    return TightCut;
 }
