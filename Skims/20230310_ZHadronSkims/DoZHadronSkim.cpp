@@ -85,24 +85,29 @@ int main(int argc, char *argv[])
          MZHadron.hiBin = MSignalEvent.hiBin;
          MZHadron.hiHF  = MSignalEvent.hiHF;
 
-         if(IsPP == true){
+         if(IsPP == true)
             cerr << "Warning!  pp mode not implemented yet!" << endl;
-         }else{
-            if(IsData == true){
+         else
+         {
+            if(IsData == true)
+            {
                int pprimaryVertexFilter = MSignalSkim.PVFilter;
                int phfCoincFilter2Th4 = MSignalSkim.HFCoincidenceFilter2Th4;
                int pclusterCompatibilityFilter = MSignalSkim.ClusterCompatibilityFilter;
       
-               //Event selection criteria, see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
-               if(pprimaryVertexFilter==0||phfCoincFilter2Th4==0||pclusterCompatibilityFilter==0) continue;
+               //Event selection criteria
+               //   see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
+               if(pprimaryVertexFilter == 0 || phfCoincFilter2Th4 == 0 || pclusterCompatibilityFilter == 0)
+                  continue;
       
                //HLT trigger to select dimuon events, see Kaya's note: AN2019_143_v12, p.5
                int HLT_HIL3Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL3Mu12");
-               if(HLT_HIL3Mu12==0) continue;
+               if(HLT_HIL3Mu12 == 0)
+                  continue;
                MZHadron.NCollWeight = 1;
-            }else{
-               MZHadron.NCollWeight = FindNColl(MSignalEvent.hiBin);
             }
+            else
+               MZHadron.NCollWeight = FindNColl(MSignalEvent.hiBin);
          }
 
          // Loop over gen muons
