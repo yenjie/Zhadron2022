@@ -1368,6 +1368,10 @@ bool MuTreeMessenger::GetEntry(int iEntry)
 
 bool MuTreeMessenger::DimuonPassTightCut(int index)
 {
+   // If somebody requested a pair that does not exist, we return false
+   if(index >= NDi)
+      return false;
+
    bool TightCut = true;
 
    if(DiGlbChi21[index] >= 10. || DiGlbChi22[index] >= 10.)
