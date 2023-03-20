@@ -1366,6 +1366,28 @@ bool MuTreeMessenger::GetEntry(int iEntry)
    return true;
 }
 
+bool MuTreeMessenger::DimuonPassTightCut(int index)
+{
+   bool TightCut = true;
+
+   if(DiGlbChi21[index] >= 10. || DiGlbChi22[index] >= 10.)
+      TightCut = false;
+   if(DiNMuHit1[index] <= 0 || DiNMuHit2[index] <= 0)
+      TightCut = false;
+   if(DiNMatchedStations1[index] <=1 || DiNMatchedStations2[index] <= 1)
+      TightCut = false;
+   if(DiDxy1[index] >= 0.2 || DiDxy2[index] >= 0.2)
+      TightCut = false;
+   if(DiDz1[index] >= 0.5 || DiDz2[index] >= 0.5)
+      TightCut = false;
+   if(DiNPixHit1[index] <= 0 || DiNPixHit2[index] <= 0)
+      TightCut = false;
+   if(DiNTrkLayers1[index] <= 5 || DiNTrkLayers2[index] <= 5)
+      TightCut = false;
+   
+   return TightCut;
+}
+
 PbPbTrackTreeMessenger::PbPbTrackTreeMessenger(TFile &File, std::string TreeName)
 {
    Tree = (TTree *)File.Get(TreeName.c_str());
@@ -1726,7 +1748,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("hiBin",      &hiBin,   "hiBin/I");
    Tree->Branch("hiHF",       &hiHF,    "hiHF/F");
 
-   Tree->Branch("NCollWeight", &NCollWeight, "NCollWeight/D");
+   Tree->Branch("NCollWeight", &NCollWeight, "NCollWeight/F");
    
    Tree->Branch("zMass",      &zMass);
    Tree->Branch("zEta",       &zEta);
