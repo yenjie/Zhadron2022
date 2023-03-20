@@ -59,10 +59,14 @@ int main(int argc, char *argv[])
 
    vector<string> BackgroundFileNames;
    int NBackground = 0;
+   double BackgroundShift = 0;
+   double BackgroundTolerance = 0;
    if(DoBackground == true)
    {
       BackgroundFileNames = CL.GetStringVector("Background");
-      NBackground = BackgroundFileNames.size();
+      BackgroundShift     = CL.GetDouble("BackgroundShift");
+      BackgroundTolerance = CL.GetDouble("BackgroundTolerance");
+      NBackground         = BackgroundFileNames.size();
    }
 
    // Do some pre-caching if we read background files.
