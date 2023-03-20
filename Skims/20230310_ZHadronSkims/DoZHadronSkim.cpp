@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 #include "TFile.h"
@@ -16,8 +17,30 @@ using namespace std;
 #include "CommandLine.h"
 #include "CommonFunctions.h"
 #include "ProgressBar.h"
+#include "CustomAssert.h"
 
+struct EventIndex;
 int main(int argc, char *argv[]);
+
+struct EventIndex
+{
+public:
+   double HF;
+   int File;
+   int Event;
+public:
+   bool operator <(const EventIndex &other) const
+   {
+      if(HF < other.HF)         return true;
+      if(HF > other.HF)         return false;
+      if(File < other.File)     return true;
+      if(File > other.File)     return false;
+      if(Event < other.Event)   return true;
+      if(Event > other.Event)   return false;
+      return false;
+   }
+};
+
 
 int main(int argc, char *argv[])
 {
@@ -29,7 +52,48 @@ int main(int argc, char *argv[])
    double Fraction               = CL.GetDouble("Fraction", 1.00);
    bool IsData                   = CL.GetBool("IsData", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
+   bool DoBackground             = CL.GetBool("DoBackground", false);
 
+   Assert(IsPP == false,         "PP mode not implemented yet");
+   Assert(DoBackground == false, "Background mode not fully implemented yet");
+
+   vector<string> BackgroundFileNames;
+   int NBackground = 0;
+   if(DoBackground == true)
+   {
+      BackgroundFileNames = CL.GetStringVector("Background");
+      NBackground = BackgroundFileNames.size();
+   }
+
+   // Do some pre-caching if we read background files.
+   // Later on if speed is an issue we can do some optimizations
+   vector<TFile *>                BackgroundFiles;
+   vector<HiEventTreeMessenger>   MBackgroundEvent;
+   vector<PbPbTrackTreeMessenger> MBackgroundTrack;
+   vector<EventIndex>             BackgroundIndices;
+   if(DoBackground == true)
+   {
+      for(int iB = 0; iB < NBackground; iB++)
+      {
+         BackgroundFiles.emplace_back(new TFile(BackgroundFileNames[iB].c_str()));
+         MBackgroundEvent.emplace_back(HiEventTreeMessenger(BackgroundFiles[iB]));
+         MBackgroundTrack.emplace_back(PbPbTrackTreeMessenger(BackgroundFiles[iB]));
+
+         int EntryCount = MBackgroundEvent[iB].GetEntries();
+         for(int iE = 0; iE < EntryCount; iE++)
+         {
+            MBackgroundEvent[iB].GetEntry(iE);
+            EventIndex E;
+            E.HF = MBackgroundEvent[iB].hiHF;
+            E.File = iB;
+            E.Event = iE;
+            BackgroundIndices.push_back(E);
+         }
+      }
+   }
+   sort(BackgroundIndices.begin(), BackgroundIndices.end());
+
+   // Declare output files
    TFile OutputFile(OutputFileName.c_str(), "RECREATE");
 
    TNtuple NTuple("NTuple", "Z tree", "mass:pt:eta:phi");
@@ -40,6 +104,7 @@ int main(int argc, char *argv[])
    ZHadronMessenger MZHadron;
    MZHadron.SetBranch(&Tree);
 
+   // Loop over signal files
    for(string InputFileName : InputFileNames)
    {
       MZHadron.Clear();
@@ -76,15 +141,13 @@ int main(int argc, char *argv[])
          MSignalSkim.GetEntry(iE);
          MSignalTrigger.GetEntry(iE);
 
-         // TODO: add event selection here.  Filters & triggers
-         // ...
-
          MZHadron.Run   = MSignalEvent.Run;
          MZHadron.Lumi  = MSignalEvent.Lumi;
          MZHadron.Event = MSignalEvent.Event;
          MZHadron.hiBin = MSignalEvent.hiBin;
          MZHadron.hiHF  = MSignalEvent.hiHF;
 
+         // Do event selection and triggers
          if(IsPP == true)
             cerr << "Warning!  pp mode not implemented yet!" << endl;
          else
@@ -95,8 +158,8 @@ int main(int argc, char *argv[])
                int phfCoincFilter2Th4 = MSignalSkim.HFCoincidenceFilter2Th4;
                int pclusterCompatibilityFilter = MSignalSkim.ClusterCompatibilityFilter;
       
-               //Event selection criteria
-               //   see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
+               // Event selection criteria
+               //    see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
                if(pprimaryVertexFilter == 0 || phfCoincFilter2Th4 == 0 || pclusterCompatibilityFilter == 0)
                   continue;
       
@@ -111,7 +174,7 @@ int main(int argc, char *argv[])
          }
 
          // Loop over gen muons
-         if(MSignalMu.NGen > 1)
+         if(DoGenLevel == true && MSignalMu.NGen > 1)
          {
             for(int igen1 = 0; igen1 < MSignalMu.NGen; igen1++)
             {
@@ -203,15 +266,25 @@ int main(int argc, char *argv[])
          // Z-track correlation
          if(MZHadron.zMass->size() > 0 && MZHadron.zPt->at(0) > 30)
          {
-            // Loop over tracks!  In the future this is the place to implement background correlation functions
-            // TODO: Add a switch above, and implement MBackgroundTrack to loop and find another event
-            for(int itrack = 0; itrack < MSignalTrack.TrackPT->size(); itrack++)
+            // Decide whether to use signal or background for tracks
+            EventIndex Location;
+            if(DoBackground == true)
             {
-               if(MSignalTrack.TrackHighPurity->at(itrack) == false)
+               // TODO: find the background event location based on HF.  For now use a dummy one
+               Location = BackgroundIndices[0];
+
+               MBackgroundTrack[Location.File].GetEntry(Location.Event);
+            }
+            PbPbTrackTreeMessenger &MTrack = DoBackground ? MBackgroundTrack[Location.File] : MSignalTrack;
+
+            // Loop over tracks and build the correlation function
+            for(int itrack = 0; itrack < MTrack.TrackPT->size(); itrack++)
+            {
+               if(MTrack.TrackHighPurity->at(itrack) == false)
                   continue;
 
-               double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MSignalTrack.TrackPhi->at(itrack) - M_PI);
-               double deltaEta = MZHadron.zEta->at(0) - MSignalTrack.TrackEta->at(itrack);
+               double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MTrack.TrackPhi->at(itrack) - M_PI);
+               double deltaEta = MZHadron.zEta->at(0) - MTrack.TrackEta->at(itrack);
 
                H2D.Fill(deltaEta, deltaPhi, 0.25);
                H2D.Fill(-deltaEta, deltaPhi, 0.25);
@@ -220,7 +293,7 @@ int main(int argc, char *argv[])
 
                MZHadron.trackDphi->push_back(deltaPhi);
                MZHadron.trackDeta->push_back(deltaEta);
-               MZHadron.trackPt->push_back(MSignalTrack.TrackPT->at(itrack));
+               MZHadron.trackPt->push_back(MTrack.TrackPT->at(itrack));
             }
          }
 
