@@ -321,6 +321,16 @@ int main(int argc, char *argv[])
    // gROOT->GetListOfFiles()->Remove(&OutputFile);
    OutputFile.Close();
 
+   if(DoBackground == true)
+   {
+      for(TFile *F : BackgroundFiles)
+      {
+         if(F == nullptr)
+            continue;
+         delete F;
+      }
+   }
+
    return 0;
 }
 
