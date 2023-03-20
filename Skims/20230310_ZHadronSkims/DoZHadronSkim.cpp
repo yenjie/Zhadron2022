@@ -61,12 +61,14 @@ int main(int argc, char *argv[])
    int NBackground = 0;
    double BackgroundShift = 0;
    double BackgroundTolerance = 0;
+   double BackgroundToleranceFraction = 0;
    if(DoBackground == true)
    {
-      BackgroundFileNames = CL.GetStringVector("Background");
-      BackgroundShift     = CL.GetDouble("BackgroundShift");
-      BackgroundTolerance = CL.GetDouble("BackgroundTolerance");
-      NBackground         = BackgroundFileNames.size();
+      BackgroundFileNames         = CL.GetStringVector("Background");
+      BackgroundShift             = CL.GetDouble("BackgroundShift");
+      BackgroundTolerance         = CL.GetDouble("Tolerance");
+      BackgroundToleranceFraction = CL.GetDouble("ToleranceFraction");
+      NBackground                 = BackgroundFileNames.size();
    }
 
    // Do some pre-caching if we read background files.
