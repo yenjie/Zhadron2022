@@ -82,8 +82,8 @@ int main(int argc, char *argv[])
       for(int iB = 0; iB < NBackground; iB++)
       {
          BackgroundFiles.emplace_back(new TFile(BackgroundFileNames[iB].c_str()));
-         MBackgroundEvent.emplace_back(HiEventTreeMessenger(BackgroundFiles[iB]));
-         MBackgroundTrack.emplace_back(PbPbTrackTreeMessenger(BackgroundFiles[iB]));
+         MBackgroundEvent.emplace_back(BackgroundFiles[iB]);
+         MBackgroundTrack.emplace_back(BackgroundFiles[iB]);
 
          int EntryCount = MBackgroundEvent[iB].GetEntries();
          for(int iE = 0; iE < EntryCount; iE++)
@@ -327,6 +327,7 @@ int main(int argc, char *argv[])
       {
          if(F == nullptr)
             continue;
+         F->Close();
          delete F;
       }
    }
