@@ -63,6 +63,7 @@ int main(int argc, char *argv[])
    double HFShift = 0;
    double HFTolerance = 0;
    double HFToleranceFraction = 0;
+   int Oversample = 1;
    if(DoBackground == true)
    {
       BackgroundFileNames         = CL.GetStringVector("Background");
@@ -70,6 +71,7 @@ int main(int argc, char *argv[])
       HFTolerance                 = CL.GetDouble("Tolerance");
       HFToleranceFraction         = CL.GetDouble("ToleranceFraction");
       NBackground                 = BackgroundFileNames.size();
+      Oversample                  = CL.GetInteger("Oversample", 1);
    }
 
    // Do some pre-caching if we read background files.
@@ -180,150 +182,155 @@ int main(int argc, char *argv[])
                MZHadron.NCollWeight = FindNColl(MSignalEvent.hiBin);
          }
 
-         // Loop over gen muons
-         if(DoGenLevel == true && MSignalMu.NGen > 1)
+         // Oversample if needed
+         for(int iS = 0; iS < Oversample; iS++)
          {
-            for(int igen1 = 0; igen1 < MSignalMu.NGen; igen1++)
+            // Loop over gen muons
+            if(DoGenLevel == true && MSignalMu.NGen > 1)
             {
-               // We only want muon from Z's
-               if(MSignalMu.GenMom[igen1] != 23)
-                  continue;
-
-               VGenMu1.SetPtEtaPhiM(MSignalMu.GenPT[igen1],
-                     MSignalMu.GenEta[igen1],
-                     MSignalMu.GenPhi[igen1],
-                     M_MU);
-
-               for(int igen2 = igen1 + 1; igen2 < MSignalMu.NGen; igen2++)
+               for(int igen1 = 0; igen1 < MSignalMu.NGen; igen1++)
                {
                   // We only want muon from Z's
-                  if(MSignalMu.GenMom[igen2] != 23)
+                  if(MSignalMu.GenMom[igen1] != 23)
                      continue;
-
-                  VGenMu2.SetPtEtaPhiM(MSignalMu.GenPT[igen2],
-                        MSignalMu.GenEta[igen2],
-                        MSignalMu.GenPhi[igen2],
+   
+                  VGenMu1.SetPtEtaPhiM(MSignalMu.GenPT[igen1],
+                        MSignalMu.GenEta[igen1],
+                        MSignalMu.GenPhi[igen1],
                         M_MU);
-
-                  VGenZ = VGenMu1 + VGenMu2;
-                  MZHadron.genZMass->push_back(VGenZ.M());
-                  MZHadron.genZPt->push_back  (VGenZ.Pt());
-                  MZHadron.genZPhi->push_back (VGenZ.Phi());
-                  MZHadron.genZEta->push_back (VGenZ.Eta());
-
-                  MZHadron.genMuPt1->push_back(MSignalMu.GenPT[igen1]);
-                  MZHadron.genMuPt2->push_back(MSignalMu.GenPT[igen2]);
-                  MZHadron.genMuEta1->push_back(MSignalMu.GenEta[igen1]);
-                  MZHadron.genMuEta2->push_back(MSignalMu.GenEta[igen2]);
-                  MZHadron.genMuPhi1->push_back(MSignalMu.GenPhi[igen1]);
-                  MZHadron.genMuPhi2->push_back(MSignalMu.GenPhi[igen2]);
-
-                  double genDeltaMuEta = MSignalMu.GenEta[igen1] - MSignalMu.GenEta[igen2];
-                  double genDeltaMuPhi = PhiRangePositive(DeltaPhi(MSignalMu.GenPhi[igen1], MSignalMu.GenPhi[igen2]));
-
-                  MZHadron.genMuDeta->push_back(genDeltaMuEta);
-                  MZHadron.genMuDphi->push_back(genDeltaMuPhi);
-                  MZHadron.genMuDR->push_back(sqrt(genDeltaMuEta * genDeltaMuEta + genDeltaMuPhi * genDeltaMuPhi));
-
-                  double genDeltaPhiStar = tan((M_PI - genDeltaMuPhi) / 2)
-                     * sqrt(1 - tanh(genDeltaMuEta / 2) * tanh(genDeltaMuEta / 2));
-                  MZHadron.genMuDphiS->push_back(genDeltaPhiStar);
+   
+                  for(int igen2 = igen1 + 1; igen2 < MSignalMu.NGen; igen2++)
+                  {
+                     // We only want muon from Z's
+                     if(MSignalMu.GenMom[igen2] != 23)
+                        continue;
+   
+                     VGenMu2.SetPtEtaPhiM(MSignalMu.GenPT[igen2],
+                           MSignalMu.GenEta[igen2],
+                           MSignalMu.GenPhi[igen2],
+                           M_MU);
+   
+                     VGenZ = VGenMu1 + VGenMu2;
+                     MZHadron.genZMass->push_back(VGenZ.M());
+                     MZHadron.genZPt->push_back  (VGenZ.Pt());
+                     MZHadron.genZPhi->push_back (VGenZ.Phi());
+                     MZHadron.genZEta->push_back (VGenZ.Eta());
+   
+                     MZHadron.genMuPt1->push_back(MSignalMu.GenPT[igen1]);
+                     MZHadron.genMuPt2->push_back(MSignalMu.GenPT[igen2]);
+                     MZHadron.genMuEta1->push_back(MSignalMu.GenEta[igen1]);
+                     MZHadron.genMuEta2->push_back(MSignalMu.GenEta[igen2]);
+                     MZHadron.genMuPhi1->push_back(MSignalMu.GenPhi[igen1]);
+                     MZHadron.genMuPhi2->push_back(MSignalMu.GenPhi[igen2]);
+   
+                     double genDeltaMuEta = MSignalMu.GenEta[igen1] - MSignalMu.GenEta[igen2];
+                     double genDeltaMuPhi = PhiRangePositive(DeltaPhi(MSignalMu.GenPhi[igen1], MSignalMu.GenPhi[igen2]));
+   
+                     MZHadron.genMuDeta->push_back(genDeltaMuEta);
+                     MZHadron.genMuDphi->push_back(genDeltaMuPhi);
+                     MZHadron.genMuDR->push_back(sqrt(genDeltaMuEta * genDeltaMuEta + genDeltaMuPhi * genDeltaMuPhi));
+   
+                     double genDeltaPhiStar = tan((M_PI - genDeltaMuPhi) / 2)
+                        * sqrt(1 - tanh(genDeltaMuEta / 2) * tanh(genDeltaMuEta / 2));
+                     MZHadron.genMuDphiS->push_back(genDeltaPhiStar);
+                  }
                }
             }
-         }
-
-         // Loop over reco dimuon pairs
-         for(int ipair = 0; ipair < MSignalMu.NDi; ipair++)
-         {
-            // We want opposite-charge muons with some basic kinematic cuts
-            if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])   continue;
-            if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                        continue;
-            if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                        continue;
-            if(fabs(MSignalMu.DiPT1[ipair]) < 20)                          continue;
-            if(fabs(MSignalMu.DiPT2[ipair]) < 20)                          continue;
-            if(MSignalMu.DimuonPassTightCut(ipair) == false)               continue;
-            
-            MZHadron.zMass->push_back(MSignalMu.DiMass[ipair]);
-            MZHadron.zEta->push_back(MSignalMu.DiEta[ipair]);
-            MZHadron.zPhi->push_back(MSignalMu.DiPhi[ipair]);
-            MZHadron.zPt->push_back(MSignalMu.DiPT[ipair]);
-
-            MZHadron.muEta1->push_back(MSignalMu.DiEta1[ipair]);
-            MZHadron.muEta2->push_back(MSignalMu.DiEta2[ipair]);
-            MZHadron.muPhi1->push_back(MSignalMu.DiPhi1[ipair]);
-            MZHadron.muPhi2->push_back(MSignalMu.DiPhi2[ipair]);
-
-            MZHadron.muPt1->push_back(MSignalMu.DiPT1[ipair]);
-            MZHadron.muPt2->push_back(MSignalMu.DiPT2[ipair]);
-
-            double deltaMuEta = MSignalMu.DiEta1[ipair] - MSignalMu.DiEta2[ipair];
-            double deltaMuPhi = PhiRangePositive(DeltaPhi(MSignalMu.DiPhi1[ipair], MSignalMu.DiPhi2[ipair]));
-
-            MZHadron.muDeta->push_back(deltaMuEta);
-            MZHadron.muDphi->push_back(deltaMuPhi);
-            MZHadron.muDR->push_back(sqrt(deltaMuEta * deltaMuEta + deltaMuPhi * deltaMuPhi));
-
-            double deltaPhiStar = tan((M_PI - deltaMuPhi) / 2) * sqrt(1 - tanh(deltaMuEta / 2) * tanh(deltaMuEta / 2));
-
-            MZHadron.muDphiS->push_back(deltaPhiStar);
-
-            NTuple.Fill(MSignalMu.DiMass[ipair], MSignalMu.DiPT[ipair], MSignalMu.DiEta[ipair], MSignalMu.DiPhi[ipair]);
-         }
-
-         // Z-track correlation
-         if(MZHadron.zMass->size() > 0 && MZHadron.zPt->at(0) > 20)
-         {
-            // Decide whether to use signal or background for tracks
-            EventIndex Location;
-            if(DoBackground == true)
+   
+            // Loop over reco dimuon pairs
+            for(int ipair = 0; ipair < MSignalMu.NDi; ipair++)
             {
-               // find the background event location based on HF
-               double SignalHF = MSignalEvent.hiHF - HFShift;
-               double LowerHF = min(SignalHF - HFTolerance, SignalHF * (1 - HFToleranceFraction));
-               double HigherHF = min(SignalHF + HFTolerance, SignalHF * (1 + HFToleranceFraction));
-
-               // cout << MSignalEvent.hiHF << " " << SignalHF << endl;
-
-               int LowerIndex = FindFirstAbove(BackgroundIndices, LowerHF);
-               int HigherIndex = FindFirstAbove(BackgroundIndices, HigherHF);
-
-               Assert(HigherIndex > LowerIndex,
-                  "Warning!  Too few events matched.  Please enlarge tolerance or add more background files");
-
-               int Index = LowerIndex + rand() % (HigherIndex - LowerIndex);
-
-               Location = BackgroundIndices[Index];
-
-               // cout << "Index inside the array" << Index << endl;
-               // cout << "From index " << Location.File << " " << Location.Event << " " << Location.HF << endl;
-               // cout << "Track tree pointer " << MBackgroundTrack[Location.File]->Tree << endl;
-               // MBackgroundEvent[Location.File]->GetEntry(Location.Event);
-               // cout << "From background event HF = " << MBackgroundEvent[Location.File]->hiHF << endl;
-               MBackgroundTrack[Location.File]->GetEntry(Location.Event);
+               // We want opposite-charge muons with some basic kinematic cuts
+               if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])   continue;
+               if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                        continue;
+               if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                        continue;
+               if(fabs(MSignalMu.DiPT1[ipair]) < 20)                          continue;
+               if(fabs(MSignalMu.DiPT2[ipair]) < 20)                          continue;
+               if(MSignalMu.DimuonPassTightCut(ipair) == false)               continue;
+               
+               MZHadron.zMass->push_back(MSignalMu.DiMass[ipair]);
+               MZHadron.zEta->push_back(MSignalMu.DiEta[ipair]);
+               MZHadron.zPhi->push_back(MSignalMu.DiPhi[ipair]);
+               MZHadron.zPt->push_back(MSignalMu.DiPT[ipair]);
+   
+               MZHadron.muEta1->push_back(MSignalMu.DiEta1[ipair]);
+               MZHadron.muEta2->push_back(MSignalMu.DiEta2[ipair]);
+               MZHadron.muPhi1->push_back(MSignalMu.DiPhi1[ipair]);
+               MZHadron.muPhi2->push_back(MSignalMu.DiPhi2[ipair]);
+   
+               MZHadron.muPt1->push_back(MSignalMu.DiPT1[ipair]);
+               MZHadron.muPt2->push_back(MSignalMu.DiPT2[ipair]);
+   
+               double deltaMuEta = MSignalMu.DiEta1[ipair] - MSignalMu.DiEta2[ipair];
+               double deltaMuPhi = PhiRangePositive(DeltaPhi(MSignalMu.DiPhi1[ipair], MSignalMu.DiPhi2[ipair]));
+   
+               MZHadron.muDeta->push_back(deltaMuEta);
+               MZHadron.muDphi->push_back(deltaMuPhi);
+               MZHadron.muDR->push_back(sqrt(deltaMuEta * deltaMuEta + deltaMuPhi * deltaMuPhi));
+   
+               double deltaPhiStar = tan((M_PI - deltaMuPhi) / 2) * sqrt(1 - tanh(deltaMuEta / 2) * tanh(deltaMuEta / 2));
+   
+               MZHadron.muDphiS->push_back(deltaPhiStar);
+   
+               NTuple.Fill(MSignalMu.DiMass[ipair], MSignalMu.DiPT[ipair], MSignalMu.DiEta[ipair], MSignalMu.DiPhi[ipair]);
             }
-            PbPbTrackTreeMessenger *MTrack = DoBackground ? MBackgroundTrack[Location.File] : &MSignalTrack;
 
-            // Loop over tracks and build the correlation function
-            for(int itrack = 0; itrack < MTrack->TrackPT->size(); itrack++)
+            // Z-track correlation
+            if(MZHadron.zMass->size() > 0 && MZHadron.zPt->at(0) > 20)
             {
-               if(MTrack->TrackHighPurity->at(itrack) == false)
-                  continue;
+               // Decide whether to use signal or background for tracks
+               EventIndex Location;
+               if(DoBackground == true)
+               {
+                  // find the background event location based on HF
+                  double SignalHF = MSignalEvent.hiHF - HFShift;
+                  double LowerHF = min(SignalHF - HFTolerance, SignalHF * (1 - HFToleranceFraction));
+                  double HigherHF = min(SignalHF + HFTolerance, SignalHF * (1 + HFToleranceFraction));
 
-               double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MTrack->TrackPhi->at(itrack) - M_PI);
-               double deltaEta = MZHadron.zEta->at(0) - MTrack->TrackEta->at(itrack);
+                  // cout << MSignalEvent.hiHF << " " << SignalHF << endl;
 
-               H2D.Fill(deltaEta, deltaPhi, 0.25);
-               H2D.Fill(-deltaEta, deltaPhi, 0.25);
-               H2D.Fill(-deltaEta, -deltaPhi, 0.25);
-               H2D.Fill(deltaEta, -deltaPhi, 0.25);
+                  int LowerIndex = FindFirstAbove(BackgroundIndices, LowerHF);
+                  int HigherIndex = FindFirstAbove(BackgroundIndices, HigherHF);
 
-               MZHadron.trackDphi->push_back(deltaPhi);
-               MZHadron.trackDeta->push_back(deltaEta);
-               MZHadron.trackPt->push_back(MTrack->TrackPT->at(itrack));
+                  Assert(HigherIndex > LowerIndex,
+                     "Warning!  Too few events matched.  Please enlarge tolerance or add more background files");
+
+                  int Index = LowerIndex + rand() % (HigherIndex - LowerIndex);
+
+                  Location = BackgroundIndices[Index];
+
+                  // cout << "Index inside the array" << Index << endl;
+                  cout << "From index " << Location.File << " " << Location.Event << " " << Location.HF << endl;
+                  // cout << "Track tree pointer " << MBackgroundTrack[Location.File]->Tree << endl;
+                  // MBackgroundEvent[Location.File]->GetEntry(Location.Event);
+                  // cout << "From background event HF = " << MBackgroundEvent[Location.File]->hiHF << endl;
+
+                  MBackgroundTrack[Location.File]->GetEntry(Location.Event);
+               }
+               PbPbTrackTreeMessenger *MTrack = DoBackground ? MBackgroundTrack[Location.File] : &MSignalTrack;
+
+               // Loop over tracks and build the correlation function
+               for(int itrack = 0; itrack < MTrack->TrackPT->size(); itrack++)
+               {
+                  if(MTrack->TrackHighPurity->at(itrack) == false)
+                     continue;
+
+                  double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MTrack->TrackPhi->at(itrack) - M_PI);
+                  double deltaEta = MZHadron.zEta->at(0) - MTrack->TrackEta->at(itrack);
+
+                  H2D.Fill(deltaEta, deltaPhi, 0.25);
+                  H2D.Fill(-deltaEta, deltaPhi, 0.25);
+                  H2D.Fill(-deltaEta, -deltaPhi, 0.25);
+                  H2D.Fill(deltaEta, -deltaPhi, 0.25);
+
+                  MZHadron.trackDphi->push_back(deltaPhi);
+                  MZHadron.trackDeta->push_back(deltaEta);
+                  MZHadron.trackPt->push_back(MTrack->TrackPT->at(itrack));
+               }
             }
-         }
 
-         MZHadron.FillEntry();
+            MZHadron.FillEntry();
+         }
       }
 
       Bar.Update(EntryCount);
