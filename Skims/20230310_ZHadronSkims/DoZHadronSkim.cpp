@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 
    vector<string> BackgroundFileNames;
    int NBackground = 0;
-   double BackgroundShift = 0;
+   double HFShift = 0;
    double HFTolerance = 0;
    double HFToleranceFraction = 0;
    if(DoBackground == true)
@@ -74,24 +74,24 @@ int main(int argc, char *argv[])
 
    // Do some pre-caching if we read background files.
    // Later on if speed is an issue we can do some optimizations
-   vector<TFile *>                BackgroundFiles;
-   vector<HiEventTreeMessenger>   MBackgroundEvent;
-   vector<PbPbTrackTreeMessenger> MBackgroundTrack;
-   vector<EventIndex>             BackgroundIndices;
+   vector<TFile *>                  BackgroundFiles;
+   vector<HiEventTreeMessenger *>   MBackgroundEvent;
+   vector<PbPbTrackTreeMessenger *> MBackgroundTrack;
+   vector<EventIndex>               BackgroundIndices;
    if(DoBackground == true)
    {
       for(int iB = 0; iB < NBackground; iB++)
       {
-         BackgroundFiles.emplace_back(new TFile(BackgroundFileNames[iB].c_str()));
-         MBackgroundEvent.emplace_back(BackgroundFiles[iB]);
-         MBackgroundTrack.emplace_back(BackgroundFiles[iB]);
+         BackgroundFiles.push_back(new TFile(BackgroundFileNames[iB].c_str()));
+         MBackgroundEvent.push_back(new HiEventTreeMessenger(BackgroundFiles[iB]));
+         MBackgroundTrack.push_back(new PbPbTrackTreeMessenger(BackgroundFiles[iB]));
 
-         int EntryCount = MBackgroundEvent[iB].GetEntries();
+         int EntryCount = MBackgroundEvent[iB]->GetEntries();
          for(int iE = 0; iE < EntryCount; iE++)
          {
-            MBackgroundEvent[iB].GetEntry(iE);
+            MBackgroundEvent[iB]->GetEntry(iE);
             EventIndex E;
-            E.HF = MBackgroundEvent[iB].hiHF;
+            E.HF = MBackgroundEvent[iB]->hiHF;
             E.File = iB;
             E.Event = iE;
             BackgroundIndices.push_back(E);
@@ -271,7 +271,7 @@ int main(int argc, char *argv[])
          }
 
          // Z-track correlation
-         if(MZHadron.zMass->size() > 0 && MZHadron.zPt->at(0) > 30)
+         if(MZHadron.zMass->size() > 0 && MZHadron.zPt->at(0) > 20)
          {
             // Decide whether to use signal or background for tracks
             EventIndex Location;
@@ -281,6 +281,8 @@ int main(int argc, char *argv[])
                double SignalHF = MSignalEvent.hiHF - HFShift;
                double LowerHF = min(SignalHF - HFTolerance, SignalHF * (1 - HFToleranceFraction));
                double HigherHF = min(SignalHF + HFTolerance, SignalHF * (1 + HFToleranceFraction));
+
+               // cout << MSignalEvent.hiHF << " " << SignalHF << endl;
 
                int LowerIndex = FindFirstAbove(BackgroundIndices, LowerHF);
                int HigherIndex = FindFirstAbove(BackgroundIndices, HigherHF);
@@ -292,18 +294,23 @@ int main(int argc, char *argv[])
 
                Location = BackgroundIndices[Index];
 
-               MBackgroundTrack[Location.File].GetEntry(Location.Event);
+               // cout << "Index inside the array" << Index << endl;
+               // cout << "From index " << Location.File << " " << Location.Event << " " << Location.HF << endl;
+               // cout << "Track tree pointer " << MBackgroundTrack[Location.File]->Tree << endl;
+               // MBackgroundEvent[Location.File]->GetEntry(Location.Event);
+               // cout << "From background event HF = " << MBackgroundEvent[Location.File]->hiHF << endl;
+               MBackgroundTrack[Location.File]->GetEntry(Location.Event);
             }
-            PbPbTrackTreeMessenger &MTrack = DoBackground ? MBackgroundTrack[Location.File] : MSignalTrack;
+            PbPbTrackTreeMessenger *MTrack = DoBackground ? MBackgroundTrack[Location.File] : &MSignalTrack;
 
             // Loop over tracks and build the correlation function
-            for(int itrack = 0; itrack < MTrack.TrackPT->size(); itrack++)
+            for(int itrack = 0; itrack < MTrack->TrackPT->size(); itrack++)
             {
-               if(MTrack.TrackHighPurity->at(itrack) == false)
+               if(MTrack->TrackHighPurity->at(itrack) == false)
                   continue;
 
-               double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MTrack.TrackPhi->at(itrack) - M_PI);
-               double deltaEta = MZHadron.zEta->at(0) - MTrack.TrackEta->at(itrack);
+               double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MTrack->TrackPhi->at(itrack) - M_PI);
+               double deltaEta = MZHadron.zEta->at(0) - MTrack->TrackEta->at(itrack);
 
                H2D.Fill(deltaEta, deltaPhi, 0.25);
                H2D.Fill(-deltaEta, deltaPhi, 0.25);
@@ -312,7 +319,7 @@ int main(int argc, char *argv[])
 
                MZHadron.trackDphi->push_back(deltaPhi);
                MZHadron.trackDeta->push_back(deltaEta);
-               MZHadron.trackPt->push_back(MTrack.TrackPT->at(itrack));
+               MZHadron.trackPt->push_back(MTrack->TrackPT->at(itrack));
             }
          }
 
@@ -343,6 +350,14 @@ int main(int argc, char *argv[])
          F->Close();
          delete F;
       }
+      
+      for(HiEventTreeMessenger *M : MBackgroundEvent)
+         if(M != nullptr)
+            delete M;
+      
+      for(PbPbTrackTreeMessenger *M : MBackgroundTrack)
+         if(M != nullptr)
+            delete M;
    }
 
    return 0;
