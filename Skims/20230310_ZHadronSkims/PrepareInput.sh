@@ -30,7 +30,7 @@ Condor=Submit.condor
 echo "Universe              = vanilla"           > $Condor
 echo "Executable            = $PWD/RunCondor.sh" >> $Condor
 echo "should_transfer_files = NO"                >> $Condor
-echo "+JobFlavour           = \"longlunch\""     >> $Condor
+echo "+JobFlavour           = \"expresso\""      >> $Condor
 echo                                             >> $Condor
 
 Count=0
@@ -40,7 +40,7 @@ do
    echo "Output    = $ScriptFolder/Part${Count}.out"                                         >> $Condor
    echo "Error     = $ScriptFolder/Part${Count}.err"                                         >> $Condor
    echo "Log       = $ScriptFolder/Part${Count}.log"                                         >> $Condor
-   echo "# Queue"                                                                            >> $Condor
+   echo "Queue"                                                                              >> $Condor
    echo                                                                                      >> $Condor
 
    Count=$(($Count + 1))
