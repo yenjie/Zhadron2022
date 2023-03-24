@@ -8,13 +8,16 @@ shift
 ProjectBase=$1
 shift
 
+CMSSWBASE=$1
+shift
+
 Output=$1
 shift
 
 ID=$1
 shift
 
-cd ~/work/CMSSW/CMSSW_11_2_1_patch2/src
+cd $CMSSWBASE
 eval `scramv1 runtime -sh`
 cd - > /dev/null
 export PATH=$ProjectBase/CommonCode/binary/:$PATH

@@ -36,7 +36,7 @@ echo                                             >> $Condor
 Count=0
 for i in `ls $Directory/*root | Reformat $Number | sed "s/ /,/g" | sed "s/[,]*$//"`
 do
-   echo "Arguments = $PWD $ProjectBase $OutputBase/Result${Count}.root $Count --Input $i $@" >> $Condor
+   echo "Arguments = $PWD $ProjectBase $OutputBase/Result${Count}.root $CMSSW_BASE $Count --Input $i $@" >> $Condor
    echo "Output    = $ScriptFolder/Part${Count}.out"                                         >> $Condor
    echo "Error     = $ScriptFolder/Part${Count}.err"                                         >> $Condor
    echo "Log       = $ScriptFolder/Part${Count}.log"                                         >> $Condor
