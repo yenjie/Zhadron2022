@@ -1749,7 +1749,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree = T;
 
    Tree->Branch("run",        &Run,     "run/I");
-   Tree->Branch("event",      &Event,   "event/LL");
+   Tree->Branch("event",      &Event,   "event/L");
    Tree->Branch("lumi",       &Lumi,    "lumi/I");
    Tree->Branch("hiBin",      &hiBin,   "hiBin/I");
    Tree->Branch("hiHF",       &hiHF,    "hiHF/F");
