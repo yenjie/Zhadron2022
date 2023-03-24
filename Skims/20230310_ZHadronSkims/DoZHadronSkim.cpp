@@ -300,7 +300,7 @@ int main(int argc, char *argv[])
                   Location = BackgroundIndices[Index];
 
                   // cout << "Index inside the array" << Index << endl;
-                  cout << "From index " << Location.File << " " << Location.Event << " " << Location.HF << endl;
+                  // cout << "From index " << Location.File << " " << Location.Event << " " << Location.HF << endl;
                   // cout << "Track tree pointer " << MBackgroundTrack[Location.File]->Tree << endl;
                   // MBackgroundEvent[Location.File]->GetEntry(Location.Event);
                   // cout << "From background event HF = " << MBackgroundEvent[Location.File]->hiHF << endl;
