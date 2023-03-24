@@ -12,5 +12,5 @@ Execute: DoZHadronSkim.cpp
 		$(ProjectBase)/CommonCode/library/Messenger.o
 
 PrepareToRun:
-	bash PrepareInput.sh /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HIDoubleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HIDoubleMuon/20221101_ZHadronDoubleMuonWithMuTree/221101_212941/0000/ 6 Output/ --Fraction 1 --DoGenLevel false --IsData true --IsPP false
+	bash PrepareInput.sh /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HIDoubleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HIDoubleMuon/20221101_ZHadronDoubleMuonWithMuTree/221101_212941/0000/ 6 Log/ `pwd`/Output/ --Fraction 0.01 --DoGenLevel false --IsData true --IsPP false
 
