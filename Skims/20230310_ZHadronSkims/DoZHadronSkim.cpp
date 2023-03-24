@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -21,6 +22,7 @@ using namespace std;
 
 struct EventIndex;
 int main(int argc, char *argv[]);
+int FindFirstAbove(vector<EventIndex> &Indices, double X);
 
 struct EventIndex
 {
@@ -55,19 +57,18 @@ int main(int argc, char *argv[])
    bool DoBackground             = CL.GetBool("DoBackground", false);
 
    Assert(IsPP == false,         "PP mode not implemented yet");
-   Assert(DoBackground == false, "Background mode not fully implemented yet");
 
    vector<string> BackgroundFileNames;
    int NBackground = 0;
    double BackgroundShift = 0;
-   double BackgroundTolerance = 0;
-   double BackgroundToleranceFraction = 0;
+   double HFTolerance = 0;
+   double HFToleranceFraction = 0;
    if(DoBackground == true)
    {
       BackgroundFileNames         = CL.GetStringVector("Background");
-      BackgroundShift             = CL.GetDouble("BackgroundShift");
-      BackgroundTolerance         = CL.GetDouble("Tolerance");
-      BackgroundToleranceFraction = CL.GetDouble("ToleranceFraction");
+      HFShift                     = CL.GetDouble("HFShift");
+      HFTolerance                 = CL.GetDouble("Tolerance");
+      HFToleranceFraction         = CL.GetDouble("ToleranceFraction");
       NBackground                 = BackgroundFileNames.size();
    }
 
@@ -276,8 +277,20 @@ int main(int argc, char *argv[])
             EventIndex Location;
             if(DoBackground == true)
             {
-               // TODO: find the background event location based on HF.  For now use a dummy one
-               Location = BackgroundIndices[0];
+               // find the background event location based on HF
+               double SignalHF = MSignalEvent.hiHF - HFShift;
+               double LowerHF = min(SignalHF - HFTolerance, SignalHF * (1 - HFToleranceFraction));
+               double HigherHF = min(SignalHF + HFTolerance, SignalHF * (1 + HFToleranceFraction));
+
+               int LowerIndex = FindFirstAbove(BackgroundIndices, LowerHF);
+               int HigherIndex = FindFirstAbove(BackgroundIndices, HigherHF);
+
+               Assert(HigherIndex > LowerIndex,
+                  "Warning!  Too few events matched.  Please enlarge tolerance or add more background files");
+
+               int Index = LowerIndex + rand() % (HigherIndex - LowerIndex);
+
+               Location = BackgroundIndices[Index];
 
                MBackgroundTrack[Location.File].GetEntry(Location.Event);
             }
@@ -335,4 +348,26 @@ int main(int argc, char *argv[])
    return 0;
 }
 
+int FindFirstAbove(vector<EventIndex> &Indices, double X)
+{
+   if(X < Indices[0].HF)
+      return 0;
+
+   if(X >= Indices[Indices.size()-1].HF)
+      return Indices.size();
+
+   int Low = 0;
+   int High = Indices.size();
+
+   while(High - Low > 1)
+   {
+      int Middle = (High + Low) / 2;
+      if(X < Indices[Middle].HF)
+         High = Middle;
+      else
+         Low = Middle;
+   }
+
+   return Low;
+}
 
