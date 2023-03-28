@@ -23,6 +23,7 @@ using namespace std;
 struct EventIndex;
 int main(int argc, char *argv[]);
 int FindFirstAbove(vector<EventIndex> &Indices, double X);
+double GetHFSum(PFTreeMessenger *M);
 
 struct EventIndex
 {
@@ -55,6 +56,7 @@ int main(int argc, char *argv[])
    bool IsData                   = CL.GetBool("IsData", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
    bool DoBackground             = CL.GetBool("DoBackground", false);
+   bool DoSumET                  = CL.GetBool("DoSumET", true);
 
    Assert(IsPP == false,         "PP mode not implemented yet");
 
@@ -79,6 +81,7 @@ int main(int argc, char *argv[])
    vector<TFile *>                  BackgroundFiles;
    vector<HiEventTreeMessenger *>   MBackgroundEvent;
    vector<PbPbTrackTreeMessenger *> MBackgroundTrack;
+   vector<PFTreeMessenger *>        MBackgroundPF;
    vector<EventIndex>               BackgroundIndices;
    if(DoBackground == true)
    {
@@ -87,13 +90,15 @@ int main(int argc, char *argv[])
          BackgroundFiles.push_back(new TFile(BackgroundFileNames[iB].c_str()));
          MBackgroundEvent.push_back(new HiEventTreeMessenger(BackgroundFiles[iB]));
          MBackgroundTrack.push_back(new PbPbTrackTreeMessenger(BackgroundFiles[iB]));
+         MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB]));
 
          int EntryCount = MBackgroundEvent[iB]->GetEntries();
          for(int iE = 0; iE < EntryCount; iE++)
          {
             MBackgroundEvent[iB]->GetEntry(iE);
+            MBackgroundPF[iB]->GetEntry(iE);
             EventIndex E;
-            E.HF = MBackgroundEvent[iB]->hiHF;
+            E.HF = DoSumET ? MBackgroundEvent[iB]->hiHF : GetHFSum(MBackgroundPF[iB]);
             E.File = iB;
             E.Event = iE;
             BackgroundIndices.push_back(E);
@@ -124,6 +129,7 @@ int main(int argc, char *argv[])
       // Setup all the messengers.  In the future we'll add more for triggers etc.
       HiEventTreeMessenger   MSignalEvent(InputFile);
       PbPbTrackTreeMessenger MSignalTrack(InputFile);
+      PFTreeMessenger        MSignalPF(InputFile);
       MuTreeMessenger        MSignalMu(InputFile);
       SkimTreeMessenger      MSignalSkim(InputFile);
       TriggerTreeMessenger   MSignalTrigger(InputFile);
@@ -149,6 +155,7 @@ int main(int argc, char *argv[])
          MSignalMu.GetEntry(iE);
          MSignalSkim.GetEntry(iE);
          MSignalTrigger.GetEntry(iE);
+         MSignalPF.GetEntry(iE);
 
          MZHadron.Run   = MSignalEvent.Run;
          MZHadron.Lumi  = MSignalEvent.Lumi;
@@ -283,7 +290,7 @@ int main(int argc, char *argv[])
                if(DoBackground == true)
                {
                   // find the background event location based on HF
-                  double SignalHF = MSignalEvent.hiHF - HFShift;
+                  double SignalHF = (DoSumET ? MSignalEvent.hiHF : GetHFSum(&MSignalPF)) - HFShift;
                   double LowerHF = min(SignalHF - HFTolerance, SignalHF * (1 - HFToleranceFraction));
                   double HigherHF = min(SignalHF + HFTolerance, SignalHF * (1 + HFToleranceFraction));
 
@@ -365,6 +372,10 @@ int main(int argc, char *argv[])
       for(PbPbTrackTreeMessenger *M : MBackgroundTrack)
          if(M != nullptr)
             delete M;
+      
+      for(PFTreeMessenger *M : MBackgroundPF)
+         if(M != nullptr)
+            delete M;
    }
 
    return 0;
@@ -392,4 +403,20 @@ int FindFirstAbove(vector<EventIndex> &Indices, double X)
 
    return Low;
 }
+
+double GetHFSum(PFTreeMessenger *M)
+{
+   if(M == nullptr)
+      return -1;
+   if(M->Tree == nullptr)
+      return -1;
+
+   double Sum = 0;
+   for(int iPF = 0; iPF < M->ID->size(); iPF++)
+      if(fabs(M->Eta->at(iPF)) > 3 && fabs(M->Eta->at(iPF)) < 5)
+         Sum = Sum + M->E->at(iPF);
+
+   return Sum;
+}
+
 
