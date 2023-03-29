@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
          BackgroundFiles.push_back(new TFile(BackgroundFileNames[iB].c_str()));
          MBackgroundEvent.push_back(new HiEventTreeMessenger(BackgroundFiles[iB]));
          MBackgroundTrack.push_back(new PbPbTrackTreeMessenger(BackgroundFiles[iB]));
-         MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB]));
+         MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB], "particleFlowAnalyser/pftree"));
 
          int EntryCount = MBackgroundEvent[iB]->GetEntries();
          for(int iE = 0; iE < EntryCount; iE++)
@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
       // Setup all the messengers.  In the future we'll add more for triggers etc.
       HiEventTreeMessenger   MSignalEvent(InputFile);
       PbPbTrackTreeMessenger MSignalTrack(InputFile);
-      PFTreeMessenger        MSignalPF(InputFile);
+      PFTreeMessenger        MSignalPF(InputFile, "particleFlowAnalyser/pftree");
       MuTreeMessenger        MSignalMu(InputFile);
       SkimTreeMessenger      MSignalSkim(InputFile);
       TriggerTreeMessenger   MSignalTrigger(InputFile);
@@ -418,6 +418,8 @@ double GetHFSum(PFTreeMessenger *M)
    for(int iPF = 0; iPF < M->ID->size(); iPF++)
       if(fabs(M->Eta->at(iPF)) > 3 && fabs(M->Eta->at(iPF)) < 5)
          Sum = Sum + M->E->at(iPF);
+
+   // cout << Sum << endl;
 
    return Sum;
 }
