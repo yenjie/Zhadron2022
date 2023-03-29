@@ -292,7 +292,7 @@ int main(int argc, char *argv[])
                   // find the background event location based on HF
                   double SignalHF = (DoSumET ? MSignalEvent.hiHF : GetHFSum(&MSignalPF)) - HFShift;
                   double LowerHF = min(SignalHF - HFTolerance, SignalHF * (1 - HFToleranceFraction));
-                  double HigherHF = min(SignalHF + HFTolerance, SignalHF * (1 + HFToleranceFraction));
+                  double HigherHF = max(SignalHF + HFTolerance, SignalHF * (1 + HFToleranceFraction));
 
                   // cout << MSignalEvent.hiHF << " " << SignalHF << endl;
 
