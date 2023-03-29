@@ -290,9 +290,12 @@ int main(int argc, char *argv[])
                if(DoBackground == true)
                {
                   // find the background event location based on HF
-                  double SignalHF = (DoSumET ? MSignalEvent.hiHF : GetHFSum(&MSignalPF)) - HFShift;
-                  double LowerHF = min(SignalHF - HFTolerance, SignalHF * (1 - HFToleranceFraction));
-                  double HigherHF = max(SignalHF + HFTolerance, SignalHF * (1 + HFToleranceFraction));
+                  double SignalHF = (DoSumET ? MSignalEvent.hiHF : GetHFSum(&MSignalPF));
+                  double LowerHF = min(SignalHF - HFTolerance, SignalHF * (1 - HFToleranceFraction)) - HFShift;
+                  double HigherHF = max(SignalHF + HFTolerance, SignalHF * (1 + HFToleranceFraction)) - HFShift;
+
+                  if(SignalHF < HFShift)
+                     continue;
 
                   // cout << MSignalEvent.hiHF << " " << SignalHF << endl;
 
@@ -300,7 +303,7 @@ int main(int argc, char *argv[])
                   int HigherIndex = FindFirstAbove(BackgroundIndices, HigherHF);
 
                   Assert(HigherIndex > LowerIndex,
-                     "Warning!  Too few events matched.  Please enlarge tolerance or add more background files");
+                     Form("Warning!  Too few events matched.  Please enlarge tolerance or add more background files.  %f < %f - %f < %f", LowerHF, SignalHF, HFShift, HigherHF));
 
                   int Index = LowerIndex + rand() % (HigherIndex - LowerIndex);
 
