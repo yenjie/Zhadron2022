@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
    string OutputFileName         = CL.Get("Output");
    bool DoGenLevel               = CL.GetBool("DoGenLevel", true);
    double Fraction               = CL.GetDouble("Fraction", 1.00);
+   double MinZPT                 = CL.GetDouble("MinZPT", 20.00);
    bool IsData                   = CL.GetBool("IsData", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
    bool DoBackground             = CL.GetBool("DoBackground", false);
@@ -283,7 +284,7 @@ int main(int argc, char *argv[])
             }
 
             // Z-track correlation
-            if(MZHadron.zMass->size() > 0 && MZHadron.zPt->at(0) > 20)
+            if(MZHadron.zMass->size() > 0 && MZHadron.zPt->at(0) > MinZPT)
             {
                // Decide whether to use signal or background for tracks
                EventIndex Location;
