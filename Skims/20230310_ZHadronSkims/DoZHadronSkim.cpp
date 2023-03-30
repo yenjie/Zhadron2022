@@ -320,6 +320,15 @@ int main(int argc, char *argv[])
                }
                PbPbTrackTreeMessenger *MTrack = DoBackground ? MBackgroundTrack[Location.File] : &MSignalTrack;
 
+               int MaxOppositeIndex = -1;
+               double MaxOppositeDEta = 0;
+               double MaxOppositeDPhi = 0;
+               int MaxIndex = -1;
+               double MaxDEta = 0;
+               double MaxDPhi = 0;
+               double MaxOppositeWTADEta = 0;
+               double MaxOppositeWTADPhi = 0;
+
                // Loop over tracks and build the correlation function
                for(int itrack = 0; itrack < MTrack->TrackPT->size(); itrack++)
                {
@@ -340,15 +349,39 @@ int main(int argc, char *argv[])
                   double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MTrack->TrackPhi->at(itrack) - M_PI);
                   double deltaEta = MZHadron.zEta->at(0) - MTrack->TrackEta->at(itrack);
 
-                  H2D.Fill(deltaEta, deltaPhi, 0.25);
-                  H2D.Fill(-deltaEta, deltaPhi, 0.25);
+                  H2D.Fill(+deltaEta, +deltaPhi, 0.25);
+                  H2D.Fill(-deltaEta, +deltaPhi, 0.25);
                   H2D.Fill(-deltaEta, -deltaPhi, 0.25);
-                  H2D.Fill(deltaEta, -deltaPhi, 0.25);
+                  H2D.Fill(+deltaEta, -deltaPhi, 0.25);
 
                   MZHadron.trackDphi->push_back(deltaPhi);
                   MZHadron.trackDeta->push_back(deltaEta);
                   MZHadron.trackPt->push_back(MTrack->TrackPT->at(itrack));
+
+                  if(deltaPhi > M_PI / 2)
+                  {
+                     if(MaxOppositeIndex < 0 || MTrack->TrackPT->at(itrack) > MTrack->TrackPT->at(MaxOppositeIndex))
+                     {
+                        MaxOppositeIndex = itrack;
+                        MaxOppositeDEta = deltaEta;
+                        MaxOppositeDPhi = deltaPhi;
+                     }
+                  }
+                     
+                  if(MaxIndex < 0 || MTrack->TrackPT->at(itrack) > MTrack->TrackPT->at(MaxIndex))
+                  {
+                     MaxIndex = itrack;
+                     MaxDEta = deltaEta;
+                     MaxDPhi = deltaPhi;
+                  }
                }
+
+               MZHadron.maxOppositeDEta    = MaxOppositeDEta;
+               MZHadron.maxOppositeDPhi    = MaxOppositeDPhi;
+               MZHadron.maxDEta            = MaxDEta;
+               MZHadron.maxDPhi            = MaxDPhi;
+               MZHadron.maxOppositeWTADEta = MaxOppositeWTADEta;
+               MZHadron.maxOppositeWTADPhi = MaxOppositeWTADPhi;
             }
 
             MZHadron.FillEntry();
