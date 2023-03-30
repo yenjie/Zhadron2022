@@ -303,7 +303,8 @@ int main(int argc, char *argv[])
                   int HigherIndex = FindFirstAbove(BackgroundIndices, HigherHF);
 
                   Assert(HigherIndex > LowerIndex,
-                     Form("Warning!  Too few events matched.  Please enlarge tolerance or add more background files.  %f < %f - %f < %f", LowerHF, SignalHF, HFShift, HigherHF));
+                     Form("Warning!  Too few events matched.  Please enlarge tolerance or add more background files.  %f < %f - %f < %f",
+                        LowerHF, SignalHF, HFShift, HigherHF));
 
                   int Index = LowerIndex + rand() % (HigherIndex - LowerIndex);
 
@@ -324,6 +325,17 @@ int main(int argc, char *argv[])
                {
                   if(MTrack->TrackHighPurity->at(itrack) == false)
                      continue;
+               
+                  double DeltaEtaMu1 = MZHadron.muEta1->at(0) - MTrack->TrackEta->at(itrack);
+                  double DeltaEtaMu2 = MZHadron.muEta2->at(0) - MTrack->TrackEta->at(itrack);
+                  double DeltaPhiMu1 = DeltaPhi(MZHadron.muPhi1->at(0), MTrack->TrackPhi->at(itrack));
+                  double DeltaPhiMu2 = DeltaPhi(MZHadron.muPhi2->at(0), MTrack->TrackPhi->at(itrack));
+
+                  double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
+                  double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
+
+                  if(DeltaRMu1 < 0.01)   continue;
+                  if(DeltaRMu2 < 0.01)   continue;
 
                   double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MTrack->TrackPhi->at(itrack) - M_PI);
                   double deltaEta = MZHadron.zEta->at(0) - MTrack->TrackEta->at(itrack);
