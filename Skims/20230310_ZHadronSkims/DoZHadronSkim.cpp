@@ -318,8 +318,11 @@ int main(int argc, char *argv[])
                   // cout << "From background event HF = " << MBackgroundEvent[Location.File]->hiHF << endl;
 
                   MBackgroundTrack[Location.File]->GetEntry(Location.Event);
+                  MBackgroundPF[Location.File]->GetEntry(Location.Event);
                }
                PbPbTrackTreeMessenger *MTrack = DoBackground ? MBackgroundTrack[Location.File] : &MSignalTrack;
+               // PFTreeMessenger *MPF = DoBackground ? MBackgroundPF[Location.File] : &MSignalPF;
+               PFTreeMessenger *MPF = &MSignalPF;
 
                int MaxOppositeIndex = -1;
                double MaxOppositeDEta = 0;
@@ -327,8 +330,6 @@ int main(int argc, char *argv[])
                int MaxIndex = -1;
                double MaxDEta = 0;
                double MaxDPhi = 0;
-               double MaxOppositeWTADEta = 0;
-               double MaxOppositeWTADPhi = 0;
 
                // Loop over tracks and build the correlation function
                for(int itrack = 0; itrack < MTrack->TrackPT->size(); itrack++)
@@ -358,31 +359,79 @@ int main(int argc, char *argv[])
                   MZHadron.trackDphi->push_back(deltaPhi);
                   MZHadron.trackDeta->push_back(deltaEta);
                   MZHadron.trackPt->push_back(MTrack->TrackPT->at(itrack));
+               }
+
+               // Loop over PF candidates to find WTA
+               vector<double> OppositePFEta;
+               vector<double> OppositePFPhi;
+               vector<double> OppositePFPT;
+               vector<double> MoreOppositePFEta;
+               vector<double> MoreOppositePFPhi;
+               vector<double> MoreOppositePFPT;
+               for(int iPF = 0; iPF < MPF->ID->size(); iPF++)
+               {
+                  if(MPF->Eta->at(iPF) < -3 || MPF->Eta->at(iPF) > +3)   // don't use HF
+                     continue;
+
+                  // cout << iPF << " " << MPF->ID->size() << endl;
+
+                  double DeltaEtaMu1 = MZHadron.muEta1->at(0) - MPF->Eta->at(iPF);
+                  double DeltaEtaMu2 = MZHadron.muEta2->at(0) - MPF->Eta->at(iPF);
+                  double DeltaPhiMu1 = DeltaPhi(MZHadron.muPhi1->at(0), MPF->Phi->at(iPF));
+                  double DeltaPhiMu2 = DeltaPhi(MZHadron.muPhi2->at(0), MPF->Phi->at(iPF));
+
+                  double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
+                  double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
+
+                  if(DeltaRMu1 < 0.01)   continue;
+                  if(DeltaRMu2 < 0.01)   continue;
+
+                  double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MPF->Phi->at(iPF) - M_PI);
+                  double deltaEta = MZHadron.zEta->at(0) - MPF->Eta->at(iPF);
 
                   if(deltaPhi > M_PI / 2)
                   {
-                     if(MaxOppositeIndex < 0 || MTrack->TrackPT->at(itrack) > MTrack->TrackPT->at(MaxOppositeIndex))
+                     if(MaxOppositeIndex < 0 || MPF->PT->at(iPF) > MPF->PT->at(MaxOppositeIndex))
                      {
-                        MaxOppositeIndex = itrack;
+                        MaxOppositeIndex = iPF;
                         MaxOppositeDEta = deltaEta;
                         MaxOppositeDPhi = deltaPhi;
                      }
                   }
-                     
-                  if(MaxIndex < 0 || MTrack->TrackPT->at(itrack) > MTrack->TrackPT->at(MaxIndex))
+
+                  if(deltaPhi > M_PI / 2)
                   {
-                     MaxIndex = itrack;
+                     OppositePFEta.push_back(deltaEta);
+                     OppositePFPhi.push_back(deltaPhi);
+                     OppositePFPT.push_back(MPF->PT->at(iPF));
+                  }
+                     
+                  if(deltaPhi > 3 * M_PI / 4)
+                  {
+                     MoreOppositePFEta.push_back(deltaEta);
+                     MoreOppositePFPhi.push_back(deltaPhi);
+                     MoreOppositePFPT.push_back(MPF->PT->at(iPF));
+                  }
+                     
+                  if(MaxIndex < 0 || MPF->PT->at(iPF) > MPF->PT->at(MaxIndex))
+                  {
+                     MaxIndex = iPF;
                      MaxDEta = deltaEta;
                      MaxDPhi = deltaPhi;
                   }
                }
 
-               MZHadron.maxOppositeDEta    = MaxOppositeDEta;
-               MZHadron.maxOppositeDPhi    = MaxOppositeDPhi;
-               MZHadron.maxDEta            = MaxDEta;
-               MZHadron.maxDPhi            = MaxDPhi;
-               MZHadron.maxOppositeWTADEta = MaxOppositeWTADEta;
-               MZHadron.maxOppositeWTADPhi = MaxOppositeWTADPhi;
+               pair<double, double> WTA = WTAAxis(OppositePFEta, OppositePFPhi, OppositePFPT);
+               pair<double, double> WTAMore = WTAAxis(MoreOppositePFEta, MoreOppositePFPhi, MoreOppositePFPT);
+
+               MZHadron.maxOppositeDEta        = MaxOppositeDEta;
+               MZHadron.maxOppositeDPhi        = MaxOppositeDPhi;
+               MZHadron.maxDEta                = MaxDEta;
+               MZHadron.maxDPhi                = MaxDPhi;
+               MZHadron.maxOppositeWTADEta     = WTA.first;
+               MZHadron.maxOppositeWTADPhi     = WTA.second;
+               MZHadron.maxMoreOppositeWTADEta = WTAMore.first;
+               MZHadron.maxMoreOppositeWTADPhi = WTAMore.second;
             }
 
             MZHadron.FillEntry();
