@@ -485,6 +485,15 @@ public:
    std::vector<double> *trackEta;
    std::vector<double> *trackPhi;
 
+   double maxOppositeDEta;
+   double maxOppositeDPhi;
+   double maxDEta;
+   double maxDPhi;
+   double maxOppositeWTADEta;
+   double maxOppositeWTADPhi;
+   double maxMoreOppositeWTADEta;
+   double maxMoreOppositeWTADPhi;
+
    std::vector<double> *muEta1;
    std::vector<double> *muEta2;
    std::vector<double> *muPhi1;

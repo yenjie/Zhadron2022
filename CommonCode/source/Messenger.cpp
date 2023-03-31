@@ -1771,6 +1771,15 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("trackPhi",   &trackPhi);
    Tree->Branch("trackEta",   &trackEta);
 
+   Tree->Branch("maxOppositeDEta",        &maxOppositeDEta);
+   Tree->Branch("maxOppositeDPhi",        &maxOppositeDPhi);
+   Tree->Branch("maxDEta",                &maxDEta);
+   Tree->Branch("maxDPhi",                &maxDPhi);
+   Tree->Branch("maxOppositeWTADEta",     &maxOppositeWTADEta);
+   Tree->Branch("maxOppositeWTADPhi",     &maxOppositeWTADPhi);
+   Tree->Branch("maxMoreOppositeWTADEta", &maxMoreOppositeWTADEta);
+   Tree->Branch("maxMoreOppositeWTADPhi", &maxMoreOppositeWTADPhi);
+
    Tree->Branch("muEta1",     &muEta1);
    Tree->Branch("muEta2",     &muEta2);
    Tree->Branch("muPhi1",     &muPhi1);
@@ -1818,6 +1827,11 @@ void ZHadronMessenger::Clear()
    trackPhi->clear();
    trackEta->clear();
 
+   maxOppositeDEta = 0;
+   maxOppositeDPhi = 0;
+   maxDEta = 0;
+   maxDPhi = 0;
+   
    muEta1->clear();
    muEta2->clear();
    muPhi1->clear();
