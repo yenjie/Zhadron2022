@@ -1,4 +1,7 @@
 #include <cmath>
+#include <vector>
+#include <map>
+#include <algorithm>
 
 #define M_MU 0.1056583755
 
@@ -11,6 +14,7 @@ double FindNColl(int hiBin);
 double FindNPart(int hiBin);
 double FindNCollAverage(int hiBin);
 double FindNPartAverage(int hiBin);
+std::pair<double, double> WTAAxis(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT);
 
 
 // Function implementations
@@ -64,3 +68,102 @@ double FindNPartAverage(int hiBinLow, int hiBinHigh)
    for(int i=hiBinLow; i<hiBinHigh; i++)  w+=Npart[i]/(hiBinHigh-hiBinLow);
    return w;
 }
+
+std::pair<double, double> WTAAxis(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT)
+{
+   std::pair<double, double> Result;
+
+   if(Eta.size() == 0)
+      return Result;
+
+   struct PseudoParticle
+   {
+      double Eta;
+      double Phi;
+      double PT;
+      PseudoParticle(double eta, double phi, double pt)
+      {
+         Eta = eta;
+         Phi = phi;
+         PT = pt;
+      }
+      bool operator <(const PseudoParticle &other) const
+      {
+         if(Eta < other.Eta)   return true;
+         if(Eta > other.Eta)   return false;
+         if(Phi < other.Phi)   return true;
+         if(Phi > other.Phi)   return false;
+         if(PT < other.PT)     return true;
+         if(PT > other.PT)     return false;
+         return false;
+      }
+   };
+
+   std::vector<PseudoParticle> Particles;
+   for(int i = 0; i < (int)Eta.size(); i++)
+      Particles.push_back(PseudoParticle(Eta[i], Phi[i], PT[i]));
+   std::sort(Particles.begin(), Particles.end());
+
+   while(Particles.size() >= 2)
+   {
+      int N = Particles.size();
+
+      int BestI = -1, BestJ = -1;
+      double BestDR2 = -1;
+
+      // Loop over particles
+      for(int i = 0; i < N; i++)
+      {
+         for(int j = i + 1; j < N; j++)
+         {
+            double DEta = Particles[i].Eta - Particles[j].Eta;
+            double DPhi = DeltaPhi(Particles[i].Phi, Particles[j].Phi);
+            double PTMin = std::min(Particles[i].PT, Particles[j].PT);
+            double DR2 = (DEta * DEta + DPhi * DPhi) / (PTMin * PTMin);
+
+            if(BestDR2 < 0)
+            {
+               BestI = i;
+               BestJ = j;
+               BestDR2 = DR2;
+               continue;
+            }
+
+            // Since things are eta-sorted, if we hit something larger than best already, we skip the rest
+            // This is true only for C/A case
+            //
+            // if(DEta * DEta > BestDR2)   
+            //    break;
+
+            if(DR2 < BestDR2)
+            {
+               BestI = i;
+               BestJ = j;
+               BestDR2 = DR2;
+            }
+         }
+      }
+
+      // Now we found the closest pair, we merge particles
+      if(Particles[BestI].PT > Particles[BestJ].PT)
+      {
+         Particles[BestI].PT = Particles[BestI].PT + Particles[BestJ].PT;
+         Particles.erase(Particles.begin() + BestJ);
+      }
+      else
+      {
+         Particles[BestJ].PT = Particles[BestI].PT + Particles[BestJ].PT;
+         Particles.erase(Particles.begin() + BestI);
+      }
+   }
+
+   Result.first = Particles[0].Eta;
+   Result.second = Particles[0].Phi;
+
+   return Result;
+}
+
+
+
+
+
