@@ -348,7 +348,7 @@ int main(int argc, char *argv[])
                   if(DeltaRMu1 < 0.01)   continue;
                   if(DeltaRMu2 < 0.01)   continue;
 
-                  double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MTrack->TrackPhi->at(itrack) - M_PI);
+                  double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MTrack->TrackPhi->at(itrack));
                   double deltaEta = MZHadron.zEta->at(0) - MTrack->TrackEta->at(itrack);
 
                   H2D.Fill(+deltaEta, +deltaPhi, 0.25);
@@ -386,7 +386,7 @@ int main(int argc, char *argv[])
                   if(DeltaRMu1 < 0.01)   continue;
                   if(DeltaRMu2 < 0.01)   continue;
 
-                  double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MPF->Phi->at(iPF) - M_PI);
+                  double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MPF->Phi->at(iPF));
                   double deltaEta = MZHadron.zEta->at(0) - MPF->Eta->at(iPF);
 
                   if(deltaPhi > M_PI / 2)
