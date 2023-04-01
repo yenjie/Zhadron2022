@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
             if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) > C[iC].TrackPTMax)
                TrackPTRange = true;
 
-            bool PassEvent = ZMassRange && ZPTRange && CentRange && TrackPTRange;
+            bool PassEvent = ZMassRange && ZPTRange && CentRange;
             bool PassEverything = PassEvent && TrackPTRange;
 
             if(PassEvent)
