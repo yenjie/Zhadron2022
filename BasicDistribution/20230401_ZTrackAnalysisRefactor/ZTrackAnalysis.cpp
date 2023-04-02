@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
    for(int iC = 0; iC < C.size(); iC++)
    {
       string FolderName =
-         Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.1f_%.1f",
+         Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f",
             C[iC].ZPTMin, C[iC].ZPTMax,
             C[iC].CentMin, C[iC].CentMax,
             C[iC].TrackPTMin, C[iC].TrackPTMax);
