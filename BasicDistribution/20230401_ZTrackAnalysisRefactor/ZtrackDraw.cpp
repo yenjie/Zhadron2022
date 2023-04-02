@@ -375,6 +375,12 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    gSystem->Exec(Form("mkdir -p figs/track/%s/Deta",typeofdata));
    gSystem->Exec(Form("mkdir -p figs/track/%s/Dphi",typeofdata));
    gSystem->Exec(Form("mkdir -p figs/track/%s/3D",typeofdata));
+   gSystem->Exec(Form("mkdir -p figs/track/%s/Deta/pdf",typeofdata));
+   gSystem->Exec(Form("mkdir -p figs/track/%s/Dphi/pdf",typeofdata));
+   gSystem->Exec(Form("mkdir -p figs/track/%s/3D/pdf",typeofdata));
+   gSystem->Exec(Form("mkdir -p figs/track/%s/Deta/C",typeofdata));
+   gSystem->Exec(Form("mkdir -p figs/track/%s/Dphi/C",typeofdata));
+   gSystem->Exec(Form("mkdir -p figs/track/%s/3D/C",typeofdata));
 
    // Draw eta 
 
@@ -401,6 +407,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    ptN0->Draw();
 
    c->SaveAs(Form("figs/track/%s/Deta/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Deta/pdf/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Deta/C/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    max1 = hMC_bkg_eta->GetMaximum();
@@ -426,6 +434,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    ptNb->Draw();
 
    c->SaveAs(Form("figs/track/%s/Deta/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Deta/pdf/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Deta/C/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    max1 = hMC_sb_eta->GetMaximum();
@@ -455,6 +465,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //ptN0->Draw();
 
    c->SaveAs(Form("figs/track/%s/Deta/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Deta/pdf/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Deta/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    max1 = hMC_sbr_eta->GetMaximum();
@@ -484,6 +496,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //ptN0->Draw();
 
    c->SaveAs(Form("figs/track/%s/Deta/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Deta/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Deta/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    max1 = hMC_phi->GetMaximum();
@@ -511,6 +525,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    ptN0->Draw();
 
    c->SaveAs(Form("figs/track/%s/Dphi/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Dphi/pdf/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Dphi/C/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    max1 = hMC_bkg_phi->GetMaximum();
@@ -538,6 +554,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    ptNb->Draw();
 
    c->SaveAs(Form("figs/track/%s/Dphi/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Dphi/pdf/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Dphi/C/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    max1 = hMC_sb_phi->GetMaximum();
@@ -569,6 +587,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //ptN0->Draw();
 
    c->SaveAs(Form("figs/track/%s/Dphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Dphi/pdf/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Dphi/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    max1 = hMC_sbr_phi->GetMaximum();
@@ -600,6 +620,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //ptN0->Draw();
 
    c->SaveAs(Form("figs/track/%s/Dphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Dphi/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/Dphi/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->SetCanvasSize(1400,800);
@@ -638,6 +660,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    gPad->SetPhi(38.0172);
 
    c->SaveAs(Form("figs/track/%s/3D/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/3D/pdf/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/3D/C/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -675,6 +699,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    gPad->SetPhi(38.0172);
 
    c->SaveAs(Form("figs/track/%s/3D/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/3D/pdf/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/3D/C/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -712,6 +738,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    gPad->SetPhi(38.0172);
 
    c->SaveAs(Form("figs/track/%s/3D/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/3D/pdf/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/3D/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -749,6 +777,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    gPad->SetPhi(38.0172);
 
    c->SaveAs(Form("figs/track/%s/3D/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/3D/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("figs/track/%s/3D/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_3D.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
 }
