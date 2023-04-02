@@ -206,6 +206,8 @@ int main(int argc, char *argv[])
             HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta - ZEta->at(0), DeltaPhi(maxOppositeWTADPhi, ZPhi->at(0)));
             HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta - ZEta->at(0), DeltaPhi(maxMoreOppositeWTADPhi, ZPhi->at(0)));
          }
+         else
+            continue;
 
          bool SomethingPassed = false;
 
