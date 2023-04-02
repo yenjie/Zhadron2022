@@ -78,6 +78,7 @@ int main(int argc, char *argv[])
 
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
+   vector<TH1D *>           HEventCount;
    vector<TH1D *>           HEta;
    vector<TH1D *>           HPhi;
    vector<TH2D *>           HEtaPhi;
@@ -112,6 +113,7 @@ int main(int argc, char *argv[])
       
       Folder[iC]->cd();
       EventCount.push_back(0);
+      HEventCount.push_back(new TH1D("HEventCount", "", 1, 0, 1));
       HEta.push_back(new TH1D("HEta", "", C[iC].BinCount, 0, 6.3));
       HPhi.push_back(new TH1D("HPhi", "", C[iC].BinCount, -M_PI, M_PI));
       HEtaPhi.push_back(new TH2D("HEtaPhi", "", 150, -3.2, 3.2, 150, -M_PI, M_PI));
@@ -213,7 +215,7 @@ int main(int argc, char *argv[])
          for(int iT = 0; iT < NTrack; iT++)
          {
             bool TrackPTRange = false;
-            if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) > C[iC].TrackPTMax)
+            if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
                TrackPTRange = true;
 
             bool PassEvent = ZMassRange && ZPTRange && CentRange;
@@ -275,7 +277,10 @@ int main(int argc, char *argv[])
          }
 
          if(SomethingPassed == true)
+         {
             EventCount[iC] = EventCount[iC] + 1;
+            HEventCount[iC]->Fill(0);
+         }
       }
    }
    Bar.Update(EntryCount);
@@ -287,6 +292,7 @@ int main(int argc, char *argv[])
       Folder[iC]->cd();
       TNamed N("EntryCount", Form("%f", EventCount[iC]));
       N.Write();
+      HEventCount[iC]->Write();
       HEta[iC]->Write();
       HPhi[iC]->Write();
       HEtaPhi[iC]->Write();
