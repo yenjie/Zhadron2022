@@ -1,7 +1,7 @@
 OutputBase = '/store/group/phys_heavyions/chenyi/PbPb2018/Forest'
 # DatasetName = '/DiJet_pThat-15_TuneCP5_HydjetDrumMB_5p02TeV_Pythia8/HINPbPbSpring21MiniAOD-FixL1CaloGT_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM'
 DatasetName = '/HISingleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD'
-Tag = '20230331_ZHadronSingleMuonWithMuTree'
+Tag = '20230401_ZHadronSingleMuonWithMuTree'
 
 from WMCore.Configuration import Configuration
 config = Configuration()
@@ -13,7 +13,7 @@ config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'forest_miniAOD_run2_DATA.py'
 config.JobType.allowUndistributedCMSSW = True
 config.JobType.maxMemoryMB = 5000
-# config.JobType.maxJobRuntimeMin = 2160
+config.JobType.maxJobRuntimeMin = 4800
 # config.JobType.inputFiles = ['']
 
 config.section_("Data")

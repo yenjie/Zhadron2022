@@ -147,9 +147,9 @@ process.forest = cms.Path(
 #customisation
 
 addR3Jets = True
-addR3FlowJets = True
+addR3FlowJets = False
 addR4Jets = True
-addR4FlowJets = True
+addR4FlowJets = False
 
 # this is only for non-reclustered jets
 addCandidateTagging = False
