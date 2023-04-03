@@ -337,10 +337,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    std::string sDb_tN = (std::string) nDb_tN->GetTitle();
    std::string sMb_tN = (std::string) nMb_tN->GetTitle();
 
-   float tD_tN  = std::stoi(sD_tN);
-   float tM_tN  = std::stoi(sM_tN);
-   float tDb_tN = std::stoi(sDb_tN);
-   float tMb_tN = std::stoi(sMb_tN);
+   float tD_tN  = std::stof(sD_tN);
+   float tM_tN  = std::stof(sM_tN);
+   float tDb_tN = std::stof(sDb_tN);
+   float tMb_tN = std::stof(sMb_tN);
 
    std::cout<<"tD_tN = "<<tD_tN<<std::endl;
    std::cout<<"tM_tN = "<<tM_tN<<std::endl;
@@ -2305,20 +2305,20 @@ int main(int argc, char *argv[]){
    file_bkgDA = TFile::Open("GraphDataBackground.root","read");
 
    ZtrackDraw_single(40,  0, 2000,  0, 90,  0, 1000);
-   ZtrackDraw_single(40, 30,   40,  0, 90,  0, 1000);
-   ZtrackDraw_single(40, 40,   60,  0, 90,  0, 1000);
-   ZtrackDraw_single(40, 60,   80,  0, 90,  0, 1000);
-   ZtrackDraw_single(40, 80,  100,  0, 90,  0, 1000);
-   ZtrackDraw_single(40,  0, 2000,  0, 10,  0, 1000);
-   ZtrackDraw_single(40,  0, 2000, 10, 30,  0, 1000);
-   ZtrackDraw_single(40,  0, 2000, 30, 50,  0, 1000);
-   ZtrackDraw_single(40,  0, 2000, 50, 90,  0, 1000);
-   ZtrackDraw_single(40,  0, 2000,  0, 90,  1,    2);
-   ZtrackDraw_single(40,  0, 2000,  0, 90,  2,    5);
-   ZtrackDraw_single(40,  0, 2000,  0, 90,  5,   10);
-   ZtrackDraw_single(40,  0, 2000,  0, 90, 10,   20);
-   ZtrackDraw_single(40,  0, 2000,  0, 90, 20,   50);
-   ZtrackDraw_single(40,  0, 2000,  0, 90, 50,  100);
+   //ZtrackDraw_single(40, 30,   40,  0, 90,  0, 1000);
+   //ZtrackDraw_single(40, 40,   60,  0, 90,  0, 1000);
+   //ZtrackDraw_single(40, 60,   80,  0, 90,  0, 1000);
+   //ZtrackDraw_single(40, 80,  100,  0, 90,  0, 1000);
+   //ZtrackDraw_single(40,  0, 2000,  0, 10,  0, 1000);
+   //ZtrackDraw_single(40,  0, 2000, 10, 30,  0, 1000);
+   //ZtrackDraw_single(40,  0, 2000, 30, 50,  0, 1000);
+   //ZtrackDraw_single(40,  0, 2000, 50, 90,  0, 1000);
+   //ZtrackDraw_single(40,  0, 2000,  0, 90,  1,    2);
+   //ZtrackDraw_single(40,  0, 2000,  0, 90,  2,    5);
+   //ZtrackDraw_single(40,  0, 2000,  0, 90,  5,   10);
+   //ZtrackDraw_single(40,  0, 2000,  0, 90, 10,   20);
+   //ZtrackDraw_single(40,  0, 2000,  0, 90, 20,   50);
+   //ZtrackDraw_single(40,  0, 2000,  0, 90, 50,  100);
    //ZtrackDraw_single(40, 20, 2000, 50, 90,  0, 1000);
    //ZtrackDraw_single(40, 40, 2000, 50, 90,  0, 1000);
    //ZtrackDraw_single(40, 20, 2000, 50, 90,  5,   10);
