@@ -31,6 +31,12 @@ int main(int argc, char *argv[])
    TH1D *HSignalCount     = (TH1D *)SignalFile.Get(Form("%s/HEventCount", Folder.c_str()));
    TH1D *HBackgroundCount = (TH1D *)BackgroundFile.Get(Form("%s/HEventCount", Folder.c_str()));
 
+   HSignal->SetStats(0);
+   HBackground->SetStats(0);
+
+   HSignal->Rebin2D(2, 2);
+   HBackground->Rebin2D(2, 2);
+
    PdfFileHelper PdfFile(OutputFileName);
 
    PdfFile.AddTextPage("Z-hadron correlation plots");
@@ -38,28 +44,37 @@ int main(int argc, char *argv[])
       "Running with these inputs:",
       "      Signal: " + SignalFileName,
       "      Background: " + BackgroundFileName,
-      "      Folder:" + Folder,
+      "      " + Folder,
       "      Histogram: " + Histogram});
 
    PdfFile.AddTextPage("Original signal");
    PdfFile.AddPlot(HSignal, "colz");
-   PdfFile.AddPlot(HSignal, "lego20z");
+   // PdfFile.AddPlot(HSignal, "lego20z");
    
    PdfFile.AddTextPage("Original background");
    PdfFile.AddPlot(HBackground, "colz");
-   PdfFile.AddPlot(HBackground, "lego20z");
+   // PdfFile.AddPlot(HBackground, "lego20z");
 
    HSignal->Scale(1 / HSignalCount->GetBinContent(1));
    HBackground->Scale(1 / HBackgroundCount->GetBinContent(1));
 
    PdfFile.AddTextPage("Scaled signal & background");
-   PdfFile.AddPlot(HSignal, "lego20z");
-   PdfFile.AddPlot(HBackground, "lego20z");
+   PdfFile.AddPlot(HSignal, "colz");
+   PdfFile.AddPlot(HBackground, "colz");
 
-   HSignal->Add(HBackground, -1);
+   TH2D *HDiff = (TH2D *)HSignal->Clone("HDiff");
+   HDiff->Add(HBackground, -1);
+   
+   TH2D *HRatio = (TH2D *)HSignal->Clone("HRatio");
+   HRatio->Divide(HBackground);
 
    PdfFile.AddTextPage("Subtracted result");
-   PdfFile.AddPlot(HSignal, "lego20z");
+   PdfFile.AddPlot(HDiff, "colz");
+   PdfFile.AddPlot(HDiff, "lego20z");
+   
+   PdfFile.AddTextPage("Subtracted result");
+   PdfFile.AddPlot(HRatio, "colz");
+   PdfFile.AddPlot(HRatio, "lego20z");
 
    PdfFile.AddTimeStampPage();
    PdfFile.Close();

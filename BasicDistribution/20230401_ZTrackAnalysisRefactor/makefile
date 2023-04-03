@@ -12,7 +12,11 @@ TestRun: Execute
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
-		--Folder Plot_ZPT_0_2000_Cent_0_90_TrackPT_0p00_1000p00 --Histogram HEtaPhi
+		--Folder Plot_ZPT_0_2000_Cent_0_90_TrackPT_0p00_1000p00 --Histogram HEtaPhi \
+		--Output Plot_ZPT_0_2000_Cent_0_90_TrackPT_0p00_1000p00.pdf
+	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
+		--Folder Plot_ZPT_0_2000_Cent_0_10_TrackPT_0p00_1000p00 --Histogram HEtaPhi \
+		--Output Plot_ZPT_0_2000_Cent_0_10_TrackPT_0p00_1000p00.pdf
 
 Execute: ZTrackAnalysis.cpp
 	g++ ZTrackAnalysis.cpp -I. -I$(ProjectBase)/CommonCode/include \
