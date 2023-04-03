@@ -76,6 +76,7 @@ int main(int argc, char *argv[])
    PdfFile.AddTextPage("Ratio");
    PdfFile.AddPlot(HRatio, "colz");
    // PdfFile.AddPlot(HRatio, "lego20z");
+   PdfFile.AddPlot(HRatio, "colz", false, true);   // log z
 
    PdfFile.AddTimeStampPage();
    PdfFile.Close();
