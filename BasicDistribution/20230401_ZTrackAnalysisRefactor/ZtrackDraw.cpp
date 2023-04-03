@@ -299,6 +299,26 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_ZWTAMoreetaphi->Rebin2D(10,10);
    hData_Zbkg_WTAMoreetaphi->Rebin2D(10,10);
 
+   hMC_etaphi_1->Rebin2D(2,2);
+   hMC_bkg_etaphi_1->Rebin2D(2,2);
+
+   hMC_maxetaphi->Rebin2D(2,2);
+   hMC_bkg_maxetaphi->Rebin2D(2,2);
+   hMC_maxOetaphi->Rebin2D(2,2);
+   hMC_bkg_maxOetaphi->Rebin2D(2,2);
+   hMC_WTAetaphi->Rebin2D(2,2);
+   hMC_bkg_WTAetaphi->Rebin2D(2,2);
+   hMC_WTAMoreetaphi->Rebin2D(2,2);
+   hMC_bkg_WTAMoreetaphi->Rebin2D(2,2);
+   hMC_Zmaxetaphi->Rebin2D(2,2);
+   hMC_Zbkg_maxetaphi->Rebin2D(2,2);
+   hMC_ZmaxOetaphi->Rebin2D(2,2);
+   hMC_Zbkg_maxOetaphi->Rebin2D(2,2);
+   hMC_ZWTAetaphi->Rebin2D(2,2);
+   hMC_Zbkg_WTAetaphi->Rebin2D(2,2);
+   hMC_ZWTAMoreetaphi->Rebin2D(2,2);
+   hMC_Zbkg_WTAMoreetaphi->Rebin2D(2,2);
+
    std::cout<<"Setting histograms..."<<std::endl;
 
    float hfL=0, hfH=0;
