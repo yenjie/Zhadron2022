@@ -56,7 +56,8 @@ int main(int argc, char *argv[])
 
    PdfFile.AddTextPage("Subtracted result");
    PdfFile.AddPlot(HSignal, "lego20z");
-   
+
+   PdfFile.AddTimeStampPage();
    PdfFile.Close();
 
    BackgroundFile.Close();
