@@ -1,16 +1,22 @@
 default: TestRun
 
 TestRun: Execute
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions_ops/pchou/OutputMC_old/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions_ops/pchou/OutputMC/ \
 		--Output GraphMCSignal.root
-	./Execute --InputBase /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/Skims/20230310_ZHadronSkims/Output_old/ \
+	./Execute --InputBase /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/Skims/20230310_ZHadronSkims/Output/000*/ \
 		--Output GraphDataSignal.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions_ops/pchou/OutputMCbkg_old/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions_ops/pchou/OutputMCbkg/ \
 		--Output GraphMCBackground.root
-	./Execute --InputBase /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/Skims/20230310_ZHadronSkims/OutputBkg_old/ \
+	./Execute --InputBase /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/Skims/20230310_ZHadronSkims/OutputBkg/000*/ \
 		--Output GraphDataBackground.root
 
 Execute: ZTrackAnalysis.cpp
 	g++ ZTrackAnalysis.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o Execute `root-config --cflags --libs` -std=c++17
 
+Draw: ExeDraw
+	./ExeDraw
+
+ExeDraw: ZtrackDraw.cpp
+	g++ ZtrackDraw.cpp -I. -I$(ProjectBase)/CommonCode/include \
+		-o ExeDraw `root-config --cflags --libs` -std=c++17
