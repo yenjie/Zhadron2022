@@ -10,6 +10,10 @@ TestRun: Execute
 	./Execute --InputBase /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/Skims/20230310_ZHadronSkims/OutputBkg/000*/ \
 		--Output GraphDataBackground.root
 
+TestExploration: ExecuteExploration
+	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
+		--Folder Plot_ZPT_0_2000_Cent_0_90_TrackPT_0p00_1000p00 --Histogram HEtaPhi
+
 Execute: ZTrackAnalysis.cpp
 	g++ ZTrackAnalysis.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o Execute `root-config --cflags --libs` -std=c++17
@@ -20,3 +24,8 @@ Draw: ExecuteDraw
 ExecuteDraw: ZtrackDraw.cpp
 	g++ ZtrackDraw.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o ExecuteDraw `root-config --cflags --libs` -std=c++17
+
+ExecuteExploration: SimpleExploration.cpp
+	g++ SimpleExploration.cpp -I. -I$(ProjectBase)/CommonCode/include \
+		-o ExecuteExploration `root-config --cflags --libs` -std=c++17
+
