@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
 
    PdfFileHelper PdfFile(OutputFileName);
 
+   PdfFile.AddTextPage("Z-hadron correlation plots");
    PdfFile.AddTextPage(vector<string>{
       "Running with these inputs:",
       "      Signal: " + SignalFileName,
