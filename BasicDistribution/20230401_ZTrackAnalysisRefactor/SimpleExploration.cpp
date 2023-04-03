@@ -67,6 +67,7 @@ int main(int argc, char *argv[])
    
    TH2D *HRatio = (TH2D *)HSignal->Clone("HRatio");
    HRatio->Divide(HBackground);
+   HRatio->GetXaxis()->SetRangeUser(-3, 3);
 
    PdfFile.AddTextPage("Subtracted result");
    PdfFile.AddPlot(HDiff, "colz");
