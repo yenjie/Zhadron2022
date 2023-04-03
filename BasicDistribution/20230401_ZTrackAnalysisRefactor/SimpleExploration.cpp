@@ -34,8 +34,8 @@ int main(int argc, char *argv[])
    HSignal->SetStats(0);
    HBackground->SetStats(0);
 
-   HSignal->Rebin2D(2, 2);
-   HBackground->Rebin2D(2, 2);
+   HSignal->Rebin2D(3, 3);
+   HBackground->Rebin2D(3, 3);
 
    PdfFileHelper PdfFile(OutputFileName);
 
@@ -70,11 +70,11 @@ int main(int argc, char *argv[])
 
    PdfFile.AddTextPage("Subtracted result");
    PdfFile.AddPlot(HDiff, "colz");
-   PdfFile.AddPlot(HDiff, "lego20z");
+   // PdfFile.AddPlot(HDiff, "lego20z");
    
-   PdfFile.AddTextPage("Subtracted result");
+   PdfFile.AddTextPage("Ratio");
    PdfFile.AddPlot(HRatio, "colz");
-   PdfFile.AddPlot(HRatio, "lego20z");
+   // PdfFile.AddPlot(HRatio, "lego20z");
 
    PdfFile.AddTimeStampPage();
    PdfFile.Close();
