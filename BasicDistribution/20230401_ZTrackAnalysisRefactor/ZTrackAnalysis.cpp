@@ -79,6 +79,13 @@ int main(int argc, char *argv[])
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
    vector<TH1D *>           HEventCount;
+   vector<TH1D *>           HZPT;
+   vector<TH1D *>           HZEta;
+   vector<TH1D *>           HZPhi;
+   vector<TH1D *>           HZMass;
+   vector<TH1D *>           HTrackPT;
+   vector<TH1D *>           HTrackEta;
+   vector<TH1D *>           HTrackPhi;
    vector<TH1D *>           HEta;
    vector<TH1D *>           HPhi;
    vector<TH2D *>           HEtaPhi;
@@ -116,29 +123,37 @@ int main(int argc, char *argv[])
       EventCount.push_back(0);
       HEventCount.push_back(new TH1D("HEventCount", "", 1, 0, 1));
       
+      HZPT.push_back(new TH1D("HZPT", "Z candidate PT", 100, 0, 200));
+      HZEta.push_back(new TH1D("HZEta", "Z candidate eta", 100, -3.2, 3.2));
+      HZPhi.push_back(new TH1D("HZPhi", "Z candidate phi", 100, -M_PI, M_PI));
+      HZMass.push_back(new TH1D("HZMass", "Z candidate mass", 100, 0, 150));
+      HTrackPT.push_back(new TH1D("HTrackPT", "Track PT", 100, 0, 200));
+      HTrackEta.push_back(new TH1D("HTrackEta", "Track eta", 100, -3.2, 3.2));
+      HTrackPhi.push_back(new TH1D("HTrackPhi", "Track phi", 100, -M_PI, M_PI));
+      
       HEta.push_back(new TH1D("HEta", "", C[iC].BinCount, 0, 6.3));
-      HPhi.push_back(new TH1D("HPhi", "", C[iC].BinCount, -M_PI, M_PI));
-      HEtaPhi.push_back(new TH2D("HEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      HPhi.push_back(new TH1D("HPhi", "", C[iC].BinCount, -M_PI * 0.5, M_PI * 1.5));
+      HEtaPhi.push_back(new TH2D("HEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI * 0.5, M_PI * 1.5));
       
       HMaxHadronEta.push_back(new TH1D("HMaxHadronEta", "", C[iC].BinCount, 0, 6.3));
-      HMaxHadronPhi.push_back(new TH1D("HMaxHadronPhi", "", C[iC].BinCount, -M_PI, M_PI));
-      HMaxHadronEtaPhi.push_back(new TH2D("HMaxHadronEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI, M_PI));
-      HZMaxHadronEtaPhi.push_back(new TH2D("HZMaxHadronEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      HMaxHadronPhi.push_back(new TH1D("HMaxHadronPhi", "", C[iC].BinCount, -M_PI * 0.5, M_PI * 1.5));
+      HMaxHadronEtaPhi.push_back(new TH2D("HMaxHadronEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI * 0.5, M_PI * 1.5));
+      HZMaxHadronEtaPhi.push_back(new TH2D("HZMaxHadronEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI * 0.5, M_PI * 1.5));
       
       HMaxOppositeHadronEta.push_back(new TH1D("HMaxOppositeHadronEta", "", C[iC].BinCount, 0, 6.3));
-      HMaxOppositeHadronPhi.push_back(new TH1D("HMaxOppositeHadronPhi", "", C[iC].BinCount, -M_PI, M_PI));
-      HMaxOppositeHadronEtaPhi.push_back(new TH2D("HMaxOppositeHadronEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI, M_PI));
-      HZMaxOppositeHadronEtaPhi.push_back(new TH2D("HZMaxOppositeHadronEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      HMaxOppositeHadronPhi.push_back(new TH1D("HMaxOppositeHadronPhi", "", C[iC].BinCount, -M_PI * 0.5, M_PI * 1.5));
+      HMaxOppositeHadronEtaPhi.push_back(new TH2D("HMaxOppositeHadronEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI * 0.5, M_PI * 1.5));
+      HZMaxOppositeHadronEtaPhi.push_back(new TH2D("HZMaxOppositeHadronEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI * 0.5, M_PI * 1.5));
       
       HWTAEta.push_back(new TH1D("HWTAEta", "", C[iC].BinCount, 0, 6.3));
-      HWTAPhi.push_back(new TH1D("HWTAPhi", "", C[iC].BinCount, -M_PI, M_PI));
-      HWTAEtaPhi.push_back(new TH2D("HWTAEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI, M_PI));
-      HZWTAEtaPhi.push_back(new TH2D("HZWTAEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      HWTAPhi.push_back(new TH1D("HWTAPhi", "", C[iC].BinCount, -M_PI * 0.5, M_PI * 1.5));
+      HWTAEtaPhi.push_back(new TH2D("HWTAEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI * 0.5, M_PI * 1.5));
+      HZWTAEtaPhi.push_back(new TH2D("HZWTAEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI * 0.5, M_PI * 1.5));
       
       HWTAMoreEta.push_back(new TH1D("HWTAMoreEta", "", C[iC].BinCount, 0, 6.3));
-      HWTAMorePhi.push_back(new TH1D("HWTAMorePhi", "", C[iC].BinCount, -M_PI, M_PI));
-      HWTAMoreEtaPhi.push_back(new TH2D("HWTAMoreEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI, M_PI));
-      HZWTAMoreEtaPhi.push_back(new TH2D("HZWTAMoreEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      HWTAMorePhi.push_back(new TH1D("HWTAMorePhi", "", C[iC].BinCount, -M_PI * 0.5, M_PI * 1.5));
+      HWTAMoreEtaPhi.push_back(new TH2D("HWTAMoreEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI * 0.5, M_PI * 1.5));
+      HZWTAMoreEtaPhi.push_back(new TH2D("HZWTAMoreEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI * 0.5, M_PI * 1.5));
    }
   
    TChain *Tree = new TChain("Tree");
@@ -207,10 +222,15 @@ int main(int argc, char *argv[])
 
          if(ZMassRange && ZPTRange && CentRange)
          {
-            HZMaxHadronEtaPhi[iC]->Fill(maxDEta - ZEta->at(0), DeltaPhi(maxDPhi, ZPhi->at(0)));
-            HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta - ZEta->at(0), DeltaPhi(maxOppositeDPhi, ZPhi->at(0)));
-            HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta - ZEta->at(0), DeltaPhi(maxOppositeWTADPhi, ZPhi->at(0)));
-            HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta - ZEta->at(0), DeltaPhi(maxMoreOppositeWTADPhi, ZPhi->at(0)));
+            HZPT[iC]->Fill(ZPT->at(0));
+            HZEta[iC]->Fill(ZEta->at(0));
+            HZPhi[iC]->Fill(ZPhi->at(0));
+            HZMass[iC]->Fill(ZMass->at(0));
+
+            HZMaxHadronEtaPhi[iC]->Fill(maxDEta - ZEta->at(0), PhiRangeCorrelation(DeltaPhi(maxDPhi, ZPhi->at(0))));
+            HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta - ZEta->at(0), PhiRangeCorrelation(DeltaPhi(maxOppositeDPhi, ZPhi->at(0))));
+            HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta - ZEta->at(0), PhiRangeCorrelation(DeltaPhi(maxOppositeWTADPhi, ZPhi->at(0))));
+            HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta - ZEta->at(0), PhiRangeCorrelation(DeltaPhi(maxMoreOppositeWTADPhi, ZPhi->at(0))));
          }
          else
             continue;
@@ -242,45 +262,49 @@ int main(int argc, char *argv[])
                SomethingPassed = true;
             if(PassEverything)
             {
+               HTrackPT[iC]->Fill(TrackPT->at(iT));
+               HTrackEta[iC]->Fill(TrackDEta->at(iT) + ZEta->at(0));
+               HTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0)));
+               
                HEta[iC]->Fill(TrackDEta->at(iT));
-               HPhi[iC]->Fill(TrackDPhi->at(iT));
+               HPhi[iC]->Fill(PhiRangeCorrelation(TrackDPhi->at(iT)));
 
-               HEtaPhi[iC]->Fill(+TrackDEta->at(iT), +TrackDPhi->at(iT), 0.25);
-               HEtaPhi[iC]->Fill(+TrackDEta->at(iT), -TrackDPhi->at(iT), 0.25);
-               HEtaPhi[iC]->Fill(-TrackDEta->at(iT), +TrackDPhi->at(iT), 0.25);
-               HEtaPhi[iC]->Fill(-TrackDEta->at(iT), -TrackDPhi->at(iT), 0.25);
+               HEtaPhi[iC]->Fill(+TrackDEta->at(iT), PhiRangeCorrelation(+TrackDPhi->at(iT)), 0.25);
+               HEtaPhi[iC]->Fill(+TrackDEta->at(iT), PhiRangeCorrelation(-TrackDPhi->at(iT)), 0.25);
+               HEtaPhi[iC]->Fill(-TrackDEta->at(iT), PhiRangeCorrelation(+TrackDPhi->at(iT)), 0.25);
+               HEtaPhi[iC]->Fill(-TrackDEta->at(iT), PhiRangeCorrelation(-TrackDPhi->at(iT)), 0.25);
                
                HMaxHadronEta[iC]->Fill(DEtaToMax);
-               HMaxHadronPhi[iC]->Fill(DPhiToMax);
+               HMaxHadronPhi[iC]->Fill(PhiRangeCorrelation(DPhiToMax));
 
-               HMaxHadronEtaPhi[iC]->Fill(+DEtaToMax, +DPhiToMax, 0.25);
-               HMaxHadronEtaPhi[iC]->Fill(+DEtaToMax, -DPhiToMax, 0.25);
-               HMaxHadronEtaPhi[iC]->Fill(-DEtaToMax, +DPhiToMax, 0.25);
-               HMaxHadronEtaPhi[iC]->Fill(-DEtaToMax, -DPhiToMax, 0.25);
+               HMaxHadronEtaPhi[iC]->Fill(+DEtaToMax, PhiRangeCorrelation(+DPhiToMax), 0.25);
+               HMaxHadronEtaPhi[iC]->Fill(+DEtaToMax, PhiRangeCorrelation(-DPhiToMax), 0.25);
+               HMaxHadronEtaPhi[iC]->Fill(-DEtaToMax, PhiRangeCorrelation(+DPhiToMax), 0.25);
+               HMaxHadronEtaPhi[iC]->Fill(-DEtaToMax, PhiRangeCorrelation(-DPhiToMax), 0.25);
                
                HMaxOppositeHadronEta[iC]->Fill(DEtaToMaxOpposite);
-               HMaxOppositeHadronPhi[iC]->Fill(DPhiToMaxOpposite);
+               HMaxOppositeHadronPhi[iC]->Fill(PhiRangeCorrelation(DPhiToMaxOpposite));
 
-               HMaxOppositeHadronEtaPhi[iC]->Fill(+DEtaToMaxOpposite, +DPhiToMaxOpposite, 0.25);
-               HMaxOppositeHadronEtaPhi[iC]->Fill(+DEtaToMaxOpposite, -DPhiToMaxOpposite, 0.25);
-               HMaxOppositeHadronEtaPhi[iC]->Fill(-DEtaToMaxOpposite, +DPhiToMaxOpposite, 0.25);
-               HMaxOppositeHadronEtaPhi[iC]->Fill(-DEtaToMaxOpposite, -DPhiToMaxOpposite, 0.25);
+               HMaxOppositeHadronEtaPhi[iC]->Fill(+DEtaToMaxOpposite, PhiRangeCorrelation(+DPhiToMaxOpposite), 0.25);
+               HMaxOppositeHadronEtaPhi[iC]->Fill(+DEtaToMaxOpposite, PhiRangeCorrelation(-DPhiToMaxOpposite), 0.25);
+               HMaxOppositeHadronEtaPhi[iC]->Fill(-DEtaToMaxOpposite, PhiRangeCorrelation(+DPhiToMaxOpposite), 0.25);
+               HMaxOppositeHadronEtaPhi[iC]->Fill(-DEtaToMaxOpposite, PhiRangeCorrelation(-DPhiToMaxOpposite), 0.25);
                
                HWTAEta[iC]->Fill(DEtaToOppositeWTA);
-               HWTAPhi[iC]->Fill(DPhiToOppositeWTA);
+               HWTAPhi[iC]->Fill(PhiRangeCorrelation(DPhiToOppositeWTA));
 
-               HWTAEtaPhi[iC]->Fill(+DEtaToOppositeWTA, +DPhiToOppositeWTA, 0.25);
-               HWTAEtaPhi[iC]->Fill(+DEtaToOppositeWTA, -DPhiToOppositeWTA, 0.25);
-               HWTAEtaPhi[iC]->Fill(-DEtaToOppositeWTA, +DPhiToOppositeWTA, 0.25);
-               HWTAEtaPhi[iC]->Fill(-DEtaToOppositeWTA, -DPhiToOppositeWTA, 0.25);
+               HWTAEtaPhi[iC]->Fill(+DEtaToOppositeWTA, PhiRangeCorrelation(+DPhiToOppositeWTA), 0.25);
+               HWTAEtaPhi[iC]->Fill(+DEtaToOppositeWTA, PhiRangeCorrelation(-DPhiToOppositeWTA), 0.25);
+               HWTAEtaPhi[iC]->Fill(-DEtaToOppositeWTA, PhiRangeCorrelation(+DPhiToOppositeWTA), 0.25);
+               HWTAEtaPhi[iC]->Fill(-DEtaToOppositeWTA, PhiRangeCorrelation(-DPhiToOppositeWTA), 0.25);
                
                HWTAMoreEta[iC]->Fill(DEtaToMoreOppositeWTA);
-               HWTAMorePhi[iC]->Fill(DPhiToMoreOppositeWTA);
+               HWTAMorePhi[iC]->Fill(PhiRangeCorrelation(DPhiToMoreOppositeWTA));
 
-               HWTAMoreEtaPhi[iC]->Fill(+DEtaToMoreOppositeWTA, +DPhiToMoreOppositeWTA, 0.25);
-               HWTAMoreEtaPhi[iC]->Fill(+DEtaToMoreOppositeWTA, -DPhiToMoreOppositeWTA, 0.25);
-               HWTAMoreEtaPhi[iC]->Fill(-DEtaToMoreOppositeWTA, +DPhiToMoreOppositeWTA, 0.25);
-               HWTAMoreEtaPhi[iC]->Fill(-DEtaToMoreOppositeWTA, -DPhiToMoreOppositeWTA, 0.25);
+               HWTAMoreEtaPhi[iC]->Fill(+DEtaToMoreOppositeWTA, PhiRangeCorrelation(+DPhiToMoreOppositeWTA), 0.25);
+               HWTAMoreEtaPhi[iC]->Fill(+DEtaToMoreOppositeWTA, PhiRangeCorrelation(-DPhiToMoreOppositeWTA), 0.25);
+               HWTAMoreEtaPhi[iC]->Fill(-DEtaToMoreOppositeWTA, PhiRangeCorrelation(+DPhiToMoreOppositeWTA), 0.25);
+               HWTAMoreEtaPhi[iC]->Fill(-DEtaToMoreOppositeWTA, PhiRangeCorrelation(-DPhiToMoreOppositeWTA), 0.25);
             }
          }
 
@@ -301,6 +325,13 @@ int main(int argc, char *argv[])
       TNamed N("EntryCount", Form("%f", EventCount[iC]));
       N.Write();
       HEventCount[iC]->Write();
+      HZPT[iC]->Write();
+      HZEta[iC]->Write();
+      HZPhi[iC]->Write();
+      HZMass[iC]->Write();
+      HTrackPT[iC]->Write();
+      HTrackEta[iC]->Write();
+      HTrackPhi[iC]->Write();
       HEta[iC]->Write();
       HPhi[iC]->Write();
       HEtaPhi[iC]->Write();
