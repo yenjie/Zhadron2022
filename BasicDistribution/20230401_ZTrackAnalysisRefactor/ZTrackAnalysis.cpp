@@ -104,10 +104,11 @@ int main(int argc, char *argv[])
    for(int iC = 0; iC < C.size(); iC++)
    {
       string FolderName =
-         Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f",
+         Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",
             C[iC].ZPTMin, C[iC].ZPTMax,
             C[iC].CentMin, C[iC].CentMax,
             C[iC].TrackPTMin, C[iC].TrackPTMax);
+      replace(FolderName.begin(), FolderName.end(), '.', 'p');
 
       Folder.push_back(OutputFile.mkdir(FolderName.c_str()));
       

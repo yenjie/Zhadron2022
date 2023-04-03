@@ -14,9 +14,9 @@ Execute: ZTrackAnalysis.cpp
 	g++ ZTrackAnalysis.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o Execute `root-config --cflags --libs` -std=c++17
 
-Draw: ExeDraw
-	./ExeDraw
+Draw: ExecuteDraw
+	./ExecuteDraw
 
-ExeDraw: ZtrackDraw.cpp
+ExecuteDraw: ZtrackDraw.cpp
 	g++ ZtrackDraw.cpp -I. -I$(ProjectBase)/CommonCode/include \
-		-o ExeDraw `root-config --cflags --libs` -std=c++17
+		-o ExecuteDraw `root-config --cflags --libs` -std=c++17
