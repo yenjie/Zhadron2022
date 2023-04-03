@@ -125,38 +125,41 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    std::cout<<"Getting histograms..."<<std::endl;
 
-   TH1D* hData_eta = (TH1D*) file_sigDA->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HEta",ptL,ptH,centL,centH,TptL,TptH));
-   TH1D* hMC_eta = (TH1D*) file_sigMC->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HEta",ptL,ptH,centL,centH,TptL,TptH));
+   std::string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f",ptL,ptH,centL,centH,TptL,TptH);
+   std::replace(FolderName.begin(), FolderName.end(), '.', ',');
+
+   TH1D* hData_eta = (TH1D*) file_sigDA->Get(Form("%s/HEta", FolderName.c_str()));
+   TH1D* hMC_eta = (TH1D*) file_sigMC->Get(Form("%s/HEta", FolderName.c_str()));
 
    hData_eta->SetName("hData_eta");
    hMC_eta->SetName("hMC_eta");
 
-   TH1D* hData_phi = (TH1D*) file_sigDA->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HPhi",ptL,ptH,centL,centH,TptL,TptH));
-   TH1D* hMC_phi = (TH1D*) file_sigMC->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HPhi",ptL,ptH,centL,centH,TptL,TptH));
+   TH1D* hData_phi = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderName.c_str()));
+   TH1D* hMC_phi = (TH1D*) file_sigMC->Get(Form("%s/HPhi", FolderName.c_str()));
 
    hData_phi->SetName("hData_phi");
    hMC_phi->SetName("hMC_phi");
 
-   TH2D* hData_etaphi_1 = (TH2D*) file_sigDA->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HEtaPhi",ptL,ptH,centL,centH,TptL,TptH));
-   TH2D* hMC_etaphi_1 = (TH2D*) file_sigMC->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HEtaPhi",ptL,ptH,centL,centH,TptL,TptH));
+   TH2D* hData_etaphi_1 = (TH2D*) file_sigDA->Get(Form("%s/HEtaPhi", FolderName.c_str()));
+   TH2D* hMC_etaphi_1 = (TH2D*) file_sigMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
 
    hData_etaphi_1->SetName("hData_etaphi_1");
    hMC_etaphi_1->SetName("hMC_etaphi_1");
 
-   TH1D* hData_bkg_eta = (TH1D*) file_bkgDA->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HEta",ptL,ptH,centL,centH,TptL,TptH));
-   TH1D* hMC_bkg_eta = (TH1D*) file_bkgMC->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HEta",ptL,ptH,centL,centH,TptL,TptH));
+   TH1D* hData_bkg_eta = (TH1D*) file_bkgDA->Get(Form("%s/HEta", FolderName.c_str()));
+   TH1D* hMC_bkg_eta = (TH1D*) file_bkgMC->Get(Form("%s/HEta", FolderName.c_str()));
 
    hData_bkg_eta->SetName("hData_bkg_eta");
    hMC_bkg_eta->SetName("hMC_bkg_eta");
 
-   TH1D* hData_bkg_phi = (TH1D*) file_bkgDA->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HPhi",ptL,ptH,centL,centH,TptL,TptH));
-   TH1D* hMC_bkg_phi = (TH1D*) file_bkgMC->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HPhi",ptL,ptH,centL,centH,TptL,TptH));
+   TH1D* hData_bkg_phi = (TH1D*) file_bkgDA->Get(Form("%s/HPhi", FolderName.c_str()));
+   TH1D* hMC_bkg_phi = (TH1D*) file_bkgMC->Get(Form("%s/HPhi", FolderName.c_str()));
 
    hData_bkg_phi->SetName("hData_bkg_phi");
    hMC_bkg_phi->SetName("hMC_bkg_phi");
 
-   TH2D* hData_bkg_etaphi_1 = (TH2D*) file_bkgDA->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HEtaPhi",ptL,ptH,centL,centH,TptL,TptH));
-   TH2D* hMC_bkg_etaphi_1 = (TH2D*) file_bkgMC->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/HEtaPhi",ptL,ptH,centL,centH,TptL,TptH));
+   TH2D* hData_bkg_etaphi_1 = (TH2D*) file_bkgDA->Get(Form("%s/HEtaPhi", FolderName.c_str()));
+   TH2D* hMC_bkg_etaphi_1 = (TH2D*) file_bkgMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
 
    hData_bkg_etaphi_1->SetName("hData_bkg_etaphi_1");
    hMC_bkg_etaphi_1->SetName("hMC_bkg_etaphi_1");
@@ -194,10 +197,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    std::cout<<"Getting Entries..."<<std::endl;
 
-   TNamed *nD_tN  = (TNamed *) file_sigDA->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/EntryCount",ptL,ptH,centL,centH,TptL,TptH));
-   TNamed *nM_tN  = (TNamed *) file_sigMC->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/EntryCount",ptL,ptH,centL,centH,TptL,TptH));
-   TNamed *nDb_tN = (TNamed *) file_bkgDA->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/EntryCount",ptL,ptH,centL,centH,TptL,TptH));
-   TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.0f_%.0f/EntryCount",ptL,ptH,centL,centH,TptL,TptH));
+   TNamed *nD_tN  = (TNamed *) file_sigDA->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *nM_tN  = (TNamed *) file_sigMC->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *nDb_tN = (TNamed *) file_bkgDA->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
 
    std::string sD_tN  = (std::string) nD_tN->GetTitle();
    std::string sM_tN  = (std::string) nM_tN->GetTitle();
