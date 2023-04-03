@@ -8,9 +8,12 @@ using namespace std;
 
 #include "CommandLine.h"
 #include "PlotHelper4.h"
+#include "SetStyle.h"
 
 int main(int argc, char *argv[])
 {
+   SetThesisStyle();
+
    CommandLine CL(argc, argv);
 
    string SignalFileName     = CL.Get("SignalFile");
