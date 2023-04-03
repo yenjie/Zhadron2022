@@ -10,6 +10,7 @@
 double DeltaPhi(double Phi1, double Phi2);
 double PhiRangePositive(double Phi);
 double PhiRangeSymmetric(double Phi);
+double PhiRangeCorrelation(double Phi);
 double FindNColl(int hiBin);
 double FindNPart(int hiBin);
 double FindNCollAverage(int hiBin);
@@ -32,8 +33,15 @@ double PhiRangePositive(double Phi)
 
 double PhiRangeSymmetric(double Phi)
 {
-   while(Phi < -M_PI)   Phi = Phi + 2 * M_PI;
-   while(Phi > +M_PI)   Phi = Phi - 2 * M_PI;
+   if(Phi < -M_PI)   Phi = Phi + 2 * M_PI;
+   if(Phi > +M_PI)   Phi = Phi - 2 * M_PI;
+   return Phi;
+}
+
+double PhiRangeCorrelation(double Phi)
+{
+   if(Phi < -M_PI * 0.5)   Phi = Phi + 2 * M_PI;
+   if(Phi > +M_PI * 1.5)   Phi = Phi - 2 * M_PI;
    return Phi;
 }
 
