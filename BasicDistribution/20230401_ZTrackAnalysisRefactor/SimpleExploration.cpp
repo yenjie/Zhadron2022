@@ -30,9 +30,9 @@ int main(int argc, char *argv[])
 
    PdfFileHelper PdfFile(OutputFileName);
 
-   PdfFile.AddTextPage({
+   PdfFile.AddTextPage(vector<string>{
       "Running with these inputs:",
-      "      Signal: " + SignalfileName,
+      "      Signal: " + SignalFileName,
       "      Background: " + BackgroundFileName,
       "      Folder:" + Folder,
       "      Histogram: " + Histogram});
