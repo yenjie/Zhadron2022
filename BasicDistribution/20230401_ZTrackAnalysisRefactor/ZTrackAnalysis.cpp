@@ -115,25 +115,30 @@ int main(int argc, char *argv[])
       Folder[iC]->cd();
       EventCount.push_back(0);
       HEventCount.push_back(new TH1D("HEventCount", "", 1, 0, 1));
+      
       HEta.push_back(new TH1D("HEta", "", C[iC].BinCount, 0, 6.3));
       HPhi.push_back(new TH1D("HPhi", "", C[iC].BinCount, -M_PI, M_PI));
-      HEtaPhi.push_back(new TH2D("HEtaPhi", "", 150, -3.2, 3.2, 150, -M_PI, M_PI));
+      HEtaPhi.push_back(new TH2D("HEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      
       HMaxHadronEta.push_back(new TH1D("HMaxHadronEta", "", C[iC].BinCount, 0, 6.3));
       HMaxHadronPhi.push_back(new TH1D("HMaxHadronPhi", "", C[iC].BinCount, -M_PI, M_PI));
-      HMaxHadronEtaPhi.push_back(new TH2D("HMaxHadronEtaPhi", "", 150, -3.2, 3.2, 150, -M_PI, M_PI));
-      HZMaxHadronEtaPhi.push_back(new TH2D("HZMaxHadronEtaPhi", "Z-axis correlation", 150, -3.2, 3.2, 150, -M_PI, M_PI));
+      HMaxHadronEtaPhi.push_back(new TH2D("HMaxHadronEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      HZMaxHadronEtaPhi.push_back(new TH2D("HZMaxHadronEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      
       HMaxOppositeHadronEta.push_back(new TH1D("HMaxOppositeHadronEta", "", C[iC].BinCount, 0, 6.3));
       HMaxOppositeHadronPhi.push_back(new TH1D("HMaxOppositeHadronPhi", "", C[iC].BinCount, -M_PI, M_PI));
-      HMaxOppositeHadronEtaPhi.push_back(new TH2D("HMaxOppositeHadronEtaPhi", "", 150, -3.2, 3.2, 150, -M_PI, M_PI));
-      HZMaxOppositeHadronEtaPhi.push_back(new TH2D("HZMaxOppositeHadronEtaPhi", "Z-axis correlation", 150, -3.2, 3.2, 150, -M_PI, M_PI));
+      HMaxOppositeHadronEtaPhi.push_back(new TH2D("HMaxOppositeHadronEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      HZMaxOppositeHadronEtaPhi.push_back(new TH2D("HZMaxOppositeHadronEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      
       HWTAEta.push_back(new TH1D("HWTAEta", "", C[iC].BinCount, 0, 6.3));
       HWTAPhi.push_back(new TH1D("HWTAPhi", "", C[iC].BinCount, -M_PI, M_PI));
-      HWTAEtaPhi.push_back(new TH2D("HWTAEtaPhi", "", 150, -3.2, 3.2, 150, -M_PI, M_PI));
-      HZWTAEtaPhi.push_back(new TH2D("HZWTAEtaPhi", "Z-axis correlation", 150, -3.2, 3.2, 150, -M_PI, M_PI));
+      HWTAEtaPhi.push_back(new TH2D("HWTAEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      HZWTAEtaPhi.push_back(new TH2D("HZWTAEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      
       HWTAMoreEta.push_back(new TH1D("HWTAMoreEta", "", C[iC].BinCount, 0, 6.3));
       HWTAMorePhi.push_back(new TH1D("HWTAMorePhi", "", C[iC].BinCount, -M_PI, M_PI));
-      HWTAMoreEtaPhi.push_back(new TH2D("HWTAMoreEtaPhi", "", 150, -3.2, 3.2, 150, -M_PI, M_PI));
-      HZWTAMoreEtaPhi.push_back(new TH2D("HZWTAMoreEtaPhi", "Z-axis correlation", 150, -3.2, 3.2, 150, -M_PI, M_PI));
+      HWTAMoreEtaPhi.push_back(new TH2D("HWTAMoreEtaPhi", "", 150, -6.4, 6.4, 150, -M_PI, M_PI));
+      HZWTAMoreEtaPhi.push_back(new TH2D("HZWTAMoreEtaPhi", "Z-axis correlation", 150, -6.4, 6.4, 150, -M_PI, M_PI));
    }
   
    TChain *Tree = new TChain("Tree");
