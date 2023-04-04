@@ -337,10 +337,10 @@ int main(int argc, char *argv[])
                   if(MTrack->TrackHighPurity->at(itrack) == false)
                      continue;
                
-                  double DeltaEtaMu1 = MZHadron.muEta1->at(0) - MTrack->TrackEta->at(itrack);
-                  double DeltaEtaMu2 = MZHadron.muEta2->at(0) - MTrack->TrackEta->at(itrack);
-                  double DeltaPhiMu1 = DeltaPhi(MZHadron.muPhi1->at(0), MTrack->TrackPhi->at(itrack));
-                  double DeltaPhiMu2 = DeltaPhi(MZHadron.muPhi2->at(0), MTrack->TrackPhi->at(itrack));
+                  double DeltaEtaMu1 = MTrack->TrackEta->at(itrack) - MZHadron.muEta1->at(0);
+                  double DeltaEtaMu2 = MTrack->TrackEta->at(itrack) - MZHadron.muEta2->at(0);
+                  double DeltaPhiMu1 = DeltaPhi(MTrack->TrackPhi->at(itrack), MZHadron.muPhi1->at(0));
+                  double DeltaPhiMu2 = DeltaPhi(MTrack->TrackPhi->at(itrack), MZHadron.muPhi2->at(0));
 
                   double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
                   double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
@@ -348,8 +348,8 @@ int main(int argc, char *argv[])
                   if(DeltaRMu1 < 0.01)   continue;
                   if(DeltaRMu2 < 0.01)   continue;
 
-                  double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MTrack->TrackPhi->at(itrack));
-                  double deltaEta = MZHadron.zEta->at(0) - MTrack->TrackEta->at(itrack);
+                  double deltaPhi = DeltaPhi(MTrack->TrackPhi->at(itrack), MZHadron.zPhi->at(0));
+                  double deltaEta = MTrack->TrackEta->at(itrack) - MZHadron.zEta->at(0);
 
                   H2D.Fill(+deltaEta, +deltaPhi, 0.25);
                   H2D.Fill(-deltaEta, +deltaPhi, 0.25);
@@ -375,10 +375,10 @@ int main(int argc, char *argv[])
 
                   // cout << iPF << " " << MPF->ID->size() << endl;
 
-                  double DeltaEtaMu1 = MZHadron.muEta1->at(0) - MPF->Eta->at(iPF);
-                  double DeltaEtaMu2 = MZHadron.muEta2->at(0) - MPF->Eta->at(iPF);
-                  double DeltaPhiMu1 = DeltaPhi(MZHadron.muPhi1->at(0), MPF->Phi->at(iPF));
-                  double DeltaPhiMu2 = DeltaPhi(MZHadron.muPhi2->at(0), MPF->Phi->at(iPF));
+                  double DeltaEtaMu1 = MPF->Eta->at(iPF) - MZHadron.muEta1->at(0);
+                  double DeltaEtaMu2 = MPF->Eta->at(iPF) - MZHadron.muEta2->at(0);
+                  double DeltaPhiMu1 = DeltaPhi(MPF->Phi->at(iPF), MZHadron.muPhi1->at(0));
+                  double DeltaPhiMu2 = DeltaPhi(MPF->Phi->at(iPF), MZHadron.muPhi2->at(0));
 
                   double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
                   double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
@@ -386,10 +386,10 @@ int main(int argc, char *argv[])
                   if(DeltaRMu1 < 0.01)   continue;
                   if(DeltaRMu2 < 0.01)   continue;
 
-                  double deltaPhi = DeltaPhi(MZHadron.zPhi->at(0), MPF->Phi->at(iPF));
-                  double deltaEta = MZHadron.zEta->at(0) - MPF->Eta->at(iPF);
+                  double deltaPhi = DeltaPhi(MPF->Phi->at(iPF), MZHadron.zPhi->at(0));
+                  double deltaEta = MPF->Eta->at(iPF) - MZHadron.zEta->at(0);
 
-                  if(deltaPhi > M_PI / 2)
+                  if(fabs(deltaPhi) > M_PI / 2)
                   {
                      if(MaxOppositeIndex < 0 || MPF->PT->at(iPF) > MPF->PT->at(MaxOppositeIndex))
                      {
@@ -399,14 +399,14 @@ int main(int argc, char *argv[])
                      }
                   }
 
-                  if(deltaPhi > M_PI / 2)
+                  if(fabs(deltaPhi) > M_PI / 2)
                   {
                      OppositePFEta.push_back(deltaEta);
                      OppositePFPhi.push_back(deltaPhi);
                      OppositePFPT.push_back(MPF->PT->at(iPF));
                   }
                      
-                  if(deltaPhi > 3 * M_PI / 4)
+                  if(fabs(deltaPhi) > 3 * M_PI / 4)
                   {
                      MoreOppositePFEta.push_back(deltaEta);
                      MoreOppositePFPhi.push_back(deltaPhi);
