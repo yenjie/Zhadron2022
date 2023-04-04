@@ -371,7 +371,7 @@ int main(int argc, char *argv[])
                vector<double> MoreOppositePFPT;
                for(int iPF = 0; iPF < MPF->ID->size(); iPF++)
                {
-                  if(MPF->Eta->at(iPF) < -3 || MPF->Eta->at(iPF) > +3)   // don't use HF
+                  if(MPF->Eta->at(iPF) < -2.4 || MPF->Eta->at(iPF) > +2.4)   // don't use forward region
                      continue;
 
                   // cout << iPF << " " << MPF->ID->size() << endl;
