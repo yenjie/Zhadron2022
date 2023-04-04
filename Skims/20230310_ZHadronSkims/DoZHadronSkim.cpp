@@ -58,6 +58,7 @@ int main(int argc, char *argv[])
    bool IsPP                     = CL.GetBool("IsPP", false);
    bool DoBackground             = CL.GetBool("DoBackground", false);
    bool DoSumET                  = CL.GetBool("DoSumET", true);
+   double MuonVeto               = CL.GetDouble("MuonVeto", 0.01);
 
    Assert(IsPP == false,         "PP mode not implemented yet");
 
@@ -345,8 +346,8 @@ int main(int argc, char *argv[])
                   double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
                   double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
 
-                  if(DeltaRMu1 < 0.01)   continue;
-                  if(DeltaRMu2 < 0.01)   continue;
+                  if(DeltaRMu1 < MuonVeto)   continue;
+                  if(DeltaRMu2 < MuonVeto)   continue;
 
                   double deltaPhi = DeltaPhi(MTrack->TrackPhi->at(itrack), MZHadron.zPhi->at(0));
                   double deltaEta = MTrack->TrackEta->at(itrack) - MZHadron.zEta->at(0);
@@ -383,8 +384,8 @@ int main(int argc, char *argv[])
                   double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
                   double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
 
-                  if(DeltaRMu1 < 0.01)   continue;
-                  if(DeltaRMu2 < 0.01)   continue;
+                  if(DeltaRMu1 < MuonVeto)   continue;
+                  if(DeltaRMu2 < MuonVeto)   continue;
 
                   double deltaPhi = DeltaPhi(MPF->Phi->at(iPF), MZHadron.zPhi->at(0));
                   double deltaEta = MPF->Eta->at(iPF) - MZHadron.zEta->at(0);
