@@ -494,6 +494,9 @@ public:
    int hiBin;
    float hiHF;
 
+   float SignalHF;
+   float BackgroundHF;
+
    float NCollWeight;
    
    std::vector<double> *zMass;
