@@ -60,7 +60,10 @@ int main(int argc, char *argv[])
    bool DoSumET                  = CL.GetBool("DoSumET", true);
    double MuonVeto               = CL.GetDouble("MuonVeto", 0.01);
 
-   Assert(IsPP == false,         "PP mode not implemented yet");
+   string PFTreeName             = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
+   PFTreeName                    = CL.Get("PFTree", PFTreeName);
+
+   Assert(!(IsPP == true && IsData == true), "Data selections for pp not implemented yet");
 
    vector<string> BackgroundFileNames;
    int NBackground = 0;
@@ -82,6 +85,7 @@ int main(int argc, char *argv[])
    // Later on if speed is an issue we can do some optimizations
    vector<TFile *>                  BackgroundFiles;
    vector<HiEventTreeMessenger *>   MBackgroundEvent;
+   vector<TrackTreeMessenger *>     MBackgroundTrackPP;
    vector<PbPbTrackTreeMessenger *> MBackgroundTrack;
    vector<PFTreeMessenger *>        MBackgroundPF;
    vector<EventIndex>               BackgroundIndices;
@@ -91,8 +95,9 @@ int main(int argc, char *argv[])
       {
          BackgroundFiles.push_back(new TFile(BackgroundFileNames[iB].c_str()));
          MBackgroundEvent.push_back(new HiEventTreeMessenger(BackgroundFiles[iB]));
+         MBackgroundTrackPP.push_back(new TrackTreeMessenger(BackgroundFiles[iB]));
          MBackgroundTrack.push_back(new PbPbTrackTreeMessenger(BackgroundFiles[iB]));
-         MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB], "particleFlowAnalyser/pftree"));
+         MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB], PFTreeName.c_str()));
 
          int EntryCount = MBackgroundEvent[iB]->GetEntries();
          for(int iE = 0; iE < EntryCount; iE++)
@@ -130,8 +135,9 @@ int main(int argc, char *argv[])
 
       // Setup all the messengers.  In the future we'll add more for triggers etc.
       HiEventTreeMessenger   MSignalEvent(InputFile);
+      TrackTreeMessenger     MSignalTrackPP(InputFile);
       PbPbTrackTreeMessenger MSignalTrack(InputFile);
-      PFTreeMessenger        MSignalPF(InputFile, "particleFlowAnalyser/pftree");
+      PFTreeMessenger        MSignalPF(InputFile, PFTreeName.c_str());
       MuTreeMessenger        MSignalMu(InputFile);
       SkimTreeMessenger      MSignalSkim(InputFile);
       TriggerTreeMessenger   MSignalTrigger(InputFile);
@@ -153,7 +159,10 @@ int main(int argc, char *argv[])
          TLorentzVector VGenZ, VGenMu1, VGenMu2;
 
          MSignalEvent.GetEntry(iE);
-         MSignalTrack.GetEntry(iE);
+         if(IsPP == true)
+            MSignalTrackPP.GetEntry(iE);
+         else
+            MSignalTrack.GetEntry(iE);
          MSignalMu.GetEntry(iE);
          MSignalSkim.GetEntry(iE);
          MSignalTrigger.GetEntry(iE);
@@ -167,7 +176,9 @@ int main(int argc, char *argv[])
 
          // Do event selection and triggers
          if(IsPP == true)
-            cerr << "Warning!  pp mode not implemented yet!" << endl;
+         {
+            // cerr << "Warning!  pp mode not implemented yet!" << endl;
+         }
          else
          {
             if(IsData == true)
@@ -318,11 +329,14 @@ int main(int argc, char *argv[])
                   // MBackgroundEvent[Location.File]->GetEntry(Location.Event);
                   // cout << "From background event HF = " << MBackgroundEvent[Location.File]->hiHF << endl;
 
-                  MBackgroundTrack[Location.File]->GetEntry(Location.Event);
+                  if(IsPP == true)
+                     MBackgroundTrackPP[Location.File]->GetEntry(Location.Event);
+                  else
+                     MBackgroundTrack[Location.File]->GetEntry(Location.Event);
                   MBackgroundPF[Location.File]->GetEntry(Location.Event);
                }
                PbPbTrackTreeMessenger *MTrack = DoBackground ? MBackgroundTrack[Location.File] : &MSignalTrack;
-               // PFTreeMessenger *MPF = DoBackground ? MBackgroundPF[Location.File] : &MSignalPF;
+               TrackTreeMessenger *MTrackPP = DoBackground ? MBackgroundTrackPP[Location.File] : &MSignalTrackPP;
                PFTreeMessenger *MPF = &MSignalPF;
 
                int MaxOppositeIndex = -1;
@@ -333,15 +347,21 @@ int main(int argc, char *argv[])
                double MaxDPhi = 0;
 
                // Loop over tracks and build the correlation function
-               for(int itrack = 0; itrack < MTrack->TrackPT->size(); itrack++)
+               int NTrack = IsPP ? MTrackPP->nTrk : MTrack->TrackPT->size();
+               for(int itrack = 0; itrack < NTrack; itrack++)
                {
-                  if(MTrack->TrackHighPurity->at(itrack) == false)
+                  bool HP = IsPP ? MTrackPP->highPurity[itrack] : MTrack->TrackHighPurity->at(itrack);
+                  if(HP == false)
                      continue;
-               
-                  double DeltaEtaMu1 = MTrack->TrackEta->at(itrack) - MZHadron.muEta1->at(0);
-                  double DeltaEtaMu2 = MTrack->TrackEta->at(itrack) - MZHadron.muEta2->at(0);
-                  double DeltaPhiMu1 = DeltaPhi(MTrack->TrackPhi->at(itrack), MZHadron.muPhi1->at(0));
-                  double DeltaPhiMu2 = DeltaPhi(MTrack->TrackPhi->at(itrack), MZHadron.muPhi2->at(0));
+              
+                  double TrackEta = IsPP ? MTrackPP->trkEta[itrack] : MTrack->TrackEta->at(itrack);
+                  double TrackPhi = IsPP ? MTrackPP->trkPhi[itrack] : MTrack->TrackPhi->at(itrack);
+                  double TrackPT  = IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack);
+
+                  double DeltaEtaMu1 = TrackEta - MZHadron.muEta1->at(0);
+                  double DeltaEtaMu2 = TrackEta - MZHadron.muEta2->at(0);
+                  double DeltaPhiMu1 = DeltaPhi(TrackPhi, MZHadron.muPhi1->at(0));
+                  double DeltaPhiMu2 = DeltaPhi(TrackPhi, MZHadron.muPhi2->at(0));
 
                   double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
                   double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
@@ -349,8 +369,8 @@ int main(int argc, char *argv[])
                   if(DeltaRMu1 < MuonVeto)   continue;
                   if(DeltaRMu2 < MuonVeto)   continue;
 
-                  double deltaPhi = DeltaPhi(MTrack->TrackPhi->at(itrack), MZHadron.zPhi->at(0));
-                  double deltaEta = MTrack->TrackEta->at(itrack) - MZHadron.zEta->at(0);
+                  double deltaPhi = DeltaPhi(TrackPhi, MZHadron.zPhi->at(0));
+                  double deltaEta = TrackEta - MZHadron.zEta->at(0);
 
                   H2D.Fill(+deltaEta, +deltaPhi, 0.25);
                   H2D.Fill(-deltaEta, +deltaPhi, 0.25);
@@ -359,7 +379,7 @@ int main(int argc, char *argv[])
 
                   MZHadron.trackDphi->push_back(deltaPhi);
                   MZHadron.trackDeta->push_back(deltaEta);
-                  MZHadron.trackPt->push_back(MTrack->TrackPT->at(itrack));
+                  MZHadron.trackPt->push_back(TrackPT);
                }
 
                // Loop over PF candidates to find WTA

@@ -7,6 +7,7 @@
 #define JETCOUNTMAX 500
 #define GENCOUNTMAX 250
 #define VERTEXCOUNTMAX 200
+#define TRACKCOUNTMAX 10000
 #define PLANEMAX 200
 #define MUMAX 50
 
@@ -305,6 +306,31 @@ public:
    float vtxDist3D[VERTEXCOUNTMAX];
    float vtxDist3DErr[VERTEXCOUNTMAX];
    float vtxDist3DSig[VERTEXCOUNTMAX];
+   int nTrk;
+   float trkPt[TRACKCOUNTMAX];
+   float trkPtError[TRACKCOUNTMAX];
+   short trkNHit[TRACKCOUNTMAX];
+   short trkNlayer[TRACKCOUNTMAX];
+   float trkEta[TRACKCOUNTMAX];
+   float trkPhi[TRACKCOUNTMAX];
+   int trkCharge[TRACKCOUNTMAX];
+   short trkNVtx[TRACKCOUNTMAX];
+   int nTrkTimesnVtx;
+   bool trkAssocVtx[TRACKCOUNTMAX];
+   float trkDxyOverDxyError[TRACKCOUNTMAX];
+   float trkDzOverDzError[TRACKCOUNTMAX];
+   bool highPurity[TRACKCOUNTMAX];
+   bool tight[TRACKCOUNTMAX];
+   bool loose[TRACKCOUNTMAX];
+   float trkChi2[TRACKCOUNTMAX];
+   short trkNdof[TRACKCOUNTMAX];
+   float trkDxy1[TRACKCOUNTMAX];
+   float trkDxyError1[TRACKCOUNTMAX];
+   float trkDz1[TRACKCOUNTMAX];
+   float trkDzError1[TRACKCOUNTMAX];
+   bool trkFake[TRACKCOUNTMAX];
+   short trkAlgo[TRACKCOUNTMAX];
+   short trkOriginalAlgo[TRACKCOUNTMAX];
 public:
    TrackTreeMessenger(TFile &File, std::string TreeName = "ppTrack/trackTree");
    TrackTreeMessenger(TFile *File, std::string TreeName = "ppTrack/trackTree");

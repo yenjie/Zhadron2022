@@ -1207,6 +1207,31 @@ bool TrackTreeMessenger::Initialize()
    Tree->SetBranchAddress("vtxDist3D", &vtxDist3D);
    Tree->SetBranchAddress("vtxDist3DErr", &vtxDist3DErr);
    Tree->SetBranchAddress("vtxDist3DSig", &vtxDist3DSig);
+   Tree->SetBranchAddress("nTrk", &nTrk);
+   Tree->SetBranchAddress("trkPt", &trkPt);
+   Tree->SetBranchAddress("trkPtError", &trkPtError);
+   Tree->SetBranchAddress("trkNHit", &trkNHit);
+   Tree->SetBranchAddress("trkNlayer", &trkNlayer);
+   Tree->SetBranchAddress("trkEta", &trkEta);
+   Tree->SetBranchAddress("trkPhi", &trkPhi);
+   Tree->SetBranchAddress("trkCharge", &trkCharge);
+   Tree->SetBranchAddress("trkNVtx", &trkNVtx);
+   Tree->SetBranchAddress("nTrkTimesnVtx", &nTrkTimesnVtx);
+   Tree->SetBranchAddress("trkAssocVtx", &trkAssocVtx);
+   Tree->SetBranchAddress("trkDxyOverDxyError", &trkDxyOverDxyError);
+   Tree->SetBranchAddress("trkDzOverDzError", &trkDzOverDzError);
+   Tree->SetBranchAddress("highPurity", &highPurity);
+   Tree->SetBranchAddress("tight", &tight);
+   Tree->SetBranchAddress("loose", &loose);
+   Tree->SetBranchAddress("trkChi2", &trkChi2);
+   Tree->SetBranchAddress("trkNdof", &trkNdof);
+   Tree->SetBranchAddress("trkDxy1", &trkDxy1);
+   Tree->SetBranchAddress("trkDxyError1", &trkDxyError1);
+   Tree->SetBranchAddress("trkDz1", &trkDz1);
+   Tree->SetBranchAddress("trkDzError1", &trkDzError1);
+   Tree->SetBranchAddress("trkFake", &trkFake);
+   Tree->SetBranchAddress("trkAlgo", &trkAlgo);
+   Tree->SetBranchAddress("trkOriginalAlgo", &trkOriginalAlgo);
 
    return true;
 }
