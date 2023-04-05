@@ -60,6 +60,9 @@ int main(int argc, char *argv[])
    bool DoSumET                  = CL.GetBool("DoSumET", true);
    double MuonVeto               = CL.GetDouble("MuonVeto", 0.01);
 
+   string PFTreeName             = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
+   PFTreeName                    = CL.Get("PFTree", PFTreeName);
+
    Assert(IsPP == false,         "PP mode not implemented yet");
 
    vector<string> BackgroundFileNames;
@@ -82,6 +85,7 @@ int main(int argc, char *argv[])
    // Later on if speed is an issue we can do some optimizations
    vector<TFile *>                  BackgroundFiles;
    vector<HiEventTreeMessenger *>   MBackgroundEvent;
+   vector<TrackTreeMessenger *>     MBackgroundTrackPP;
    vector<PbPbTrackTreeMessenger *> MBackgroundTrack;
    vector<PFTreeMessenger *>        MBackgroundPF;
    vector<EventIndex>               BackgroundIndices;
@@ -91,8 +95,9 @@ int main(int argc, char *argv[])
       {
          BackgroundFiles.push_back(new TFile(BackgroundFileNames[iB].c_str()));
          MBackgroundEvent.push_back(new HiEventTreeMessenger(BackgroundFiles[iB]));
+         MBackgroundTrackPP.push_back(new TrackTreeMessenger(BackgroundFiles[iB]));
          MBackgroundTrack.push_back(new PbPbTrackTreeMessenger(BackgroundFiles[iB]));
-         MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB], "particleFlowAnalyser/pftree"));
+         MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB], PFTreeName.c_str()));
 
          int EntryCount = MBackgroundEvent[iB]->GetEntries();
          for(int iE = 0; iE < EntryCount; iE++)
@@ -130,8 +135,9 @@ int main(int argc, char *argv[])
 
       // Setup all the messengers.  In the future we'll add more for triggers etc.
       HiEventTreeMessenger   MSignalEvent(InputFile);
+      TrackTreeMessenger     MSignalTrackPP(InputFile);
       PbPbTrackTreeMessenger MSignalTrack(InputFile);
-      PFTreeMessenger        MSignalPF(InputFile, "particleFlowAnalyser/pftree");
+      PFTreeMessenger        MSignalPF(InputFile, PFTreeName.c_str());
       MuTreeMessenger        MSignalMu(InputFile);
       SkimTreeMessenger      MSignalSkim(InputFile);
       TriggerTreeMessenger   MSignalTrigger(InputFile);
@@ -153,7 +159,10 @@ int main(int argc, char *argv[])
          TLorentzVector VGenZ, VGenMu1, VGenMu2;
 
          MSignalEvent.GetEntry(iE);
-         MSignalTrack.GetEntry(iE);
+         if(IsPP == true)
+            MSignalTrackPP.GetEntry(iE);
+         else
+            MSignalTrack.GetEntry(iE);
          MSignalMu.GetEntry(iE);
          MSignalSkim.GetEntry(iE);
          MSignalTrigger.GetEntry(iE);
@@ -318,10 +327,14 @@ int main(int argc, char *argv[])
                   // MBackgroundEvent[Location.File]->GetEntry(Location.Event);
                   // cout << "From background event HF = " << MBackgroundEvent[Location.File]->hiHF << endl;
 
-                  MBackgroundTrack[Location.File]->GetEntry(Location.Event);
+                  if(IsPP == true)
+                     MBackgroundTrackPP[Location.File]->GetEntry(Location.Event);
+                  else
+                     MBackgroundTrack[Location.File]->GetEntry(Location.Event);
                   MBackgroundPF[Location.File]->GetEntry(Location.Event);
                }
                PbPbTrackTreeMessenger *MTrack = DoBackground ? MBackgroundTrack[Location.File] : &MSignalTrack;
+               PbPbTrackTreeMessenger *MTrackPP = DoBackground ? MBackgroundTrackPP[Location.File] : &MSignalTrackPP;
                // PFTreeMessenger *MPF = DoBackground ? MBackgroundPF[Location.File] : &MSignalPF;
                PFTreeMessenger *MPF = &MSignalPF;
 
