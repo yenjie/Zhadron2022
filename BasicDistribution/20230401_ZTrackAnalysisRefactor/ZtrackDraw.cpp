@@ -54,6 +54,7 @@ TFile *file_sigMC;
 TFile *file_bkgMC;
 TFile *file_sigDA;
 TFile *file_bkgDA;
+TFile *file_ppMC;
 
 const char *typeofdata = "20230405";
 const char *typeofdatatext = "double muon";
@@ -142,9 +143,11 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH2D* hData_etaphi_1 = (TH2D*) file_sigDA->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    TH2D* hMC_etaphi_1 = (TH2D*) file_sigMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
+   TH2D* hpp_etaphi_1 = (TH2D*) file_ppMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
 
    hData_etaphi_1->SetName("hData_etaphi_1");
    hMC_etaphi_1->SetName("hMC_etaphi_1");
+   hpp_etaphi_1->SetName("hpp_etaphi_1");
 
    TH1D* hData_bkg_eta = (TH1D*) file_bkgDA->Get(Form("%s/HEta", FolderName.c_str()));
    TH1D* hMC_bkg_eta = (TH1D*) file_bkgMC->Get(Form("%s/HEta", FolderName.c_str()));
@@ -319,21 +322,25 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TNamed *nM_tN  = (TNamed *) file_sigMC->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nDb_tN = (TNamed *) file_bkgDA->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *npM_tN = (TNamed *) file_ppMC->Get(Form("%s/EntryCount",FolderName.c_str()));
 
    std::string sD_tN  = (std::string) nD_tN->GetTitle();
    std::string sM_tN  = (std::string) nM_tN->GetTitle();
    std::string sDb_tN = (std::string) nDb_tN->GetTitle();
    std::string sMb_tN = (std::string) nMb_tN->GetTitle();
+   std::string spM_tN = (std::string) npM_tN->GetTitle();
 
    float tD_tN  = std::stof(sD_tN);
    float tM_tN  = std::stof(sM_tN);
    float tDb_tN = std::stof(sDb_tN);
    float tMb_tN = std::stof(sMb_tN);
+   float tpM_tN = std::stof(spM_tN);
 
    std::cout<<"tD_tN = "<<tD_tN<<std::endl;
    std::cout<<"tM_tN = "<<tM_tN<<std::endl;
    std::cout<<"tDb_tN = "<<tDb_tN<<std::endl;
    std::cout<<"tMb_tN = "<<tMb_tN<<std::endl;
+   std::cout<<"tpM_tN = "<<tpM_tN<<std::endl;
 
    hData_eta->Scale(1./tD_tN);
    hMC_eta->Scale(1./tM_tN);
@@ -349,6 +356,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hData_etaphi_1->Scale(1./tD_tN);
    hMC_etaphi_1->Scale(1./tM_tN);
+   hpp_etaphi_1->Scale(1./tpM_tN);
 
    hData_bkg_etaphi_1->Scale(1./tDb_tN);
    hMC_bkg_etaphi_1->Scale(1./tMb_tN);
@@ -608,6 +616,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Deta",typeofdata));
    gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Dphi",typeofdata));
    gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/3D",typeofdata));
+   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/pp",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Deta/pdf",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Dphi/pdf",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/3D/pdf",typeofdata));
@@ -1071,6 +1080,116 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/3D/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_COLZ.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/3D/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_COLZ.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
+
+      c->SetCanvasSize(2000,800);
+   c->Divide(3);
+   c->cd(1);
+
+   hMC_sb_etaphi_1->Draw("lego20");
+   hMC_sb_etaphi_1->GetYaxis()->SetTitle("Signal - Background MC #Delta#phi_{Z,track}");
+   hMC_sb_etaphi_1->GetXaxis()->SetTitle("Signal - Background MC #Delta#eta_{Z,track}");
+   hMC_sb_etaphi_1->GetXaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_1->GetYaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
+   hMC_sb_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hMC_sb_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   pt3d->Draw();
+   pt3d2->Draw();
+   pt3d3->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(2);
+   hMC_sbr_etaphi_1->Draw("lego20");
+   hMC_sbr_etaphi_1->GetYaxis()->SetTitle("Signal/Background MC #Delta#phi_{Z,track}");
+   hMC_sbr_etaphi_1->GetXaxis()->SetTitle("Signal/Background MC #Delta#eta_{Z,track}");
+   hMC_sbr_etaphi_1->GetXaxis()->SetTitleSize(24);
+   hMC_sbr_etaphi_1->GetYaxis()->SetTitleSize(24);
+   hMC_sbr_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
+   hMC_sbr_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hMC_sbr_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   //ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(3);
+   hpp_etaphi_1->Draw("lego20");
+   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track}");
+   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track}");
+   hpp_etaphi_1->GetXaxis()->SetTitleSize(24);
+   hpp_etaphi_1->GetYaxis()->SetTitleSize(24);
+   hpp_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
+   hpp_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hpp_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   //ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_pp.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_pp.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_pp.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->Clear();
+
+   c->Divide(3);
+   c->cd(1);
+
+   hMC_sb_etaphi_1->Draw("COLZ");
+   hMC_sb_etaphi_1->GetYaxis()->SetTitle("Signal - Background MC #Delta#phi_{Z,track}");
+   hMC_sb_etaphi_1->GetXaxis()->SetTitle("Signal - Background MC #Delta#eta_{Z,track}");
+   hMC_sb_etaphi_1->GetXaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_1->GetYaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
+   hMC_sb_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hMC_sb_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   pt3d->Draw();
+   pt3d2->Draw();
+   pt3d3->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(2);
+   hMC_sbr_etaphi_1->Draw("COLZ");
+   hMC_sbr_etaphi_1->GetYaxis()->SetTitle("Signal/Background MC #Delta#phi_{Z,track}");
+   hMC_sbr_etaphi_1->GetXaxis()->SetTitle("Signal/Background MC #Delta#eta_{Z,track}");
+   hMC_sbr_etaphi_1->GetXaxis()->SetTitleSize(24);
+   hMC_sbr_etaphi_1->GetYaxis()->SetTitleSize(24);
+   hMC_sbr_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
+   hMC_sbr_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hMC_sbr_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   //ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(3);
+   hpp_etaphi_1->Draw("COLZ");
+   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track}");
+   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track}");
+   hpp_etaphi_1->GetXaxis()->SetTitleSize(24);
+   hpp_etaphi_1->GetYaxis()->SetTitleSize(24);
+   hpp_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
+   hpp_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hpp_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   //ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_pp_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_pp_COLZ.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_pp_COLZ.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->Clear();
+   c->SetCanvasSize(1400,800);
 
    c->Divide(2);
    c->cd(1);
@@ -2402,6 +2521,7 @@ int main(int argc, char *argv[]){
    file_bkgMC = TFile::Open("GraphMCBackground.root","read");
    file_sigDA = TFile::Open("GraphDataSignal.root","read");
    file_bkgDA = TFile::Open("GraphDataBackground.root","read");
+   file_ppMC  = TFile::Open("GraphDataPPMC.root","read");
 
    ZtrackDraw_single(40, 20, 2000,  0, 90,  0, 1000);
    ZtrackDraw_single(40, 30,   40,  0, 90,  0, 1000);
@@ -2434,6 +2554,7 @@ int main(int argc, char *argv[]){
    file_bkgMC->Close();
    file_sigDA->Close();
    file_bkgDA->Close();
+   file_ppMC->Close();
 
    return 0;
 
