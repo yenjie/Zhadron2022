@@ -63,6 +63,8 @@ int main(int argc, char *argv[])
    string PFTreeName             = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
    PFTreeName                    = CL.Get("PFTree", PFTreeName);
 
+   Assert(!(IsPP == true && IsData == true), "Data selections for pp not implemented yet");
+
    vector<string> BackgroundFileNames;
    int NBackground = 0;
    double HFShift = 0;
