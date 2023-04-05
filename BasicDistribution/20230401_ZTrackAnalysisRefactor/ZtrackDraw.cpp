@@ -56,7 +56,7 @@ TFile *file_sigDA;
 TFile *file_bkgDA;
 TFile *file_ppMC;
 
-const char *typeofdata = "20230405";
+const char *typeofdata = "20230405_2";
 const char *typeofdatatext = "double muon";
 
 Double_t bwfun(Double_t *x, Double_t *par) {
