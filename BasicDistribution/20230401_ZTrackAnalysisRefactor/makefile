@@ -1,13 +1,13 @@
 default: TestRun
 
 TestRun: Execute
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions_ops/pchou/OutputMC/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC/ \
 		--Output GraphMCSignal.root
-	./Execute --InputBase /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/Skims/20230310_ZHadronSkims/Output/000*/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData/ \
 		--Output GraphDataSignal.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions_ops/pchou/OutputMCbkg/ \
 		--Output GraphMCBackground.root
-	./Execute --InputBase /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/Skims/20230310_ZHadronSkims/OutputBkg/000*/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg/ \
 		--Output GraphDataBackground.root
 
 TestExploration: ExecuteExploration
