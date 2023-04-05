@@ -1779,6 +1779,9 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("hiBin",      &hiBin,   "hiBin/I");
    Tree->Branch("hiHF",       &hiHF,    "hiHF/F");
 
+   Tree->Branch("SignalHF",   &SignalHF, "SignalHF/F");
+   Tree->Branch("BackgroundHF",   &BackgroundHF, "BackgroundHF/F");
+
    Tree->Branch("NCollWeight", &NCollWeight, "NCollWeight/F");
    
    Tree->Branch("zMass",      &zMass);
@@ -1836,6 +1839,9 @@ void ZHadronMessenger::Clear()
 {
    if(Initialized == false)
       return;
+
+   SignalHF = 0;
+   BackgroundHF = 0;
 
    zMass->clear();
    zEta->clear();

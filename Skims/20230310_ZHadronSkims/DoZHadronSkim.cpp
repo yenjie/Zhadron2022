@@ -295,6 +295,8 @@ int main(int argc, char *argv[])
                NTuple.Fill(MSignalMu.DiMass[ipair], MSignalMu.DiPT[ipair], MSignalMu.DiEta[ipair], MSignalMu.DiPhi[ipair]);
             }
 
+            MZHadron.SignalHF = DoSumET ? MSignalEvent.hiHF : GetHFSum(&MSignalPF);
+
             // Z-track correlation
             if(MZHadron.zMass->size() > 0 && MZHadron.zPt->at(0) > MinZPT)
             {
@@ -303,12 +305,15 @@ int main(int argc, char *argv[])
                if(DoBackground == true)
                {
                   // find the background event location based on HF
-                  double SignalHF = (DoSumET ? MSignalEvent.hiHF : GetHFSum(&MSignalPF));
+                  double SignalHF = MZHadron.SignalHF;
                   double LowerHF = min(SignalHF - HFTolerance, SignalHF * (1 - HFToleranceFraction)) - HFShift;
                   double HigherHF = max(SignalHF + HFTolerance, SignalHF * (1 + HFToleranceFraction)) - HFShift;
 
                   if(SignalHF < HFShift)
                      continue;
+
+                  // cout << endl;
+                  // cout << SignalHF << " " << LowerHF << " " << HigherHF << " " << HFShift << endl;
 
                   // cout << MSignalEvent.hiHF << " " << SignalHF << endl;
 
@@ -328,6 +333,10 @@ int main(int argc, char *argv[])
                   // cout << "Track tree pointer " << MBackgroundTrack[Location.File]->Tree << endl;
                   // MBackgroundEvent[Location.File]->GetEntry(Location.Event);
                   // cout << "From background event HF = " << MBackgroundEvent[Location.File]->hiHF << endl;
+
+                  MZHadron.BackgroundHF = Location.HF;
+
+                  // cout << Location.HF << endl;
 
                   if(IsPP == true)
                      MBackgroundTrackPP[Location.File]->GetEntry(Location.Event);
