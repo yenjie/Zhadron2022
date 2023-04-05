@@ -1840,8 +1840,8 @@ void ZHadronMessenger::Clear()
    if(Initialized == false)
       return;
 
-   SignalHF = 0;
-   BackgroundHF = 0;
+   SignalHF = -1;
+   BackgroundHF = -1;
 
    zMass->clear();
    zEta->clear();
