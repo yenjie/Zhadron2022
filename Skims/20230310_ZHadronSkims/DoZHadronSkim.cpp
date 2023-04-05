@@ -334,8 +334,7 @@ int main(int argc, char *argv[])
                   MBackgroundPF[Location.File]->GetEntry(Location.Event);
                }
                PbPbTrackTreeMessenger *MTrack = DoBackground ? MBackgroundTrack[Location.File] : &MSignalTrack;
-               PbPbTrackTreeMessenger *MTrackPP = DoBackground ? MBackgroundTrackPP[Location.File] : &MSignalTrackPP;
-               // PFTreeMessenger *MPF = DoBackground ? MBackgroundPF[Location.File] : &MSignalPF;
+               TrackTreeMessenger *MTrackPP = DoBackground ? MBackgroundTrackPP[Location.File] : &MSignalTrackPP;
                PFTreeMessenger *MPF = &MSignalPF;
 
                int MaxOppositeIndex = -1;
@@ -346,15 +345,21 @@ int main(int argc, char *argv[])
                double MaxDPhi = 0;
 
                // Loop over tracks and build the correlation function
-               for(int itrack = 0; itrack < MTrack->TrackPT->size(); itrack++)
+               int NTrack = IsPP ? MTrackPP->nTrk : MTrack->TrackPT->size();
+               for(int itrack = 0; itrack < NTrack; itrack++)
                {
-                  if(MTrack->TrackHighPurity->at(itrack) == false)
+                  bool HP = IsPP ? MTrackPP->highPurity[itrack] : MTrack->TrackHighPurity->at(itrack);
+                  if(HP == false)
                      continue;
-               
-                  double DeltaEtaMu1 = MTrack->TrackEta->at(itrack) - MZHadron.muEta1->at(0);
-                  double DeltaEtaMu2 = MTrack->TrackEta->at(itrack) - MZHadron.muEta2->at(0);
-                  double DeltaPhiMu1 = DeltaPhi(MTrack->TrackPhi->at(itrack), MZHadron.muPhi1->at(0));
-                  double DeltaPhiMu2 = DeltaPhi(MTrack->TrackPhi->at(itrack), MZHadron.muPhi2->at(0));
+              
+                  double TrackEta = IsPP ? MTrackPP->trkEta[itrack] : MTrack->TrackEta->at(itrack);
+                  double TrackPhi = IsPP ? MTrackPP->trkPhi[itrack] : MTrack->TrackPhi->at(itrack);
+                  double TrackPT  = IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack);
+
+                  double DeltaEtaMu1 = TrackEta - MZHadron.muEta1->at(0);
+                  double DeltaEtaMu2 = TrackEta - MZHadron.muEta2->at(0);
+                  double DeltaPhiMu1 = DeltaPhi(TrackPhi, MZHadron.muPhi1->at(0));
+                  double DeltaPhiMu2 = DeltaPhi(TrackPhi, MZHadron.muPhi2->at(0));
 
                   double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
                   double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
@@ -362,8 +367,8 @@ int main(int argc, char *argv[])
                   if(DeltaRMu1 < MuonVeto)   continue;
                   if(DeltaRMu2 < MuonVeto)   continue;
 
-                  double deltaPhi = DeltaPhi(MTrack->TrackPhi->at(itrack), MZHadron.zPhi->at(0));
-                  double deltaEta = MTrack->TrackEta->at(itrack) - MZHadron.zEta->at(0);
+                  double deltaPhi = DeltaPhi(TrackPhi, MZHadron.zPhi->at(0));
+                  double deltaEta = TrackEta - MZHadron.zEta->at(0);
 
                   H2D.Fill(+deltaEta, +deltaPhi, 0.25);
                   H2D.Fill(-deltaEta, +deltaPhi, 0.25);
@@ -372,7 +377,7 @@ int main(int argc, char *argv[])
 
                   MZHadron.trackDphi->push_back(deltaPhi);
                   MZHadron.trackDeta->push_back(deltaEta);
-                  MZHadron.trackPt->push_back(MTrack->TrackPT->at(itrack));
+                  MZHadron.trackPt->push_back(TrackPT);
                }
 
                // Loop over PF candidates to find WTA
