@@ -63,8 +63,6 @@ int main(int argc, char *argv[])
    string PFTreeName             = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
    PFTreeName                    = CL.Get("PFTree", PFTreeName);
 
-   Assert(IsPP == false,         "PP mode not implemented yet");
-
    vector<string> BackgroundFileNames;
    int NBackground = 0;
    double HFShift = 0;
@@ -176,7 +174,9 @@ int main(int argc, char *argv[])
 
          // Do event selection and triggers
          if(IsPP == true)
-            cerr << "Warning!  pp mode not implemented yet!" << endl;
+         {
+            // cerr << "Warning!  pp mode not implemented yet!" << endl;
+         }
          else
          {
             if(IsData == true)
