@@ -72,7 +72,7 @@ PrepareToRunBackground:
 PrepareToRunRandomBackground:
 	bash PrepareInputRandomBackground.sh \
 		'/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HISingleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HISingleMuon/20230403_ZHadronSingleMuonWithMuTree/230403_182556/*/' \
-		2 LogDatabkg/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg/ \
+		10 LogDatabkg/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg/ \
 		$(PbPbBackgroundData)// 50 \
 		--Fraction 1 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true --HFShift 660 --Tolerance 150 --ToleranceFraction 0 --DoSumET false --Oversample 25
