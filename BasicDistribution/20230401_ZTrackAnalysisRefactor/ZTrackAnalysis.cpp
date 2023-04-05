@@ -69,6 +69,10 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 20, 2000,  0, 90, 20,   50));
    C.push_back(Configuration(40, 20, 2000,  0, 90, 50,  100));
    C.push_back(Configuration(40, 40, 2000, 50, 90,  0, 1000));
+   C.push_back(Configuration(40, 20, 2000, 50, 90,  1,    2));
+   C.push_back(Configuration(40, 40, 2000, 50, 90,  1,    2));
+   C.push_back(Configuration(40, 20, 2000, 50, 90,  2,    5));
+   C.push_back(Configuration(40, 40, 2000, 50, 90,  2,    5));
    C.push_back(Configuration(40, 20, 2000, 50, 90,  5,   10));
    C.push_back(Configuration(40, 40, 2000, 50, 90,  5,   10));
    C.push_back(Configuration(40, 20, 2000, 50, 90, 20,   50));
