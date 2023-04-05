@@ -58,7 +58,7 @@ PrepareToRunMC:
 PrepareToRunPP: Execute
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		2 LogPP/ /eos/cms/store/group/phys_heavyions/pchou/OutputPP/ \
+		2 LogPP/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC/ \
 		--Fraction 1 --DoGenLevel true --IsData false --IsPP true
 
 PrepareToRunBackground:
