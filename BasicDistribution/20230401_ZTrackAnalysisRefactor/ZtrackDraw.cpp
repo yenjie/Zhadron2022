@@ -1772,8 +1772,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zmaxetaphi->Draw("lego20");
-   hMC_Zmaxetaphi->GetYaxis()->SetTitle("Signal MC #Delta#phi_{Z,track}");
-   hMC_Zmaxetaphi->GetXaxis()->SetTitle("Signal MC #Delta#eta_{Z,track}");
+   hMC_Zmaxetaphi->GetYaxis()->SetTitle("Signal MC #phi_{axis}");
+   hMC_Zmaxetaphi->GetXaxis()->SetTitle("Signal MC #eta_{axis}");
    hMC_Zmaxetaphi->GetXaxis()->SetTitleSize(30);
    hMC_Zmaxetaphi->GetYaxis()->SetTitleSize(30);
    hMC_Zmaxetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -1789,8 +1789,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zmaxetaphi->Draw("lego20");
-   hData_Zmaxetaphi->GetYaxis()->SetTitle("Signal Data #Delta#phi_{Z,track}");
-   hData_Zmaxetaphi->GetXaxis()->SetTitle("Signal Data #Delta#eta_{Z,track}");
+   hData_Zmaxetaphi->GetYaxis()->SetTitle("Signal Data #phi_{axis}");
+   hData_Zmaxetaphi->GetXaxis()->SetTitle("Signal Data #eta_{axis}");
    hData_Zmaxetaphi->GetXaxis()->SetTitleSize(30);
    hData_Zmaxetaphi->GetYaxis()->SetTitleSize(30);
    hData_Zmaxetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -1811,8 +1811,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zbkg_maxetaphi->Draw("lego20");
-   hMC_Zbkg_maxetaphi->GetYaxis()->SetTitle("Background MC #Delta#phi_{Z,track}");
-   hMC_Zbkg_maxetaphi->GetXaxis()->SetTitle("Background MC #Delta#eta_{Z,track}");
+   hMC_Zbkg_maxetaphi->GetYaxis()->SetTitle("Background MC #phi_{axis}");
+   hMC_Zbkg_maxetaphi->GetXaxis()->SetTitle("Background MC #eta_{axis}");
    hMC_Zbkg_maxetaphi->GetXaxis()->SetTitleSize(30);
    hMC_Zbkg_maxetaphi->GetYaxis()->SetTitleSize(30);
    hMC_Zbkg_maxetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -1828,8 +1828,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zbkg_maxetaphi->Draw("lego20");
-   hData_Zbkg_maxetaphi->GetYaxis()->SetTitle("Background Data #Delta#phi_{Z,track}");
-   hData_Zbkg_maxetaphi->GetXaxis()->SetTitle("Background Data #Delta#eta_{Z,track}");
+   hData_Zbkg_maxetaphi->GetYaxis()->SetTitle("Background Data #phi_{axis}");
+   hData_Zbkg_maxetaphi->GetXaxis()->SetTitle("Background Data #eta_{axis}");
    hData_Zbkg_maxetaphi->GetXaxis()->SetTitleSize(30);
    hData_Zbkg_maxetaphi->GetYaxis()->SetTitleSize(30);
    hData_Zbkg_maxetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -1850,8 +1850,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zsb_maxetaphi->Draw("lego20");
-   hMC_Zsb_maxetaphi->GetYaxis()->SetTitle("Signal - Background MC #Delta#phi_{Z,track}");
-   hMC_Zsb_maxetaphi->GetXaxis()->SetTitle("Signal - Background MC #Delta#eta_{Z,track}");
+   hMC_Zsb_maxetaphi->GetYaxis()->SetTitle("Signal - Background MC #phi_{axis}");
+   hMC_Zsb_maxetaphi->GetXaxis()->SetTitle("Signal - Background MC #eta_{axis}");
    hMC_Zsb_maxetaphi->GetXaxis()->SetTitleSize(24);
    hMC_Zsb_maxetaphi->GetYaxis()->SetTitleSize(24);
    hMC_Zsb_maxetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -1867,8 +1867,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zsb_maxetaphi->Draw("lego20");
-   hData_Zsb_maxetaphi->GetYaxis()->SetTitle("Signal - Background Data #Delta#phi_{Z,track}");
-   hData_Zsb_maxetaphi->GetXaxis()->SetTitle("Signal - Background Data #Delta#eta_{Z,track}");
+   hData_Zsb_maxetaphi->GetYaxis()->SetTitle("Signal - Background Data #phi_{axis}");
+   hData_Zsb_maxetaphi->GetXaxis()->SetTitle("Signal - Background Data #eta_{axis}");
    hData_Zsb_maxetaphi->GetXaxis()->SetTitleSize(24);
    hData_Zsb_maxetaphi->GetYaxis()->SetTitleSize(24);
    hData_Zsb_maxetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -1889,8 +1889,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zsbr_maxetaphi->Draw("lego20");
-   hMC_Zsbr_maxetaphi->GetYaxis()->SetTitle("Signal/Background MC #Delta#phi_{Z,track}");
-   hMC_Zsbr_maxetaphi->GetXaxis()->SetTitle("Signal/Background MC #Delta#eta_{Z,track}");
+   hMC_Zsbr_maxetaphi->GetYaxis()->SetTitle("Signal/Background MC #phi_{axis}");
+   hMC_Zsbr_maxetaphi->GetXaxis()->SetTitle("Signal/Background MC #eta_{axis}");
    hMC_Zsbr_maxetaphi->GetXaxis()->SetTitleSize(24);
    hMC_Zsbr_maxetaphi->GetYaxis()->SetTitleSize(24);
    hMC_Zsbr_maxetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -1906,8 +1906,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zsbr_maxetaphi->Draw("lego20");
-   hData_Zsbr_maxetaphi->GetYaxis()->SetTitle("Signal/Background Data #Delta#phi_{Z,track}");
-   hData_Zsbr_maxetaphi->GetXaxis()->SetTitle("Signal/Background Data #Delta#eta_{Z,track}");
+   hData_Zsbr_maxetaphi->GetYaxis()->SetTitle("Signal/Background Data #phi_{axis}");
+   hData_Zsbr_maxetaphi->GetXaxis()->SetTitle("Signal/Background Data #eta_{axis}");
    hData_Zsbr_maxetaphi->GetXaxis()->SetTitleSize(24);
    hData_Zsbr_maxetaphi->GetYaxis()->SetTitleSize(24);
    hData_Zsbr_maxetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -1928,8 +1928,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_ZmaxOetaphi->Draw("lego20");
-   hMC_ZmaxOetaphi->GetYaxis()->SetTitle("Signal MC #Delta#phi_{Z,track}");
-   hMC_ZmaxOetaphi->GetXaxis()->SetTitle("Signal MC #Delta#eta_{Z,track}");
+   hMC_ZmaxOetaphi->GetYaxis()->SetTitle("Signal MC #phi_{axis}");
+   hMC_ZmaxOetaphi->GetXaxis()->SetTitle("Signal MC #eta_{axis}");
    hMC_ZmaxOetaphi->GetXaxis()->SetTitleSize(30);
    hMC_ZmaxOetaphi->GetYaxis()->SetTitleSize(30);
    hMC_ZmaxOetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -1945,8 +1945,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_ZmaxOetaphi->Draw("lego20");
-   hData_ZmaxOetaphi->GetYaxis()->SetTitle("Signal Data #Delta#phi_{Z,track}");
-   hData_ZmaxOetaphi->GetXaxis()->SetTitle("Signal Data #Delta#eta_{Z,track}");
+   hData_ZmaxOetaphi->GetYaxis()->SetTitle("Signal Data #phi_{axis}");
+   hData_ZmaxOetaphi->GetXaxis()->SetTitle("Signal Data #eta_{axis}");
    hData_ZmaxOetaphi->GetXaxis()->SetTitleSize(30);
    hData_ZmaxOetaphi->GetYaxis()->SetTitleSize(30);
    hData_ZmaxOetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -1967,8 +1967,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zbkg_maxOetaphi->Draw("lego20");
-   hMC_Zbkg_maxOetaphi->GetYaxis()->SetTitle("Background MC #Delta#phi_{Z,track}");
-   hMC_Zbkg_maxOetaphi->GetXaxis()->SetTitle("Background MC #Delta#eta_{Z,track}");
+   hMC_Zbkg_maxOetaphi->GetYaxis()->SetTitle("Background MC #phi_{axis}");
+   hMC_Zbkg_maxOetaphi->GetXaxis()->SetTitle("Background MC #eta_{axis}");
    hMC_Zbkg_maxOetaphi->GetXaxis()->SetTitleSize(30);
    hMC_Zbkg_maxOetaphi->GetYaxis()->SetTitleSize(30);
    hMC_Zbkg_maxOetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -1984,8 +1984,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zbkg_maxOetaphi->Draw("lego20");
-   hData_Zbkg_maxOetaphi->GetYaxis()->SetTitle("Background Data #Delta#phi_{Z,track}");
-   hData_Zbkg_maxOetaphi->GetXaxis()->SetTitle("Background Data #Delta#eta_{Z,track}");
+   hData_Zbkg_maxOetaphi->GetYaxis()->SetTitle("Background Data #phi_{axis}");
+   hData_Zbkg_maxOetaphi->GetXaxis()->SetTitle("Background Data #eta_{axis}");
    hData_Zbkg_maxOetaphi->GetXaxis()->SetTitleSize(30);
    hData_Zbkg_maxOetaphi->GetYaxis()->SetTitleSize(30);
    hData_Zbkg_maxOetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2006,8 +2006,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zsb_maxOetaphi->Draw("lego20");
-   hMC_Zsb_maxOetaphi->GetYaxis()->SetTitle("Signal - Background MC #Delta#phi_{Z,track}");
-   hMC_Zsb_maxOetaphi->GetXaxis()->SetTitle("Signal - Background MC #Delta#eta_{Z,track}");
+   hMC_Zsb_maxOetaphi->GetYaxis()->SetTitle("Signal - Background MC #phi_{axis}");
+   hMC_Zsb_maxOetaphi->GetXaxis()->SetTitle("Signal - Background MC #eta_{axis}");
    hMC_Zsb_maxOetaphi->GetXaxis()->SetTitleSize(24);
    hMC_Zsb_maxOetaphi->GetYaxis()->SetTitleSize(24);
    hMC_Zsb_maxOetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2023,8 +2023,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zsb_maxOetaphi->Draw("lego20");
-   hData_Zsb_maxOetaphi->GetYaxis()->SetTitle("Signal - Background Data #Delta#phi_{Z,track}");
-   hData_Zsb_maxOetaphi->GetXaxis()->SetTitle("Signal - Background Data #Delta#eta_{Z,track}");
+   hData_Zsb_maxOetaphi->GetYaxis()->SetTitle("Signal - Background Data #phi_{axis}");
+   hData_Zsb_maxOetaphi->GetXaxis()->SetTitle("Signal - Background Data #eta_{axis}");
    hData_Zsb_maxOetaphi->GetXaxis()->SetTitleSize(24);
    hData_Zsb_maxOetaphi->GetYaxis()->SetTitleSize(24);
    hData_Zsb_maxOetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2045,8 +2045,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zsbr_maxOetaphi->Draw("lego20");
-   hMC_Zsbr_maxOetaphi->GetYaxis()->SetTitle("Signal/Background MC #Delta#phi_{Z,track}");
-   hMC_Zsbr_maxOetaphi->GetXaxis()->SetTitle("Signal/Background MC #Delta#eta_{Z,track}");
+   hMC_Zsbr_maxOetaphi->GetYaxis()->SetTitle("Signal/Background MC #phi_{axis}");
+   hMC_Zsbr_maxOetaphi->GetXaxis()->SetTitle("Signal/Background MC #eta_{axis}");
    hMC_Zsbr_maxOetaphi->GetXaxis()->SetTitleSize(24);
    hMC_Zsbr_maxOetaphi->GetYaxis()->SetTitleSize(24);
    hMC_Zsbr_maxOetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2062,8 +2062,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zsbr_maxOetaphi->Draw("lego20");
-   hData_Zsbr_maxOetaphi->GetYaxis()->SetTitle("Signal/Background Data #Delta#phi_{Z,track}");
-   hData_Zsbr_maxOetaphi->GetXaxis()->SetTitle("Signal/Background Data #Delta#eta_{Z,track}");
+   hData_Zsbr_maxOetaphi->GetYaxis()->SetTitle("Signal/Background Data #phi_{axis}");
+   hData_Zsbr_maxOetaphi->GetXaxis()->SetTitle("Signal/Background Data #eta_{axis}");
    hData_Zsbr_maxOetaphi->GetXaxis()->SetTitleSize(24);
    hData_Zsbr_maxOetaphi->GetYaxis()->SetTitleSize(24);
    hData_Zsbr_maxOetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2084,8 +2084,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_ZWTAetaphi->Draw("lego20");
-   hMC_ZWTAetaphi->GetYaxis()->SetTitle("Signal MC #Delta#phi_{Z,track}");
-   hMC_ZWTAetaphi->GetXaxis()->SetTitle("Signal MC #Delta#eta_{Z,track}");
+   hMC_ZWTAetaphi->GetYaxis()->SetTitle("Signal MC #phi_{axis}");
+   hMC_ZWTAetaphi->GetXaxis()->SetTitle("Signal MC #eta_{axis}");
    hMC_ZWTAetaphi->GetXaxis()->SetTitleSize(30);
    hMC_ZWTAetaphi->GetYaxis()->SetTitleSize(30);
    hMC_ZWTAetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2101,8 +2101,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_ZWTAetaphi->Draw("lego20");
-   hData_ZWTAetaphi->GetYaxis()->SetTitle("Signal Data #Delta#phi_{Z,track}");
-   hData_ZWTAetaphi->GetXaxis()->SetTitle("Signal Data #Delta#eta_{Z,track}");
+   hData_ZWTAetaphi->GetYaxis()->SetTitle("Signal Data #phi_{axis}");
+   hData_ZWTAetaphi->GetXaxis()->SetTitle("Signal Data #eta_{axis}");
    hData_ZWTAetaphi->GetXaxis()->SetTitleSize(30);
    hData_ZWTAetaphi->GetYaxis()->SetTitleSize(30);
    hData_ZWTAetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2123,8 +2123,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zbkg_WTAetaphi->Draw("lego20");
-   hMC_Zbkg_WTAetaphi->GetYaxis()->SetTitle("Background MC #Delta#phi_{Z,track}");
-   hMC_Zbkg_WTAetaphi->GetXaxis()->SetTitle("Background MC #Delta#eta_{Z,track}");
+   hMC_Zbkg_WTAetaphi->GetYaxis()->SetTitle("Background MC #phi_{axis}");
+   hMC_Zbkg_WTAetaphi->GetXaxis()->SetTitle("Background MC #eta_{axis}");
    hMC_Zbkg_WTAetaphi->GetXaxis()->SetTitleSize(30);
    hMC_Zbkg_WTAetaphi->GetYaxis()->SetTitleSize(30);
    hMC_Zbkg_WTAetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2140,8 +2140,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zbkg_WTAetaphi->Draw("lego20");
-   hData_Zbkg_WTAetaphi->GetYaxis()->SetTitle("Background Data #Delta#phi_{Z,track}");
-   hData_Zbkg_WTAetaphi->GetXaxis()->SetTitle("Background Data #Delta#eta_{Z,track}");
+   hData_Zbkg_WTAetaphi->GetYaxis()->SetTitle("Background Data #phi_{axis}");
+   hData_Zbkg_WTAetaphi->GetXaxis()->SetTitle("Background Data #eta_{axis}");
    hData_Zbkg_WTAetaphi->GetXaxis()->SetTitleSize(30);
    hData_Zbkg_WTAetaphi->GetYaxis()->SetTitleSize(30);
    hData_Zbkg_WTAetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2162,8 +2162,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zsb_WTAetaphi->Draw("lego20");
-   hMC_Zsb_WTAetaphi->GetYaxis()->SetTitle("Signal - Background MC #Delta#phi_{Z,track}");
-   hMC_Zsb_WTAetaphi->GetXaxis()->SetTitle("Signal - Background MC #Delta#eta_{Z,track}");
+   hMC_Zsb_WTAetaphi->GetYaxis()->SetTitle("Signal - Background MC #phi_{axis}");
+   hMC_Zsb_WTAetaphi->GetXaxis()->SetTitle("Signal - Background MC #eta_{axis}");
    hMC_Zsb_WTAetaphi->GetXaxis()->SetTitleSize(24);
    hMC_Zsb_WTAetaphi->GetYaxis()->SetTitleSize(24);
    hMC_Zsb_WTAetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2179,8 +2179,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zsb_WTAetaphi->Draw("lego20");
-   hData_Zsb_WTAetaphi->GetYaxis()->SetTitle("Signal - Background Data #Delta#phi_{Z,track}");
-   hData_Zsb_WTAetaphi->GetXaxis()->SetTitle("Signal - Background Data #Delta#eta_{Z,track}");
+   hData_Zsb_WTAetaphi->GetYaxis()->SetTitle("Signal - Background Data #phi_{axis}");
+   hData_Zsb_WTAetaphi->GetXaxis()->SetTitle("Signal - Background Data #eta_{axis}");
    hData_Zsb_WTAetaphi->GetXaxis()->SetTitleSize(24);
    hData_Zsb_WTAetaphi->GetYaxis()->SetTitleSize(24);
    hData_Zsb_WTAetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2201,8 +2201,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zsbr_WTAetaphi->Draw("lego20");
-   hMC_Zsbr_WTAetaphi->GetYaxis()->SetTitle("Signal/Background MC #Delta#phi_{Z,track}");
-   hMC_Zsbr_WTAetaphi->GetXaxis()->SetTitle("Signal/Background MC #Delta#eta_{Z,track}");
+   hMC_Zsbr_WTAetaphi->GetYaxis()->SetTitle("Signal/Background MC #phi_{axis}");
+   hMC_Zsbr_WTAetaphi->GetXaxis()->SetTitle("Signal/Background MC #eta_{axis}");
    hMC_Zsbr_WTAetaphi->GetXaxis()->SetTitleSize(24);
    hMC_Zsbr_WTAetaphi->GetYaxis()->SetTitleSize(24);
    hMC_Zsbr_WTAetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2218,8 +2218,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zsbr_WTAetaphi->Draw("lego20");
-   hData_Zsbr_WTAetaphi->GetYaxis()->SetTitle("Signal/Background Data #Delta#phi_{Z,track}");
-   hData_Zsbr_WTAetaphi->GetXaxis()->SetTitle("Signal/Background Data #Delta#eta_{Z,track}");
+   hData_Zsbr_WTAetaphi->GetYaxis()->SetTitle("Signal/Background Data #phi_{axis}");
+   hData_Zsbr_WTAetaphi->GetXaxis()->SetTitle("Signal/Background Data #eta_{axis}");
    hData_Zsbr_WTAetaphi->GetXaxis()->SetTitleSize(24);
    hData_Zsbr_WTAetaphi->GetYaxis()->SetTitleSize(24);
    hData_Zsbr_WTAetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2240,8 +2240,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_ZWTAMoreetaphi->Draw("lego20");
-   hMC_ZWTAMoreetaphi->GetYaxis()->SetTitle("Signal MC #Delta#phi_{Z,track}");
-   hMC_ZWTAMoreetaphi->GetXaxis()->SetTitle("Signal MC #Delta#eta_{Z,track}");
+   hMC_ZWTAMoreetaphi->GetYaxis()->SetTitle("Signal MC #phi_{axis}");
+   hMC_ZWTAMoreetaphi->GetXaxis()->SetTitle("Signal MC #eta_{axis}");
    hMC_ZWTAMoreetaphi->GetXaxis()->SetTitleSize(30);
    hMC_ZWTAMoreetaphi->GetYaxis()->SetTitleSize(30);
    hMC_ZWTAMoreetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2257,8 +2257,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_ZWTAMoreetaphi->Draw("lego20");
-   hData_ZWTAMoreetaphi->GetYaxis()->SetTitle("Signal Data #Delta#phi_{Z,track}");
-   hData_ZWTAMoreetaphi->GetXaxis()->SetTitle("Signal Data #Delta#eta_{Z,track}");
+   hData_ZWTAMoreetaphi->GetYaxis()->SetTitle("Signal Data #phi_{axis}");
+   hData_ZWTAMoreetaphi->GetXaxis()->SetTitle("Signal Data #eta_{axis}");
    hData_ZWTAMoreetaphi->GetXaxis()->SetTitleSize(30);
    hData_ZWTAMoreetaphi->GetYaxis()->SetTitleSize(30);
    hData_ZWTAMoreetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2279,8 +2279,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zbkg_WTAMoreetaphi->Draw("lego20");
-   hMC_Zbkg_WTAMoreetaphi->GetYaxis()->SetTitle("Background MC #Delta#phi_{Z,track}");
-   hMC_Zbkg_WTAMoreetaphi->GetXaxis()->SetTitle("Background MC #Delta#eta_{Z,track}");
+   hMC_Zbkg_WTAMoreetaphi->GetYaxis()->SetTitle("Background MC #phi_{axis}");
+   hMC_Zbkg_WTAMoreetaphi->GetXaxis()->SetTitle("Background MC #eta_{axis}");
    hMC_Zbkg_WTAMoreetaphi->GetXaxis()->SetTitleSize(30);
    hMC_Zbkg_WTAMoreetaphi->GetYaxis()->SetTitleSize(30);
    hMC_Zbkg_WTAMoreetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2296,8 +2296,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zbkg_WTAMoreetaphi->Draw("lego20");
-   hData_Zbkg_WTAMoreetaphi->GetYaxis()->SetTitle("Background Data #Delta#phi_{Z,track}");
-   hData_Zbkg_WTAMoreetaphi->GetXaxis()->SetTitle("Background Data #Delta#eta_{Z,track}");
+   hData_Zbkg_WTAMoreetaphi->GetYaxis()->SetTitle("Background Data #phi_{axis}");
+   hData_Zbkg_WTAMoreetaphi->GetXaxis()->SetTitle("Background Data #eta_{axis}");
    hData_Zbkg_WTAMoreetaphi->GetXaxis()->SetTitleSize(30);
    hData_Zbkg_WTAMoreetaphi->GetYaxis()->SetTitleSize(30);
    hData_Zbkg_WTAMoreetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2318,8 +2318,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zsb_WTAMoreetaphi->Draw("lego20");
-   hMC_Zsb_WTAMoreetaphi->GetYaxis()->SetTitle("Signal - Background MC #Delta#phi_{Z,track}");
-   hMC_Zsb_WTAMoreetaphi->GetXaxis()->SetTitle("Signal - Background MC #Delta#eta_{Z,track}");
+   hMC_Zsb_WTAMoreetaphi->GetYaxis()->SetTitle("Signal - Background MC #phi_{axis}");
+   hMC_Zsb_WTAMoreetaphi->GetXaxis()->SetTitle("Signal - Background MC #eta_{axis}");
    hMC_Zsb_WTAMoreetaphi->GetXaxis()->SetTitleSize(24);
    hMC_Zsb_WTAMoreetaphi->GetYaxis()->SetTitleSize(24);
    hMC_Zsb_WTAMoreetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2335,8 +2335,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zsb_WTAMoreetaphi->Draw("lego20");
-   hData_Zsb_WTAMoreetaphi->GetYaxis()->SetTitle("Signal - Background Data #Delta#phi_{Z,track}");
-   hData_Zsb_WTAMoreetaphi->GetXaxis()->SetTitle("Signal - Background Data #Delta#eta_{Z,track}");
+   hData_Zsb_WTAMoreetaphi->GetYaxis()->SetTitle("Signal - Background Data #phi_{axis}");
+   hData_Zsb_WTAMoreetaphi->GetXaxis()->SetTitle("Signal - Background Data #eta_{axis}");
    hData_Zsb_WTAMoreetaphi->GetXaxis()->SetTitleSize(24);
    hData_Zsb_WTAMoreetaphi->GetYaxis()->SetTitleSize(24);
    hData_Zsb_WTAMoreetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2357,8 +2357,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->cd(1);
 
    hMC_Zsbr_WTAMoreetaphi->Draw("lego20");
-   hMC_Zsbr_WTAMoreetaphi->GetYaxis()->SetTitle("Signal/Background MC #Delta#phi_{Z,track}");
-   hMC_Zsbr_WTAMoreetaphi->GetXaxis()->SetTitle("Signal/Background MC #Delta#eta_{Z,track}");
+   hMC_Zsbr_WTAMoreetaphi->GetYaxis()->SetTitle("Signal/Background MC #phi_{axis}");
+   hMC_Zsbr_WTAMoreetaphi->GetXaxis()->SetTitle("Signal/Background MC #eta_{axis}");
    hMC_Zsbr_WTAMoreetaphi->GetXaxis()->SetTitleSize(24);
    hMC_Zsbr_WTAMoreetaphi->GetYaxis()->SetTitleSize(24);
    hMC_Zsbr_WTAMoreetaphi->GetXaxis()->SetTitleOffset(3.0);
@@ -2374,8 +2374,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_Zsbr_WTAMoreetaphi->Draw("lego20");
-   hData_Zsbr_WTAMoreetaphi->GetYaxis()->SetTitle("Signal/Background Data #Delta#phi_{Z,track}");
-   hData_Zsbr_WTAMoreetaphi->GetXaxis()->SetTitle("Signal/Background Data #Delta#eta_{Z,track}");
+   hData_Zsbr_WTAMoreetaphi->GetYaxis()->SetTitle("Signal/Background Data #phi_{axis}");
+   hData_Zsbr_WTAMoreetaphi->GetXaxis()->SetTitle("Signal/Background Data #eta_{axis}");
    hData_Zsbr_WTAMoreetaphi->GetXaxis()->SetTitleSize(24);
    hData_Zsbr_WTAMoreetaphi->GetYaxis()->SetTitleSize(24);
    hData_Zsbr_WTAMoreetaphi->GetXaxis()->SetTitleOffset(3.0);
