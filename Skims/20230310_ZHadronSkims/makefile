@@ -55,6 +55,12 @@ PrepareToRunMC:
 		2 LogMC/ /eos/cms/store/group/phys_heavyions/pchou/OutputMC/ \
 		--Fraction 1 --DoGenLevel false --IsData true --IsPP false
 
+PrepareToRunPP: Execute
+	bash PrepareInput.sh \
+		$(PPSignalMC)/ \
+		2 LogPP/ /eos/cms/store/group/phys_heavyions/pchou/OutputPP/ \
+		--Fraction 1 --DoGenLevel true --IsData false --IsPP true
+
 PrepareToRunBackground:
 	bash PrepareInput.sh \
 		'/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HISingleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HISingleMuon/20230403_ZHadronSingleMuonWithMuTree/230403_182556/*/' \
