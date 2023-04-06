@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
    string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions_ops/pchou/OutputMC_old/");
    string OutputFileName = CL.Get("Output", "Plots.root");
    double Fraction       = CL.GetDouble("Fraction", 1.00);
+   bool IgnoreCentrality = CL.GetBool("IgnoreCentrality", false);
    
    // Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
    vector<Configuration> C;
@@ -222,6 +223,8 @@ int main(int argc, char *argv[])
 
          bool CentRange = false;
          if(HiBin >= C[iC].CentMin * 2 && HiBin < C[iC].CentMax * 2)
+            CentRange = true;
+         if(IgnoreCentrality == true)
             CentRange = true;
 
          // If we know that the Z candidate is not in range, no need to loop over tracks!
