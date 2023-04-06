@@ -36,7 +36,7 @@ TestRunMCBackground: Execute
 		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root \
-		--HFShift 682 --Tolerance 187.5 --ToleranceFraction 0 --DoSumET false
+		--HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false
 
 
 Execute: DoZHadronSkim.cpp
