@@ -375,8 +375,9 @@ int main(int argc, char *argv[])
                   double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
                   double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
 
-                  if(DeltaRMu1 < MuonVeto)   continue;
-                  if(DeltaRMu2 < MuonVeto)   continue;
+                  bool MuTagged = false;
+                  if(DeltaRMu1 < MuonVeto)   MuTagged = true;
+                  if(DeltaRMu2 < MuonVeto)   MuTagged = true;
 
                   double deltaPhi = DeltaPhi(TrackPhi, MZHadron.zPhi->at(0));
                   double deltaEta = TrackEta - MZHadron.zEta->at(0);
@@ -389,6 +390,7 @@ int main(int argc, char *argv[])
                   MZHadron.trackDphi->push_back(deltaPhi);
                   MZHadron.trackDeta->push_back(deltaEta);
                   MZHadron.trackPt->push_back(TrackPT);
+                  MZHadron.trackMuTagged->push_back(MuTagged);
                }
 
                // Loop over PF candidates to find WTA

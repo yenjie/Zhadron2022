@@ -165,13 +165,14 @@ int main(int argc, char *argv[])
    Tree->Add((InputBase + "/*.root?#Tree").c_str());
  
    int HiBin;
-   vector<double> *ZMass     = nullptr;
-   vector<double> *ZPT       = nullptr;
-   vector<double> *ZEta      = nullptr;
-   vector<double> *ZPhi      = nullptr;
-   vector<double> *TrackPT   = nullptr;
-   vector<double> *TrackDPhi = nullptr;
-   vector<double> *TrackDEta = nullptr;
+   vector<double> *ZMass       = nullptr;
+   vector<double> *ZPT         = nullptr;
+   vector<double> *ZEta        = nullptr;
+   vector<double> *ZPhi        = nullptr;
+   vector<double> *TrackPT     = nullptr;
+   vector<double> *TrackDPhi   = nullptr;
+   vector<double> *TrackDEta   = nullptr;
+   vector<bool> *TrackMuTagged = nullptr;
    double maxOppositeDEta;
    double maxOppositeDPhi;
    double maxDEta;
@@ -189,6 +190,7 @@ int main(int argc, char *argv[])
    Tree->SetBranchAddress("trackPt",                &TrackPT);
    Tree->SetBranchAddress("trackDeta",              &TrackDEta);
    Tree->SetBranchAddress("trackDphi",              &TrackDPhi);
+   Tree->SetBranchAddress("trackMuTagged",          &TrackMuTagged);
    if(Tree->GetBranch("maxOppositeDEta"))        Tree->SetBranchAddress("maxOppositeDEta",        &maxOppositeDEta);
    if(Tree->GetBranch("maxOppositeDPhi"))        Tree->SetBranchAddress("maxOppositeDPhi",        &maxOppositeDPhi);
    if(Tree->GetBranch("maxDEta"))                Tree->SetBranchAddress("maxDEta",                &maxDEta);
@@ -243,8 +245,12 @@ int main(int argc, char *argv[])
             if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
                TrackPTRange = true;
 
+            bool TrackNotCloseToMuon = true;
+            if(TrackMuTagged->at(iT) == true)
+               TrackNotCloseToMuon = false;
+
             bool PassEvent = ZMassRange && ZPTRange && CentRange;
-            bool PassEverything = PassEvent && TrackPTRange;
+            bool PassEverything = PassEvent && TrackPTRange && TrackCloseToMuon;
 
             double DEtaToMax             = TrackDEta->at(iT) - maxDEta;
             double DPhiToMax             = DeltaPhi(TrackDPhi->at(iT), maxDPhi);
