@@ -29,14 +29,14 @@ TestRunBackgroundSimple: Execute
 		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true \
 		--Background $(PbPbBackgroundData)//HiForestMiniAOD_118.root \
-		--HFShift 660 --Tolerance 330 --ToleranceFraction 0.1
+		--HFShift 660 --Tolerance 150 --ToleranceFraction 0
 
 TestRunMCBackground: Execute
 	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_10.root \
 		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root \
-		--HFShift 682 --Tolerance 341 --ToleranceFraction 0.1 --DoSumET false
+		--HFShift 682 --Tolerance 187.5 --ToleranceFraction 0 --DoSumET false
 
 
 Execute: DoZHadronSkim.cpp
@@ -55,6 +55,12 @@ PrepareToRunMC:
 		2 LogMC/ /eos/cms/store/group/phys_heavyions/pchou/OutputMC/ \
 		--Fraction 1 --DoGenLevel false --IsData true --IsPP false
 
+PrepareToRunPP:
+	bash PrepareInput.sh \
+		$(PPSignalMC)/ \
+		2 LogPP/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC/ \
+		--Fraction 1 --DoGenLevel true --IsData false --IsPP true
+
 PrepareToRunBackground:
 	bash PrepareInput.sh \
 		'/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HISingleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HISingleMuon/20230403_ZHadronSingleMuonWithMuTree/230403_182556/*/' \
@@ -66,10 +72,10 @@ PrepareToRunBackground:
 PrepareToRunRandomBackground:
 	bash PrepareInputRandomBackground.sh \
 		'/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HISingleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HISingleMuon/20230403_ZHadronSingleMuonWithMuTree/230403_182556/*/' \
-		2 LogDatabkg/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg/ \
-		$(PbPbBackgroundData)// 12 \
+		10 LogDatabkg/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg/ \
+		$(PbPbBackgroundData)// 50 \
 		--Fraction 1 --DoGenLevel false --IsData true --IsPP false \
-		--DoBackground true --HFShift 660 --Tolerance 330 --ToleranceFraction 0.1 --DoSumET false --Oversample 10
+		--DoBackground true --HFShift 660 --Tolerance 150 --ToleranceFraction 0 --DoSumET false --Oversample 25
 
 PrepareToRunMCBackground:
 	bash PrepareInput.sh \
@@ -86,4 +92,4 @@ PrepareToRunRandomMCBackground:
 		2 LogMCbkg/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg/ \
 		$(PbPbBackgroundMC)/ 12 \
 		--Fraction 1 --DoGenLevel true --IsData false --IsPP false \
-		--DoBackground true --HFShift 682 --Tolerance 341 --ToleranceFraction 0.1 --DoSumET false --Oversample 10
+		--DoBackground true --HFShift 682 --Tolerance 187.5 --ToleranceFraction 0 --DoSumET false --Oversample 10

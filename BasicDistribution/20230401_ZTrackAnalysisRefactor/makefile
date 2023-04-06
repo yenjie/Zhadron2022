@@ -9,6 +9,8 @@ TestRun: Execute
 		--Output GraphMCBackground.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg/ \
 		--Output GraphDataBackground.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC/ \
+		--Output GraphDataPPMC.root
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
