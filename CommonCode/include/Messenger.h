@@ -513,6 +513,7 @@ public:
    std::vector<double> *trackPDFId;
    std::vector<double> *trackEta;
    std::vector<double> *trackPhi;
+   std::vector<bool> *trackMuTagged;
 
    double maxOppositeDEta;
    double maxOppositeDPhi;

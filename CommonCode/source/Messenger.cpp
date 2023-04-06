@@ -1773,31 +1773,32 @@ bool ZHadronMessenger::SetBranch(TTree *T)
 
    Tree = T;
 
-   Tree->Branch("run",        &Run,     "run/I");
-   Tree->Branch("event",      &Event,   "event/L");
-   Tree->Branch("lumi",       &Lumi,    "lumi/I");
-   Tree->Branch("hiBin",      &hiBin,   "hiBin/I");
-   Tree->Branch("hiHF",       &hiHF,    "hiHF/F");
+   Tree->Branch("run",                    &Run,          "run/I");
+   Tree->Branch("event",                  &Event,        "event/L");
+   Tree->Branch("lumi",                   &Lumi,         "lumi/I");
+   Tree->Branch("hiBin",                  &hiBin,        "hiBin/I");
+   Tree->Branch("hiHF",                   &hiHF,         "hiHF/F");
 
-   Tree->Branch("SignalHF",   &SignalHF, "SignalHF/F");
-   Tree->Branch("BackgroundHF",   &BackgroundHF, "BackgroundHF/F");
+   Tree->Branch("SignalHF",               &SignalHF,     "SignalHF/F");
+   Tree->Branch("BackgroundHF",           &BackgroundHF, "BackgroundHF/F");
 
-   Tree->Branch("NCollWeight", &NCollWeight, "NCollWeight/F");
+   Tree->Branch("NCollWeight",            &NCollWeight,  "NCollWeight/F");
    
-   Tree->Branch("zMass",      &zMass);
-   Tree->Branch("zEta",       &zEta);
-   Tree->Branch("zPhi",       &zPhi);
-   Tree->Branch("zPt",        &zPt);
-   Tree->Branch("genZMass",   &genZMass);
-   Tree->Branch("genZEta",    &genZEta);
-   Tree->Branch("genZPhi",    &genZPhi);
-   Tree->Branch("genZPt",     &genZPt);
-   Tree->Branch("trackDphi",  &trackDphi);
-   Tree->Branch("trackDeta",  &trackDeta);
-   Tree->Branch("trackPt",    &trackPt);
-   Tree->Branch("trackPDFId", &trackPDFId);
-   Tree->Branch("trackPhi",   &trackPhi);
-   Tree->Branch("trackEta",   &trackEta);
+   Tree->Branch("zMass",                  &zMass);
+   Tree->Branch("zEta",                   &zEta);
+   Tree->Branch("zPhi",                   &zPhi);
+   Tree->Branch("zPt",                    &zPt);
+   Tree->Branch("genZMass",               &genZMass);
+   Tree->Branch("genZEta",                &genZEta);
+   Tree->Branch("genZPhi",                &genZPhi);
+   Tree->Branch("genZPt",                 &genZPt);
+   Tree->Branch("trackDphi",              &trackDphi);
+   Tree->Branch("trackDeta",              &trackDeta);
+   Tree->Branch("trackPt",                &trackPt);
+   Tree->Branch("trackPDFId",             &trackPDFId);
+   Tree->Branch("trackPhi",               &trackPhi);
+   Tree->Branch("trackEta",               &trackEta);
+   Tree->Branch("trackMuTagged",          &trackPt);
 
    Tree->Branch("maxOppositeDEta",        &maxOppositeDEta);
    Tree->Branch("maxOppositeDPhi",        &maxOppositeDPhi);
@@ -1808,29 +1809,29 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("maxMoreOppositeWTADEta", &maxMoreOppositeWTADEta);
    Tree->Branch("maxMoreOppositeWTADPhi", &maxMoreOppositeWTADPhi);
 
-   Tree->Branch("muEta1",     &muEta1);
-   Tree->Branch("muEta2",     &muEta2);
-   Tree->Branch("muPhi1",     &muPhi1);
-   Tree->Branch("muPhi2",     &muPhi2);
-   Tree->Branch("muPt1",      &muPt1);
-   Tree->Branch("muPt2",      &muPt2);
+   Tree->Branch("muEta1",                 &muEta1);
+   Tree->Branch("muEta2",                 &muEta2);
+   Tree->Branch("muPhi1",                 &muPhi1);
+   Tree->Branch("muPhi2",                 &muPhi2);
+   Tree->Branch("muPt1",                  &muPt1);
+   Tree->Branch("muPt2",                  &muPt2);
 
-   Tree->Branch("genMuPt1",   &genMuPt1);
-   Tree->Branch("genMuPt2",   &genMuPt2);
-   Tree->Branch("genMuEta1",  &genMuEta1);
-   Tree->Branch("genMuEta2",  &genMuEta2);
-   Tree->Branch("genMuPhi1",  &genMuPhi1);
-   Tree->Branch("genMuPhi2",  &genMuPhi2);
+   Tree->Branch("genMuPt1",               &genMuPt1);
+   Tree->Branch("genMuPt2",               &genMuPt2);
+   Tree->Branch("genMuEta1",              &genMuEta1);
+   Tree->Branch("genMuEta2",              &genMuEta2);
+   Tree->Branch("genMuPhi1",              &genMuPhi1);
+   Tree->Branch("genMuPhi2",              &genMuPhi2);
 
-   Tree->Branch("muDeta",     &muDeta);
-   Tree->Branch("muDphi",     &muDphi);
-   Tree->Branch("muDR",       &muDR);
-   Tree->Branch("muDphiS",    &muDphiS);
+   Tree->Branch("muDeta",                 &muDeta);
+   Tree->Branch("muDphi",                 &muDphi);
+   Tree->Branch("muDR",                   &muDR);
+   Tree->Branch("muDphiS",                &muDphiS);
 
-   Tree->Branch("genMuDeta",  &genMuDeta);
-   Tree->Branch("genMuDphi",  &genMuDphi);
-   Tree->Branch("genMuDR",    &genMuDR);
-   Tree->Branch("genMuDphiS", &genMuDphiS);
+   Tree->Branch("genMuDeta",              &genMuDeta);
+   Tree->Branch("genMuDphi",              &genMuDphi);
+   Tree->Branch("genMuDR",                &genMuDR);
+   Tree->Branch("genMuDphiS",             &genMuDphiS);
 
    return true;
 }

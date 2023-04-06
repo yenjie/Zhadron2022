@@ -25,7 +25,7 @@ process.source = cms.Source("PoolSource",
 
 # number of events to process, set to -1 to process all events
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(10)
+    input = cms.untracked.int32(100)
     )
 
 ###############################################################################
@@ -124,9 +124,29 @@ process.zdcanalyzer.calZDCDigi = True
 ################################
 
 
+process.Trigger = cms.EDFilter( "TriggerResultsFilter",
+      triggerConditions = cms.vstring(
+         'HLT_HIEle*',
+         # 'HLT_HIL3Mu7_NHitQ10_*',
+         'HLT_HIL3Mu12_*',
+         'HLT_HIL3Mu15_*',
+         'HLT_HIL3Mu20_*',
+         'HLT_HIDoubleEle*',
+         ),
+      hltResults = cms.InputTag( "TriggerResults", "", "HLT" ),
+      l1tResults = cms.InputTag( "gtStage2Digis" ),
+      l1tIgnoreMask = cms.bool( False ),
+      l1techIgnorePrescales = cms.bool( False ),
+      daqPartitions = cms.uint32( 1 ),
+      throw = cms.bool( True )
+      )
+
+
+
 ###############################################################################
 # main forest sequence
 process.forest = cms.Path(
+    process.Trigger +
     process.HiForestInfo +
     process.hiEvtAnalyzer +
     process.hltanalysis +
