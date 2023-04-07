@@ -10,7 +10,7 @@ TestRun: Execute
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg/ \
 		--Output GraphDataBackground.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC/ \
-		--Output GraphDataPPMC.root
+		--Output GraphDataPPMC.root --IgnoreCentrality true
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
