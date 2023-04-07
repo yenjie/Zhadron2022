@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
    double MinZPT                 = CL.GetDouble("MinZPT", 20.00);
    bool IsData                   = CL.GetBool("IsData", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
+   bool DoGenCorrelation         = CL.GetBool("DoGenCorrelation", false);
    bool DoBackground             = CL.GetBool("DoBackground", false);
    bool DoSumET                  = CL.GetBool("DoSumET", true);
    double MuonVeto               = CL.GetDouble("MuonVeto", 0.01);
@@ -64,6 +65,7 @@ int main(int argc, char *argv[])
    PFTreeName                    = CL.Get("PFTree", PFTreeName);
 
    Assert(!(IsPP == true && IsData == true), "Data selections for pp not implemented yet");
+   Assert(!(DoGenCorrelation == true && DoGenLevel == false), "You need to turn on gen level to do gen correlation!");
 
    vector<string> BackgroundFileNames;
    int NBackground = 0;
@@ -83,18 +85,20 @@ int main(int argc, char *argv[])
 
    // Do some pre-caching if we read background files.
    // Later on if speed is an issue we can do some optimizations
-   vector<TFile *>                  BackgroundFiles;
-   vector<HiEventTreeMessenger *>   MBackgroundEvent;
-   vector<TrackTreeMessenger *>     MBackgroundTrackPP;
-   vector<PbPbTrackTreeMessenger *> MBackgroundTrack;
-   vector<PFTreeMessenger *>        MBackgroundPF;
-   vector<EventIndex>               BackgroundIndices;
+   vector<TFile *>                    BackgroundFiles;
+   vector<HiEventTreeMessenger *>     MBackgroundEvent;
+   vector<GenParticleTreeMessenger *> MBackgroundGen;
+   vector<TrackTreeMessenger *>       MBackgroundTrackPP;
+   vector<PbPbTrackTreeMessenger *>   MBackgroundTrack;
+   vector<PFTreeMessenger *>          MBackgroundPF;
+   vector<EventIndex>                 BackgroundIndices;
    if(DoBackground == true)
    {
       for(int iB = 0; iB < NBackground; iB++)
       {
          BackgroundFiles.push_back(new TFile(BackgroundFileNames[iB].c_str()));
          MBackgroundEvent.push_back(new HiEventTreeMessenger(BackgroundFiles[iB]));
+         MBackgroundGen.push_back(new GenParticleTreeMessenger(BackgroundFiles[iB]));
          MBackgroundTrackPP.push_back(new TrackTreeMessenger(BackgroundFiles[iB]));
          MBackgroundTrack.push_back(new PbPbTrackTreeMessenger(BackgroundFiles[iB]));
          MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB], PFTreeName.c_str()));
@@ -134,13 +138,14 @@ int main(int argc, char *argv[])
       TFile InputFile(InputFileName.c_str());
 
       // Setup all the messengers.  In the future we'll add more for triggers etc.
-      HiEventTreeMessenger   MSignalEvent(InputFile);
-      TrackTreeMessenger     MSignalTrackPP(InputFile);
-      PbPbTrackTreeMessenger MSignalTrack(InputFile);
-      PFTreeMessenger        MSignalPF(InputFile, PFTreeName.c_str());
-      MuTreeMessenger        MSignalMu(InputFile);
-      SkimTreeMessenger      MSignalSkim(InputFile);
-      TriggerTreeMessenger   MSignalTrigger(InputFile);
+      HiEventTreeMessenger     MSignalEvent(InputFile);
+      TrackTreeMessenger       MSignalTrackPP(InputFile);
+      PbPbTrackTreeMessenger   MSignalTrack(InputFile);
+      GenParticleTreeMessenger MSignalGen(InputFile);
+      PFTreeMessenger          MSignalPF(InputFile, PFTreeName.c_str());
+      MuTreeMessenger          MSignalMu(InputFile);
+      SkimTreeMessenger        MSignalSkim(InputFile);
+      TriggerTreeMessenger     MSignalTrigger(InputFile);
 
       // Start looping over events
       int EntryCount = MSignalEvent.GetEntries() * Fraction;
@@ -159,6 +164,7 @@ int main(int argc, char *argv[])
          TLorentzVector VGenZ, VGenMu1, VGenMu2;
 
          MSignalEvent.GetEntry(iE);
+         MSignalGen.GetEntry(iE);
          if(IsPP == true)
             MSignalTrackPP.GetEntry(iE);
          else
@@ -298,7 +304,9 @@ int main(int argc, char *argv[])
             MZHadron.SignalHF = DoSumET ? MSignalEvent.hiHF : GetHFSum(&MSignalPF);
 
             // Z-track correlation
-            if(MZHadron.zMass->size() > 0 && MZHadron.zPt->at(0) > MinZPT)
+            bool GoodGenZ = MZHadron.genZPt->size() > 0 && (MZHadron.genZPt->at(0) > MinZPT);
+            bool GoodRecoZ = MZHadron.zPt->size() > 0 && (MZHadron.zPt->at(0) > MinZPT);
+            if((DoGenCorrelation == true && GoodGenZ == true) || (DoGenCorrelation == false && GoodRecoZ == true))
             {
                // Decide whether to use signal or background for tracks
                EventIndex Location;
@@ -338,39 +346,57 @@ int main(int argc, char *argv[])
 
                   // cout << Location.HF << endl;
 
-                  if(IsPP == true)
-                     MBackgroundTrackPP[Location.File]->GetEntry(Location.Event);
+                  if(DoGenCorrelation == true)
+                     MBackgroundGen[Location.File]->GetEntry(Location.Event);
                   else
-                     MBackgroundTrack[Location.File]->GetEntry(Location.Event);
-                  MBackgroundPF[Location.File]->GetEntry(Location.Event);
+                  {
+                     if(IsPP == true)
+                        MBackgroundTrackPP[Location.File]->GetEntry(Location.Event);
+                     else
+                        MBackgroundTrack[Location.File]->GetEntry(Location.Event);
+                  }
+                  
+                  // MBackgroundPF[Location.File]->GetEntry(Location.Event);
                }
                PbPbTrackTreeMessenger *MTrack = DoBackground ? MBackgroundTrack[Location.File] : &MSignalTrack;
-               TrackTreeMessenger *MTrackPP = DoBackground ? MBackgroundTrackPP[Location.File] : &MSignalTrackPP;
-               PFTreeMessenger *MPF = &MSignalPF;
-
-               int MaxOppositeIndex = -1;
-               double MaxOppositeDEta = 0;
-               double MaxOppositeDPhi = 0;
-               int MaxIndex = -1;
-               double MaxDEta = 0;
-               double MaxDPhi = 0;
+               TrackTreeMessenger *MTrackPP   = DoBackground ? MBackgroundTrackPP[Location.File] : &MSignalTrackPP;
+               GenParticleTreeMessenger *MGen = DoBackground ? MBackgroundGen[Location.File] : &MSignalGen;
+               PFTreeMessenger *MPF           = &MSignalPF;
 
                // Loop over tracks and build the correlation function
-               int NTrack = IsPP ? MTrackPP->nTrk : MTrack->TrackPT->size();
+               int NTrack = DoGenCorrelation ? MGen->Mult : (IsPP ? MTrackPP->nTrk : MTrack->TrackPT->size());
                for(int itrack = 0; itrack < NTrack; itrack++)
                {
-                  bool HP = IsPP ? MTrackPP->highPurity[itrack] : MTrack->TrackHighPurity->at(itrack);
-                  if(HP == false)
-                     continue;
-              
-                  double TrackEta = IsPP ? MTrackPP->trkEta[itrack] : MTrack->TrackEta->at(itrack);
-                  double TrackPhi = IsPP ? MTrackPP->trkPhi[itrack] : MTrack->TrackPhi->at(itrack);
-                  double TrackPT  = IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack);
+                  if(DoGenCorrelation == false)
+                  {
+                     bool HP = IsPP ? MTrackPP->highPurity[itrack] : MTrack->TrackHighPurity->at(itrack);
+                     if(HP == false)
+                        continue;
+                  }
 
-                  double DeltaEtaMu1 = TrackEta - MZHadron.muEta1->at(0);
-                  double DeltaEtaMu2 = TrackEta - MZHadron.muEta2->at(0);
-                  double DeltaPhiMu1 = DeltaPhi(TrackPhi, MZHadron.muPhi1->at(0));
-                  double DeltaPhiMu2 = DeltaPhi(TrackPhi, MZHadron.muPhi2->at(0));
+                  if(DoGenCorrelation == true)
+                  {
+                     if(MGen->PT->at(itrack) < 0.4)
+                        continue;
+                     if(MGen->Eta->at(itrack) < -2.4)
+                        continue;
+                     if(MGen->Eta->at(itrack) > +2.4)
+                        continue;
+                  }
+              
+                  double TrackEta = DoGenCorrelation ? MGen->Eta->at(itrack) : (IsPP ? MTrackPP->trkEta[itrack] : MTrack->TrackEta->at(itrack));
+                  double TrackPhi = DoGenCorrelation ? MGen->Phi->at(itrack) : (IsPP ? MTrackPP->trkPhi[itrack] : MTrack->TrackPhi->at(itrack));
+                  double TrackPT  = DoGenCorrelation ? MGen->PT->at(itrack) : (IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack));
+
+                  double Mu1Eta = DoGenCorrelation ? MZHadron.genMuEta1->at(0) : MZHadron.muEta1->at(0);
+                  double Mu1Phi = DoGenCorrelation ? MZHadron.genMuPhi1->at(0) : MZHadron.muPhi1->at(0);
+                  double Mu2Eta = DoGenCorrelation ? MZHadron.genMuEta2->at(0) : MZHadron.muEta2->at(0);
+                  double Mu2Phi = DoGenCorrelation ? MZHadron.genMuPhi2->at(0) : MZHadron.muPhi2->at(0);
+
+                  double DeltaEtaMu1 = TrackEta - Mu1Eta;
+                  double DeltaEtaMu2 = TrackEta - Mu2Eta;
+                  double DeltaPhiMu1 = DeltaPhi(TrackPhi, Mu1Phi);
+                  double DeltaPhiMu2 = DeltaPhi(TrackPhi, Mu2Phi);
 
                   double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
                   double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
@@ -379,8 +405,11 @@ int main(int argc, char *argv[])
                   if(DeltaRMu1 < MuonVeto)   MuTagged = true;
                   if(DeltaRMu2 < MuonVeto)   MuTagged = true;
 
-                  double deltaPhi = DeltaPhi(TrackPhi, MZHadron.zPhi->at(0));
-                  double deltaEta = TrackEta - MZHadron.zEta->at(0);
+                  double ZEta = DoGenCorrelation ? MZHadron.genZEta->at(0) : MZHadron.zEta->at(0);
+                  double ZPhi = DoGenCorrelation ? MZHadron.genZPhi->at(0) : MZHadron.zPhi->at(0);
+
+                  double deltaEta = TrackEta - ZEta;
+                  double deltaPhi = DeltaPhi(TrackPhi, ZPhi);
 
                   H2D.Fill(+deltaEta, +deltaPhi, 0.25);
                   H2D.Fill(-deltaEta, +deltaPhi, 0.25);
@@ -392,7 +421,19 @@ int main(int argc, char *argv[])
                   MZHadron.trackPt->push_back(TrackPT);
                   MZHadron.trackMuTagged->push_back(MuTagged);
                }
+            }
 
+            if(GoodRecoZ == true)
+            {
+               PFTreeMessenger *MPF = &MSignalPF;
+
+               int MaxOppositeIndex = -1;
+               double MaxOppositeDEta = 0;
+               double MaxOppositeDPhi = 0;
+               int MaxIndex = -1;
+               double MaxDEta = 0;
+               double MaxDPhi = 0;
+               
                // Loop over PF candidates to find WTA
                vector<double> OppositePFEta;
                vector<double> OppositePFPhi;
@@ -453,8 +494,8 @@ int main(int argc, char *argv[])
                   }
                }
 
-               pair<double, double> WTA = WTAAxis(OppositePFEta, OppositePFPhi, OppositePFPT);
-               pair<double, double> WTAMore = WTAAxis(MoreOppositePFEta, MoreOppositePFPhi, MoreOppositePFPT);
+               pair<double, double> WTA        = WTAAxis(OppositePFEta, OppositePFPhi, OppositePFPT);
+               pair<double, double> WTAMore    = WTAAxis(MoreOppositePFEta, MoreOppositePFPhi, MoreOppositePFPT);
 
                MZHadron.maxOppositeDEta        = MaxOppositeDEta;
                MZHadron.maxOppositeDPhi        = MaxOppositeDPhi;

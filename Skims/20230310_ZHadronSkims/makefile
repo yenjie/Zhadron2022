@@ -13,6 +13,10 @@ TestRun: Execute
 	./Execute --Input $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_14.root \
 		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --DoGenLevel false --IsData true --IsPP false --MinZPT 5
 
+TestRunGen: Execute
+	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_114.root \
+		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false --MinZPT 5
+
 TestRunBackground: Execute
 	./Execute --Input $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_14.root \
 		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --DoGenLevel false --IsData true --IsPP false \
