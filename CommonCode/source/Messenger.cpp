@@ -1746,6 +1746,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    trackPDFId = new std::vector<double>();
    trackEta = new std::vector<double>();
    trackPhi = new std::vector<double>();
+   trackMuTagged = new std::vector<bool>();
 
    muEta1 = new std::vector<double>();
    muEta2 = new std::vector<double>();
@@ -1798,7 +1799,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("trackPDFId",             &trackPDFId);
    Tree->Branch("trackPhi",               &trackPhi);
    Tree->Branch("trackEta",               &trackEta);
-   Tree->Branch("trackMuTagged",          &trackPt);
+   Tree->Branch("trackMuTagged",          &trackMuTagged);
 
    Tree->Branch("maxOppositeDEta",        &maxOppositeDEta);
    Tree->Branch("maxOppositeDPhi",        &maxOppositeDPhi);
@@ -1858,6 +1859,7 @@ void ZHadronMessenger::Clear()
    trackPDFId->clear();
    trackPhi->clear();
    trackEta->clear();
+   trackMuTagged->clear();
 
    maxOppositeDEta = 0;
    maxOppositeDPhi = 0;
