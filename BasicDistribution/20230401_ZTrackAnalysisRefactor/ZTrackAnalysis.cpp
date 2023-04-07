@@ -91,6 +91,12 @@ int main(int argc, char *argv[])
    vector<TH1D *>           HTrackPT;
    vector<TH1D *>           HTrackEta;
    vector<TH1D *>           HTrackPhi;
+   vector<TH1D *>           HTrackMuonDEta;
+   vector<TH1D *>           HTrackMuonDPhi;
+   vector<TH2D *>           HTrackMuonDEtaDPhi;
+   vector<TH2D *>           HTrackMuonDEtaDPhiZoom;
+   vector<TH1D *>           HTrackMuonDR;
+   vector<TH1D *>           HTrackMuonDRZoom;
    vector<TH1D *>           HEta;
    vector<TH1D *>           HPhi;
    vector<TH2D *>           HEtaPhi;
@@ -136,6 +142,13 @@ int main(int argc, char *argv[])
       HTrackEta.push_back(new TH1D("HTrackEta", "Track eta", 100, -3.2, 3.2));
       HTrackPhi.push_back(new TH1D("HTrackPhi", "Track phi", 100, -M_PI, M_PI));
       
+      HTrackMuonDEta.push_back(new TH1D("HTrackMuonDEta", "track-muon delta eta", 100, -3.2, 3.2));
+      HTrackMuonDPhi.push_back(new TH1D("HTrackMuonDPhi", "track-muon delta phi", 100, -M_PI, M_PI));
+      HTrackMuonDEtaDPhi.push_back(new TH2D("HTrackMuonDEtaDPhi", "track-muon", 100, -3.2, 3.2, 100, -M_PI, M_PI));
+      HTrackMuonDEtaDPhiZoom.push_back(new TH2D("HTrackMuonDEtaDPhiZoom", "track-muon", 100, -0.5, 0.5, 100, -0.5, 0.5));
+      HTrackMuonDR.push_back(new TH1D("HTrackMuonDR", "track-muon delta R", 100, 0, 3.2));
+      HTrackMuonDRZoom.push_back(new TH1D("HTrackMuonDRZoom", "track-muon delta R", 100, 0, 0.1));
+
       HEta.push_back(new TH1D("HEta", "", C[iC].BinCount, 0, 3.2));
       HPhi.push_back(new TH1D("HPhi", "", C[iC].BinCount, -M_PI * 0.5, M_PI * 1.5));
       HEtaPhi.push_back(new TH2D("HEtaPhi", "", 150, -3.2, 3.2, 150, -M_PI * 0.5, M_PI * 1.5));
@@ -169,6 +182,12 @@ int main(int argc, char *argv[])
    vector<double> *ZPT         = nullptr;
    vector<double> *ZEta        = nullptr;
    vector<double> *ZPhi        = nullptr;
+   vector<double> *Mu1PT       = nullptr;
+   vector<double> *Mu1Eta      = nullptr;
+   vector<double> *Mu1Phi      = nullptr;
+   vector<double> *Mu2PT       = nullptr;
+   vector<double> *Mu2Eta      = nullptr;
+   vector<double> *Mu2Phi      = nullptr;
    vector<double> *TrackPT     = nullptr;
    vector<double> *TrackDPhi   = nullptr;
    vector<double> *TrackDEta   = nullptr;
@@ -187,10 +206,16 @@ int main(int argc, char *argv[])
    Tree->SetBranchAddress("zPt",                    &ZPT);
    Tree->SetBranchAddress("zEta",                   &ZEta);
    Tree->SetBranchAddress("zPhi",                   &ZPhi);
+   Tree->SetBranchAddress("muPt1",                  &Mu1PT);
+   Tree->SetBranchAddress("muEta1",                 &Mu1Eta);
+   Tree->SetBranchAddress("muPhi1",                 &Mu1Phi);
+   Tree->SetBranchAddress("muPt2",                  &Mu2PT);
+   Tree->SetBranchAddress("muEta2",                 &Mu2Eta);
+   Tree->SetBranchAddress("muPhi2",                 &Mu2Phi);
    Tree->SetBranchAddress("trackPt",                &TrackPT);
    Tree->SetBranchAddress("trackDeta",              &TrackDEta);
    Tree->SetBranchAddress("trackDphi",              &TrackDPhi);
-   Tree->SetBranchAddress("trackMuTagged",          &TrackMuTagged);
+   if(Tree->GetBranch("trackMuTagged"))          Tree->SetBranchAddress("trackMuTagged",          &TrackMuTagged);
    if(Tree->GetBranch("maxOppositeDEta"))        Tree->SetBranchAddress("maxOppositeDEta",        &maxOppositeDEta);
    if(Tree->GetBranch("maxOppositeDPhi"))        Tree->SetBranchAddress("maxOppositeDPhi",        &maxOppositeDPhi);
    if(Tree->GetBranch("maxDEta"))                Tree->SetBranchAddress("maxDEta",                &maxDEta);
@@ -246,11 +271,11 @@ int main(int argc, char *argv[])
                TrackPTRange = true;
 
             bool TrackNotCloseToMuon = true;
-            if(TrackMuTagged->at(iT) == true)
+            if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
                TrackNotCloseToMuon = false;
 
             bool PassEvent = ZMassRange && ZPTRange && CentRange;
-            bool PassEverything = PassEvent && TrackPTRange && TrackCloseToMuon;
+            bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
             double DEtaToMax             = TrackDEta->at(iT) - maxDEta;
             double DPhiToMax             = DeltaPhi(TrackDPhi->at(iT), maxDPhi);
@@ -261,8 +286,33 @@ int main(int argc, char *argv[])
             double DEtaToMoreOppositeWTA = TrackDEta->at(iT) - maxMoreOppositeWTADEta;
             double DPhiToMoreOppositeWTA = DeltaPhi(TrackDPhi->at(iT), maxMoreOppositeWTADPhi);
 
+            // cout << TrackDEta->at(iT) << " " << Mu1Eta->at(0) << " " << ZEta->at(0) << endl;
+
+            double DEtaToMu1             = TrackDEta->at(iT) + ZEta->at(0) - Mu1Eta->at(0);
+            double DPhiToMu1             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0) - Mu1Phi->at(0));
+            double DEtaToMu2             = TrackDEta->at(iT) + ZEta->at(0) - Mu2Eta->at(0);
+            double DPhiToMu2             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0) - Mu2Phi->at(0));
+
+            double DRToMu1               = sqrt(DEtaToMu1 * DEtaToMu1 + DPhiToMu1 * DPhiToMu1);
+            double DRToMu2               = sqrt(DEtaToMu2 * DEtaToMu2 + DPhiToMu2 * DPhiToMu2);
+
             if(PassEvent)
                SomethingPassed = true;
+            if(PassEvent && TrackPTRange)
+            {
+               HTrackMuonDEta[iC]->Fill(DEtaToMu1);
+               HTrackMuonDEta[iC]->Fill(DEtaToMu2);
+               HTrackMuonDPhi[iC]->Fill(DPhiToMu1);
+               HTrackMuonDPhi[iC]->Fill(DPhiToMu2);
+               HTrackMuonDEtaDPhi[iC]->Fill(DEtaToMu1, DPhiToMu1);
+               HTrackMuonDEtaDPhi[iC]->Fill(DEtaToMu2, DPhiToMu2);
+               HTrackMuonDEtaDPhiZoom[iC]->Fill(DEtaToMu1, DPhiToMu1);
+               HTrackMuonDEtaDPhiZoom[iC]->Fill(DEtaToMu2, DPhiToMu2);
+               HTrackMuonDR[iC]->Fill(DRToMu1);
+               HTrackMuonDR[iC]->Fill(DRToMu2);
+               HTrackMuonDRZoom[iC]->Fill(DRToMu1);
+               HTrackMuonDRZoom[iC]->Fill(DRToMu2);
+            }
             if(PassEverything)
             {
                HTrackPT[iC]->Fill(TrackPT->at(iT));
@@ -354,6 +404,12 @@ int main(int argc, char *argv[])
       HTrackPT[iC]->Write();
       HTrackEta[iC]->Write();
       HTrackPhi[iC]->Write();
+      HTrackMuonDEta[iC]->Write();
+      HTrackMuonDPhi[iC]->Write();
+      HTrackMuonDEtaDPhi[iC]->Write();
+      HTrackMuonDEtaDPhiZoom[iC]->Write();
+      HTrackMuonDR[iC]->Write();
+      HTrackMuonDRZoom[iC]->Write();
       HEta[iC]->Write();
       HPhi[iC]->Write();
       HEtaPhi[iC]->Write();
