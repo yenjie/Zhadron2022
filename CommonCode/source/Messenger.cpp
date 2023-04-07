@@ -564,6 +564,8 @@ bool GenParticleTreeMessenger::Initialize()
    if(Tree->GetBranch("phi0"))  Tree->SetBranchAddress("phi0", &Phi0);
    else                         Phi0 = 0;
 
+   if(Tree->GetBranch("mult"))  Tree->SetBranchAddress("mult", &Mult);
+   else                         Mult = 0;
    if(Tree->GetBranch("pt"))    Tree->SetBranchAddress("pt", &PT);
    else                         PT = &EmptyVectors::EmptyVectorFloat;
    if(Tree->GetBranch("eta"))   Tree->SetBranchAddress("eta", &Eta);

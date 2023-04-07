@@ -202,6 +202,7 @@ public:
    float NColl;
    float NHard;
    float Phi0;
+   int Mult;
    std::vector<float> *PT;
    std::vector<float> *Eta;
    std::vector<float> *Phi;
