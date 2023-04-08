@@ -11,6 +11,12 @@ TestRun: Execute
 		--Output GraphDataBackground.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC/ \
 		--Output GraphDataPPMC.root --IgnoreCentrality true
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen/ \
+		--Output GraphMCSignalGen.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions_ops/pchou/OutputMCbkgGen/ \
+		--Output GraphMCBackgroundGen.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen/ \
+		--Output GraphDataPPMCGen.root --IgnoreCentrality true	
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
