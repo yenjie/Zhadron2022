@@ -57,13 +57,25 @@ PrepareToRunMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
 		6 LogMC/ /eos/cms/store/group/phys_heavyions/pchou/OutputMC/ \
-		--Fraction 1 --DoGenLevel false --IsData true --IsPP false
+		--Fraction 1 --DoGenLevel true --IsData false --IsPP false
+
+PrepareToRunGenMC:
+	bash PrepareInput.sh \
+		$(PbPbSignalMC)/ \
+		6 LogMC/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen/ \
+		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false
 
 PrepareToRunPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
 		6 LogPP/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC/ \
 		--Fraction 1 --DoGenLevel true --IsData false --IsPP true
+
+PrepareToRunGenPP:
+	bash PrepareInput.sh \
+		$(PPSignalMC)/ \
+		6 LogPP/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen/ \
+		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP true
 
 PrepareToRunBackground:
 	bash PrepareInput.sh \
@@ -96,4 +108,12 @@ PrepareToRunRandomMCBackground:
 		10 LogMCbkg/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg/ \
 		$(PbPbBackgroundMC)/ 12 \
 		--Fraction 1 --DoGenLevel true --IsData false --IsPP false \
+		--DoBackground true --HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 10
+
+PrepareToRunRandomMCGenBackground:
+	bash PrepareInputRandomBackground.sh \
+		/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8/HINPbPbSpring21MiniAOD-mva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8/20221017_ZHadronInitialRunMCDY/221017_113040/0000/ \
+		10 LogMCbkg/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen/ \
+		$(PbPbBackgroundMC)/ 12 \
+		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
 		--DoBackground true --HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 10
