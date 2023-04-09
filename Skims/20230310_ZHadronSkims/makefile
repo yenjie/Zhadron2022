@@ -81,7 +81,7 @@ PrepareToRunGenPP:
 
 PrepareToRunPPData:
 	bash PrepareInput.sh \
-		$(PPSignalMC)/ \
+		'$(PPSignalMC)/*/' \
 		6 LogPP/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPData/ \
 		--Fraction 1 --DoGenLevel false --IsData true --IsPP true
 
