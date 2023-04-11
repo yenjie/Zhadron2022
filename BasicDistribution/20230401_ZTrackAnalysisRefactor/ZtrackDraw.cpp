@@ -924,8 +924,6 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    max1 = hMC_phi->GetMaximum();
    max2 = hMC_bkg_phi->GetMaximum();
-   max3 = hMC_sb_phi->GetMaximum();
-   max4 = hpp_phi->GetMaximum();
 
    hMC_phi->SetMarkerColor(kBlack);
    hMC_bkg_phi->SetMarkerColor(kBlue);
