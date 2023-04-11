@@ -74,7 +74,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH1D* hData_eta = (TH1D*) file_sigDA->Get(Form("%s/HEta", FolderName.c_str()));
    TH1D* hMC_eta = (TH1D*) file_sigMC->Get(Form("%s/HEta", FolderName.c_str()));
-   TH1D* hpp_eta = (TH2D*) file_ppMC->Get(Form("%s/HEta", FolderName.c_str()));
+   TH1D* hpp_eta = (TH1D*) file_ppMC->Get(Form("%s/HEta", FolderName.c_str()));
 
    hData_eta->SetName("hData_eta");
    hMC_eta->SetName("hMC_eta");
@@ -82,7 +82,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH1D* hData_phi = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderName.c_str()));
    TH1D* hMC_phi = (TH1D*) file_sigMC->Get(Form("%s/HPhi", FolderName.c_str()));
-   TH1D* hpp_phi = (TH2D*) file_ppMC->Get(Form("%s/HPhi", FolderName.c_str()));
+   TH1D* hpp_phi = (TH1D*) file_ppMC->Get(Form("%s/HPhi", FolderName.c_str()));
 
    hData_phi->SetName("hData_phi");
    hMC_phi->SetName("hMC_phi");
