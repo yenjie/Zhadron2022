@@ -74,15 +74,19 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH1D* hData_eta = (TH1D*) file_sigDA->Get(Form("%s/HEta", FolderName.c_str()));
    TH1D* hMC_eta = (TH1D*) file_sigMC->Get(Form("%s/HEta", FolderName.c_str()));
+   TH1D* hpp_eta = (TH2D*) file_ppMC->Get(Form("%s/HEta", FolderName.c_str()));
 
    hData_eta->SetName("hData_eta");
    hMC_eta->SetName("hMC_eta");
+   hpp_eta->SetName("hpp_eta");
 
    TH1D* hData_phi = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderName.c_str()));
    TH1D* hMC_phi = (TH1D*) file_sigMC->Get(Form("%s/HPhi", FolderName.c_str()));
+   TH1D* hpp_phi = (TH2D*) file_ppMC->Get(Form("%s/HPhi", FolderName.c_str()));
 
    hData_phi->SetName("hData_phi");
    hMC_phi->SetName("hMC_phi");
+   hpp_phi->SetName("hpp_phi");
 
    TH2D* hData_etaphi_1 = (TH2D*) file_sigDA->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    TH2D* hMC_etaphi_1 = (TH2D*) file_sigMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
@@ -302,6 +306,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_etaphi_1->Scale(1./tD_tN);
    hMC_etaphi_1->Scale(1./tM_tN);
    hpp_etaphi_1->Scale(1./tpM_tN);
+
+   hpp_phi->Scale(1./tpM_tN);
+   hpp_eta->Scale(1./tpM_tN);
 
    hMC_etaphi_gen->Scale(1./tM_tNgen);
    hMC_bkg_etaphi_gen->Scale(1./tMb_tNgen);
@@ -913,6 +920,63 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/pdf/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->Clear();
+
+   max1 = hMC_phi->GetMaximum();
+   max2 = hMC_bkg_phi->GetMaximum();
+   max3 = hMC_sb_phi->GetMaximum();
+   max4 = hpp_phi->GetMaximum();
+
+   hMC_phi->SetMarkerColor(kBlack);
+   hMC_bkg_phi->SetMarkerColor(kBlue);
+   hMC_sb_phi->SetMarkerColor(kRed);
+
+   hMC_phi->SetLineColor(kBlack);
+   hMC_bkg_phi->SetLineColor(kBlue);
+   hMC_sb_phi->SetLineColor(kRed);
+   hpp_phi->SetLineColor(kBlack);
+
+   hMC_phi->SetMarkerStyle(kFullCircle);
+   hMC_bkg_phi->SetMarkerStyle(kFullCircle);
+   hMC_sb_phi->SetMarkerStyle(kFullCircle);
+
+   
+   if(max1<max2) hMC_bkg_phi->Draw("ep");
+   else hMC_phi->Draw("ep");
+   hMC_phi->Draw("ep same");
+   hMC_bkg_phi->Draw("ep same");
+
+   hMC_sb_phi->Draw("ep same");
+   hpp_phi->Draw("hist same");
+
+   if(max1<max2) max1=max2;
+
+   hMC_phi->SetXTitle("Signal #Delta#phi_{Z,track}");
+   hMC_bkg_phi->SetXTitle("Signal #Delta#phi_{Z,track}");
+
+   TLegend leg1(0.58,0.78,0.98,0.9);
+   leg1.AddEntry(hMC_phi ,"raw","lep");
+   leg1.AddEntry(hMC_bkg_phi ,"bkg","lep");
+   leg1.AddEntry(hMC_sb_phi ,"raw-bkg","lep");
+   leg1.AddEntry(hpp_phi ,"pp","lep");
+   leg1.SetFillColorAlpha(kWhite,0);
+   leg1.SetLineColor(kBlack);
+   leg1.SetLineWidth(1);
+   leg1.Draw();
+
+   pt->Draw();
+   pt2->Draw();
+   pt3->Draw();
+   hMC_phi->SetMinimum(0);
+   hMC_phi->SetMaximum(1.6*max1);
+   hData_phi->SetMinimum(0);
+   hData_phi->SetMaximum(1.6*max1);
+
+   //ptN0->Draw();
+
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/pdf/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/C/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    max1 = hMC_sbr_phi->GetMaximum();
