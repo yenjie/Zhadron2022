@@ -856,13 +856,13 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/muD/C/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_muDeta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   max1 = hMC_bkg_muDeta->GetMaximum();
-   max2 = hData_bkg_muDeta->GetMaximum();
+   max1 = hMC_bkg_MuDeta->GetMaximum();
+   max2 = hData_bkg_MuDeta->GetMaximum();
    
-   if(max1<max2) hData_bkg_muDeta->Draw();
-   else hMC_bkg_muDeta->Draw();
-   hMC_bkg_muDeta->Draw("same");
-   hData_bkg_muDeta->Draw("same");
+   if(max1<max2) hData_bkg_MuDeta->Draw();
+   else hMC_bkg_MuDeta->Draw();
+   hMC_bkg_MuDeta->Draw("same");
+   hData_bkg_MuDeta->Draw("same");
 
    hMC_bkg_eta->SetXTitle("Background |#Delta#eta_{#mu#mu}|");
    hData_bkg_eta->SetXTitle("Background |#Delta#eta_{#mu#mu}|");
@@ -871,10 +871,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt->Draw();
    pt2->Draw();
    pt3->Draw();
-   hMC_bkg_muDeta->SetMinimum(0);
-   hMC_bkg_muDeta->SetMaximum(3.0/binnum); 
-   hData_bkg_muDeta->SetMinimum(0);
-   hData_bkg_muDeta->SetMaximum(3.0/binnum); 
+   hMC_bkg_MuDeta->SetMinimum(0);
+   hMC_bkg_MuDeta->SetMaximum(3.0/binnum); 
+   hData_bkg_MuDeta->SetMinimum(0);
+   hData_bkg_MuDeta->SetMaximum(3.0/binnum); 
 
    //ptNb->Draw();
 
@@ -1034,13 +1034,13 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/muD/C/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_muDphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   max1 = hMC_bkg_muDphi->GetMaximum();
-   max2 = hData_bkg_muDphi->GetMaximum();
+   max1 = hMC_bkg_MuDphi->GetMaximum();
+   max2 = hData_bkg_MuDphi->GetMaximum();
    
-   if(max1<max2) hData_bkg_muDphi->Draw();
-   else hMC_bkg_muDphi->Draw();
-   hMC_bkg_muDphi->Draw("same");
-   hData_bkg_muDphi->Draw("same");
+   if(max1<max2) hData_bkg_MuDphi->Draw();
+   else hMC_bkg_MuDphi->Draw();
+   hMC_bkg_MuDphi->Draw("same");
+   hData_bkg_MuDphi->Draw("same");
 
    hMC_bkg_phi->SetXTitle("Background |#Delta#phi_{#mu#mu}|");
    hData_bkg_phi->SetXTitle("Background |#Delta#phi_{#mu#mu}|");
@@ -1049,10 +1049,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt->Draw();
    pt2->Draw();
    pt3->Draw();
-   hMC_bkg_muDphi->SetMinimum(0);
-   hMC_bkg_muDphi->SetMaximum(3.0/binnum); 
-   hData_bkg_muDphi->SetMinimum(0);
-   hData_bkg_muDphi->SetMaximum(3.0/binnum); 
+   hMC_bkg_MuDphi->SetMinimum(0);
+   hMC_bkg_MuDphi->SetMaximum(3.0/binnum); 
+   hData_bkg_MuDphi->SetMinimum(0);
+   hData_bkg_MuDphi->SetMaximum(3.0/binnum); 
 
    //ptNb->Draw();
 
@@ -1565,14 +1565,14 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->Divide(2);
    c->cd(1);
 
-   hMC_bkg_muDetaphi->Draw("lego20");
-   hMC_bkg_muDetaphi->GetYaxis()->SetTitle("Background MC #Delta#phi_{#mu,#mu}");
-   hMC_bkg_muDetaphi->GetXaxis()->SetTitle("Background MC #Delta#eta_{#mu,#mu}");
-   hMC_bkg_muDetaphi->GetXaxis()->SetTitleSize(30);
-   hMC_bkg_muDetaphi->GetYaxis()->SetTitleSize(30);
-   hMC_bkg_muDetaphi->GetXaxis()->SetTitleOffset(3.0);
-   hMC_bkg_muDetaphi->GetYaxis()->SetTitleOffset(2.5);
-   hMC_bkg_muDetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_bkg_MuDetaphi->Draw("lego20");
+   hMC_bkg_MuDetaphi->GetYaxis()->SetTitle("Background MC #Delta#phi_{#mu,#mu}");
+   hMC_bkg_MuDetaphi->GetXaxis()->SetTitle("Background MC #Delta#eta_{#mu,#mu}");
+   hMC_bkg_MuDetaphi->GetXaxis()->SetTitleSize(30);
+   hMC_bkg_MuDetaphi->GetYaxis()->SetTitleSize(30);
+   hMC_bkg_MuDetaphi->GetXaxis()->SetTitleOffset(3.0);
+   hMC_bkg_MuDetaphi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_bkg_MuDetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    pt3d->Draw();
    pt3d2->Draw();
@@ -1582,14 +1582,14 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    gPad->SetPhi(38.0172);
 
    c->cd(2);
-   hData_bkg_muDetaphi->Draw("lego20");
-   hData_bkg_muDetaphi->GetYaxis()->SetTitle("Background Data #Delta#phi_{#mu,#mu}");
-   hData_bkg_muDetaphi->GetXaxis()->SetTitle("Background Data #Delta#eta_{#mu,#mu}");
-   hData_bkg_muDetaphi->GetXaxis()->SetTitleSize(30);
-   hData_bkg_muDetaphi->GetYaxis()->SetTitleSize(30);
-   hData_bkg_muDetaphi->GetXaxis()->SetTitleOffset(3.0);
-   hData_bkg_muDetaphi->GetYaxis()->SetTitleOffset(2.5);
-   hData_bkg_muDetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hData_bkg_MuDetaphi->Draw("lego20");
+   hData_bkg_MuDetaphi->GetYaxis()->SetTitle("Background Data #Delta#phi_{#mu,#mu}");
+   hData_bkg_MuDetaphi->GetXaxis()->SetTitle("Background Data #Delta#eta_{#mu,#mu}");
+   hData_bkg_MuDetaphi->GetXaxis()->SetTitleSize(30);
+   hData_bkg_MuDetaphi->GetYaxis()->SetTitleSize(30);
+   hData_bkg_MuDetaphi->GetXaxis()->SetTitleOffset(3.0);
+   hData_bkg_MuDetaphi->GetYaxis()->SetTitleOffset(2.5);
+   hData_bkg_MuDetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    ptNb->Draw();
 
