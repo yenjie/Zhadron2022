@@ -24,6 +24,7 @@ struct EventIndex;
 int main(int argc, char *argv[]);
 int FindFirstAbove(vector<EventIndex> &Indices, double X);
 double GetHFSum(PFTreeMessenger *M);
+double GetGenHFSum(GenParticleTreeMessenger *M);
 
 struct EventIndex
 {
@@ -109,7 +110,7 @@ int main(int argc, char *argv[])
             MBackgroundEvent[iB]->GetEntry(iE);
             MBackgroundPF[iB]->GetEntry(iE);
             EventIndex E;
-            E.HF = DoSumET ? MBackgroundEvent[iB]->hiHF : GetHFSum(MBackgroundPF[iB]);
+            E.HF = DoGenCorrelation ? GetGenHFSum(MBackgroundGen[iB]) : (DoSumET ? MBackgroundEvent[iB]->hiHF : GetHFSum(MBackgroundPF[iB]));
             E.File = iB;
             E.Event = iE;
             BackgroundIndices.push_back(E);
@@ -301,7 +302,7 @@ int main(int argc, char *argv[])
                NTuple.Fill(MSignalMu.DiMass[ipair], MSignalMu.DiPT[ipair], MSignalMu.DiEta[ipair], MSignalMu.DiPhi[ipair]);
             }
 
-            MZHadron.SignalHF = DoSumET ? MSignalEvent.hiHF : GetHFSum(&MSignalPF);
+            MZHadron.SignalHF = DoGenCorrelation ? GetGenHFSum(&MSignalGen) : (DoSumET ? MSignalEvent.hiHF : GetHFSum(&MSignalPF));
 
             // Z-track correlation
             bool GoodGenZ = MZHadron.genZPt->size() > 0 && (MZHadron.genZPt->at(0) > MinZPT);
@@ -381,6 +382,8 @@ int main(int argc, char *argv[])
                      if(MGen->Eta->at(itrack) < -2.4)
                         continue;
                      if(MGen->Eta->at(itrack) > +2.4)
+                        continue;
+                     if(MGen->DaughterCount->at(itrack) > 0)
                         continue;
                   }
               
@@ -588,6 +591,28 @@ double GetHFSum(PFTreeMessenger *M)
          Sum = Sum + M->E->at(iPF);
 
    // cout << Sum << endl;
+
+   return Sum;
+}
+
+double GetGenHFSum(GenParticleTreeMessenger *M)
+{
+   if(M == nullptr)
+      return -1;
+   if(M->Tree == nullptr)
+      return -1;
+
+   double Sum = 0;
+   for(int iGen = 0; iGen < M->Mult; iGen++)
+   {
+      if(fabs(M->Eta->at(iGen)) < 3)
+         continue;
+      if(fabs(M->Eta->at(iGen)) > 5)
+         continue;
+      if(M->DaughterCount->at(iGen) > 0)
+         continue;
+      Sum = Sum + M->PT->at(iGen) * cosh(M->Eta->at(iGen));
+   }
 
    return Sum;
 }
