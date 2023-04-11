@@ -145,7 +145,7 @@ int main(int argc, char *argv[])
       HTrackMuonDEta.push_back(new TH1D("HTrackMuonDEta", "track-muon delta eta", 100, -3.2, 3.2));
       HTrackMuonDPhi.push_back(new TH1D("HTrackMuonDPhi", "track-muon delta phi", 100, -M_PI, M_PI));
       HTrackMuonDEtaDPhi.push_back(new TH2D("HTrackMuonDEtaDPhi", "track-muon", 100, -3.2, 3.2, 100, -M_PI, M_PI));
-      HTrackMuonDEtaDPhiZoom.push_back(new TH2D("HTrackMuonDEtaDPhiZoom", "track-muon", 100, -0.5, 0.5, 100, -0.5, 0.5));
+      HTrackMuonDEtaDPhiZoom.push_back(new TH2D("HTrackMuonDEtaDPhiZoom", "track-muon", 100, -0.01, 0.01, 100, -0.01, 0.01));
       HTrackMuonDR.push_back(new TH1D("HTrackMuonDR", "track-muon delta R", 100, 0, 3.2));
       HTrackMuonDRZoom.push_back(new TH1D("HTrackMuonDRZoom", "track-muon delta R", 100, 0, 0.1));
 
