@@ -829,25 +829,25 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   max1 = hMC_muDeta->GetMaximum();
-   max2 = hData_muDeta->GetMaximum();
+   max1 = hMC_MuDeta->GetMaximum();
+   max2 = hData_MuDeta->GetMaximum();
    
-   if(max1<max2) hData_muDeta->Draw();
-   else hMC_muDeta->Draw();
-   hMC_muDeta->Draw("same");
-   hData_muDeta->Draw("same");
+   if(max1<max2) hData_MuDeta->Draw();
+   else hMC_MuDeta->Draw();
+   hMC_MuDeta->Draw("same");
+   hData_MuDeta->Draw("same");
 
-   hMC_muDeta->SetXTitle("Signal |#Delta#eta_{#mu#mu}|");
-   hData_muDeta->SetXTitle("Signal |#Delta#eta_{#mu#mu}|");
+   hMC_MuDeta->SetXTitle("Signal |#Delta#eta_{#mu#mu}|");
+   hData_MuDeta->SetXTitle("Signal |#Delta#eta_{#mu#mu}|");
 
    leg.Draw();
    pt->Draw();
    pt2->Draw();
    pt3->Draw();
-   hMC_muDeta->SetMinimum(0);
-   hMC_muDeta->SetMaximum(3.0/binnum); 
-   hData_muDeta->SetMinimum(0);
-   hData_muDeta->SetMaximum(3.0/binnum); 
+   hMC_MuDeta->SetMinimum(0);
+   hMC_MuDeta->SetMaximum(3.0/binnum); 
+   hData_MuDeta->SetMinimum(0);
+   hData_MuDeta->SetMaximum(3.0/binnum); 
 
    //ptN0->Draw();
 
@@ -1007,25 +1007,25 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   max1 = hMC_muDphi->GetMaximum();
-   max2 = hData_muDphi->GetMaximum();
+   max1 = hMC_MuDphi->GetMaximum();
+   max2 = hData_MuDphi->GetMaximum();
    
-   if(max1<max2) hData_muDphi->Draw();
-   else hMC_muDphi->Draw();
-   hMC_muDphi->Draw("same");
-   hData_muDphi->Draw("same");
+   if(max1<max2) hData_MuDphi->Draw();
+   else hMC_MuDphi->Draw();
+   hMC_MuDphi->Draw("same");
+   hData_MuDphi->Draw("same");
 
-   hMC_muDphi->SetXTitle("Signal |#Delta#phi_{#mu#mu}|");
-   hData_muDphi->SetXTitle("Signal |#Delta#phi_{#mu#mu}|");
+   hMC_MuDphi->SetXTitle("Signal |#Delta#phi_{#mu#mu}|");
+   hData_MuDphi->SetXTitle("Signal |#Delta#phi_{#mu#mu}|");
 
    leg.Draw();
    pt->Draw();
    pt2->Draw();
    pt3->Draw();
-   hMC_muDphi->SetMinimum(0);
-   hMC_muDphi->SetMaximum(3.0/binnum); 
-   hData_muDphi->SetMinimum(0);
-   hData_muDphi->SetMaximum(3.0/binnum); 
+   hMC_MuDphi->SetMinimum(0);
+   hMC_MuDphi->SetMaximum(3.0/binnum); 
+   hData_MuDphi->SetMinimum(0);
+   hData_MuDphi->SetMaximum(3.0/binnum); 
 
    //ptN0->Draw();
 
@@ -1526,14 +1526,14 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->Divide(2);
    c->cd(1);
-   hMC_muDetaphi->Draw("lego20");
-   hMC_muDetaphi->GetYaxis()->SetTitle("Signal MC #Delta#phi_{#mu,#mu}");
-   hMC_muDetaphi->GetXaxis()->SetTitle("Signal MC #Delta#eta_{#mu,#mu}");
-   hMC_muDetaphi->GetXaxis()->SetTitleSize(30);
-   hMC_muDetaphi->GetYaxis()->SetTitleSize(30);
-   hMC_muDetaphi->GetXaxis()->SetTitleOffset(3.0);
-   hMC_muDetaphi->GetYaxis()->SetTitleOffset(2.5);
-   hMC_muDetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_MuDetaphi->Draw("lego20");
+   hMC_MuDetaphi->GetYaxis()->SetTitle("Signal MC #Delta#phi_{#mu,#mu}");
+   hMC_MuDetaphi->GetXaxis()->SetTitle("Signal MC #Delta#eta_{#mu,#mu}");
+   hMC_MuDetaphi->GetXaxis()->SetTitleSize(30);
+   hMC_MuDetaphi->GetYaxis()->SetTitleSize(30);
+   hMC_MuDetaphi->GetXaxis()->SetTitleOffset(3.0);
+   hMC_MuDetaphi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_MuDetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    pt3d->Draw();
    pt3d2->Draw();
@@ -1543,14 +1543,14 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    gPad->SetPhi(38.0172);
 
    c->cd(2);
-   hData_muDetaphi->Draw("lego20");
-   hData_muDetaphi->GetYaxis()->SetTitle("Signal Data #Delta#phi_{#mu,#mu}");
-   hData_muDetaphi->GetXaxis()->SetTitle("Signal Data #Delta#eta_{#mu,#mu}");
-   hData_muDetaphi->GetXaxis()->SetTitleSize(30);
-   hData_muDetaphi->GetYaxis()->SetTitleSize(30);
-   hData_muDetaphi->GetXaxis()->SetTitleOffset(3.0);
-   hData_muDetaphi->GetYaxis()->SetTitleOffset(2.5);
-   hData_muDetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hData_MuDetaphi->Draw("lego20");
+   hData_MuDetaphi->GetYaxis()->SetTitle("Signal Data #Delta#phi_{#mu,#mu}");
+   hData_MuDetaphi->GetXaxis()->SetTitle("Signal Data #Delta#eta_{#mu,#mu}");
+   hData_MuDetaphi->GetXaxis()->SetTitleSize(30);
+   hData_MuDetaphi->GetYaxis()->SetTitleSize(30);
+   hData_MuDetaphi->GetXaxis()->SetTitleOffset(3.0);
+   hData_MuDetaphi->GetYaxis()->SetTitleOffset(2.5);
+   hData_MuDetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    ptN0->Draw();
 
