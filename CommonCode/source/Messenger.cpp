@@ -1794,6 +1794,14 @@ bool ZHadronMessenger::SetBranch(TTree *T)
 
    Tree->Branch("NCollWeight",            &NCollWeight,  "NCollWeight/F");
    
+   Tree->Branch("NVertex",                &NVertex,      "NVertex/I");
+   Tree->Branch("VX",                     &VX,           "VX/F");
+   Tree->Branch("VY",                     &VY,           "VY/F");
+   Tree->Branch("VZ",                     &VZ,           "VZ/F");
+   Tree->Branch("VXError",                &VXError,      "VXError/F");
+   Tree->Branch("VYError",                &VYError,      "VYError/F");
+   Tree->Branch("VZError",                &VZError,      "VZError/F");
+
    Tree->Branch("zMass",                  &zMass);
    Tree->Branch("zEta",                   &zEta);
    Tree->Branch("zPhi",                   &zPhi);
@@ -1854,6 +1862,14 @@ void ZHadronMessenger::Clear()
 
    SignalHF = -1;
    BackgroundHF = -1;
+
+   NVertex = 0;
+   VX = 0;
+   VY = 0;
+   VZ = 0;
+   VXError = 0;
+   VYError = 0;
+   VZError = 0;
 
    zMass->clear();
    zEta->clear();

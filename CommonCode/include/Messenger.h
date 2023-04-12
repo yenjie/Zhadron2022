@@ -502,6 +502,9 @@ public:
    float BackgroundHF;
 
    float NCollWeight;
+
+   int NVertex;
+   float VX, VY, VZ, VXError, VYError, VZError;
    
    std::vector<double> *zMass;
    std::vector<double> *zEta;
