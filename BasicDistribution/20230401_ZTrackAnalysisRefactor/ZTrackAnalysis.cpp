@@ -80,6 +80,9 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 40, 2000, 50, 90, 20,   50));
    C.push_back(Configuration(40, 20, 2000, 50, 90, 50,  100));
    C.push_back(Configuration(40, 40, 2000, 50, 90, 50,  100));
+   C.push_back(Configuration(40, 30, 2000,  0, 30,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000, 30, 50,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000, 50, 90,  1, 1000));
 
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
