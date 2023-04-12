@@ -397,14 +397,14 @@ int main(int argc, char *argv[])
                         continue;
 
                      double XYVertexSignificance = IsPP
-                        ? (MTrackPP->trkDxyOverDxyError[itrack])
-                        : (MTrack->TrackAssociatedVertexDxy->at(itrack) / MTrack->TrackAssociatedVertexDxyError->at(itrack));
+                        ? fabs(MTrackPP->trkDxyOverDxyError[itrack])
+                        : fabs(MTrack->TrackAssociatedVertexDxy->at(itrack) / MTrack->TrackAssociatedVertexDxyError->at(itrack));
                      if(XYVertexSignificance > 3)
                         continue;
                      
                      double ZVertexSignificance = IsPP
-                        ? (MTrackPP->trkDzOverDzError[itrack])
-                        : (MTrack->TrackAssociatedVertexDz->at(itrack) / MTrack->TrackAssociatedVertexDzError->at(itrack));
+                        ? fabs(MTrackPP->trkDzOverDzError[itrack])
+                        : fabs(MTrack->TrackAssociatedVertexDz->at(itrack) / MTrack->TrackAssociatedVertexDzError->at(itrack));
                      if(ZVertexSignificance > 3)
                         continue;
 
