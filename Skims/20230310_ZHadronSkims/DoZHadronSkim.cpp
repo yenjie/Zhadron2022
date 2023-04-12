@@ -368,10 +368,35 @@ int main(int argc, char *argv[])
                int NTrack = DoGenCorrelation ? MGen->Mult : (IsPP ? MTrackPP->nTrk : MTrack->TrackPT->size());
                for(int itrack = 0; itrack < NTrack; itrack++)
                {
-                  if(DoGenCorrelation == false)
+                  if(DoGenCorrelation == false)   // track selection on reco
                   {
                      bool HP = IsPP ? MTrackPP->highPurity[itrack] : MTrack->TrackHighPurity->at(itrack);
                      if(HP == false)
+                        continue;
+
+                     double RelativeUncertainty = IsPP
+                        ? (MTrackPP->trkPtError[itrack] / MTrackPP->trkPt[itrack])
+                        : (MTrack->TrackPTError->at(itrack) / MTrack->TrackPT->at(itrack));
+                     if(RelativeUncertainty > 0.1)
+                        continue;
+
+                     // TODO: check if it's 3D significance or z significance or xy significance
+                     double VertexSignificance = IsPP
+                        ? (MTrackPP->trkDxyOverDxyError[itrack])
+                        : (MTrack->TrackAssociatedVertexDxy->at(itrack) / MTrack->TrackAssociatedVertexDxyError->at(itrack));
+                     if(VertexSignificance > 3)
+                        continue;
+
+                     if(IsPP == false && MTrack->TrackNHits->at(itrack) < 11)
+                        continue;
+
+                     if(IsPP == false && MTrack->TrackNormChi2->at(itrack) > 0.18)
+                        continue;
+
+                     if(IsPP == false && MTrack->TrackPT->at(itrack) > 20 && (MTrack->PFEcal->at(itrack) + MTrack->PFHcal->at(itrack) == 0))
+                        continue;
+
+                     if((IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack)) < 1)
                         continue;
                   }
 
