@@ -1801,6 +1801,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("VXError",                &VXError,      "VXError/F");
    Tree->Branch("VYError",                &VYError,      "VYError/F");
    Tree->Branch("VZError",                &VZError,      "VZError/F");
+   Tree->Branch("NPU",                    &NPU,          "NPU/I");
 
    Tree->Branch("zMass",                  &zMass);
    Tree->Branch("zEta",                   &zEta);
@@ -1870,6 +1871,7 @@ void ZHadronMessenger::Clear()
    VXError = 0;
    VYError = 0;
    VZError = 0;
+   NPU = 0;
 
    zMass->clear();
    zEta->clear();

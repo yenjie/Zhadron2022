@@ -505,6 +505,7 @@ public:
 
    int NVertex;
    float VX, VY, VZ, VXError, VYError, VZError;
+   int NPU;
    
    std::vector<double> *zMass;
    std::vector<double> *zEta;
