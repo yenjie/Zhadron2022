@@ -12,10 +12,12 @@
 #include "TCanvas.h"
 
 void SetThesisStyle();
+void SetThesisStyleWide();
 void SetThesisBigStyle();
 void SetThesisRegularStyle();
 void SetThesisSmallStyle();
 void SetThumbStyle();
+void SetThumbStyleWide();
 double ThesisNDCMappingX(double OldX);
 double ThesisNDCMappingY(double OldY);
 double ThesisNDCMappingBigX(double OldX);
@@ -35,6 +37,9 @@ void AddCMS(double X = 0.15, double Y = 0.875, double Luminosity = -1, double Fo
 void AddCMSSimulation(double X = 0.15, double Y = 0.875, double Luminosity = -1, double FontSize = 0.03);
 void AddHeader(string AdditionalComment = "", bool Colored = false);
 std::vector<int> GetPrimaryColors();
+std::vector<int> GetCVDColors6();
+std::vector<int> GetCVDColors8();
+std::vector<int> GetCVDColors10();
 
 void SetThesisStyle()
 {
@@ -67,6 +72,75 @@ void SetThesisStyle()
    gStyle->SetTitleSize(0.035,"z");
    gStyle->SetTitleOffset(1.10,"x");
    gStyle->SetTitleOffset(1.20,"y");
+   gStyle->SetTitleOffset(1.28,"z");
+
+   gStyle->SetMarkerStyle(20);
+   gStyle->SetHistLineWidth(1);
+   // gStyle->SetHistLineWidth(1.85);
+   // gStyle->SetHistLineWidth(3.85);
+   gStyle->SetLineStyleString(2,"[12 12]"); // postscript dashes
+
+   gStyle->SetErrorX(0.001);
+
+   // gStyle->SetOptTitle(0);
+   gStyle->SetOptStat(0);
+   gStyle->SetOptFit(0);
+
+   gStyle->SetPadTickX(1);
+   gStyle->SetPadTickY(1);
+
+   gStyle->SetOptStat(1100);
+   gStyle->SetOptStat(1);
+   gStyle->SetOptFit(1111);
+   gStyle->SetPadTickX(1);
+   gStyle->SetPadTickY(1);
+
+   gStyle->SetLegendFont(42);
+   gStyle->SetLegendBorderSize(0);
+   gStyle->SetLegendFillColor(0);
+
+   const Int_t NRGBs = 5;
+   const Int_t NCont = 99;
+
+   Double_t stops[NRGBs] = { 0.00, 0.34, 0.61, 0.84, 1.00 };
+   Double_t red[NRGBs]   = { 0.00, 0.00, 0.87, 1.00, 0.51 };
+   Double_t green[NRGBs] = { 0.00, 0.81, 1.00, 0.20, 0.00 };
+   Double_t blue[NRGBs]  = { 0.51, 1.00, 0.12, 0.00, 0.00 };
+   TColor::CreateGradientColorTable(NRGBs, stops, red, green, blue, NCont);
+   gStyle->SetNumberContours(NCont);
+}
+
+void SetThesisStyleWide()
+{
+   gStyle->SetFrameBorderMode(0);
+   gStyle->SetCanvasBorderMode(0);
+   gStyle->SetPadBorderMode(0);
+   gStyle->SetPadColor(0);
+   gStyle->SetCanvasColor(0);
+   gStyle->SetStatColor(0);
+   gStyle->SetFillColor(0);
+
+   gStyle->SetPaperSize(20,26);
+   gStyle->SetCanvasDefH(1024);
+   gStyle->SetCanvasDefW(1024 * 1.5);
+   gStyle->SetPadTopMargin(0.1);
+   gStyle->SetPadRightMargin(0.1 / 1.5);
+   gStyle->SetPadBottomMargin(0.1);
+   gStyle->SetPadLeftMargin(0.1 / 1.5);
+
+   // gStyle->SetTextFont(42);
+   // gStyle->SetTextSize(0.08);
+   gStyle->SetLabelFont(42,"x");
+   gStyle->SetLabelFont(42,"y");
+   gStyle->SetLabelFont(42,"z");
+   gStyle->SetLabelSize(0.035,"x");
+   gStyle->SetTitleSize(0.035,"x");
+   gStyle->SetLabelSize(0.035,"y");
+   gStyle->SetTitleSize(0.035,"y");
+   gStyle->SetLabelSize(0.035,"z");
+   gStyle->SetTitleSize(0.035,"z");
+   gStyle->SetTitleOffset(1.15,"x");
+   gStyle->SetTitleOffset(0.90,"y");
    gStyle->SetTitleOffset(1.28,"z");
 
    gStyle->SetMarkerStyle(20);
@@ -279,6 +353,75 @@ void SetThumbStyle()
    gStyle->SetTitleSize(0.06,"z");
    gStyle->SetTitleOffset(1.10,"x");
    gStyle->SetTitleOffset(1.10,"y");
+   gStyle->SetTitleOffset(1.28,"z");
+
+   gStyle->SetMarkerStyle(20);
+   gStyle->SetHistLineWidth(1);
+   // gStyle->SetHistLineWidth(1.85);
+   // gStyle->SetHistLineWidth(3.85);
+   gStyle->SetLineStyleString(2,"[12 12]"); // postscript dashes
+
+   gStyle->SetErrorX(0.001);
+
+   // gStyle->SetOptTitle(0);
+   gStyle->SetOptStat(0);
+   gStyle->SetOptFit(0);
+
+   gStyle->SetPadTickX(1);
+   gStyle->SetPadTickY(1);
+
+   gStyle->SetOptStat(1100);
+   gStyle->SetOptStat(1);
+   gStyle->SetOptFit(1111);
+   gStyle->SetPadTickX(1);
+   gStyle->SetPadTickY(1);
+
+   gStyle->SetLegendFont(42);
+   gStyle->SetLegendBorderSize(0);
+   gStyle->SetLegendFillColor(0);
+
+   const Int_t NRGBs = 5;
+   const Int_t NCont = 99;
+
+   Double_t stops[NRGBs] = { 0.00, 0.34, 0.61, 0.84, 1.00 };
+   Double_t red[NRGBs]   = { 0.00, 0.00, 0.87, 1.00, 0.51 };
+   Double_t green[NRGBs] = { 0.00, 0.81, 1.00, 0.20, 0.00 };
+   Double_t blue[NRGBs]  = { 0.51, 1.00, 0.12, 0.00, 0.00 };
+   TColor::CreateGradientColorTable(NRGBs, stops, red, green, blue, NCont);
+   gStyle->SetNumberContours(NCont);
+}
+
+void SetThumbStyleWide()
+{
+   gStyle->SetFrameBorderMode(0);
+   gStyle->SetCanvasBorderMode(0);
+   gStyle->SetPadBorderMode(0);
+   gStyle->SetPadColor(0);
+   gStyle->SetCanvasColor(0);
+   gStyle->SetStatColor(0);
+   gStyle->SetFillColor(0);
+
+   gStyle->SetPaperSize(20,26);
+   gStyle->SetCanvasDefH(1024);
+   gStyle->SetCanvasDefW(1024 * 1.5);
+   gStyle->SetPadTopMargin(0.1);
+   gStyle->SetPadRightMargin(0.1 / 1.5);
+   gStyle->SetPadBottomMargin(0.135);
+   gStyle->SetPadLeftMargin(0.135 / 1.5);
+
+   // gStyle->SetTextFont(42);
+   // gStyle->SetTextSize(0.08);
+   gStyle->SetLabelFont(42,"x");
+   gStyle->SetLabelFont(42,"y");
+   gStyle->SetLabelFont(42,"z");
+   gStyle->SetLabelSize(0.05,"x");
+   gStyle->SetTitleSize(0.06,"x");
+   gStyle->SetLabelSize(0.05,"y");
+   gStyle->SetTitleSize(0.06,"y");
+   gStyle->SetLabelSize(0.05,"z");
+   gStyle->SetTitleSize(0.06,"z");
+   gStyle->SetTitleOffset(1.00,"x");
+   gStyle->SetTitleOffset(0.70,"y");
    gStyle->SetTitleOffset(1.28,"z");
 
    gStyle->SetMarkerStyle(20);
@@ -966,6 +1109,46 @@ std::vector<int> GetPrimaryColors()
 
    return Colors;
 }
+
+std::vector<int> GetCVDColors6()
+{
+   static std::vector<int> Colors;
+   if(Colors.size() > 0)
+      return Colors;
+
+   std::string ColorStrings[6] = {"#5790fc", "#f89c20", "#e42536", "#964a8b", "#9c9ca1", "#7a21dd"};
+   for(int i = 0; i < 6; i++)
+      Colors.push_back(TColor::GetColor(ColorStrings[i].c_str()));
+
+   return Colors;
+}
+
+std::vector<int> GetCVDColors8()
+{
+   static std::vector<int> Colors;
+   if(Colors.size() > 0)
+      return Colors;
+
+   std::string ColorStrings[8] = {"#1845fb", "#ff5e02", "#c91f16", "#c849a9", "#adad7d", "#86c8dd", "#578dff", "#656364"};
+   for(int i = 0; i < 8; i++)
+      Colors.push_back(TColor::GetColor(ColorStrings[i].c_str()));
+
+   return Colors;
+}
+
+std::vector<int> GetCVDColors10()
+{
+   static std::vector<int> Colors;
+   if(Colors.size() > 0)
+      return Colors;
+
+   std::string ColorStrings[10] = {"#3f90da", "#ffa90e", "#bd1f01", "#94a4a2", "#832db6", "#a96b59", "#e76300", "#b9ac70", "#717581", "#92dadd"};
+   for(int i = 0; i < 10; i++)
+      Colors.push_back(TColor::GetColor(ColorStrings[i].c_str()));
+
+   return Colors;
+}
+
 
 
 #endif
