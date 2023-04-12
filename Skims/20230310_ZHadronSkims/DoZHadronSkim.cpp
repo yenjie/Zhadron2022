@@ -197,6 +197,13 @@ int main(int argc, char *argv[])
          MZHadron.Event = MSignalEvent.Event;
          MZHadron.hiBin = MSignalEvent.hiBin;
          MZHadron.hiHF  = MSignalEvent.hiHF;
+         MZHadron.NPU   = 0;
+         if(MSignalEvent.npus->size() == 9)
+            MZHadron.NPU = MSignalEvent.npus->at(5);
+         else if(MSignalEvent.npus->size() > 1)
+            MZHadron.NPU = MSignalEvent.npus->at(0);
+         else
+            MZHadron.NPU = 0;
 
          // Fill vertex information
          MZHadron.NVertex = 0;
