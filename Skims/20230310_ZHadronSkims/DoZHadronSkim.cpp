@@ -20,6 +20,9 @@ using namespace std;
 #include "ProgressBar.h"
 #include "CustomAssert.h"
 
+#include "trackingEfficiency2017pp.h"
+#include "trackingEfficiency2018PbPb.h"
+
 struct EventIndex;
 int main(int argc, char *argv[]);
 int FindFirstAbove(vector<EventIndex> &Indices, double X);
@@ -61,6 +64,9 @@ int main(int argc, char *argv[])
    bool DoBackground             = CL.GetBool("DoBackground", false);
    bool DoSumET                  = CL.GetBool("DoSumET", true);
    double MuonVeto               = CL.GetDouble("MuonVeto", 0.01);
+   
+   bool DoTrackEfficiency        = CL.GetBool("DoTrackEfficiency", true);
+   string TrackEfficiencyPath    = (DoTrackEfficiency == true) ? CL.Get("TrackEfficiencyPath") : "";
 
    string PFTreeName             = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
    PFTreeName                    = CL.Get("PFTree", PFTreeName);
@@ -82,6 +88,16 @@ int main(int argc, char *argv[])
       HFToleranceFraction         = CL.GetDouble("ToleranceFraction");
       NBackground                 = BackgroundFileNames.size();
       Oversample                  = CL.GetInteger("Oversample", 1);
+   }
+
+   TrkEff2017pp *TrackEfficiencyPP = nullptr;
+   TrkEff2018PbPb *TrackEfficiencyPbPb = nullptr;
+   if(DoTrackEfficiency == true)
+   {
+      if(IsPP == true)
+         TrackEfficiencyPP = new TrkEff2017pp(false, TrackEfficiencyPath);
+      else
+         TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "", false, TrackEfficiencyPath);
    }
 
    // Do some pre-caching if we read background files.
@@ -380,23 +396,32 @@ int main(int argc, char *argv[])
                      if(RelativeUncertainty > 0.1)
                         continue;
 
-                     // TODO: check if it's 3D significance or z significance or xy significance
-                     double VertexSignificance = IsPP
+                     double XYVertexSignificance = IsPP
                         ? (MTrackPP->trkDxyOverDxyError[itrack])
                         : (MTrack->TrackAssociatedVertexDxy->at(itrack) / MTrack->TrackAssociatedVertexDxyError->at(itrack));
-                     if(VertexSignificance > 3)
+                     if(XYVertexSignificance > 3)
+                        continue;
+                     
+                     double ZVertexSignificance = IsPP
+                        ? (MTrackPP->trkDzOverDzError[itrack])
+                        : (MTrack->TrackAssociatedVertexDz->at(itrack) / MTrack->TrackAssociatedVertexDzError->at(itrack));
+                     if(ZVertexSignificance > 3)
                         continue;
 
                      if(IsPP == false && MTrack->TrackNHits->at(itrack) < 11)
                         continue;
 
-                     if(IsPP == false && MTrack->TrackNormChi2->at(itrack) > 0.18)
+                     if(IsPP == false && MTrack->TrackNormChi2->at(itrack) / MTrack->TrackNLayers->at(itrack) > 0.18)
                         continue;
 
                      if(IsPP == false && MTrack->TrackPT->at(itrack) > 20 && (MTrack->PFEcal->at(itrack) + MTrack->PFHcal->at(itrack) == 0))
                         continue;
 
                      if((IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack)) < 1)
+                        continue;
+                  
+                     double TrackEta = DoGenCorrelation ? MGen->Eta->at(itrack) : (IsPP ? MTrackPP->trkEta[itrack] : MTrack->TrackEta->at(itrack));
+                     if(fabs(TrackEta) > 2.4)
                         continue;
                   }
 
@@ -448,6 +473,16 @@ int main(int argc, char *argv[])
                   MZHadron.trackDeta->push_back(deltaEta);
                   MZHadron.trackPt->push_back(TrackPT);
                   MZHadron.trackMuTagged->push_back(MuTagged);
+
+                  double TrackEfficiency = 1;
+                  if(DoTrackEfficiency == true)
+                  {
+                     if(IsPP == true)
+                        TrackEfficiency = TrackEfficiencyPP->getCorrection(TrackPT, TrackEta);
+                     else
+                        TrackEfficiency = TrackEfficiencyPbPb->getCorrection(TrackPT, TrackEta, MZHadron.hiBin);
+                  }
+                  MZHadron.trackWeight->push_back(1 / TrackEfficiency);
                }
             }
 
@@ -575,6 +610,14 @@ int main(int argc, char *argv[])
       for(PFTreeMessenger *M : MBackgroundPF)
          if(M != nullptr)
             delete M;
+   }
+   
+   if(DoTrackEfficiency == true)
+   {
+      if(TrackEfficiencyPP != nullptr)
+         delete TrackEfficiencyPP;
+      if(TrackEfficiencyPbPb != nullptr)
+         delete TrackEfficiencyPbPb;
    }
 
    return 0;
