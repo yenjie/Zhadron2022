@@ -58,6 +58,7 @@ int main(int argc, char *argv[])
    bool DoGenLevel               = CL.GetBool("DoGenLevel", true);
    double Fraction               = CL.GetDouble("Fraction", 1.00);
    double MinZPT                 = CL.GetDouble("MinZPT", 20.00);
+   double MinTrackPT             = CL.GetDouble("MinTrackPT", 1.00);
    bool IsData                   = CL.GetBool("IsData", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
    bool DoGenCorrelation         = CL.GetBool("DoGenCorrelation", false);
@@ -443,7 +444,7 @@ int main(int argc, char *argv[])
                      if(IsPP == false && MTrack->TrackPT->at(itrack) > 20 && (MTrack->PFEcal->at(itrack) + MTrack->PFHcal->at(itrack) == 0))
                         continue;
 
-                     if((IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack)) < 1)
+                     if((IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack)) < MinTrackPT)
                         continue;
                   
                      double TrackEta = DoGenCorrelation ? MGen->Eta->at(itrack) : (IsPP ? MTrackPP->trkEta[itrack] : MTrack->TrackEta->at(itrack));
@@ -453,7 +454,7 @@ int main(int argc, char *argv[])
 
                   if(DoGenCorrelation == true)
                   {
-                     if(MGen->PT->at(itrack) < 0.4)
+                     if(MGen->PT->at(itrack) < MinTrackPT)
                         continue;
                      if(MGen->Eta->at(itrack) < -2.4)
                         continue;
