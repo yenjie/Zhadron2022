@@ -1474,6 +1474,9 @@ bool PbPbTrackTreeMessenger::Initialize()
    TrackNLayers = nullptr;
    TrackNormChi2 = nullptr;
    TrackHighPurity = nullptr;
+   PFEnergy = nullptr;
+   PFEcal = nullptr;
+   PFHcal = nullptr;
    TrackAssociatedVertexIndex = nullptr;
    TrackAssociatedVertexQuality = nullptr;
    TrackAssociatedVertexDz = nullptr;
@@ -1511,6 +1514,9 @@ bool PbPbTrackTreeMessenger::Initialize()
    Tree->SetBranchAddress("trkNLayers", &TrackNLayers);
    Tree->SetBranchAddress("trkNormChi2", &TrackNormChi2);
    Tree->SetBranchAddress("highPurity", &TrackHighPurity);
+   Tree->SetBranchAddress("pfEnergy", &PFEnergy);
+   Tree->SetBranchAddress("pfEcal", &PFEcal);
+   Tree->SetBranchAddress("pfHcal", &PFHcal);
    Tree->SetBranchAddress("trkAssociatedVtxIndx", &TrackAssociatedVertexIndex);
    Tree->SetBranchAddress("trkAssociatedVtxQuality", &TrackAssociatedVertexQuality);
    Tree->SetBranchAddress("trkDzAssociatedVtx", &TrackAssociatedVertexDz);
@@ -1749,6 +1755,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    trackEta = new std::vector<double>();
    trackPhi = new std::vector<double>();
    trackMuTagged = new std::vector<bool>();
+   trackWeight = new std::vector<double>();
 
    muEta1 = new std::vector<double>();
    muEta2 = new std::vector<double>();
@@ -1802,6 +1809,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("trackPhi",               &trackPhi);
    Tree->Branch("trackEta",               &trackEta);
    Tree->Branch("trackMuTagged",          &trackMuTagged);
+   Tree->Branch("trackWeight",            &trackWeight);
 
    Tree->Branch("maxOppositeDEta",        &maxOppositeDEta);
    Tree->Branch("maxOppositeDPhi",        &maxOppositeDPhi);
@@ -1862,6 +1870,7 @@ void ZHadronMessenger::Clear()
    trackPhi->clear();
    trackEta->clear();
    trackMuTagged->clear();
+   trackWeight->clear();
 
    maxOppositeDEta = 0;
    maxOppositeDPhi = 0;
