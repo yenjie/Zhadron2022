@@ -448,7 +448,13 @@ int main(int argc, char *argv[])
                      if(IsPP == false && MTrack->TrackNormChi2->at(itrack) / MTrack->TrackNLayers->at(itrack) > 0.18)
                         continue;
 
-                     if(IsPP == false && MTrack->TrackPT->at(itrack) > 20 && (MTrack->PFEcal->at(itrack) + MTrack->PFHcal->at(itrack) == 0))
+                     double Ecal = 0;
+                     if(IsPP == false && MTrack->PFEcal != nullptr && MTrack->PFEcal->size() > itrack)
+                        Ecal = MTrack->PFEcal->at(itrack);
+                     double Hcal = 0;
+                     if(IsPP == false && MTrack->PFHcal != nullptr && MTrack->PFHcal->size() > itrack)
+                        Hcal = MTrack->PFHcal->at(itrack);
+                     if(IsPP == false && MTrack->TrackPT->at(itrack) > 20 && (Ecal + Hcal == 0))
                         continue;
 
                      if((IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack)) < MinTrackPT)
