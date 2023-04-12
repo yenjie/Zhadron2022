@@ -474,15 +474,15 @@ int main(int argc, char *argv[])
                   MZHadron.trackPt->push_back(TrackPT);
                   MZHadron.trackMuTagged->push_back(MuTagged);
 
-                  double TrackEfficiency = 1;
+                  double TrackCorrection = 1;
                   if(DoTrackEfficiency == true)
                   {
                      if(IsPP == true)
-                        TrackEfficiency = TrackEfficiencyPP->getCorrection(TrackPT, TrackEta);
+                        TrackCorrection = TrackEfficiencyPP->getCorrection(TrackPT, TrackEta);
                      else
-                        TrackEfficiency = TrackEfficiencyPbPb->getCorrection(TrackPT, TrackEta, MZHadron.hiBin);
+                        TrackCorrection = TrackEfficiencyPbPb->getCorrection(TrackPT, TrackEta, MZHadron.hiBin);
                   }
-                  MZHadron.trackWeight->push_back(1 / TrackEfficiency);
+                  MZHadron.trackWeight->push_back(TrackCorrection);
                }
             }
 
