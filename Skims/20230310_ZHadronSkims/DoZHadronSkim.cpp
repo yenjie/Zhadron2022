@@ -197,10 +197,36 @@ int main(int argc, char *argv[])
          MZHadron.hiBin = MSignalEvent.hiBin;
          MZHadron.hiHF  = MSignalEvent.hiHF;
 
+         // Fill vertex information
+         MZHadron.NVertex = 0;
+         int BestVertex = -1;
+         for(int i = 0; i < (IsPP ? MSignalTrackPP.nVtx : MSignalTrack.VX->size()); i++)
+         {
+            // TODO: Add vertex selections here
+
+            if(IsPP == true && (BestVertex < 0 || MSignalTrackPP.sumPtVtx[i] > MSignalTrackPP.sumPtVtx[BestVertex]))
+               BestVertex = i;
+            if(IsPP == false && (BestVertex < 0 || MSignalTrack.VPTSum->at(i) > MSignalTrack.VPTSum->at(BestVertex)))
+               BestVertex = i;
+
+            MZHadron.NVertex = MZHadron.NVertex + 1;
+         }
+         
+         if(BestVertex >= 0)
+         {
+            MZHadron.VX      = IsPP ? MSignalTrackPP.xVtx[BestVertex] : MSignalTrack.VX->at(BestVertex);
+            MZHadron.VY      = IsPP ? MSignalTrackPP.yVtx[BestVertex] : MSignalTrack.VY->at(BestVertex);
+            MZHadron.VZ      = IsPP ? MSignalTrackPP.zVtx[BestVertex] : MSignalTrack.VZ->at(BestVertex);
+            MZHadron.VXError = IsPP ? MSignalTrackPP.xVtxErr[BestVertex] : MSignalTrack.VXError->at(BestVertex);
+            MZHadron.VYError = IsPP ? MSignalTrackPP.yVtxErr[BestVertex] : MSignalTrack.VYError->at(BestVertex);
+            MZHadron.VZError = IsPP ? MSignalTrackPP.zVtxErr[BestVertex] : MSignalTrack.VZError->at(BestVertex);
+         }
+
          // Do event selection and triggers
          if(IsPP == true)
          {
-            // cerr << "Warning!  pp mode not implemented yet!" << endl;
+            if(IsData == true)
+               cerr << "Warning!  pp data mode not implemented yet!" << endl;
          }
          else
          {
