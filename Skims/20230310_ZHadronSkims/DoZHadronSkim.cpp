@@ -599,7 +599,6 @@ int main(int argc, char *argv[])
                   }
                }
 
-               // cout << OppositePFPT.size() << endl;
                pair<double, double> WTA        = WTAAxis(OppositePFEta, OppositePFPhi, OppositePFPT);
                pair<double, double> WTAMore    = WTAAxis(MoreOppositePFEta, MoreOppositePFPhi, MoreOppositePFPT);
 

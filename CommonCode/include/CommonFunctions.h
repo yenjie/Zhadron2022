@@ -16,6 +16,8 @@ double FindNPart(int hiBin);
 double FindNCollAverage(int hiBin);
 double FindNPartAverage(int hiBin);
 std::pair<double, double> WTAAxis(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT);
+std::pair<double, double> WTAAxisCA(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT);
+std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT);
 
 
 // Function implementations
@@ -78,6 +80,11 @@ double FindNPartAverage(int hiBinLow, int hiBinHigh)
 }
 
 std::pair<double, double> WTAAxis(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT)
+{
+   return WTAAxisTable(Eta, Phi, PT);
+}
+
+std::pair<double, double> WTAAxisCA(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT)
 {
    std::pair<double, double> Result;
 
@@ -171,6 +178,151 @@ std::pair<double, double> WTAAxis(std::vector<double> &Eta, std::vector<double> 
    return Result;
 }
 
+std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT)
+{
+   int N = Eta.size();
+
+   std::vector<bool> Alive(N, true);
+   std::vector<int> ClosestIndex(N);
+   std::vector<double> ClosestD2(N);
+
+   // First we initialize the tables
+   for(int i = 0; i < N; i++)
+   {
+      int BestIndex = -1;
+      double BestD2 = -1;
+
+      for(int j = 0; j < N; j++)
+      {
+         if(i == j)
+            continue;
+            
+         double DEta = Eta[i] - Eta[j];
+         double DPhi = DeltaPhi(Phi[i], Phi[j]);
+         double PTMin = std::min(PT[i], PT[j]);
+         double D2 = (DEta * DEta + DPhi * DPhi) / (PTMin * PTMin);
+         // double D2 = DEta * DEta + DPhi * DPhi;
+
+         if(BestD2 < 0 || D2 < BestD2)
+         {
+            BestIndex = j;
+            BestD2 = D2;
+         }
+      }
+
+      ClosestIndex[i] = BestIndex;
+      ClosestD2[i] = BestD2;
+   }
+
+   // Now we loop.  If there are N particles we need to recombine N - 1 times
+   for(int iS = 0; iS < N - 1; iS++)
+   {
+      // First find the best pair from the table
+      int BestI = -1;
+      for(int i = 0; i < N; i++)
+      {
+         if(Alive[i] == false)
+            continue;
+         if(BestI < 0 || ClosestD2[i] <= ClosestD2[BestI])
+            BestI = i;
+      }
+
+      // Now merge the two
+      int BestJ = ClosestIndex[BestI];
+      int NewI = BestI;
+      
+      // cout << Eta[BestI] << " " << Eta[BestJ] << endl;
+      // cout << ClosestD2[BestI] << endl;
+
+      if(PT[BestI] > PT[BestJ])
+      {
+         PT[BestI] = PT[BestI] + PT[BestJ];
+         Alive[BestJ] = false;
+         NewI = BestI;
+      }
+      else
+      {
+         PT[BestJ] = PT[BestI] + PT[BestJ];
+         Alive[BestI] = false;
+         NewI = BestJ;
+      }
+
+      // Finally update the tables
+      // First we update ones where closest is the old NewI
+      for(int i = 0; i < N; i++)
+      {
+         if(Alive[i] == false)
+            continue;
+
+         if(ClosestIndex[i] == BestI || ClosestIndex[i] == BestJ)   // need full reevaluation (?)
+         {
+            int BestIndex = 0;
+            double BestD2 = -1;
+            for(int j = 0; j < N; j++)
+            {
+               if(Alive[j] == false)   continue;
+               if(i == j)              continue;
+         
+               double DEta = Eta[i] - Eta[j];
+               double DPhi = DeltaPhi(Phi[i], Phi[j]);
+               double PTMin = std::min(PT[i], PT[j]);
+               double D2 = (DEta * DEta + DPhi * DPhi) / (PTMin * PTMin);
+               // double D2 = DEta * DEta + DPhi * DPhi;
+               
+               if(BestD2 < 0 || D2 < BestD2)
+               {
+                  BestIndex = j;
+                  BestD2 = D2;
+               }
+            }
+
+            ClosestIndex[i] = BestIndex;
+            ClosestD2[i] = BestD2;
+         }
+      }
+
+      // Then we update the NewI with everyone else
+      ClosestIndex[NewI] = -1;
+      ClosestD2[NewI] = -1;
+      for(int j = 0; j < N; j++)
+      {
+         if(Alive[j] == false)
+            continue;
+         if(j == NewI)
+            continue;
+
+         double DEta = Eta[NewI] - Eta[j];
+         double DPhi = DeltaPhi(Phi[NewI], Phi[j]);
+         double PTMin = std::min(PT[NewI], PT[j]);
+         double D2 = (DEta * DEta + DPhi * DPhi) / (PTMin * PTMin);
+         // double D2 = DEta * DEta + DPhi * DPhi;
+
+         if(ClosestD2[NewI] < 0 || D2 < ClosestD2[NewI])
+         {
+            ClosestIndex[NewI] = j;
+            ClosestD2[NewI] = D2;
+         }
+         if(D2 < ClosestD2[j])
+         {
+            ClosestIndex[j] = NewI;
+            ClosestD2[j] = D2;
+         }
+      }
+   }
+
+   std::pair<double, double> Result;
+   
+   for(int i = 0; i < N; i++)
+   {
+      if(Alive[i] == false)
+         continue;
+
+      Result.first = Eta[i];
+      Result.second = Phi[i];
+   }
+   
+   return Result;
+}
 
 
 
