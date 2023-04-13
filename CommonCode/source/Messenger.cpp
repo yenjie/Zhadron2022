@@ -46,28 +46,35 @@ bool HiEventTreeMessenger::Initialize()
    if(Tree == nullptr)
       return false;
 
-   if(Tree->GetBranch("hiHF"))  Tree->SetBranchAddress("hiHF", &hiHF);
-   else                         hiHF = 0;
-   if(Tree->GetBranch("hiBin")) Tree->SetBranchAddress("hiBin", &hiBin);
-   else                         hiBin = 0;
-   if(Tree->GetBranch("run"))   Tree->SetBranchAddress("run", &Run);
-   else                         Run = 1;
-   if(Tree->GetBranch("evt"))   Tree->SetBranchAddress("evt", &Event);
-   else                         Event = 1;
-   if(Tree->GetBranch("lumi"))  Tree->SetBranchAddress("lumi", &Lumi);
-   else                         Lumi = 1;
-   if(Tree->GetBranch("weight"))  Tree->SetBranchAddress("weight", &weight);
-   else                         weight = 1;
-   if(Tree->GetBranch("hiHFplus"))  Tree->SetBranchAddress("hiHFplus", &hiHFplus);
-   else                         hiHFplus = 0;
-   if(Tree->GetBranch("hiHFminus"))  Tree->SetBranchAddress("hiHFminus", &hiHFminus);
-   else                         hiHFminus = 0;
+   npus = nullptr;
+   tnpus = nullptr;
+
+   if(Tree->GetBranch("hiHF"))          Tree->SetBranchAddress("hiHF", &hiHF);
+   else                                 hiHF = 0;
+   if(Tree->GetBranch("hiBin"))         Tree->SetBranchAddress("hiBin", &hiBin);
+   else                                 hiBin = 0;
+   if(Tree->GetBranch("run"))           Tree->SetBranchAddress("run", &Run);
+   else                                 Run = 1;
+   if(Tree->GetBranch("evt"))           Tree->SetBranchAddress("evt", &Event);
+   else                                 Event = 1;
+   if(Tree->GetBranch("lumi"))          Tree->SetBranchAddress("lumi", &Lumi);
+   else                                 Lumi = 1;
+   if(Tree->GetBranch("weight"))        Tree->SetBranchAddress("weight", &weight);
+   else                                 weight = 1;
+   if(Tree->GetBranch("npus"))          Tree->SetBranchAddress("npus", &npus);
+   else                                 npus = &EmptyVectors::EmptyVectorInt;
+   if(Tree->GetBranch("tnpus"))         Tree->SetBranchAddress("tnpus", &tnpus);
+   else                                 tnpus = &EmptyVectors::EmptyVectorFloat;
+   if(Tree->GetBranch("hiHFplus"))      Tree->SetBranchAddress("hiHFplus", &hiHFplus);
+   else                                 hiHFplus = 0;
+   if(Tree->GetBranch("hiHFminus"))     Tree->SetBranchAddress("hiHFminus", &hiHFminus);
+   else                                 hiHFminus = 0;
    if(Tree->GetBranch("hiHFplusEta4"))  Tree->SetBranchAddress("hiHFplusEta4", &hiHFplusEta4);
-   else                         hiHFplusEta4 = 0;
-   if(Tree->GetBranch("hiHFminusEta4"))  Tree->SetBranchAddress("hiHFminusEta4", &hiHFminusEta4);
-   else                         hiHFminusEta4 = 0;
+   else                                 hiHFplusEta4 = 0;
+   if(Tree->GetBranch("hiHFminusEta4")) Tree->SetBranchAddress("hiHFminusEta4", &hiHFminusEta4);
+   else                                 hiHFminusEta4 = 0;
    if(Tree->GetBranch("hiNevtPlane"))   Tree->SetBranchAddress("hiNevtPlane", &hiNevtPlane);
-   else                         hiNevtPlane = 0;
+   else                                 hiNevtPlane = 0;
    if(Tree->GetBranch("hiEvtPlanes"))   Tree->SetBranchAddress("hiEvtPlanes", &hiEvtPlanes);
    
    return true;

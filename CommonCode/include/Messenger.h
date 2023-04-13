@@ -35,6 +35,8 @@ public:
    unsigned long long Event;
    unsigned int Lumi;
    float weight;
+   std::vector<int> *npus;
+   std::vector<float> *tnpus;
    float hiHFplus;
    float hiHFminus;
    float hiHFplusEta4;
