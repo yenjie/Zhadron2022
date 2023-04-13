@@ -515,7 +515,6 @@ int main(int argc, char *argv[])
                   MZHadron.trackPt->push_back(TrackPT);
                   MZHadron.trackMuTagged->push_back(MuTagged);
 
-                  /*
                   double TrackCorrection = 1;
                   if(DoTrackEfficiency == true)
                   {
@@ -525,7 +524,6 @@ int main(int argc, char *argv[])
                         TrackCorrection = TrackEfficiencyPbPb->getCorrection(TrackPT, TrackEta, MZHadron.hiBin);
                   }
                   MZHadron.trackWeight->push_back(TrackCorrection);
-                  */
                }
             }
 
