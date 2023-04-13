@@ -17,12 +17,12 @@ TestRun: Execute
 
 TestRunMC: Execute
 	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_114.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --DoGenCorrelation false --IsData false --IsPP false --MinZPT 5 \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --DoGenCorrelation false --IsData false --IsPP false --MinZPT 5 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/
 
 TestRunGen: Execute
 	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_114.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false --MinZPT 5 \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false --MinZPT 5 \
 		--DoTrackEfficiency false
 
 TestRunGenPP: Execute
@@ -40,7 +40,7 @@ TestRunBackground: Execute
 
 TestRunPP: Execute
 	./Execute --Input $(PPSignalMC)/HiForestAOD_12.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --IsData false --IsPP true --MinZPT 5 \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --IsData false --IsPP true --MinZPT 5 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/
 
 TestRunBackgroundSimple: Execute
