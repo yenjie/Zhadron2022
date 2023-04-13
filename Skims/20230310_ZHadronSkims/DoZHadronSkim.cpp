@@ -64,6 +64,7 @@ int main(int argc, char *argv[])
    bool DoGenCorrelation         = CL.GetBool("DoGenCorrelation", false);
    bool DoBackground             = CL.GetBool("DoBackground", false);
    bool DoSumET                  = CL.GetBool("DoSumET", true);
+   bool DoExtraAxes              = CL.GetBool("DoExtraAxes", true);
    double MuonVeto               = CL.GetDouble("MuonVeto", 0.01);
    
    bool DoTrackEfficiency        = CL.GetBool("DoTrackEfficiency", true);
@@ -527,7 +528,7 @@ int main(int argc, char *argv[])
                }
             }
 
-            if(GoodRecoZ == true)
+            if(GoodRecoZ == true && DoExtraAxes == true)
             {
                PFTreeMessenger *MPF = &MSignalPF;
 
