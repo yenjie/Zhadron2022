@@ -35,6 +35,8 @@ public:
    unsigned long long Event;
    unsigned int Lumi;
    float weight;
+   std::vector<int> *npus;
+   std::vector<float> *tnpus;
    float hiHFplus;
    float hiHFminus;
    float hiHFplusEta4;
@@ -464,6 +466,9 @@ public:
    std::vector<char>  *TrackNLayers;
    std::vector<float> *TrackNormChi2;
    std::vector<bool>  *TrackHighPurity;
+   std::vector<float> *PFEnergy;
+   std::vector<float> *PFEcal;
+   std::vector<float> *PFHcal;
    std::vector<int>   *TrackAssociatedVertexIndex;
    std::vector<int>   *TrackAssociatedVertexQuality;
    std::vector<float> *TrackAssociatedVertexDz;
@@ -499,6 +504,10 @@ public:
    float BackgroundHF;
 
    float NCollWeight;
+
+   int NVertex;
+   float VX, VY, VZ, VXError, VYError, VZError;
+   int NPU;
    
    std::vector<double> *zMass;
    std::vector<double> *zEta;
@@ -515,6 +524,7 @@ public:
    std::vector<double> *trackEta;
    std::vector<double> *trackPhi;
    std::vector<bool> *trackMuTagged;
+   std::vector<double> *trackWeight;
 
    double maxOppositeDEta;
    double maxOppositeDPhi;

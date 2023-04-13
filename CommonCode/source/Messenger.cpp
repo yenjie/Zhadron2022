@@ -46,28 +46,35 @@ bool HiEventTreeMessenger::Initialize()
    if(Tree == nullptr)
       return false;
 
-   if(Tree->GetBranch("hiHF"))  Tree->SetBranchAddress("hiHF", &hiHF);
-   else                         hiHF = 0;
-   if(Tree->GetBranch("hiBin")) Tree->SetBranchAddress("hiBin", &hiBin);
-   else                         hiBin = 0;
-   if(Tree->GetBranch("run"))   Tree->SetBranchAddress("run", &Run);
-   else                         Run = 1;
-   if(Tree->GetBranch("evt"))   Tree->SetBranchAddress("evt", &Event);
-   else                         Event = 1;
-   if(Tree->GetBranch("lumi"))  Tree->SetBranchAddress("lumi", &Lumi);
-   else                         Lumi = 1;
-   if(Tree->GetBranch("weight"))  Tree->SetBranchAddress("weight", &weight);
-   else                         weight = 1;
-   if(Tree->GetBranch("hiHFplus"))  Tree->SetBranchAddress("hiHFplus", &hiHFplus);
-   else                         hiHFplus = 0;
-   if(Tree->GetBranch("hiHFminus"))  Tree->SetBranchAddress("hiHFminus", &hiHFminus);
-   else                         hiHFminus = 0;
+   npus = nullptr;
+   tnpus = nullptr;
+
+   if(Tree->GetBranch("hiHF"))          Tree->SetBranchAddress("hiHF", &hiHF);
+   else                                 hiHF = 0;
+   if(Tree->GetBranch("hiBin"))         Tree->SetBranchAddress("hiBin", &hiBin);
+   else                                 hiBin = 0;
+   if(Tree->GetBranch("run"))           Tree->SetBranchAddress("run", &Run);
+   else                                 Run = 1;
+   if(Tree->GetBranch("evt"))           Tree->SetBranchAddress("evt", &Event);
+   else                                 Event = 1;
+   if(Tree->GetBranch("lumi"))          Tree->SetBranchAddress("lumi", &Lumi);
+   else                                 Lumi = 1;
+   if(Tree->GetBranch("weight"))        Tree->SetBranchAddress("weight", &weight);
+   else                                 weight = 1;
+   if(Tree->GetBranch("npus"))          Tree->SetBranchAddress("npus", &npus);
+   else                                 npus = &EmptyVectors::EmptyVectorInt;
+   if(Tree->GetBranch("tnpus"))         Tree->SetBranchAddress("tnpus", &tnpus);
+   else                                 tnpus = &EmptyVectors::EmptyVectorFloat;
+   if(Tree->GetBranch("hiHFplus"))      Tree->SetBranchAddress("hiHFplus", &hiHFplus);
+   else                                 hiHFplus = 0;
+   if(Tree->GetBranch("hiHFminus"))     Tree->SetBranchAddress("hiHFminus", &hiHFminus);
+   else                                 hiHFminus = 0;
    if(Tree->GetBranch("hiHFplusEta4"))  Tree->SetBranchAddress("hiHFplusEta4", &hiHFplusEta4);
-   else                         hiHFplusEta4 = 0;
-   if(Tree->GetBranch("hiHFminusEta4"))  Tree->SetBranchAddress("hiHFminusEta4", &hiHFminusEta4);
-   else                         hiHFminusEta4 = 0;
+   else                                 hiHFplusEta4 = 0;
+   if(Tree->GetBranch("hiHFminusEta4")) Tree->SetBranchAddress("hiHFminusEta4", &hiHFminusEta4);
+   else                                 hiHFminusEta4 = 0;
    if(Tree->GetBranch("hiNevtPlane"))   Tree->SetBranchAddress("hiNevtPlane", &hiNevtPlane);
-   else                         hiNevtPlane = 0;
+   else                                 hiNevtPlane = 0;
    if(Tree->GetBranch("hiEvtPlanes"))   Tree->SetBranchAddress("hiEvtPlanes", &hiEvtPlanes);
    
    return true;
@@ -1474,6 +1481,9 @@ bool PbPbTrackTreeMessenger::Initialize()
    TrackNLayers = nullptr;
    TrackNormChi2 = nullptr;
    TrackHighPurity = nullptr;
+   PFEnergy = nullptr;
+   PFEcal = nullptr;
+   PFHcal = nullptr;
    TrackAssociatedVertexIndex = nullptr;
    TrackAssociatedVertexQuality = nullptr;
    TrackAssociatedVertexDz = nullptr;
@@ -1511,6 +1521,9 @@ bool PbPbTrackTreeMessenger::Initialize()
    Tree->SetBranchAddress("trkNLayers", &TrackNLayers);
    Tree->SetBranchAddress("trkNormChi2", &TrackNormChi2);
    Tree->SetBranchAddress("highPurity", &TrackHighPurity);
+   Tree->SetBranchAddress("pfEnergy", &PFEnergy);
+   Tree->SetBranchAddress("pfEcal", &PFEcal);
+   Tree->SetBranchAddress("pfHcal", &PFHcal);
    Tree->SetBranchAddress("trkAssociatedVtxIndx", &TrackAssociatedVertexIndex);
    Tree->SetBranchAddress("trkAssociatedVtxQuality", &TrackAssociatedVertexQuality);
    Tree->SetBranchAddress("trkDzAssociatedVtx", &TrackAssociatedVertexDz);
@@ -1749,6 +1762,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    trackEta = new std::vector<double>();
    trackPhi = new std::vector<double>();
    trackMuTagged = new std::vector<bool>();
+   trackWeight = new std::vector<double>();
 
    muEta1 = new std::vector<double>();
    muEta2 = new std::vector<double>();
@@ -1787,6 +1801,15 @@ bool ZHadronMessenger::SetBranch(TTree *T)
 
    Tree->Branch("NCollWeight",            &NCollWeight,  "NCollWeight/F");
    
+   Tree->Branch("NVertex",                &NVertex,      "NVertex/I");
+   Tree->Branch("VX",                     &VX,           "VX/F");
+   Tree->Branch("VY",                     &VY,           "VY/F");
+   Tree->Branch("VZ",                     &VZ,           "VZ/F");
+   Tree->Branch("VXError",                &VXError,      "VXError/F");
+   Tree->Branch("VYError",                &VYError,      "VYError/F");
+   Tree->Branch("VZError",                &VZError,      "VZError/F");
+   Tree->Branch("NPU",                    &NPU,          "NPU/I");
+
    Tree->Branch("zMass",                  &zMass);
    Tree->Branch("zEta",                   &zEta);
    Tree->Branch("zPhi",                   &zPhi);
@@ -1802,6 +1825,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("trackPhi",               &trackPhi);
    Tree->Branch("trackEta",               &trackEta);
    Tree->Branch("trackMuTagged",          &trackMuTagged);
+   Tree->Branch("trackWeight",            &trackWeight);
 
    Tree->Branch("maxOppositeDEta",        &maxOppositeDEta);
    Tree->Branch("maxOppositeDPhi",        &maxOppositeDPhi);
@@ -1847,6 +1871,15 @@ void ZHadronMessenger::Clear()
    SignalHF = -1;
    BackgroundHF = -1;
 
+   NVertex = 0;
+   VX = 0;
+   VY = 0;
+   VZ = 0;
+   VXError = 0;
+   VYError = 0;
+   VZError = 0;
+   NPU = 0;
+
    zMass->clear();
    zEta->clear();
    zPhi->clear();
@@ -1862,6 +1895,7 @@ void ZHadronMessenger::Clear()
    trackPhi->clear();
    trackEta->clear();
    trackMuTagged->clear();
+   trackWeight->clear();
 
    maxOppositeDEta = 0;
    maxOppositeDPhi = 0;

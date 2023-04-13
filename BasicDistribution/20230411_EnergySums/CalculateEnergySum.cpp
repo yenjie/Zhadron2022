@@ -35,6 +35,10 @@ int main(int argc, char *argv[])
    Tree.Branch("PTSum",  &PTSum,  "PTSum[NEta]/D");
    Tree.Branch("ESum",   &ESum,   "ESum[NEta]/D");
 
+   int NVertex = 0, NPU = 0;
+   Tree.Branch("NVertex", &NVertex, "NVertex/I");
+   Tree.Branch("NPU",     &NPU,     "NPU/I");
+
    for(string InputFileName : InputFileNames)
    {
       TFile InputFile(InputFileName.c_str());
@@ -48,11 +52,33 @@ int main(int argc, char *argv[])
       HiEventTreeMessenger MEvent(InputFile);
       PFTreeMessenger MPF(InputFile, PFTreeName.c_str());
 
+      TrackTreeMessenger MTrackPP(InputFile);
+      PbPbTrackTreeMessenger MTrackPbPb(InputFile);
+
       int EntryCount = MEvent.Tree->GetEntries() * Fraction;
       for(int iE = 0; iE < EntryCount; iE++)
       {
          MEvent.GetEntry(iE);
          MPF.GetEntry(iE);
+         if(MTrackPP.Tree != nullptr)
+            MTrackPP.GetEntry(iE);
+         if(MTrackPbPb.Tree != nullptr)
+            MTrackPbPb.GetEntry(iE);
+
+         if(MTrackPP.Tree != nullptr)
+            NVertex = MTrackPP.nVtx;
+         else if(MTrackPbPb.Tree != nullptr)
+            NVertex = MTrackPbPb.VX->size();
+         else
+            NVertex = -1;
+
+         NPU = 0;
+         if(MEvent.npus->size() == 9)
+            NPU = MEvent.npus->at(5);
+         else if(MEvent.npus->size() > 1)
+            NPU = MEvent.npus->at(0);
+         else
+            NPU = 0;
 
          for(int i = 0; i < NEta; i++)
          {

@@ -20,6 +20,9 @@ using namespace std;
 #include "ProgressBar.h"
 #include "CustomAssert.h"
 
+#include "trackingEfficiency2017pp.h"
+#include "trackingEfficiency2018PbPb.h"
+
 struct EventIndex;
 int main(int argc, char *argv[]);
 int FindFirstAbove(vector<EventIndex> &Indices, double X);
@@ -55,12 +58,17 @@ int main(int argc, char *argv[])
    bool DoGenLevel               = CL.GetBool("DoGenLevel", true);
    double Fraction               = CL.GetDouble("Fraction", 1.00);
    double MinZPT                 = CL.GetDouble("MinZPT", 20.00);
+   double MinTrackPT             = CL.GetDouble("MinTrackPT", 1.00);
    bool IsData                   = CL.GetBool("IsData", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
    bool DoGenCorrelation         = CL.GetBool("DoGenCorrelation", false);
    bool DoBackground             = CL.GetBool("DoBackground", false);
    bool DoSumET                  = CL.GetBool("DoSumET", true);
+   bool DoExtraAxes              = CL.GetBool("DoExtraAxes", true);
    double MuonVeto               = CL.GetDouble("MuonVeto", 0.01);
+   
+   bool DoTrackEfficiency        = CL.GetBool("DoTrackEfficiency", true);
+   string TrackEfficiencyPath    = (DoTrackEfficiency == true) ? CL.Get("TrackEfficiencyPath") : "";
 
    string PFTreeName             = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
    PFTreeName                    = CL.Get("PFTree", PFTreeName);
@@ -82,6 +90,16 @@ int main(int argc, char *argv[])
       HFToleranceFraction         = CL.GetDouble("ToleranceFraction");
       NBackground                 = BackgroundFileNames.size();
       Oversample                  = CL.GetInteger("Oversample", 1);
+   }
+
+   TrkEff2017pp *TrackEfficiencyPP = nullptr;
+   TrkEff2018PbPb *TrackEfficiencyPbPb = nullptr;
+   if(DoTrackEfficiency == true)
+   {
+      if(IsPP == true)
+         TrackEfficiencyPP = new TrkEff2017pp(false, TrackEfficiencyPath);
+      else
+         TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "", false, TrackEfficiencyPath);
    }
 
    // Do some pre-caching if we read background files.
@@ -152,6 +170,7 @@ int main(int argc, char *argv[])
       int EntryCount = MSignalEvent.GetEntries() * Fraction;
       ProgressBar Bar(cout, EntryCount);
       Bar.SetStyle(-1);
+      // Bar.SetStyle(6);
 
       for(int iE = 0; iE < EntryCount; iE++)
       {
@@ -180,11 +199,44 @@ int main(int argc, char *argv[])
          MZHadron.Event = MSignalEvent.Event;
          MZHadron.hiBin = MSignalEvent.hiBin;
          MZHadron.hiHF  = MSignalEvent.hiHF;
+         MZHadron.NPU   = 0;
+         if(MSignalEvent.npus->size() == 9)
+            MZHadron.NPU = MSignalEvent.npus->at(5);
+         else if(MSignalEvent.npus->size() > 1)
+            MZHadron.NPU = MSignalEvent.npus->at(0);
+         else
+            MZHadron.NPU = 0;
+
+         // Fill vertex information
+         MZHadron.NVertex = 0;
+         int BestVertex = -1;
+         for(int i = 0; i < (IsPP ? MSignalTrackPP.nVtx : MSignalTrack.VX->size()); i++)
+         {
+            // TODO: Add vertex selections here
+
+            if(IsPP == true && (BestVertex < 0 || MSignalTrackPP.sumPtVtx[i] > MSignalTrackPP.sumPtVtx[BestVertex]))
+               BestVertex = i;
+            if(IsPP == false && (BestVertex < 0 || MSignalTrack.VPTSum->at(i) > MSignalTrack.VPTSum->at(BestVertex)))
+               BestVertex = i;
+
+            MZHadron.NVertex = MZHadron.NVertex + 1;
+         }
+         
+         if(BestVertex >= 0)
+         {
+            MZHadron.VX      = IsPP ? MSignalTrackPP.xVtx[BestVertex] : MSignalTrack.VX->at(BestVertex);
+            MZHadron.VY      = IsPP ? MSignalTrackPP.yVtx[BestVertex] : MSignalTrack.VY->at(BestVertex);
+            MZHadron.VZ      = IsPP ? MSignalTrackPP.zVtx[BestVertex] : MSignalTrack.VZ->at(BestVertex);
+            MZHadron.VXError = IsPP ? MSignalTrackPP.xVtxErr[BestVertex] : MSignalTrack.VXError->at(BestVertex);
+            MZHadron.VYError = IsPP ? MSignalTrackPP.yVtxErr[BestVertex] : MSignalTrack.VYError->at(BestVertex);
+            MZHadron.VZError = IsPP ? MSignalTrackPP.zVtxErr[BestVertex] : MSignalTrack.VZError->at(BestVertex);
+         }
 
          // Do event selection and triggers
          if(IsPP == true)
          {
-            // cerr << "Warning!  pp mode not implemented yet!" << endl;
+            if(IsData == true)
+               cerr << "Warning!  pp data mode not implemented yet!" << endl;
          }
          else
          {
@@ -368,16 +420,56 @@ int main(int argc, char *argv[])
                int NTrack = DoGenCorrelation ? MGen->Mult : (IsPP ? MTrackPP->nTrk : MTrack->TrackPT->size());
                for(int itrack = 0; itrack < NTrack; itrack++)
                {
-                  if(DoGenCorrelation == false)
+                  if(DoGenCorrelation == false)   // track selection on reco
                   {
                      bool HP = IsPP ? MTrackPP->highPurity[itrack] : MTrack->TrackHighPurity->at(itrack);
                      if(HP == false)
+                        continue;
+
+                     double RelativeUncertainty = IsPP
+                        ? (MTrackPP->trkPtError[itrack] / MTrackPP->trkPt[itrack])
+                        : (MTrack->TrackPTError->at(itrack) / MTrack->TrackPT->at(itrack));
+                     if(RelativeUncertainty > 0.1)
+                        continue;
+
+                     double XYVertexSignificance = IsPP
+                        ? fabs(MTrackPP->trkDxyOverDxyError[itrack])
+                        : fabs(MTrack->TrackAssociatedVertexDxy->at(itrack) / MTrack->TrackAssociatedVertexDxyError->at(itrack));
+                     if(XYVertexSignificance > 3)
+                        continue;
+                     
+                     double ZVertexSignificance = IsPP
+                        ? fabs(MTrackPP->trkDzOverDzError[itrack])
+                        : fabs(MTrack->TrackAssociatedVertexDz->at(itrack) / MTrack->TrackAssociatedVertexDzError->at(itrack));
+                     if(ZVertexSignificance > 3)
+                        continue;
+
+                     if(IsPP == false && MTrack->TrackNHits->at(itrack) < 11)
+                        continue;
+
+                     if(IsPP == false && MTrack->TrackNormChi2->at(itrack) / MTrack->TrackNLayers->at(itrack) > 0.18)
+                        continue;
+
+                     double Ecal = -1;
+                     if(IsPP == false && MTrack->PFEcal != nullptr && MTrack->PFEcal->size() > itrack)
+                        Ecal = MTrack->PFEcal->at(itrack);
+                     double Hcal = -1;
+                     if(IsPP == false && MTrack->PFHcal != nullptr && MTrack->PFHcal->size() > itrack)
+                        Hcal = MTrack->PFHcal->at(itrack);
+                     if(IsPP == false && MTrack->TrackPT->at(itrack) > 20 && (Ecal + Hcal == 0))
+                        continue;
+
+                     if((IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack)) < MinTrackPT)
+                        continue;
+                  
+                     double TrackEta = DoGenCorrelation ? MGen->Eta->at(itrack) : (IsPP ? MTrackPP->trkEta[itrack] : MTrack->TrackEta->at(itrack));
+                     if(fabs(TrackEta) > 2.4)
                         continue;
                   }
 
                   if(DoGenCorrelation == true)
                   {
-                     if(MGen->PT->at(itrack) < 0.4)
+                     if(MGen->PT->at(itrack) < MinTrackPT)
                         continue;
                      if(MGen->Eta->at(itrack) < -2.4)
                         continue;
@@ -423,10 +515,20 @@ int main(int argc, char *argv[])
                   MZHadron.trackDeta->push_back(deltaEta);
                   MZHadron.trackPt->push_back(TrackPT);
                   MZHadron.trackMuTagged->push_back(MuTagged);
+
+                  double TrackCorrection = 1;
+                  if(DoTrackEfficiency == true)
+                  {
+                     if(IsPP == true)
+                        TrackCorrection = TrackEfficiencyPP->getCorrection(TrackPT, TrackEta);
+                     else
+                        TrackCorrection = TrackEfficiencyPbPb->getCorrection(TrackPT, TrackEta, MZHadron.hiBin);
+                  }
+                  MZHadron.trackWeight->push_back(TrackCorrection);
                }
             }
 
-            if(GoodRecoZ == true)
+            if(GoodRecoZ == true && DoExtraAxes == true)
             {
                PFTreeMessenger *MPF = &MSignalPF;
 
@@ -497,6 +599,7 @@ int main(int argc, char *argv[])
                   }
                }
 
+               // cout << OppositePFPT.size() << endl;
                pair<double, double> WTA        = WTAAxis(OppositePFEta, OppositePFPhi, OppositePFPT);
                pair<double, double> WTAMore    = WTAAxis(MoreOppositePFEta, MoreOppositePFPhi, MoreOppositePFPT);
 
@@ -509,7 +612,7 @@ int main(int argc, char *argv[])
                MZHadron.maxMoreOppositeWTADEta = WTAMore.first;
                MZHadron.maxMoreOppositeWTADPhi = WTAMore.second;
             }
-
+            
             MZHadron.FillEntry();
          }
       }
@@ -550,6 +653,14 @@ int main(int argc, char *argv[])
       for(PFTreeMessenger *M : MBackgroundPF)
          if(M != nullptr)
             delete M;
+   }
+   
+   if(DoTrackEfficiency == true)
+   {
+      if(TrackEfficiencyPP != nullptr)
+         delete TrackEfficiencyPP;
+      if(TrackEfficiencyPbPb != nullptr)
+         delete TrackEfficiencyPbPb;
    }
 
    return 0;
