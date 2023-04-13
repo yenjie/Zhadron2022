@@ -168,7 +168,8 @@ int main(int argc, char *argv[])
       // Start looping over events
       int EntryCount = MSignalEvent.GetEntries() * Fraction;
       ProgressBar Bar(cout, EntryCount);
-      Bar.SetStyle(-1);
+      // Bar.SetStyle(-1);
+      Bar.SetStyle(6);
 
       for(int iE = 0; iE < EntryCount; iE++)
       {
@@ -514,6 +515,7 @@ int main(int argc, char *argv[])
                   MZHadron.trackPt->push_back(TrackPT);
                   MZHadron.trackMuTagged->push_back(MuTagged);
 
+                  /*
                   double TrackCorrection = 1;
                   if(DoTrackEfficiency == true)
                   {
@@ -523,6 +525,7 @@ int main(int argc, char *argv[])
                         TrackCorrection = TrackEfficiencyPbPb->getCorrection(TrackPT, TrackEta, MZHadron.hiBin);
                   }
                   MZHadron.trackWeight->push_back(TrackCorrection);
+                  */
                }
             }
 
@@ -597,6 +600,7 @@ int main(int argc, char *argv[])
                   }
                }
 
+               // cout << OppositePFPT.size() << endl;
                pair<double, double> WTA        = WTAAxis(OppositePFEta, OppositePFPhi, OppositePFPT);
                pair<double, double> WTAMore    = WTAAxis(MoreOppositePFEta, MoreOppositePFPhi, MoreOppositePFPT);
 
@@ -609,7 +613,7 @@ int main(int argc, char *argv[])
                MZHadron.maxMoreOppositeWTADEta = WTAMore.first;
                MZHadron.maxMoreOppositeWTADPhi = WTAMore.second;
             }
-
+            
             MZHadron.FillEntry();
          }
       }

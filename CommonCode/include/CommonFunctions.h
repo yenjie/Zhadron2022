@@ -117,7 +117,7 @@ std::pair<double, double> WTAAxis(std::vector<double> &Eta, std::vector<double> 
       int N = Particles.size();
 
       int BestI = -1, BestJ = -1;
-      double BestDR2 = -1;
+      double BestD2 = -1;
 
       // Loop over particles
       for(int i = 0; i < N; i++)
@@ -127,27 +127,27 @@ std::pair<double, double> WTAAxis(std::vector<double> &Eta, std::vector<double> 
             double DEta = Particles[i].Eta - Particles[j].Eta;
             double DPhi = DeltaPhi(Particles[i].Phi, Particles[j].Phi);
             double PTMin = std::min(Particles[i].PT, Particles[j].PT);
-            double DR2 = (DEta * DEta + DPhi * DPhi) / (PTMin * PTMin);
+            // double D2 = (DEta * DEta + DPhi * DPhi) / (PTMin * PTMin);
+            double D2 = DEta * DEta + DPhi * DPhi;
 
-            if(BestDR2 < 0)
+            if(BestD2 < 0)
             {
                BestI = i;
                BestJ = j;
-               BestDR2 = DR2;
+               BestD2 = D2;
                continue;
             }
 
             // Since things are eta-sorted, if we hit something larger than best already, we skip the rest
             // This is true only for C/A case
-            //
-            // if(DEta * DEta > BestDR2)   
-            //    break;
+            if(DEta * DEta > BestD2)   
+               break;
 
-            if(DR2 < BestDR2)
+            if(D2 < BestD2)
             {
                BestI = i;
                BestJ = j;
-               BestDR2 = DR2;
+               BestD2 = D2;
             }
          }
       }
