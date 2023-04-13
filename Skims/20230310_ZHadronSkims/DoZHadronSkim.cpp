@@ -168,8 +168,8 @@ int main(int argc, char *argv[])
       // Start looping over events
       int EntryCount = MSignalEvent.GetEntries() * Fraction;
       ProgressBar Bar(cout, EntryCount);
-      // Bar.SetStyle(-1);
-      Bar.SetStyle(6);
+      Bar.SetStyle(-1);
+      // Bar.SetStyle(6);
 
       for(int iE = 0; iE < EntryCount; iE++)
       {
