@@ -923,41 +923,51 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   max1 = hMC_phi->GetMaximum();
-   max2 = hMC_bkg_phi->GetMaximum();
+   TH1D *hMC_phi_com = (TH1D*) hMC_phi->Clone("hMC_phi_com");
+   TH1D *hMC_bkg_phi_com = (TH1D*) hMC_bkg_phi->Clone("hMC_bkg_phi_com");
+   TH1D *hMC_sb_phi_com = (TH1D*) hMC_phi->Clone("hMC_sb_phi_com");
+   TH1D *hpp_phi_com = (TH1D*) hMC_phi->Clone("hpp_phi_com");
 
-   hMC_phi->SetMarkerColor(kBlack);
-   hMC_bkg_phi->SetMarkerColor(kBlue);
-   hMC_sb_phi->SetMarkerColor(kRed);
+   hMC_phi_com->SetAxisRange(0,3.142,"X");
+   hMC_bkg_phi_com->SetAxisRange(0,3.142,"X");
+   hMC_sb_phi_com->SetAxisRange(0,3.142,"X");
+   hpp_phi_com->SetAxisRange(0,3.142,"X");
 
-   hMC_phi->SetLineColor(kBlack);
-   hMC_bkg_phi->SetLineColor(kBlue);
-   hMC_sb_phi->SetLineColor(kRed);
-   hpp_phi->SetLineColor(kBlack);
+   max1 = hMC_phi_com->GetMaximum();
+   max2 = hMC_bkg_phi_com->GetMaximum();
 
-   hMC_phi->SetMarkerStyle(kFullCircle);
-   hMC_bkg_phi->SetMarkerStyle(kFullCircle);
-   hMC_sb_phi->SetMarkerStyle(kFullCircle);
+   hMC_phi_com->SetMarkerColor(kBlack);
+   hMC_bkg_phi_com->SetMarkerColor(kBlue);
+   hMC_sb_phi_com->SetMarkerColor(kRed);
+
+   hMC_phi_com->SetLineColor(kBlack);
+   hMC_bkg_phi_com->SetLineColor(kBlue);
+   hMC_sb_phi_com->SetLineColor(kRed);
+   hpp_phi_com->SetLineColor(kBlack);
+
+   hMC_phi_com->SetMarkerStyle(kFullCircle);
+   hMC_bkg_phi_com->SetMarkerStyle(kFullCircle);
+   hMC_sb_phi_com->SetMarkerStyle(kFullCircle);
 
    
-   if(max1<max2) hMC_bkg_phi->Draw("ep");
-   else hMC_phi->Draw("ep");
-   hMC_phi->Draw("ep same");
-   hMC_bkg_phi->Draw("ep same");
+   if(max1<max2) hMC_bkg_phi_com->Draw("ep");
+   else hMC_phi_com->Draw("ep");
+   hMC_phi_com->Draw("ep same");
+   hMC_bkg_phi_com->Draw("ep same");
 
-   hMC_sb_phi->Draw("ep same");
-   hpp_phi->Draw("hist same");
+   hMC_sb_phi_com->Draw("ep same");
+   hpp_phi_com->Draw("hist same");
 
    if(max1<max2) max1=max2;
 
-   hMC_phi->SetXTitle("Signal #Delta#phi_{Z,track}");
-   hMC_bkg_phi->SetXTitle("Signal #Delta#phi_{Z,track}");
+   hMC_phi_com->SetXTitle("Signal #Delta#phi_{Z,track}");
+   hMC_bkg_phi_com->SetXTitle("Signal #Delta#phi_{Z,track}");
 
-   TLegend leg1(0.58,0.78,0.98,0.9);
-   leg1.AddEntry(hMC_phi ,"raw","lep");
-   leg1.AddEntry(hMC_bkg_phi ,"bkg","lep");
-   leg1.AddEntry(hMC_sb_phi ,"raw-bkg","lep");
-   leg1.AddEntry(hpp_phi ,"pp","lep");
+   TLegend leg1(0.58,0.68,0.98,0.9);
+   leg1.AddEntry(hMC_phi_com ,"raw","lep");
+   leg1.AddEntry(hMC_bkg_phi_com ,"bkg","lep");
+   leg1.AddEntry(hMC_sb_phi_com ,"raw-bkg","lep");
+   leg1.AddEntry(hpp_phi_com ,"pp","lep");
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
@@ -966,10 +976,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt->Draw();
    pt2->Draw();
    pt3->Draw();
-   hMC_phi->SetMinimum(0);
-   hMC_phi->SetMaximum(1.6*max1);
-   hData_phi->SetMinimum(0);
-   hData_phi->SetMaximum(1.6*max1);
+   hMC_phi_com->SetMinimum(0);
+   hMC_phi_com->SetMaximum(1.6*max1);
+   hData_phi_com->SetMinimum(0);
+   hData_phi_com->SetMaximum(1.6*max1);
 
    //ptN0->Draw();
 
