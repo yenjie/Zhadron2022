@@ -925,10 +925,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH1D *hMC_phi_com = (TH1D*) hMC_phi->Clone("hMC_phi_com");
    TH1D *hMC_bkg_phi_com = (TH1D*) hMC_bkg_phi->Clone("hMC_bkg_phi_com");
-   TH1D *hMC_sb_phi_com = (TH1D*) hMC_phi->Clone("hMC_sb_phi_com");
-   TH1D *hpp_phi_com = (TH1D*) hMC_phi->Clone("hpp_phi_com");
+   TH1D *hMC_sb_phi_com = (TH1D*) hMC_sb_phi->Clone("hMC_sb_phi_com");
+   TH1D *hpp_phi_com = (TH1D*) hpp_phi->Clone("hpp_phi_com");
 
-   hMC_phi_com->GetXaxis()->SetRangeUser(0,3.2);
    hMC_phi_com->GetXaxis()->SetRangeUser(0,3.2);
    hMC_bkg_phi_com->GetXaxis()->SetRangeUser(0,3.2);
    hMC_sb_phi_com->GetXaxis()->SetRangeUser(0,3.2);
@@ -969,7 +968,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    leg1.AddEntry(hMC_phi_com ,"raw","lep");
    leg1.AddEntry(hMC_bkg_phi_com ,"bkg","lep");
    leg1.AddEntry(hMC_sb_phi_com ,"raw-bkg","lep");
-   leg1.AddEntry(hpp_phi_com ,"pp","lep");
+   leg1.AddEntry(hpp_phi_com ,"pp","l");
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
@@ -985,7 +984,6 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //hMC_bkg_phi_com->SetMinimum(0);
    //hMC_bkg_phi_com->SetMaximum(1.6*max1);
 
-   hMC_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
    hMC_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
    hMC_bkg_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
    hMC_sb_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
