@@ -1,21 +1,21 @@
 default: TestRun
 
 TestRun: Execute
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC01/ \
 		--Output GraphMCSignal.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData01/ \
 		--Output GraphDataSignal.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg01/ \
 		--Output GraphMCBackground.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg01/ \
 		--Output GraphDataBackground.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC01/ \
 		--Output GraphPPMC.root --IgnoreCentrality true
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen01/ \
 		--Output GraphMCSignalGen.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen01/ \
 		--Output GraphMCBackgroundGen.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen01/ \
 		--Output GraphPPMCGen.root --IgnoreCentrality true	
 
 TestExploration: ExecuteExploration
