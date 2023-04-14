@@ -928,10 +928,12 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D *hMC_sb_phi_com = (TH1D*) hMC_phi->Clone("hMC_sb_phi_com");
    TH1D *hpp_phi_com = (TH1D*) hMC_phi->Clone("hpp_phi_com");
 
-   hMC_phi_com->SetAxisRange(0,3.142,"X");
-   hMC_bkg_phi_com->SetAxisRange(0,3.142,"X");
-   hMC_sb_phi_com->SetAxisRange(0,3.142,"X");
-   hpp_phi_com->SetAxisRange(0,3.142,"X");
+   hMC_phi_com->GetXaxis()->SetRangeUser(0,3.2);
+   hMC_phi_com->GetXaxis()->SetRangeUser(0,3.2);
+   hMC_bkg_phi_com->GetXaxis()->SetRangeUser(0,3.2);
+   hMC_sb_phi_com->GetXaxis()->SetRangeUser(0,3.2);
+   hpp_phi_com->GetXaxis()->SetRangeUser(0,3.2);
+
 
    max1 = hMC_phi_com->GetMaximum();
    max2 = hMC_bkg_phi_com->GetMaximum();
@@ -977,9 +979,16 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt2->Draw();
    pt3->Draw();
    hMC_phi_com->SetMinimum(0);
-   hMC_phi_com->SetMaximum(1.6*max1);
+   //hMC_phi_com->SetMaximum(1.6*max1);
    hData_phi_com->SetMinimum(0);
-   hData_phi_com->SetMaximum(1.6*max1);
+   //hData_phi_com->SetMaximum(1.6*max1);
+
+   hMC_phi_com->GetYaxis()->SetRangeUser(0,1.6*max1);
+   hMC_phi_com->GetYaxis()->SetRangeUser(0,1.6*max1);
+   hMC_bkg_phi_com->GetYaxis()->SetRangeUser(0,1.6*max1);
+   hMC_sb_phi_com->GetYaxis()->SetRangeUser(0,1.6*max1);
+   hpp_phi_com->GetYaxis()->SetRangeUser(0,1.6*max1);
+
 
    //ptN0->Draw();
 
