@@ -120,7 +120,7 @@ PrepareToRunRandomBackground:
 	bash PrepareInputRandomBackground.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
 		10 LogDatabkg01_5/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg01_5/ \
-		$(PbPbBackgroundData)// 50 \
+		$(PbPbBackgroundData)// 5 \
  		--Fraction 0.1 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true --HFShift 660 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 25 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5
@@ -139,7 +139,7 @@ PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
 		10 LogMCbkg01_5/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg01_5/ \
-		$(PbPbBackgroundMC)/ 12 \
+		$(PbPbBackgroundMC)/ 5 \
  		--Fraction 0.1 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true --HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5
@@ -148,7 +148,7 @@ PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
 		10 LogMCGenbkg01_5/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen01_5/ \
-		$(PbPbBackgroundMC)/ 12 \
+		$(PbPbBackgroundMC)/ 5 \
  		--Fraction 0.1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
 		--DoBackground true --HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5
