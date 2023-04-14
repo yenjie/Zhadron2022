@@ -102,7 +102,7 @@ PrepareToRunGenPP:
 PrepareToRunPPData:
 	bash PrepareInput.sh \
 		'$(PPSignalData)/*/' \
-		6 LogPP/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPData/ \
+		6 LogPPData/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPData/ \
  		--Fraction 1 --DoGenLevel false --IsData true --IsPP true \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/
 
