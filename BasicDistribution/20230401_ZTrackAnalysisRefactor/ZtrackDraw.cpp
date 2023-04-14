@@ -950,6 +950,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_bkg_phi_com->SetMarkerStyle(kFullCircle);
    hMC_sb_phi_com->SetMarkerStyle(kFullCircle);
 
+   hpp_phi_com->SetLineWidth(2);
+
    
    if(max1<max2) hMC_bkg_phi_com->Draw("ep");
    else hMC_phi_com->Draw("ep");
@@ -961,8 +963,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    if(max1<max2) max1=max2;
 
-   hMC_phi_com->SetXTitle("Signal #Delta#phi_{Z,track}");
-   hMC_bkg_phi_com->SetXTitle("Signal #Delta#phi_{Z,track}");
+   hMC_phi_com->SetXTitle("#Delta#phi_{Z,track}");
+   hMC_bkg_phi_com->SetXTitle("#Delta#phi_{Z,track}");
 
    TLegend leg1(0.58,0.68,0.98,0.9);
    leg1.AddEntry(hMC_phi_com ,"raw","lep");
@@ -978,16 +980,16 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt2->Draw();
    pt3->Draw();
 
-   std::cout<<"max1 = "<<max1<<std::endl;
+   //std::cout<<"max1 = "<<max1<<std::endl;
    //hMC_phi_com->SetMinimum(0);
-   //hMC_phi_com->SetMaximum(1.6*max1);
+   hMC_phi_com->SetMaximum(max1/2.56);
    //hMC_bkg_phi_com->SetMinimum(0);
-   //hMC_bkg_phi_com->SetMaximum(1.6*max1);
+   hMC_bkg_phi_com->SetMaximum(max1/2.56);
 
-   hMC_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
-   hMC_bkg_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
-   hMC_sb_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
-   hpp_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
+   //hMC_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
+   //hMC_bkg_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
+   //hMC_sb_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
+   //hpp_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
 
    //ptN0->Draw();
 
