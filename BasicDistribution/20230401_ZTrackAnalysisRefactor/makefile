@@ -1,22 +1,22 @@
 default: TestRun
 
 TestRun: Execute
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC01/ \
-		--Output GraphMCSignal01.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData01/ \
-		--Output GraphDataSignal01.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg01/ \
-		--Output GraphMCBackground01.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg01/ \
-		--Output GraphDataBackground01.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC01/ \
-		--Output GraphPPMC01.root --IgnoreCentrality true
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen01/ \
-		--Output GraphMCSignalGen01.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen01/ \
-		--Output GraphMCBackgroundGen01.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen01/ \
-		--Output GraphPPMCGen01.root --IgnoreCentrality true	
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC/ \
+		--Output GraphMCSignal.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData/ \
+		--Output GraphDataSignal.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg/ \
+		--Output GraphMCBackground.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg/ \
+		--Output GraphDataBackground.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC/ \
+		--Output GraphPPMC.root --IgnoreCentrality true
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen/ \
+		--Output GraphMCSignalGen.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen/ \
+		--Output GraphMCBackgroundGen.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen/ \
+		--Output GraphPPMCGen.root --IgnoreCentrality true	
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \

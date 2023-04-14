@@ -58,7 +58,7 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "20230413_01";
+const char *typeofdata = "20230414";
 const char *typeofdatatext = "double muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -2930,14 +2930,14 @@ int main(int argc, char *argv[]){
 
    style();
 
-   file_sigMC = TFile::Open("GraphMCSignal01.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground01.root","read");
-   file_sigDA = TFile::Open("GraphDataSignal01.root","read");
-   file_bkgDA = TFile::Open("GraphDataBackground01.root","read");
-   file_ppMC  = TFile::Open("GraphDataPPMC01.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground.root","read");
+   file_sigDA = TFile::Open("GraphDataSignal.root","read");
+   file_bkgDA = TFile::Open("GraphDataBackground.root","read");
+   file_ppMC  = TFile::Open("GraphDataPPMC.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen01.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen01.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen.root","read");
 
 
    ZtrackDraw_single(40, 20, 2000,  0, 90,  0, 1000);
