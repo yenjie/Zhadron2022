@@ -2,21 +2,21 @@ default: TestRun
 
 TestRun: Execute
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC01/ \
-		--Output GraphMCSignal.root
+		--Output GraphMCSignal01.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData01/ \
-		--Output GraphDataSignal.root
+		--Output GraphDataSignal01.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg01/ \
-		--Output GraphMCBackground.root
+		--Output GraphMCBackground01.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg01/ \
-		--Output GraphDataBackground.root
+		--Output GraphDataBackground01.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC01/ \
-		--Output GraphPPMC.root --IgnoreCentrality true
+		--Output GraphPPMC01.root --IgnoreCentrality true
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen01/ \
-		--Output GraphMCSignalGen.root
+		--Output GraphMCSignalGen01.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen01/ \
-		--Output GraphMCBackgroundGen.root
+		--Output GraphMCBackgroundGen01.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen01/ \
-		--Output GraphPPMCGen.root --IgnoreCentrality true	
+		--Output GraphPPMCGen01.root --IgnoreCentrality true	
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
