@@ -985,11 +985,11 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //hMC_bkg_phi_com->SetMinimum(0);
    //hMC_bkg_phi_com->SetMaximum(1.6*max1);
 
-   hMC_phi_com->GetYaxis()->SetRangeUser(0,1.6*max1);
-   hMC_phi_com->GetYaxis()->SetRangeUser(0,1.6*max1);
-   hMC_bkg_phi_com->GetYaxis()->SetRangeUser(0,1.6*max1);
-   hMC_sb_phi_com->GetYaxis()->SetRangeUser(0,1.6*max1);
-   hpp_phi_com->GetYaxis()->SetRangeUser(0,1.6*max1);
+   hMC_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
+   hMC_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
+   hMC_bkg_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
+   hMC_sb_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
+   hpp_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
 
    //ptN0->Draw();
 
