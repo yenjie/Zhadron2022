@@ -16,6 +16,8 @@
 #include <TChain.h>
 #include <TLine.h>
 
+double TptL_min = 0.5;
+
 int main(int argc, char *argv[]);
 void ZtrackDraw_single(int binnum,float ptL,float ptH,float centL,float centH,float TptL,float TptH);
 
@@ -575,6 +577,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sbr_eta->SetLineColor(kRed);
    hData_sbr_phi->SetLineColor(kBlack);
    hMC_sbr_phi->SetLineColor(kRed);
+
+   if(TptL==0) TptL=TptL_min;
 
    TLegend leg(0.58,0.78,0.98,0.9);
    leg.AddEntry(hMC_eta ,"Monte Carlo: DYLL","lep");
