@@ -1,22 +1,22 @@
 default: TestRun
 
 TestRun: Execute
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC/ \
-		--Output GraphMCSignal.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData/ \
-		--Output GraphDataSignal.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg/ \
-		--Output GraphMCBackground.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg/ \
-		--Output GraphDataBackground.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC/ \
-		--Output GraphPPMC.root --IgnoreCentrality true
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen/ \
-		--Output GraphMCSignalGen.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen/ \
-		--Output GraphMCBackgroundGen.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen/ \
-		--Output GraphPPMCGen.root --IgnoreCentrality true	
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC01_5/ \
+		--Output GraphMCSignal01_5.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData01_5/ \
+		--Output GraphDataSignal01_5.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg01_5/ \
+		--Output GraphMCBackground01_5.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg01_5/ \
+		--Output GraphDataBackground01_5.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC01_5/ \
+		--Output GraphPPMC01_5.root --IgnoreCentrality true
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen01_5/ \
+		--Output GraphMCSignalGen01_5.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen01_5/ \
+		--Output GraphMCBackgroundGen01_5.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen01_5/ \
+		--Output GraphPPMCGen01_5.root --IgnoreCentrality true	
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \

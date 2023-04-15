@@ -84,6 +84,23 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 30, 2000, 30, 50,  1, 1000));
    C.push_back(Configuration(40, 30, 2000, 50, 90,  1, 1000));
 
+   C.push_back(Configuration(40,  5,   20,  0, 90,0.5,    2));
+   C.push_back(Configuration(40, 60, 2000,  0, 90,0.5,    2));
+   C.push_back(Configuration(40,100, 2000,  0, 90,0.5,    2));
+   C.push_back(Configuration(40,120, 2000,  0, 90,0.5,    2));
+   C.push_back(Configuration(40,  5,   20,  0, 90,  4, 1000));
+   C.push_back(Configuration(40, 60, 2000,  0, 90,  4, 1000));
+   C.push_back(Configuration(40,100, 2000,  0, 90,  4, 1000));
+   C.push_back(Configuration(40,120, 2000,  0, 90,  4, 1000));
+   C.push_back(Configuration(40,  5,   20,  0, 30,0.5,    2));
+   C.push_back(Configuration(40, 60, 2000,  0, 30,0.5,    2));
+   C.push_back(Configuration(40,100, 2000,  0, 30,0.5,    2));
+   C.push_back(Configuration(40,120, 2000,  0, 30,0.5,    2));
+   C.push_back(Configuration(40,  5,   20,  0, 30,  4, 1000));
+   C.push_back(Configuration(40, 60, 2000,  0, 30,  4, 1000));
+   C.push_back(Configuration(40,100, 2000,  0, 30,  4, 1000));
+   C.push_back(Configuration(40,120, 2000,  0, 30,  4, 1000));
+
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
    vector<TH1D *>           HEventCount;
