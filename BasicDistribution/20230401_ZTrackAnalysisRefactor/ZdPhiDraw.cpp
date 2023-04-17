@@ -62,7 +62,7 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    std::string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",ptL,ptH,centL,centH,TptL,TptH);
    std::replace(FolderName.begin(), FolderName.end(), '.', 'p');
 
-   std::cout<<"FolderName = "<<FolderName<<std::endl;
+   //std::cout<<"FolderName = "<<FolderName<<std::endl;
 
    TH1D* hData_phi = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderName.c_str()));
    TH1D* hMC_phi = (TH1D*) file_sigMC->Get(Form("%s/HPhi", FolderName.c_str()));
@@ -73,7 +73,7 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    std::string FolderName1 = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",5.,20.,centL,centH,TptL,TptH);
    std::replace(FolderName1.begin(), FolderName1.end(), '.', 'p');
 
-   std::cout<<"FolderName1 = "<<FolderName1<<std::endl;
+   //std::cout<<"FolderName1 = "<<FolderName1<<std::endl;
 
    TH1D* hData_phi1 = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderName1.c_str()));
    TH1D* hMC_phi1 = (TH1D*) file_sigMC->Get(Form("%s/HPhi", FolderName1.c_str()));
@@ -105,16 +105,36 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hData_phi1->Scale(1./tD_tN1);
    hMC_phi1->Scale(1./tM_tN1);
 
+   TLatex *pt = new TLatex(0.18,0.88,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
+   pt->SetTextFont(42);
+   pt->SetTextSize(0.03);
+   pt->SetNDC(kTRUE);
+
+   TLatex *pt3 = new TLatex(0.18,0.76,Form("%.1f < Track p_{T} < %.1f",TptL,TptH));
+   pt3->SetTextFont(42);
+   pt3->SetTextSize(0.03);
+   pt3->SetNDC(kTRUE);
+
    hData_phi->SetLineColor(kBlack);
    hMC_phi->SetLineColor(kBlack);
-
    hData_phi1->SetLineColor(kRed);
    hMC_phi1->SetLineColor(kRed);
+
+
+  hData_phi->SetMarkerColor(kBlack);
+   hMC_phi->SetMarkerColor(kBlack);
+   hData_phi1->SetMarkerColor(kRed);
+   hMC_phi1->SetMarkerColor(kRed);
 
    hData_phi->SetMarkerStyle(kFullCircle);
    hMC_phi->SetMarkerStyle(kFullCircle);
    hData_phi1->SetMarkerStyle(kFullCircle);
    hMC_phi1->SetMarkerStyle(kFullCircle);
+
+   hData_phi->GetXaxis()->SetRangeUser(0,3.2);
+   hMC_phi->GetXaxis()->SetRangeUser(0,3.2);
+   hData_phi1->GetXaxis()->SetRangeUser(0,3.2);
+   hMC_phi1->GetXaxis()->SetRangeUser(0,3.2);
 
    c->Divide(2);
 
@@ -144,6 +164,9 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
    leg1.Draw();
+
+   pt->Draw();
+   pt3->Draw();
 
    c->cd(2);
 
