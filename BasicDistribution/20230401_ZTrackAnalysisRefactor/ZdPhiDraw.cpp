@@ -62,6 +62,8 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    std::string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",ptL,ptH,centL,centH,TptL,TptH);
    std::replace(FolderName.begin(), FolderName.end(), '.', 'p');
 
+   std::cout<<"FolderName = "<<FolderName<<std::endl;
+
    TH1D* hData_phi = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderName.c_str()));
    TH1D* hMC_phi = (TH1D*) file_sigMC->Get(Form("%s/HPhi", FolderName.c_str()));
 
@@ -70,6 +72,8 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    std::string FolderName1 = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",5,20,centL,centH,TptL,TptH);
    std::replace(FolderName1.begin(), FolderName1.end(), '.', 'p');
+
+   std::cout<<"FolderName1 = "<<FolderName1<<std::endl;
 
    TH1D* hData_phi1 = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderName1.c_str()));
    TH1D* hMC_phi1 = (TH1D*) file_sigMC->Get(Form("%s/HPhi", FolderName1.c_str()));
