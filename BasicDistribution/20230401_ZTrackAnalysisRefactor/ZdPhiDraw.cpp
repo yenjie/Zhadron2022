@@ -142,6 +142,9 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    double max1 = hMC_phi->GetMaximum();
    double max2 = hMC_phi1->GetMaximum();
+
+   double min1 = hMC_phi->GetMinimum();
+   double min2 = hMC_phi1->GetMinimum();
    
    if(max1<max2) hMC_phi1->Draw("ep");
    else hMC_phi->Draw("ep");
@@ -153,17 +156,21 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_phi1->SetXTitle("MC #Delta#phi_{Z,track}");
 
    if(max1<max2) max1=max2;
+   if(min2<min1) min1=min2;
 
    hMC_phi->SetMaximum(1.4*max1); 
    hMC_phi1->SetMaximum(1.4*max1); 
 
-   TLegend leg1(0.54,0.68,0.98,0.9);
+   hMC_phi->SetMinimum(0.9*min1); 
+   hMC_phi1->SetMinimum(0.9*min1); 
+
+   TLegend leg1(0.5,0.72,0.98,0.9);
    leg1.AddEntry(hData_phi1 ,"5 < p^{Z}_{T} < 20 GeV","lep");
    leg1.AddEntry(hData_phi ,Form("%.0f < p^{Z}_{T} < %.0f GeV",ptL,ptH),"lep");
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
-   leg1.Draw();
+   //leg1.Draw();
 
    pt->Draw();
    pt3->Draw();
@@ -172,6 +179,9 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    max1 = hData_phi->GetMaximum();
     max2 = hData_phi1->GetMaximum();
+
+     min1 = hData_phi->GetMinimum();
+  min2 = hData_phi1->GetMinimum();
 
     if(max1<max2) hData_phi1->Draw("ep");
    else hData_phi->Draw("ep");
@@ -183,9 +193,13 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hData_phi1->SetXTitle("Data #Delta#phi_{Z,track}");
 
    if(max1<max2) max1=max2;
+   if(min2<min1) min1=min2;
 
    hData_phi->SetMaximum(1.4*max1); 
    hData_phi1->SetMaximum(1.4*max1); 
+
+   hData_phi->SetMinimum(0.9*min1); 
+   hData_phi1->SetMinimum(0.9*min1); 
 
    leg1.Draw();
 
