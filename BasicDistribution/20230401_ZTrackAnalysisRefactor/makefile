@@ -50,3 +50,9 @@ ExecuteExploration: SimpleExploration.cpp
 	g++ SimpleExploration.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o ExecuteExploration `root-config --cflags --libs` -std=c++17
 
+DrawZdPhi: ExecuteDrawZdPhi
+	./ExecuteDrawZdPhi
+
+ExecuteDrawZdPhi: ZdPhiDraw.cpp
+	g++ ZdPhiDraw.cpp -I. -I$(ProjectBase)/CommonCode/include \
+		-o ExecuteDrawZdPhi `root-config --cflags --libs` -std=c++17

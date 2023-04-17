@@ -1,20 +1,13 @@
 #include <TFile.h>
-#include <TTree.h>
-#include <TH1D.h>
-#include <TF1.h>
-#include <TMath.h>
 #include <TROOT.h>
-#include <cmath>
+#include <TH1D.h>
 #include <TH2D.h>
-#include <TCut.h>
 #include <TStyle.h>
 #include <TCanvas.h>
 #include <TLegend.h>
 #include <TAxis.h>
 #include <TSystem.h>
 #include <TLatex.h>
-#include <TChain.h>
-#include <TLine.h>
 
 double TptL_min = 0.5;
 
