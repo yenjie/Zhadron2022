@@ -397,22 +397,22 @@ int main(int argc, char *argv[])
 
          if(SomethingPassed == true)
          {
-            EventCount[iC] = EventCount[iC] + 1;
-            HEventCount[iC]->Fill(0);
+            EventCount[iC] = EventCount[iC] + NCollWeight;
+            HEventCount[iC]->Fill(0, NCollWeight);
             
-            HZPT[iC]->Fill(ZPT->at(0));
-            HZEta[iC]->Fill(ZEta->at(0));
-            HZPhi[iC]->Fill(ZPhi->at(0));
-            HZMass[iC]->Fill(ZMass->at(0));
+            HZPT[iC]->Fill(ZPT->at(0), NCollWeight);
+            HZEta[iC]->Fill(ZEta->at(0), NCollWeight);
+            HZPhi[iC]->Fill(ZPhi->at(0), NCollWeight);
+            HZMass[iC]->Fill(ZMass->at(0), NCollWeight);
 
             HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta->at(0),
-               PhiRangeCorrelation(maxDPhi + ZPhi->at(0)));
+               PhiRangeCorrelation(maxDPhi + ZPhi->at(0)), NCollWeight);
             HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta->at(0),
-               PhiRangeCorrelation(maxOppositeDPhi + ZPhi->at(0)));
+               PhiRangeCorrelation(maxOppositeDPhi + ZPhi->at(0)), NCollWeight);
             HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta->at(0),
-               PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi->at(0)));
+               PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi->at(0)), NCollWeight);
             HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta->at(0),
-               PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi->at(0)));
+               PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi->at(0)), NCollWeight);
          }
       }
    }
