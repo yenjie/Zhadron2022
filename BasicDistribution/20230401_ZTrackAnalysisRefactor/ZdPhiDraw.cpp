@@ -107,12 +107,12 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    TLatex *pt = new TLatex(0.18,0.88,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
    pt->SetTextFont(42);
-   pt->SetTextSize(0.03);
+   pt->SetTextSize(0.05);
    pt->SetNDC(kTRUE);
 
-   TLatex *pt3 = new TLatex(0.18,0.76,Form("%.1f < Track p_{T} < %.1f",TptL,TptH));
+   TLatex *pt3 = new TLatex(0.18,0.82,Form("%.1f < Track p_{T} < %.1f",TptL,TptH));
    pt3->SetTextFont(42);
-   pt3->SetTextSize(0.03);
+   pt3->SetTextSize(0.05);
    pt3->SetNDC(kTRUE);
 
    hData_phi->SetLineColor(kBlack);
@@ -154,12 +154,12 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    if(max1<max2) max1=max2;
 
-   hMC_phi->SetMaximum(1.2*max1); 
-   hMC_phi1->SetMaximum(1.2*max1); 
+   hMC_phi->SetMaximum(1.4*max1); 
+   hMC_phi1->SetMaximum(1.4*max1); 
 
-   TLegend leg1(0.58,0.68,0.98,0.9);
-   leg1.AddEntry(hData_phi1 ,"5 < p^Z_T < 20 GeV","lep");
-   leg1.AddEntry(hData_phi ,Form("%.1f < p^Z_T < %.1f GeV",ptL,ptH),"lep");
+   TLegend leg1(0.54,0.68,0.98,0.9);
+   leg1.AddEntry(hData_phi1 ,"5 < p^{Z}_{T} < 20 GeV","lep");
+   leg1.AddEntry(hData_phi ,Form("%.1f < p^{Z}_{T} < %.1f GeV",ptL,ptH),"lep");
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
@@ -184,8 +184,8 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    if(max1<max2) max1=max2;
 
-   hData_phi->SetMaximum(1.2*max1); 
-   hData_phi1->SetMaximum(1.2*max1); 
+   hData_phi->SetMaximum(1.4*max1); 
+   hData_phi1->SetMaximum(1.4*max1); 
 
    leg1.Draw();
 
