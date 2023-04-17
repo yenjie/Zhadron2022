@@ -70,7 +70,7 @@ void ZdPhiDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hData_phi->SetName("hData_phi");
    hMC_phi->SetName("hMC_phi");
 
-   std::string FolderName1 = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",5,20,centL,centH,TptL,TptH);
+   std::string FolderName1 = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",5.,20.,centL,centH,TptL,TptH);
    std::replace(FolderName1.begin(), FolderName1.end(), '.', 'p');
 
    std::cout<<"FolderName1 = "<<FolderName1<<std::endl;
