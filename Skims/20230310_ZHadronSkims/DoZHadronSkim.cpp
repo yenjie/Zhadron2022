@@ -19,11 +19,13 @@ using namespace std;
 #include "CommonFunctions.h"
 #include "ProgressBar.h"
 #include "CustomAssert.h"
+#include "JetCorrector.h"
 
 #include "trackingEfficiency2017pp.h"
 #include "trackingEfficiency2018PbPb.h"
 
 struct EventIndex;
+struct JetRecord;
 int main(int argc, char *argv[]);
 int FindFirstAbove(vector<EventIndex> &Indices, double X);
 double GetHFSum(PFTreeMessenger *M);
@@ -48,6 +50,38 @@ public:
    }
 };
 
+struct JetRecord
+{
+public:
+   double JetPT;
+   double JetRawPT;
+   double JetDEta;
+   double JetDPhi;
+   bool JetMuTagged;
+public:
+   JetRecord(double pt, double rawpt, double deta, double dphi, double mutagged)
+      : JetPT(pt), JetRawPT(rawpt), JetDEta(deta), JetDPhi(dphi), JetMuTagged(mutagged)
+   {
+   }
+   bool operator <(const JetRecord &other) const
+   {
+      if(JetPT < other.JetPT)   return true;
+      if(JetPT > other.JetPT)   return false;
+      if(JetRawPT < other.JetRawPT)   return true;
+      if(JetRawPT > other.JetRawPT)   return false;
+      if(JetDEta < other.JetDEta)   return true;
+      if(JetDEta > other.JetDEta)   return false;
+      if(JetDPhi < other.JetDPhi)   return true;
+      if(JetDPhi > other.JetDPhi)   return false;
+      if(JetMuTagged < other.JetMuTagged)   return true;
+      if(JetMuTagged > other.JetMuTagged)   return false;
+      return false;
+   }
+   bool operator >(const JetRecord &other) const
+   {
+      return (other < *this);
+   }
+};
 
 int main(int argc, char *argv[])
 {
@@ -66,7 +100,14 @@ int main(int argc, char *argv[])
    bool DoSumET                  = CL.GetBool("DoSumET", true);
    bool DoExtraAxes              = CL.GetBool("DoExtraAxes", true);
    double MuonVeto               = CL.GetDouble("MuonVeto", 0.01);
-   
+   bool DoJet                    = CL.GetBool("DoJet", true);
+   vector<string> JECFiles       = CL.GetStringVector("JEC", "");
+   string JetTreeName            = CL.Get("Jet", "");
+   double MinJetPT               = CL.GetDouble("MinJetPT", 15);
+
+   if(JetTreeName == "")
+      DoJet = false;
+
    bool DoTrackEfficiency        = CL.GetBool("DoTrackEfficiency", true);
    string TrackEfficiencyPath    = (DoTrackEfficiency == true) ? CL.Get("TrackEfficiencyPath") : "";
 
@@ -75,6 +116,8 @@ int main(int argc, char *argv[])
 
    Assert(!(IsPP == true && IsData == true), "Data selections for pp not implemented yet");
    Assert(!(DoGenCorrelation == true && DoGenLevel == false), "You need to turn on gen level to do gen correlation!");
+
+   JetCorrector JEC(JECFiles);
 
    vector<string> BackgroundFileNames;
    int NBackground = 0;
@@ -120,7 +163,7 @@ int main(int argc, char *argv[])
          MBackgroundGen.push_back(new GenParticleTreeMessenger(BackgroundFiles[iB]));
          MBackgroundTrackPP.push_back(new TrackTreeMessenger(BackgroundFiles[iB]));
          MBackgroundTrack.push_back(new PbPbTrackTreeMessenger(BackgroundFiles[iB]));
-         MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB], PFTreeName.c_str()));
+         MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB], PFTreeName));
 
          int EntryCount = MBackgroundEvent[iB]->GetEntries();
          for(int iE = 0; iE < EntryCount; iE++)
@@ -161,10 +204,11 @@ int main(int argc, char *argv[])
       TrackTreeMessenger       MSignalTrackPP(InputFile);
       PbPbTrackTreeMessenger   MSignalTrack(InputFile);
       GenParticleTreeMessenger MSignalGen(InputFile);
-      PFTreeMessenger          MSignalPF(InputFile, PFTreeName.c_str());
+      PFTreeMessenger          MSignalPF(InputFile, PFTreeName);
       MuTreeMessenger          MSignalMu(InputFile);
       SkimTreeMessenger        MSignalSkim(InputFile);
       TriggerTreeMessenger     MSignalTrigger(InputFile);
+      JetTreeMessenger         MSignalJet(InputFile, JetTreeName);
 
       // Start looping over events
       int EntryCount = MSignalEvent.GetEntries() * Fraction;
@@ -193,6 +237,8 @@ int main(int argc, char *argv[])
          MSignalSkim.GetEntry(iE);
          MSignalTrigger.GetEntry(iE);
          MSignalPF.GetEntry(iE);
+         if(DoJet == true)
+            MSignalJet.GetEntry(iE);
 
          MZHadron.Run   = MSignalEvent.Run;
          MZHadron.Lumi  = MSignalEvent.Lumi;
@@ -528,6 +574,62 @@ int main(int argc, char *argv[])
                }
             }
 
+            if(GoodRecoZ == true && DoJet == true)
+            {
+               vector<JetRecord> Jets;
+               for(int iJ = 0; iJ < MSignalJet.JetCount; iJ++)
+               {
+                  JEC.SetJetEta(MSignalJet.JetEta[iJ]);
+                  JEC.SetJetPhi(MSignalJet.JetPhi[iJ]);
+                  JEC.SetJetPT(MSignalJet.JetRawPT[iJ]);
+                  JEC.SetJetArea(0.5);
+                  JEC.SetRho(0);
+                  
+                  double JetEta = MSignalJet.JetEta[iJ];
+                  double JetPhi = MSignalJet.JetPhi[iJ];
+                  double JetPT  = JEC.GetCorrectedPT();
+
+                  if(JetPT < 0)   // JEC not in supported region.  Forward jet mostly
+                     continue;
+                  if(JetPT < MinJetPT)   // Skip small jets
+                     continue;
+
+                  double Mu1Eta = MZHadron.muEta1->at(0);
+                  double Mu1Phi = MZHadron.muPhi1->at(0);
+                  double Mu2Eta = MZHadron.muEta2->at(0);
+                  double Mu2Phi = MZHadron.muPhi2->at(0);
+
+                  double DeltaEtaMu1 = JetEta - Mu1Eta;
+                  double DeltaEtaMu2 = JetEta - Mu2Eta;
+                  double DeltaPhiMu1 = DeltaPhi(JetPhi, Mu1Phi);
+                  double DeltaPhiMu2 = DeltaPhi(JetPhi, Mu2Phi);
+
+                  double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
+                  double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
+
+                  bool MuTagged = false;
+                  if(DeltaRMu1 < MuonVeto)   MuTagged = true;
+                  if(DeltaRMu2 < MuonVeto)   MuTagged = true;
+
+                  double ZEta = MZHadron.zEta->at(0);
+                  double ZPhi = MZHadron.zPhi->at(0);
+
+                  double deltaEta = JetEta - ZEta;
+                  double deltaPhi = DeltaPhi(JetPhi, ZPhi);
+
+                  Jets.push_back(JetRecord(JetPT, MSignalJet.JetRawPT[iJ], deltaEta, deltaPhi, MuTagged));
+               }
+               sort(Jets.begin(), Jets.end(), greater<JetRecord>());
+
+               for(int iJ = 0; iJ < (int)Jets.size(); iJ++)
+               {
+                  MZHadron.jetPt->push_back(Jets[iJ].JetPT);
+                  MZHadron.jetDeta->push_back(Jets[iJ].JetDEta);
+                  MZHadron.jetDphi->push_back(Jets[iJ].JetDPhi);
+                  MZHadron.jetMuTagged->push_back(Jets[iJ].JetMuTagged);
+               }
+            }
+
             if(GoodRecoZ == true && DoExtraAxes == true)
             {
                PFTreeMessenger *MPF = &MSignalPF;
@@ -538,7 +640,7 @@ int main(int argc, char *argv[])
                int MaxIndex = -1;
                double MaxDEta = 0;
                double MaxDPhi = 0;
-               
+
                // Loop over PF candidates to find WTA
                vector<double> OppositePFEta;
                vector<double> OppositePFPhi;
@@ -583,14 +685,14 @@ int main(int argc, char *argv[])
                      OppositePFPhi.push_back(deltaPhi);
                      OppositePFPT.push_back(MPF->PT->at(iPF));
                   }
-                     
+
                   if(fabs(deltaPhi) > 3 * M_PI / 4)
                   {
                      MoreOppositePFEta.push_back(deltaEta);
                      MoreOppositePFPhi.push_back(deltaPhi);
                      MoreOppositePFPT.push_back(MPF->PT->at(iPF));
                   }
-                     
+
                   if(MaxIndex < 0 || MPF->PT->at(iPF) > MPF->PT->at(MaxIndex))
                   {
                      MaxIndex = iPF;
@@ -611,7 +713,7 @@ int main(int argc, char *argv[])
                MZHadron.maxMoreOppositeWTADEta = WTAMore.first;
                MZHadron.maxMoreOppositeWTADPhi = WTAMore.second;
             }
-            
+
             MZHadron.FillEntry();
          }
       }
@@ -640,20 +742,20 @@ int main(int argc, char *argv[])
          F->Close();
          delete F;
       }
-      
+
       for(HiEventTreeMessenger *M : MBackgroundEvent)
          if(M != nullptr)
             delete M;
-      
+
       for(PbPbTrackTreeMessenger *M : MBackgroundTrack)
          if(M != nullptr)
             delete M;
-      
+
       for(PFTreeMessenger *M : MBackgroundPF)
          if(M != nullptr)
             delete M;
    }
-   
+
    if(DoTrackEfficiency == true)
    {
       if(TrackEfficiencyPP != nullptr)
