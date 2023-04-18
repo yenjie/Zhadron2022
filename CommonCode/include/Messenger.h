@@ -517,14 +517,19 @@ public:
    std::vector<double> *genZEta;
    std::vector<double> *genZPhi;
    std::vector<double> *genZPt;
-   std::vector<double> *trackDphi;
    std::vector<double> *trackPt;
    std::vector<double> *trackDeta;
+   std::vector<double> *trackDphi;
    std::vector<double> *trackPDFId;
    std::vector<double> *trackEta;
    std::vector<double> *trackPhi;
    std::vector<bool> *trackMuTagged;
    std::vector<double> *trackWeight;
+   
+   std::vector<double> *jetPt;
+   std::vector<double> *jetDeta;
+   std::vector<double> *jetDphi;
+   std::vector<bool> *jetMuTagged;
 
    double maxOppositeDEta;
    double maxOppositeDPhi;
@@ -534,6 +539,15 @@ public:
    double maxOppositeWTADPhi;
    double maxMoreOppositeWTADEta;
    double maxMoreOppositeWTADPhi;
+
+   double maxOppositeJet12DEta;
+   double maxOppositeJet12DPhi;
+   double maxOppositeJet34DEta;
+   double maxOppositeJet34DPhi;
+   double maxOppositeJet56DEta;
+   double maxOppositeJet56DPhi;
+   double maxOppositeJet78DEta;
+   double maxOppositeJet78DPhi;
 
    std::vector<double> *muEta1;
    std::vector<double> *muEta2;
