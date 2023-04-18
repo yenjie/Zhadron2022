@@ -540,12 +540,16 @@ public:
    double maxMoreOppositeWTADEta;
    double maxMoreOppositeWTADPhi;
 
+   double maxOppositeJet12Pt;
    double maxOppositeJet12DEta;
    double maxOppositeJet12DPhi;
+   double maxOppositeJet34Pt;
    double maxOppositeJet34DEta;
    double maxOppositeJet34DPhi;
+   double maxOppositeJet56Pt;
    double maxOppositeJet56DEta;
    double maxOppositeJet56DPhi;
+   double maxOppositeJet78Pt;
    double maxOppositeJet78DEta;
    double maxOppositeJet78DPhi;
 

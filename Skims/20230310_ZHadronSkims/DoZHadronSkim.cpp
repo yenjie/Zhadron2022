@@ -623,10 +623,10 @@ int main(int argc, char *argv[])
 
                   Jets.push_back(ThisJet);
 
-                  if(fabs(deltaEta) > M_PI * 1 / 2 && ThisJet > MaxJet12)   MaxJet12 = ThisJet;
-                  if(fabs(deltaEta) > M_PI * 3 / 4 && ThisJet > MaxJet34)   MaxJet34 = ThisJet;
-                  if(fabs(deltaEta) > M_PI * 5 / 6 && ThisJet > MaxJet56)   MaxJet56 = ThisJet;
-                  if(fabs(deltaEta) > M_PI * 7 / 8 && ThisJet > MaxJet78)   MaxJet78 = ThisJet;
+                  if(fabs(deltaPhi) > M_PI * 1 / 2 && ThisJet > MaxJet12)   MaxJet12 = ThisJet;
+                  if(fabs(deltaPhi) > M_PI * 3 / 4 && ThisJet > MaxJet34)   MaxJet34 = ThisJet;
+                  if(fabs(deltaPhi) > M_PI * 5 / 6 && ThisJet > MaxJet56)   MaxJet56 = ThisJet;
+                  if(fabs(deltaPhi) > M_PI * 7 / 8 && ThisJet > MaxJet78)   MaxJet78 = ThisJet;
                }
                sort(Jets.begin(), Jets.end(), greater<JetRecord>());
 
@@ -638,12 +638,16 @@ int main(int argc, char *argv[])
                   MZHadron.jetMuTagged->push_back(Jets[iJ].JetMuTagged);
                }
 
+               MZHadron.maxOppositeJet12Pt   = MaxJet12.JetPT;
                MZHadron.maxOppositeJet12DEta = MaxJet12.JetDEta;
                MZHadron.maxOppositeJet12DPhi = MaxJet12.JetDPhi;
+               MZHadron.maxOppositeJet34Pt   = MaxJet34.JetPT;
                MZHadron.maxOppositeJet34DEta = MaxJet34.JetDEta;
                MZHadron.maxOppositeJet34DPhi = MaxJet34.JetDPhi;
+               MZHadron.maxOppositeJet56Pt   = MaxJet56.JetPT;
                MZHadron.maxOppositeJet56DEta = MaxJet56.JetDEta;
                MZHadron.maxOppositeJet56DPhi = MaxJet56.JetDPhi;
+               MZHadron.maxOppositeJet78Pt   = MaxJet78.JetPT;
                MZHadron.maxOppositeJet78DEta = MaxJet78.JetDEta;
                MZHadron.maxOppositeJet78DPhi = MaxJet78.JetDPhi;
             }
