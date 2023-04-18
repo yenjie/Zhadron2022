@@ -342,6 +342,7 @@ public:
    bool Initialize();
    bool GetEntry(int iEntry);
    int GetBestVertexIndex();
+   bool PassZHadron2022Cut(int index);
 };
 
 class MuTreeMessenger
@@ -487,6 +488,7 @@ public:
    bool Initialize(TTree *PbPbTrackTree);
    bool Initialize();
    bool GetEntry(int iEntry);
+   bool PassZHadron2022Cut(int index);
 };
 
 class ZHadronMessenger
@@ -539,6 +541,10 @@ public:
    double maxOppositeWTADPhi;
    double maxMoreOppositeWTADEta;
    double maxMoreOppositeWTADPhi;
+   double maxOppositeChargedWTADEta;
+   double maxOppositeChargedWTADPhi;
+   double maxMoreOppositeChargedWTADEta;
+   double maxMoreOppositeChargedWTADPhi;
 
    double maxOppositeJet12Pt;
    double maxOppositeJet12DEta;
