@@ -63,6 +63,14 @@ TestRunMCBackground: Execute
 		--HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/
 
+TestRunMCGenBackground: Execute
+	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_10.root \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --DoGenLevel true --IsData false --IsPP false \
+		--DoBackground true --DoGenCorrelation true \
+		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root \
+		--HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false \
+		--DoTrackEfficiency false
+
 Execute: DoZHadronSkim.cpp
 	g++ DoZHadronSkim.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o Execute `root-config --cflags --libs` -std=c++17 \
