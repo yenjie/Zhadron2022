@@ -59,7 +59,7 @@ public:
    double JetDPhi;
    bool JetMuTagged;
 public:
-   JetRecord(double pt, double rawpt, double deta, double dphi, double mutagged)
+   JetRecord(double pt = -1, double rawpt = -1, double deta = -1, double dphi = -1, bool mutagged = false)
       : JetPT(pt), JetRawPT(rawpt), JetDEta(deta), JetDPhi(dphi), JetMuTagged(mutagged)
    {
    }
@@ -576,6 +576,8 @@ int main(int argc, char *argv[])
 
             if(GoodRecoZ == true && DoJet == true)
             {
+               JetRecord MaxJet12, MaxJet34, MaxJet56, MaxJet78;
+
                vector<JetRecord> Jets;
                for(int iJ = 0; iJ < MSignalJet.JetCount; iJ++)
                {
@@ -589,7 +591,7 @@ int main(int argc, char *argv[])
                   double JetPhi = MSignalJet.JetPhi[iJ];
                   double JetPT  = JEC.GetCorrectedPT();
 
-                  if(JetPT < 0)   // JEC not in supported region.  Forward jet mostly
+                  if(JetEta < -2 || JetEta > 2)
                      continue;
                   if(JetPT < MinJetPT)   // Skip small jets
                      continue;
@@ -617,7 +619,14 @@ int main(int argc, char *argv[])
                   double deltaEta = JetEta - ZEta;
                   double deltaPhi = DeltaPhi(JetPhi, ZPhi);
 
-                  Jets.push_back(JetRecord(JetPT, MSignalJet.JetRawPT[iJ], deltaEta, deltaPhi, MuTagged));
+                  JetRecord ThisJet(JetPT, MSignalJet.JetRawPT[iJ], deltaEta, deltaPhi, MuTagged);
+
+                  Jets.push_back(ThisJet);
+
+                  if(fabs(deltaEta) > M_PI * 1 / 2 && ThisJet > MaxJet12)   MaxJet12 = ThisJet;
+                  if(fabs(deltaEta) > M_PI * 3 / 4 && ThisJet > MaxJet34)   MaxJet34 = ThisJet;
+                  if(fabs(deltaEta) > M_PI * 5 / 6 && ThisJet > MaxJet56)   MaxJet56 = ThisJet;
+                  if(fabs(deltaEta) > M_PI * 7 / 8 && ThisJet > MaxJet78)   MaxJet78 = ThisJet;
                }
                sort(Jets.begin(), Jets.end(), greater<JetRecord>());
 
@@ -628,6 +637,15 @@ int main(int argc, char *argv[])
                   MZHadron.jetDphi->push_back(Jets[iJ].JetDPhi);
                   MZHadron.jetMuTagged->push_back(Jets[iJ].JetMuTagged);
                }
+
+               MZHadron.maxOppositeJet12DEta = MaxJet12.JetDEta;
+               MZHadron.maxOppositeJet12DPhi = MaxJet12.JetDPhi;
+               MZHadron.maxOppositeJet34DEta = MaxJet34.JetDEta;
+               MZHadron.maxOppositeJet34DPhi = MaxJet34.JetDPhi;
+               MZHadron.maxOppositeJet56DEta = MaxJet56.JetDEta;
+               MZHadron.maxOppositeJet56DPhi = MaxJet56.JetDPhi;
+               MZHadron.maxOppositeJet78DEta = MaxJet78.JetDEta;
+               MZHadron.maxOppositeJet78DPhi = MaxJet78.JetDPhi;
             }
 
             if(GoodRecoZ == true && DoExtraAxes == true)

@@ -540,6 +540,15 @@ public:
    double maxMoreOppositeWTADEta;
    double maxMoreOppositeWTADPhi;
 
+   double maxOppositeJet12DEta;
+   double maxOppositeJet12DPhi;
+   double maxOppositeJet34DEta;
+   double maxOppositeJet34DPhi;
+   double maxOppositeJet56DEta;
+   double maxOppositeJet56DPhi;
+   double maxOppositeJet78DEta;
+   double maxOppositeJet78DPhi;
+
    std::vector<double> *muEta1;
    std::vector<double> *muEta2;
    std::vector<double> *muPhi1;
