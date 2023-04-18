@@ -1277,6 +1277,30 @@ int TrackTreeMessenger::GetBestVertexIndex()
    return BestIndex;
 }
 
+bool TrackTreeMessenger::PassZHadron2022Cut(int index)
+{
+   if(index >= nTrk)
+      return false;
+
+   if(highPurity[index] == false)
+      return false;
+
+   double RelativeUncertainty = trkPtError[index] / trkPt[index];
+   if(RelativeUncertainty > 0.1)
+      return false;
+
+   if(trkDxyOverDxyError[index] > 3)
+      return false;
+
+   if(trkDzOverDzError[index] > 3)
+      return false;
+
+   if(trkEta[index] < -2.4 || trkEta[index] > 2.4)
+      return false;
+
+   return true;
+}
+
 MuTreeMessenger::MuTreeMessenger(TFile &File, std::string TreeName)
 {
    Tree = (TTree *)File.Get(TreeName.c_str());
@@ -1545,6 +1569,46 @@ bool PbPbTrackTreeMessenger::GetEntry(int iEntry)
       return false;
 
    Tree->GetEntry(iEntry);
+   return true;
+}
+
+bool PbPbTrackTreeMessenger::PassZHadron2022Cut(int index)
+{
+   if(TrackPT == nullptr)
+      return false;
+   if(index >= TrackPT->size())
+      return false;
+
+   if(TrackHighPurity->at(index) == false)
+      return false;
+
+   double RelativeUncertainty = TrackPTError->at(index) / TrackPT->at(index);
+   if(RelativeUncertainty > 0.1)
+      return false;
+
+   double XYVertexSignificance = fabs(TrackAssociatedVertexDxy->at(index) / TrackAssociatedVertexDxyError->at(index));
+   if(XYVertexSignificance > 3)
+      return false;
+
+   double ZVertexSignificance = fabs(TrackAssociatedVertexDz->at(index) / TrackAssociatedVertexDzError->at(index));
+   if(ZVertexSignificance > 3)
+      return false;
+
+   if(TrackNHits->at(index) < 11)
+      return false;
+
+   if(TrackNormChi2->at(index) / TrackNLayers->at(index) > 0.18)
+      return false;
+
+   double ECAL = -1, HCAL = -1;
+   if(PFEcal != nullptr && PFEcal->size() > index)   ECAL = PFEcal->at(index);
+   if(PFHcal != nullptr && PFHcal->size() > index)   HCAL = PFHcal->at(index);
+   if(TrackPT->at(index) > 20 && (ECAL + HCAL == 0))
+      return false;
+
+   if(fabs(TrackEta->at(index)) > 2.4)
+      return false;
+
    return true;
 }
 
@@ -1861,13 +1925,21 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("maxOppositeWTADPhi",     &maxOppositeWTADPhi);
    Tree->Branch("maxMoreOppositeWTADEta", &maxMoreOppositeWTADEta);
    Tree->Branch("maxMoreOppositeWTADPhi", &maxMoreOppositeWTADPhi);
+   Tree->Branch("maxOppositeChargedWTADEta",     &maxOppositeChargedWTADEta);
+   Tree->Branch("maxOppositeChargedWTADPhi",     &maxOppositeChargedWTADPhi);
+   Tree->Branch("maxMoreOppositeChargedWTADEta", &maxMoreOppositeChargedWTADEta);
+   Tree->Branch("maxMoreOppositeChargedWTADPhi", &maxMoreOppositeChargedWTADPhi);
    
+   Tree->Branch("maxOppositeJet12Pt",     &maxOppositeJet12Pt);
    Tree->Branch("maxOppositeJet12DEta",   &maxOppositeJet12DEta);
    Tree->Branch("maxOppositeJet12DPhi",   &maxOppositeJet12DPhi);
+   Tree->Branch("maxOppositeJet34Pt",     &maxOppositeJet34Pt);
    Tree->Branch("maxOppositeJet34DEta",   &maxOppositeJet34DEta);
    Tree->Branch("maxOppositeJet34DPhi",   &maxOppositeJet34DPhi);
+   Tree->Branch("maxOppositeJet56Pt",     &maxOppositeJet56Pt);
    Tree->Branch("maxOppositeJet56DEta",   &maxOppositeJet56DEta);
    Tree->Branch("maxOppositeJet56DPhi",   &maxOppositeJet56DPhi);
+   Tree->Branch("maxOppositeJet78Pt",     &maxOppositeJet78Pt);
    Tree->Branch("maxOppositeJet78DEta",   &maxOppositeJet78DEta);
    Tree->Branch("maxOppositeJet78DPhi",   &maxOppositeJet78DPhi);
 
@@ -1945,13 +2017,21 @@ void ZHadronMessenger::Clear()
    maxOppositeWTADPhi = 0;
    maxMoreOppositeWTADEta = 0;
    maxMoreOppositeWTADPhi = 0;
+   maxOppositeChargedWTADEta = 0;
+   maxOppositeChargedWTADPhi = 0;
+   maxMoreOppositeChargedWTADEta = 0;
+   maxMoreOppositeChargedWTADPhi = 0;
    
+   maxOppositeJet12Pt = 0;
    maxOppositeJet12DEta = 0;
    maxOppositeJet12DPhi = 0;
+   maxOppositeJet34Pt = 0;
    maxOppositeJet34DEta = 0;
    maxOppositeJet34DPhi = 0;
+   maxOppositeJet56Pt = 0;
    maxOppositeJet56DEta = 0;
    maxOppositeJet56DPhi = 0;
+   maxOppositeJet78Pt = 0;
    maxOppositeJet78DEta = 0;
    maxOppositeJet78DPhi = 0;
    

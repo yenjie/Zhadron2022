@@ -24,7 +24,10 @@ export PATH=$ProjectBase/CommonCode/binary/:$PATH
 
 echo "Running job with argument = '--Output Temp${ID}.root $@'"
 
-$CurrentFolder/Execute --Output Temp${ID}.root $@
+cp $CurrentFolder/Execute .
+./Execute --Output Temp${ID}.root $@
+rm ./Execute
+
 mv Temp${ID}.root $Output
 
 

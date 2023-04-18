@@ -468,48 +468,11 @@ int main(int argc, char *argv[])
                {
                   if(DoGenCorrelation == false)   // track selection on reco
                   {
-                     bool HP = IsPP ? MTrackPP->highPurity[itrack] : MTrack->TrackHighPurity->at(itrack);
-                     if(HP == false)
+                     if(IsPP == true && MTrackPP->PassZHadron2022Cut(itrack) == false)
                         continue;
-
-                     double RelativeUncertainty = IsPP
-                        ? (MTrackPP->trkPtError[itrack] / MTrackPP->trkPt[itrack])
-                        : (MTrack->TrackPTError->at(itrack) / MTrack->TrackPT->at(itrack));
-                     if(RelativeUncertainty > 0.1)
+                     if(IsPP == false && MTrack->PassZHadron2022Cut(itrack) == false)
                         continue;
-
-                     double XYVertexSignificance = IsPP
-                        ? fabs(MTrackPP->trkDxyOverDxyError[itrack])
-                        : fabs(MTrack->TrackAssociatedVertexDxy->at(itrack) / MTrack->TrackAssociatedVertexDxyError->at(itrack));
-                     if(XYVertexSignificance > 3)
-                        continue;
-                     
-                     double ZVertexSignificance = IsPP
-                        ? fabs(MTrackPP->trkDzOverDzError[itrack])
-                        : fabs(MTrack->TrackAssociatedVertexDz->at(itrack) / MTrack->TrackAssociatedVertexDzError->at(itrack));
-                     if(ZVertexSignificance > 3)
-                        continue;
-
-                     if(IsPP == false && MTrack->TrackNHits->at(itrack) < 11)
-                        continue;
-
-                     if(IsPP == false && MTrack->TrackNormChi2->at(itrack) / MTrack->TrackNLayers->at(itrack) > 0.18)
-                        continue;
-
-                     double Ecal = -1;
-                     if(IsPP == false && MTrack->PFEcal != nullptr && MTrack->PFEcal->size() > itrack)
-                        Ecal = MTrack->PFEcal->at(itrack);
-                     double Hcal = -1;
-                     if(IsPP == false && MTrack->PFHcal != nullptr && MTrack->PFHcal->size() > itrack)
-                        Hcal = MTrack->PFHcal->at(itrack);
-                     if(IsPP == false && MTrack->TrackPT->at(itrack) > 20 && (Ecal + Hcal == 0))
-                        continue;
-
                      if((IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack)) < MinTrackPT)
-                        continue;
-                  
-                     double TrackEta = DoGenCorrelation ? MGen->Eta->at(itrack) : (IsPP ? MTrackPP->trkEta[itrack] : MTrack->TrackEta->at(itrack));
-                     if(fabs(TrackEta) > 2.4)
                         continue;
                   }
 
@@ -623,10 +586,10 @@ int main(int argc, char *argv[])
 
                   Jets.push_back(ThisJet);
 
-                  if(fabs(deltaEta) > M_PI * 1 / 2 && ThisJet > MaxJet12)   MaxJet12 = ThisJet;
-                  if(fabs(deltaEta) > M_PI * 3 / 4 && ThisJet > MaxJet34)   MaxJet34 = ThisJet;
-                  if(fabs(deltaEta) > M_PI * 5 / 6 && ThisJet > MaxJet56)   MaxJet56 = ThisJet;
-                  if(fabs(deltaEta) > M_PI * 7 / 8 && ThisJet > MaxJet78)   MaxJet78 = ThisJet;
+                  if(fabs(deltaPhi) > M_PI * 1 / 2 && ThisJet > MaxJet12)   MaxJet12 = ThisJet;
+                  if(fabs(deltaPhi) > M_PI * 3 / 4 && ThisJet > MaxJet34)   MaxJet34 = ThisJet;
+                  if(fabs(deltaPhi) > M_PI * 5 / 6 && ThisJet > MaxJet56)   MaxJet56 = ThisJet;
+                  if(fabs(deltaPhi) > M_PI * 7 / 8 && ThisJet > MaxJet78)   MaxJet78 = ThisJet;
                }
                sort(Jets.begin(), Jets.end(), greater<JetRecord>());
 
@@ -638,12 +601,16 @@ int main(int argc, char *argv[])
                   MZHadron.jetMuTagged->push_back(Jets[iJ].JetMuTagged);
                }
 
+               MZHadron.maxOppositeJet12Pt   = MaxJet12.JetPT;
                MZHadron.maxOppositeJet12DEta = MaxJet12.JetDEta;
                MZHadron.maxOppositeJet12DPhi = MaxJet12.JetDPhi;
+               MZHadron.maxOppositeJet34Pt   = MaxJet34.JetPT;
                MZHadron.maxOppositeJet34DEta = MaxJet34.JetDEta;
                MZHadron.maxOppositeJet34DPhi = MaxJet34.JetDPhi;
+               MZHadron.maxOppositeJet56Pt   = MaxJet56.JetPT;
                MZHadron.maxOppositeJet56DEta = MaxJet56.JetDEta;
                MZHadron.maxOppositeJet56DPhi = MaxJet56.JetDPhi;
+               MZHadron.maxOppositeJet78Pt   = MaxJet78.JetPT;
                MZHadron.maxOppositeJet78DEta = MaxJet78.JetDEta;
                MZHadron.maxOppositeJet78DPhi = MaxJet78.JetDPhi;
             }
@@ -719,17 +686,72 @@ int main(int argc, char *argv[])
                   }
                }
 
-               pair<double, double> WTA        = WTAAxis(OppositePFEta, OppositePFPhi, OppositePFPT);
-               pair<double, double> WTAMore    = WTAAxis(MoreOppositePFEta, MoreOppositePFPhi, MoreOppositePFPT);
+               // Loop over tracks to find Charged WTA
+               vector<double> OppositeTrackEta;
+               vector<double> OppositeTrackPhi;
+               vector<double> OppositeTrackPT;
+               vector<double> MoreOppositeTrackEta;
+               vector<double> MoreOppositeTrackPhi;
+               vector<double> MoreOppositeTrackPT;
+               
+               int NTrack = IsPP ? MSignalTrackPP.nTrk : MSignalTrack.TrackPT->size();
+               for(int iTrack = 0; iTrack < NTrack; iTrack++)
+               {
+                  if(IsPP == true && MSignalTrackPP.PassZHadron2022Cut(iTrack) == false)
+                     continue;
+                  if(IsPP == false && MSignalTrack.PassZHadron2022Cut(iTrack) == false)
+                     continue;
+                 
+                  double TrackPT = IsPP ? MSignalTrackPP.trkPt[iTrack] : MSignalTrack.TrackPT->at(iTrack);
+                  double TrackEta = IsPP ? MSignalTrackPP.trkEta[iTrack] : MSignalTrack.TrackEta->at(iTrack);
+                  double TrackPhi = IsPP ? MSignalTrackPP.trkPhi[iTrack] : MSignalTrack.TrackPhi->at(iTrack);
 
-               MZHadron.maxOppositeDEta        = MaxOppositeDEta;
-               MZHadron.maxOppositeDPhi        = MaxOppositeDPhi;
-               MZHadron.maxDEta                = MaxDEta;
-               MZHadron.maxDPhi                = MaxDPhi;
-               MZHadron.maxOppositeWTADEta     = WTA.first;
-               MZHadron.maxOppositeWTADPhi     = WTA.second;
-               MZHadron.maxMoreOppositeWTADEta = WTAMore.first;
-               MZHadron.maxMoreOppositeWTADPhi = WTAMore.second;
+                  double DeltaEtaMu1 = TrackEta - MZHadron.muEta1->at(0);
+                  double DeltaEtaMu2 = TrackEta - MZHadron.muEta2->at(0);
+                  double DeltaPhiMu1 = DeltaPhi(TrackPhi, MZHadron.muPhi1->at(0));
+                  double DeltaPhiMu2 = DeltaPhi(TrackPhi, MZHadron.muPhi2->at(0));
+
+                  double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
+                  double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
+
+                  if(DeltaRMu1 < MuonVeto)   continue;
+                  if(DeltaRMu2 < MuonVeto)   continue;
+
+                  double deltaPhi = DeltaPhi(TrackPhi, MZHadron.zPhi->at(0));
+                  double deltaEta = TrackEta - MZHadron.zEta->at(0);
+
+                  if(fabs(deltaPhi) > M_PI / 2)
+                  {
+                     OppositeTrackEta.push_back(deltaEta);
+                     OppositeTrackPhi.push_back(deltaPhi);
+                     OppositeTrackPT.push_back(TrackPT);
+                  }
+
+                  if(fabs(deltaPhi) > 3 * M_PI / 4)
+                  {
+                     MoreOppositeTrackEta.push_back(deltaEta);
+                     MoreOppositeTrackPhi.push_back(deltaPhi);
+                     MoreOppositeTrackPT.push_back(TrackPT);
+                  }
+               }
+
+               pair<double, double> WTA            = WTAAxis(OppositePFEta, OppositePFPhi, OppositePFPT);
+               pair<double, double> WTAMore        = WTAAxis(MoreOppositePFEta, MoreOppositePFPhi, MoreOppositePFPT);
+               pair<double, double> ChargedWTA     = WTAAxis(OppositeTrackEta, OppositeTrackPhi, OppositeTrackPT);
+               pair<double, double> ChargedWTAMore = WTAAxis(MoreOppositeTrackEta, MoreOppositeTrackPhi, MoreOppositeTrackPT);
+
+               MZHadron.maxOppositeDEta               = MaxOppositeDEta;
+               MZHadron.maxOppositeDPhi               = MaxOppositeDPhi;
+               MZHadron.maxDEta                       = MaxDEta;
+               MZHadron.maxDPhi                       = MaxDPhi;
+               MZHadron.maxOppositeWTADEta            = WTA.first;
+               MZHadron.maxOppositeWTADPhi            = WTA.second;
+               MZHadron.maxMoreOppositeWTADEta        = WTAMore.first;
+               MZHadron.maxMoreOppositeWTADPhi        = WTAMore.second;
+               MZHadron.maxOppositeChargedWTADEta     = ChargedWTA.first;
+               MZHadron.maxOppositeChargedWTADPhi     = ChargedWTA.second;
+               MZHadron.maxMoreOppositeChargedWTADEta = ChargedWTAMore.first;
+               MZHadron.maxMoreOppositeChargedWTADPhi = ChargedWTAMore.second;
             }
 
             MZHadron.FillEntry();
