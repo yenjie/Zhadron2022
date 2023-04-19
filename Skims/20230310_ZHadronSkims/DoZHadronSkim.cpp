@@ -694,6 +694,9 @@ int main(int argc, char *argv[])
                vector<double> MoreOppositeTrackEta;
                vector<double> MoreOppositeTrackPhi;
                vector<double> MoreOppositeTrackPT;
+               vector<double> OppositeHardTrackEta;
+               vector<double> OppositeHardTrackPhi;
+               vector<double> OppositeHardTrackPT;
                
                int NTrack = IsPP ? MSignalTrackPP.nTrk : MSignalTrack.TrackPT->size();
                for(int iTrack = 0; iTrack < NTrack; iTrack++)
@@ -727,6 +730,13 @@ int main(int argc, char *argv[])
                      OppositeTrackPhi.push_back(deltaPhi);
                      OppositeTrackPT.push_back(TrackPT);
                   }
+                  
+                  if(fabs(deltaPhi) > M_PI / 2 && TrackPT > 4)
+                  {
+                     OppositeHardTrackEta.push_back(deltaEta);
+                     OppositeHardTrackPhi.push_back(deltaPhi);
+                     OppositeHardTrackPT.push_back(TrackPT);
+                  }
 
                   if(fabs(deltaPhi) > 3 * M_PI / 4)
                   {
@@ -740,6 +750,7 @@ int main(int argc, char *argv[])
                pair<double, double> WTAMore        = WTAAxis(MoreOppositePFEta, MoreOppositePFPhi, MoreOppositePFPT);
                pair<double, double> ChargedWTA     = WTAAxis(OppositeTrackEta, OppositeTrackPhi, OppositeTrackPT);
                pair<double, double> ChargedWTAMore = WTAAxis(MoreOppositeTrackEta, MoreOppositeTrackPhi, MoreOppositeTrackPT);
+               pair<double, double> HardChargedWTA = WTAAxis(OppositeHardTrackEta, OppositeHardTrackPhi, OppositeHardTrackPT);
 
                MZHadron.maxOppositeDEta               = MaxOppositeDEta;
                MZHadron.maxOppositeDPhi               = MaxOppositeDPhi;
@@ -753,6 +764,8 @@ int main(int argc, char *argv[])
                MZHadron.maxOppositeChargedWTADPhi     = ChargedWTA.second;
                MZHadron.maxMoreOppositeChargedWTADEta = ChargedWTAMore.first;
                MZHadron.maxMoreOppositeChargedWTADPhi = ChargedWTAMore.second;
+               MZHadron.maxOppositeHardChargedWTADEta = HardChargedWTA.first;
+               MZHadron.maxOppositeHardChargedWTADPhi = HardChargedWTA.second;
             }
 
             MZHadron.FillEntry();

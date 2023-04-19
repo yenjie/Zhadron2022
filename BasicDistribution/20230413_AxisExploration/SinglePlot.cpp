@@ -170,6 +170,22 @@ void SetAlias(TTree *Tree)
    Tree->SetAlias("DPhiWTAMore", "(RawDPhiWTAMore+2*3.1415926535*(RawDPhiWTAMore<-3.1415926535)-2*3.1415926535*(RawDPhiWTAMore>3.1415926535))");
    Tree->SetAlias("DPhiWTAMoreCorr", "(DPhiWTAMore+2*3.14159*(DPhiWTAMore<-1.57159))/3.14159");
    
+   Tree->SetAlias("EtaChargedWTA", "(maxOppositeChargedWTADEta+zEta[0])");
+   Tree->SetAlias("RawPhiChargedWTA", "(maxOppositeChargedWTADPhi+zPhi[0])");
+   Tree->SetAlias("PhiChargedWTA", "(RawPhiChargedWTA+2*3.1415926535*(RawPhiChargedWTA<-3.1415926535)-2*3.1415926535*(RawPhiChargedWTA>3.1415926535))");
+   Tree->SetAlias("DEtaChargedWTA", "(trackDeta-maxOppositeChargedWTADEta)");
+   Tree->SetAlias("RawDPhiChargedWTA", "(trackDphi-maxOppositeChargedWTADPhi)");
+   Tree->SetAlias("DPhiChargedWTA", "(RawDPhiChargedWTA+2*3.1415926535*(RawDPhiChargedWTA<-3.1415926535)-2*3.1415926535*(RawDPhiChargedWTA>3.1415926535))");
+   Tree->SetAlias("DPhiChargedWTACorr", "(DPhiChargedWTA+2*3.14159*(DPhiChargedWTA<-1.57159))/3.14159");
+   
+   Tree->SetAlias("EtaChargedWTAMore", "(maxMoreOppositeChargedWTADEta+zEta[0])");
+   Tree->SetAlias("RawPhiChargedWTAMore", "(maxMoreOppositeChargedWTADPhi+zPhi[0])");
+   Tree->SetAlias("PhiChargedWTAMore", "(RawPhiChargedWTAMore+2*3.1415926535*(RawPhiChargedWTAMore<-3.1415926535)-2*3.1415926535*(RawPhiChargedWTAMore>3.1415926535))");
+   Tree->SetAlias("DEtaChargedWTAMore", "(trackDeta-maxMoreOppositeChargedWTADEta)");
+   Tree->SetAlias("RawDPhiChargedWTAMore", "(trackDphi-maxMoreOppositeChargedWTADPhi)");
+   Tree->SetAlias("DPhiChargedWTAMore", "(RawDPhiChargedWTAMore+2*3.1415926535*(RawDPhiChargedWTAMore<-3.1415926535)-2*3.1415926535*(RawDPhiChargedWTAMore>3.1415926535))");
+   Tree->SetAlias("DPhiChargedWTAMoreCorr", "(DPhiChargedWTAMore+2*3.14159*(DPhiChargedWTAMore<-1.57159))/3.14159");
+   
    Tree->SetAlias("EtaMax", "(maxOppositeDEta+zEta[0])");
    Tree->SetAlias("RawPhiMax", "(maxOppositeDPhi+zPhi[0])");
    Tree->SetAlias("PhiMax", "(RawPhiMax+2*3.1415926535*(RawPhiMax<-3.1415926535)-2*3.1415926535*(RawPhiMax>3.1415926535))");
@@ -177,5 +193,37 @@ void SetAlias(TTree *Tree)
    Tree->SetAlias("RawDPhiMax", "(trackDphi-maxOppositeDPhi)");
    Tree->SetAlias("DPhiMax", "(RawDPhiMax+2*3.1415926535*(RawDPhiMax<-3.1415926535)-2*3.1415926535*(RawDPhiMax>3.1415926535))");
    Tree->SetAlias("DPhiMaxCorr", "(RawDPhiMax+2*3.14159*(RawDPhiMax<-1.57159)-2*3.14159*(RawDPhiMax>4.71239))/3.14159");
+   
+   Tree->SetAlias("EtaJet12", "(maxOppositeJet12DEta+zEta[0])");
+   Tree->SetAlias("RawPhiJet12", "(maxOppositeJet12DPhi+zPhi[0])");
+   Tree->SetAlias("PhiJet12", "(RawPhiJet12+2*3.1415926535*(RawPhiJet12<-3.1415926535)-2*3.1415926535*(RawPhiJet12>3.1415926535))");
+   Tree->SetAlias("DEtaJet12", "(trackDeta-maxOppositeJet12DEta)");
+   Tree->SetAlias("RawDPhiJet12", "(trackDphi-maxOppositeJet12DPhi)");
+   Tree->SetAlias("DPhiJet12", "(RawDPhiJet12+2*3.1415926535*(RawDPhiJet12<-3.1415926535)-2*3.1415926535*(RawDPhiJet12>3.1415926535))");
+   Tree->SetAlias("DPhiJet12Corr", "(DPhiJet12+2*3.14159*(DPhiJet12<-1.57159))/3.14159");
+   
+   Tree->SetAlias("EtaJet34", "(maxOppositeJet34DEta+zEta[0])");
+   Tree->SetAlias("RawPhiJet34", "(maxOppositeJet34DPhi+zPhi[0])");
+   Tree->SetAlias("PhiJet34", "(RawPhiJet34+2*3.1415926535*(RawPhiJet34<-3.1415926535)-2*3.1415926535*(RawPhiJet34>3.1415926535))");
+   Tree->SetAlias("DEtaJet34", "(trackDeta-maxOppositeJet34DEta)");
+   Tree->SetAlias("RawDPhiJet34", "(trackDphi-maxOppositeJet34DPhi)");
+   Tree->SetAlias("DPhiJet34", "(RawDPhiJet34+2*3.1415926535*(RawDPhiJet34<-3.1415926535)-2*3.1415926535*(RawDPhiJet34>3.1415926535))");
+   Tree->SetAlias("DPhiJet34Corr", "(DPhiJet34+2*3.14159*(DPhiJet34<-1.57159))/3.14159");
+   
+   Tree->SetAlias("EtaJet56", "(maxOppositeJet56DEta+zEta[0])");
+   Tree->SetAlias("RawPhiJet56", "(maxOppositeJet56DPhi+zPhi[0])");
+   Tree->SetAlias("PhiJet56", "(RawPhiJet56+2*3.1415926535*(RawPhiJet56<-3.1415926535)-2*3.1415926535*(RawPhiJet56>3.1415926535))");
+   Tree->SetAlias("DEtaJet56", "(trackDeta-maxOppositeJet56DEta)");
+   Tree->SetAlias("RawDPhiJet56", "(trackDphi-maxOppositeJet56DPhi)");
+   Tree->SetAlias("DPhiJet56", "(RawDPhiJet56+2*3.1415926535*(RawDPhiJet56<-3.1415926535)-2*3.1415926535*(RawDPhiJet56>3.1415926535))");
+   Tree->SetAlias("DPhiJet56Corr", "(DPhiJet56+2*3.14159*(DPhiJet56<-1.57159))/3.14159");
+   
+   Tree->SetAlias("EtaJet78", "(maxOppositeJet78DEta+zEta[0])");
+   Tree->SetAlias("RawPhiJet78", "(maxOppositeJet78DPhi+zPhi[0])");
+   Tree->SetAlias("PhiJet78", "(RawPhiJet78+2*3.1415926535*(RawPhiJet78<-3.1415926535)-2*3.1415926535*(RawPhiJet78>3.1415926535))");
+   Tree->SetAlias("DEtaJet78", "(trackDeta-maxOppositeJet78DEta)");
+   Tree->SetAlias("RawDPhiJet78", "(trackDphi-maxOppositeJet78DPhi)");
+   Tree->SetAlias("DPhiJet78", "(RawDPhiJet78+2*3.1415926535*(RawDPhiJet78<-3.1415926535)-2*3.1415926535*(RawDPhiJet78>3.1415926535))");
+   Tree->SetAlias("DPhiJet78Corr", "(DPhiJet78+2*3.14159*(DPhiJet78<-1.57159))/3.14159");
 }
 
