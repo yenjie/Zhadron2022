@@ -731,7 +731,7 @@ int main(int argc, char *argv[])
                      OppositeTrackPT.push_back(TrackPT);
                   }
                   
-                  if(fabs(deltaPhi) > M_PI / 2 && TrackPT > 4)
+                  if(fabs(deltaPhi) > M_PI / 2 && TrackPT > 5)
                   {
                      OppositeHardTrackEta.push_back(deltaEta);
                      OppositeHardTrackPhi.push_back(deltaPhi);
