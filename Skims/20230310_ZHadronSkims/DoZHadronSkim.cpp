@@ -100,13 +100,10 @@ int main(int argc, char *argv[])
    bool DoSumET                  = CL.GetBool("DoSumET", true);
    bool DoExtraAxes              = CL.GetBool("DoExtraAxes", true);
    double MuonVeto               = CL.GetDouble("MuonVeto", 0.01);
-   bool DoJet                    = CL.GetBool("DoJet", true);
-   vector<string> JECFiles       = CL.GetStringVector("JEC", "");
-   string JetTreeName            = CL.Get("Jet", "");
+   bool DoJet                    = CL.GetBool("DoJet", false);
+   vector<string> JECFiles       = DoJet ? CL.GetStringVector("JEC") : "";
+   string JetTreeName            = DoJet ? CL.Get("Jet") : "";
    double MinJetPT               = CL.GetDouble("MinJetPT", 15);
-
-   if(JetTreeName == "")
-      DoJet = false;
 
    bool DoTrackEfficiency        = CL.GetBool("DoTrackEfficiency", true);
    string TrackEfficiencyPath    = (DoTrackEfficiency == true) ? CL.Get("TrackEfficiencyPath") : "";
@@ -731,7 +728,7 @@ int main(int argc, char *argv[])
                      OppositeTrackPT.push_back(TrackPT);
                   }
                   
-                  if(fabs(deltaPhi) > M_PI / 2 && TrackPT > 4)
+                  if(fabs(deltaPhi) > M_PI / 2 && TrackPT > 5)
                   {
                      OppositeHardTrackEta.push_back(deltaEta);
                      OppositeHardTrackPhi.push_back(deltaPhi);
