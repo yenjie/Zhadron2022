@@ -545,6 +545,8 @@ public:
    double maxOppositeChargedWTADPhi;
    double maxMoreOppositeChargedWTADEta;
    double maxMoreOppositeChargedWTADPhi;
+   double maxOppositeHardChargedWTADEta;
+   double maxOppositeHardChargedWTADPhi;
 
    double maxOppositeJet12Pt;
    double maxOppositeJet12DEta;
