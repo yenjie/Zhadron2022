@@ -55,7 +55,7 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 */
-const char *typeofdata = "20230417_5";
+const char *typeofdata = "20230419_notrackweight";
 const char *typeofdatatext = "double muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
