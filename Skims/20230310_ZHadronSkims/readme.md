@@ -29,8 +29,8 @@
 | DoExtraAxes | bool | true | whether to store the extra WTA axes |
 | MuonVeto | double | 0.01 | window for track-muon rejection |
 | DoJet | bool | true | whether to store jets (and related axes) or not |
-| JECFiles | vector<string> | "" | JEC text file list |
-| JetTreeName | string | "" | Name of the jet tree.  Not if this is empty DoJet will be switched to false |
+| JECFiles | vector<string> | _required if DoJet is true_ | JEC text file list |
+| Jet | string | _required if DoJet is true_ | Name of the jet tree. |
 | MinJetPT | double | 15 | Minimum jet PT to store |
 | DoTrackEfficiency | bool | true | If we want to store track efficiency correction factor |
 | TrackEfficiencyPath | string | _required if DoTrackEfficiency is true_ | Base path for track correction files |
