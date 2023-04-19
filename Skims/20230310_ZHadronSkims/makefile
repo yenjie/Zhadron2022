@@ -65,10 +65,10 @@ TestRunMCBackground: Execute
 
 TestRunMCGenBackground: Execute
 	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_10.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --DoGenLevel true --IsData false --IsPP false \
+		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true --DoGenCorrelation true \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root \
-		--HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false \
+		--HFShift 682 --Tolerance 0 --ToleranceFraction 0.1 --DoSumET false \
 		--DoTrackEfficiency false
 
 Execute: DoZHadronSkim.cpp
