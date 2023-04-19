@@ -169,6 +169,7 @@ int main(int argc, char *argv[])
          for(int iE = 0; iE < EntryCount; iE++)
          {
             MBackgroundEvent[iB]->GetEntry(iE);
+            MBackgroundGen[iB]->GetEntry(iE);
             MBackgroundPF[iB]->GetEntry(iE);
             EventIndex E;
             E.HF = DoGenCorrelation ? GetGenHFSum(MBackgroundGen[iB]) : (DoSumET ? MBackgroundEvent[iB]->hiHF : GetHFSum(MBackgroundPF[iB]));
