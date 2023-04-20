@@ -2966,8 +2966,8 @@ int main(int argc, char *argv[]){
 
    file_sigMC = TFile::Open("GraphMCSignal_5.root","read");
    file_bkgMC = TFile::Open("GraphMCBackground_5.root","read");
-   file_sigDA = TFile::Open("file20230415/GraphDataSignal01_5.root","read");
-   file_bkgDA = TFile::Open("file20230415/GraphDataBackground01_5.root","read");
+   file_sigDA = TFile::Open("GraphDataSignal_5.root","read");
+   file_bkgDA = TFile::Open("GraphDataBackground_5.root","read");
    file_ppMC  = TFile::Open("GraphPPMC_5.root","read");
 /*
    file_sigMCgen = TFile::Open("GraphMCSignalGen.root","read");
