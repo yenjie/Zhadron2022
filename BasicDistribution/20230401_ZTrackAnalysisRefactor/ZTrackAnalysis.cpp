@@ -304,8 +304,8 @@ int main(int argc, char *argv[])
             bool PassEvent = ZMassRange && ZPTRange && CentRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
-            //double weight = (trackWeight->at(iT))*NCollWeight;
-            double weight = NCollWeight;
+            double weight = (trackWeight->at(iT))*NCollWeight;
+            //double weight = NCollWeight;
 
             double DEtaToMax             = TrackDEta->at(iT) - maxDEta;
             double DPhiToMax             = DeltaPhi(TrackDPhi->at(iT), maxDPhi);
