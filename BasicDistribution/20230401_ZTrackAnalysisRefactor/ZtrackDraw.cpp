@@ -8,7 +8,7 @@
 #include <TAxis.h>
 #include <TSystem.h>
 #include <TLatex.h>
-#include <iostream>
+#include <cmath>
 
 double TptL_min = 0.5;
 
@@ -55,7 +55,7 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 */
-const char *typeofdata = "20230420_0415_01_5";
+const char *typeofdata = "20230420_0415_cmath";
 const char *typeofdatatext = "double muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)

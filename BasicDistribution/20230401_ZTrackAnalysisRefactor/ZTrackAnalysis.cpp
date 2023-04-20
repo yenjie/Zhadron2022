@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
    // Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
    vector<Configuration> C;
    C.push_back(Configuration(40, 20, 2000,  0, 90,  0, 1000));
+   /*
    C.push_back(Configuration(40, 30,   40,  0, 90,  0, 1000));
    C.push_back(Configuration(40, 40,   60,  0, 90,  0, 1000));
    C.push_back(Configuration(40, 60,   80,  0, 90,  0, 1000));
@@ -100,7 +101,7 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 60, 2000,  0, 30,  4, 1000));
    C.push_back(Configuration(40,100, 2000,  0, 30,  4, 1000));
    C.push_back(Configuration(40,120, 2000,  0, 30,  4, 1000));
-
+*/
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
    vector<TH1D *>           HEventCount;
