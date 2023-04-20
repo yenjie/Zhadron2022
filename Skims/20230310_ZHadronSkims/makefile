@@ -98,7 +98,7 @@ PrepareToRunGenMC:
 		$(PbPbSignalMC)/ \
 		10 LogGenMC_5/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_5/ \
  		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
-		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5
+		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5  --DoSumET false
 
 PrepareToRunPP:
 	bash PrepareInput.sh \
@@ -112,7 +112,7 @@ PrepareToRunGenPP:
 		$(PPSignalMC)/ \
 		10 LogGenPP_5/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_5/ \
  		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP true \
-		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5
+		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5  --DoSumET false
 
 PrepareToRunPPData:
 	bash PrepareInput.sh \
@@ -165,5 +165,5 @@ PrepareToRunRandomMCGenBackground:
 		10 LogMCGenbkg_5/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_5/ \
 		$(PbPbBackgroundMC)/ 12 \
  		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
-		--DoBackground true --HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
+		--DoBackground true --HFShift 1083 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5
