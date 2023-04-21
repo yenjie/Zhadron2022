@@ -24,6 +24,7 @@
 | HFShift | double | _required if DoBackground is true_ | Amount of shift to subtract from the HF number |
 | HFTolerance | double | _required if DoBackground is true_ | Tolerance to HF sum in GeV |
 | HFToleranceFraction | double | _required if DoBackground is true_ | Tolerance to HF sum in fractions |
+| VZTolerance | double | 2 | Tolerance to VZ |
 | Oversample | int | 1 | How many times we mix every signal event |
 | DoSumET | bool | true | Whether we use SumET or SumE in HF for event matching |
 | DoExtraAxes | bool | true | whether to store the extra WTA axes |
