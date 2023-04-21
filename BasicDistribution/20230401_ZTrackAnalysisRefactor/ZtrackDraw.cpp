@@ -72,7 +72,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    std::cout<<"Getting histograms..."<<std::endl;
 
-   std::string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",20,ptH,centL,centH,TptL,TptH);
+   std::string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",20.,ptH,centL,centH,TptL,TptH);
    std::replace(FolderName.begin(), FolderName.end(), '.', 'p');
 
    std::string FolderNameTemp = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",ptL,ptH,centL,centH,TptL,TptH);
