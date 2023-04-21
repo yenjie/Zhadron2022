@@ -61,6 +61,12 @@ bool HiEventTreeMessenger::Initialize()
    else                                 Lumi = 1;
    if(Tree->GetBranch("weight"))        Tree->SetBranchAddress("weight", &weight);
    else                                 weight = 1;
+   if(Tree->GetBranch("vx"))            Tree->SetBranchAddress("vx", &vx);
+   else                                 vx = -999;
+   if(Tree->GetBranch("vy"))            Tree->SetBranchAddress("vy", &vy);
+   else                                 vy = -999;
+   if(Tree->GetBranch("vz"))            Tree->SetBranchAddress("vz", &vz);
+   else                                 vz = -999;
    if(Tree->GetBranch("npus"))          Tree->SetBranchAddress("npus", &npus);
    else                                 npus = &EmptyVectors::EmptyVectorInt;
    if(Tree->GetBranch("tnpus"))         Tree->SetBranchAddress("tnpus", &tnpus);
@@ -1843,6 +1849,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    trackPhi = new std::vector<double>();
    trackMuTagged = new std::vector<bool>();
    trackWeight = new std::vector<double>();
+   subevent = new std::vector<int>();
 
    jetPt = new std::vector<double>();
    jetDeta = new std::vector<double>();
@@ -1883,6 +1890,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
 
    Tree->Branch("SignalHF",               &SignalHF,     "SignalHF/F");
    Tree->Branch("BackgroundHF",           &BackgroundHF, "BackgroundHF/F");
+   Tree->Branch("SignalVZ",               &SignalVZ,     "SignalVZ/F");
 
    Tree->Branch("NCollWeight",            &NCollWeight,  "NCollWeight/F");
    
@@ -1911,6 +1919,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    // Tree->Branch("trackEta",               &trackEta);
    Tree->Branch("trackMuTagged",          &trackMuTagged);
    Tree->Branch("trackWeight",            &trackWeight);
+   Tree->Branch("subevent",               &subevent);
    
    Tree->Branch("jetPt",                  &jetPt);
    Tree->Branch("jetDeta",                &jetDeta);
@@ -1979,6 +1988,7 @@ void ZHadronMessenger::Clear()
 
    SignalHF = -1;
    BackgroundHF = -1;
+   SignalVZ = -999;
 
    NVertex = 0;
    VX = 0;
@@ -2005,6 +2015,7 @@ void ZHadronMessenger::Clear()
    trackEta->clear();
    trackMuTagged->clear();
    trackWeight->clear();
+   subevent->clear();
 
    jetPt->clear();
    jetDeta->clear();

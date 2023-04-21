@@ -35,6 +35,7 @@ struct EventIndex
 {
 public:
    double HF;
+   double VZ;
    int File;
    int Event;
 public:
@@ -42,6 +43,8 @@ public:
    {
       if(HF < other.HF)         return true;
       if(HF > other.HF)         return false;
+      if(VZ < other.VZ)         return true;
+      if(VZ > other.VZ)         return false;
       if(File < other.File)     return true;
       if(File > other.File)     return false;
       if(Event < other.Event)   return true;
@@ -101,7 +104,7 @@ int main(int argc, char *argv[])
    bool DoExtraAxes              = CL.GetBool("DoExtraAxes", true);
    double MuonVeto               = CL.GetDouble("MuonVeto", 0.01);
    bool DoJet                    = CL.GetBool("DoJet", false);
-   vector<string> JECFiles       = DoJet ? CL.GetStringVector("JEC") : "";
+   vector<string> JECFiles       = DoJet ? CL.GetStringVector("JEC") : vector<string>{""};
    string JetTreeName            = DoJet ? CL.Get("Jet") : "";
    double MinJetPT               = CL.GetDouble("MinJetPT", 15);
 
@@ -121,10 +124,12 @@ int main(int argc, char *argv[])
    double HFShift = 0;
    double HFTolerance = 0;
    double HFToleranceFraction = 0;
+   double VZTolerance = 0;
    int Oversample = 1;
    if(DoBackground == true)
    {
       BackgroundFileNames         = CL.GetStringVector("Background");
+      VZTolerance                 = CL.GetDouble("VZTolerance", 2);
       HFShift                     = CL.GetDouble("HFShift");
       HFTolerance                 = CL.GetDouble("Tolerance");
       HFToleranceFraction         = CL.GetDouble("ToleranceFraction");
@@ -170,6 +175,7 @@ int main(int argc, char *argv[])
             MBackgroundPF[iB]->GetEntry(iE);
             EventIndex E;
             E.HF = DoGenCorrelation ? GetGenHFSum(MBackgroundGen[iB]) : (DoSumET ? MBackgroundEvent[iB]->hiHF : GetHFSum(MBackgroundPF[iB]));
+            E.VZ = MBackgroundEvent[iB]->vz;
             E.File = iB;
             E.Event = iE;
             BackgroundIndices.push_back(E);
@@ -399,6 +405,7 @@ int main(int argc, char *argv[])
             }
 
             MZHadron.SignalHF = DoGenCorrelation ? GetGenHFSum(&MSignalGen) : (DoSumET ? MSignalEvent.hiHF : GetHFSum(&MSignalPF));
+            MZHadron.SignalVZ = MSignalEvent.vz;
 
             // Z-track correlation
             bool GoodGenZ = MZHadron.genZPt->size() > 0 && (MZHadron.genZPt->at(0) > MinZPT);
@@ -425,13 +432,23 @@ int main(int argc, char *argv[])
                   int LowerIndex = FindFirstAbove(BackgroundIndices, LowerHF);
                   int HigherIndex = FindFirstAbove(BackgroundIndices, HigherHF);
 
+                  vector<int> GoodIndices;
+                  GoodIndices.reserve(HigherIndex - LowerIndex + 1);
+                  for(int i = LowerIndex; i <= HigherIndex; i++)
+                     if(fabs(BackgroundIndices[i].VZ - MZHadron.SignalVZ) < VZTolerance)
+                        GoodIndices.push_back(i);
+
                   Assert(HigherIndex > LowerIndex,
                      Form("Warning!  Too few events matched.  Please enlarge tolerance or add more background files.  %f < %f - %f < %f",
                         LowerHF, SignalHF, HFShift, HigherHF));
+                  Assert(GoodIndices.size() > 0,
+                     Form("Warning!  Too few events matched.  Please enlarge tolerance or add more background files.  %f < %f - %f < %f",
+                        LowerHF, SignalHF, HFShift, HigherHF));
 
-                  int Index = LowerIndex + rand() % (HigherIndex - LowerIndex);
+                  // int Index = LowerIndex + rand() % (HigherIndex - LowerIndex);
+                  int Index = rand() % GoodIndices.size();
 
-                  Location = BackgroundIndices[Index];
+                  Location = BackgroundIndices[GoodIndices[Index]];
 
                   // cout << "Index inside the array" << Index << endl;
                   // cout << "From index " << Location.File << " " << Location.Event << " " << Location.HF << endl;
@@ -489,6 +506,7 @@ int main(int argc, char *argv[])
                   double TrackEta = DoGenCorrelation ? MGen->Eta->at(itrack) : (IsPP ? MTrackPP->trkEta[itrack] : MTrack->TrackEta->at(itrack));
                   double TrackPhi = DoGenCorrelation ? MGen->Phi->at(itrack) : (IsPP ? MTrackPP->trkPhi[itrack] : MTrack->TrackPhi->at(itrack));
                   double TrackPT  = DoGenCorrelation ? MGen->PT->at(itrack) : (IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack));
+                  int SubEvent    = DoGenCorrelation ? (MGen->SubEvent->at(itrack) + DoBackground) : (IsPP ? 0 : DoBackground);
 
                   double Mu1Eta = DoGenCorrelation ? MZHadron.genMuEta1->at(0) : MZHadron.muEta1->at(0);
                   double Mu1Phi = DoGenCorrelation ? MZHadron.genMuPhi1->at(0) : MZHadron.muPhi1->at(0);
@@ -522,6 +540,7 @@ int main(int argc, char *argv[])
                   MZHadron.trackDeta->push_back(deltaEta);
                   MZHadron.trackPt->push_back(TrackPT);
                   MZHadron.trackMuTagged->push_back(MuTagged);
+                  MZHadron.subevent->push_back(SubEvent);
 
                   double TrackCorrection = 1;
                   if(DoTrackEfficiency == true)
