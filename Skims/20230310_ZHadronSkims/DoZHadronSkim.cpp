@@ -442,8 +442,8 @@ int main(int argc, char *argv[])
                      Form("Warning!  Too few events matched.  Please enlarge tolerance or add more background files.  %f < %f - %f < %f",
                         LowerHF, SignalHF, HFShift, HigherHF));
                   Assert(GoodIndices.size() > 0,
-                     Form("Warning!  Too few events matched.  Please enlarge tolerance or add more background files.  %f < %f - %f < %f",
-                        LowerHF, SignalHF, HFShift, HigherHF));
+                     Form("Warning!  Too few events matched.  Please enlarge tolerance or add more background files.  %f < %f - %f < %f, %f",
+                        LowerHF, SignalHF, HFShift, HigherHF, MZHadron.SignalVZ));
 
                   // int Index = LowerIndex + rand() % (HigherIndex - LowerIndex);
                   int Index = rand() % GoodIndices.size();
