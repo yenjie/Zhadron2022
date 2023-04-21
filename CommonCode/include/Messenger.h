@@ -34,6 +34,9 @@ public:
    unsigned int Run;
    unsigned long long Event;
    unsigned int Lumi;
+   float vx;
+   float vy;
+   float vz;
    float weight;
    std::vector<int> *npus;
    std::vector<float> *tnpus;
@@ -504,6 +507,7 @@ public:
 
    float SignalHF;
    float BackgroundHF;
+   float SignalVZ;
 
    float NCollWeight;
 
@@ -527,6 +531,7 @@ public:
    std::vector<double> *trackPhi;
    std::vector<bool> *trackMuTagged;
    std::vector<double> *trackWeight;
+   std::vector<int> *subevent;
    
    std::vector<double> *jetPt;
    std::vector<double> *jetDeta;
