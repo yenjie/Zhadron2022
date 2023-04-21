@@ -543,7 +543,7 @@ int main(int argc, char *argv[])
                   MZHadron.subevent->push_back(SubEvent);
 
                   double TrackCorrection = 1;
-                  if(DoTrackEfficiency == true)
+                  if(DoTrackEfficiency == true && DoGenCorrelation == false)
                   {
                      if(IsPP == true)
                         TrackCorrection = TrackEfficiencyPP->getCorrection(TrackPT, TrackEta);
