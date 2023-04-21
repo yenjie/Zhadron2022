@@ -81,7 +81,7 @@ EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2
 PrepareToRun:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		10 LogData_5/ /eos/cms/store/group/phys_heavyions/pchou/OutputData_5/ --Fraction 1 --DoGenLevel false --IsData true --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
+		10 LogData_0421/ /eos/cms/store/group/phys_heavyions/pchou/OutputData_0421/ --Fraction 1 --DoGenLevel false --IsData true --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--Jet "akCs3PFJetAnalyzer/t" \
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBase)/Autumn18_HI_RAAV3_DATA_L2L3Residual_AK3PF.txt
@@ -134,7 +134,7 @@ PrepareToRunBackground:
 PrepareToRunRandomBackground:
 	bash PrepareInputRandomBackground.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		10 LogDatabkg_5/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_5/ \
+		2 LogDatabkg_0421/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0421/ \
 		$(PbPbBackgroundData)// 50 \
  		--Fraction 1 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true --HFShift 660 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 25 \
