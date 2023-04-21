@@ -72,10 +72,13 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    std::cout<<"Getting histograms..."<<std::endl;
 
-   std::string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",ptL,ptH,centL,centH,TptL,TptH);
+   std::string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",20,ptH,centL,centH,TptL,TptH);
    std::replace(FolderName.begin(), FolderName.end(), '.', 'p');
 
-   TH1D* hData_eta = (TH1D*) file_sigDA->Get(Form("%s/HEta", FolderName.c_str()));
+   std::string FolderNameTemp = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",ptL,ptH,centL,centH,TptL,TptH);
+   std::replace(FolderNameTemp.begin(), FolderNameTemp.end(), '.', 'p');
+
+   TH1D* hData_eta = (TH1D*) file_sigDA->Get(Form("%s/HEta", FolderNameTemp.c_str()));
    TH1D* hMC_eta = (TH1D*) file_sigMC->Get(Form("%s/HEta", FolderName.c_str()));
    TH1D* hpp_eta = (TH1D*) file_ppMC->Get(Form("%s/HEta", FolderName.c_str()));
 
@@ -83,7 +86,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_eta->SetName("hMC_eta");
    hpp_eta->SetName("hpp_eta");
 
-   TH1D* hData_phi = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderName.c_str()));
+   TH1D* hData_phi = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderNameTemp.c_str()));
    TH1D* hMC_phi = (TH1D*) file_sigMC->Get(Form("%s/HPhi", FolderName.c_str()));
    TH1D* hpp_phi = (TH1D*) file_ppMC->Get(Form("%s/HPhi", FolderName.c_str()));
 
@@ -91,7 +94,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_phi->SetName("hMC_phi");
    hpp_phi->SetName("hpp_phi");
 
-   TH2D* hData_etaphi_1 = (TH2D*) file_sigDA->Get(Form("%s/HEtaPhi", FolderName.c_str()));
+   TH2D* hData_etaphi_1 = (TH2D*) file_sigDA->Get(Form("%s/HEtaPhi", FolderNameTemp.c_str()));
    TH2D* hMC_etaphi_1 = (TH2D*) file_sigMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    TH2D* hpp_etaphi_1 = (TH2D*) file_ppMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
 
@@ -105,63 +108,63 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_etaphi_gen->SetName("hMC_etaphi_gen");
    hMC_bkg_etaphi_gen->SetName("hMC_etaphi_gen");
 */
-   TH1D* hData_MuDeta = (TH1D*) file_sigDA->Get(Form("%s/HTrackMuonDEta", FolderName.c_str()));
+   TH1D* hData_MuDeta = (TH1D*) file_sigDA->Get(Form("%s/HTrackMuonDEta", FolderNameTemp.c_str()));
    TH1D* hMC_MuDeta = (TH1D*) file_sigMC->Get(Form("%s/HTrackMuonDEta", FolderName.c_str()));
 
    hData_MuDeta->SetName("hData_MuDeta");
    hMC_MuDeta->SetName("hMC_MuDeta");
 
-   TH1D* hData_MuDphi = (TH1D*) file_sigDA->Get(Form("%s/HTrackMuonDPhi", FolderName.c_str()));
+   TH1D* hData_MuDphi = (TH1D*) file_sigDA->Get(Form("%s/HTrackMuonDPhi", FolderNameTemp.c_str()));
    TH1D* hMC_MuDphi = (TH1D*) file_sigMC->Get(Form("%s/HTrackMuonDPhi", FolderName.c_str()));
 
    hData_MuDphi->SetName("hData_MuDphi");
    hMC_MuDphi->SetName("hMC_MuDphi");
 
-   TH2D* hData_MuDetaphi = (TH2D*) file_sigDA->Get(Form("%s/HTrackMuonDEtaDPhi", FolderName.c_str()));
+   TH2D* hData_MuDetaphi = (TH2D*) file_sigDA->Get(Form("%s/HTrackMuonDEtaDPhi", FolderNameTemp.c_str()));
    TH2D* hMC_MuDetaphi = (TH2D*) file_sigMC->Get(Form("%s/HTrackMuonDEtaDPhi", FolderName.c_str()));
 
    hData_MuDetaphi->SetName("hData_MuDetaphi");
    hMC_MuDetaphi->SetName("hMC_MuDetaphi");
 
-   TH1D* hData_bkg_eta = (TH1D*) file_bkgDA->Get(Form("%s/HEta", FolderName.c_str()));
+   TH1D* hData_bkg_eta = (TH1D*) file_bkgDA->Get(Form("%s/HEta", FolderNameTemp.c_str()));
    TH1D* hMC_bkg_eta = (TH1D*) file_bkgMC->Get(Form("%s/HEta", FolderName.c_str()));
 
    hData_bkg_eta->SetName("hData_bkg_eta");
    hMC_bkg_eta->SetName("hMC_bkg_eta");
 
-   TH1D* hData_bkg_phi = (TH1D*) file_bkgDA->Get(Form("%s/HPhi", FolderName.c_str()));
+   TH1D* hData_bkg_phi = (TH1D*) file_bkgDA->Get(Form("%s/HPhi", FolderNameTemp.c_str()));
    TH1D* hMC_bkg_phi = (TH1D*) file_bkgMC->Get(Form("%s/HPhi", FolderName.c_str()));
 
    hData_bkg_phi->SetName("hData_bkg_phi");
    hMC_bkg_phi->SetName("hMC_bkg_phi");
 
-   TH2D* hData_bkg_etaphi_1 = (TH2D*) file_bkgDA->Get(Form("%s/HEtaPhi", FolderName.c_str()));
+   TH2D* hData_bkg_etaphi_1 = (TH2D*) file_bkgDA->Get(Form("%s/HEtaPhi", FolderNameTemp.c_str()));
    TH2D* hMC_bkg_etaphi_1 = (TH2D*) file_bkgMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
 
    hData_bkg_etaphi_1->SetName("hData_bkg_etaphi_1");
    hMC_bkg_etaphi_1->SetName("hMC_bkg_etaphi_1");
 
-   TH1D* hData_bkg_MuDeta = (TH1D*) file_bkgDA->Get(Form("%s/HTrackMuonDEta", FolderName.c_str()));
+   TH1D* hData_bkg_MuDeta = (TH1D*) file_bkgDA->Get(Form("%s/HTrackMuonDEta", FolderNameTemp.c_str()));
    TH1D* hMC_bkg_MuDeta = (TH1D*) file_bkgMC->Get(Form("%s/HTrackMuonDEta", FolderName.c_str()));
 
    hData_bkg_MuDeta->SetName("hData_bkg_MuDeta");
    hMC_bkg_MuDeta->SetName("hMC_bkg_MuDeta");
 
-   TH1D* hData_bkg_MuDphi = (TH1D*) file_bkgDA->Get(Form("%s/HTrackMuonDPhi", FolderName.c_str()));
+   TH1D* hData_bkg_MuDphi = (TH1D*) file_bkgDA->Get(Form("%s/HTrackMuonDPhi", FolderNameTemp.c_str()));
    TH1D* hMC_bkg_MuDphi = (TH1D*) file_bkgMC->Get(Form("%s/HTrackMuonDPhi", FolderName.c_str()));
 
    hData_bkg_MuDphi->SetName("hData_bkg_MuDphi");
    hMC_bkg_MuDphi->SetName("hMC_bkg_MuDphi");
 
-   TH2D* hData_bkg_MuDetaphi = (TH2D*) file_bkgDA->Get(Form("%s/HTrackMuonDEtaDPhi", FolderName.c_str()));
+   TH2D* hData_bkg_MuDetaphi = (TH2D*) file_bkgDA->Get(Form("%s/HTrackMuonDEtaDPhi", FolderNameTemp.c_str()));
    TH2D* hMC_bkg_MuDetaphi = (TH2D*) file_bkgMC->Get(Form("%s/HTrackMuonDEtaDPhi", FolderName.c_str()));
 
    hData_bkg_MuDetaphi->SetName("hData_bkg_MuDetaphi");
    hMC_bkg_MuDetaphi->SetName("hMC_bkg_MuDetaphi");
 
-   TH2D* hData_maxetaphi = (TH2D*) file_sigDA->Get(Form("%s/HMaxHadronEtaPhi", FolderName.c_str()));
+   TH2D* hData_maxetaphi = (TH2D*) file_sigDA->Get(Form("%s/HMaxHadronEtaPhi", FolderNameTemp.c_str()));
    TH2D* hMC_maxetaphi = (TH2D*) file_sigMC->Get(Form("%s/HMaxHadronEtaPhi", FolderName.c_str()));
-   TH2D* hData_bkg_maxetaphi = (TH2D*) file_bkgDA->Get(Form("%s/HMaxHadronEtaPhi", FolderName.c_str()));
+   TH2D* hData_bkg_maxetaphi = (TH2D*) file_bkgDA->Get(Form("%s/HMaxHadronEtaPhi", FolderNameTemp.c_str()));
    TH2D* hMC_bkg_maxetaphi = (TH2D*) file_bkgMC->Get(Form("%s/HMaxHadronEtaPhi", FolderName.c_str()));
 
    hData_maxetaphi->SetName("hData_maxetaphi");
@@ -169,9 +172,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_bkg_maxetaphi->SetName("hData_bkg_maxetaphi");
    hMC_bkg_maxetaphi->SetName("hMC_bkg_maxetaphi");
 
-   TH2D* hData_maxOetaphi = (TH2D*) file_sigDA->Get(Form("%s/HMaxOppositeHadronEtaPhi", FolderName.c_str()));
+   TH2D* hData_maxOetaphi = (TH2D*) file_sigDA->Get(Form("%s/HMaxOppositeHadronEtaPhi", FolderNameTemp.c_str()));
    TH2D* hMC_maxOetaphi = (TH2D*) file_sigMC->Get(Form("%s/HMaxOppositeHadronEtaPhi", FolderName.c_str()));
-   TH2D* hData_bkg_maxOetaphi = (TH2D*) file_bkgDA->Get(Form("%s/HMaxOppositeHadronEtaPhi", FolderName.c_str()));
+   TH2D* hData_bkg_maxOetaphi = (TH2D*) file_bkgDA->Get(Form("%s/HMaxOppositeHadronEtaPhi", FolderNameTemp.c_str()));
    TH2D* hMC_bkg_maxOetaphi = (TH2D*) file_bkgMC->Get(Form("%s/HMaxOppositeHadronEtaPhi", FolderName.c_str()));
 
    hData_maxOetaphi->SetName("hData_maxOetaphi");
