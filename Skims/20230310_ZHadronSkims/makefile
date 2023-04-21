@@ -1,11 +1,11 @@
 PbPbBackgroundData = /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HIMinimumBias7/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HIMinimumBias7/20221101_ZHadronMinimumBias7WithMuTree/221101_212932/0000/
 PbPbBackgroundMCOld = /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/
-PbPbSignalDoubleMuon = /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HIDoubleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HIDoubleMuon/20221101_ZHadronDoubleMuonWithMuTree/221101_212941//
-PbPbSignalSingleMuon = /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HISingleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HISingleMuon/20230411_ZHadronSingleMuonWithMuTree//230411_112003/
+PbPbSignalDoubleMuon = /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HIDoubleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HIDoubleMuon/20221101_ZHadronDoubleMuonWithMuTree/221101_212941/
+PbPbSignalSingleMuon = /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HISingleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HISingleMuon/20230411_ZHadronSingleMuonWithMuTree/230411_112003/
 PbPbSignalMC = /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8/HINPbPbSpring21MiniAOD-mva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8/20230411_ZHadronMCDY/230411_110944/0000/
 PbPbBackgroundMC = /eos/cms/store/group/phys_heavyions/chenyi/Samples/store/user/mitaylor/PhotonJet/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20230127PbPbMCMB/230127_211118/
 PPSignalMC = /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230407_ZHadronMLLWithMuTreePP/230407_143418/0000/
-# PPSignalMC = /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230405_ZHadronMLLWithMuTreePP/230405_101901/0000/////////
+# PPSignalMC = /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230405_ZHadronMLLWithMuTreePP/230405_101901/0000/
 PPSignalData = /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/SingleMuon/Run2017G-17Nov2017-v1/AOD/SingleMuon/20230405_ZHadronSingleMuonWithMuTreePP/230405_185259/
 JECBase = $(ProjectBase)/CommonCode/text/JEC/Autumn18_HI_RAAV3_DATA/
 
@@ -38,7 +38,7 @@ TestRunBackground: Execute
 	./Execute --Input $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_14.root \
 		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true \
-		--Background $(PbPbBackgroundData)//HiForestMiniAOD_118.root,$(PbPbBackgroundData)//HiForestMiniAOD_123.root,$(PbPbBackgroundData)//HiForestMiniAOD_127.root,$(PbPbBackgroundData)//HiForestMiniAOD_138.root,$(PbPbBackgroundData)//HiForestMiniAOD_148.root,$(PbPbBackgroundData)//HiForestMiniAOD_16.root,$(PbPbBackgroundData)//HiForestMiniAOD_17.root,$(PbPbBackgroundData)//HiForestMiniAOD_184.root,$(PbPbBackgroundData)//HiForestMiniAOD_18.root,$(PbPbBackgroundData)//HiForestMiniAOD_194.root \
+		--Background $(PbPbBackgroundData)/HiForestMiniAOD_118.root,$(PbPbBackgroundData)/HiForestMiniAOD_123.root,$(PbPbBackgroundData)/HiForestMiniAOD_127.root,$(PbPbBackgroundData)/HiForestMiniAOD_138.root,$(PbPbBackgroundData)/HiForestMiniAOD_148.root,$(PbPbBackgroundData)/HiForestMiniAOD_16.root,$(PbPbBackgroundData)/HiForestMiniAOD_17.root,$(PbPbBackgroundData)/HiForestMiniAOD_184.root,$(PbPbBackgroundData)/HiForestMiniAOD_18.root,$(PbPbBackgroundData)/HiForestMiniAOD_194.root \
 		--HFShift 660 --Tolerance 330 --ToleranceFraction 0.1 --Oversample 10 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/
 
@@ -51,7 +51,7 @@ TestRunBackgroundSimple: Execute
 	./Execute --Input $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_14.root \
 		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true \
-		--Background $(PbPbBackgroundData)//HiForestMiniAOD_118.root \
+		--Background $(PbPbBackgroundData)/HiForestMiniAOD_118.root \
 		--HFShift 660 --Tolerance 150 --ToleranceFraction 0 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/
 
@@ -81,7 +81,7 @@ EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2
 PrepareToRun:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		10 LogData_0421/ /eos/cms/store/group/phys_heavyions/pchou/OutputData_0421/ --Fraction 1 --DoGenLevel false --IsData true --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
+		10 LogData_0421/ /eos/cms/store/group/phys_heavyions/pchou/OutputData_0421_01/ --Fraction 0.1 --DoGenLevel false --IsData true --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--Jet "akCs3PFJetAnalyzer/t" \
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBase)/Autumn18_HI_RAAV3_DATA_L2L3Residual_AK3PF.txt
@@ -134,9 +134,9 @@ PrepareToRunBackground:
 PrepareToRunRandomBackground:
 	bash PrepareInputRandomBackground.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		2 LogDatabkg_0421/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0421/ \
-		$(PbPbBackgroundData)// 50 \
- 		--Fraction 1 --DoGenLevel false --IsData true --IsPP false \
+		5 LogDatabkg_0421/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0421_01/ \
+		$(PbPbBackgroundData)/ 50 \
+ 		--Fraction 0.1 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true --HFShift 660 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 25 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5
 
