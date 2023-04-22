@@ -1,14 +1,14 @@
 default: TestRun
 
 TestRun: Execute
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0422/ \
-		--Output GraphMCSignal_0422.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_0422/ \
 		--Output GraphDataSignal_0422.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0422/ \
-		--Output GraphMCBackground_0422.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0422/ \
 		--Output GraphDataBackground_0422.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0422/ \
+		--Output GraphMCSignal_0422.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0422/ \
+		--Output GraphMCBackground_0422.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_0422/ \
 		--Output GraphPPMC_0422.root --IgnoreCentrality true
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0422/ \
