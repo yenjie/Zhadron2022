@@ -1,22 +1,22 @@
 default: TestRun
 
 TestRun: Execute
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_5/ \
-		--Output GraphMCSignal_5.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_5/ \
-		--Output GraphDataSignal_5.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_5/ \
-		--Output GraphMCBackground_5.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_5/ \
-		--Output GraphDataBackground_5.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_5/ \
-		--Output GraphPPMC_5.root --IgnoreCentrality true
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_5/ \
-		--Output GraphMCSignalGen_5.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_5/ \
-		--Output GraphMCBackgroundGen_5.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_5/ \
-		--Output GraphPPMCGen_5.root --IgnoreCentrality true	
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0422/ \
+		--Output GraphMCSignal_0422.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_0422/ \
+		--Output GraphDataSignal_0422.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0422/ \
+		--Output GraphMCBackground_0422.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0422/ \
+		--Output GraphDataBackground_0422.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_0422/ \
+		--Output GraphPPMC_0422.root --IgnoreCentrality true
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0422/ \
+		--Output GraphMCSignalGen_0422.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0422/ \
+		--Output GraphMCBackgroundGen_0422.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_0422/ \
+		--Output GraphPPMCGen_0422.root --IgnoreCentrality true	
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
