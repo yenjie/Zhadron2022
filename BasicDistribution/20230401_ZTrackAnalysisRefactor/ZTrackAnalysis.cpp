@@ -56,7 +56,8 @@ int main(int argc, char *argv[])
    vector<Configuration> C;
    C.push_back(Configuration(40, 20, 2000,  0, 90,  0, 1000));
    C.push_back(Configuration(40,  5, 2000,  0, 90,  0, 1000));
-   /*
+   C.push_back(Configuration(40,  5,   20,  0, 90,  0, 1000));
+   
    C.push_back(Configuration(40, 30,   40,  0, 90,  0, 1000));
    C.push_back(Configuration(40, 40,   60,  0, 90,  0, 1000));
    C.push_back(Configuration(40, 60,   80,  0, 90,  0, 1000));
@@ -102,7 +103,24 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 60, 2000,  0, 30,  4, 1000));
    C.push_back(Configuration(40,100, 2000,  0, 30,  4, 1000));
    C.push_back(Configuration(40,120, 2000,  0, 30,  4, 1000));
-*/
+
+   C.push_back(Configuration(40, 20, 2000,  0, 90,0.5,    2));
+   C.push_back(Configuration(40,  5, 2000,  0, 90,0.5,    2));
+
+   C.push_back(Configuration(40, 20, 2000,  0, 90,  4,    5));
+   C.push_back(Configuration(40, 20, 2000,  0, 90,  5,    7));
+   C.push_back(Configuration(40, 20, 2000,  0, 90,  7,   10));
+   C.push_back(Configuration(40,  5,   20,  0, 90,  4,    5));
+   C.push_back(Configuration(40,  5,   20,  0, 90,  5,    7));
+   C.push_back(Configuration(40,  5,   20,  0, 90,  7,   10));
+
+   C.push_back(Configuration(40, 20, 2000,  0, 30,  4,    5));
+   C.push_back(Configuration(40, 20, 2000,  0, 30,  5,    7));
+   C.push_back(Configuration(40, 20, 2000,  0, 30,  7,   10));
+   C.push_back(Configuration(40,  5,   20,  0, 30,  4,    5));
+   C.push_back(Configuration(40,  5,   20,  0, 30,  5,    7));
+   C.push_back(Configuration(40,  5,   20,  0, 30,  7,   10));
+
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
    vector<TH1D *>           HEventCount;
