@@ -61,7 +61,7 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 */
-const char *typeofdata = "20230421_01_temp";
+const char *typeofdata = "20230422_temp";
 const char *typeofdatatext = "double muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -621,12 +621,12 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt3d3->SetNDC(kTRUE);
 
 
-   TLatex *ptN0 = new TLatex(0.1,0.97,Form("Signal N_{MC} = %d, N_{Data} = %d",countM0,countD0));
+   TLatex *ptN0 = new TLatex(0.1,0.97,Form("Signal N_{MC}^{Z} = %d, N_{Data}^{Z} = %d",tM_tN,tD_tN));
    ptN0->SetTextFont(42);
    ptN0->SetTextSize(0.03);
    ptN0->SetNDC(kTRUE);
 
-   TLatex *ptNb = new TLatex(0.1,0.97,Form("Background N_{MC} = %d, N_{Data} = %d",countMb,countDb));
+   TLatex *ptNb = new TLatex(0.1,0.97,Form("Background N_{MC}^{Z} = %d, N_{Data}^{Z} = %d",tMb_tN,tDb_tN));
    ptNb->SetTextFont(42);
    ptNb->SetTextSize(0.03);
    ptNb->SetNDC(kTRUE);
