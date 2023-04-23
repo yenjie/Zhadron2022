@@ -621,12 +621,12 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt3d3->SetNDC(kTRUE);
 
 
-   TLatex *ptN0 = new TLatex(0.1,0.97,Form("Signal N_{MC}^{Z} = %d, N_{Data}^{Z} = %d",tM_tN,tD_tN));
+   TLatex *ptN0 = new TLatex(0.1,0.97,Form("Signal N_{MC}^{Z} = %.1f, N_{Data}^{Z} = %.1f",tM_tN,tD_tN));
    ptN0->SetTextFont(42);
    ptN0->SetTextSize(0.03);
    ptN0->SetNDC(kTRUE);
 
-   TLatex *ptNb = new TLatex(0.1,0.97,Form("Background N_{MC}^{Z} = %d, N_{Data}^{Z} = %d",tMb_tN,tDb_tN));
+   TLatex *ptNb = new TLatex(0.1,0.97,Form("Background N_{MC}^{Z} = %.1f, N_{Data}^{Z} = %.1f",tMb_tN,tDb_tN));
    ptNb->SetTextFont(42);
    ptNb->SetTextSize(0.03);
    ptNb->SetNDC(kTRUE);
