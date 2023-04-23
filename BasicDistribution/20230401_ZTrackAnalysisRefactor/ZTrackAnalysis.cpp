@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
    string OutputFileName = CL.Get("Output", "Plots.root");
    double Fraction       = CL.GetDouble("Fraction", 1.00);
    bool IgnoreCentrality = CL.GetBool("IgnoreCentrality", false);
+   bool OnlyZeroSub      = CL.GetBool("OnlyZeroSub", false);
    
    // Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
    vector<Configuration> C;
@@ -232,6 +233,7 @@ int main(int argc, char *argv[])
    vector<double> *TrackDPhi   = nullptr;
    vector<double> *TrackDEta   = nullptr;
    vector<bool> *TrackMuTagged = nullptr;
+   vector<int> *subevent       = nullptr;
    double maxOppositeDEta;
    double maxOppositeDPhi;
    double maxDEta;
@@ -261,6 +263,8 @@ int main(int argc, char *argv[])
 
    Tree->SetBranchAddress("NCollWeight",            &NCollWeight);
    Tree->SetBranchAddress("trackWeight",            &trackWeight);
+
+   Tree->SetBranchAddress("subevent",               &subevent);
 
    if(Tree->GetBranch("trackMuTagged"))          Tree->SetBranchAddress("trackMuTagged",          &TrackMuTagged);
    if(Tree->GetBranch("maxOppositeDEta"))        Tree->SetBranchAddress("maxOppositeDEta",        &maxOppositeDEta);
@@ -313,6 +317,8 @@ int main(int argc, char *argv[])
             NTrack = TrackPT->size();
          for(int iT = 0; iT < NTrack; iT++)
          {
+            if(OnlyZeroSub == true && subevent->at(iT) != 0) continue;
+
             bool TrackPTRange = false;
             if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
                TrackPTRange = true;

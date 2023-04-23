@@ -13,6 +13,8 @@ TestRun: Execute
 		--Output GraphPPMC_0422.root --IgnoreCentrality true
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0422/ \
 		--Output GraphMCSignalGen_0422.root
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0422/ \
+		--Output GraphMCSignalGen0Sub_0422.root --OnlyZeroSub true
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0422/ \
 		--Output GraphMCBackgroundGen_0422.root
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_0422/ \
