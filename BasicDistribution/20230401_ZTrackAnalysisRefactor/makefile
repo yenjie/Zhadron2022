@@ -59,7 +59,7 @@ ExecuteDrawZdPhi: ZdPhiDraw.cpp
 	g++ ZdPhiDraw.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o ExecuteDrawZdPhi `root-config --cflags --libs` -std=c++17
 
-CheckSubtract: ExecuteZcheckSubtract
+CheckSubtract: ExecuteCheckSubtract
 	./ExecuteCheckSubtract
 
 ExecuteCheckSubtract: ZcheckSubtract.cpp
