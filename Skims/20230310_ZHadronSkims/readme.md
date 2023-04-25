@@ -11,6 +11,7 @@
    * Snapshot 2023 Apr 25 after MIT meeting
 * Version 2 - 2023 Apr 25
    * Adding switch to do charged gen particles or all gen particles
+   * Adding a new tree InfoTree that contains all the input arguments used to make the tree
 
 
 
