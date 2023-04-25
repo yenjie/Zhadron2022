@@ -460,9 +460,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    c->Divide(2);
    c->cd(1);
 
-   double max1 = hMC_Tracketa_gen->GetMaximum();
-   double max2 = hMC_Tracketa->GetMaximum();
-   double max3 = hData_Tracketa->GetMaximum();
+   max1 = hMC_Tracketa_gen->GetMaximum();
+   max2 = hMC_Tracketa->GetMaximum();
+   max3 = hData_Tracketa->GetMaximum();
    
    if(max1<max2 && max3<max2) hMC_Tracketa->Draw("hist");
    else if(max1<max3 && max2<max3) hData_Tracketa->Draw("ep");
