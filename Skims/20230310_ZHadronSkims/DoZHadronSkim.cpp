@@ -109,6 +109,7 @@ int main(int argc, char *argv[])
    bool IsData                   = CL.GetBool("IsData", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
    bool DoGenCorrelation         = CL.GetBool("DoGenCorrelation", false);
+   bool GenCorrelationCharged    = CL.GetBool("GenCorrelationCharged", false);
    bool DoBackground             = CL.GetBool("DoBackground", false);
    bool DoSumET                  = CL.GetBool("DoSumET", true);
    bool DoExtraAxes              = CL.GetBool("DoExtraAxes", true);
@@ -510,6 +511,8 @@ int main(int argc, char *argv[])
                      if(MGen->Eta->at(itrack) > +2.4)
                         continue;
                      if(MGen->DaughterCount->at(itrack) > 0)
+                        continue;
+                     if(GenCorrelationCharged == true && MGen->Charge->at(itrack) == 0)
                         continue;
                   }
               
