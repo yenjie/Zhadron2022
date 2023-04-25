@@ -9,6 +9,8 @@
 
 * Version 1 - 2023 Apr 25
    * Snapshot 2023 Apr 25 after MIT meeting
+* Version 2 - 2023 Apr 25
+   * Adding switch to do charged gen particles or all gen particles
 
 
 
@@ -26,6 +28,7 @@
 | IsData | bool | false | whether this is data or not |
 | IsPP | bool | false | whether this is pp or not |
 | DoGenCorrelation | bool | false | whether to use gen particles as the "tracks" or not |
+| GenCorrelationCharged | bool | false | whether to use all gen particles or only charged |
 | DoBackground | bool | false | whether to do background correlation or not |
 | Background | vector<string> | _required if DoBackground = true_ | list of file names for background mixing |
 | HFShift | double | _required if DoBackground is true_ | Amount of shift to subtract from the HF number |
