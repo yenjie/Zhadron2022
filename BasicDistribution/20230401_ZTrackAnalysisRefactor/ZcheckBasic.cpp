@@ -234,13 +234,13 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hData_bkg_Zeta->SetMarkerColor(kBlack);
 
    hData_Zeta->SetLineColor(kBlack);
-   hMC_Zeta->SetLineColor(kBlue);
-   hpp_Zeta->SetLineColor(kViolet);
+   hMC_Zeta->SetLineColor(TColor::GetColor("#377eb8"));//blue
+   hpp_Zeta->SetLineColor(TColor::GetColor("#984ea3"));//purple
    hData_bkg_Zeta->SetLineColor(kBlack);
-   hMC_bkg_Zeta->SetLineColor(kBlue);
-   hMC_Zeta_gen->SetLineColor(kBlack);
-   hMC_bkg_Zeta_gen->SetLineColor(kBlack);
-   hMC_Zeta_gen0Sub->SetLineColor(kRed);
+   hMC_bkg_Zeta->SetLineColor(TColor::GetColor("#377eb8"));//blue
+   hMC_Zeta_gen->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_bkg_Zeta_gen->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_Zeta_gen0Sub->SetLineColor(TColor::GetColor("#4daf4a"));//green
 
 
    hData_Tracketa->Scale(1./tD_tN);
@@ -274,12 +274,21 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketa_gen->SetLineColor(kBlack);
    hMC_Tracketa_gen0Sub->SetLineColor(kRed);
 
+   hData_Tracketa->SetLineWidth(2);
+   hMC_Tracketa->SetLineWidth(2);
+   hpp_Tracketa->SetLineWidth(2);
+   hData_bkg_Tracketa->SetLineWidth(2);
+   hMC_bkg_Tracketa->SetLineWidth(2);
+   hMC_Tracketa_gen->SetLineWidth(2);
+   hMC_bkg_Tracketa_gen->SetLineWidth(2);
+   hMC_Tracketa_gen0Sub->SetLineWidth(2);
+
    if(TptL==0) TptL=TptL_min;
 
    TLegend leg(0.58,0.78,0.98,0.9);
-   leg.AddEntry(hMC_Zeta_gen ,"Monte Carlo: GEN level","lep");
-   leg.AddEntry(hMC_Zeta ,"Monte Carlo: RECO level","lep");
-   leg.AddEntry(hData_Zeta ,Form("Data: %s",typeofdatatext),"lep");
+   leg.AddEntry(hMC_Zeta_gen ,"Monte Carlo: GEN level","l");
+   leg.AddEntry(hMC_Zeta ,"Monte Carlo: RECO level","l");
+   leg.AddEntry(hData_Zeta ,Form("Data: %s",typeofdatatext),"p");
    leg.SetFillColorAlpha(kWhite,0);
    leg.SetLineColor(kBlack);
    leg.SetLineWidth(1);
@@ -299,12 +308,12 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    pt3->SetTextSize(0.03);
    pt3->SetNDC(kTRUE);
 
-   TLatex *ptN0 = new TLatex(0.1,0.97,Form("Signal N_{MC}^{Z} = %.1f, N_{Data}^{Z} = %.1f",tM_tN,tD_tN));
+   TLatex *ptN0 = new TLatex(0.3,0.97,Form("Signal N_{MC}^{Z} = %.1f, N_{Data}^{Z} = %.1f",tM_tN,tD_tN));
    ptN0->SetTextFont(42);
    ptN0->SetTextSize(0.03);
    ptN0->SetNDC(kTRUE);
 
-   TLatex *ptNb = new TLatex(0.1,0.97,Form("Background N_{MC}^{Z} = %.1f, N_{Data}^{Z} = %.1f",tMb_tN,tDb_tN));
+   TLatex *ptNb = new TLatex(0.3,0.97,Form("Background N_{MC}^{Z} = %.1f, N_{Data}^{Z} = %.1f",tMb_tN,tDb_tN));
    ptNb->SetTextFont(42);
    ptNb->SetTextSize(0.03);
    ptNb->SetNDC(kTRUE);
@@ -319,11 +328,11 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    double max3 = hData_Zeta->GetMaximum();
    
    if(max1<max2 && max3<max2) hMC_Zeta->Draw("hist");
-   else if(max1<max3 && max2<max3) hData_Zeta->Draw("ep");
+   else if(max1<max3 && max2<max3) hData_Zeta->Draw();
    else hMC_Zeta_gen->Draw("hist");
    hMC_Zeta_gen->Draw("hist same");
    hMC_Zeta->Draw("hist same");
-   hData_Zeta->Draw("ep same");
+   hData_Zeta->Draw("same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
@@ -353,11 +362,11 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    max3 = hData_bkg_Zeta->GetMaximum();
    
    if(max1<max2 && max3<max2) hMC_bkg_Zeta->Draw("hist");
-   else if(max1<max3 && max2<max3) hData_bkg_Zeta->Draw("ep");
+   else if(max1<max3 && max2<max3) hData_bkg_Zeta->Draw();
    else hMC_bkg_Zeta_gen->Draw("hist");
    hMC_bkg_Zeta_gen->Draw("hist same");
    hMC_bkg_Zeta->Draw("hist same");
-   hData_bkg_Zeta->Draw("ep same");
+   hData_bkg_Zeta->Draw("same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
@@ -391,11 +400,11 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    max3 = hData_Zphi->GetMaximum();
    
    if(max1<max2 && max3<max2) hMC_Zphi->Draw("hist");
-   else if(max1<max3 && max2<max3) hData_Zphi->Draw("ep");
+   else if(max1<max3 && max2<max3) hData_Zphi->Draw();
    else hMC_Zphi_gen->Draw("hist");
    hMC_Zphi_gen->Draw("hist same");
    hMC_Zphi->Draw("hist same");
-   hData_Zphi->Draw("ep same");
+   hData_Zphi->Draw("same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
@@ -425,11 +434,11 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    max3 = hData_bkg_Zphi->GetMaximum();
    
    if(max1<max2 && max3<max2) hMC_bkg_Zphi->Draw("hist");
-   else if(max1<max3 && max2<max3) hData_bkg_Zphi->Draw("ep");
+   else if(max1<max3 && max2<max3) hData_bkg_Zphi->Draw();
    else hMC_bkg_Zphi_gen->Draw("hist");
    hMC_bkg_Zphi_gen->Draw("hist same");
    hMC_bkg_Zphi->Draw("hist same");
-   hData_bkg_Zphi->Draw("ep same");
+   hData_bkg_Zphi->Draw("same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
@@ -465,11 +474,11 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    max3 = hData_Tracketa->GetMaximum();
    
    if(max1<max2 && max3<max2) hMC_Tracketa->Draw("hist");
-   else if(max1<max3 && max2<max3) hData_Tracketa->Draw("ep");
+   else if(max1<max3 && max2<max3) hData_Tracketa->Draw();
    else hMC_Tracketa_gen->Draw("hist");
    hMC_Tracketa_gen->Draw("hist same");
    hMC_Tracketa->Draw("hist same");
-   hData_Tracketa->Draw("ep same");
+   hData_Tracketa->Draw("same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
@@ -499,11 +508,11 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    max3 = hData_bkg_Tracketa->GetMaximum();
    
    if(max1<max2 && max3<max2) hMC_bkg_Tracketa->Draw("hist");
-   else if(max1<max3 && max2<max3) hData_bkg_Tracketa->Draw("ep");
+   else if(max1<max3 && max2<max3) hData_bkg_Tracketa->Draw();
    else hMC_bkg_Tracketa_gen->Draw("hist");
    hMC_bkg_Tracketa_gen->Draw("hist same");
    hMC_bkg_Tracketa->Draw("hist same");
-   hData_bkg_Tracketa->Draw("ep same");
+   hData_bkg_Tracketa->Draw("same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
@@ -537,11 +546,11 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    max3 = hData_Trackphi->GetMaximum();
    
    if(max1<max2 && max3<max2) hMC_Trackphi->Draw("hist");
-   else if(max1<max3 && max2<max3) hData_Trackphi->Draw("ep");
+   else if(max1<max3 && max2<max3) hData_Trackphi->Draw();
    else hMC_Trackphi_gen->Draw("hist");
    hMC_Trackphi_gen->Draw("hist same");
    hMC_Trackphi->Draw("hist same");
-   hData_Trackphi->Draw("ep same");
+   hData_Trackphi->Draw("same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
@@ -571,11 +580,11 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    max3 = hData_bkg_Trackphi->GetMaximum();
    
    if(max1<max2 && max3<max2) hMC_bkg_Trackphi->Draw("hist");
-   else if(max1<max3 && max2<max3) hData_bkg_Trackphi->Draw("ep");
+   else if(max1<max3 && max2<max3) hData_bkg_Trackphi->Draw();
    else hMC_bkg_Trackphi_gen->Draw("hist");
    hMC_bkg_Trackphi_gen->Draw("hist same");
    hMC_bkg_Trackphi->Draw("hist same");
-   hData_bkg_Trackphi->Draw("ep same");
+   hData_bkg_Trackphi->Draw("same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
