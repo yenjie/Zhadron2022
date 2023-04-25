@@ -333,7 +333,7 @@ std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<doub
 
 std::string InfoString(std::string Info)
 {
-   return Info;
+   return "\"" + Info + "\"";
 }
 
 std::string InfoString(char *Info)
@@ -370,12 +370,12 @@ std::string InfoString(bool Info)
 std::string InfoString(std::vector<std::string> Info)
 {
    if(Info.size() == 0)
-      return "";
+      return "{}";
 
-   std::string Result = "";
-   Result = Info[0];
+   std::string Result = "{" + InfoString(Info[0]);
    for(int i = 1; i < (int)Info.size(); i++)
-      Result = Result + "," + Info[i];
+      Result = Result + "," + InfoString(Info[i]);
+   Result = Result + "}";
 
    return Result;
 }

@@ -210,9 +210,11 @@ int main(int argc, char *argv[])
    InfoTree.Branch("Value", &Value);
 
    time_t CurrentTime = time(NULL);
+   string StringTime = ctime(&CurrentTime);
+   replace(StringTime.begin(), StringTime.end(), '\n', ' ');
 
    Key = "Version";                 Value = InfoString(Version);                 InfoTree.Fill();
-   Key = "CurrentTime";             Value = InfoString(ctime(&CurrentTime));     InfoTree.Fill();
+   Key = "CurrentTime";             Value = InfoString(StringTime);              InfoTree.Fill();
    Key = "Input";                   Value = InfoString(InputFileNames);          InfoTree.Fill();
    Key = "Output";                  Value = InfoString(OutputFileName);          InfoTree.Fill();
    Key = "DoGenLevel";              Value = InfoString(DoGenLevel);              InfoTree.Fill();
