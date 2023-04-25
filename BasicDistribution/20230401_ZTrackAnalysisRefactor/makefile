@@ -65,3 +65,10 @@ CheckSubtract: ExecuteCheckSubtract
 ExecuteCheckSubtract: ZcheckSubtract.cpp
 	g++ ZcheckSubtract.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o ExecuteCheckSubtract `root-config --cflags --libs` -std=c++17
+
+CheckBasic: ExecuteZcheckBasic
+	./ExecuteZcheckBasic
+
+ExecuteZcheckBasic: ZcheckBasic.cpp
+	g++ ZcheckBasic.cpp -I. -I$(ProjectBase)/CommonCode/include \
+		-o ExecuteZcheckBasic `root-config --cflags --libs` -std=c++17
