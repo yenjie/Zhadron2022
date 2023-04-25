@@ -61,9 +61,13 @@ public:
    double JetDEta;
    double JetDPhi;
    bool JetMuTagged;
+   double RefPT;
+   double RefDEta;
+   double RefDPhi;
 public:
-   JetRecord(double pt = -1, double rawpt = -1, double deta = -1, double dphi = -1, bool mutagged = false)
-      : JetPT(pt), JetRawPT(rawpt), JetDEta(deta), JetDPhi(dphi), JetMuTagged(mutagged)
+   JetRecord(double pt = -1, double rawpt = -1, double deta = -1, double dphi = -1, bool mutagged = false, double refpt = -1, double refdeta = -1, double refdphi = -1)
+      : JetPT(pt), JetRawPT(rawpt), JetDEta(deta), JetDPhi(dphi), JetMuTagged(mutagged),
+      RefPT(refpt), RefDEta(refdeta), RefDPhi(refdphi)
    {
    }
    bool operator <(const JetRecord &other) const
@@ -78,6 +82,12 @@ public:
       if(JetDPhi > other.JetDPhi)   return false;
       if(JetMuTagged < other.JetMuTagged)   return true;
       if(JetMuTagged > other.JetMuTagged)   return false;
+      if(RefPT < other.RefPT)   return true;
+      if(RefPT > other.RefPT)   return false;
+      if(RefDEta < other.RefDEta)   return true;
+      if(RefDEta > other.RefDEta)   return false;
+      if(RefDPhi < other.RefDPhi)   return true;
+      if(RefDPhi > other.RefDPhi)   return false;
       return false;
    }
    bool operator >(const JetRecord &other) const
@@ -570,6 +580,9 @@ int main(int argc, char *argv[])
                   double JetEta = MSignalJet.JetEta[iJ];
                   double JetPhi = MSignalJet.JetPhi[iJ];
                   double JetPT  = JEC.GetCorrectedPT();
+                  double RefEta = MSignalJet.RefEta[iJ];
+                  double RefPhi = MSignalJet.RefPhi[iJ];
+                  double RefPT  = MSignalJet.RefPT[iJ];
 
                   if(JetEta < -2 || JetEta > 2)
                      continue;
@@ -598,8 +611,10 @@ int main(int argc, char *argv[])
 
                   double deltaEta = JetEta - ZEta;
                   double deltaPhi = DeltaPhi(JetPhi, ZPhi);
+                  double refDeltaEta = RefEta - ZEta;
+                  double refDeltaPhi = DeltaPhi(RefPhi, ZPhi);
 
-                  JetRecord ThisJet(JetPT, MSignalJet.JetRawPT[iJ], deltaEta, deltaPhi, MuTagged);
+                  JetRecord ThisJet(JetPT, MSignalJet.JetRawPT[iJ], deltaEta, deltaPhi, MuTagged, RefPT, refDeltaEta, refDeltaPhi);
 
                   Jets.push_back(ThisJet);
 
@@ -616,6 +631,9 @@ int main(int argc, char *argv[])
                   MZHadron.jetDeta->push_back(Jets[iJ].JetDEta);
                   MZHadron.jetDphi->push_back(Jets[iJ].JetDPhi);
                   MZHadron.jetMuTagged->push_back(Jets[iJ].JetMuTagged);
+                  MZHadron.jetRefPt->push_back(Jets[iJ].RefPT);
+                  MZHadron.jetRefDeta->push_back(Jets[iJ].RefDEta);
+                  MZHadron.jetRefDphi->push_back(Jets[iJ].RefDPhi);
                }
 
                MZHadron.maxOppositeJet12Pt   = MaxJet12.JetPT;
@@ -630,6 +648,22 @@ int main(int argc, char *argv[])
                MZHadron.maxOppositeJet78Pt   = MaxJet78.JetPT;
                MZHadron.maxOppositeJet78DEta = MaxJet78.JetDEta;
                MZHadron.maxOppositeJet78DPhi = MaxJet78.JetDPhi;
+
+               // Now gen jets if there are any
+               if(DoGenLevel == true)
+               {
+                  for(int iJ = 0; iJ < MSignalJet.GenCount; iJ++)
+                  {
+                     if(MSignalJet.GenEta[iJ] < -2 || MSignalJet.GenEta[iJ] > 2)
+                        continue;
+                     if(MSignalJet.GenPT[iJ] < MinJetPT - 5)   // reserve some margins for gen jets just in case
+                        continue;
+
+                     MZHadron.genJetPt->push_back(MSignalJet.GenPT[iJ]);
+                     MZHadron.genJetEta->push_back(MSignalJet.GenEta[iJ]);
+                     MZHadron.genJetPhi->push_back(MSignalJet.GenPhi[iJ]);
+                  }
+               }
             }
 
             if(GoodRecoZ == true && DoExtraAxes == true)
