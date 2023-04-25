@@ -2985,9 +2985,9 @@ int main(int argc, char *argv[]){
    ZtrackDraw_single(40, 20, 2000,  0, 90,  5,    7);
    ZtrackDraw_single(40, 20, 2000,  0, 90,  7,   10);
 
-   ZtrackDraw_single(40, 20, 2000,  0, 30,  1,    2);
-   ZtrackDraw_single(40, 20, 2000,  0, 30,  2,    5);
-   ZtrackDraw_single(40, 20, 2000,  0, 30,  5,   10);
+   //ZtrackDraw_single(40, 20, 2000,  0, 30,  1,    2);
+   //ZtrackDraw_single(40, 20, 2000,  0, 30,  2,    5);
+   //ZtrackDraw_single(40, 20, 2000,  0, 30,  5,   10);
 
    ZtrackDraw_single(40, 20, 2000,  0, 30,  4,    5);
    ZtrackDraw_single(40, 20, 2000,  0, 30,  5,    7);
