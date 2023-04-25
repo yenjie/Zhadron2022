@@ -21,17 +21,17 @@ TestRun: Execute
 
 TestRunMC: Execute
 	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_114.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --DoGenCorrelation false --IsData false --IsPP false --MinZPT 5 --DoExtraAxes true \
+		--Output /tmp/$(USER)/TestMC.root --Fraction 0.1 --DoGenLevel true --DoGenCorrelation false --IsData false --IsPP false --MinZPT 5 --DoExtraAxes true \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/
 
 TestRunGen: Execute
 	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_114.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false --MinZPT 5 \
-		--DoTrackEfficiency false
+		--Output /tmp/$(USER)/TestGenMC.root --Fraction 0.1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false --MinZPT 5 --DoExtraAxes true \
+		--DoTrackEfficiency false --GenCorrelationCharged true
 
 TestRunGenPP: Execute
-	./Execute --Input $(PPSignalMC)/HiForestAOD_14.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP true --MinZPT 5 \
+	./Execute --Input $(PPSignalMC)/HiForestAOD_12.root \
+		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP true --MinZPT 5 \
 		--DoTrackEfficiency false
 
 TestRunBackground: Execute
@@ -44,8 +44,8 @@ TestRunBackground: Execute
 
 TestRunPP: Execute
 	./Execute --Input $(PPSignalMC)/HiForestAOD_12.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --IsData false --IsPP true --MinZPT 5 \
-		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/
+		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --IsData false --IsPP true --MinZPT 5 --DoSumET false \
+		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --PFTree "pfcandAnalyzer/pfTree"
 
 TestRunBackgroundSimple: Execute
 	./Execute --Input $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_14.root \
@@ -81,9 +81,11 @@ PrepareToRun:
 PrepareToRunMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		10 LogMC_5/ /eos/cms/store/group/phys_heavyions/pchou/OutputMC_5/ \
+		2 LogMC/ /eos/cms/store/group/phys_heavyions/pchou/OutputMC_5/ \
 		--Fraction 1 --DoGenLevel true --IsData false --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
-		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/
+		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
+		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt
 
 PrepareToRunGenMC:
 	bash PrepareInput.sh \
@@ -159,3 +161,11 @@ PrepareToRunRandomMCGenBackground:
  		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
 		--DoBackground true --HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5
+
+TestRunMCGenBackground: Execute
+	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_10.root \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --DoGenLevel true --IsData false --IsPP false \
+		--DoBackground true --DoGenCorrelation true \
+		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root \
+		--HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET true \
+		--DoTrackEfficiency false
