@@ -242,6 +242,14 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zeta_gen->SetLineColor(TColor::GetColor("#e41a1c"));//red
    hMC_Zeta_gen0Sub->SetLineColor(TColor::GetColor("#4daf4a"));//green
 
+   hData_Zeta->SetLineWidth(2);
+   hMC_Zeta->SetLineWidth(2);
+   hpp_Zeta->SetLineWidth(2);
+   hData_bkg_Zeta->SetLineWidth(2);
+   hMC_bkg_Zeta->SetLineWidth(2);
+   hMC_Zeta_gen->SetLineWidth(2);
+   hMC_bkg_Zeta_gen->SetLineWidth(2);
+   hMC_Zeta_gen0Sub->SetLineWidth(2);
 
    hData_Tracketa->Scale(1./tD_tN);
    hMC_Tracketa->Scale(1./tM_tN);
@@ -266,13 +274,13 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hData_bkg_Tracketa->SetMarkerColor(kBlack);
 
    hData_Tracketa->SetLineColor(kBlack);
-   hMC_Tracketa->SetLineColor(kBlue);
-   hpp_Tracketa->SetLineColor(kViolet);
+   hMC_Tracketa->SetLineColor(TColor::GetColor("#377eb8"));//blue
+   hpp_Tracketa->SetLineColor(TColor::GetColor("#984ea3"));//purple
    hData_bkg_Tracketa->SetLineColor(kBlack);
-   hMC_bkg_Tracketa->SetLineColor(kBlue);
-   hMC_Tracketa_gen->SetLineColor(kBlack);
-   hMC_bkg_Tracketa_gen->SetLineColor(kBlack);
-   hMC_Tracketa_gen0Sub->SetLineColor(kRed);
+   hMC_bkg_Tracketa->SetLineColor(TColor::GetColor("#377eb8"));//blue
+   hMC_Tracketa_gen->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_bkg_Tracketa_gen->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_Tracketa_gen0Sub->SetLineColor(TColor::GetColor("#4daf4a"));//green
 
    hData_Tracketa->SetLineWidth(2);
    hMC_Tracketa->SetLineWidth(2);
@@ -282,6 +290,86 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Tracketa_gen->SetLineWidth(2);
    hMC_bkg_Tracketa_gen->SetLineWidth(2);
    hMC_Tracketa_gen0Sub->SetLineWidth(2);
+
+   hData_Zphi->Scale(1./tD_tN);
+   hMC_Zphi->Scale(1./tM_tN);
+   hpp_Zphi->Scale(1./tpM_tN);
+   hData_bkg_Zphi->Scale(1./tDb_tN);
+   hMC_bkg_Zphi->Scale(1./tMb_tN);
+   hMC_Zphi_gen->Scale(1./tM_tNgen);
+   hMC_bkg_Zphi_gen->Scale(1./tMb_tNgen);
+   hMC_Zphi_gen0Sub->Scale(1./tM_tNgen0Sub);
+
+
+   hData_Zphi->SetMarkerStyle(24);
+   hMC_Zphi->SetMarkerStyle(24);
+   hpp_Zphi->SetMarkerStyle(24);
+   hData_bkg_Zphi->SetMarkerStyle(24);
+   hMC_bkg_Zphi->SetMarkerStyle(24);
+   hMC_Zphi_gen->SetMarkerStyle(24);
+   hMC_bkg_Zphi_gen->SetMarkerStyle(24);
+   hMC_Zphi_gen0Sub->SetMarkerStyle(24);
+
+   hData_Zphi->SetMarkerColor(kBlack);
+   hData_bkg_Zphi->SetMarkerColor(kBlack);
+
+   hData_Zphi->SetLineColor(kBlack);
+   hMC_Zphi->SetLineColor(TColor::GetColor("#377eb8"));//blue
+   hpp_Zphi->SetLineColor(TColor::GetColor("#984ea3"));//purple
+   hData_bkg_Zphi->SetLineColor(kBlack);
+   hMC_bkg_Zphi->SetLineColor(TColor::GetColor("#377eb8"));//blue
+   hMC_Zphi_gen->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_bkg_Zphi_gen->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_Zphi_gen0Sub->SetLineColor(TColor::GetColor("#4daf4a"));//green
+
+   hData_Zphi->SetLineWidth(2);
+   hMC_Zphi->SetLineWidth(2);
+   hpp_Zphi->SetLineWidth(2);
+   hData_bkg_Zphi->SetLineWidth(2);
+   hMC_bkg_Zphi->SetLineWidth(2);
+   hMC_Zphi_gen->SetLineWidth(2);
+   hMC_bkg_Zphi_gen->SetLineWidth(2);
+   hMC_Zphi_gen0Sub->SetLineWidth(2);
+
+   hData_Trackphi->Scale(1./tD_tN);
+   hMC_Trackphi->Scale(1./tM_tN);
+   hpp_Trackphi->Scale(1./tpM_tN);
+   hData_bkg_Trackphi->Scale(1./tDb_tN);
+   hMC_bkg_Trackphi->Scale(1./tMb_tN);
+   hMC_Trackphi_gen->Scale(1./tM_tNgen);
+   hMC_bkg_Trackphi_gen->Scale(1./tMb_tNgen);
+   hMC_Trackphi_gen0Sub->Scale(1./tM_tNgen0Sub);
+
+
+   hData_Trackphi->SetMarkerStyle(24);
+   hMC_Trackphi->SetMarkerStyle(24);
+   hpp_Trackphi->SetMarkerStyle(24);
+   hData_bkg_Trackphi->SetMarkerStyle(24);
+   hMC_bkg_Trackphi->SetMarkerStyle(24);
+   hMC_Trackphi_gen->SetMarkerStyle(24);
+   hMC_bkg_Trackphi_gen->SetMarkerStyle(24);
+   hMC_Trackphi_gen0Sub->SetMarkerStyle(24);
+
+   hData_Trackphi->SetMarkerColor(kBlack);
+   hData_bkg_Trackphi->SetMarkerColor(kBlack);
+
+   hData_Trackphi->SetLineColor(kBlack);
+   hMC_Trackphi->SetLineColor(TColor::GetColor("#377eb8"));//blue
+   hpp_Trackphi->SetLineColor(TColor::GetColor("#984ea3"));//purple
+   hData_bkg_Trackphi->SetLineColor(kBlack);
+   hMC_bkg_Trackphi->SetLineColor(TColor::GetColor("#377eb8"));//blue
+   hMC_Trackphi_gen->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_bkg_Trackphi_gen->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_Trackphi_gen0Sub->SetLineColor(TColor::GetColor("#4daf4a"));//green
+
+   hData_Trackphi->SetLineWidth(2);
+   hMC_Trackphi->SetLineWidth(2);
+   hpp_Trackphi->SetLineWidth(2);
+   hData_bkg_Trackphi->SetLineWidth(2);
+   hMC_bkg_Trackphi->SetLineWidth(2);
+   hMC_Trackphi_gen->SetLineWidth(2);
+   hMC_bkg_Trackphi_gen->SetLineWidth(2);
+   hMC_Trackphi_gen0Sub->SetLineWidth(2);
 
    if(TptL==0) TptL=TptL_min;
 
