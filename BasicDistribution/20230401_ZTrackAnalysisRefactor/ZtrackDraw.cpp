@@ -673,6 +673,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_eta->Draw("same");
    hData_eta->Draw("same");
 
+   if(max1<max2) max1=max2;
+
    hMC_eta->SetXTitle("Signal |#Delta#eta_{Z,track}|");
    hData_eta->SetXTitle("Signal |#Delta#eta_{Z,track}|");
 
@@ -681,9 +683,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt2->Draw();
    pt3->Draw();
    hMC_eta->SetMinimum(0);
-   hMC_eta->SetMaximum(3.0/binnum); 
+   hMC_eta->SetMaximum(1.6*max1); 
    hData_eta->SetMinimum(0);
-   hData_eta->SetMaximum(3.0/binnum); 
+   hData_eta->SetMaximum(1.6*max1); 
 
    ptN0->Draw();
 
