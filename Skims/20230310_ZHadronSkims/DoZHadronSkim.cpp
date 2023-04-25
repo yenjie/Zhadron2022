@@ -200,6 +200,39 @@ int main(int argc, char *argv[])
 
    TNtuple NTuple("NTuple", "Z tree", "mass:pt:eta:phi");
    TTree Tree("Tree", "Tree for ZHadron analysis, Version 2");
+   TTree InfoTree("InfoTree", "Information");
+
+   string Key, Value;
+   InfoTree.Branch("Key", &Key);
+   InfoTree.Branch("Value", &Value);
+
+   Key = "Input";   Value = InfoString(InputFileNames);   InfoTree.Fill();
+   Key = "Output";   Value = InfoString(OutputFileName);   InfoTree.Fill();
+   Key = "DoGenLevel";   Value = InfoString(DoGenLevel);   InfoTree.Fill();
+   Key = "Fraction";   Value = InfoString(Fraction);   InfoTree.Fill();
+   Key = "MinZPT";   Value = InfoString(MinZPT);   InfoTree.Fill();
+   Key = "MinTrackPT";   Value = InfoString(MinTrackPT);   InfoTree.Fill();
+   Key = "IsData";   Value = InfoString(IsData);   InfoTree.Fill();
+   Key = "IsPP";   Value = InfoString(IsPP);   InfoTree.Fill();
+   Key = "DoGenCorrelation";   Value = InfoString(DoGenCorrelation);   InfoTree.Fill();
+   Key = "GenCorrelationCharged";   Value = InfoString(GenCorrelationCharged);   InfoTree.Fill();
+   Key = "DoBackground";   Value = InfoString(DoBackground);   InfoTree.Fill();
+   Key = "DoSumET";   Value = InfoString(DoSumET);   InfoTree.Fill();
+   Key = "DoExtraAxes";   Value = InfoString(DoExtraAxes);   InfoTree.Fill();
+   Key = "MuonVeto";   Value = InfoString(MuonVeto);   InfoTree.Fill();
+   Key = "DoJet";   Value = InfoString(DoJet);   InfoTree.Fill();
+   Key = "JECFiles";   Value = InfoString(JECFiles);   InfoTree.Fill();
+   Key = "JetTreeName";   Value = InfoString(JetTreeName);   InfoTree.Fill();
+   Key = "MinJetPT";   Value = InfoString(MinJetPT);   InfoTree.Fill();
+   Key = "DoTrackEfficiency";   Value = InfoString(DoTrackEfficiency);   InfoTree.Fill();
+   Key = "TrackEfficiencyPath";   Value = InfoString(TrackEfficiencyPath);   InfoTree.Fill();
+   Key = "PFTreeName";   Value = InfoString(PFTreeName);   InfoTree.Fill();
+   Key = "Background";   Value = InfoString(BackgroundFileNames);   InfoTree.Fill();
+   Key = "VZTolerance";   Value = InfoString(VZTolerance);   InfoTree.Fill();
+   Key = "HFShift";   Value = InfoString(HFShift);   InfoTree.Fill();
+   Key = "Tolerance";   Value = InfoString(HFTolerance);   InfoTree.Fill();
+   Key = "ToleranceFraction";   Value = InfoString(HFToleranceFraction);   InfoTree.Fill();
+   Key = "Oversample";   Value = InfoString(Oversample);   InfoTree.Fill();
 
    TH2D H2D("H2D", "", 100, -6, 6, 100, -M_PI, M_PI);
 
@@ -836,6 +869,7 @@ int main(int argc, char *argv[])
    H2D.Write();
    NTuple.Write();
    Tree.Write();
+   InfoTree.Write();
 
    // gROOT->GetListOfFiles()->Remove(&OutputFile);
    OutputFile.Close();
