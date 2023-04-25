@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <ctime>
 using namespace std;
 
 #include "TFile.h"
@@ -98,6 +99,8 @@ public:
 
 int main(int argc, char *argv[])
 {
+   string Version = "V2";
+
    CommandLine CL(argc, argv);
 
    vector<string> InputFileNames = CL.GetStringVector("Input");
@@ -199,13 +202,17 @@ int main(int argc, char *argv[])
    TFile OutputFile(OutputFileName.c_str(), "RECREATE");
 
    TNtuple NTuple("NTuple", "Z tree", "mass:pt:eta:phi");
-   TTree Tree("Tree", "Tree for ZHadron analysis, Version 2");
+   TTree Tree("Tree", Form("Tree for ZHadron analysis, %s", Version.c_str()));
    TTree InfoTree("InfoTree", "Information");
 
    string Key, Value;
    InfoTree.Branch("Key", &Key);
    InfoTree.Branch("Value", &Value);
 
+   time_t CurrentTime = time(NULL);
+
+   Key = "Version";                 Value = InfoString(Version);                 InfoTree.Fill();
+   Key = "CurrentTime";             Value = InfoString(ctime(&CurrentTime));     InfoTree.Fill();
    Key = "Input";                   Value = InfoString(InputFileNames);          InfoTree.Fill();
    Key = "Output";                  Value = InfoString(OutputFileName);          InfoTree.Fill();
    Key = "DoGenLevel";              Value = InfoString(DoGenLevel);              InfoTree.Fill();

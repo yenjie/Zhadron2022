@@ -20,6 +20,7 @@ std::pair<double, double> WTAAxis(std::vector<double> &Eta, std::vector<double> 
 std::pair<double, double> WTAAxisCA(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT);
 std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT);
 std::string InfoString(std::string Info);
+std::string InfoString(char *Info);
 std::string InfoString(int Info);
 std::string InfoString(float Info);
 std::string InfoString(double Info);
@@ -333,6 +334,13 @@ std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<doub
 std::string InfoString(std::string Info)
 {
    return Info;
+}
+
+std::string InfoString(char *Info)
+{
+   if(Info == nullptr)
+      return "";
+   return string(Info);
 }
 
 std::string InfoString(int Info)
