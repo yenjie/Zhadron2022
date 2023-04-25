@@ -199,7 +199,7 @@ int main(int argc, char *argv[])
    TFile OutputFile(OutputFileName.c_str(), "RECREATE");
 
    TNtuple NTuple("NTuple", "Z tree", "mass:pt:eta:phi");
-   TTree Tree("Tree", "Tree for ZHadron analysis, Version 1");
+   TTree Tree("Tree", "Tree for ZHadron analysis, Version 2");
 
    TH2D H2D("H2D", "", 100, -6, 6, 100, -M_PI, M_PI);
 
