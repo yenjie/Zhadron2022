@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 #include <vector>
 #include <map>
 #include <algorithm>
@@ -18,7 +19,13 @@ double FindNPartAverage(int hiBin);
 std::pair<double, double> WTAAxis(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT);
 std::pair<double, double> WTAAxisCA(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT);
 std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT);
-
+std::string InfoString(std::string Info);
+std::string InfoString(char *Info);
+std::string InfoString(int Info);
+std::string InfoString(float Info);
+std::string InfoString(double Info);
+std::string InfoString(bool Info);
+std::string InfoString(std::vector<std::string> Info);
 
 // Function implementations
 
@@ -324,6 +331,53 @@ std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<doub
    return Result;
 }
 
+std::string InfoString(std::string Info)
+{
+   return "\"" + Info + "\"";
+}
 
+std::string InfoString(char *Info)
+{
+   if(Info == nullptr)
+      return "";
+   return string(Info);
+}
+
+std::string InfoString(int Info)
+{
+   return to_string(Info);
+}
+
+std::string InfoString(double Info)
+{
+   return to_string(Info);
+}
+
+std::string InfoString(float Info)
+{
+   return to_string(Info);
+}
+
+std::string InfoString(bool Info)
+{
+   if(Info == false)
+      return "false";
+   if(Info == true)
+      return "true";
+   return "";
+}
+
+std::string InfoString(std::vector<std::string> Info)
+{
+   if(Info.size() == 0)
+      return "{}";
+
+   std::string Result = "{" + InfoString(Info[0]);
+   for(int i = 1; i < (int)Info.size(); i++)
+      Result = Result + "," + InfoString(Info[i]);
+   Result = Result + "}";
+
+   return Result;
+}
 
 

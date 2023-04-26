@@ -536,7 +536,14 @@ public:
    std::vector<double> *jetPt;
    std::vector<double> *jetDeta;
    std::vector<double> *jetDphi;
+   std::vector<double> *jetRefPt;
+   std::vector<double> *jetRefDeta;
+   std::vector<double> *jetRefDphi;
    std::vector<bool> *jetMuTagged;
+   
+   std::vector<double> *genJetPt;
+   std::vector<double> *genJetEta;
+   std::vector<double> *genJetPhi;
 
    double maxOppositeDEta;
    double maxOppositeDPhi;

@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <ctime>
 using namespace std;
 
 #include "TFile.h"
@@ -61,9 +62,13 @@ public:
    double JetDEta;
    double JetDPhi;
    bool JetMuTagged;
+   double RefPT;
+   double RefDEta;
+   double RefDPhi;
 public:
-   JetRecord(double pt = -1, double rawpt = -1, double deta = -1, double dphi = -1, bool mutagged = false)
-      : JetPT(pt), JetRawPT(rawpt), JetDEta(deta), JetDPhi(dphi), JetMuTagged(mutagged)
+   JetRecord(double pt = -1, double rawpt = -1, double deta = -1, double dphi = -1, bool mutagged = false, double refpt = -1, double refdeta = -1, double refdphi = -1)
+      : JetPT(pt), JetRawPT(rawpt), JetDEta(deta), JetDPhi(dphi), JetMuTagged(mutagged),
+      RefPT(refpt), RefDEta(refdeta), RefDPhi(refdphi)
    {
    }
    bool operator <(const JetRecord &other) const
@@ -78,6 +83,12 @@ public:
       if(JetDPhi > other.JetDPhi)   return false;
       if(JetMuTagged < other.JetMuTagged)   return true;
       if(JetMuTagged > other.JetMuTagged)   return false;
+      if(RefPT < other.RefPT)   return true;
+      if(RefPT > other.RefPT)   return false;
+      if(RefDEta < other.RefDEta)   return true;
+      if(RefDEta > other.RefDEta)   return false;
+      if(RefDPhi < other.RefDPhi)   return true;
+      if(RefDPhi > other.RefDPhi)   return false;
       return false;
    }
    bool operator >(const JetRecord &other) const
@@ -88,6 +99,8 @@ public:
 
 int main(int argc, char *argv[])
 {
+   string Version = "V2";
+
    CommandLine CL(argc, argv);
 
    vector<string> InputFileNames = CL.GetStringVector("Input");
@@ -99,6 +112,7 @@ int main(int argc, char *argv[])
    bool IsData                   = CL.GetBool("IsData", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
    bool DoGenCorrelation         = CL.GetBool("DoGenCorrelation", false);
+   bool GenCorrelationCharged    = CL.GetBool("GenCorrelationCharged", false);
    bool DoBackground             = CL.GetBool("DoBackground", false);
    bool DoSumET                  = CL.GetBool("DoSumET", true);
    bool DoExtraAxes              = CL.GetBool("DoExtraAxes", true);
@@ -188,7 +202,46 @@ int main(int argc, char *argv[])
    TFile OutputFile(OutputFileName.c_str(), "RECREATE");
 
    TNtuple NTuple("NTuple", "Z tree", "mass:pt:eta:phi");
-   TTree Tree("Tree", "Tree for ZHadron analysis");
+   TTree Tree("Tree", Form("Tree for ZHadron analysis, %s", Version.c_str()));
+   TTree InfoTree("InfoTree", "Information");
+
+   string Key, Value;
+   InfoTree.Branch("Key", &Key);
+   InfoTree.Branch("Value", &Value);
+
+   time_t CurrentTime = time(NULL);
+   string StringTime = ctime(&CurrentTime);
+   replace(StringTime.begin(), StringTime.end(), '\n', ' ');
+
+   Key = "Version";                 Value = InfoString(Version);                 InfoTree.Fill();
+   Key = "CurrentTime";             Value = InfoString(StringTime);              InfoTree.Fill();
+   Key = "Input";                   Value = InfoString(InputFileNames);          InfoTree.Fill();
+   Key = "Output";                  Value = InfoString(OutputFileName);          InfoTree.Fill();
+   Key = "DoGenLevel";              Value = InfoString(DoGenLevel);              InfoTree.Fill();
+   Key = "Fraction";                Value = InfoString(Fraction);                InfoTree.Fill();
+   Key = "MinZPT";                  Value = InfoString(MinZPT);                  InfoTree.Fill();
+   Key = "MinTrackPT";              Value = InfoString(MinTrackPT);              InfoTree.Fill();
+   Key = "IsData";                  Value = InfoString(IsData);                  InfoTree.Fill();
+   Key = "IsPP";                    Value = InfoString(IsPP);                    InfoTree.Fill();
+   Key = "DoGenCorrelation";        Value = InfoString(DoGenCorrelation);        InfoTree.Fill();
+   Key = "GenCorrelationCharged";   Value = InfoString(GenCorrelationCharged);   InfoTree.Fill();
+   Key = "DoBackground";            Value = InfoString(DoBackground);            InfoTree.Fill();
+   Key = "DoSumET";                 Value = InfoString(DoSumET);                 InfoTree.Fill();
+   Key = "DoExtraAxes";             Value = InfoString(DoExtraAxes);             InfoTree.Fill();
+   Key = "MuonVeto";                Value = InfoString(MuonVeto);                InfoTree.Fill();
+   Key = "DoJet";                   Value = InfoString(DoJet);                   InfoTree.Fill();
+   Key = "JECFiles";                Value = InfoString(JECFiles);                InfoTree.Fill();
+   Key = "JetTreeName";             Value = InfoString(JetTreeName);             InfoTree.Fill();
+   Key = "MinJetPT";                Value = InfoString(MinJetPT);                InfoTree.Fill();
+   Key = "DoTrackEfficiency";       Value = InfoString(DoTrackEfficiency);       InfoTree.Fill();
+   Key = "TrackEfficiencyPath";     Value = InfoString(TrackEfficiencyPath);     InfoTree.Fill();
+   Key = "PFTreeName";              Value = InfoString(PFTreeName);              InfoTree.Fill();
+   Key = "Background";              Value = InfoString(BackgroundFileNames);     InfoTree.Fill();
+   Key = "VZTolerance";             Value = InfoString(VZTolerance);             InfoTree.Fill();
+   Key = "HFShift";                 Value = InfoString(HFShift);                 InfoTree.Fill();
+   Key = "Tolerance";               Value = InfoString(HFTolerance);             InfoTree.Fill();
+   Key = "ToleranceFraction";       Value = InfoString(HFToleranceFraction);     InfoTree.Fill();
+   Key = "Oversample";              Value = InfoString(Oversample);              InfoTree.Fill();
 
    TH2D H2D("H2D", "", 100, -6, 6, 100, -M_PI, M_PI);
 
@@ -501,6 +554,8 @@ int main(int argc, char *argv[])
                         continue;
                      if(MGen->DaughterCount->at(itrack) > 0)
                         continue;
+                     if(GenCorrelationCharged == true && MGen->Charge->at(itrack) == 0)
+                        continue;
                   }
               
                   double TrackEta = DoGenCorrelation ? MGen->Eta->at(itrack) : (IsPP ? MTrackPP->trkEta[itrack] : MTrack->TrackEta->at(itrack));
@@ -543,7 +598,7 @@ int main(int argc, char *argv[])
                   MZHadron.subevent->push_back(SubEvent);
 
                   double TrackCorrection = 1;
-                  if(DoTrackEfficiency == true)
+                  if(DoTrackEfficiency == true && DoGenCorrelation == false)
                   {
                      if(IsPP == true)
                         TrackCorrection = TrackEfficiencyPP->getCorrection(TrackPT, TrackEta);
@@ -570,6 +625,9 @@ int main(int argc, char *argv[])
                   double JetEta = MSignalJet.JetEta[iJ];
                   double JetPhi = MSignalJet.JetPhi[iJ];
                   double JetPT  = JEC.GetCorrectedPT();
+                  double RefEta = MSignalJet.RefEta[iJ];
+                  double RefPhi = MSignalJet.RefPhi[iJ];
+                  double RefPT  = MSignalJet.RefPT[iJ];
 
                   if(JetEta < -2 || JetEta > 2)
                      continue;
@@ -598,8 +656,10 @@ int main(int argc, char *argv[])
 
                   double deltaEta = JetEta - ZEta;
                   double deltaPhi = DeltaPhi(JetPhi, ZPhi);
+                  double refDeltaEta = RefEta - ZEta;
+                  double refDeltaPhi = DeltaPhi(RefPhi, ZPhi);
 
-                  JetRecord ThisJet(JetPT, MSignalJet.JetRawPT[iJ], deltaEta, deltaPhi, MuTagged);
+                  JetRecord ThisJet(JetPT, MSignalJet.JetRawPT[iJ], deltaEta, deltaPhi, MuTagged, RefPT, refDeltaEta, refDeltaPhi);
 
                   Jets.push_back(ThisJet);
 
@@ -616,6 +676,9 @@ int main(int argc, char *argv[])
                   MZHadron.jetDeta->push_back(Jets[iJ].JetDEta);
                   MZHadron.jetDphi->push_back(Jets[iJ].JetDPhi);
                   MZHadron.jetMuTagged->push_back(Jets[iJ].JetMuTagged);
+                  MZHadron.jetRefPt->push_back(Jets[iJ].RefPT);
+                  MZHadron.jetRefDeta->push_back(Jets[iJ].RefDEta);
+                  MZHadron.jetRefDphi->push_back(Jets[iJ].RefDPhi);
                }
 
                MZHadron.maxOppositeJet12Pt   = MaxJet12.JetPT;
@@ -630,6 +693,22 @@ int main(int argc, char *argv[])
                MZHadron.maxOppositeJet78Pt   = MaxJet78.JetPT;
                MZHadron.maxOppositeJet78DEta = MaxJet78.JetDEta;
                MZHadron.maxOppositeJet78DPhi = MaxJet78.JetDPhi;
+
+               // Now gen jets if there are any
+               if(DoGenLevel == true)
+               {
+                  for(int iJ = 0; iJ < MSignalJet.GenCount; iJ++)
+                  {
+                     if(MSignalJet.GenEta[iJ] < -2 || MSignalJet.GenEta[iJ] > 2)
+                        continue;
+                     if(MSignalJet.GenPT[iJ] < MinJetPT - 5)   // reserve some margins for gen jets just in case
+                        continue;
+
+                     MZHadron.genJetPt->push_back(MSignalJet.GenPT[iJ]);
+                     MZHadron.genJetEta->push_back(MSignalJet.GenEta[iJ]);
+                     MZHadron.genJetPhi->push_back(MSignalJet.GenPhi[iJ]);
+                  }
+               }
             }
 
             if(GoodRecoZ == true && DoExtraAxes == true)
@@ -799,6 +878,7 @@ int main(int argc, char *argv[])
    H2D.Write();
    NTuple.Write();
    Tree.Write();
+   InfoTree.Write();
 
    // gROOT->GetListOfFiles()->Remove(&OutputFile);
    OutputFile.Close();

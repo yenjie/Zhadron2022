@@ -186,6 +186,15 @@ void SetAlias(TTree *Tree)
    Tree->SetAlias("DPhiChargedWTAMore", "(RawDPhiChargedWTAMore+2*3.1415926535*(RawDPhiChargedWTAMore<-3.1415926535)-2*3.1415926535*(RawDPhiChargedWTAMore>3.1415926535))");
    Tree->SetAlias("DPhiChargedWTAMoreCorr", "(DPhiChargedWTAMore+2*3.14159*(DPhiChargedWTAMore<-1.57159))/3.14159");
    
+   Tree->SetAlias("EtaHardChargedWTA", "(maxOppositeHardChargedWTADEta+zEta[0])");
+   Tree->SetAlias("RawPhiHardChargedWTA", "(maxOppositeHardChargedWTADPhi+zPhi[0])");
+   Tree->SetAlias("PhiHardChargedWTA", "(RawPhiHardChargedWTA+2*3.1415926535*(RawPhiHardChargedWTA<-3.1415926535)-2*3.1415926535*(RawPhiHardChargedWTA>3.1415926535))");
+   Tree->SetAlias("DEtaHardChargedWTA", "(trackDeta-maxOppositeHardChargedWTADEta)");
+   Tree->SetAlias("RawDPhiHardChargedWTA", "(trackDphi-maxOppositeHardChargedWTADPhi)");
+   Tree->SetAlias("DPhiHardChargedWTA", "(RawDPhiHardChargedWTA+2*3.1415926535*(RawDPhiHardChargedWTA<-3.1415926535)-2*3.1415926535*(RawDPhiHardChargedWTA>3.1415926535))");
+   Tree->SetAlias("DPhiHardChargedWTACorr", "(DPhiHardChargedWTA+2*3.14159*(DPhiHardChargedWTA<-1.57159))/3.14159");
+   
+   
    Tree->SetAlias("EtaMax", "(maxOppositeDEta+zEta[0])");
    Tree->SetAlias("RawPhiMax", "(maxOppositeDPhi+zPhi[0])");
    Tree->SetAlias("PhiMax", "(RawPhiMax+2*3.1415926535*(RawPhiMax<-3.1415926535)-2*3.1415926535*(RawPhiMax>3.1415926535))");

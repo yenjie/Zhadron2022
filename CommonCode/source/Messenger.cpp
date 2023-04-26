@@ -1669,7 +1669,14 @@ ZHadronMessenger::~ZHadronMessenger()
       delete jetPt;
       delete jetDeta;
       delete jetDphi;
+      delete jetRefPt;
+      delete jetRefDeta;
+      delete jetRefDphi;
       delete jetMuTagged;
+      
+      delete genJetPt;
+      delete genJetEta;
+      delete genJetPhi;
 
       delete muEta1;
       delete muEta2;
@@ -1736,7 +1743,14 @@ bool ZHadronMessenger::Initialize()
    jetPt = nullptr;
    jetDeta = nullptr;
    jetDphi = nullptr;
+   jetRefPt = nullptr;
+   jetRefDeta = nullptr;
+   jetRefDphi = nullptr;
    jetMuTagged = nullptr;
+   
+   genJetPt = nullptr;
+   genJetEta = nullptr;
+   genJetPhi = nullptr;
 
    muEta1 = nullptr;
    muEta2 = nullptr;
@@ -1787,7 +1801,14 @@ bool ZHadronMessenger::Initialize()
    Tree->SetBranchAddress("jetPt", jetPt);
    Tree->SetBranchAddress("jetDeta", jetDeta);
    Tree->SetBranchAddress("jetDphi", jetDphi);
+   Tree->SetBranchAddress("jetRefPt", jetRefPt);
+   Tree->SetBranchAddress("jetRefDeta", jetRefDeta);
+   Tree->SetBranchAddress("jetRefDphi", jetRefDphi);
    Tree->SetBranchAddress("jetMuTagged", jetMuTagged);
+   
+   Tree->SetBranchAddress("genJetPt", genJetPt);
+   Tree->SetBranchAddress("genJetEta", genJetEta);
+   Tree->SetBranchAddress("genJetPhi", genJetPhi);
 
    Tree->SetBranchAddress("muEta1", muEta1);
    Tree->SetBranchAddress("muEta2", muEta2);
@@ -1854,7 +1875,14 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    jetPt = new std::vector<double>();
    jetDeta = new std::vector<double>();
    jetDphi = new std::vector<double>();
+   jetRefPt = new std::vector<double>();
+   jetRefDeta = new std::vector<double>();
+   jetRefDphi = new std::vector<double>();
    jetMuTagged = new std::vector<bool>();
+   
+   genJetPt = new std::vector<double>();
+   genJetEta = new std::vector<double>();
+   genJetPhi = new std::vector<double>();
 
    muEta1 = new std::vector<double>();
    muEta2 = new std::vector<double>();
@@ -1924,8 +1952,15 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("jetPt",                  &jetPt);
    Tree->Branch("jetDeta",                &jetDeta);
    Tree->Branch("jetDphi",                &jetDphi);
+   Tree->Branch("jetRefPt",               &jetRefPt);
+   Tree->Branch("jetRefDeta",             &jetRefDeta);
+   Tree->Branch("jetRefDphi",             &jetRefDphi);
    Tree->Branch("jetMuTagged",            &jetMuTagged);
-
+   
+   Tree->Branch("genJetPt",               &genJetPt);
+   Tree->Branch("genJetEta",              &genJetEta);
+   Tree->Branch("genJetPhi",              &genJetPhi);
+ 
    Tree->Branch("maxOppositeDEta",        &maxOppositeDEta);
    Tree->Branch("maxOppositeDPhi",        &maxOppositeDPhi);
    Tree->Branch("maxDEta",                &maxDEta);
@@ -2020,7 +2055,14 @@ void ZHadronMessenger::Clear()
    jetPt->clear();
    jetDeta->clear();
    jetDphi->clear();
+   jetRefPt->clear();
+   jetRefDeta->clear();
+   jetRefDphi->clear();
    jetMuTagged->clear();
+   
+   genJetPt->clear();
+   genJetEta->clear();
+   genJetPhi->clear();
 
    maxOppositeDEta = 0;
    maxOppositeDPhi = 0;
