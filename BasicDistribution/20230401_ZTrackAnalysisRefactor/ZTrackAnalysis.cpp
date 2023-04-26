@@ -128,10 +128,12 @@ int main(int argc, char *argv[])
    vector<TH1D *>           HZPT;
    vector<TH1D *>           HZEta;
    vector<TH1D *>           HZPhi;
+   vector<TH2D *>           HZEtaPhi;
    vector<TH1D *>           HZMass;
    vector<TH1D *>           HTrackPT;
    vector<TH1D *>           HTrackEta;
    vector<TH1D *>           HTrackPhi;
+   vector<TH2D *>           HTrackEtaPhi;
    vector<TH1D *>           HTrackMuonDEta;
    vector<TH1D *>           HTrackMuonDPhi;
    vector<TH2D *>           HTrackMuonDEtaDPhi;
@@ -178,10 +180,12 @@ int main(int argc, char *argv[])
       HZPT.push_back(new TH1D("HZPT", "Z candidate PT", 100, 0, 200));
       HZEta.push_back(new TH1D("HZEta", "Z candidate eta", 100, -3.2, 3.2));
       HZPhi.push_back(new TH1D("HZPhi", "Z candidate phi", 100, -M_PI, M_PI));
+      HZEtaPhi.push_back(new TH1D("HZEtaPhi", "Z candidate eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       HZMass.push_back(new TH1D("HZMass", "Z candidate mass", 100, 0, 150));
       HTrackPT.push_back(new TH1D("HTrackPT", "Track PT", 100, 0, 200));
       HTrackEta.push_back(new TH1D("HTrackEta", "Track eta", 100, -3.2, 3.2));
       HTrackPhi.push_back(new TH1D("HTrackPhi", "Track phi", 100, -M_PI, M_PI));
+      HTrackEtaPhi.push_back(new TH1D("HTrackEtaPhi", "Track eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       
       HTrackMuonDEta.push_back(new TH1D("HTrackMuonDEta", "track-muon delta eta", 100, -3.2, 3.2));
       HTrackMuonDPhi.push_back(new TH1D("HTrackMuonDPhi", "track-muon delta phi", 100, -M_PI, M_PI));
@@ -375,6 +379,7 @@ int main(int argc, char *argv[])
                HTrackPT[iC]->Fill(TrackPT->at(iT), weight);
                HTrackEta[iC]->Fill(TrackDEta->at(iT) + ZEta->at(0), weight);
                HTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0)), weight);
+               HTrackEtaPhi[iC]->Fill(TrackDEta->at(iT) + ZEta->at(0), PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0)), weight);
                
                HEta[iC]->Fill(TrackDEta->at(iT), weight);
                HPhi[iC]->Fill(PhiRangeCorrelation(+TrackDPhi->at(iT)), 0.5*weight);
@@ -431,7 +436,8 @@ int main(int argc, char *argv[])
             HZPT[iC]->Fill(ZPT->at(0), NCollWeight);
             HZEta[iC]->Fill(ZEta->at(0), NCollWeight);
             HZPhi[iC]->Fill(ZPhi->at(0), NCollWeight);
-            HZMass[iC]->Fill(ZMass->at(0),NCollWeight);
+            HZMass[iC]->Fill(ZMass->at(0), NCollWeight);
+            HZEtaPhi[iC]->Fill(ZEta->at(0), ZPhi->at(0), NCollWeight);
 
             HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta->at(0),
                PhiRangeCorrelation(maxDPhi + ZPhi->at(0)), NCollWeight);
@@ -457,10 +463,12 @@ int main(int argc, char *argv[])
       HZPT[iC]->Write();
       HZEta[iC]->Write();
       HZPhi[iC]->Write();
+      HZEtaPhi[iC]->Write();
       HZMass[iC]->Write();
       HTrackPT[iC]->Write();
       HTrackEta[iC]->Write();
       HTrackPhi[iC]->Write();
+      HTrackEtaPhi[iC]->Write();
       HTrackMuonDEta[iC]->Write();
       HTrackMuonDPhi[iC]->Write();
       HTrackMuonDEtaDPhi[iC]->Write();
