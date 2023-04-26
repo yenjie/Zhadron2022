@@ -180,12 +180,12 @@ int main(int argc, char *argv[])
       HZPT.push_back(new TH1D("HZPT", "Z candidate PT", 100, 0, 200));
       HZEta.push_back(new TH1D("HZEta", "Z candidate eta", 100, -3.2, 3.2));
       HZPhi.push_back(new TH1D("HZPhi", "Z candidate phi", 100, -M_PI, M_PI));
-      HZEtaPhi.push_back(new TH1D("HZEtaPhi", "Z candidate eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
+      HZEtaPhi.push_back(new TH2D("HZEtaPhi", "Z candidate eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       HZMass.push_back(new TH1D("HZMass", "Z candidate mass", 100, 0, 150));
       HTrackPT.push_back(new TH1D("HTrackPT", "Track PT", 100, 0, 200));
       HTrackEta.push_back(new TH1D("HTrackEta", "Track eta", 100, -3.2, 3.2));
       HTrackPhi.push_back(new TH1D("HTrackPhi", "Track phi", 100, -M_PI, M_PI));
-      HTrackEtaPhi.push_back(new TH1D("HTrackEtaPhi", "Track eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
+      HTrackEtaPhi.push_back(new TH2D("HTrackEtaPhi", "Track eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       
       HTrackMuonDEta.push_back(new TH1D("HTrackMuonDEta", "track-muon delta eta", 100, -3.2, 3.2));
       HTrackMuonDPhi.push_back(new TH1D("HTrackMuonDPhi", "track-muon delta phi", 100, -M_PI, M_PI));
