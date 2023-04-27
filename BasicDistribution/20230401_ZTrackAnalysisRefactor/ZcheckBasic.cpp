@@ -113,6 +113,26 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zphi_gen->SetName("hMC_bkg_Zphi_gen");
    hMC_Zphi_gen0Sub->SetName("hMC_Zphi_gen0Sub");
 
+   TH2D* hData_Zetaphi = (TH2D*) file_sigDA->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
+   TH2D* hMC_Zetaphi = (TH2D*) file_sigMC->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
+   TH2D* hpp_Zetaphi = (TH2D*) file_ppMC->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
+   TH2D* hData_bkg_Zetaphi = (TH2D*) file_bkgDA->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
+   TH2D* hMC_bkg_Zetaphi = (TH2D*) file_bkgMC->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
+   TH2D* hMC_Zetaphi_gen = (TH2D*) file_sigMCgen->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
+   TH2D* hMC_bkg_Zetaphi_gen = (TH2D*) file_bkgMCgen->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
+   TH2D* hMC_Zetaphi_gen0Sub = (TH2D*) file_sigMCgen0Sub->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
+
+   hData_Zetaphi->SetName("hData_Zetaphi");
+   hMC_Zetaphi->SetName("hMC_Zetaphi");
+   hpp_Zetaphi->SetName("hpp_Zetaphi");
+   hData_bkg_Zetaphi->SetName("hData_bkg_Zetaphi");
+   hMC_bkg_Zetaphi->SetName("hMC_bkg_Zetaphi");
+   hMC_Zetaphi_gen->SetName("hMC_Zetaphi_gen");
+   hMC_bkg_Zetaphi_gen->SetName("hMC_bkg_Zetaphi_gen");
+   hMC_Zetaphi_gen0Sub->SetName("hMC_Zetaphi_gen0Sub");
+
+
+
    TH1D* hData_Tracketa = (TH1D*) file_sigDA->Get(Form("%s/HTrackEta", FolderName.c_str()));
    TH1D* hMC_Tracketa = (TH1D*) file_sigMC->Get(Form("%s/HTrackEta", FolderName.c_str()));
    TH1D* hpp_Tracketa = (TH1D*) file_ppMC->Get(Form("%s/HTrackEta", FolderName.c_str()));
@@ -148,6 +168,24 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Trackphi_gen->SetName("hMC_Trackphi_gen");
    hMC_bkg_Trackphi_gen->SetName("hMC_bkg_Trackphi_gen");
    hMC_Trackphi_gen0Sub->SetName("hMC_Trackphi_gen0Sub");
+
+   TH2D* hData_Tracketaphi = (TH2D*) file_sigDA->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
+   TH2D* hMC_Tracketaphi = (TH2D*) file_sigMC->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
+   TH2D* hpp_Tracketaphi = (TH2D*) file_ppMC->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
+   TH2D* hData_bkg_Tracketaphi = (TH2D*) file_bkgDA->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
+   TH2D* hMC_bkg_Tracketaphi = (TH2D*) file_bkgMC->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
+   TH2D* hMC_Tracketaphi_gen = (TH2D*) file_sigMCgen->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
+   TH2D* hMC_bkg_Tracketaphi_gen = (TH2D*) file_bkgMCgen->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
+   TH2D* hMC_Tracketaphi_gen0Sub = (TH2D*) file_sigMCgen0Sub->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
+
+   hData_Tracketaphi->SetName("hData_Tracketaphi");
+   hMC_Tracketaphi->SetName("hMC_Tracketaphi");
+   hpp_Tracketaphi->SetName("hpp_Tracketaphi");
+   hData_bkg_Tracketaphi->SetName("hData_bkg_Tracketaphi");
+   hMC_bkg_Tracketaphi->SetName("hMC_bkg_Tracketaphi");
+   hMC_Tracketaphi_gen->SetName("hMC_Tracketaphi_gen");
+   hMC_bkg_Tracketaphi_gen->SetName("hMC_bkg_Tracketaphi_gen");
+   hMC_Tracketaphi_gen0Sub->SetName("hMC_Tracketaphi_gen0Sub");
 
    std::cout<<"Setting histograms..."<<std::endl;
 
@@ -371,6 +409,42 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Trackphi_gen->SetLineWidth(2);
    hMC_Trackphi_gen0Sub->SetLineWidth(2);
 
+   hData_Zetaphi->Scale(1./tD_tN);
+   hMC_Zetaphi->Scale(1./tM_tN);
+   hpp_Zetaphi->Scale(1./tpM_tN);
+   hData_bkg_Zetaphi->Scale(1./tDb_tN);
+   hMC_bkg_Zetaphi->Scale(1./tMb_tN);
+   hMC_Zetaphi_gen->Scale(1./tM_tNgen);
+   hMC_bkg_Zetaphi_gen->Scale(1./tMb_tNgen);
+   hMC_Zetaphi_gen0Sub->Scale(1./tM_tNgen0Sub);
+
+   hData_Zetaphi->Rebin2D(5,5);
+   hMC_Zetaphi->Rebin2D(5,5);
+   hpp_Zetaphi->Rebin2D(5,5);
+   hData_bkg_Zetaphi->Rebin2D(5,5);
+   hMC_bkg_Zetaphi->Rebin2D(5,5);
+   hMC_Zetaphi_gen->Rebin2D(5,5);
+   hMC_bkg_Zetaphi_gen->Rebin2D(5,5);
+   hMC_Zetaphi_gen0Sub->Rebin2D(5,5);
+
+   hData_Tracketaphi->Scale(1./tD_tN);
+   hMC_Tracketaphi->Scale(1./tM_tN);
+   hpp_Tracketaphi->Scale(1./tpM_tN);
+   hData_bkg_Tracketaphi->Scale(1./tDb_tN);
+   hMC_bkg_Tracketaphi->Scale(1./tMb_tN);
+   hMC_Tracketaphi_gen->Scale(1./tM_tNgen);
+   hMC_bkg_Tracketaphi_gen->Scale(1./tMb_tNgen);
+   hMC_Tracketaphi_gen0Sub->Scale(1./tM_tNgen0Sub);
+
+   hData_Tracketaphi->Rebin2D(5,5);
+   hMC_Tracketaphi->Rebin2D(5,5);
+   hpp_Tracketaphi->Rebin2D(5,5);
+   hData_bkg_Tracketaphi->Rebin2D(5,5);
+   hMC_bkg_Tracketaphi->Rebin2D(5,5);
+   hMC_Tracketaphi_gen->Rebin2D(5,5);
+   hMC_bkg_Tracketaphi_gen->Rebin2D(5,5);
+   hMC_Tracketaphi_gen0Sub->Rebin2D(5,5);
+
    if(TptL==0) TptL=TptL_min;
 
    TLegend leg(0.58,0.78,0.98,0.9);
@@ -395,6 +469,21 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    pt3->SetTextFont(42);
    pt3->SetTextSize(0.03);
    pt3->SetNDC(kTRUE);
+
+   TLatex *pt3d = new TLatex(0.03,0.94,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
+   pt3d->SetTextFont(42);
+   pt3d->SetTextSize(0.03);
+   pt3d->SetNDC(kTRUE);
+
+   TLatex *pt3d2 = new TLatex(0.03,0.88,Form("%.1f < Z p_{T} < %.1f",ptL,ptH));
+   pt3d2->SetTextFont(42);
+   pt3d2->SetTextSize(0.03);
+   pt3d2->SetNDC(kTRUE);
+
+   TLatex *pt3d3 = new TLatex(0.03,0.82,Form("%.1f < Track p_{T} < %.1f",TptL,TptH));
+   pt3d3->SetTextFont(42);
+   pt3d3->SetTextSize(0.03);
+   pt3d3->SetNDC(kTRUE);
 
    TLatex *ptN0 = new TLatex(0.3,0.97,Form("Signal N_{MC}^{Z} = %.1f, N_{Data}^{Z} = %.1f",tM_tN,tD_tN));
    ptN0->SetTextFont(42);
@@ -696,6 +785,162 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    ptNb->Draw();
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Tracktrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Trackphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->Clear();
+
+   c->Divide(2);
+   c->cd(1);
+
+   hMC_Zetaphi_gen->Draw("lego20");
+   hMC_Zetaphi_gen->GetYaxis()->SetTitle("Signal MC GEN #phi_{Z,track}");
+   hMC_Zetaphi_gen->GetXaxis()->SetTitle("Signal MC GEN #eta_{Z,track}");
+   hMC_Zetaphi_gen->GetXaxis()->SetTitleSize(30);
+   hMC_Zetaphi_gen->GetYaxis()->SetTitleSize(30);
+   hMC_Zetaphi_gen->GetXaxis()->SetTitleOffset(3.0);
+   hMC_Zetaphi_gen->GetYaxis()->SetTitleOffset(2.5);
+   hMC_Zetaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   pt3d->Draw();
+   pt3d2->Draw();
+   pt3d3->Draw();
+
+   ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(2);
+   hMC_bkg_Zetaphi_gen->Draw("lego20");
+   hMC_bkg_Zetaphi_gen->GetYaxis()->SetTitle("Background MC GEN #phi_{Z,track}");
+   hMC_bkg_Zetaphi_gen->GetXaxis()->SetTitle("Background MC GEN #eta_{Z,track}");
+   hMC_bkg_Zetaphi_gen->GetXaxis()->SetTitleSize(30);
+   hMC_bkg_Zetaphi_gen->GetYaxis()->SetTitleSize(30);
+   hMC_bkg_Zetaphi_gen->GetXaxis()->SetTitleOffset(3.0);
+   hMC_bkg_Zetaphi_gen->GetYaxis()->SetTitleOffset(2.5);
+   hMC_bkg_Zetaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   ptNb->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_GEN.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->Clear();
+
+   c->Divide(2);
+   c->cd(1);
+
+   hMC_Zetaphi->Draw("lego20");
+   hMC_Zetaphi->GetYaxis()->SetTitle("Signal MC RECO #phi_{Z,track}");
+   hMC_Zetaphi->GetXaxis()->SetTitle("Signal MC RECO #eta_{Z,track}");
+   hMC_Zetaphi->GetXaxis()->SetTitleSize(30);
+   hMC_Zetaphi->GetYaxis()->SetTitleSize(30);
+   hMC_Zetaphi->GetXaxis()->SetTitleOffset(3.0);
+   hMC_Zetaphi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_Zetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   pt3d->Draw();
+   pt3d2->Draw();
+   pt3d3->Draw();
+
+   ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(2);
+   hMC_bkg_Zetaphi->Draw("lego20");
+   hMC_bkg_Zetaphi->GetYaxis()->SetTitle("Background MC RECO #phi_{Z,track}");
+   hMC_bkg_Zetaphi->GetXaxis()->SetTitle("Background MC RECO #eta_{Z,track}");
+   hMC_bkg_Zetaphi->GetXaxis()->SetTitleSize(30);
+   hMC_bkg_Zetaphi->GetYaxis()->SetTitleSize(30);
+   hMC_bkg_Zetaphi->GetXaxis()->SetTitleOffset(3.0);
+   hMC_bkg_Zetaphi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_bkg_Zetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   ptNb->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->Clear();
+
+    c->Divide(2);
+   c->cd(1);
+
+   hMC_Tracketaphi_gen->Draw("lego20");
+   hMC_Tracketaphi_gen->GetYaxis()->SetTitle("Signal MC GEN #phi_{Track,track}");
+   hMC_Tracketaphi_gen->GetXaxis()->SetTitle("Signal MC GEN #eta_{Track,track}");
+   hMC_Tracketaphi_gen->GetXaxis()->SetTitleSiTracke(30);
+   hMC_Tracketaphi_gen->GetYaxis()->SetTitleSiTracke(30);
+   hMC_Tracketaphi_gen->GetXaxis()->SetTitleOffset(3.0);
+   hMC_Tracketaphi_gen->GetYaxis()->SetTitleOffset(2.5);
+   hMC_Tracketaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   pt3d->Draw();
+   pt3d2->Draw();
+   pt3d3->Draw();
+
+   ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(2);
+   hMC_bkg_Tracketaphi_gen->Draw("lego20");
+   hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitle("Background MC GEN #phi_{Track,track}");
+   hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitle("Background MC GEN #eta_{Track,track}");
+   hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitleSiTracke(30);
+   hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitleSiTracke(30);
+   hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitleOffset(3.0);
+   hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitleOffset(2.5);
+   hMC_bkg_Tracketaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   ptNb->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Tracktrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_GEN.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->Clear();
+
+   c->Divide(2);
+   c->cd(1);
+
+   hMC_Tracketaphi->Draw("lego20");
+   hMC_Tracketaphi->GetYaxis()->SetTitle("Signal MC RECO #phi_{Track,track}");
+   hMC_Tracketaphi->GetXaxis()->SetTitle("Signal MC RECO #eta_{Track,track}");
+   hMC_Tracketaphi->GetXaxis()->SetTitleSiTracke(30);
+   hMC_Tracketaphi->GetYaxis()->SetTitleSiTracke(30);
+   hMC_Tracketaphi->GetXaxis()->SetTitleOffset(3.0);
+   hMC_Tracketaphi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_Tracketaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   pt3d->Draw();
+   pt3d2->Draw();
+   pt3d3->Draw();
+
+   ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(2);
+   hMC_bkg_Tracketaphi->Draw("lego20");
+   hMC_bkg_Tracketaphi->GetYaxis()->SetTitle("Background MC RECO #phi_{Track,track}");
+   hMC_bkg_Tracketaphi->GetXaxis()->SetTitle("Background MC RECO #eta_{Track,track}");
+   hMC_bkg_Tracketaphi->GetXaxis()->SetTitleSiTracke(30);
+   hMC_bkg_Tracketaphi->GetYaxis()->SetTitleSiTracke(30);
+   hMC_bkg_Tracketaphi->GetXaxis()->SetTitleOffset(3.0);
+   hMC_bkg_Tracketaphi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_bkg_Tracketaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   ptNb->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Tracktrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
 
