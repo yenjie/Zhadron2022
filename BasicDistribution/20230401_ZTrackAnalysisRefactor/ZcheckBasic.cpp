@@ -871,8 +871,8 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Tracketaphi_gen->Draw("lego20");
    hMC_Tracketaphi_gen->GetYaxis()->SetTitle("Signal MC GEN #phi_{Track,track}");
    hMC_Tracketaphi_gen->GetXaxis()->SetTitle("Signal MC GEN #eta_{Track,track}");
-   hMC_Tracketaphi_gen->GetXaxis()->SetTitleSiTracke(30);
-   hMC_Tracketaphi_gen->GetYaxis()->SetTitleSiTracke(30);
+   hMC_Tracketaphi_gen->GetXaxis()->SetTitleSize(30);
+   hMC_Tracketaphi_gen->GetYaxis()->SetTitleSize(30);
    hMC_Tracketaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_Tracketaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_Tracketaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -890,8 +890,8 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketaphi_gen->Draw("lego20");
    hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitle("Background MC GEN #phi_{Track,track}");
    hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitle("Background MC GEN #eta_{Track,track}");
-   hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitleSiTracke(30);
-   hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitleSiTracke(30);
+   hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitleSize(30);
+   hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitleSize(30);
    hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_bkg_Tracketaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -910,8 +910,8 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Tracketaphi->Draw("lego20");
    hMC_Tracketaphi->GetYaxis()->SetTitle("Signal MC RECO #phi_{Track,track}");
    hMC_Tracketaphi->GetXaxis()->SetTitle("Signal MC RECO #eta_{Track,track}");
-   hMC_Tracketaphi->GetXaxis()->SetTitleSiTracke(30);
-   hMC_Tracketaphi->GetYaxis()->SetTitleSiTracke(30);
+   hMC_Tracketaphi->GetXaxis()->SetTitleSize(30);
+   hMC_Tracketaphi->GetYaxis()->SetTitleSize(30);
    hMC_Tracketaphi->GetXaxis()->SetTitleOffset(3.0);
    hMC_Tracketaphi->GetYaxis()->SetTitleOffset(2.5);
    hMC_Tracketaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -929,8 +929,8 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketaphi->Draw("lego20");
    hMC_bkg_Tracketaphi->GetYaxis()->SetTitle("Background MC RECO #phi_{Track,track}");
    hMC_bkg_Tracketaphi->GetXaxis()->SetTitle("Background MC RECO #eta_{Track,track}");
-   hMC_bkg_Tracketaphi->GetXaxis()->SetTitleSiTracke(30);
-   hMC_bkg_Tracketaphi->GetYaxis()->SetTitleSiTracke(30);
+   hMC_bkg_Tracketaphi->GetXaxis()->SetTitleSize(30);
+   hMC_bkg_Tracketaphi->GetYaxis()->SetTitleSize(30);
    hMC_bkg_Tracketaphi->GetXaxis()->SetTitleOffset(3.0);
    hMC_bkg_Tracketaphi->GetYaxis()->SetTitleOffset(2.5);
    hMC_bkg_Tracketaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
