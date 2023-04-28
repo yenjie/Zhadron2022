@@ -122,6 +122,8 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40,  5,   20,  0, 30,  5,    7));
    C.push_back(Configuration(40,  5,   20,  0, 30,  7,   10));
 
+   C.push_back(Configuration(40, 10, 2000,  0, 90,  2, 1000));
+
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
    vector<TH1D *>           HEventCount;
