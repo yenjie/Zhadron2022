@@ -63,7 +63,7 @@ TFile *file_bkgMCgen;
 
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230427";
+const char *typeofdata = "20230428";
 const char *typeofdatatext = "single muon";
 
 void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -566,7 +566,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
 
    ptNb->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zeta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zeta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -638,7 +638,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
 
    ptNb->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
 
@@ -712,7 +712,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
 
    ptNb->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Tracktrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketa.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketa.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -784,7 +784,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
 
    ptNb->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Tracktrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Trackphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Trackphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -823,7 +823,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_GEN.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_GEN.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -862,7 +862,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
     c->Divide(2);
@@ -901,7 +901,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Tracktrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_GEN.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_GEN.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -940,7 +940,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Tracktrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -979,7 +979,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_GEN_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_GEN_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -1018,7 +1018,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -1057,7 +1057,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Tracktrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_GEN_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_GEN_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -1096,7 +1096,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Tracktrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
 
