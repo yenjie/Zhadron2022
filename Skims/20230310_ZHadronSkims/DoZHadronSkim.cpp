@@ -99,7 +99,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V2";
+   string Version = "V3";
 
    CommandLine CL(argc, argv);
 
