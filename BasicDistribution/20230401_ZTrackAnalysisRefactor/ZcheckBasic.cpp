@@ -63,7 +63,7 @@ TFile *file_bkgMCgen;
 
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230428";
+const char *typeofdata = "20230429";
 const char *typeofdatatext = "single muon";
 
 void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -259,14 +259,14 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zeta_gen0Sub->Scale(1./tM_tNgen0Sub);
 
 
-   hData_Zeta->Rebin(5);
-   hMC_Zeta->Rebin(5);
-   hpp_Zeta->Rebin(5);
-   hData_bkg_Zeta->Rebin(5);
-   hMC_bkg_Zeta->Rebin(5);
-   hMC_Zeta_gen->Rebin(5);
-   hMC_bkg_Zeta_gen->Rebin(5);
-   hMC_Zeta_gen0Sub->Rebin(5);
+   hData_Zeta->Rebin(2);
+   hMC_Zeta->Rebin(2);
+   hpp_Zeta->Rebin(2);
+   hData_bkg_Zeta->Rebin(2);
+   hMC_bkg_Zeta->Rebin(2);
+   hMC_Zeta_gen->Rebin(2);
+   hMC_bkg_Zeta_gen->Rebin(2);
+   hMC_Zeta_gen0Sub->Rebin(2);
 
 
    hData_Zeta->SetMarkerStyle(24);
@@ -348,14 +348,14 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zphi_gen->Scale(1./tMb_tNgen);
    hMC_Zphi_gen0Sub->Scale(1./tM_tNgen0Sub);
 
-   hData_Zphi->Rebin(5);
-   hMC_Zphi->Rebin(5);
-   hpp_Zphi->Rebin(5);
-   hData_bkg_Zphi->Rebin(5);
-   hMC_bkg_Zphi->Rebin(5);
-   hMC_Zphi_gen->Rebin(5);
-   hMC_bkg_Zphi_gen->Rebin(5);
-   hMC_Zphi_gen0Sub->Rebin(5);
+   hData_Zphi->Rebin(2);
+   hMC_Zphi->Rebin(2);
+   hpp_Zphi->Rebin(2);
+   hData_bkg_Zphi->Rebin(2);
+   hMC_bkg_Zphi->Rebin(2);
+   hMC_Zphi_gen->Rebin(2);
+   hMC_bkg_Zphi_gen->Rebin(2);
+   hMC_Zphi_gen0Sub->Rebin(2);
 
 
    hData_Zphi->SetMarkerStyle(24);
@@ -1124,16 +1124,16 @@ int main(int argc, char *argv[]){
 
   style();
 
-   file_sigMC = TFile::Open("GraphMCSignal_0428_01.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground_0428_01.root","read");
-   file_sigDA = TFile::Open("GraphDataSignal_0428_01.root","read");
-   file_bkgDA = TFile::Open("GraphDataBackground_0428_01.root","read");
-   file_ppMC  = TFile::Open("GraphPPMC_0428_01.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal_0428.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground_0428.root","read");
+   file_sigDA = TFile::Open("GraphDataSignal_0428.root","read");
+   file_bkgDA = TFile::Open("GraphDataBackground_0428.root","read");
+   file_ppMC  = TFile::Open("GraphPPMC_0428.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_0428_01.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0428_01.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_0428.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0428.root","read");
 
-   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0428_01.root","read");
+   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0428.root","read");
 
    
   ZcheckBasic_single(40, 20, 2000,  0, 90,  0, 1000);
