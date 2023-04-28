@@ -949,10 +949,10 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zetaphi_gen->Draw("COLZ");
    hMC_Zetaphi_gen->GetYaxis()->SetTitle("Signal MC GEN #phi_{Z,track}");
    hMC_Zetaphi_gen->GetXaxis()->SetTitle("Signal MC GEN #eta_{Z,track}");
-   hMC_Zetaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_Zetaphi_gen->GetYaxis()->SetTitleSize(30);
-   hMC_Zetaphi_gen->GetXaxis()->SetTitleOffset(3.0);
-   hMC_Zetaphi_gen->GetYaxis()->SetTitleOffset(2.5);
+   hMC_Zetaphi_gen->GetXaxis()->SetTitleSize(48);
+   hMC_Zetaphi_gen->GetYaxis()->SetTitleSize(48);
+   hMC_Zetaphi_gen->GetXaxis()->SetTitleOffset(1);
+   hMC_Zetaphi_gen->GetYaxis()->SetTitleOffset(1);
    hMC_Zetaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    pt->Draw();
@@ -968,10 +968,10 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zetaphi_gen->Draw("COLZ");
    hMC_bkg_Zetaphi_gen->GetYaxis()->SetTitle("Background MC GEN #phi_{Z,track}");
    hMC_bkg_Zetaphi_gen->GetXaxis()->SetTitle("Background MC GEN #eta_{Z,track}");
-   hMC_bkg_Zetaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_bkg_Zetaphi_gen->GetYaxis()->SetTitleSize(30);
-   hMC_bkg_Zetaphi_gen->GetXaxis()->SetTitleOffset(3.0);
-   hMC_bkg_Zetaphi_gen->GetYaxis()->SetTitleOffset(2.5);
+   hMC_bkg_Zetaphi_gen->GetXaxis()->SetTitleSize(48);
+   hMC_bkg_Zetaphi_gen->GetYaxis()->SetTitleSize(48);
+   hMC_bkg_Zetaphi_gen->GetXaxis()->SetTitleOffset(1);
+   hMC_bkg_Zetaphi_gen->GetYaxis()->SetTitleOffset(1);
    hMC_bkg_Zetaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    ptNb->Draw();
@@ -988,10 +988,10 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zetaphi->Draw("COLZ");
    hMC_Zetaphi->GetYaxis()->SetTitle("Signal MC RECO #phi_{Z,track}");
    hMC_Zetaphi->GetXaxis()->SetTitle("Signal MC RECO #eta_{Z,track}");
-   hMC_Zetaphi->GetXaxis()->SetTitleSize(30);
-   hMC_Zetaphi->GetYaxis()->SetTitleSize(30);
-   hMC_Zetaphi->GetXaxis()->SetTitleOffset(3.0);
-   hMC_Zetaphi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_Zetaphi->GetXaxis()->SetTitleSize(48);
+   hMC_Zetaphi->GetYaxis()->SetTitleSize(48);
+   hMC_Zetaphi->GetXaxis()->SetTitleOffset(1);
+   hMC_Zetaphi->GetYaxis()->SetTitleOffset(1);
    hMC_Zetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    pt->Draw();
@@ -1007,10 +1007,10 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zetaphi->Draw("COLZ");
    hMC_bkg_Zetaphi->GetYaxis()->SetTitle("Background MC RECO #phi_{Z,track}");
    hMC_bkg_Zetaphi->GetXaxis()->SetTitle("Background MC RECO #eta_{Z,track}");
-   hMC_bkg_Zetaphi->GetXaxis()->SetTitleSize(30);
-   hMC_bkg_Zetaphi->GetYaxis()->SetTitleSize(30);
-   hMC_bkg_Zetaphi->GetXaxis()->SetTitleOffset(3.0);
-   hMC_bkg_Zetaphi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_bkg_Zetaphi->GetXaxis()->SetTitleSize(48);
+   hMC_bkg_Zetaphi->GetYaxis()->SetTitleSize(48);
+   hMC_bkg_Zetaphi->GetXaxis()->SetTitleOffset(1);
+   hMC_bkg_Zetaphi->GetYaxis()->SetTitleOffset(1);
    hMC_bkg_Zetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    ptNb->Draw();
@@ -1021,16 +1021,16 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-    c->Divide(2);
+   c->Divide(2);
    c->cd(1);
 
    hMC_Tracketaphi_gen->Draw("COLZ");
    hMC_Tracketaphi_gen->GetYaxis()->SetTitle("Signal MC GEN #phi_{Track,track}");
    hMC_Tracketaphi_gen->GetXaxis()->SetTitle("Signal MC GEN #eta_{Track,track}");
-   hMC_Tracketaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_Tracketaphi_gen->GetYaxis()->SetTitleSize(30);
-   hMC_Tracketaphi_gen->GetXaxis()->SetTitleOffset(3.0);
-   hMC_Tracketaphi_gen->GetYaxis()->SetTitleOffset(2.5);
+   hMC_Tracketaphi_gen->GetXaxis()->SetTitleSize(48);
+   hMC_Tracketaphi_gen->GetYaxis()->SetTitleSize(48);
+   hMC_Tracketaphi_gen->GetXaxis()->SetTitleOffset(1);
+   hMC_Tracketaphi_gen->GetYaxis()->SetTitleOffset(1);
    hMC_Tracketaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    pt->Draw();
@@ -1046,10 +1046,10 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketaphi_gen->Draw("COLZ");
    hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitle("Background MC GEN #phi_{Track,track}");
    hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitle("Background MC GEN #eta_{Track,track}");
-   hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitleSize(30);
-   hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitleOffset(3.0);
-   hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitleOffset(2.5);
+   hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitleSize(48);
+   hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitleSize(48);
+   hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitleOffset(1);
+   hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitleOffset(1);
    hMC_bkg_Tracketaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    ptNb->Draw();
@@ -1066,10 +1066,10 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Tracketaphi->Draw("COLZ");
    hMC_Tracketaphi->GetYaxis()->SetTitle("Signal MC RECO #phi_{Track,track}");
    hMC_Tracketaphi->GetXaxis()->SetTitle("Signal MC RECO #eta_{Track,track}");
-   hMC_Tracketaphi->GetXaxis()->SetTitleSize(30);
-   hMC_Tracketaphi->GetYaxis()->SetTitleSize(30);
-   hMC_Tracketaphi->GetXaxis()->SetTitleOffset(3.0);
-   hMC_Tracketaphi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_Tracketaphi->GetXaxis()->SetTitleSize(48);
+   hMC_Tracketaphi->GetYaxis()->SetTitleSize(48);
+   hMC_Tracketaphi->GetXaxis()->SetTitleOffset(1);
+   hMC_Tracketaphi->GetYaxis()->SetTitleOffset(1);
    hMC_Tracketaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    pt->Draw();
@@ -1085,10 +1085,10 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketaphi->Draw("COLZ");
    hMC_bkg_Tracketaphi->GetYaxis()->SetTitle("Background MC RECO #phi_{Track,track}");
    hMC_bkg_Tracketaphi->GetXaxis()->SetTitle("Background MC RECO #eta_{Track,track}");
-   hMC_bkg_Tracketaphi->GetXaxis()->SetTitleSize(30);
-   hMC_bkg_Tracketaphi->GetYaxis()->SetTitleSize(30);
-   hMC_bkg_Tracketaphi->GetXaxis()->SetTitleOffset(3.0);
-   hMC_bkg_Tracketaphi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_bkg_Tracketaphi->GetXaxis()->SetTitleSize(48);
+   hMC_bkg_Tracketaphi->GetYaxis()->SetTitleSize(48);
+   hMC_bkg_Tracketaphi->GetXaxis()->SetTitleOffset(1);
+   hMC_bkg_Tracketaphi->GetYaxis()->SetTitleOffset(1);
    hMC_bkg_Tracketaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
 
    ptNb->Draw();
