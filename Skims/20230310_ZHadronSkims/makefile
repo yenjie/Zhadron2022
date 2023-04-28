@@ -31,7 +31,7 @@ TestRunGen: Execute
 
 TestRunGenPP: Execute
 	./Execute --Input $(PPSignalMC)/HiForestAOD_12.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP true --MinZPT 5 \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP true --MinZPT 5 \
 		--DoTrackEfficiency false --GenCorrelationCharged true
 
 TestRunBackground: Execute
@@ -44,7 +44,7 @@ TestRunBackground: Execute
 
 TestRunPP: Execute
 	./Execute --Input $(PPSignalMC)/HiForestAOD_12.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --IsData false --IsPP true --MinZPT 5 --DoSumET false \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --IsData false --IsPP true --MinZPT 5 --DoSumET false \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --PFTree "pfcandAnalyzer/pfTree"
 
 TestRunBackgroundSimple: Execute
@@ -65,7 +65,7 @@ TestRunMCBackground: Execute
 
 TestRunMCGenBackground: Execute
 	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_10.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --IsData false --IsPP false \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true --DoGenCorrelation true \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root \
 		--HFShift 682 --Tolerance 0 --ToleranceFraction 0.1 --DoSumET false \
@@ -81,8 +81,8 @@ EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2
 PrepareToRun:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		10 LogData_0427/ /eos/cms/store/group/phys_heavyions/pchou/OutputData_0427/ \
-		--Fraction 1 --DoGenLevel false --IsData true --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
+		10 LogData_0428_01/ /eos/cms/store/group/phys_heavyions/pchou/OutputData_0428_01/ \
+		--Fraction 0.1 --DoGenLevel false --IsData true --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--Jet "akCs3PFJetAnalyzer/t" \
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBase)/Autumn18_HI_RAAV3_DATA_L2L3Residual_AK3PF.txt
@@ -90,8 +90,8 @@ PrepareToRun:
 PrepareToRunMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		10 LogMC_0427/ /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0427/ \
-		--Fraction 1 --DoGenLevel true --IsData false --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
+		10 LogMC_0428_01/ /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0428_01/ \
+		--Fraction 0.1 --DoGenLevel true --IsData false --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt
@@ -99,36 +99,36 @@ PrepareToRunMC:
 PrepareToRunGenMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		10 LogGenMC_0427/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0427/ \
- 		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
+		10 LogGenMC_0428_01/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0428_01/ \
+ 		--Fraction 0.1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
 		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5 --DoSumET false --GenCorrelationCharged true
 
 PrepareToRunPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogPP_0427/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_0427/ \
- 		--Fraction 1 --DoGenLevel true --IsData false --IsPP true \
+		10 LogPP_0428_01/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_0428_01/ \
+ 		--Fraction 0.1 --DoGenLevel true --IsData false --IsPP true \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5
 
 PrepareToRunGenPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogGenPP_0427/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_0427/ \
- 		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP true \
+		10 LogGenPP_0428_01/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_0428_01/ \
+ 		--Fraction 0.1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP true \
 		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5 --DoSumET false --GenCorrelationCharged true
 
 PrepareToRunPPData:
 	bash PrepareInput.sh \
 		'$(PPSignalData)/*/' \
-		10 LogPPData_0427/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPData_0427/ \
- 		--Fraction 1 --DoGenLevel false --IsData true --IsPP true \
+		10 LogPPData_0428_01/ /eos/cms/store/group/phys_heavyions/pchou/OutputPPData_0428_01/ \
+ 		--Fraction 0.1 --DoGenLevel false --IsData true --IsPP true \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5
 
 PrepareToRunBackground:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		10 LogDatabkg_0427/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0427/ \
- 		--Fraction 1 --DoGenLevel false --IsData true --IsPP false \
+		10 LogDatabkg_0428_01/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0428_01/ \
+ 		--Fraction 0.1 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true \
 		--Background /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_10.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_13.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_17.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_20.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_22.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_34.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_37.root \
 		--HFShift 660 --Tolerance 150 --ToleranceFraction 0 --DoSumET false --Oversample 10 \
@@ -137,17 +137,17 @@ PrepareToRunBackground:
 PrepareToRunRandomBackground:
 	bash PrepareInputRandomBackground.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		10 LogDatabkg_0427/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0427/ \
+		10 LogDatabkg_0428_01/ /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0428_01/ \
 		$(PbPbBackgroundData)/ 100 \
- 		--Fraction 1 --DoGenLevel false --IsData true --IsPP false \
+ 		--Fraction 0.1 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true --HFShift 660 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 25 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5
 
 PrepareToRunMCBackground:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC) \
-		10 LogMCbkg_0427/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0427/ \
- 		--Fraction 1 --DoGenLevel true --IsData false --IsPP false \
+		10 LogMCbkg_0428_01/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0428_01/ \
+ 		--Fraction 0.1 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root,$(PbPbBackgroundMC)/HiForestMiniAOD_11.root,$(PbPbBackgroundMC)/HiForestMiniAOD_12.root,$(PbPbBackgroundMC)/HiForestMiniAOD_13.root,$(PbPbBackgroundMC)/HiForestMiniAOD_14.root,$(PbPbBackgroundMC)/HiForestMiniAOD_15.root,$(PbPbBackgroundMC)/HiForestMiniAOD_16.root,$(PbPbBackgroundMC)/HiForestMiniAOD_17.root,$(PbPbBackgroundMC)/HiForestMiniAOD_18.root,$(PbPbBackgroundMC)/HiForestMiniAOD_19.root,$(PbPbBackgroundMC)/HiForestMiniAOD_1.root,$(PbPbBackgroundMC)/HiForestMiniAOD_20.root \
 		--HFShift 682 --Tolerance 187.5 --ToleranceFraction 0 --DoSumET false --Oversample 10 \
@@ -156,18 +156,18 @@ PrepareToRunMCBackground:
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
-		10 LogMCbkg_0427/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0427/ \
+		10 LogMCbkg_0428_01/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0428_01/ \
 		$(PbPbBackgroundMC)/ 12 \
- 		--Fraction 1 --DoGenLevel true --IsData false --IsPP false \
+ 		--Fraction 0.1 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true --HFShift 682 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5
 
 PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
-		10 LogMCGenbkg_0427/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0427/ \
+		10 LogMCGenbkg_0428_01/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0428_01/ \
 		$(PbPbBackgroundMC)/ 12 \
- 		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
+ 		--Fraction 0.1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
 		--DoBackground true --HFShift 1083 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5 --GenCorrelationCharged true
 
