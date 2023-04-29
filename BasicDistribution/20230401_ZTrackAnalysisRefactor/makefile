@@ -9,8 +9,8 @@ TestRun: Execute
 		--Output GraphDataBackground_0428.root --Fraction 1 \
 		 > log/GraphDataBackground_0428.out 2> log/GraphDataBackground_0428.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0428/ \
-		--Output GraphMCSignal_0428.root --Fraction 1 \
-		 > log/GraphMCSignal_0428.out 2> log/GraphMCSignal_0428.err < /dev/null &
+		--Output GraphMCSignal_0428_1.root --Fraction 1 \
+		 > log/GraphMCSignal_0428_1.out 2> log/GraphMCSignal_0428_1.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0428/ \
 		--Output GraphMCBackground_0428.root --Fraction 1 \
 		 > log/GraphMCBackground_0428.out 2> log/GraphMCBackground_0428.err < /dev/null &

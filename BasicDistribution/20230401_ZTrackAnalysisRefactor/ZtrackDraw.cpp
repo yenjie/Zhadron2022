@@ -99,8 +99,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_etaphi_1->SetName("hMC_etaphi_1");
    hpp_etaphi_1->SetName("hpp_etaphi_1");
 
-   TH2D* hMC_etaphi_gen = (TH2D*) file_sigMCgen->Get(Form("%s/HEtaPhi", FolderName.c_str()));
-   TH2D* hMC_bkg_etaphi_gen = (TH2D*) file_bkgMCgen->Get(Form("%s/HEtaPhi", FolderName.c_str()));
+   TH2D* hMC_etaphi_gen = (TH2D*) file_sigMCgen->Get(Form("%s/HGenEtaPhi", FolderName.c_str()));
+   TH2D* hMC_bkg_etaphi_gen = (TH2D*) file_bkgMCgen->Get(Form("%s/HGenEtaPhi", FolderName.c_str()));
 
    hMC_etaphi_gen->SetName("hMC_etaphi_gen");
    hMC_bkg_etaphi_gen->SetName("hMC_etaphi_gen");
