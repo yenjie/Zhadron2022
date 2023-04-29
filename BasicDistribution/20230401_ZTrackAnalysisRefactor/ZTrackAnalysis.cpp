@@ -131,6 +131,9 @@ int main(int argc, char *argv[])
    vector<TH1D *>           HZEta;
    vector<TH1D *>           HZPhi;
    vector<TH2D *>           HZEtaPhi;
+   vector<TH1D *>           HGenZEta;
+   vector<TH1D *>           HGenZPhi;
+   vector<TH2D *>           HGenZEtaPhi;
    vector<TH1D *>           HZMass;
    vector<TH1D *>           HTrackPT;
    vector<TH1D *>           HTrackEta;
@@ -183,6 +186,9 @@ int main(int argc, char *argv[])
       HZEta.push_back(new TH1D("HZEta", "Z candidate eta", 100, -3.2, 3.2));
       HZPhi.push_back(new TH1D("HZPhi", "Z candidate phi", 100, -M_PI, M_PI));
       HZEtaPhi.push_back(new TH2D("HZEtaPhi", "Z candidate eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
+      HGenZEta.push_back(new TH1D("HGenZEta", "GEN Z eta", 100, -3.2, 3.2));
+      HGenZPhi.push_back(new TH1D("HGenZPhi", "GEN Z phi", 100, -M_PI, M_PI));
+      HGenZEtaPhi.push_back(new TH2D("HGenZEtaPhi", "GEB Z eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       HZMass.push_back(new TH1D("HZMass", "Z candidate mass", 100, 0, 150));
       HTrackPT.push_back(new TH1D("HTrackPT", "Track PT", 100, 0, 200));
       HTrackEta.push_back(new TH1D("HTrackEta", "Track eta", 100, -3.2, 3.2));
@@ -240,6 +246,10 @@ int main(int argc, char *argv[])
    vector<double> *TrackDEta   = nullptr;
    vector<bool> *TrackMuTagged = nullptr;
    vector<int> *subevent       = nullptr;
+
+   vector<double> *genZEta     = nullptr;
+   vector<double> *genZPhi     = nullptr;
+
    double maxOppositeDEta;
    double maxOppositeDPhi;
    double maxDEta;
@@ -281,6 +291,9 @@ int main(int argc, char *argv[])
    if(Tree->GetBranch("maxOppositeWTADPhi"))     Tree->SetBranchAddress("maxOppositeWTADPhi",     &maxOppositeWTADPhi);
    if(Tree->GetBranch("maxMoreOppositeWTADEta")) Tree->SetBranchAddress("maxMoreOppositeWTADEta", &maxMoreOppositeWTADEta);
    if(Tree->GetBranch("maxMoreOppositeWTADPhi")) Tree->SetBranchAddress("maxMoreOppositeWTADPhi", &maxMoreOppositeWTADPhi);
+
+   if(Tree->GetBranch("genZEta")) Tree->SetBranchAddress("genZEta", &genZEta);
+   if(Tree->GetBranch("genZPhi")) Tree->SetBranchAddress("genZPhi", &genZPhi);
 
    int EntryCount = Tree->GetEntries() * Fraction;
    ProgressBar Bar(cout, EntryCount);
@@ -441,6 +454,12 @@ int main(int argc, char *argv[])
             HZMass[iC]->Fill(ZMass->at(0), NCollWeight);
             HZEtaPhi[iC]->Fill(ZEta->at(0), ZPhi->at(0), NCollWeight);
 
+            if(genZEta!= nullptr){
+               HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight);
+               HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight);
+               HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight);
+            }
+
             HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta->at(0),
                PhiRangeCorrelation(maxDPhi + ZPhi->at(0)), NCollWeight);
             HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta->at(0),
@@ -466,6 +485,9 @@ int main(int argc, char *argv[])
       HZEta[iC]->Write();
       HZPhi[iC]->Write();
       HZEtaPhi[iC]->Write();
+      HGenZEta[iC]->Write();
+      HGenZPhi[iC]->Write();
+      HGenZEtaPhi[iC]->Write();
       HZMass[iC]->Write();
       HTrackPT[iC]->Write();
       HTrackEta[iC]->Write();

@@ -82,9 +82,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    TH1D* hpp_Zeta = (TH1D*) file_ppMC->Get(Form("%s/HZEta", FolderName.c_str()));
    TH1D* hData_bkg_Zeta = (TH1D*) file_bkgDA->Get(Form("%s/HZEta", FolderName.c_str()));
    TH1D* hMC_bkg_Zeta = (TH1D*) file_bkgMC->Get(Form("%s/HZEta", FolderName.c_str()));
-   TH1D* hMC_Zeta_gen = (TH1D*) file_sigMCgen->Get(Form("%s/HZEta", FolderName.c_str()));
-   TH1D* hMC_bkg_Zeta_gen = (TH1D*) file_bkgMCgen->Get(Form("%s/HZEta", FolderName.c_str()));
-   TH1D* hMC_Zeta_gen0Sub = (TH1D*) file_sigMCgen0Sub->Get(Form("%s/HZEta", FolderName.c_str()));
+   TH1D* hMC_Zeta_gen = (TH1D*) file_sigMCgen->Get(Form("%s/HGenZEta", FolderName.c_str()));
+   TH1D* hMC_bkg_Zeta_gen = (TH1D*) file_bkgMCgen->Get(Form("%s/HGenZEta", FolderName.c_str()));
+   TH1D* hMC_Zeta_gen0Sub = (TH1D*) file_sigMCgen0Sub->Get(Form("%s/HGenZEta", FolderName.c_str()));
 
    hData_Zeta->SetName("hData_Zeta");
    hMC_Zeta->SetName("hMC_Zeta");
@@ -100,9 +100,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    TH1D* hpp_Zphi = (TH1D*) file_ppMC->Get(Form("%s/HZPhi", FolderName.c_str()));
    TH1D* hData_bkg_Zphi = (TH1D*) file_bkgDA->Get(Form("%s/HZPhi", FolderName.c_str()));
    TH1D* hMC_bkg_Zphi = (TH1D*) file_bkgMC->Get(Form("%s/HZPhi", FolderName.c_str()));
-   TH1D* hMC_Zphi_gen = (TH1D*) file_sigMCgen->Get(Form("%s/HZPhi", FolderName.c_str()));
-   TH1D* hMC_bkg_Zphi_gen = (TH1D*) file_bkgMCgen->Get(Form("%s/HZPhi", FolderName.c_str()));
-   TH1D* hMC_Zphi_gen0Sub = (TH1D*) file_sigMCgen0Sub->Get(Form("%s/HZPhi", FolderName.c_str()));
+   TH1D* hMC_Zphi_gen = (TH1D*) file_sigMCgen->Get(Form("%s/HGenZPhi", FolderName.c_str()));
+   TH1D* hMC_bkg_Zphi_gen = (TH1D*) file_bkgMCgen->Get(Form("%s/HGenZPhi", FolderName.c_str()));
+   TH1D* hMC_Zphi_gen0Sub = (TH1D*) file_sigMCgen0Sub->Get(Form("%s/HGenZPhi", FolderName.c_str()));
 
    hData_Zphi->SetName("hData_Zphi");
    hMC_Zphi->SetName("hMC_Zphi");
@@ -118,9 +118,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    TH2D* hpp_Zetaphi = (TH2D*) file_ppMC->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
    TH2D* hData_bkg_Zetaphi = (TH2D*) file_bkgDA->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
    TH2D* hMC_bkg_Zetaphi = (TH2D*) file_bkgMC->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
-   TH2D* hMC_Zetaphi_gen = (TH2D*) file_sigMCgen->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
-   TH2D* hMC_bkg_Zetaphi_gen = (TH2D*) file_bkgMCgen->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
-   TH2D* hMC_Zetaphi_gen0Sub = (TH2D*) file_sigMCgen0Sub->Get(Form("%s/HZEtaPhi", FolderName.c_str()));
+   TH2D* hMC_Zetaphi_gen = (TH2D*) file_sigMCgen->Get(Form("%s/HGenZEtaPhi", FolderName.c_str()));
+   TH2D* hMC_bkg_Zetaphi_gen = (TH2D*) file_bkgMCgen->Get(Form("%s/HGenZEtaPhi", FolderName.c_str()));
+   TH2D* hMC_Zetaphi_gen0Sub = (TH2D*) file_sigMCgen0Sub->Get(Form("%s/HGenZEtaPhi", FolderName.c_str()));
 
    hData_Zetaphi->SetName("hData_Zetaphi");
    hMC_Zetaphi->SetName("hMC_Zetaphi");
@@ -130,7 +130,6 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zetaphi_gen->SetName("hMC_Zetaphi_gen");
    hMC_bkg_Zetaphi_gen->SetName("hMC_bkg_Zetaphi_gen");
    hMC_Zetaphi_gen0Sub->SetName("hMC_Zetaphi_gen0Sub");
-
 
 
    TH1D* hData_Tracketa = (TH1D*) file_sigDA->Get(Form("%s/HTrackEta", FolderName.c_str()));

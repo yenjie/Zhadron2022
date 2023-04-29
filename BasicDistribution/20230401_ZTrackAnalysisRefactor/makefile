@@ -18,8 +18,8 @@ TestRun: Execute
 		--Output GraphPPMC_0428.root --IgnoreCentrality true --Fraction 1 \
 		 > log/GraphPPMC_0428.out 2> log/GraphPPMC_0428.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0428/ \
-		--Output GraphMCSignalGen_0428.root --Fraction 1 \
-		 > log/GraphMCSignalGen_0428.out 2> log/GraphMCSignalGen_0428.err < /dev/null &
+		--Output GraphMCSignalGen_0428_1.root --Fraction 1 \
+		 > log/GraphMCSignalGen_0428_1.out 2> log/GraphMCSignalGen_0428_1.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0428/ \
 		--Output GraphMCSignalGen0Sub_0428.root --OnlyZeroSub true --Fraction 1 \
 		 > log/GraphMCSignalGen0Sub_0428.out 2> log/GraphMCSignalGen0Sub_0428.err < /dev/null &
