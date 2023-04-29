@@ -454,8 +454,7 @@ int main(int argc, char *argv[])
             HZMass[iC]->Fill(ZMass->at(0), NCollWeight);
             HZEtaPhi[iC]->Fill(ZEta->at(0), ZPhi->at(0), NCollWeight);
 
-            if(genZEta!= nullptr){
-               std::cout<<"genZEta->at(0) = "<<genZEta->at(0)<<std::endl;
+            if(genZEta->size() > 0){
                HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight);
                HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight);
                HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight);
@@ -525,5 +524,3 @@ int main(int argc, char *argv[])
 
    return 0;
 }
-
-
