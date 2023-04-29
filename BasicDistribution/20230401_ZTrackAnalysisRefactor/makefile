@@ -3,32 +3,32 @@ default: TestRun
 TestRun: Execute
 	mkdir -p log
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_0428/ \
-		--Output GraphDataSignal_0428.root --Fraction 1 \
-		 > log/GraphDataSignal_0428.out 2> log/GraphDataSignal_0428.err < /dev/null &
+		--Output GraphDataSignal_0430.root --Fraction 1 \
+		 > log/GraphDataSignal_0430.out 2> log/GraphDataSignal_0430.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0428/ \
-		--Output GraphDataBackground_0428.root --Fraction 1 \
-		 > log/GraphDataBackground_0428.out 2> log/GraphDataBackground_0428.err < /dev/null &
+		--Output GraphDataBackground_0430.root --Fraction 1 \
+		 > log/GraphDataBackground_0430.out 2> log/GraphDataBackground_0430.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0428/ \
-		--Output GraphMCSignal_0428.root --Fraction 1 \
-		 > log/GraphMCSignal_0428.out 2> log/GraphMCSignal_0428.err < /dev/null &
+		--Output GraphMCSignal_0430.root --Fraction 1 \
+		 > log/GraphMCSignal_0430.out 2> log/GraphMCSignal_0430.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0428/ \
-		--Output GraphMCBackground_0428.root --Fraction 1 \
-		 > log/GraphMCBackground_0428.out 2> log/GraphMCBackground_0428.err < /dev/null &
+		--Output GraphMCBackground_0430.root --Fraction 1 \
+		 > log/GraphMCBackground_0430.out 2> log/GraphMCBackground_0430.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_0428/ \
-		--Output GraphPPMC_0428.root --IgnoreCentrality true --Fraction 1 \
-		 > log/GraphPPMC_0428.out 2> log/GraphPPMC_0428.err < /dev/null &
+		--Output GraphPPMC_0430.root --IgnoreCentrality true --Fraction 1 \
+		 > log/GraphPPMC_0430.out 2> log/GraphPPMC_0430.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0428/ \
-		--Output GraphMCSignalGen_0428.root --Fraction 1 \
-		 > log/GraphMCSignalGen_0428.out 2> log/GraphMCSignalGen_0428.err < /dev/null &
+		--Output GraphMCSignalGen_0430.root --Fraction 1 \
+		 > log/GraphMCSignalGen_0430.out 2> log/GraphMCSignalGen_0430.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0428/ \
-		--Output GraphMCSignalGen0Sub_0428.root --OnlyZeroSub true --Fraction 1 \
-		 > log/GraphMCSignalGen0Sub_0428.out 2> log/GraphMCSignalGen0Sub_0428.err < /dev/null &
+		--Output GraphMCSignalGen0Sub_0430.root --OnlyZeroSub true --Fraction 1 \
+		 > log/GraphMCSignalGen0Sub_0430.out 2> log/GraphMCSignalGen0Sub_0430.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0428/ \
-		--Output GraphMCBackgroundGen_0428.root --Fraction 1 \
-		 > log/GraphMCBackgroundGen_0428.out 2> log/GraphMCBackgroundGen_0428.err < /dev/null &
+		--Output GraphMCBackgroundGen_0430.root --Fraction 1 \
+		 > log/GraphMCBackgroundGen_0430.out 2> log/GraphMCBackgroundGen_0430.err < /dev/null &
 	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_0428/ \
-		--Output GraphPPMCGen_0428.root --IgnoreCentrality true --Fraction 1 \
-		 > log/GraphPPMCGen_0428.out 2> log/GraphPPMCGen_0428.err < /dev/null &
+		--Output GraphPPMCGen_0430.root --IgnoreCentrality true --Fraction 1 \
+		 > log/GraphPPMCGen_0430.out 2> log/GraphPPMCGen_0430.err < /dev/null &
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \

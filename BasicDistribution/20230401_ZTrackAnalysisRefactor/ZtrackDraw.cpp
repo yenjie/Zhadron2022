@@ -61,7 +61,7 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "20230427";
+const char *typeofdata = "20230430";
 const char *typeofdatatext = "single muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -264,8 +264,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *npM_tN = (TNamed *) file_ppMC->Get(Form("%s/EntryCount",FolderName.c_str()));
 
-   TNamed *nM_tNgen  = (TNamed *) file_sigMCgen->Get(Form("%s/EntryCount",FolderName.c_str()));
-   TNamed *nMb_tNgen = (TNamed *) file_bkgMCgen->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *nM_tNgen  = (TNamed *) file_sigMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
+   TNamed *nMb_tNgen = (TNamed *) file_bkgMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
 
    std::string sD_tN  = (std::string) nD_tN->GetTitle();
    std::string sM_tN  = (std::string) nM_tN->GetTitle();
@@ -2968,14 +2968,14 @@ int main(int argc, char *argv[]){
 
    style();
 
-   file_sigMC = TFile::Open("GraphMCSignal_0428.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground_0428.root","read");
-   file_sigDA = TFile::Open("GraphDataSignal_0428.root","read");
-   file_bkgDA = TFile::Open("GraphDataBackground_0428.root","read");
-   file_ppMC  = TFile::Open("GraphPPMC_0428.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal_0430.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground_0430.root","read");
+   file_sigDA = TFile::Open("GraphDataSignal_0430.root","read");
+   file_bkgDA = TFile::Open("GraphDataBackground_0430.root","read");
+   file_ppMC  = TFile::Open("GraphPPMC_0430.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_0428.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0428.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_0430.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0430.root","read");
 
 
    ZtrackDraw_single(40, 20, 2000,  0, 90,  0, 1000);

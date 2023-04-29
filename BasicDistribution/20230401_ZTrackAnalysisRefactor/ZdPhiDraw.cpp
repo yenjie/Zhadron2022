@@ -11,7 +11,7 @@
 #include <iostream>
 
 double TptL_min = 0.5;
-const char *typeofdata = "20230429";
+const char *typeofdata = "20230430";
 
 TFile *file_sigMC;
 TFile *file_sigDA;
@@ -216,8 +216,8 @@ int main(int argc, char *argv[]){
 
    style();
 
-   file_sigMC = TFile::Open("GraphMCSignal_0428.root","read");
-   file_sigDA = TFile::Open("GraphDataSignal_0428.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal_0430.root","read");
+   file_sigDA = TFile::Open("GraphDataSignal_0430.root","read");
 
    ZdPhiDraw_single(40, 60, 2000,  0, 90,0.5,    2);
    ZdPhiDraw_single(40,100, 2000,  0, 90,0.5,    2);

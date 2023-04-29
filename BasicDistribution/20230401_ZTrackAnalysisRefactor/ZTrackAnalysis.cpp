@@ -127,6 +127,8 @@ int main(int argc, char *argv[])
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
    vector<TH1D *>           HEventCount;
+   vector<double>           GenEventCount;
+   vector<TH1D *>           HGenEventCount;
    vector<TH1D *>           HZPT;
    vector<TH1D *>           HZEta;
    vector<TH1D *>           HZPhi;
@@ -139,6 +141,9 @@ int main(int argc, char *argv[])
    vector<TH1D *>           HTrackEta;
    vector<TH1D *>           HTrackPhi;
    vector<TH2D *>           HTrackEtaPhi;
+   vector<TH1D *>           HGenTrackEta;
+   vector<TH1D *>           HGenTrackPhi;
+   vector<TH2D *>           HGenTrackEtaPhi;
    vector<TH1D *>           HTrackMuonDEta;
    vector<TH1D *>           HTrackMuonDPhi;
    vector<TH2D *>           HTrackMuonDEtaDPhi;
@@ -181,6 +186,8 @@ int main(int argc, char *argv[])
       Folder[iC]->cd();
       EventCount.push_back(0);
       HEventCount.push_back(new TH1D("HEventCount", "", 1, 0, 1));
+      GenEventCount.push_back(0);
+      HGenEventCount.push_back(new TH1D("HGenEventCount", "", 1, 0, 1));
       
       HZPT.push_back(new TH1D("HZPT", "Z candidate PT", 100, 0, 200));
       HZEta.push_back(new TH1D("HZEta", "Z candidate eta", 100, -3.2, 3.2));
@@ -194,6 +201,9 @@ int main(int argc, char *argv[])
       HTrackEta.push_back(new TH1D("HTrackEta", "Track eta", 100, -3.2, 3.2));
       HTrackPhi.push_back(new TH1D("HTrackPhi", "Track phi", 100, -M_PI, M_PI));
       HTrackEtaPhi.push_back(new TH2D("HTrackEtaPhi", "Track eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
+      HGenTrackEta.push_back(new TH1D("HGenTrackEta", "GEN Track eta", 100, -3.2, 3.2));
+      HGenTrackPhi.push_back(new TH1D("HGenTrackPhi", "GEN Track phi", 100, -M_PI, M_PI));
+      HGenTrackEtaPhi.push_back(new TH2D("HGenTrackEtaPhi", "GEN Track eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       
       HTrackMuonDEta.push_back(new TH1D("HTrackMuonDEta", "track-muon delta eta", 100, -3.2, 3.2));
       HTrackMuonDPhi.push_back(new TH1D("HTrackMuonDPhi", "track-muon delta phi", 100, -M_PI, M_PI));
@@ -391,11 +401,18 @@ int main(int argc, char *argv[])
             }
             if(PassEverything)
             {
+
                HTrackPT[iC]->Fill(TrackPT->at(iT), weight);
                HTrackEta[iC]->Fill(TrackDEta->at(iT) + ZEta->at(0), weight);
                HTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0)), weight);
                HTrackEtaPhi[iC]->Fill(TrackDEta->at(iT) + ZEta->at(0), PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0)), weight);
                
+               if(genZEta->size() > 0){
+                  HGenTrackEta[iC]->Fill(TrackDEta->at(iT) + genZEta->at(0), weight);
+                  HGenTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + genZPhi->at(0)), weight);
+                  HGenTrackEtaPhi[iC]->Fill(TrackDEta->at(iT) + genZEta->at(0), PhiRangeSymmetric(TrackDPhi->at(iT) + genZPhi->at(0)), weight);
+               }
+
                HEta[iC]->Fill(TrackDEta->at(iT), weight);
                HPhi[iC]->Fill(PhiRangeCorrelation(+TrackDPhi->at(iT)), 0.5*weight);
                HPhi[iC]->Fill(PhiRangeCorrelation(-TrackDPhi->at(iT)), 0.5*weight);
@@ -455,6 +472,8 @@ int main(int argc, char *argv[])
             HZEtaPhi[iC]->Fill(ZEta->at(0), ZPhi->at(0), NCollWeight);
 
             if(genZEta->size() > 0){
+               GenEventCount[iC] = GenEventCount[iC] + NCollWeight;
+               HGenEventCount[iC]->Fill(0., NCollWeight);
                HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight);
                HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight);
                HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight);
@@ -480,7 +499,10 @@ int main(int argc, char *argv[])
       Folder[iC]->cd();
       TNamed N("EntryCount", Form("%f", EventCount[iC]));
       N.Write();
+      TNamed NGen("GenEntryCount", Form("%f", GenEventCount[iC]));
+      NGen.Write();
       HEventCount[iC]->Write();
+      HGenEventCount[iC]->Write();
       HZPT[iC]->Write();
       HZEta[iC]->Write();
       HZPhi[iC]->Write();
@@ -493,6 +515,9 @@ int main(int argc, char *argv[])
       HTrackEta[iC]->Write();
       HTrackPhi[iC]->Write();
       HTrackEtaPhi[iC]->Write();
+      HGenTrackEta[iC]->Write();
+      HGenTrackPhi[iC]->Write();
+      HGenTrackEtaPhi[iC]->Write();
       HTrackMuonDEta[iC]->Write();
       HTrackMuonDPhi[iC]->Write();
       HTrackMuonDEtaDPhi[iC]->Write();

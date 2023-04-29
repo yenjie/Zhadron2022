@@ -63,7 +63,7 @@ TFile *file_bkgMCgen;
 
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230429";
+const char *typeofdata = "20230430";
 const char *typeofdatatext = "single muon";
 
 void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -137,9 +137,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    TH1D* hpp_Tracketa = (TH1D*) file_ppMC->Get(Form("%s/HTrackEta", FolderName.c_str()));
    TH1D* hData_bkg_Tracketa = (TH1D*) file_bkgDA->Get(Form("%s/HTrackEta", FolderName.c_str()));
    TH1D* hMC_bkg_Tracketa = (TH1D*) file_bkgMC->Get(Form("%s/HTrackEta", FolderName.c_str()));
-   TH1D* hMC_Tracketa_gen = (TH1D*) file_sigMCgen->Get(Form("%s/HTrackEta", FolderName.c_str()));
-   TH1D* hMC_bkg_Tracketa_gen = (TH1D*) file_bkgMCgen->Get(Form("%s/HTrackEta", FolderName.c_str()));
-   TH1D* hMC_Tracketa_gen0Sub = (TH1D*) file_sigMCgen0Sub->Get(Form("%s/HTrackEta", FolderName.c_str()));
+   TH1D* hMC_Tracketa_gen = (TH1D*) file_sigMCgen->Get(Form("%s/HGenTrackEta", FolderName.c_str()));
+   TH1D* hMC_bkg_Tracketa_gen = (TH1D*) file_bkgMCgen->Get(Form("%s/HGenTrackEta", FolderName.c_str()));
+   TH1D* hMC_Tracketa_gen0Sub = (TH1D*) file_sigMCgen0Sub->Get(Form("%s/HGenTrackEta", FolderName.c_str()));
 
    hData_Tracketa->SetName("hData_Tracketa");
    hMC_Tracketa->SetName("hMC_Tracketa");
@@ -155,9 +155,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    TH1D* hpp_Trackphi = (TH1D*) file_ppMC->Get(Form("%s/HTrackPhi", FolderName.c_str()));
    TH1D* hData_bkg_Trackphi = (TH1D*) file_bkgDA->Get(Form("%s/HTrackPhi", FolderName.c_str()));
    TH1D* hMC_bkg_Trackphi = (TH1D*) file_bkgMC->Get(Form("%s/HTrackPhi", FolderName.c_str()));
-   TH1D* hMC_Trackphi_gen = (TH1D*) file_sigMCgen->Get(Form("%s/HTrackPhi", FolderName.c_str()));
-   TH1D* hMC_bkg_Trackphi_gen = (TH1D*) file_bkgMCgen->Get(Form("%s/HTrackPhi", FolderName.c_str()));
-   TH1D* hMC_Trackphi_gen0Sub = (TH1D*) file_sigMCgen0Sub->Get(Form("%s/HTrackPhi", FolderName.c_str()));
+   TH1D* hMC_Trackphi_gen = (TH1D*) file_sigMCgen->Get(Form("%s/HGenTrackPhi", FolderName.c_str()));
+   TH1D* hMC_bkg_Trackphi_gen = (TH1D*) file_bkgMCgen->Get(Form("%s/HGenTrackPhi", FolderName.c_str()));
+   TH1D* hMC_Trackphi_gen0Sub = (TH1D*) file_sigMCgen0Sub->Get(Form("%s/HGenTrackPhi", FolderName.c_str()));
 
    hData_Trackphi->SetName("hData_Trackphi");
    hMC_Trackphi->SetName("hMC_Trackphi");
@@ -173,9 +173,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    TH2D* hpp_Tracketaphi = (TH2D*) file_ppMC->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
    TH2D* hData_bkg_Tracketaphi = (TH2D*) file_bkgDA->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
    TH2D* hMC_bkg_Tracketaphi = (TH2D*) file_bkgMC->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
-   TH2D* hMC_Tracketaphi_gen = (TH2D*) file_sigMCgen->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
-   TH2D* hMC_bkg_Tracketaphi_gen = (TH2D*) file_bkgMCgen->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
-   TH2D* hMC_Tracketaphi_gen0Sub = (TH2D*) file_sigMCgen0Sub->Get(Form("%s/HTrackEtaPhi", FolderName.c_str()));
+   TH2D* hMC_Tracketaphi_gen = (TH2D*) file_sigMCgen->Get(Form("%s/HGenTrackEtaPhi", FolderName.c_str()));
+   TH2D* hMC_bkg_Tracketaphi_gen = (TH2D*) file_bkgMCgen->Get(Form("%s/HGenTrackEtaPhi", FolderName.c_str()));
+   TH2D* hMC_Tracketaphi_gen0Sub = (TH2D*) file_sigMCgen0Sub->Get(Form("%s/HGenTrackEtaPhi", FolderName.c_str()));
 
    hData_Tracketaphi->SetName("hData_Tracketaphi");
    hMC_Tracketaphi->SetName("hMC_Tracketaphi");
@@ -210,10 +210,10 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *npM_tN = (TNamed *) file_ppMC->Get(Form("%s/EntryCount",FolderName.c_str()));
 
-   TNamed *nM_tNgen  = (TNamed *) file_sigMCgen->Get(Form("%s/EntryCount",FolderName.c_str()));
-   TNamed *nMb_tNgen = (TNamed *) file_bkgMCgen->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *nM_tNgen  = (TNamed *) file_sigMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
+   TNamed *nMb_tNgen = (TNamed *) file_bkgMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
 
-   TNamed *nM_tNgen0Sub  = (TNamed *) file_sigMCgen0Sub->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *nM_tNgen0Sub  = (TNamed *) file_sigMCgen0Sub->Get(Form("%s/GenEntryCount",FolderName.c_str()));
 
    std::string sD_tN  = (std::string) nD_tN->GetTitle();
    std::string sM_tN  = (std::string) nM_tN->GetTitle();
@@ -1123,16 +1123,16 @@ int main(int argc, char *argv[]){
 
   style();
 
-   file_sigMC = TFile::Open("GraphMCSignal_0428.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground_0428.root","read");
-   file_sigDA = TFile::Open("GraphDataSignal_0428.root","read");
-   file_bkgDA = TFile::Open("GraphDataBackground_0428.root","read");
-   file_ppMC  = TFile::Open("GraphPPMC_0428.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal_0430.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground_0430.root","read");
+   file_sigDA = TFile::Open("GraphDataSignal_0430.root","read");
+   file_bkgDA = TFile::Open("GraphDataBackground_0430.root","read");
+   file_ppMC  = TFile::Open("GraphPPMC_0430.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_0428.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0428.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_0430.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0430.root","read");
 
-   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0428.root","read");
+   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0430.root","read");
 
    
   ZcheckBasic_single(40, 20, 2000,  0, 90,  0, 1000);
