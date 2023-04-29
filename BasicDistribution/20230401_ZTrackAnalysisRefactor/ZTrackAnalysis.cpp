@@ -455,6 +455,7 @@ int main(int argc, char *argv[])
             HZEtaPhi[iC]->Fill(ZEta->at(0), ZPhi->at(0), NCollWeight);
 
             if(genZEta!= nullptr){
+               std::cout<<"genZEta->at(0) = "<<genZEta->at(0)<<std::endl;
                HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight);
                HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight);
                HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight);
