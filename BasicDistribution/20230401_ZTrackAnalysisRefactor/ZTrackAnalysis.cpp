@@ -263,6 +263,11 @@ int main(int argc, char *argv[])
    vector<double> *genZEta     = nullptr;
    vector<double> *genZPhi     = nullptr;
 
+   vector<double> *genMu1Eta   = nullptr;
+   vector<double> *genMu2Eta   = nullptr;
+   vector<double> *genMu1Phi   = nullptr;
+   vector<double> *genMu2Phi   = nullptr;
+
    double maxOppositeDEta;
    double maxOppositeDPhi;
    double maxDEta;
@@ -309,6 +314,10 @@ int main(int argc, char *argv[])
    if(Tree->GetBranch("genZPhi"))  Tree->SetBranchAddress("genZPhi",  &genZPhi);
    if(Tree->GetBranch("genZMass")) Tree->SetBranchAddress("genZMass", &genZMass);
    if(Tree->GetBranch("genZPt"))   Tree->SetBranchAddress("genZPt",   &genZPt);
+   if(Tree->GetBranch("genMuEta1"))   Tree->SetBranchAddress("genMuEta1",   &genMu1Eta);
+   if(Tree->GetBranch("genMuEta2"))   Tree->SetBranchAddress("genMuEta2",   &genMu2Eta);
+   if(Tree->GetBranch("genMuPhi1"))   Tree->SetBranchAddress("genMuPhi1",   &genMu1Phi);
+   if(Tree->GetBranch("genMuPhi2"))   Tree->SetBranchAddress("genMuPhi2",   &genMu2Phi);
 
    int EntryCount = Tree->GetEntries() * Fraction;
    ProgressBar Bar(cout, EntryCount);
@@ -354,11 +363,17 @@ int main(int argc, char *argv[])
 
          bool SomethingPassed = false;
 
-         int ZEta_0, ZPhi_0, ZMass_0, ZPT_0;
+         double ZEta_0, ZPhi_0, ZMass_0, ZPT_0;
+         double Mu1Eta_0, Mu2Eta_0, Mu1Phi_0, Mu2Phi_0;
+
          if(DoGenCorrelation == true){
             ZEta_0 = genZEta->at(0); ZPhi_0 = genZPhi->at(0); ZMass_0 = genZMass->at(0); ZPT_0 = genZPt->at(0);
+            Mu1Eta_0 = genMu1Eta->at(0); Mu2Eta_0 = genMu2Eta->at(0); 
+            Mu1Phi_0 = genMu1Phi->at(0); Mu2Phi_0 = genMu2Phi->at(0); 
          }else{
             ZEta_0 = ZEta->at(0); ZPhi_0 = ZPhi->at(0); ZMass_0 = ZMass->at(0); ZPT_0 = ZPT->at(0);
+            Mu1Eta_0 = Mu1Eta->at(0); Mu2Eta_0 = Mu2Eta->at(0); 
+            Mu1Phi_0 = Mu1Phi->at(0); Mu2Phi_0 = Mu2Phi->at(0); 
          }
 
          int NTrack = 0;
@@ -394,11 +409,10 @@ int main(int argc, char *argv[])
 
             // cout << TrackDEta->at(iT) << " " << Mu1Eta->at(0) << " " << ZEta->at(0) << endl;
 
-
-            double DEtaToMu1             = TrackDEta->at(iT) + ZEta_0 - Mu1Eta->at(0);
-            double DPhiToMu1             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0 - Mu1Phi->at(0));
-            double DEtaToMu2             = TrackDEta->at(iT) + ZEta_0 - Mu2Eta->at(0);
-            double DPhiToMu2             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0 - Mu2Phi->at(0));
+            double DEtaToMu1             = TrackDEta->at(iT) + ZEta_0 - Mu1Eta_0;
+            double DPhiToMu1             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0 - Mu1Phi_0);
+            double DEtaToMu2             = TrackDEta->at(iT) + ZEta_0 - Mu2Eta_0;
+            double DPhiToMu2             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0 - Mu2Phi_0);
 
             double DRToMu1               = sqrt(DEtaToMu1 * DEtaToMu1 + DPhiToMu1 * DPhiToMu1);
             double DRToMu2               = sqrt(DEtaToMu2 * DEtaToMu2 + DPhiToMu2 * DPhiToMu2);
@@ -422,7 +436,6 @@ int main(int argc, char *argv[])
             }
             if(PassEverything)
             {
-
                HTrackPT[iC]->Fill(TrackPT->at(iT), weight);
                HTrackEta[iC]->Fill(TrackDEta->at(iT) + ZEta_0, weight);
                HTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0), weight);
