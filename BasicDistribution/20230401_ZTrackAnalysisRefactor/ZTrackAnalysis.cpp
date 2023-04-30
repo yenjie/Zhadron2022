@@ -356,7 +356,7 @@ int main(int argc, char *argv[])
 
          int ZEta_0, ZPhi_0, ZMass_0, ZPT_0;
          if(DoGenCorrelation == true){
-            ZEta_0 = genZEta->at(0); ZPhi_0 = genZPhi->at(0); ZMass_0 = genZMass->at(0); ZPT_0 = genZPT->at(0);
+            ZEta_0 = genZEta->at(0); ZPhi_0 = genZPhi->at(0); ZMass_0 = genZMass->at(0); ZPT_0 = genZPt->at(0);
          }else{
             ZEta_0 = ZEta->at(0); ZPhi_0 = ZPhi->at(0); ZMass_0 = ZMass->at(0); ZPT_0 = ZPT->at(0);
          }
