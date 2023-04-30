@@ -259,7 +259,7 @@ int main(int argc, char *argv[])
    vector<int> *subevent       = nullptr;
 
    vector<double> *genZMass    = nullptr;
-   vector<double> *genZPT      = nullptr;
+   vector<double> *genZPt      = nullptr;
    vector<double> *genZEta     = nullptr;
    vector<double> *genZPhi     = nullptr;
 
@@ -308,7 +308,7 @@ int main(int argc, char *argv[])
    if(Tree->GetBranch("genZEta"))  Tree->SetBranchAddress("genZEta",  &genZEta);
    if(Tree->GetBranch("genZPhi"))  Tree->SetBranchAddress("genZPhi",  &genZPhi);
    if(Tree->GetBranch("genZMass")) Tree->SetBranchAddress("genZMass", &genZMass);
-   if(Tree->GetBranch("genZPT"))   Tree->SetBranchAddress("genZPT",   &genZPT);
+   if(Tree->GetBranch("genZPt"))   Tree->SetBranchAddress("genZPt",   &genZPt);
 
    int EntryCount = Tree->GetEntries() * Fraction;
    ProgressBar Bar(cout, EntryCount);
@@ -336,7 +336,7 @@ int main(int argc, char *argv[])
          if(DoGenCorrelation == false && ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
             ZPTRange = true;
 
-         if(DoGenCorrelation == true && genZPT != nullptr && genZPT->size() > 0 && genZPT->at(0) > C[iC].ZPTMin && genZPT->at(0) <= C[iC].ZPTMax)
+         if(DoGenCorrelation == true && genZPt != nullptr && genZPt->size() > 0 && genZPt->at(0) > C[iC].ZPTMin && genZPt->at(0) <= C[iC].ZPTMax)
             ZPTRange = true;
 
          bool CentRange = false;
