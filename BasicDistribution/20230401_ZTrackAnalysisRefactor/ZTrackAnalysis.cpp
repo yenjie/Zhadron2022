@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
    double Fraction       = CL.GetDouble("Fraction", 1.00);
    bool IgnoreCentrality = CL.GetBool("IgnoreCentrality", false);
    bool OnlyZeroSub      = CL.GetBool("OnlyZeroSub", false);
+   bool DoGenCorrelation = CL.GetBool("DoGenCorrelation", false);
    
    // Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
    vector<Configuration> C;
@@ -257,6 +258,8 @@ int main(int argc, char *argv[])
    vector<bool> *TrackMuTagged = nullptr;
    vector<int> *subevent       = nullptr;
 
+   vector<double> *genZMass    = nullptr;
+   vector<double> *genZPT      = nullptr;
    vector<double> *genZEta     = nullptr;
    vector<double> *genZPhi     = nullptr;
 
@@ -302,8 +305,10 @@ int main(int argc, char *argv[])
    if(Tree->GetBranch("maxMoreOppositeWTADEta")) Tree->SetBranchAddress("maxMoreOppositeWTADEta", &maxMoreOppositeWTADEta);
    if(Tree->GetBranch("maxMoreOppositeWTADPhi")) Tree->SetBranchAddress("maxMoreOppositeWTADPhi", &maxMoreOppositeWTADPhi);
 
-   if(Tree->GetBranch("genZEta")) Tree->SetBranchAddress("genZEta", &genZEta);
-   if(Tree->GetBranch("genZPhi")) Tree->SetBranchAddress("genZPhi", &genZPhi);
+   if(Tree->GetBranch("genZEta"))  Tree->SetBranchAddress("genZEta",  &genZEta);
+   if(Tree->GetBranch("genZPhi"))  Tree->SetBranchAddress("genZPhi",  &genZPhi);
+   if(Tree->GetBranch("genZMass")) Tree->SetBranchAddress("genZMass", &genZMass);
+   if(Tree->GetBranch("genZPT"))   Tree->SetBranchAddress("genZPT",   &genZPT);
 
    int EntryCount = Tree->GetEntries() * Fraction;
    ProgressBar Bar(cout, EntryCount);
@@ -321,11 +326,17 @@ int main(int argc, char *argv[])
       for(int iC = 0; iC < (int)C.size(); iC++)
       {
          bool ZMassRange = false;
-         if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
+         if(DoGenCorrelation == false && ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
+            ZMassRange = true;
+
+         if(DoGenCorrelation == true && genZMass != nullptr && genZMass->size() > 0 && genZMass->at(0) > 60)
             ZMassRange = true;
 
          bool ZPTRange = false;
-         if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
+         if(DoGenCorrelation == false && ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
+            ZPTRange = true;
+
+         if(DoGenCorrelation == true && genZPT != nullptr && genZPT->size() > 0 && genZPT->at(0) > C[iC].ZPTMin && genZPT->at(0) <= C[iC].ZPTMax)
             ZPTRange = true;
 
          bool CentRange = false;
