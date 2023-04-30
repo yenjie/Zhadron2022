@@ -80,15 +80,15 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    TH2D* hMC_etaphi_1 = (TH2D*) file_sigMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    hMC_etaphi_1->SetName("hMC_etaphi_1");
 
-   TH2D* hMC_etaphi_gen = (TH2D*) file_sigMCgen->Get(Form("%s/HGenEtaPhi", FolderName.c_str()));
-   TH2D* hMC_bkg_etaphi_gen = (TH2D*) file_bkgMCgen->Get(Form("%s/HGenEtaPhi", FolderName.c_str()));
+   TH2D* hMC_etaphi_gen = (TH2D*) file_sigMCgen->Get(Form("%s/HEtaPhi", FolderName.c_str()));
+   TH2D* hMC_bkg_etaphi_gen = (TH2D*) file_bkgMCgen->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    hMC_etaphi_gen->SetName("hMC_etaphi_gen");
    hMC_bkg_etaphi_gen->SetName("hMC_etaphi_gen");
 
    TH2D* hMC_bkg_etaphi_1 = (TH2D*) file_bkgMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    hMC_bkg_etaphi_1->SetName("hMC_bkg_etaphi_1");
 
-   TH2D* hMC_etaphi_gen0Sub = (TH2D*) file_sigMCgen0Sub->Get(Form("%s/HGenEtaPhi", FolderName.c_str()));
+   TH2D* hMC_etaphi_gen0Sub = (TH2D*) file_sigMCgen0Sub->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    hMC_etaphi_gen0Sub->SetName("hMC_etaphi_gen");
 
    std::cout<<"Setting histograms..."<<std::endl;
