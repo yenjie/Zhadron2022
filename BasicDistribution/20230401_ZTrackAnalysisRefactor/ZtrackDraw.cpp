@@ -997,6 +997,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    if(ptL==30&&centL==0&&centH==30){
     hMC_phi_com->SetMaximum(max1);
     hMC_bkg_phi_com->SetMaximum(max1);
+   }else if(ptL==30&&centL==30&&centH==50){
+    hMC_phi_com->SetMaximum(max1/1.6);
+    hMC_bkg_phi_com->SetMaximum(max1/1.6);
    }
 
    //hMC_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
