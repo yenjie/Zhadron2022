@@ -63,7 +63,7 @@ TFile *file_bkgMCgen;
 
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230430";
+const char *typeofdata = "20230430_gen01";
 const char *typeofdatatext = "single muon";
 
 void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -1129,10 +1129,10 @@ int main(int argc, char *argv[]){
    file_bkgDA = TFile::Open("GraphDataBackground_0430.root","read");
    file_ppMC  = TFile::Open("GraphPPMC_0430.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_0430.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0430.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_0430_01.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0430_01.root","read");
 
-   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0430.root","read");
+   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0430_01.root","read");
 
    
   ZcheckBasic_single(40, 20, 2000,  0, 90,  0, 1000);
