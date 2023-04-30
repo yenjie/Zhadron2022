@@ -329,15 +329,17 @@ int main(int argc, char *argv[])
          if(DoGenCorrelation == false && ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
             ZMassRange = true;
 
-         if(DoGenCorrelation == true && genZMass != nullptr && genZMass->size() > 0 && genZMass->at(0) > 60)
-            ZMassRange = true;
+         if(DoGenCorrelation == true && genZMass != nullptr && genZMass->size() > 0){
+            if(genZMass->at(0) > 60) ZMassRange = true;
+         }
 
          bool ZPTRange = false;
          if(DoGenCorrelation == false && ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
             ZPTRange = true;
 
-         if(DoGenCorrelation == true && genZPt != nullptr && genZPt->size() > 0 && genZPt->at(0) > C[iC].ZPTMin && genZPt->at(0) <= C[iC].ZPTMax)
-            ZPTRange = true;
+         if(DoGenCorrelation == true && genZPt != nullptr && genZPt->size() > 0){
+            if (genZPt->at(0) > C[iC].ZPTMin && genZPt->at(0) <= C[iC].ZPTMax) ZPTRange = true;
+         }
 
          bool CentRange = false;
          if(HiBin >= C[iC].CentMin * 2 && HiBin < C[iC].CentMax * 2)
