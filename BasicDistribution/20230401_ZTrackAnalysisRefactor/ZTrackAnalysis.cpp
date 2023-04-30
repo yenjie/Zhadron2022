@@ -354,6 +354,13 @@ int main(int argc, char *argv[])
 
          bool SomethingPassed = false;
 
+         int ZEta_0, ZPhi_0, ZMass_0, ZPT_0;
+         if(DoGenCorrelation == true){
+            ZEta_0 = genZEta->at(0); ZPhi_0 = genZPhi->at(0); ZMass_0 = genZMass->at(0); ZPT_0 = genZPT->at(0);
+         }else{
+            ZEta_0 = ZEta->at(0); ZPhi_0 = ZPhi->at(0); ZMass_0 = ZMass->at(0); ZPT_0 = ZPT->at(0);
+         }
+
          int NTrack = 0;
          if(TrackPT != nullptr)
             NTrack = TrackPT->size();
@@ -387,10 +394,11 @@ int main(int argc, char *argv[])
 
             // cout << TrackDEta->at(iT) << " " << Mu1Eta->at(0) << " " << ZEta->at(0) << endl;
 
-            double DEtaToMu1             = TrackDEta->at(iT) + ZEta->at(0) - Mu1Eta->at(0);
-            double DPhiToMu1             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0) - Mu1Phi->at(0));
-            double DEtaToMu2             = TrackDEta->at(iT) + ZEta->at(0) - Mu2Eta->at(0);
-            double DPhiToMu2             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0) - Mu2Phi->at(0));
+
+            double DEtaToMu1             = TrackDEta->at(iT) + ZEta_0 - Mu1Eta->at(0);
+            double DPhiToMu1             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0 - Mu1Phi->at(0));
+            double DEtaToMu2             = TrackDEta->at(iT) + ZEta_0 - Mu2Eta->at(0);
+            double DPhiToMu2             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0 - Mu2Phi->at(0));
 
             double DRToMu1               = sqrt(DEtaToMu1 * DEtaToMu1 + DPhiToMu1 * DPhiToMu1);
             double DRToMu2               = sqrt(DEtaToMu2 * DEtaToMu2 + DPhiToMu2 * DPhiToMu2);
@@ -416,9 +424,9 @@ int main(int argc, char *argv[])
             {
 
                HTrackPT[iC]->Fill(TrackPT->at(iT), weight);
-               HTrackEta[iC]->Fill(TrackDEta->at(iT) + ZEta->at(0), weight);
-               HTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0)), weight);
-               HTrackEtaPhi[iC]->Fill(TrackDEta->at(iT) + ZEta->at(0), PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0)), weight);
+               HTrackEta[iC]->Fill(TrackDEta->at(iT) + ZEta_0, weight);
+               HTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0), weight);
+               HTrackEtaPhi[iC]->Fill(TrackDEta->at(iT) + ZEta_0, PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0), weight);
                
                if(genZEta->size() > 0){
                   HGenTrackEta[iC]->Fill(TrackDEta->at(iT) + genZEta->at(0), weight);
@@ -478,11 +486,11 @@ int main(int argc, char *argv[])
             EventCount[iC] = EventCount[iC] + NCollWeight;
             HEventCount[iC]->Fill(0., NCollWeight);
             
-            HZPT[iC]->Fill(ZPT->at(0), NCollWeight);
-            HZEta[iC]->Fill(ZEta->at(0), NCollWeight);
-            HZPhi[iC]->Fill(ZPhi->at(0), NCollWeight);
-            HZMass[iC]->Fill(ZMass->at(0), NCollWeight);
-            HZEtaPhi[iC]->Fill(ZEta->at(0), ZPhi->at(0), NCollWeight);
+            HZPT[iC]->Fill(ZPT_0, NCollWeight);
+            HZEta[iC]->Fill(ZEta_0, NCollWeight);
+            HZPhi[iC]->Fill(ZPhi_0, NCollWeight);
+            HZMass[iC]->Fill(ZMass_0, NCollWeight);
+            HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight);
 
             if(genZEta->size() > 0){
                GenEventCount[iC] = GenEventCount[iC] + NCollWeight;
@@ -492,14 +500,14 @@ int main(int argc, char *argv[])
                HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight);
             }
 
-            HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta->at(0),
-               PhiRangeCorrelation(maxDPhi + ZPhi->at(0)), NCollWeight);
-            HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta->at(0),
-               PhiRangeCorrelation(maxOppositeDPhi + ZPhi->at(0)), NCollWeight);
-            HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta->at(0),
-               PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi->at(0)), NCollWeight);
-            HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta->at(0),
-               PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi->at(0)), NCollWeight);
+            HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta_0,
+               PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight);
+            HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta_0,
+               PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight);
+            HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta_0,
+               PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight);
+            HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta_0,
+               PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight);
          }
       }
    }
