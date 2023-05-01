@@ -165,8 +165,8 @@ PrepareToRunRandomMCBackground:
 PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
-		10 LogMCGenbkg_0428/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0428/ \
-		$(PbPbBackgroundMC)/ 12 \
+		10 LogMCGenbkg_0501/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0501/ \
+		$(PbPbBackgroundMC)/ 100 \
  		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
 		--DoBackground true --HFShift 1083 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5 --GenCorrelationCharged true
