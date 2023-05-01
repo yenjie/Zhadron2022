@@ -14,6 +14,8 @@
    * Adding a new tree InfoTree that contains all the input arguments used to make the tree
 * Version 3 - 2023 Apr 28
    * Fixing track vertex z selection
+* Version 4 - 2023 May 1
+   * Adding option to calculate CS WTA
 
 
 
