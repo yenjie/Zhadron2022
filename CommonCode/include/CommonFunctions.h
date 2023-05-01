@@ -48,7 +48,7 @@ std::pair<double, double> WTAAxisCA(std::vector<double> Eta, std::vector<double>
 std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT);
 void ConstituentSubtraction(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
    std::vector<double> *EtaMin = nullptr, std::vector<double> *EtaMax = nullptr, std::vector<double> *Rho = nullptr,
-   double MaxR = 1.0);
+   double MaxR = 1.0, double MaxAbsEta = -1);
 void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
    std::vector<double> &GhostEta, std::vector<double> &GhostPhi, std::vector<double> &GhostPT,
    double MaxR2);
@@ -343,7 +343,7 @@ std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<doub
 
 void ConstituentSubtraction(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
    std::vector<double> *EtaMin, std::vector<double> *EtaMax, std::vector<double> *Rho,
-   double MaxR)
+   double MaxR, double MaxAbsEta)
 {
    if(EtaMin == nullptr || EtaMax == nullptr || Rho == nullptr)
       return;
@@ -360,15 +360,28 @@ void ConstituentSubtraction(std::vector<double> &Eta, std::vector<double> &Phi, 
    int NBin = EtaMin->size();
    for(int iBin = 0; iBin < NBin; iBin++)
    {
+      double Min = (*EtaMin)[iBin];
+      double Max = (*EtaMax)[iBin];
+
+      if(MaxAbsEta > 0 && Max < -MaxAbsEta)
+         continue;
+      if(MaxAbsEta > 0 && Min > MaxAbsEta)
+         continue;
+
+      if(Min < -MaxAbsEta)
+         Min = -MaxAbsEta;
+      if(Max > MaxAbsEta)
+         Max = MaxAbsEta;
+
       double NPhi = std::ceil(2 * M_PI / GhostDPhi);
-      double NEta = std::ceil(((*EtaMax)[iBin] - (*EtaMin)[iBin]) / GhostDEta);
-      double A = ((*EtaMax)[iBin] - (*EtaMin)[iBin]) / NEta * (2 * M_PI) / NPhi;
+      double NEta = std::ceil((Max - Min) / GhostDEta);
+      double A = (Max - Min) / NEta * (2 * M_PI) / NPhi;
 
       for(int iEta = 0; iEta < NEta; iEta++)
       {
          for(int iPhi = 0; iPhi < NPhi; iPhi++)
          {
-            GhostEta.push_back((*EtaMin)[iBin] + ((*EtaMax)[iBin] - (*EtaMin)[iBin]) / NEta * (iBin + 0.5));
+            GhostEta.push_back(Min + (Max - Min) / NEta * (iBin + 0.5));
             GhostPhi.push_back(-M_PI + 2 * M_PI / NPhi * (iPhi + 0.5));
             GhostPT.push_back(A * (*Rho)[iBin]);
          }
