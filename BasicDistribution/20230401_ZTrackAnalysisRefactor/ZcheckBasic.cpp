@@ -63,7 +63,7 @@ TFile *file_bkgMCgen;
 
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230430_gen01";
+const char *typeofdata = "20230501_gen01";
 const char *typeofdatatext = "single muon";
 
 void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
