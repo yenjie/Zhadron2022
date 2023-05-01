@@ -348,7 +348,7 @@ void ConstituentSubtraction(std::vector<double> &Eta, std::vector<double> &Phi, 
    if(EtaMin == nullptr || EtaMax == nullptr || Rho == nullptr)
       return;
 
-   double GhostA = 0.0025;
+   double GhostA = 0.005;
    double GhostDPhi = sqrt(GhostA);
    double GhostDEta = sqrt(GhostA);
 
@@ -390,11 +390,13 @@ void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vec
    for(int i = 0; i < (int)Eta.size(); i++)
       Particles.push_back(PseudoParticle(Eta[i], Phi[i], PT[i]));
    std::sort(Particles.begin(), Particles.end());
+   std::vector<bool> ParticlesAlive(Particles.size(), true);
 
    std::vector<PseudoParticle> Ghosts;
    for(int i = 0; i < (int)GhostEta.size(); i++)
       Ghosts.push_back(PseudoParticle(GhostEta[i], GhostPhi[i], GhostPT[i]));
    std::sort(Ghosts.begin(), Ghosts.end());
+   std::vector<bool> GhostsAlive(Ghosts.size(), true);
 
    bool Changed = true;
    while(Changed == true)
@@ -406,6 +408,9 @@ void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vec
       double OverallBestR2 = -1;
       for(int i = 0; i < (int)Particles.size(); i++)
       {
+         if(ParticlesAlive[i] == false)
+            continue;
+
          int StartJ = 0;
          if(OverallBestR2 > 0)
          {
@@ -419,7 +424,7 @@ void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vec
                StartJ = MaxJ;
             else   // min and max sandwich the limit.  Binary search.
             {
-               while(MaxJ - MinJ > 0)
+               while(MaxJ - MinJ > 1)
                {
                   int Middle = (MinJ + MaxJ) / 2;
                   if(Ghosts[Middle].Eta < Limit)
@@ -436,6 +441,9 @@ void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vec
          double BestR2 = -1;
          for(int j = StartJ; j < (int)Ghosts.size(); j++)
          {
+            if(GhostsAlive[j] == false)
+               continue;
+
             double DEta = Particles[i].Eta - Ghosts[j].Eta;
             double DPhi = DeltaPhi(Particles[i].Phi, Ghosts[j].Phi);
             double DR2 = DEta * DEta + DPhi * DPhi;
@@ -443,14 +451,14 @@ void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vec
             if(OverallBestR2 > 0 && j != StartJ && DEta * DEta > OverallBestR2)
                break;
 
-            if(BestR2 < 0 || DR2 > BestR2)
+            if(BestR2 < 0 || DR2 < BestR2)
             {
                BestJ = j;
                BestR2 = DR2;
             }
          }
 
-         if(OverallBestR2 < 0 || OverallBestR2 < BestR2)
+         if(OverallBestR2 < 0 || OverallBestR2 > BestR2)
          {
             OverallBestI = i;
             OverallBestJ = BestJ;
@@ -465,15 +473,19 @@ void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vec
          if(Particles[OverallBestI].PT > Ghosts[OverallBestJ].PT)
          {
             Particles[OverallBestI].PT = Particles[OverallBestI].PT - Ghosts[OverallBestJ].PT;
-            Ghosts.erase(Ghosts.begin() + OverallBestJ);
+            Ghosts[OverallBestJ].PT = 0;
+            GhostsAlive[OverallBestJ] = false;
          }
          else
          {
             Ghosts[OverallBestJ].PT = Ghosts[OverallBestJ].PT - Particles[OverallBestI].PT;
-            Particles.erase(Particles.begin() + OverallBestI);
+            Particles[OverallBestI].PT = 0;
+            ParticlesAlive[OverallBestI] = false;
          }
       }
    }
+
+   // cout << Particles.size() << " " << PT.size() << ", " << Ghosts.size() << " " << GhostPT.size() << endl;
 
    PT.clear();
    Eta.clear();
@@ -481,9 +493,9 @@ void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vec
 
    for(int i = 0; i < (int)Particles.size(); i++)
    {
-      PT[i] = Particles[i].PT;
-      Eta[i] = Particles[i].Eta;
-      Phi[i] = Particles[i].Phi;
+      PT.push_back(Particles[i].PT);
+      Eta.push_back(Particles[i].Eta);
+      Phi.push_back(Particles[i].Phi);
    }
 
    return;
