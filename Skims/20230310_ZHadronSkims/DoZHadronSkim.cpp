@@ -99,7 +99,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V3";
+   string Version = "V4";
 
    CommandLine CL(argc, argv);
 
@@ -127,6 +127,9 @@ int main(int argc, char *argv[])
 
    string PFTreeName             = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
    PFTreeName                    = CL.Get("PFTree", PFTreeName);
+
+   bool DoCS                     = CL.GetBool("DoCS", false);
+   string RhoTreeName            = CL.Get("RhoTree", "hiPuRhoAnalyzer/t");
 
    Assert(!(IsPP == true && IsData == true), "Data selections for pp not implemented yet");
    Assert(!(DoGenCorrelation == true && DoGenLevel == false), "You need to turn on gen level to do gen correlation!");
@@ -169,6 +172,7 @@ int main(int argc, char *argv[])
    vector<TrackTreeMessenger *>       MBackgroundTrackPP;
    vector<PbPbTrackTreeMessenger *>   MBackgroundTrack;
    vector<PFTreeMessenger *>          MBackgroundPF;
+   vector<RhoTreeMessenger *>         MBackgroundRho;
    vector<EventIndex>                 BackgroundIndices;
    if(DoBackground == true)
    {
@@ -180,6 +184,7 @@ int main(int argc, char *argv[])
          MBackgroundTrackPP.push_back(new TrackTreeMessenger(BackgroundFiles[iB]));
          MBackgroundTrack.push_back(new PbPbTrackTreeMessenger(BackgroundFiles[iB]));
          MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB], PFTreeName));
+         MBackgroundRho.push_back(new RhoTreeMessenger(BackgroundFiles[iB], RhoTreeName));
 
          int EntryCount = MBackgroundEvent[iB]->GetEntries();
          for(int iE = 0; iE < EntryCount; iE++)
@@ -236,6 +241,7 @@ int main(int argc, char *argv[])
    Key = "DoTrackEfficiency";       Value = InfoString(DoTrackEfficiency);       InfoTree.Fill();
    Key = "TrackEfficiencyPath";     Value = InfoString(TrackEfficiencyPath);     InfoTree.Fill();
    Key = "PFTreeName";              Value = InfoString(PFTreeName);              InfoTree.Fill();
+   Key = "RhoTreeName";             Value = InfoString(RhoTreeName);             InfoTree.Fill();
    Key = "Background";              Value = InfoString(BackgroundFileNames);     InfoTree.Fill();
    Key = "VZTolerance";             Value = InfoString(VZTolerance);             InfoTree.Fill();
    Key = "HFShift";                 Value = InfoString(HFShift);                 InfoTree.Fill();
@@ -266,6 +272,7 @@ int main(int argc, char *argv[])
       SkimTreeMessenger        MSignalSkim(InputFile);
       TriggerTreeMessenger     MSignalTrigger(InputFile);
       JetTreeMessenger         MSignalJet(InputFile, JetTreeName);
+      RhoTreeMessenger         MSignalRho(InputFile, RhoTreeName);
 
       // Start looping over events
       int EntryCount = MSignalEvent.GetEntries() * Fraction;
@@ -296,6 +303,7 @@ int main(int argc, char *argv[])
          MSignalPF.GetEntry(iE);
          if(DoJet == true)
             MSignalJet.GetEntry(iE);
+         MSignalRho.GetEntry(iE);
 
          MZHadron.Run   = MSignalEvent.Run;
          MZHadron.Lumi  = MSignalEvent.Lumi;
@@ -722,6 +730,19 @@ int main(int argc, char *argv[])
                double MaxDEta = 0;
                double MaxDPhi = 0;
 
+               // Do CS PF
+               vector<double> CSPFEta;
+               vector<double> CSPFPhi;
+               vector<double> CSPFPT;
+               for(int iPF = 0; iPF < MPF->ID->size(); iPF++)
+               {
+                  CSPFEta.push_back(MPF->Eta->at(iPF));
+                  CSPFPhi.push_back(MPF->Phi->at(iPF));
+                  CSPFPT.push_back(MPF->PT->at(iPF));
+               }
+               if(DoCS == true)
+                  ConstituentSubtraction(CSPFEta, CSPFPhi, CSPFPT, MSignalRho.EtaMin, MSignalRho.EtaMax, MSignalRho.Rho, 0.5);
+
                // Loop over PF candidates to find WTA
                vector<double> OppositePFEta;
                vector<double> OppositePFPhi;
@@ -779,6 +800,39 @@ int main(int argc, char *argv[])
                      MaxIndex = iPF;
                      MaxDEta = deltaEta;
                      MaxDPhi = deltaPhi;
+                  }
+               }
+
+               // Loop over CS PF candidates to find WTA
+               vector<double> OppositeCSPFEta;
+               vector<double> OppositeCSPFPhi;
+               vector<double> OppositeCSPFPT;
+               for(int iPF = 0; iPF < CSPFEta.size(); iPF++)
+               {
+                  if(CSPFEta[iPF] < -2.4 || CSPFEta[iPF] > +2.4)   // don't use forward region
+                     continue;
+
+                  // cout << iPF << " " << MPF->ID->size() << endl;
+
+                  double DeltaEtaMu1 = CSPFEta[iPF] - MZHadron.muEta1->at(0);
+                  double DeltaEtaMu2 = CSPFEta[iPF] - MZHadron.muEta2->at(0);
+                  double DeltaPhiMu1 = DeltaPhi(CSPFPhi[iPF], MZHadron.muPhi1->at(0));
+                  double DeltaPhiMu2 = DeltaPhi(CSPFPhi[iPF], MZHadron.muPhi2->at(0));
+
+                  double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
+                  double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
+
+                  if(DeltaRMu1 < MuonVeto)   continue;
+                  if(DeltaRMu2 < MuonVeto)   continue;
+
+                  double deltaPhi = DeltaPhi(CSPFPhi[iPF], MZHadron.zPhi->at(0));
+                  double deltaEta = CSPFEta[iPF] - MZHadron.zEta->at(0);
+
+                  if(fabs(deltaPhi) > M_PI / 2)
+                  {
+                     OppositeCSPFEta.push_back(deltaEta);
+                     OppositeCSPFPhi.push_back(deltaPhi);
+                     OppositeCSPFPT.push_back(CSPFPT[iPF]);
                   }
                }
 
@@ -843,10 +897,11 @@ int main(int argc, char *argv[])
 
                pair<double, double> WTA            = WTAAxis(OppositePFEta, OppositePFPhi, OppositePFPT);
                pair<double, double> WTAMore        = WTAAxis(MoreOppositePFEta, MoreOppositePFPhi, MoreOppositePFPT);
+               pair<double, double> CSWTA          = WTAAxis(OppositeCSPFEta, OppositeCSPFPhi, OppositeCSPFPT);
                pair<double, double> ChargedWTA     = WTAAxis(OppositeTrackEta, OppositeTrackPhi, OppositeTrackPT);
                pair<double, double> ChargedWTAMore = WTAAxis(MoreOppositeTrackEta, MoreOppositeTrackPhi, MoreOppositeTrackPT);
                pair<double, double> HardChargedWTA = WTAAxis(OppositeHardTrackEta, OppositeHardTrackPhi, OppositeHardTrackPT);
-
+               
                MZHadron.maxOppositeDEta               = MaxOppositeDEta;
                MZHadron.maxOppositeDPhi               = MaxOppositeDPhi;
                MZHadron.maxDEta                       = MaxDEta;
@@ -855,6 +910,8 @@ int main(int argc, char *argv[])
                MZHadron.maxOppositeWTADPhi            = WTA.second;
                MZHadron.maxMoreOppositeWTADEta        = WTAMore.first;
                MZHadron.maxMoreOppositeWTADPhi        = WTAMore.second;
+               MZHadron.maxOppositeCSWTADEta          = CSWTA.first;
+               MZHadron.maxOppositeCSWTADPhi          = CSWTA.second;
                MZHadron.maxOppositeChargedWTADEta     = ChargedWTA.first;
                MZHadron.maxOppositeChargedWTADPhi     = ChargedWTA.second;
                MZHadron.maxMoreOppositeChargedWTADEta = ChargedWTAMore.first;
@@ -902,6 +959,10 @@ int main(int argc, char *argv[])
             delete M;
 
       for(PFTreeMessenger *M : MBackgroundPF)
+         if(M != nullptr)
+            delete M;
+      
+      for(RhoTreeMessenger *M : MBackgroundRho)
          if(M != nullptr)
             delete M;
    }

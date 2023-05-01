@@ -6,6 +6,33 @@
 
 #define M_MU 0.1056583755
 
+// Structs
+
+struct PseudoParticle;
+
+struct PseudoParticle
+{
+   double Eta;
+   double Phi;
+   double PT;
+   PseudoParticle(double eta, double phi, double pt)
+   {
+      Eta = eta;
+      Phi = phi;
+      PT = pt;
+   }
+   bool operator <(const PseudoParticle &other) const
+   {
+      if(Eta < other.Eta)   return true;
+      if(Eta > other.Eta)   return false;
+      if(Phi < other.Phi)   return true;
+      if(Phi > other.Phi)   return false;
+      if(PT < other.PT)     return true;
+      if(PT > other.PT)     return false;
+      return false;
+   }
+};
+
 // Function declarations
 
 double DeltaPhi(double Phi1, double Phi2);
@@ -19,6 +46,12 @@ double FindNPartAverage(int hiBin);
 std::pair<double, double> WTAAxis(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT);
 std::pair<double, double> WTAAxisCA(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT);
 std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT);
+void ConstituentSubtraction(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> *EtaMin = nullptr, std::vector<double> *EtaMax = nullptr, std::vector<double> *Rho = nullptr,
+   double MaxR = 1.0);
+void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> &GhostEta, std::vector<double> &GhostPhi, std::vector<double> &GhostPT,
+   double MaxR2);
 std::string InfoString(std::string Info);
 std::string InfoString(char *Info);
 std::string InfoString(int Info);
@@ -97,29 +130,6 @@ std::pair<double, double> WTAAxisCA(std::vector<double> Eta, std::vector<double>
 
    if(Eta.size() == 0)
       return Result;
-
-   struct PseudoParticle
-   {
-      double Eta;
-      double Phi;
-      double PT;
-      PseudoParticle(double eta, double phi, double pt)
-      {
-         Eta = eta;
-         Phi = phi;
-         PT = pt;
-      }
-      bool operator <(const PseudoParticle &other) const
-      {
-         if(Eta < other.Eta)   return true;
-         if(Eta > other.Eta)   return false;
-         if(Phi < other.Phi)   return true;
-         if(Phi > other.Phi)   return false;
-         if(PT < other.PT)     return true;
-         if(PT > other.PT)     return false;
-         return false;
-      }
-   };
 
    std::vector<PseudoParticle> Particles;
    for(int i = 0; i < (int)Eta.size(); i++)
@@ -329,6 +339,154 @@ std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<doub
    }
    
    return Result;
+}
+
+void ConstituentSubtraction(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> *EtaMin, std::vector<double> *EtaMax, std::vector<double> *Rho,
+   double MaxR)
+{
+   if(EtaMin == nullptr || EtaMax == nullptr || Rho == nullptr)
+      return;
+
+   double GhostA = 0.0025;
+   double GhostDPhi = sqrt(GhostA);
+   double GhostDEta = sqrt(GhostA);
+
+   // Setup ghosts
+   std::vector<double> GhostEta;
+   std::vector<double> GhostPhi;
+   std::vector<double> GhostPT;
+
+   int NBin = EtaMin->size();
+   for(int iBin = 0; iBin < NBin; iBin++)
+   {
+      double NPhi = std::ceil(2 * M_PI / GhostDPhi);
+      double NEta = std::ceil(((*EtaMax)[iBin] - (*EtaMin)[iBin]) / GhostDEta);
+      double A = ((*EtaMax)[iBin] - (*EtaMin)[iBin]) / NEta * (2 * M_PI) / NPhi;
+
+      for(int iEta = 0; iEta < NEta; iEta++)
+      {
+         for(int iPhi = 0; iPhi < NPhi; iPhi++)
+         {
+            GhostEta.push_back((*EtaMin)[iBin] + ((*EtaMax)[iBin] - (*EtaMin)[iBin]) / NEta * (iBin + 0.5));
+            GhostPhi.push_back(-M_PI + 2 * M_PI / NPhi * (iPhi + 0.5));
+            GhostPT.push_back(A * (*Rho)[iBin]);
+         }
+      }
+   }
+
+   if(NBin == 0)
+      return;
+
+   // Run CS
+   DoCSBruteForce(Eta, Phi, PT, GhostEta, GhostPhi, GhostPT, MaxR * MaxR);
+}
+
+void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> &GhostEta, std::vector<double> &GhostPhi, std::vector<double> &GhostPT,
+   double MaxR2)
+{
+   std::vector<PseudoParticle> Particles;
+   for(int i = 0; i < (int)Eta.size(); i++)
+      Particles.push_back(PseudoParticle(Eta[i], Phi[i], PT[i]));
+   std::sort(Particles.begin(), Particles.end());
+
+   std::vector<PseudoParticle> Ghosts;
+   for(int i = 0; i < (int)GhostEta.size(); i++)
+      Ghosts.push_back(PseudoParticle(GhostEta[i], GhostPhi[i], GhostPT[i]));
+   std::sort(Ghosts.begin(), Ghosts.end());
+
+   bool Changed = true;
+   while(Changed == true)
+   {
+      Changed = false;
+
+      int OverallBestI = -1;
+      int OverallBestJ = -1;
+      double OverallBestR2 = -1;
+      for(int i = 0; i < (int)Particles.size(); i++)
+      {
+         int StartJ = 0;
+         if(OverallBestR2 > 0)
+         {
+            double Limit = Particles[i].Eta - sqrt(OverallBestR2);
+            int MinJ = 0;
+            int MaxJ = Ghosts.size();
+
+            if(Ghosts[MinJ].Eta > Limit)   // min already above limit.  Stop.
+               StartJ = MinJ;
+            else if(Ghosts[MaxJ].Eta < Limit)   // max still below limit.  Stop.
+               StartJ = MaxJ;
+            else   // min and max sandwich the limit.  Binary search.
+            {
+               while(MaxJ - MinJ > 0)
+               {
+                  int Middle = (MinJ + MaxJ) / 2;
+                  if(Ghosts[Middle].Eta < Limit)
+                     MinJ = Middle;
+                  else
+                     MaxJ = Middle;
+               }
+
+               StartJ = MinJ;
+            }
+         }
+
+         int BestJ = -1;
+         double BestR2 = -1;
+         for(int j = StartJ; j < (int)Ghosts.size(); j++)
+         {
+            double DEta = Particles[i].Eta - Ghosts[j].Eta;
+            double DPhi = DeltaPhi(Particles[i].Phi, Ghosts[j].Phi);
+            double DR2 = DEta * DEta + DPhi * DPhi;
+            
+            if(OverallBestR2 > 0 && j != StartJ && DEta * DEta > OverallBestR2)
+               break;
+
+            if(BestR2 < 0 || DR2 > BestR2)
+            {
+               BestJ = j;
+               BestR2 = DR2;
+            }
+         }
+
+         if(OverallBestR2 < 0 || OverallBestR2 < BestR2)
+         {
+            OverallBestI = i;
+            OverallBestJ = BestJ;
+            OverallBestR2 = BestR2;
+         }
+      }
+
+      if(OverallBestR2 >= 0 && (MaxR2 < 0 || OverallBestR2 < MaxR2))   // found a pair!
+      {
+         Changed = true;
+
+         if(Particles[OverallBestI].PT > Ghosts[OverallBestJ].PT)
+         {
+            Particles[OverallBestI].PT = Particles[OverallBestI].PT - Ghosts[OverallBestJ].PT;
+            Ghosts.erase(Ghosts.begin() + OverallBestJ);
+         }
+         else
+         {
+            Ghosts[OverallBestJ].PT = Ghosts[OverallBestJ].PT - Particles[OverallBestI].PT;
+            Particles.erase(Particles.begin() + OverallBestI);
+         }
+      }
+   }
+
+   PT.clear();
+   Eta.clear();
+   Phi.clear();
+
+   for(int i = 0; i < (int)Particles.size(); i++)
+   {
+      PT[i] = Particles[i].PT;
+      Eta[i] = Particles[i].Eta;
+      Phi[i] = Particles[i].Phi;
+   }
+
+   return;
 }
 
 std::string InfoString(std::string Info)
