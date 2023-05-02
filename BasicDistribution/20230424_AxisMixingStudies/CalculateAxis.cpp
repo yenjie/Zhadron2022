@@ -14,6 +14,8 @@ using namespace std;
 #include "TSystemDirectory.h"
 #include "TLorentzVector.h"
 
+#include "UseFJ.h"
+
 #include "Messenger.h"
 #include "CommandLine.h"
 #include "CommonFunctions.h"
@@ -26,6 +28,7 @@ using namespace std;
 
 int main(int argc, char *argv[]);
 double GetHFSum(PFTreeMessenger *M);
+double Sum(vector<double> &V);
 
 int main(int argc, char *argv[])
 {
@@ -55,12 +58,14 @@ int main(int argc, char *argv[])
    vector<HiEventTreeMessenger *>     MBackgroundEvent;
    vector<PbPbTrackTreeMessenger *>   MBackgroundTrack;
    vector<PFTreeMessenger *>          MBackgroundPF;
+   vector<RhoTreeMessenger *>         MBackgroundRho;
    for(int iB = 0; iB < NBackground; iB++)
    {
       BackgroundFiles.push_back(new TFile(BackgroundFileNames[iB].c_str()));
       MBackgroundEvent.push_back(new HiEventTreeMessenger(BackgroundFiles[iB]));
       MBackgroundTrack.push_back(new PbPbTrackTreeMessenger(BackgroundFiles[iB]));
       MBackgroundPF.push_back(new PFTreeMessenger(BackgroundFiles[iB], "particleFlowAnalyser/pftree"));
+      MBackgroundRho.push_back(new RhoTreeMessenger(BackgroundFiles[iB], "hiPuRhoAnalyzer/t"));
    }
 
    int iBF = 0, iBE = 0;
@@ -79,17 +84,28 @@ int main(int argc, char *argv[])
    bool AxisFilled;
    int BackgroundHiBin;
    double BackgroundHiHF;
+   double SignalPFSum;
+   double MixedPFSum;
+   double CSPFSum;
    double PFWTA[4];
+   double CSPFWTA[4];
    double TrackWTA[4];
    double HardTrackWTA[4];
    double Track34WTA[4];
    AxisTree.Branch("AxisFilled", &AxisFilled, "AxisFilled/O");
    AxisTree.Branch("BackgroundHiBin", &BackgroundHiBin, "BackgroundHiBin/I");
    AxisTree.Branch("BackgroundHiHF", &BackgroundHiHF, "BackgroundHiHF/D");
+   AxisTree.Branch("SignalPFSum", &SignalPFSum, "SignalPFSum/D");
+   AxisTree.Branch("MixedPFSum", &MixedPFSum, "MixedPFSum/D");
+   AxisTree.Branch("CSPFSum", &CSPFSum, "CSPFSum/D");
    AxisTree.Branch("SignalPFEta", &PFWTA[0], "SignalPFEta/D");
    AxisTree.Branch("SignalPFPhi", &PFWTA[1], "SignalPFPhi/D");
    AxisTree.Branch("MixedPFEta",  &PFWTA[2], "MixedPFEta/D");
    AxisTree.Branch("MixedPFPhi",  &PFWTA[3], "MixedPFPhi/D");
+   AxisTree.Branch("SignalCSPFEta", &CSPFWTA[0], "SignalCSPFEta/D");
+   AxisTree.Branch("SignalCSPFPhi", &CSPFWTA[1], "SignalCSPFPhi/D");
+   AxisTree.Branch("MixedCSPFEta",  &CSPFWTA[2], "MixedCSPFEta/D");
+   AxisTree.Branch("MixedCSPFPhi",  &CSPFWTA[3], "MixedCSPFPhi/D");
    AxisTree.Branch("SignalTrackEta", &TrackWTA[0], "SignalTrackEta/D");
    AxisTree.Branch("SignalTrackPhi", &TrackWTA[1], "SignalTrackPhi/D");
    AxisTree.Branch("MixedTrackEta",  &TrackWTA[2], "MixedTrackEta/D");
@@ -232,6 +248,7 @@ int main(int argc, char *argv[])
             BackgroundHiBin = -1;
             BackgroundHiHF = -1;
             for(int i = 0; i < 4; i++)   PFWTA[i] = 0;
+            for(int i = 0; i < 4; i++)   CSPFWTA[i] = 0;
             for(int i = 0; i < 4; i++)   TrackWTA[i] = 0;
             for(int i = 0; i < 4; i++)   HardTrackWTA[i] = 0;
             
@@ -242,6 +259,7 @@ int main(int argc, char *argv[])
                MBackgroundEvent[iBF]->GetEntry(iBE);
                MBackgroundPF[iBF]->GetEntry(iBE);
                MBackgroundTrack[iBF]->GetEntry(iBE);
+               MBackgroundRho[iBF]->GetEntry(iBE);
 
                BackgroundHiBin = MBackgroundEvent[iBF]->hiBin;
                BackgroundHiHF = DoSumET ? MBackgroundEvent[iBF]->hiHF : GetHFSum(MBackgroundPF[iBF]);
@@ -325,6 +343,71 @@ int main(int argc, char *argv[])
                   }
                }
 
+               // Now we do the constituent subtraction for the mixed case
+               vector<double> CSPFEta;
+               vector<double> CSPFPhi;
+               vector<double> CSPFPT;
+               for(int iPF = 0; iPF < MSignalPF.ID->size(); iPF++)
+               {
+                  if(MSignalPF.Eta->at(iPF) < -3 || MSignalPF.Eta->at(iPF) > 3)
+                     continue;
+                  CSPFEta.push_back(MSignalPF.Eta->at(iPF));
+                  CSPFPhi.push_back(MSignalPF.Phi->at(iPF));
+                  CSPFPT.push_back(MSignalPF.PT->at(iPF));
+               }
+               SignalPFSum = Sum(CSPFPT);
+               for(int iPF = 0; iPF < MBackgroundPF[iBF]->ID->size(); iPF++)
+               {
+                  if(MBackgroundPF[iBF]->Eta->at(iPF) < -3 || MBackgroundPF[iBF]->Eta->at(iPF) > 3)
+                     continue;
+                  CSPFEta.push_back(MBackgroundPF[iBF]->Eta->at(iPF));
+                  CSPFPhi.push_back(MBackgroundPF[iBF]->Phi->at(iPF));
+                  CSPFPT.push_back(MBackgroundPF[iBF]->PT->at(iPF));
+               }
+               MixedPFSum = Sum(CSPFPT);
+               if(MZHadron.zPt->at(0) > 60)
+               {
+                  cout << "Before " << MixedPFSum << endl;
+                  ConstituentSubtraction(CSPFEta, CSPFPhi, CSPFPT,
+                     MBackgroundRho[iBF]->EtaMin, MBackgroundRho[iBF]->EtaMax, MBackgroundRho[iBF]->Rho, 0.5, 3.0);
+                  cout << "After " << Sum(CSPFPT) << endl;
+                  cout << "Signal " << SignalPFSum << endl;
+               }
+               CSPFSum = Sum(CSPFPT);
+               
+               vector<double> &SignalCSPFEta = SignalPFEta;
+               vector<double> &SignalCSPFPhi = SignalPFPhi;
+               vector<double> &SignalCSPFPT = SignalPFPT;
+               vector<double> MixedCSPFEta;
+               vector<double> MixedCSPFPhi;
+               vector<double> MixedCSPFPT;
+               for(int iPF = 0; iPF < CSPFEta.size(); iPF++)
+               {
+                  if(CSPFEta[iPF] < -2.4 || CSPFEta[iPF] > +2.4)   // don't use forward region
+                     continue;
+
+                  double DeltaEtaMu1 = CSPFEta[iPF] - MZHadron.muEta1->at(0);
+                  double DeltaEtaMu2 = CSPFEta[iPF] - MZHadron.muEta2->at(0);
+                  double DeltaPhiMu1 = DeltaPhi(CSPFPhi[iPF], MZHadron.muPhi1->at(0));
+                  double DeltaPhiMu2 = DeltaPhi(CSPFPhi[iPF], MZHadron.muPhi2->at(0));
+
+                  double DeltaRMu1 = sqrt(DeltaEtaMu1 * DeltaEtaMu1 + DeltaPhiMu1 * DeltaPhiMu1);
+                  double DeltaRMu2 = sqrt(DeltaEtaMu2 * DeltaEtaMu2 + DeltaPhiMu2 * DeltaPhiMu2);
+
+                  if(DeltaRMu1 < MuonVeto)   continue;
+                  if(DeltaRMu2 < MuonVeto)   continue;
+
+                  double deltaPhi = DeltaPhi(CSPFPhi[iPF], MZHadron.zPhi->at(0));
+                  double deltaEta = CSPFEta[iPF] - MZHadron.zEta->at(0);
+
+                  if(fabs(deltaPhi) > M_PI / 2)
+                  {
+                     MixedCSPFEta.push_back(deltaEta);
+                     MixedCSPFPhi.push_back(deltaPhi);
+                     MixedCSPFPT.push_back(CSPFPT[iPF]);
+                  }
+               }
+               
                // Loop over tracks to find Charged WTA
                vector<double> SignalTrackEta;
                vector<double> SignalTrackPhi;
@@ -449,18 +532,24 @@ int main(int argc, char *argv[])
 
                pair<double, double> SignalPFWTA        = WTAAxis(SignalPFEta, SignalPFPhi, SignalPFPT);
                pair<double, double> MixedPFWTA         = WTAAxis(MixedPFEta, MixedPFPhi, MixedPFPT);
+               pair<double, double> SignalCSPFWTA      = WTAAxis(SignalCSPFEta, SignalCSPFPhi, SignalCSPFPT);
+               pair<double, double> MixedCSPFWTA       = WTAAxis(MixedCSPFEta, MixedCSPFPhi, MixedCSPFPT);
                pair<double, double> SignalTrackWTA     = WTAAxis(SignalTrackEta, SignalTrackPhi, SignalTrackPT);
                pair<double, double> MixedTrackWTA      = WTAAxis(MixedTrackEta, MixedTrackPhi, MixedTrackPT);
                pair<double, double> SignalHardTrackWTA = WTAAxis(SignalHardTrackEta, SignalHardTrackPhi, SignalHardTrackPT);
                pair<double, double> MixedHardTrackWTA  = WTAAxis(MixedHardTrackEta, MixedHardTrackPhi, MixedHardTrackPT);
-               pair<double, double> SignalTrack34WTA     = WTAAxis(SignalTrack34Eta, SignalTrack34Phi, SignalTrack34PT);
-               pair<double, double> MixedTrack34WTA      = WTAAxis(MixedTrack34Eta, MixedTrack34Phi, MixedTrack34PT);
+               pair<double, double> SignalTrack34WTA   = WTAAxis(SignalTrack34Eta, SignalTrack34Phi, SignalTrack34PT);
+               pair<double, double> MixedTrack34WTA    = WTAAxis(MixedTrack34Eta, MixedTrack34Phi, MixedTrack34PT);
             
                AxisFilled = true;
                PFWTA[0] = SignalPFWTA.first;
                PFWTA[1] = SignalPFWTA.second;
                PFWTA[2] = MixedPFWTA.first;
                PFWTA[3] = MixedPFWTA.second;
+               CSPFWTA[0] = SignalCSPFWTA.first;
+               CSPFWTA[1] = SignalCSPFWTA.second;
+               CSPFWTA[2] = MixedCSPFWTA.first;
+               CSPFWTA[3] = MixedCSPFWTA.second;
                TrackWTA[0] = SignalTrackWTA.first;
                TrackWTA[1] = SignalTrackWTA.second;
                TrackWTA[2] = MixedTrackWTA.first;
@@ -538,5 +627,12 @@ double GetHFSum(PFTreeMessenger *M)
    return Sum;
 }
 
+double Sum(vector<double> &V)
+{
+   double Result = 0;
+   for(double v : V)
+      Result = Result + v;
+   return Result;
+}
 
 

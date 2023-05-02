@@ -5,6 +5,10 @@
    AxisTree->SetAlias("PFRawDPhi", "(SignalPFPhi-MixedPFPhi)");
    AxisTree->SetAlias("PFDPhi", "(PFRawDPhi+2*3.14159*(PFRawDPhi<-3.14159)-2*3.14159*(PFRawDPhi>3.14159))");
    AxisTree->SetAlias("PFDR", "sqrt(PFDEta*PFDEta+PFDPhi*PFDPhi)");
+   AxisTree->SetAlias("CSPFDEta", "(SignalCSPFEta-MixedCSPFEta)");
+   AxisTree->SetAlias("CSPFRawDPhi", "(SignalCSPFPhi-MixedCSPFPhi)");
+   AxisTree->SetAlias("CSPFDPhi", "(CSPFRawDPhi+2*3.14159*(CSPFRawDPhi<-3.14159)-2*3.14159*(CSPFRawDPhi>3.14159))");
+   AxisTree->SetAlias("CSPFDR", "sqrt(CSPFDEta*CSPFDEta+CSPFDPhi*CSPFDPhi)");
    AxisTree->SetAlias("TrackDEta", "(SignalTrackEta-MixedTrackEta)");
    AxisTree->SetAlias("TrackRawDPhi", "(SignalTrackPhi-MixedTrackPhi)");
    AxisTree->SetAlias("TrackDPhi", "(TrackRawDPhi+2*3.14159*(TrackRawDPhi<-3.14159)-2*3.14159*(TrackRawDPhi>3.14159))");
@@ -64,4 +68,14 @@
    H9.SetStats(0);
    AxisTree->Draw("Track34DR<0.001:BackgroundHiBin/2>>H9", "AxisFilled > 0 && T.zPt[0] > 60", "prof");
    Canvas.SaveAs("Meow9.pdf");
+
+   TProfile H10("H10", ";Centrality (%);Good match WTA (CS PF #pi/2)", 20, 0, 100);
+   H10.SetStats(0);
+   AxisTree->Draw("CSPFDR<0.001:BackgroundHiBin/2>>H10", "AxisFilled > 0 && T.zPt[0] > 60", "prof");
+   Canvas.SaveAs("Meow10.pdf");
+
+   TH2D H11("H11", ";Centrality (%);#DeltaR^{WTA (CS PF #pi/2)}", 100, 0, 100, 100, 0, 5);
+   H11.SetStats(0);
+   AxisTree->Draw("PFDR:BackgroundHiBin/2>>H11", "AxisFilled > 0 && T.zPt[0] > 60", "colz");
+   Canvas.SaveAs("Meow11.pdf");
 }

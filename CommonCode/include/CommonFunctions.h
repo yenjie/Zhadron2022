@@ -1,10 +1,44 @@
+#ifndef CommonFunctions_h_25551
+#define CommonFunctions_h_25551
+
 #include <cmath>
 #include <iostream>
 #include <vector>
 #include <map>
 #include <algorithm>
 
+#ifdef USE_FJ
+#include "fastjet/contrib/ConstituentSubtractor.hh"
+#endif
+
 #define M_MU 0.1056583755
+
+// Structs
+
+struct PseudoParticle;
+
+struct PseudoParticle
+{
+   double Eta;
+   double Phi;
+   double PT;
+   PseudoParticle(double eta, double phi, double pt)
+   {
+      Eta = eta;
+      Phi = phi;
+      PT = pt;
+   }
+   bool operator <(const PseudoParticle &other) const
+   {
+      if(Eta < other.Eta)   return true;
+      if(Eta > other.Eta)   return false;
+      if(Phi < other.Phi)   return true;
+      if(Phi > other.Phi)   return false;
+      if(PT < other.PT)     return true;
+      if(PT > other.PT)     return false;
+      return false;
+   }
+};
 
 // Function declarations
 
@@ -19,6 +53,17 @@ double FindNPartAverage(int hiBin);
 std::pair<double, double> WTAAxis(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT);
 std::pair<double, double> WTAAxisCA(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT);
 std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<double> Phi, std::vector<double> PT);
+void ConstituentSubtraction(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> *EtaMin = nullptr, std::vector<double> *EtaMax = nullptr, std::vector<double> *Rho = nullptr,
+   double MaxR = 1.0, double MaxAbsEta = -1);
+void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> &GhostEta, std::vector<double> &GhostPhi, std::vector<double> &GhostPT,
+   double MaxR2);
+#ifdef USE_FJ
+void DoCSFastJet(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> &GhostEta, std::vector<double> &GhostPhi, std::vector<double> &GhostPT,
+   double MaxR2);
+#endif
 std::string InfoString(std::string Info);
 std::string InfoString(char *Info);
 std::string InfoString(int Info);
@@ -97,29 +142,6 @@ std::pair<double, double> WTAAxisCA(std::vector<double> Eta, std::vector<double>
 
    if(Eta.size() == 0)
       return Result;
-
-   struct PseudoParticle
-   {
-      double Eta;
-      double Phi;
-      double PT;
-      PseudoParticle(double eta, double phi, double pt)
-      {
-         Eta = eta;
-         Phi = phi;
-         PT = pt;
-      }
-      bool operator <(const PseudoParticle &other) const
-      {
-         if(Eta < other.Eta)   return true;
-         if(Eta > other.Eta)   return false;
-         if(Phi < other.Phi)   return true;
-         if(Phi > other.Phi)   return false;
-         if(PT < other.PT)     return true;
-         if(PT > other.PT)     return false;
-         return false;
-      }
-   };
 
    std::vector<PseudoParticle> Particles;
    for(int i = 0; i < (int)Eta.size(); i++)
@@ -331,6 +353,237 @@ std::pair<double, double> WTAAxisTable(std::vector<double> Eta, std::vector<doub
    return Result;
 }
 
+void ConstituentSubtraction(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> *EtaMin, std::vector<double> *EtaMax, std::vector<double> *Rho,
+   double MaxR, double MaxAbsEta)
+{
+   if(EtaMin == nullptr || EtaMax == nullptr || Rho == nullptr)
+      return;
+
+   double GhostA = 0.005;
+   double GhostDPhi = sqrt(GhostA);
+   double GhostDEta = sqrt(GhostA);
+
+   // Setup ghosts
+   std::vector<double> GhostEta;
+   std::vector<double> GhostPhi;
+   std::vector<double> GhostPT;
+
+   int NBin = EtaMin->size();
+   for(int iBin = 0; iBin < NBin; iBin++)
+   {
+      double Min = (*EtaMin)[iBin];
+      double Max = (*EtaMax)[iBin];
+
+      if(MaxAbsEta > 0 && Max < -MaxAbsEta)
+         continue;
+      if(MaxAbsEta > 0 && Min > MaxAbsEta)
+         continue;
+
+      if(Min < -MaxAbsEta)
+         Min = -MaxAbsEta;
+      if(Max > MaxAbsEta)
+         Max = MaxAbsEta;
+
+      double NPhi = std::ceil(2 * M_PI / GhostDPhi);
+      double NEta = std::ceil((Max - Min) / GhostDEta);
+      double A = (Max - Min) / NEta * (2 * M_PI) / NPhi;
+
+      for(int iEta = 0; iEta < NEta; iEta++)
+      {
+         for(int iPhi = 0; iPhi < NPhi; iPhi++)
+         {
+            GhostEta.push_back(Min + (Max - Min) / NEta * (iBin + 0.5));
+            GhostPhi.push_back(-M_PI + 2 * M_PI / NPhi * (iPhi + 0.5));
+            GhostPT.push_back(A * (*Rho)[iBin]);
+         }
+      }
+   }
+
+   if(NBin == 0)
+      return;
+
+   // Run CS
+#ifdef USE_FJ
+   DoCSFastJet(Eta, Phi, PT, GhostEta, GhostPhi, GhostPT, MaxR > 0 ? (MaxR * MaxR) : -1);
+#else
+   DoCSBruteForce(Eta, Phi, PT, GhostEta, GhostPhi, GhostPT, MaxR * MaxR);
+#endif
+}
+
+void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> &GhostEta, std::vector<double> &GhostPhi, std::vector<double> &GhostPT,
+   double MaxR2)
+{
+   std::vector<PseudoParticle> Particles;
+   for(int i = 0; i < (int)Eta.size(); i++)
+      Particles.push_back(PseudoParticle(Eta[i], Phi[i], PT[i]));
+   std::sort(Particles.begin(), Particles.end());
+   std::vector<bool> ParticlesAlive(Particles.size(), true);
+
+   std::vector<PseudoParticle> Ghosts;
+   for(int i = 0; i < (int)GhostEta.size(); i++)
+      Ghosts.push_back(PseudoParticle(GhostEta[i], GhostPhi[i], GhostPT[i]));
+   std::sort(Ghosts.begin(), Ghosts.end());
+   std::vector<bool> GhostsAlive(Ghosts.size(), true);
+
+   int IterationCount = 0;
+   bool Changed = true;
+   while(Changed == true)
+   {
+      Changed = false;
+      IterationCount = IterationCount + 1;
+
+      int OverallBestI = -1;
+      int OverallBestJ = -1;
+      double OverallBestR2 = -1;
+      for(int i = 0; i < (int)Particles.size(); i++)
+      {
+         if(ParticlesAlive[i] == false)
+            continue;
+
+         int StartJ = 0;
+         if(OverallBestR2 > 0)
+         {
+            double Limit = Particles[i].Eta - sqrt(OverallBestR2);
+            int MinJ = 0;
+            int MaxJ = Ghosts.size();
+
+            if(Ghosts[MinJ].Eta > Limit)   // min already above limit.  Stop.
+               StartJ = MinJ;
+            else if(Ghosts[MaxJ].Eta < Limit)   // max still below limit.  Stop.
+               StartJ = MaxJ;
+            else   // min and max sandwich the limit.  Binary search.
+            {
+               while(MaxJ - MinJ > 1)
+               {
+                  int Middle = (MinJ + MaxJ) / 2;
+                  if(Ghosts[Middle].Eta < Limit)
+                     MinJ = Middle;
+                  else
+                     MaxJ = Middle;
+               }
+
+               StartJ = MinJ;
+            }
+         }
+
+         int BestJ = -1;
+         double BestR2 = -1;
+         for(int j = StartJ; j < (int)Ghosts.size(); j++)
+         {
+            if(GhostsAlive[j] == false)
+               continue;
+
+            double DEta = Particles[i].Eta - Ghosts[j].Eta;
+            double DPhi = DeltaPhi(Particles[i].Phi, Ghosts[j].Phi);
+            double DR2 = DEta * DEta + DPhi * DPhi;
+            
+            if(OverallBestR2 > 0 && j != StartJ && DEta * DEta > OverallBestR2)
+               break;
+
+            if(BestR2 < 0 || DR2 < BestR2)
+            {
+               BestJ = j;
+               BestR2 = DR2;
+            }
+         }
+
+         // cout << "StartJ, BestJ, BestR2 = " << StartJ << " " << BestJ << " " << BestR2 << endl;
+
+         if(BestR2 > 0)
+         {
+            if(OverallBestR2 < 0 || OverallBestR2 > BestR2)
+            {
+               OverallBestI = i;
+               OverallBestJ = BestJ;
+               OverallBestR2 = BestR2;
+            }
+         }
+      }
+
+      // if(IterationCount % 1000 == 0)
+      // {
+      //    cout << "Iteration " << IterationCount << endl;
+      //    cout << Ghosts.size() << " " << Particles.size() << endl;
+      //    cout << "OverallBest I,J,R2 = " << OverallBestI << " " << OverallBestJ << " " << OverallBestR2 << endl;
+      // }
+
+      if(OverallBestR2 >= 0 && (MaxR2 < 0 || OverallBestR2 < MaxR2))   // found a pair!
+      {
+         Changed = true;
+
+         if(Particles[OverallBestI].PT > Ghosts[OverallBestJ].PT)
+         {
+            Particles[OverallBestI].PT = Particles[OverallBestI].PT - Ghosts[OverallBestJ].PT;
+            Ghosts[OverallBestJ].PT = 0;
+            GhostsAlive[OverallBestJ] = false;
+         }
+         else
+         {
+            Ghosts[OverallBestJ].PT = Ghosts[OverallBestJ].PT - Particles[OverallBestI].PT;
+            Particles[OverallBestI].PT = 0;
+            ParticlesAlive[OverallBestI] = false;
+         }
+      }
+   }
+
+   // cout << Particles.size() << " " << PT.size() << ", " << Ghosts.size() << " " << GhostPT.size() << endl;
+
+   PT.clear();
+   Eta.clear();
+   Phi.clear();
+
+   for(int i = 0; i < (int)Particles.size(); i++)
+   {
+      PT.push_back(Particles[i].PT);
+      Eta.push_back(Particles[i].Eta);
+      Phi.push_back(Particles[i].Phi);
+   }
+
+   return;
+}
+
+#ifdef USE_FJ
+void DoCSFastJet(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> &GhostEta, std::vector<double> &GhostPhi, std::vector<double> &GhostPT,
+   double MaxR2)
+{
+   std::vector<fastjet::PseudoJet> particles, ghosts;
+   for(int i = 0; i < Eta.size(); i++)
+   {
+      fastjet::PseudoJet J;
+      J.reset_PtYPhiM(PT[i], Eta[i], Phi[i], 0.0);
+      particles.push_back(J);
+   }
+   for(int i = 0; i < GhostEta.size(); i++)
+   {
+      fastjet::PseudoJet J;
+      J.reset_PtYPhiM(GhostPT[i], GhostEta[i], GhostPhi[i], 0.0);
+      ghosts.push_back(J);
+   }
+
+   fastjet::contrib::ConstituentSubtractor subtractor;
+   subtractor.set_distance_type(fastjet::contrib::ConstituentSubtractor::deltaR);
+   subtractor.set_max_distance(MaxR2 > 0 ? sqrt(MaxR2) : -1);
+   subtractor.set_alpha(2);
+   subtractor.set_remove_all_zero_pt_particles(true);
+
+   std::vector<fastjet::PseudoJet> subtracted_particles = subtractor.do_subtraction(particles, ghosts);
+
+   PT.clear();
+   Eta.clear();
+   Phi.clear();
+
+   for(int i = 0; i < (int)subtracted_particles.size(); i++)
+   {
+      PT.push_back(subtracted_particles[i].perp());
+      Eta.push_back(subtracted_particles[i].rap());
+      Phi.push_back(subtracted_particles[i].phi());
+   }
+}
+#endif
+
 std::string InfoString(std::string Info)
 {
    return "\"" + Info + "\"";
@@ -380,4 +633,4 @@ std::string InfoString(std::vector<std::string> Info)
    return Result;
 }
 
-
+#endif

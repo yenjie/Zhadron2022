@@ -1971,6 +1971,8 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("maxOppositeWTADPhi",     &maxOppositeWTADPhi);
    Tree->Branch("maxMoreOppositeWTADEta", &maxMoreOppositeWTADEta);
    Tree->Branch("maxMoreOppositeWTADPhi", &maxMoreOppositeWTADPhi);
+   Tree->Branch("maxOppositeCSWTADEta",   &maxOppositeCSWTADEta);
+   Tree->Branch("maxOppositeCSWTADPhi",   &maxOppositeCSWTADPhi);
    Tree->Branch("maxOppositeChargedWTADEta",     &maxOppositeChargedWTADEta);
    Tree->Branch("maxOppositeChargedWTADPhi",     &maxOppositeChargedWTADPhi);
    Tree->Branch("maxMoreOppositeChargedWTADEta", &maxMoreOppositeChargedWTADEta);
@@ -2074,6 +2076,8 @@ void ZHadronMessenger::Clear()
    maxOppositeWTADPhi = 0;
    maxMoreOppositeWTADEta = 0;
    maxMoreOppositeWTADPhi = 0;
+   maxOppositeCSWTADEta = 0;
+   maxOppositeCSWTADPhi = 0;
    maxOppositeChargedWTADEta = 0;
    maxOppositeChargedWTADPhi = 0;
    maxMoreOppositeChargedWTADEta = 0;

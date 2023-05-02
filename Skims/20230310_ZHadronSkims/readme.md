@@ -14,6 +14,8 @@
    * Adding a new tree InfoTree that contains all the input arguments used to make the tree
 * Version 3 - 2023 Apr 28
    * Fixing track vertex z selection
+* Version 4 - 2023 May 1
+   * Adding option to calculate CS WTA
 
 
 
@@ -49,5 +51,6 @@
 | DoTrackEfficiency | bool | true | If we want to store track efficiency correction factor |
 | TrackEfficiencyPath | string | _required if DoTrackEfficiency is true_ | Base path for track correction files |
 | PFTreeName | string | "pfcandAnalyzer/pfTree" (IsPP true) or "particleFlowAnalyser/pftree" (IsPP false) | Name of the particle flow tree.  Default value depends on whether it is pp mode or not |
-
+| DoCS | bool | false | Whether to do constituent-subtraction or not |
+| RhoTreeName | string | "hiPuRhoAnalyzer/t" | Tree to get rho information |
 

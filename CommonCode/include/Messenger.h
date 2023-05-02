@@ -553,6 +553,8 @@ public:
    double maxOppositeWTADPhi;
    double maxMoreOppositeWTADEta;
    double maxMoreOppositeWTADPhi;
+   double maxOppositeCSWTADEta;
+   double maxOppositeCSWTADPhi;
    double maxOppositeChargedWTADEta;
    double maxOppositeChargedWTADPhi;
    double maxMoreOppositeChargedWTADEta;
