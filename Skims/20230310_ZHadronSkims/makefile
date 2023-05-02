@@ -104,7 +104,7 @@ TestRunRandomMCGenBackground: Execute
 		--DoBackground true --DoGenCorrelation true \
 		--Background $(BackgroundFiles) \
 		--HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --DoSumET false \
-		--DoTrackEfficiency false --GenCorrelationCharged true --VZTolerance 10000 \
+		--DoTrackEfficiency false --GenCorrelationCharged true --VZTolerance 10000 --HFCeiling 156000 \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
@@ -223,7 +223,7 @@ PrepareToRunRandomMCGenBackground:
 		$(PbPbBackgroundMC)/ 12 \
  		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
 		--DoBackground true --HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
-		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5 --GenCorrelationCharged true --VZTolerance 10000 \
+		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5 --GenCorrelationCharged true --VZTolerance 10000 --HFCeiling 156000 \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
