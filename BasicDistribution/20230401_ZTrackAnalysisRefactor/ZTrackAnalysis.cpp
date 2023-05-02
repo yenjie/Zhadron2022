@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
    double Fraction       = CL.GetDouble("Fraction", 1.00);
    bool IgnoreCentrality = CL.GetBool("IgnoreCentrality", false);
    bool OnlyZeroSub      = CL.GetBool("OnlyZeroSub", false);
+   bool DoGenCorrelation = CL.GetBool("DoGenCorrelation", false);
    
    // Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
    vector<Configuration> C;
@@ -122,16 +123,28 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40,  5,   20,  0, 30,  5,    7));
    C.push_back(Configuration(40,  5,   20,  0, 30,  7,   10));
 
+   C.push_back(Configuration(40, 10, 2000,  0, 90,  2, 1000));
+
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
    vector<TH1D *>           HEventCount;
+   vector<double>           GenEventCount;
+   vector<TH1D *>           HGenEventCount;
    vector<TH1D *>           HZPT;
    vector<TH1D *>           HZEta;
    vector<TH1D *>           HZPhi;
+   vector<TH2D *>           HZEtaPhi;
+   vector<TH1D *>           HGenZEta;
+   vector<TH1D *>           HGenZPhi;
+   vector<TH2D *>           HGenZEtaPhi;
    vector<TH1D *>           HZMass;
    vector<TH1D *>           HTrackPT;
    vector<TH1D *>           HTrackEta;
    vector<TH1D *>           HTrackPhi;
+   vector<TH2D *>           HTrackEtaPhi;
+   vector<TH1D *>           HGenTrackEta;
+   vector<TH1D *>           HGenTrackPhi;
+   vector<TH2D *>           HGenTrackEtaPhi;
    vector<TH1D *>           HTrackMuonDEta;
    vector<TH1D *>           HTrackMuonDPhi;
    vector<TH2D *>           HTrackMuonDEtaDPhi;
@@ -174,14 +187,24 @@ int main(int argc, char *argv[])
       Folder[iC]->cd();
       EventCount.push_back(0);
       HEventCount.push_back(new TH1D("HEventCount", "", 1, 0, 1));
+      GenEventCount.push_back(0);
+      HGenEventCount.push_back(new TH1D("HGenEventCount", "", 1, 0, 1));
       
       HZPT.push_back(new TH1D("HZPT", "Z candidate PT", 100, 0, 200));
       HZEta.push_back(new TH1D("HZEta", "Z candidate eta", 100, -3.2, 3.2));
       HZPhi.push_back(new TH1D("HZPhi", "Z candidate phi", 100, -M_PI, M_PI));
+      HZEtaPhi.push_back(new TH2D("HZEtaPhi", "Z candidate eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
+      HGenZEta.push_back(new TH1D("HGenZEta", "GEN Z eta", 100, -3.2, 3.2));
+      HGenZPhi.push_back(new TH1D("HGenZPhi", "GEN Z phi", 100, -M_PI, M_PI));
+      HGenZEtaPhi.push_back(new TH2D("HGenZEtaPhi", "GEB Z eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       HZMass.push_back(new TH1D("HZMass", "Z candidate mass", 100, 0, 150));
       HTrackPT.push_back(new TH1D("HTrackPT", "Track PT", 100, 0, 200));
       HTrackEta.push_back(new TH1D("HTrackEta", "Track eta", 100, -3.2, 3.2));
       HTrackPhi.push_back(new TH1D("HTrackPhi", "Track phi", 100, -M_PI, M_PI));
+      HTrackEtaPhi.push_back(new TH2D("HTrackEtaPhi", "Track eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
+      HGenTrackEta.push_back(new TH1D("HGenTrackEta", "GEN Track eta", 100, -3.2, 3.2));
+      HGenTrackPhi.push_back(new TH1D("HGenTrackPhi", "GEN Track phi", 100, -M_PI, M_PI));
+      HGenTrackEtaPhi.push_back(new TH2D("HGenTrackEtaPhi", "GEN Track eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       
       HTrackMuonDEta.push_back(new TH1D("HTrackMuonDEta", "track-muon delta eta", 100, -3.2, 3.2));
       HTrackMuonDPhi.push_back(new TH1D("HTrackMuonDPhi", "track-muon delta phi", 100, -M_PI, M_PI));
@@ -234,6 +257,17 @@ int main(int argc, char *argv[])
    vector<double> *TrackDEta   = nullptr;
    vector<bool> *TrackMuTagged = nullptr;
    vector<int> *subevent       = nullptr;
+
+   vector<double> *genZMass    = nullptr;
+   vector<double> *genZPt      = nullptr;
+   vector<double> *genZEta     = nullptr;
+   vector<double> *genZPhi     = nullptr;
+
+   vector<double> *genMu1Eta   = nullptr;
+   vector<double> *genMu2Eta   = nullptr;
+   vector<double> *genMu1Phi   = nullptr;
+   vector<double> *genMu2Phi   = nullptr;
+
    double maxOppositeDEta;
    double maxOppositeDPhi;
    double maxDEta;
@@ -276,6 +310,15 @@ int main(int argc, char *argv[])
    if(Tree->GetBranch("maxMoreOppositeWTADEta")) Tree->SetBranchAddress("maxMoreOppositeWTADEta", &maxMoreOppositeWTADEta);
    if(Tree->GetBranch("maxMoreOppositeWTADPhi")) Tree->SetBranchAddress("maxMoreOppositeWTADPhi", &maxMoreOppositeWTADPhi);
 
+   if(Tree->GetBranch("genZEta"))  Tree->SetBranchAddress("genZEta",  &genZEta);
+   if(Tree->GetBranch("genZPhi"))  Tree->SetBranchAddress("genZPhi",  &genZPhi);
+   if(Tree->GetBranch("genZMass")) Tree->SetBranchAddress("genZMass", &genZMass);
+   if(Tree->GetBranch("genZPt"))   Tree->SetBranchAddress("genZPt",   &genZPt);
+   if(Tree->GetBranch("genMuEta1"))   Tree->SetBranchAddress("genMuEta1",   &genMu1Eta);
+   if(Tree->GetBranch("genMuEta2"))   Tree->SetBranchAddress("genMuEta2",   &genMu2Eta);
+   if(Tree->GetBranch("genMuPhi1"))   Tree->SetBranchAddress("genMuPhi1",   &genMu1Phi);
+   if(Tree->GetBranch("genMuPhi2"))   Tree->SetBranchAddress("genMuPhi2",   &genMu2Phi);
+
    int EntryCount = Tree->GetEntries() * Fraction;
    ProgressBar Bar(cout, EntryCount);
    Bar.SetStyle(-1);
@@ -292,12 +335,20 @@ int main(int argc, char *argv[])
       for(int iC = 0; iC < (int)C.size(); iC++)
       {
          bool ZMassRange = false;
-         if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
+         if(DoGenCorrelation == false && ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
             ZMassRange = true;
 
+         if(DoGenCorrelation == true && genZMass != nullptr && genZMass->size() > 0){
+            if(genZMass->at(0) > 60) ZMassRange = true;
+         }
+
          bool ZPTRange = false;
-         if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
+         if(DoGenCorrelation == false && ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
             ZPTRange = true;
+
+         if(DoGenCorrelation == true && genZPt != nullptr && genZPt->size() > 0){
+            if (genZPt->at(0) > C[iC].ZPTMin && genZPt->at(0) <= C[iC].ZPTMax) ZPTRange = true;
+         }
 
          bool CentRange = false;
          if(HiBin >= C[iC].CentMin * 2 && HiBin < C[iC].CentMax * 2)
@@ -311,6 +362,19 @@ int main(int argc, char *argv[])
             continue;
 
          bool SomethingPassed = false;
+
+         double ZEta_0, ZPhi_0, ZMass_0, ZPT_0;
+         double Mu1Eta_0, Mu2Eta_0, Mu1Phi_0, Mu2Phi_0;
+
+         if(DoGenCorrelation == true){
+            ZEta_0 = genZEta->at(0); ZPhi_0 = genZPhi->at(0); ZMass_0 = genZMass->at(0); ZPT_0 = genZPt->at(0);
+            Mu1Eta_0 = genMu1Eta->at(0); Mu2Eta_0 = genMu2Eta->at(0); 
+            Mu1Phi_0 = genMu1Phi->at(0); Mu2Phi_0 = genMu2Phi->at(0); 
+         }else{
+            ZEta_0 = ZEta->at(0); ZPhi_0 = ZPhi->at(0); ZMass_0 = ZMass->at(0); ZPT_0 = ZPT->at(0);
+            Mu1Eta_0 = Mu1Eta->at(0); Mu2Eta_0 = Mu2Eta->at(0); 
+            Mu1Phi_0 = Mu1Phi->at(0); Mu2Phi_0 = Mu2Phi->at(0); 
+         }
 
          int NTrack = 0;
          if(TrackPT != nullptr)
@@ -345,10 +409,10 @@ int main(int argc, char *argv[])
 
             // cout << TrackDEta->at(iT) << " " << Mu1Eta->at(0) << " " << ZEta->at(0) << endl;
 
-            double DEtaToMu1             = TrackDEta->at(iT) + ZEta->at(0) - Mu1Eta->at(0);
-            double DPhiToMu1             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0) - Mu1Phi->at(0));
-            double DEtaToMu2             = TrackDEta->at(iT) + ZEta->at(0) - Mu2Eta->at(0);
-            double DPhiToMu2             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0) - Mu2Phi->at(0));
+            double DEtaToMu1             = TrackDEta->at(iT) + ZEta_0 - Mu1Eta_0;
+            double DPhiToMu1             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0 - Mu1Phi_0);
+            double DEtaToMu2             = TrackDEta->at(iT) + ZEta_0 - Mu2Eta_0;
+            double DPhiToMu2             = PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0 - Mu2Phi_0);
 
             double DRToMu1               = sqrt(DEtaToMu1 * DEtaToMu1 + DPhiToMu1 * DPhiToMu1);
             double DRToMu2               = sqrt(DEtaToMu2 * DEtaToMu2 + DPhiToMu2 * DPhiToMu2);
@@ -373,9 +437,16 @@ int main(int argc, char *argv[])
             if(PassEverything)
             {
                HTrackPT[iC]->Fill(TrackPT->at(iT), weight);
-               HTrackEta[iC]->Fill(TrackDEta->at(iT) + ZEta->at(0), weight);
-               HTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi->at(0)), weight);
+               HTrackEta[iC]->Fill(TrackDEta->at(iT) + ZEta_0, weight);
+               HTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0), weight);
+               HTrackEtaPhi[iC]->Fill(TrackDEta->at(iT) + ZEta_0, PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0), weight);
                
+               if(genZEta->size() > 0){
+                  HGenTrackEta[iC]->Fill(TrackDEta->at(iT) + genZEta->at(0), weight);
+                  HGenTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + genZPhi->at(0)), weight);
+                  HGenTrackEtaPhi[iC]->Fill(TrackDEta->at(iT) + genZEta->at(0), PhiRangeSymmetric(TrackDPhi->at(iT) + genZPhi->at(0)), weight);
+               }
+
                HEta[iC]->Fill(TrackDEta->at(iT), weight);
                HPhi[iC]->Fill(PhiRangeCorrelation(+TrackDPhi->at(iT)), 0.5*weight);
                HPhi[iC]->Fill(PhiRangeCorrelation(-TrackDPhi->at(iT)), 0.5*weight);
@@ -428,19 +499,28 @@ int main(int argc, char *argv[])
             EventCount[iC] = EventCount[iC] + NCollWeight;
             HEventCount[iC]->Fill(0., NCollWeight);
             
-            HZPT[iC]->Fill(ZPT->at(0), NCollWeight);
-            HZEta[iC]->Fill(ZEta->at(0), NCollWeight);
-            HZPhi[iC]->Fill(ZPhi->at(0), NCollWeight);
-            HZMass[iC]->Fill(ZMass->at(0),NCollWeight);
+            HZPT[iC]->Fill(ZPT_0, NCollWeight);
+            HZEta[iC]->Fill(ZEta_0, NCollWeight);
+            HZPhi[iC]->Fill(ZPhi_0, NCollWeight);
+            HZMass[iC]->Fill(ZMass_0, NCollWeight);
+            HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight);
 
-            HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta->at(0),
-               PhiRangeCorrelation(maxDPhi + ZPhi->at(0)), NCollWeight);
-            HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta->at(0),
-               PhiRangeCorrelation(maxOppositeDPhi + ZPhi->at(0)), NCollWeight);
-            HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta->at(0),
-               PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi->at(0)), NCollWeight);
-            HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta->at(0),
-               PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi->at(0)), NCollWeight);
+            if(genZEta->size() > 0){
+               GenEventCount[iC] = GenEventCount[iC] + NCollWeight;
+               HGenEventCount[iC]->Fill(0., NCollWeight);
+               HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight);
+               HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight);
+               HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight);
+            }
+
+            HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta_0,
+               PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight);
+            HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta_0,
+               PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight);
+            HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta_0,
+               PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight);
+            HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta_0,
+               PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight);
          }
       }
    }
@@ -453,14 +533,25 @@ int main(int argc, char *argv[])
       Folder[iC]->cd();
       TNamed N("EntryCount", Form("%f", EventCount[iC]));
       N.Write();
+      TNamed NGen("GenEntryCount", Form("%f", GenEventCount[iC]));
+      NGen.Write();
       HEventCount[iC]->Write();
+      HGenEventCount[iC]->Write();
       HZPT[iC]->Write();
       HZEta[iC]->Write();
       HZPhi[iC]->Write();
+      HZEtaPhi[iC]->Write();
+      HGenZEta[iC]->Write();
+      HGenZPhi[iC]->Write();
+      HGenZEtaPhi[iC]->Write();
       HZMass[iC]->Write();
       HTrackPT[iC]->Write();
       HTrackEta[iC]->Write();
       HTrackPhi[iC]->Write();
+      HTrackEtaPhi[iC]->Write();
+      HGenTrackEta[iC]->Write();
+      HGenTrackPhi[iC]->Write();
+      HGenTrackEtaPhi[iC]->Write();
       HTrackMuonDEta[iC]->Write();
       HTrackMuonDPhi[iC]->Write();
       HTrackMuonDEtaDPhi[iC]->Write();
@@ -492,5 +583,3 @@ int main(int argc, char *argv[])
 
    return 0;
 }
-
-

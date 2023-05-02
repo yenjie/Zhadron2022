@@ -61,8 +61,8 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "20230425";
-const char *typeofdatatext = "double muon";
+const char *typeofdata = "20230430";
+const char *typeofdatatext = "single muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
 {
@@ -264,8 +264,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *npM_tN = (TNamed *) file_ppMC->Get(Form("%s/EntryCount",FolderName.c_str()));
 
-   TNamed *nM_tNgen  = (TNamed *) file_sigMCgen->Get(Form("%s/EntryCount",FolderName.c_str()));
-   TNamed *nMb_tNgen = (TNamed *) file_bkgMCgen->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *nM_tNgen  = (TNamed *) file_sigMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
+   TNamed *nMb_tNgen = (TNamed *) file_bkgMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
 
    std::string sD_tN  = (std::string) nD_tN->GetTitle();
    std::string sM_tN  = (std::string) nM_tN->GetTitle();
@@ -997,6 +997,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    if(ptL==30&&centL==0&&centH==30){
     hMC_phi_com->SetMaximum(max1);
     hMC_bkg_phi_com->SetMaximum(max1);
+   }else if(ptL==30&&centL==30&&centH==50){
+    hMC_phi_com->SetMaximum(max1/1.6);
+    hMC_bkg_phi_com->SetMaximum(max1/1.6);
    }
 
    //hMC_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
@@ -2968,14 +2971,14 @@ int main(int argc, char *argv[]){
 
    style();
 
-   file_sigMC = TFile::Open("GraphMCSignal_0422.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground_0422.root","read");
-   file_sigDA = TFile::Open("GraphDataSignal_0422.root","read");
-   file_bkgDA = TFile::Open("GraphDataBackground_0422.root","read");
-   file_ppMC  = TFile::Open("GraphPPMC_0422.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal_0430.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground_0430.root","read");
+   file_sigDA = TFile::Open("GraphDataSignal_0430.root","read");
+   file_bkgDA = TFile::Open("GraphDataBackground_0430.root","read");
+   file_ppMC  = TFile::Open("GraphPPMC_0430.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_0422.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0422.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_0430.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0430.root","read");
 
 
    ZtrackDraw_single(40, 20, 2000,  0, 90,  0, 1000);
@@ -3023,10 +3026,10 @@ int main(int argc, char *argv[]){
    ZtrackDraw_single(40, 20, 2000, 50, 90, 20,   50);
    ZtrackDraw_single(40, 40, 2000, 50, 90, 20,   50);
    ZtrackDraw_single(40, 20, 2000, 50, 90, 50,  100);
-   ZtrackDraw_single(40, 40, 2000, 50, 90, 50,  100);
+   ZtrackDraw_single(40, 40, 2000, 50, 90, 50,  100);*/
    ZtrackDraw_single(40, 30, 2000,  0, 30,  1, 1000);
    ZtrackDraw_single(40, 30, 2000, 30, 50,  1, 1000);
-   ZtrackDraw_single(40, 30, 2000, 50, 90,  1, 1000);*/
+   ZtrackDraw_single(40, 30, 2000, 50, 90,  1, 1000);
 
    file_sigMC->Close();
    file_bkgMC->Close();

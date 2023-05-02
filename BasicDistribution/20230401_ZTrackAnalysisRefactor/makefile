@@ -1,24 +1,37 @@
 default: TestRun
 
 TestRun: Execute
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_0422/ \
-		--Output GraphDataSignal_0422.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0422/ \
-		--Output GraphDataBackground_0422.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0422/ \
-		--Output GraphMCSignal_0422.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0422/ \
-		--Output GraphMCBackground_0422.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_0422/ \
-		--Output GraphPPMC_0422.root --IgnoreCentrality true
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0422/ \
-		--Output GraphMCSignalGen_0422.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0422/ \
-		--Output GraphMCSignalGen0Sub_0422.root --OnlyZeroSub true
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0422/ \
-		--Output GraphMCBackgroundGen_0422.root
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_0422/ \
-		--Output GraphPPMCGen_0422.root --IgnoreCentrality true	
+	mkdir -p log
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_0428/ \
+		--Output GraphDataSignal_0430.root --Fraction 1 \
+		 > log/GraphDataSignal_0430.out 2> log/GraphDataSignal_0430.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0428/ \
+		--Output GraphDataBackground_0430.root --Fraction 1 \
+		 > log/GraphDataBackground_0430.out 2> log/GraphDataBackground_0430.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0428/ \
+		--Output GraphMCSignal_0430.root --Fraction 1 \
+		 > log/GraphMCSignal_0430.out 2> log/GraphMCSignal_0430.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0428/ \
+		--Output GraphMCBackground_0430.root --Fraction 1 \
+		 > log/GraphMCBackground_0430.out 2> log/GraphMCBackground_0430.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_0428/ \
+		--Output GraphPPMC_0430.root --IgnoreCentrality true --Fraction 1 \
+		 > log/GraphPPMC_0430.out 2> log/GraphPPMC_0430.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0428/ \
+		--Output GraphMCSignalGen_0430.root --Fraction 1 --DoGenCorrelation true \
+		 > log/GraphMCSignalGen_0430.out 2> log/GraphMCSignalGen_0430.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0428/ \
+		--Output GraphMCSignalGen0Sub_0430.root --OnlyZeroSub true --Fraction 1 --DoGenCorrelation true \
+		 > log/GraphMCSignalGen0Sub_0430.out 2> log/GraphMCSignalGen0Sub_0430.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0502/ \
+		--Output GraphMCBackgroundGen_0502.root --Fraction 1 --DoGenCorrelation true \
+		 > log/GraphMCBackgroundGen_0502.out 2> log/GraphMCBackgroundGen_0502.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0502/ \
+		--Output GraphMCBackgroundGen0Sub_0502.root --OnlyZeroSub true --Fraction 1 --DoGenCorrelation true \
+		 > log/GraphMCBackgroundGen0Sub_0502.out 2> log/GraphMCBackgroundGen0Sub_0502.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_0428/ \
+		--Output GraphPPMCGen_0430.root --IgnoreCentrality true --Fraction 1 --DoGenCorrelation true \
+		 > log/GraphPPMCGen_0430.out 2> log/GraphPPMCGen_0430.err < /dev/null &
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
@@ -65,3 +78,10 @@ CheckSubtract: ExecuteCheckSubtract
 ExecuteCheckSubtract: ZcheckSubtract.cpp
 	g++ ZcheckSubtract.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o ExecuteCheckSubtract `root-config --cflags --libs` -std=c++17
+
+CheckBasic: ExecuteZcheckBasic
+	./ExecuteZcheckBasic
+
+ExecuteZcheckBasic: ZcheckBasic.cpp
+	g++ ZcheckBasic.cpp -I. -I$(ProjectBase)/CommonCode/include \
+		-o ExecuteZcheckBasic `root-config --cflags --libs` -std=c++17

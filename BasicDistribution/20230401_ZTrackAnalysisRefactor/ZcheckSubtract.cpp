@@ -63,8 +63,8 @@ TFile *file_bkgMCgen;
 
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230425";
-const char *typeofdatatext = "double muon";
+const char *typeofdata = "20230430";
+const char *typeofdatatext = "single muon";
 
 void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
 {
@@ -111,10 +111,10 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
 
    TNamed *nM_tN  = (TNamed *) file_sigMC->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
-   TNamed *nM_tNgen  = (TNamed *) file_sigMCgen->Get(Form("%s/EntryCount",FolderName.c_str()));
-   TNamed *nMb_tNgen = (TNamed *) file_bkgMCgen->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *nM_tNgen  = (TNamed *) file_sigMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
+   TNamed *nMb_tNgen = (TNamed *) file_bkgMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
 
-   TNamed *nM_tNgen0Sub  = (TNamed *) file_sigMCgen0Sub->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *nM_tNgen0Sub  = (TNamed *) file_sigMCgen0Sub->Get(Form("%s/GenEntryCount",FolderName.c_str()));
 
    std::string sM_tN  = (std::string) nM_tN->GetTitle();
    std::string sMb_tN = (std::string) nMb_tN->GetTitle();
@@ -394,16 +394,16 @@ int main(int argc, char *argv[]){
 
   style();
 
-   file_sigMC = TFile::Open("GraphMCSignal_0422.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground_0422.root","read");
-   //file_sigDA = TFile::Open("GraphDataSignal_0422.root","read");
-   //file_bkgDA = TFile::Open("GraphDataBackground_0422.root","read");
-   //file_ppMC  = TFile::Open("GraphPPMC_0422.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal_0430.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground_0430.root","read");
+   //file_sigDA = TFile::Open("GraphDataSignal_0430.root","read");
+   //file_bkgDA = TFile::Open("GraphDataBackground_0430.root","read");
+   //file_ppMC  = TFile::Open("GraphPPMC_0430.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_0422.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0422.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_0430.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0430.root","read");
 
-   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0422.root","read");
+   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0430.root","read");
 
    
   ZcheckSubtract_single(40, 20, 2000,  0, 90,  0, 1000);
