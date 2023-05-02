@@ -6,7 +6,7 @@ default: TestRun
 
 TestRun: Execute
 	./Execute --Input $(PPSignalMC)/HiForestAOD_14.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 1 --IsData false --IsPP true --MinZPT 5 \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --IsData false --IsPP true --MinZPT 5 \
 		--DoBackground true --Background $(PbPbBackgroundMC)/HiForestMiniAOD_14.root
 	root -l -b -q /tmp/chenyi/Test.root QuickPlot.C 
 	cp Meow*.pdf ~/public/html/
@@ -14,5 +14,6 @@ TestRun: Execute
 Execute: CalculateAxis.cpp
 	g++ CalculateAxis.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o Execute `root-config --cflags --libs` -std=c++17 \
-		$(ProjectBase)/CommonCode/library/Messenger.o 
+		$(ProjectBase)/CommonCode/library/Messenger.o \
+		$(FJExtra) $(FJCExtra)
 
