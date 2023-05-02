@@ -411,10 +411,12 @@ void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vec
    std::sort(Ghosts.begin(), Ghosts.end());
    std::vector<bool> GhostsAlive(Ghosts.size(), true);
 
+   int IterationCount = 0;
    bool Changed = true;
    while(Changed == true)
    {
       Changed = false;
+      IterationCount = IterationCount + 1;
 
       int OverallBestI = -1;
       int OverallBestJ = -1;
@@ -471,13 +473,25 @@ void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vec
             }
          }
 
-         if(OverallBestR2 < 0 || OverallBestR2 > BestR2)
+         // cout << "StartJ, BestJ, BestR2 = " << StartJ << " " << BestJ << " " << BestR2 << endl;
+
+         if(BestR2 > 0)
          {
-            OverallBestI = i;
-            OverallBestJ = BestJ;
-            OverallBestR2 = BestR2;
+            if(OverallBestR2 < 0 || OverallBestR2 > BestR2)
+            {
+               OverallBestI = i;
+               OverallBestJ = BestJ;
+               OverallBestR2 = BestR2;
+            }
          }
       }
+
+      // if(IterationCount % 1000 == 0)
+      // {
+      //    cout << "Iteration " << IterationCount << endl;
+      //    cout << Ghosts.size() << " " << Particles.size() << endl;
+      //    cout << "OverallBest I,J,R2 = " << OverallBestI << " " << OverallBestJ << " " << OverallBestR2 << endl;
+      // }
 
       if(OverallBestR2 >= 0 && (MaxR2 < 0 || OverallBestR2 < MaxR2))   // found a pair!
       {
