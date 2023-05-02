@@ -82,7 +82,7 @@ BackgroundFiles = /eos/cms/store/group/phys_heavyions/chenyi/Samples/store/user/
 
 TestRunRandomMCGenBackground: Execute
 	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_10.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --IsData false --IsPP false \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true --DoGenCorrelation true \
 		--Background $(BackgroundFiles) \
 		--HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --DoSumET false \
