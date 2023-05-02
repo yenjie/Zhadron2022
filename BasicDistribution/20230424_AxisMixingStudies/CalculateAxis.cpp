@@ -28,6 +28,7 @@ using namespace std;
 
 int main(int argc, char *argv[]);
 double GetHFSum(PFTreeMessenger *M);
+double Sum(vector<double> &V);
 
 int main(int argc, char *argv[])
 {
@@ -83,6 +84,9 @@ int main(int argc, char *argv[])
    bool AxisFilled;
    int BackgroundHiBin;
    double BackgroundHiHF;
+   double SignalPFSum;
+   double MixedPFSum;
+   double CSPFSum;
    double PFWTA[4];
    double CSPFWTA[4];
    double TrackWTA[4];
@@ -91,6 +95,9 @@ int main(int argc, char *argv[])
    AxisTree.Branch("AxisFilled", &AxisFilled, "AxisFilled/O");
    AxisTree.Branch("BackgroundHiBin", &BackgroundHiBin, "BackgroundHiBin/I");
    AxisTree.Branch("BackgroundHiHF", &BackgroundHiHF, "BackgroundHiHF/D");
+   AxisTree.Branch("SignalPFSum", &SignalPFSum, "SignalPFSum/D");
+   AxisTree.Branch("MixedPFSum", &MixedPFSum, "MixedPFSum/D");
+   AxisTree.Branch("CSPFSum", &CSPFSum, "CSPFSum/D");
    AxisTree.Branch("SignalPFEta", &PFWTA[0], "SignalPFEta/D");
    AxisTree.Branch("SignalPFPhi", &PFWTA[1], "SignalPFPhi/D");
    AxisTree.Branch("MixedPFEta",  &PFWTA[2], "MixedPFEta/D");
@@ -348,6 +355,7 @@ int main(int argc, char *argv[])
                   CSPFPhi.push_back(MSignalPF.Phi->at(iPF));
                   CSPFPT.push_back(MSignalPF.PT->at(iPF));
                }
+               SignalPFSum = Sum(CSPFPT);
                for(int iPF = 0; iPF < MBackgroundPF[iBF]->ID->size(); iPF++)
                {
                   if(MBackgroundPF[iBF]->Eta->at(iPF) < -3 || MBackgroundPF[iBF]->Eta->at(iPF) > 3)
@@ -356,9 +364,16 @@ int main(int argc, char *argv[])
                   CSPFPhi.push_back(MBackgroundPF[iBF]->Phi->at(iPF));
                   CSPFPT.push_back(MBackgroundPF[iBF]->PT->at(iPF));
                }
+               MixedPFSum = Sum(CSPFPT);
                if(MZHadron.zPt->at(0) > 60)
+               {
+                  cout << "Before " << MixedPFSum << endl;
                   ConstituentSubtraction(CSPFEta, CSPFPhi, CSPFPT,
                      MBackgroundRho[iBF]->EtaMin, MBackgroundRho[iBF]->EtaMax, MBackgroundRho[iBF]->Rho, 0.5, 3.0);
+                  cout << "After " << Sum(CSPFPT) << endl;
+                  cout << "Signal " << SignalPFSum << endl;
+               }
+               CSPFSum = Sum(CSPFPT);
                
                vector<double> &SignalCSPFEta = SignalPFEta;
                vector<double> &SignalCSPFPhi = SignalPFPhi;
@@ -612,5 +627,12 @@ double GetHFSum(PFTreeMessenger *M)
    return Sum;
 }
 
+double Sum(vector<double> &V)
+{
+   double Result = 0;
+   for(double v : V)
+      Result = Result + v;
+   return Result;
+}
 
 
