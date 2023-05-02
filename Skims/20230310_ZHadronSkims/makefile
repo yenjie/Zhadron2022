@@ -82,10 +82,10 @@ BackgroundFiles = /eos/cms/store/group/phys_heavyions/chenyi/Samples/store/user/
 
 TestRunRandomMCGenBackground: Execute
 	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_10.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --IsData false --IsPP false \
+		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true --DoGenCorrelation true \
 		--Background $(BackgroundFiles) \
-		--HFShift 1083 --Tolerance 10 --ToleranceFraction 0.1 --DoSumET false \
+		--HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --DoSumET false \
 		--DoTrackEfficiency false --GenCorrelationCharged true --VZTolerance 10000
 
 Execute: DoZHadronSkim.cpp
@@ -185,6 +185,6 @@ PrepareToRunRandomMCGenBackground:
 		10 LogMCGenbkg_0502/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0502/ \
 		$(PbPbBackgroundMC)/ 12 \
  		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
-		--DoBackground true --HFShift 1083 --Tolerance 10 --ToleranceFraction 0.1 --DoSumET false --Oversample 10 \
+		--DoBackground true --HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5 --GenCorrelationCharged true --VZTolerance 10000
 
