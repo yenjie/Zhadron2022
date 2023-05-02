@@ -16,6 +16,8 @@
    * Fixing track vertex z selection
 * Version 4 - 2023 May 1
    * Adding option to calculate CS WTA
+* Version 5 - 2023 May 2
+   * Adding HF ceiling for matching.  if lower bound of HF matching is larger than this, it is lowered to the HF ceiling value.  Set to -1 to disable this option.
 
 
 
@@ -39,6 +41,7 @@
 | HFShift | double | _required if DoBackground is true_ | Amount of shift to subtract from the HF number |
 | HFTolerance | double | _required if DoBackground is true_ | Tolerance to HF sum in GeV |
 | HFToleranceFraction | double | _required if DoBackground is true_ | Tolerance to HF sum in fractions |
+| HFCeiling | double | -1 | If lower bound of HF matching is larger than this, it is lowered to this value.  Prevents ultra-central matching failures.  Set to negative to disable this. |
 | VZTolerance | double | 2 | Tolerance to VZ |
 | Oversample | int | 1 | How many times we mix every signal event |
 | DoSumET | bool | true | Whether we use SumET or SumE in HF for event matching |
