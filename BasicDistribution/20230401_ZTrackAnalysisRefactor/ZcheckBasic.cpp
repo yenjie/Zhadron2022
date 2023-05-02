@@ -1130,7 +1130,7 @@ int main(int argc, char *argv[]){
    file_ppMC  = TFile::Open("GraphPPMC_0430.root","read");
 
    file_sigMCgen = TFile::Open("GraphMCSignalGen_0430_01.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0502_tf01.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0502.root","read");
 
    file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0430_01.root","read");
 
