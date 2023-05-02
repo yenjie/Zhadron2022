@@ -12,5 +12,6 @@ TestRun: Execute
 Execute: CSVerification.cpp
 	g++ CSVerification.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o Execute `root-config --cflags --libs` -std=c++17 \
-		$(ProjectBase)/CommonCode/library/Messenger.o 
+		$(ProjectBase)/CommonCode/library/Messenger.o \
+		$(FJExtra) $(FJCExtra)
 

@@ -16,6 +16,7 @@ using namespace std;
 
 #include "Messenger.h"
 #include "CommandLine.h"
+#include "UseFJ.h"
 #include "CommonFunctions.h"
 #include "ProgressBar.h"
 #include "CustomAssert.h"
@@ -81,7 +82,7 @@ int main(int argc, char *argv[])
       PFPhi.push_back(MPF.Phi->at(iPF));
       PFPT.push_back(MPF.PT->at(iPF));
    }
-   ConstituentSubtraction(CSPFEta, CSPFPhi, CSPFPT, MRho.EtaMin, MRho.EtaMax, MRho.Rho, 3.14, 3.0);
+   ConstituentSubtraction(CSPFEta, CSPFPhi, CSPFPT, MRho.EtaMin, MRho.EtaMax, MRho.Rho, 0.5, 3.0);
 
    cout << "Event information:" << endl;
    cout << "   hiBin = " << MEvent.hiBin << endl;
