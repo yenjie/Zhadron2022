@@ -2,36 +2,36 @@ default: TestRun
 
 TestRun: Execute
 	mkdir -p log
-	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_0428/ \
-		--Output GraphDataSignal_0430.root --Fraction 1 \
-		 > log/GraphDataSignal_0430.out 2> log/GraphDataSignal_0430.err < /dev/null &
-	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0428/ \
-		--Output GraphDataBackground_0430.root --Fraction 1 \
-		 > log/GraphDataBackground_0430.out 2> log/GraphDataBackground_0430.err < /dev/null &
-	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0428/ \
-		--Output GraphMCSignal_0430.root --Fraction 1 \
-		 > log/GraphMCSignal_0430.out 2> log/GraphMCSignal_0430.err < /dev/null &
-	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0428/ \
-		--Output GraphMCBackground_0430.root --Fraction 1 \
-		 > log/GraphMCBackground_0430.out 2> log/GraphMCBackground_0430.err < /dev/null &
-	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_0428/ \
-		--Output GraphPPMC_0430.root --IgnoreCentrality true --Fraction 1 \
-		 > log/GraphPPMC_0430.out 2> log/GraphPPMC_0430.err < /dev/null &
-	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0428/ \
-		--Output GraphMCSignalGen_0430.root --Fraction 1 --DoGenCorrelation true \
-		 > log/GraphMCSignalGen_0430.out 2> log/GraphMCSignalGen_0430.err < /dev/null &
-	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0428/ \
-		--Output GraphMCSignalGen0Sub_0430.root --OnlyZeroSub true --Fraction 1 --DoGenCorrelation true \
-		 > log/GraphMCSignalGen0Sub_0430.out 2> log/GraphMCSignalGen0Sub_0430.err < /dev/null &
-	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0502/ \
-		--Output GraphMCBackgroundGen_0502.root --Fraction 1 --DoGenCorrelation true \
-		 > log/GraphMCBackgroundGen_0502.out 2> log/GraphMCBackgroundGen_0502.err < /dev/null &
-	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0502/ \
-		--Output GraphMCBackgroundGen0Sub_0502.root --OnlyZeroSub true --Fraction 1 --DoGenCorrelation true \
-		 > log/GraphMCBackgroundGen0Sub_0502.out 2> log/GraphMCBackgroundGen0Sub_0502.err < /dev/null &
-	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_0428/ \
-		--Output GraphPPMCGen_0430.root --IgnoreCentrality true --Fraction 1 --DoGenCorrelation true \
-		 > log/GraphPPMCGen_0430.out 2> log/GraphPPMCGen_0430.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_0503/ \
+		--Output GraphDataSignal_0503.root --Fraction 1 \
+		 > log/GraphDataSignal_0503.out 2> log/GraphDataSignal_0503.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0503/ \
+		--Output GraphDataBackground_0503.root --Fraction 1 \
+		 > log/GraphDataBackground_0503.out 2> log/GraphDataBackground_0503.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0503/ \
+		--Output GraphMCSignal_0503.root --Fraction 1 \
+		 > log/GraphMCSignal_0503.out 2> log/GraphMCSignal_0503.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0503/ \
+		--Output GraphMCBackground_0503.root --Fraction 1 \
+		 > log/GraphMCBackground_0503.out 2> log/GraphMCBackground_0503.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_0503/ \
+		--Output GraphPPMC_0503.root --IgnoreCentrality true --Fraction 1 \
+		 > log/GraphPPMC_0503.out 2> log/GraphPPMC_0503.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0503/ \
+		--Output GraphMCSignalGen_0503.root --Fraction 1 --DoGenCorrelation true \
+		 > log/GraphMCSignalGen_0503.out 2> log/GraphMCSignalGen_0503.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0503/ \
+		--Output GraphMCSignalGen0Sub_0503.root --OnlyZeroSub true --Fraction 1 --DoGenCorrelation true \
+		 > log/GraphMCSignalGen0Sub_0503.out 2> log/GraphMCSignalGen0Sub_0503.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0503/ \
+		--Output GraphMCBackgroundGen_0503.root --Fraction 1 --DoGenCorrelation true \
+		 > log/GraphMCBackgroundGen_0503.out 2> log/GraphMCBackgroundGen_0503.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0503/ \
+		--Output GraphMCBackgroundGen0Sub_0503.root --OnlyZeroSub true --Fraction 1 --DoGenCorrelation true \
+		 > log/GraphMCBackgroundGen0Sub_0503.out 2> log/GraphMCBackgroundGen0Sub_0503.err < /dev/null &
+	nohup ./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_0503/ \
+		--Output GraphPPMCGen_0503.root --IgnoreCentrality true --Fraction 1 --DoGenCorrelation true \
+		 > log/GraphPPMCGen_0503.out 2> log/GraphPPMCGen_0503.err < /dev/null &
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
