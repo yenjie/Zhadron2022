@@ -100,7 +100,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V4";
+   string Version = "V5";
 
    CommandLine CL(argc, argv);
 
@@ -142,6 +142,7 @@ int main(int argc, char *argv[])
    double HFShift = 0;
    double HFTolerance = 0;
    double HFToleranceFraction = 0;
+   double HFCeiling = -1;
    double VZTolerance = 0;
    int Oversample = 1;
    if(DoBackground == true)
@@ -151,6 +152,7 @@ int main(int argc, char *argv[])
       HFShift                     = CL.GetDouble("HFShift");
       HFTolerance                 = CL.GetDouble("Tolerance");
       HFToleranceFraction         = CL.GetDouble("ToleranceFraction");
+      HFCeiling                   = CL.GetDouble("HFCeiling", -1);
       NBackground                 = BackgroundFileNames.size();
       Oversample                  = CL.GetInteger("Oversample", 1);
    }
@@ -248,6 +250,7 @@ int main(int argc, char *argv[])
    Key = "HFShift";                 Value = InfoString(HFShift);                 InfoTree.Fill();
    Key = "Tolerance";               Value = InfoString(HFTolerance);             InfoTree.Fill();
    Key = "ToleranceFraction";       Value = InfoString(HFToleranceFraction);     InfoTree.Fill();
+   Key = "HFCeiling";               Value = InfoString(HFCeiling);               InfoTree.Fill();
    Key = "Oversample";              Value = InfoString(Oversample);              InfoTree.Fill();
 
    TH2D H2D("H2D", "", 100, -6, 6, 100, -M_PI, M_PI);
@@ -485,6 +488,9 @@ int main(int argc, char *argv[])
 
                   if(SignalHF < HFShift)
                      continue;
+
+                  if(HFCeiling >= 0 && LowerHF > HFCeiling)
+                     LowerHF = HFCeiling;
 
                   // cout << endl;
                   // cout << SignalHF << " " << LowerHF << " " << HigherHF << " " << HFShift << endl;
