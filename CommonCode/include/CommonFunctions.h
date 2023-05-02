@@ -1,8 +1,15 @@
+#ifndef CommonFunctions_h_25551
+#define CommonFunctions_h_25551
+
 #include <cmath>
 #include <iostream>
 #include <vector>
 #include <map>
 #include <algorithm>
+
+#ifdef USE_FJ
+#include "fastjet/contrib/ConstituentSubtractor.hh"
+#endif
 
 #define M_MU 0.1056583755
 
@@ -52,6 +59,11 @@ void ConstituentSubtraction(std::vector<double> &Eta, std::vector<double> &Phi, 
 void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
    std::vector<double> &GhostEta, std::vector<double> &GhostPhi, std::vector<double> &GhostPT,
    double MaxR2);
+#ifdef USE_FJ
+void DoCSFastJet(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> &GhostEta, std::vector<double> &GhostPhi, std::vector<double> &GhostPT,
+   double MaxR2);
+#endif
 std::string InfoString(std::string Info);
 std::string InfoString(char *Info);
 std::string InfoString(int Info);
@@ -392,7 +404,11 @@ void ConstituentSubtraction(std::vector<double> &Eta, std::vector<double> &Phi, 
       return;
 
    // Run CS
+#ifdef USE_FJ
+   DoCSFastJet(Eta, Phi, PT, GhostEta, GhostPhi, GhostPT, MaxR > 0 ? (MaxR * MaxR) : -1);
+#else
    DoCSBruteForce(Eta, Phi, PT, GhostEta, GhostPhi, GhostPT, MaxR * MaxR);
+#endif
 }
 
 void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
@@ -528,6 +544,46 @@ void DoCSBruteForce(std::vector<double> &Eta, std::vector<double> &Phi, std::vec
    return;
 }
 
+#ifdef USE_FJ
+void DoCSFastJet(std::vector<double> &Eta, std::vector<double> &Phi, std::vector<double> &PT,
+   std::vector<double> &GhostEta, std::vector<double> &GhostPhi, std::vector<double> &GhostPT,
+   double MaxR2)
+{
+   std::vector<fastjet::PseudoJet> particles, ghosts;
+   for(int i = 0; i < Eta.size(); i++)
+   {
+      fastjet::PseudoJet J;
+      J.reset_PtYPhiM(PT[i], Eta[i], Phi[i], 0.0);
+      particles.push_back(J);
+   }
+   for(int i = 0; i < GhostEta.size(); i++)
+   {
+      fastjet::PseudoJet J;
+      J.reset_PtYPhiM(GhostPT[i], GhostEta[i], GhostPhi[i], 0.0);
+      ghosts.push_back(J);
+   }
+
+   fastjet::contrib::ConstituentSubtractor subtractor;
+   subtractor.set_distance_type(fastjet::contrib::ConstituentSubtractor::deltaR);
+   subtractor.set_max_distance(MaxR2 > 0 ? sqrt(MaxR2) : -1);
+   subtractor.set_alpha(2);
+   subtractor.set_remove_all_zero_pt_particles(true);
+
+   std::vector<fastjet::PseudoJet> subtracted_particles = subtractor.do_subtraction(particles, ghosts);
+
+   PT.clear();
+   Eta.clear();
+   Phi.clear();
+
+   for(int i = 0; i < (int)subtracted_particles.size(); i++)
+   {
+      PT.push_back(subtracted_particles[i].perp());
+      Eta.push_back(subtracted_particles[i].rap());
+      Phi.push_back(subtracted_particles[i].phi());
+   }
+}
+#endif
+
 std::string InfoString(std::string Info)
 {
    return "\"" + Info + "\"";
@@ -577,4 +633,4 @@ std::string InfoString(std::vector<std::string> Info)
    return Result;
 }
 
-
+#endif
