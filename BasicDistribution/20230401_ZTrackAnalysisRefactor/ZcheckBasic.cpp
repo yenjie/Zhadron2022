@@ -261,10 +261,10 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hData_Zeta->Rebin(2);
    hMC_Zeta->Rebin(2);
    hpp_Zeta->Rebin(2);
-   hData_bkg_Zeta->Rebin(8);
-   hMC_bkg_Zeta->Rebin(8);
+   hData_bkg_Zeta->Rebin(2);
+   hMC_bkg_Zeta->Rebin(2);
    hMC_Zeta_gen->Rebin(2);
-   hMC_bkg_Zeta_gen->Rebin(8);
+   hMC_bkg_Zeta_gen->Rebin(2);
    hMC_Zeta_gen0Sub->Rebin(2);
 
 
@@ -350,10 +350,10 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hData_Zphi->Rebin(2);
    hMC_Zphi->Rebin(2);
    hpp_Zphi->Rebin(2);
-   hData_bkg_Zphi->Rebin(8);
-   hMC_bkg_Zphi->Rebin(8);
+   hData_bkg_Zphi->Rebin(2);
+   hMC_bkg_Zphi->Rebin(2);
    hMC_Zphi_gen->Rebin(2);
-   hMC_bkg_Zphi_gen->Rebin(8);
+   hMC_bkg_Zphi_gen->Rebin(2);
    hMC_Zphi_gen0Sub->Rebin(2);
 
 
@@ -1129,7 +1129,7 @@ int main(int argc, char *argv[]){
    file_bkgDA = TFile::Open("GraphDataBackground_0503.root","read");
    file_ppMC  = TFile::Open("GraphPPMC_0503.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_0503.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_0503_01.root","read");
    file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0503.root","read");
 
    file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0503.root","read");
