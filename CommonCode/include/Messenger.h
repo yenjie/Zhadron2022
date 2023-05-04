@@ -492,6 +492,7 @@ public:
    bool Initialize();
    bool GetEntry(int iEntry);
    bool PassZHadron2022Cut(int index);
+   bool PassZHadron2022CutNoVZ(int index);
 };
 
 class ZHadronMessenger
