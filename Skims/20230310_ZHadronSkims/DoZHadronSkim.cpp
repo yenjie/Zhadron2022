@@ -553,8 +553,19 @@ int main(int argc, char *argv[])
                   {
                      if(IsPP == true && MTrackPP->PassZHadron2022Cut(itrack) == false)
                         continue;
-                     if(IsPP == false && MTrack->PassZHadron2022Cut(itrack) == false)
-                        continue;
+                     if(IsPP == false)
+                     {
+                        if(DoBackground == true && IsData == true)
+                        {
+                           if(MTrack->PassZHadron2022CutNoVZ(itrack) == false)
+                              continue;
+                        }
+                        else
+                        {
+                           if(MTrack->PassZHadron2022Cut(itrack) == false)
+                              continue;
+                        }
+                     }
                      if((IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack)) < MinTrackPT)
                         continue;
                   }
