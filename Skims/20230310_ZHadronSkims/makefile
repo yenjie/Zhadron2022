@@ -61,10 +61,10 @@ TestRunPP: Execute
 
 TestRunBackgroundSimple: Execute
 	./Execute --Input $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_14.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --DoGenLevel false --IsData true --IsPP false \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true \
 		--Background $(PbPbBackgroundData)/HiForestMiniAOD_118.root \
-		--HFShift 660 --Tolerance 150 --ToleranceFraction 0 \
+		--HFShift 660 --Tolerance 0 --ToleranceFraction 0.01 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBase)/Autumn18_HI_RAAV3_DATA_L2L3Residual_AK3PF.txt
