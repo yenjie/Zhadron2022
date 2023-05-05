@@ -196,7 +196,7 @@ PrepareToRunRandomBackground:
 PrepareToRunMCBackground:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC) \
-		10 LogMCbkg_0503/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0503/ \
+		10 LogMCbkg_0504/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0504/ \
  		--Fraction 1 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root,$(PbPbBackgroundMC)/HiForestMiniAOD_11.root,$(PbPbBackgroundMC)/HiForestMiniAOD_12.root,$(PbPbBackgroundMC)/HiForestMiniAOD_13.root,$(PbPbBackgroundMC)/HiForestMiniAOD_14.root,$(PbPbBackgroundMC)/HiForestMiniAOD_15.root,$(PbPbBackgroundMC)/HiForestMiniAOD_16.root,$(PbPbBackgroundMC)/HiForestMiniAOD_17.root,$(PbPbBackgroundMC)/HiForestMiniAOD_18.root,$(PbPbBackgroundMC)/HiForestMiniAOD_19.root,$(PbPbBackgroundMC)/HiForestMiniAOD_1.root,$(PbPbBackgroundMC)/HiForestMiniAOD_20.root \
@@ -208,7 +208,7 @@ PrepareToRunMCBackground:
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
-		10 LogMCbkg_0503/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0503/ \
+		10 LogMCbkg_0504/ /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkg_0504/ \
 		$(PbPbBackgroundMC)/ 12 \
  		--Fraction 1 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true --HFShift 682 --Tolerance 10 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
