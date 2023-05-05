@@ -13,7 +13,7 @@ using namespace std;
 #include "SetStyle.h"
 
 int main(int argc, char *argv[]);
-void SetAlias(TTree *Tree);
+void SetAlias(TTree *Tree, bool FileIsGen);
 
 int main(int argc, char *argv[])
 {
@@ -26,6 +26,10 @@ int main(int argc, char *argv[])
    string File3 = CL.Get("File3", File1);
    if(File2 == "same")   File2 = File1;
    if(File3 == "same")   File3 = File1;
+
+   bool File1IsGen = CL.GetBool("File1IsGen", false);
+   bool File2IsGen = CL.GetBool("File2IsGen", false);
+   bool File3IsGen = CL.GetBool("File3IsGen", false);
 
    string EventCut1 = CL.Get("EventCut1", "(zMass[0] > 60 && zPt[0] > 60 && hiBin < 20)");
    string EventCut2 = CL.Get("EventCut2", "(zMass[0] > 60 && zPt[0] > 5 && zPt[0] < 20 && hiBin < 20)");
@@ -40,8 +44,8 @@ int main(int argc, char *argv[])
    if(TrackCut3 == "same")   TrackCut3 = TrackCut1;
 
    double Fraction1 = CL.GetDouble("Fraction1", 1.00);
-   double Fraction2 = CL.GetDouble("Fraction2", 1.00);
-   double Fraction3 = CL.GetDouble("Fraction3", 1.00);
+   double Fraction2 = CL.GetDouble("Fraction2", Fraction1);
+   double Fraction3 = CL.GetDouble("Fraction3", Fraction2);
 
    string Label1 = CL.Get("Label1", "p_{T}^{Z} > 60 GeV");
    string Label2 = CL.Get("Label2", "p_{T}^{Z} = 5-20 GeV");
@@ -77,19 +81,19 @@ int main(int argc, char *argv[])
    int N = 0;
 
    Tree = (TTree *)F1.Get("Tree");
-   SetAlias(Tree);
+   SetAlias(Tree, File1IsGen);
    N = Tree->GetEntries() * Fraction1;
    Tree->Draw(Form("%s>>H1", ToPlot.c_str()), Form("NCollWeight * (%s) * trackWeight * (%s)", EventCut1.c_str(), TrackCut1.c_str()), "", N);
    Tree->Draw(Form("(Sum$(%s)>0)>>HN1", TrackCut1.c_str()), Form("NCollWeight * (%s)", EventCut1.c_str()), "", N);
    
    Tree = (TTree *)F2.Get("Tree");
-   SetAlias(Tree);
+   SetAlias(Tree, File2IsGen);
    N = Tree->GetEntries() * Fraction2;
    Tree->Draw(Form("%s>>H2", ToPlot.c_str()), Form("NCollWeight * (%s) * trackWeight * (%s)", EventCut2.c_str(), TrackCut2.c_str()), "", N);
    Tree->Draw(Form("(Sum$(%s)>0)>>HN2", TrackCut2.c_str()), Form("NCollWeight * (%s)", EventCut2.c_str()), "", N);
    
    Tree = (TTree *)F3.Get("Tree");
-   SetAlias(Tree);
+   SetAlias(Tree, File3IsGen);
    N = Tree->GetEntries() * Fraction3;
    Tree->Draw(Form("%s>>H3", ToPlot.c_str()), Form("NCollWeight * (%s) * trackWeight * (%s)", EventCut3.c_str(), TrackCut3.c_str()), "", N);
    Tree->Draw(Form("(Sum$(%s)>0)>>HN3", TrackCut3.c_str()), Form("NCollWeight * (%s)", EventCut3.c_str()), "", N);
@@ -97,6 +101,10 @@ int main(int argc, char *argv[])
    H1.Scale(1 / HN1.GetBinContent(2) / ((Max - Min) / Bin));
    H2.Scale(1 / HN2.GetBinContent(2) / ((Max - Min) / Bin));
    H3.Scale(1 / HN3.GetBinContent(2) / ((Max - Min) / Bin));
+
+   double I1 = H1.Integral() * ((Max - Min) / Bin);
+   double I2 = H2.Integral() * ((Max - Min) / Bin);
+   double I3 = H3.Integral() * ((Max - Min) / Bin);
 
    H1.SetStats(0);
    H2.SetStats(0);
@@ -147,9 +155,9 @@ int main(int argc, char *argv[])
    Legend.SetTextSize(0.035);
    Legend.SetBorderSize(0);
    Legend.SetFillStyle(0);
-   Legend.AddEntry(&H1, Label1.c_str(), "pl");
-   Legend.AddEntry(&H2, Label2.c_str(), "pl");
-   Legend.AddEntry(&H3, Label3.c_str(), "pl");
+   Legend.AddEntry(&H1, Form("%s (%.2f)", Label1.c_str(), I1), "pl");
+   Legend.AddEntry(&H2, Form("%s (%.2f)", Label2.c_str(), I2), "pl");
+   Legend.AddEntry(&H3, Form("%s (%.2f)", Label3.c_str(), I3), "pl");
    Legend.Draw();
 
    TLatex Latex;
@@ -177,45 +185,67 @@ int main(int argc, char *argv[])
    return 0;
 }
 
-void SetAlias(TTree *Tree)
+void SetAlias(TTree *Tree, bool FileIsGen)
 {
    if(Tree == nullptr)
       return;
    
-   Tree->SetAlias("EtaWTA", "(maxOppositeWTADEta+zEta[0])");
-   Tree->SetAlias("RawPhiWTA", "(maxOppositeWTADPhi+zPhi[0])");
+   if(FileIsGen == true)
+   {
+      Tree->SetAlias("ZEta", "genZEta[0]");
+      Tree->SetAlias("ZPhi", "genZPhi[0]");
+      Tree->SetAlias("ZPt", "genZPt[0]");
+      Tree->SetAlias("ZMass", "genZMass[0]");
+   }
+   else
+   {
+      Tree->SetAlias("ZEta", "zEta[0]");
+      Tree->SetAlias("ZPhi", "zPhi[0]");
+      Tree->SetAlias("ZPt", "zPt[0]");
+      Tree->SetAlias("ZMass", "zMass[0]");
+   }
+
+   Tree->SetAlias("TrackEta", "(trackDeta+ZEta)");
+   Tree->SetAlias("RawTrackPhi", "(trackDphi+ZPhi)");
+   Tree->SetAlias("TrackPhi", "(RawTrackPhi+2*3.1415926535*(RawTrackPhi<-3.1415926535)-2*3.1415926535*(RawTrackPhi>3.1415926535))");
+   Tree->SetAlias("TrackPhiCorr", "(TrackPhi+2*3.14159*(TrackPhi<-1.57159))/3.14159");
+   
+   Tree->SetAlias("TrackDPhiCorr", "(trackDphi+2*3.14159*(trackDphi<-1.57159))/3.14159");
+
+   Tree->SetAlias("EtaWTA", "(maxOppositeWTADEta+ZEta)");
+   Tree->SetAlias("RawPhiWTA", "(maxOppositeWTADPhi+ZPhi)");
    Tree->SetAlias("PhiWTA", "(RawPhiWTA+2*3.1415926535*(RawPhiWTA<-3.1415926535)-2*3.1415926535*(RawPhiWTA>3.1415926535))");
    Tree->SetAlias("DEtaWTA", "(trackDeta-maxOppositeWTADEta)");
    Tree->SetAlias("RawDPhiWTA", "(trackDphi-maxOppositeWTADPhi)");
    Tree->SetAlias("DPhiWTA", "(RawDPhiWTA+2*3.1415926535*(RawDPhiWTA<-3.1415926535)-2*3.1415926535*(RawDPhiWTA>3.1415926535))");
    Tree->SetAlias("DPhiWTACorr", "(DPhiWTA+2*3.14159*(DPhiWTA<-1.57159))/3.14159");
    
-   Tree->SetAlias("EtaWTAMore", "(maxMoreOppositeWTADEta+zEta[0])");
-   Tree->SetAlias("RawPhiWTAMore", "(maxMoreOppositeWTADPhi+zPhi[0])");
+   Tree->SetAlias("EtaWTAMore", "(maxMoreOppositeWTADEta+ZEta)");
+   Tree->SetAlias("RawPhiWTAMore", "(maxMoreOppositeWTADPhi+ZPhi)");
    Tree->SetAlias("PhiWTAMore", "(RawPhiWTAMore+2*3.1415926535*(RawPhiWTAMore<-3.1415926535)-2*3.1415926535*(RawPhiWTAMore>3.1415926535))");
    Tree->SetAlias("DEtaWTAMore", "(trackDeta-maxMoreOppositeWTADEta)");
    Tree->SetAlias("RawDPhiWTAMore", "(trackDphi-maxMoreOppositeWTADPhi)");
    Tree->SetAlias("DPhiWTAMore", "(RawDPhiWTAMore+2*3.1415926535*(RawDPhiWTAMore<-3.1415926535)-2*3.1415926535*(RawDPhiWTAMore>3.1415926535))");
    Tree->SetAlias("DPhiWTAMoreCorr", "(DPhiWTAMore+2*3.14159*(DPhiWTAMore<-1.57159))/3.14159");
    
-   Tree->SetAlias("EtaChargedWTA", "(maxOppositeChargedWTADEta+zEta[0])");
-   Tree->SetAlias("RawPhiChargedWTA", "(maxOppositeChargedWTADPhi+zPhi[0])");
+   Tree->SetAlias("EtaChargedWTA", "(maxOppositeChargedWTADEta+ZEta)");
+   Tree->SetAlias("RawPhiChargedWTA", "(maxOppositeChargedWTADPhi+ZPhi)");
    Tree->SetAlias("PhiChargedWTA", "(RawPhiChargedWTA+2*3.1415926535*(RawPhiChargedWTA<-3.1415926535)-2*3.1415926535*(RawPhiChargedWTA>3.1415926535))");
    Tree->SetAlias("DEtaChargedWTA", "(trackDeta-maxOppositeChargedWTADEta)");
    Tree->SetAlias("RawDPhiChargedWTA", "(trackDphi-maxOppositeChargedWTADPhi)");
    Tree->SetAlias("DPhiChargedWTA", "(RawDPhiChargedWTA+2*3.1415926535*(RawDPhiChargedWTA<-3.1415926535)-2*3.1415926535*(RawDPhiChargedWTA>3.1415926535))");
    Tree->SetAlias("DPhiChargedWTACorr", "(DPhiChargedWTA+2*3.14159*(DPhiChargedWTA<-1.57159))/3.14159");
    
-   Tree->SetAlias("EtaChargedWTAMore", "(maxMoreOppositeChargedWTADEta+zEta[0])");
-   Tree->SetAlias("RawPhiChargedWTAMore", "(maxMoreOppositeChargedWTADPhi+zPhi[0])");
+   Tree->SetAlias("EtaChargedWTAMore", "(maxMoreOppositeChargedWTADEta+ZEta)");
+   Tree->SetAlias("RawPhiChargedWTAMore", "(maxMoreOppositeChargedWTADPhi+ZPhi)");
    Tree->SetAlias("PhiChargedWTAMore", "(RawPhiChargedWTAMore+2*3.1415926535*(RawPhiChargedWTAMore<-3.1415926535)-2*3.1415926535*(RawPhiChargedWTAMore>3.1415926535))");
    Tree->SetAlias("DEtaChargedWTAMore", "(trackDeta-maxMoreOppositeChargedWTADEta)");
    Tree->SetAlias("RawDPhiChargedWTAMore", "(trackDphi-maxMoreOppositeChargedWTADPhi)");
    Tree->SetAlias("DPhiChargedWTAMore", "(RawDPhiChargedWTAMore+2*3.1415926535*(RawDPhiChargedWTAMore<-3.1415926535)-2*3.1415926535*(RawDPhiChargedWTAMore>3.1415926535))");
    Tree->SetAlias("DPhiChargedWTAMoreCorr", "(DPhiChargedWTAMore+2*3.14159*(DPhiChargedWTAMore<-1.57159))/3.14159");
    
-   Tree->SetAlias("EtaHardChargedWTA", "(maxOppositeHardChargedWTADEta+zEta[0])");
-   Tree->SetAlias("RawPhiHardChargedWTA", "(maxOppositeHardChargedWTADPhi+zPhi[0])");
+   Tree->SetAlias("EtaHardChargedWTA", "(maxOppositeHardChargedWTADEta+ZEta)");
+   Tree->SetAlias("RawPhiHardChargedWTA", "(maxOppositeHardChargedWTADPhi+ZPhi)");
    Tree->SetAlias("PhiHardChargedWTA", "(RawPhiHardChargedWTA+2*3.1415926535*(RawPhiHardChargedWTA<-3.1415926535)-2*3.1415926535*(RawPhiHardChargedWTA>3.1415926535))");
    Tree->SetAlias("DEtaHardChargedWTA", "(trackDeta-maxOppositeHardChargedWTADEta)");
    Tree->SetAlias("RawDPhiHardChargedWTA", "(trackDphi-maxOppositeHardChargedWTADPhi)");
@@ -223,40 +253,40 @@ void SetAlias(TTree *Tree)
    Tree->SetAlias("DPhiHardChargedWTACorr", "(DPhiHardChargedWTA+2*3.14159*(DPhiHardChargedWTA<-1.57159))/3.14159");
    
    
-   Tree->SetAlias("EtaMax", "(maxOppositeDEta+zEta[0])");
-   Tree->SetAlias("RawPhiMax", "(maxOppositeDPhi+zPhi[0])");
+   Tree->SetAlias("EtaMax", "(maxOppositeDEta+ZEta)");
+   Tree->SetAlias("RawPhiMax", "(maxOppositeDPhi+ZPhi)");
    Tree->SetAlias("PhiMax", "(RawPhiMax+2*3.1415926535*(RawPhiMax<-3.1415926535)-2*3.1415926535*(RawPhiMax>3.1415926535))");
    Tree->SetAlias("DEtaMax", "(trackDeta-maxOppositeDEta)");
    Tree->SetAlias("RawDPhiMax", "(trackDphi-maxOppositeDPhi)");
    Tree->SetAlias("DPhiMax", "(RawDPhiMax+2*3.1415926535*(RawDPhiMax<-3.1415926535)-2*3.1415926535*(RawDPhiMax>3.1415926535))");
    Tree->SetAlias("DPhiMaxCorr", "(RawDPhiMax+2*3.14159*(RawDPhiMax<-1.57159)-2*3.14159*(RawDPhiMax>4.71239))/3.14159");
    
-   Tree->SetAlias("EtaJet12", "(maxOppositeJet12DEta+zEta[0])");
-   Tree->SetAlias("RawPhiJet12", "(maxOppositeJet12DPhi+zPhi[0])");
+   Tree->SetAlias("EtaJet12", "(maxOppositeJet12DEta+ZEta)");
+   Tree->SetAlias("RawPhiJet12", "(maxOppositeJet12DPhi+ZPhi)");
    Tree->SetAlias("PhiJet12", "(RawPhiJet12+2*3.1415926535*(RawPhiJet12<-3.1415926535)-2*3.1415926535*(RawPhiJet12>3.1415926535))");
    Tree->SetAlias("DEtaJet12", "(trackDeta-maxOppositeJet12DEta)");
    Tree->SetAlias("RawDPhiJet12", "(trackDphi-maxOppositeJet12DPhi)");
    Tree->SetAlias("DPhiJet12", "(RawDPhiJet12+2*3.1415926535*(RawDPhiJet12<-3.1415926535)-2*3.1415926535*(RawDPhiJet12>3.1415926535))");
    Tree->SetAlias("DPhiJet12Corr", "(DPhiJet12+2*3.14159*(DPhiJet12<-1.57159))/3.14159");
    
-   Tree->SetAlias("EtaJet34", "(maxOppositeJet34DEta+zEta[0])");
-   Tree->SetAlias("RawPhiJet34", "(maxOppositeJet34DPhi+zPhi[0])");
+   Tree->SetAlias("EtaJet34", "(maxOppositeJet34DEta+ZEta)");
+   Tree->SetAlias("RawPhiJet34", "(maxOppositeJet34DPhi+ZPhi)");
    Tree->SetAlias("PhiJet34", "(RawPhiJet34+2*3.1415926535*(RawPhiJet34<-3.1415926535)-2*3.1415926535*(RawPhiJet34>3.1415926535))");
    Tree->SetAlias("DEtaJet34", "(trackDeta-maxOppositeJet34DEta)");
    Tree->SetAlias("RawDPhiJet34", "(trackDphi-maxOppositeJet34DPhi)");
    Tree->SetAlias("DPhiJet34", "(RawDPhiJet34+2*3.1415926535*(RawDPhiJet34<-3.1415926535)-2*3.1415926535*(RawDPhiJet34>3.1415926535))");
    Tree->SetAlias("DPhiJet34Corr", "(DPhiJet34+2*3.14159*(DPhiJet34<-1.57159))/3.14159");
    
-   Tree->SetAlias("EtaJet56", "(maxOppositeJet56DEta+zEta[0])");
-   Tree->SetAlias("RawPhiJet56", "(maxOppositeJet56DPhi+zPhi[0])");
+   Tree->SetAlias("EtaJet56", "(maxOppositeJet56DEta+ZEta)");
+   Tree->SetAlias("RawPhiJet56", "(maxOppositeJet56DPhi+ZPhi)");
    Tree->SetAlias("PhiJet56", "(RawPhiJet56+2*3.1415926535*(RawPhiJet56<-3.1415926535)-2*3.1415926535*(RawPhiJet56>3.1415926535))");
    Tree->SetAlias("DEtaJet56", "(trackDeta-maxOppositeJet56DEta)");
    Tree->SetAlias("RawDPhiJet56", "(trackDphi-maxOppositeJet56DPhi)");
    Tree->SetAlias("DPhiJet56", "(RawDPhiJet56+2*3.1415926535*(RawDPhiJet56<-3.1415926535)-2*3.1415926535*(RawDPhiJet56>3.1415926535))");
    Tree->SetAlias("DPhiJet56Corr", "(DPhiJet56+2*3.14159*(DPhiJet56<-1.57159))/3.14159");
    
-   Tree->SetAlias("EtaJet78", "(maxOppositeJet78DEta+zEta[0])");
-   Tree->SetAlias("RawPhiJet78", "(maxOppositeJet78DPhi+zPhi[0])");
+   Tree->SetAlias("EtaJet78", "(maxOppositeJet78DEta+ZEta)");
+   Tree->SetAlias("RawPhiJet78", "(maxOppositeJet78DPhi+ZPhi)");
    Tree->SetAlias("PhiJet78", "(RawPhiJet78+2*3.1415926535*(RawPhiJet78<-3.1415926535)-2*3.1415926535*(RawPhiJet78>3.1415926535))");
    Tree->SetAlias("DEtaJet78", "(trackDeta-maxOppositeJet78DEta)");
    Tree->SetAlias("RawDPhiJet78", "(trackDphi-maxOppositeJet78DPhi)");
