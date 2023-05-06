@@ -100,7 +100,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V6";
+   string Version = "V7";
 
    CommandLine CL(argc, argv);
 
@@ -122,6 +122,8 @@ int main(int argc, char *argv[])
    vector<string> JECFiles       = DoJet ? CL.GetStringVector("JEC") : vector<string>{""};
    string JetTreeName            = DoJet ? CL.Get("Jet") : "";
    double MinJetPT               = CL.GetDouble("MinJetPT", 15);
+   bool DoMCHiBinShift           = CL.GetBool("DoMCHiBinShift", true);
+   double MCHiBinShift           = DoMCHiBinShift ? CL.GetDouble("MCHiBinShift", 3) : 0;
 
    bool DoTrackEfficiency        = CL.GetBool("DoTrackEfficiency", true);
    string TrackEfficiencyPath    = (DoTrackEfficiency == true) ? CL.Get("TrackEfficiencyPath") : "";
@@ -308,6 +310,13 @@ int main(int argc, char *argv[])
          if(DoJet == true)
             MSignalJet.GetEntry(iE);
          MSignalRho.GetEntry(iE);
+
+         if(IsPP == false && IsData == false && DoMCHiBinShift == true)   // PbPb MC, we shift 1.5% as per Kaya
+         {
+            MSignalEvent.hiBin = MSignalEvent.hiBin - MCHiBinShift;
+            if(MSignalEvent.hiBin < 0)   // too central, skip
+               continue;
+         }
 
          MZHadron.Run   = MSignalEvent.Run;
          MZHadron.Lumi  = MSignalEvent.Lumi;
