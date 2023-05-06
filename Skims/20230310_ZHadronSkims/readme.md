@@ -20,6 +20,7 @@
    * Adding HF ceiling for matching.  if lower bound of HF matching is larger than this, it is lowered to the HF ceiling value.  Set to -1 to disable this option.
 * Version 5b - 2023 May 4
    * Disable VZ cut in track selection if it's data MB for the time being.
+* Version 6 - reinstantiate the VZ cut in data MB
 
 
 
