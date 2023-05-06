@@ -140,7 +140,7 @@ PrepareToRunGenMC:
 		$(PbPbSignalMC)/ \
 		5 LogGenMC_0506/ $(EOSBase)/OutputMCGen_0506/ \
  		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
-		--DoTrackEfficiency false --DoSumET false --GenCorrelationCharged true
+		--DoTrackEfficiency false --DoSumET false --GenCorrelationCharged true \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
