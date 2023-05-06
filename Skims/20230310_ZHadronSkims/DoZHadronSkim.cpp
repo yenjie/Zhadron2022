@@ -387,6 +387,10 @@ int main(int argc, char *argv[])
                   // We only want muon from Z's
                   if(MSignalMu.GenMom[igen1] != 23)
                      continue;
+                  if(MSignalMu.GenPT[igen1] < 20)
+                     continue;
+                  if(fabs(MSignalMu.GenEta[igen1]) > 2.4)
+                     continue;
    
                   VGenMu1.SetPtEtaPhiM(MSignalMu.GenPT[igen1],
                         MSignalMu.GenEta[igen1],
@@ -398,6 +402,10 @@ int main(int argc, char *argv[])
                      // We only want muon from Z's
                      if(MSignalMu.GenMom[igen2] != 23)
                         continue;
+                     if(MSignalMu.GenPT[igen2] < 20)
+                        continue;
+                     if(fabs(MSignalMu.GenEta[igen2]) > 2.4)
+                        continue;
    
                      VGenMu2.SetPtEtaPhiM(MSignalMu.GenPT[igen2],
                            MSignalMu.GenEta[igen2],
@@ -405,6 +413,10 @@ int main(int argc, char *argv[])
                            M_MU);
    
                      VGenZ = VGenMu1 + VGenMu2;
+
+                     if(VGenZ.M() < 60 || VGenZ.M() > 120)
+                        continue;
+
                      MZHadron.genZMass->push_back(VGenZ.M());
                      MZHadron.genZPt->push_back  (VGenZ.Pt());
                      MZHadron.genZPhi->push_back (VGenZ.Phi());
@@ -435,12 +447,13 @@ int main(int argc, char *argv[])
             for(int ipair = 0; ipair < MSignalMu.NDi; ipair++)
             {
                // We want opposite-charge muons with some basic kinematic cuts
-               if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])   continue;
-               if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                        continue;
-               if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                        continue;
-               if(fabs(MSignalMu.DiPT1[ipair]) < 20)                          continue;
-               if(fabs(MSignalMu.DiPT2[ipair]) < 20)                          continue;
-               if(MSignalMu.DimuonPassTightCut(ipair) == false)               continue;
+               if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])        continue;
+               if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                             continue;
+               if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                             continue;
+               if(fabs(MSignalMu.DiPT1[ipair]) < 20)                               continue;
+               if(fabs(MSignalMu.DiPT2[ipair]) < 20)                               continue;
+               if(MSignalMu.DimuonPassTightCut(ipair) == false)                    continue;
+               if(MSignalMu.DiMass[ipair] < 60 || MSignalMu.DiMass[ipair] > 120)   continue;
                
                MZHadron.zMass->push_back(MSignalMu.DiMass[ipair]);
                MZHadron.zEta->push_back(MSignalMu.DiEta[ipair]);
