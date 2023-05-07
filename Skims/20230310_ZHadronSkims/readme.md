@@ -20,7 +20,12 @@
    * Adding HF ceiling for matching.  if lower bound of HF matching is larger than this, it is lowered to the HF ceiling value.  Set to -1 to disable this option.
 * Version 5b - 2023 May 4
    * Disable VZ cut in track selection if it's data MB for the time being.
-* Version 6 - reinstantiate the VZ cut in data MB
+* Version 6 - 2023 May 5
+   * reinstantiate the VZ cut in data MB
+* Version 7 - 2023 May 7
+   * doing gen Z kinematic cuts by default
+   * adding Z weight capability
+   * adding MC centrality shift by 1.5% as per Kaya analysis
 
 
 
@@ -59,4 +64,6 @@
 | PFTreeName | string | "pfcandAnalyzer/pfTree" (IsPP true) or "particleFlowAnalyser/pftree" (IsPP false) | Name of the particle flow tree.  Default value depends on whether it is pp mode or not |
 | DoCS | bool | false | Whether to do constituent-subtraction or not |
 | RhoTreeName | string | "hiPuRhoAnalyzer/t" | Tree to get rho information |
+| DoMCHiBinShift | bool | true | Whether to shift PbPb MC hiBin to match data better |
+| MCHiBinShift | double | 3 | Amount of hiBin to shift PbPb MC.  Defaults to Kaya AN number (1.5%, or 3) |
 

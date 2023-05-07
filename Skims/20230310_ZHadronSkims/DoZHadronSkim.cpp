@@ -100,7 +100,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V6";
+   string Version = "V7";
 
    CommandLine CL(argc, argv);
 
@@ -122,6 +122,8 @@ int main(int argc, char *argv[])
    vector<string> JECFiles       = DoJet ? CL.GetStringVector("JEC") : vector<string>{""};
    string JetTreeName            = DoJet ? CL.Get("Jet") : "";
    double MinJetPT               = CL.GetDouble("MinJetPT", 15);
+   bool DoMCHiBinShift           = CL.GetBool("DoMCHiBinShift", true);
+   double MCHiBinShift           = DoMCHiBinShift ? CL.GetDouble("MCHiBinShift", 3) : 0;
 
    bool DoTrackEfficiency        = CL.GetBool("DoTrackEfficiency", true);
    string TrackEfficiencyPath    = (DoTrackEfficiency == true) ? CL.Get("TrackEfficiencyPath") : "";
@@ -309,6 +311,13 @@ int main(int argc, char *argv[])
             MSignalJet.GetEntry(iE);
          MSignalRho.GetEntry(iE);
 
+         if(IsPP == false && IsData == false && DoMCHiBinShift == true)   // PbPb MC, we shift 1.5% as per Kaya
+         {
+            MSignalEvent.hiBin = MSignalEvent.hiBin - MCHiBinShift;
+            if(MSignalEvent.hiBin < 0)   // too central, skip
+               continue;
+         }
+
          MZHadron.Run   = MSignalEvent.Run;
          MZHadron.Lumi  = MSignalEvent.Lumi;
          MZHadron.Event = MSignalEvent.Event;
@@ -387,6 +396,10 @@ int main(int argc, char *argv[])
                   // We only want muon from Z's
                   if(MSignalMu.GenMom[igen1] != 23)
                      continue;
+                  if(MSignalMu.GenPT[igen1] < 20)
+                     continue;
+                  if(fabs(MSignalMu.GenEta[igen1]) > 2.4)
+                     continue;
    
                   VGenMu1.SetPtEtaPhiM(MSignalMu.GenPT[igen1],
                         MSignalMu.GenEta[igen1],
@@ -398,6 +411,10 @@ int main(int argc, char *argv[])
                      // We only want muon from Z's
                      if(MSignalMu.GenMom[igen2] != 23)
                         continue;
+                     if(MSignalMu.GenPT[igen2] < 20)
+                        continue;
+                     if(fabs(MSignalMu.GenEta[igen2]) > 2.4)
+                        continue;
    
                      VGenMu2.SetPtEtaPhiM(MSignalMu.GenPT[igen2],
                            MSignalMu.GenEta[igen2],
@@ -405,6 +422,12 @@ int main(int argc, char *argv[])
                            M_MU);
    
                      VGenZ = VGenMu1 + VGenMu2;
+
+                     if(VGenZ.M() < 60 || VGenZ.M() > 120)
+                        continue;
+                     if(fabs(VGenZ.Rapidity()) > 2.4)
+                        continue;
+
                      MZHadron.genZMass->push_back(VGenZ.M());
                      MZHadron.genZPt->push_back  (VGenZ.Pt());
                      MZHadron.genZPhi->push_back (VGenZ.Phi());
@@ -435,13 +458,21 @@ int main(int argc, char *argv[])
             for(int ipair = 0; ipair < MSignalMu.NDi; ipair++)
             {
                // We want opposite-charge muons with some basic kinematic cuts
-               if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])   continue;
-               if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                        continue;
-               if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                        continue;
-               if(fabs(MSignalMu.DiPT1[ipair]) < 20)                          continue;
-               if(fabs(MSignalMu.DiPT2[ipair]) < 20)                          continue;
-               if(MSignalMu.DimuonPassTightCut(ipair) == false)               continue;
+               if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])        continue;
+               if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                             continue;
+               if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                             continue;
+               if(fabs(MSignalMu.DiPT1[ipair]) < 20)                               continue;
+               if(fabs(MSignalMu.DiPT2[ipair]) < 20)                               continue;
+               if(MSignalMu.DimuonPassTightCut(ipair) == false)                    continue;
+               if(MSignalMu.DiMass[ipair] < 60 || MSignalMu.DiMass[ipair] > 120)   continue;
                
+               TLorentzVector Mu1, Mu2;
+               Mu1.SetPtEtaPhiM(MSignalMu.DiPT1[ipair], MSignalMu.DiEta1[ipair], MSignalMu.DiPhi1[ipair], M_MU);
+               Mu2.SetPtEtaPhiM(MSignalMu.DiPT2[ipair], MSignalMu.DiEta2[ipair], MSignalMu.DiPhi2[ipair], M_MU);
+               TLorentzVector Z = Mu1 + Mu2;
+               if(fabs(Z.Rapidity()) > 2.4)
+                  continue;
+
                MZHadron.zMass->push_back(MSignalMu.DiMass[ipair]);
                MZHadron.zEta->push_back(MSignalMu.DiEta[ipair]);
                MZHadron.zPhi->push_back(MSignalMu.DiPhi[ipair]);
@@ -938,6 +969,14 @@ int main(int argc, char *argv[])
                MZHadron.maxMoreOppositeChargedWTADPhi = ChargedWTAMore.second;
                MZHadron.maxOppositeHardChargedWTADEta = HardChargedWTA.first;
                MZHadron.maxOppositeHardChargedWTADPhi = HardChargedWTA.second;
+            }
+
+            MZHadron.ZWeight = 1;
+            if(DoGenCorrelation == false && MZHadron.genZPt->size() > 0)
+            {
+               TLorentzVector Z;
+               Z.SetPtEtaPhiM(MZHadron.genZPt->at(0), MZHadron.genZEta->at(0), MZHadron.genZPhi->at(0), MZHadron.genZMass->at(0));
+               MZHadron.ZWeight = GetZWeight(Z.Pt(), Z.Y(), MZHadron.hiBin);
             }
 
             MZHadron.FillEntry();

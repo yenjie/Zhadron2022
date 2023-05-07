@@ -511,6 +511,7 @@ public:
    float SignalVZ;
 
    float NCollWeight;
+   float ZWeight;
 
    int NVertex;
    float VX, VY, VZ, VXError, VYError, VZError;
