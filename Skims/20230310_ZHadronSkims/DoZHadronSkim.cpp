@@ -425,6 +425,8 @@ int main(int argc, char *argv[])
 
                      if(VGenZ.M() < 60 || VGenZ.M() > 120)
                         continue;
+                     if(fabs(VGenZ.Rapidity()) > 2.4)
+                        continue;
 
                      MZHadron.genZMass->push_back(VGenZ.M());
                      MZHadron.genZPt->push_back  (VGenZ.Pt());
@@ -464,6 +466,13 @@ int main(int argc, char *argv[])
                if(MSignalMu.DimuonPassTightCut(ipair) == false)                    continue;
                if(MSignalMu.DiMass[ipair] < 60 || MSignalMu.DiMass[ipair] > 120)   continue;
                
+               TLorentzVector Mu1, Mu2;
+               Mu1.SetPtEtaPhiM(MSignalMu.DiPT1[ipair], MSignalMu.DiEta1[ipair], MSignalMu.DiPhi1[ipair], M_MU);
+               Mu2.SetPtEtaPhiM(MSignalMu.DiPT2[ipair], MSignalMu.DiEta2[ipair], MSignalMu.DiPhi2[ipair], M_MU);
+               TLorentzVector Z = Mu1 + Mu2;
+               if(fabs(Z.Rapidity()) > 2.4)
+                  continue;
+
                MZHadron.zMass->push_back(MSignalMu.DiMass[ipair]);
                MZHadron.zEta->push_back(MSignalMu.DiEta[ipair]);
                MZHadron.zPhi->push_back(MSignalMu.DiPhi[ipair]);
