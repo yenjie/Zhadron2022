@@ -63,7 +63,7 @@ TFile *file_bkgMCgen;
 
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230505";
+const char *typeofdata = "20230507";
 const char *typeofdatatext = "single muon";
 
 void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -1123,18 +1123,18 @@ int main(int argc, char *argv[]){
 
   style();
 
-   file_sigMC = TFile::Open("GraphMCSignal_0503.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground_0504.root","read");
-   file_sigDA = TFile::Open("GraphDataSignal_0503.root","read");
-   file_bkgDA = TFile::Open("GraphDataBackground_0504_01.root","read");
-   file_ppMC  = TFile::Open("GraphPPMC_0503.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal_0506.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground_0506.root","read");
+   file_sigDA = TFile::Open("GraphDataSignal_0506.root","read");
+   file_bkgDA = TFile::Open("GraphDataBackground_0506.root","read");
+   file_ppMC  = TFile::Open("~/eos/GraphPPMC_0503.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_0503.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0503.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_0506.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0506.root","read");
 
-   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0503.root","read");
+   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_0506.root","read");
 
-   
+  /* 
   ZcheckBasic_single(40, 20, 2000,  0, 90,  0, 1000);
   ZcheckBasic_single(40,  5, 2000,  0, 90,  0, 1000);
 
@@ -1144,7 +1144,7 @@ int main(int argc, char *argv[]){
   ZcheckBasic_single(40, 20, 2000,  0, 90, 10,   20);
   ZcheckBasic_single(40, 20, 2000,  0, 90, 20,   50);
   ZcheckBasic_single(40, 20, 2000,  0, 90, 50,  100);
-
+*/
   ZcheckBasic_single(40, 10, 2000,  0, 90,  2, 1000);
 
   return 0;
