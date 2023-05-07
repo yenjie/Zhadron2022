@@ -651,9 +651,10 @@ double GetZWeight(double PT, double Y, double HiBin)
    if(HiBin + 3 < 45)
       CWeight2 = 1.0082 - 0.000508604 * (HiBin + 3);
 
+   double PTWeight = 1.00407 - 0.00346508 * log(PT) / log(10);
    // cout << YWeight << " " << CWeight << " " << CWeight2 << endl;
 
-   return 1 / (YWeight * CWeight * CWeight2);
+   return 1 / (YWeight * CWeight * CWeight2 * PTWeight);
 }
 
 #endif
