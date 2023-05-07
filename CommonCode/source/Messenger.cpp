@@ -1965,6 +1965,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("SignalVZ",               &SignalVZ,     "SignalVZ/F");
 
    Tree->Branch("NCollWeight",            &NCollWeight,  "NCollWeight/F");
+   Tree->Branch("ZWeight",                &ZWeight,      "ZWeight/F");
    
    Tree->Branch("NVertex",                &NVertex,      "NVertex/I");
    Tree->Branch("VX",                     &VX,           "VX/F");
@@ -2070,6 +2071,9 @@ void ZHadronMessenger::Clear()
    SignalHF = -1;
    BackgroundHF = -1;
    SignalVZ = -999;
+
+   NCollWeight = 1;
+   ZWeight = 1;
 
    NVertex = 0;
    VX = 0;

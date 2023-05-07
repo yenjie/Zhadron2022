@@ -71,6 +71,7 @@ std::string InfoString(float Info);
 std::string InfoString(double Info);
 std::string InfoString(bool Info);
 std::string InfoString(std::vector<std::string> Info);
+double GetZWeight(double PT, double Y, double HiBin);
 
 // Function implementations
 
@@ -631,6 +632,28 @@ std::string InfoString(std::vector<std::string> Info)
    Result = Result + "}";
 
    return Result;
+}
+
+double GetZWeight(double PT, double Y, double HiBin)
+{
+   // Tree->SetAlias("YWeight", "(1/(0.907863-0.00478487*Y+0.0190346*Y*Y+0.000807052*Y*Y*Y-0.00919791*Y*Y*Y*Y+0.000399488*Y*Y*Y*Y*Y+0.00319896*Y*Y*Y*Y*Y*Y-0.0000754237*Y*Y*Y*Y*Y*Y*Y-0.000386165*Y*Y*Y*Y*Y*Y*Y*Y))")
+   double PY[9] = {0.907863, -0.00478487, 0.0190346, 0.000807052, -0.00919791, 0.000399488, 0.00319896, -0.0000754237, -0.000386165};
+   double YWeight = 0;
+   for(int i = 8; i >= 0; i--)
+      YWeight = YWeight * Y + PY[i];
+
+   // Tree->SetAlias("CWeight", "(1/(1.02931+2.27613*exp(-0.0162159*HiBin)-2.52141*exp(-0.0173972*HiBin)))")
+   double PC[5] = {1.02931, -2.27613, 0.0162159, 2.52141, 0.0173972};
+   double CWeight = PC[0] - PC[1] * exp(-PC[2] * (HiBin + 3)) - PC[3] * exp(-PC[4] * (HiBin + 3));
+
+   // Tree->SetAlias("CWeight2", "(1/((HiBin>=45)*1+(HiBin<45)*(1.0082-0.000508604*HiBin)))")
+   double CWeight2 = 1;
+   if(HiBin + 3 < 45)
+      CWeight2 = 1.0082 - 0.000508604 * (HiBin + 3);
+
+   // cout << YWeight << " " << CWeight << " " << CWeight2 << endl;
+
+   return 1 / (YWeight * CWeight * CWeight2);
 }
 
 #endif
