@@ -211,9 +211,9 @@ PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
 		1 LogMCBackground_0508/ $(EOSBase)/OutputMCBackground_0508/ \
-		$(PbPbBackgroundMC)/ 5 \
+		$(PbPbBackgroundMC)/ 10 \
  		--Fraction 1 --DoGenLevel true --IsData false --IsPP false \
-		--DoBackground true --HFShift 682 --Tolerance 20 --ToleranceFraction 0.1 --DoSumET false --Oversample 10 \
+		--DoBackground true --HFShift 682 --Tolerance 20 --ToleranceFraction 0.05 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5 --HFCeiling 134000 \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
