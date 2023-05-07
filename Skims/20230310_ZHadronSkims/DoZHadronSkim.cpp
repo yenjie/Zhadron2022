@@ -971,6 +971,14 @@ int main(int argc, char *argv[])
                MZHadron.maxOppositeHardChargedWTADPhi = HardChargedWTA.second;
             }
 
+            MZHadron.ZWeight = 1;
+            if(DoGenCorrelation == false && MZHadron.genZPt->size() > 0)
+            {
+               TLorentzVector Z;
+               Z.SetPtEtaPhiM(MZHadron.genZPt->at(0), MZHadron.genZEta->at(0), MZHadron.genZPhi->at(0), MZHadron.genZMass->at(0));
+               MZHadron.ZWeight = GetZWeight(Z.Pt(), Z.Y(), MZHadron.hiBin);
+            }
+
             MZHadron.FillEntry();
          }
       }
