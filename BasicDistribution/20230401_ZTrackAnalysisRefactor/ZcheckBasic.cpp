@@ -1127,7 +1127,7 @@ int main(int argc, char *argv[]){
    file_bkgMC = TFile::Open("GraphMCBackground_0508_01.root","read");
    file_sigDA = TFile::Open("GraphDataSignal_0508.root","read");
    file_bkgDA = TFile::Open("GraphDataBackground_0508.root","read");
-   file_ppMC  = TFile::Open("~/eos/GraphPPMC_0508.root","read");
+   file_ppMC  = TFile::Open("GraphPPMC_0508.root","read");
 
    file_sigMCgen = TFile::Open("GraphMCSignalGen_0508_01.root","read");
    file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_0508.root","read");
