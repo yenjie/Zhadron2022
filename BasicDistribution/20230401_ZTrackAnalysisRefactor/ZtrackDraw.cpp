@@ -1490,8 +1490,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(3);
    hpp_etaphi_1->Draw("lego20");
-   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track}");
-   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track}");
+   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track} (NPU=0)");
+   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track} (NPU=0)");
    hpp_etaphi_1->GetXaxis()->SetTitleSize(24);
    hpp_etaphi_1->GetYaxis()->SetTitleSize(24);
    hpp_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
@@ -1544,8 +1544,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(3);
    hpp_etaphi_1->Draw("COLZ");
-   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track}");
-   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track}");
+   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track} (NPU=0)");
+   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track} (NPU=0)");
    hpp_etaphi_1->GetXaxis()->SetTitleSize(24);
    hpp_etaphi_1->GetYaxis()->SetTitleSize(24);
    hpp_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
@@ -1598,8 +1598,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(3);
    hpp_etaphi_1->Draw("lego20");
-   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track}");
-   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track}");
+   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track} (NPU=0)");
+   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track} (NPU=0)");
    hpp_etaphi_1->GetXaxis()->SetTitleSize(24);
    hpp_etaphi_1->GetYaxis()->SetTitleSize(24);
    hpp_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
@@ -1652,8 +1652,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(3);
    hpp_etaphi_1->Draw("COLZ");
-   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track}");
-   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track}");
+   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track} (NPU=0)");
+   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track} (NPU=0)");
    hpp_etaphi_1->GetXaxis()->SetTitleSize(24);
    hpp_etaphi_1->GetYaxis()->SetTitleSize(24);
    hpp_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
