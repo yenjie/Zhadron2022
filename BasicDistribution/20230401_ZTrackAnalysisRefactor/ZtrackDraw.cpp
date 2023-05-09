@@ -361,8 +361,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    std::cout<<"Rebinning..."<<std::endl;
 
-   hData_etaphi_1->Rebin2D(5,5);
-   hData_bkg_etaphi_1->Rebin2D(5,5);
+   hData_etaphi_1->Rebin2D(10,10);
+   hData_bkg_etaphi_1->Rebin2D(10,10);
 
    hData_MuDetaphi->Rebin2D(5,5);
    hData_bkg_MuDetaphi->Rebin2D(5,5);
@@ -384,6 +384,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_Zbkg_WTAetaphi->Rebin2D(5,5);
    hData_ZWTAMoreetaphi->Rebin2D(5,5);
    hData_Zbkg_WTAMoreetaphi->Rebin2D(5,5);
+
+   hpp_etaphi_1->Rebin2D(2,2);
 
    hMC_MuDetaphi->Rebin2D(2,2);
    hMC_bkg_MuDetaphi->Rebin2D(2,2);
@@ -3145,6 +3147,9 @@ int main(int argc, char *argv[]){
    ZtrackDraw_single(40,  5, 2000,  0, 90, 20,   50);
    ZtrackDraw_single(40,  5, 2000,  0, 90, 50,  100);
 */
+
+   ZtrackDraw_single(40, 10, 2000,  0, 90,  2, 1000);
+
    file_sigMC->Close();
    file_bkgMC->Close();
    file_sigDA->Close();
