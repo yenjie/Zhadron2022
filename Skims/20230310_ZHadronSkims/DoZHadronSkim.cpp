@@ -25,6 +25,7 @@ using namespace std;
 
 #include "trackingEfficiency2017pp.h"
 #include "trackingEfficiency2018PbPb.h"
+#include "TrackResidualCorrector.h"
 
 struct EventIndex;
 struct JetRecord;
@@ -100,39 +101,41 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V7";
+   string Version = "V8";
 
    CommandLine CL(argc, argv);
 
-   vector<string> InputFileNames = CL.GetStringVector("Input");
-   string OutputFileName         = CL.Get("Output");
-   bool DoGenLevel               = CL.GetBool("DoGenLevel", true);
-   double Fraction               = CL.GetDouble("Fraction", 1.00);
-   double MinZPT                 = CL.GetDouble("MinZPT", 20.00);
-   double MinTrackPT             = CL.GetDouble("MinTrackPT", 1.00);
-   bool IsData                   = CL.GetBool("IsData", false);
-   bool IsPP                     = CL.GetBool("IsPP", false);
-   bool DoGenCorrelation         = CL.GetBool("DoGenCorrelation", false);
-   bool GenCorrelationCharged    = CL.GetBool("GenCorrelationCharged", false);
-   bool DoBackground             = CL.GetBool("DoBackground", false);
-   bool DoSumET                  = CL.GetBool("DoSumET", true);
-   bool DoExtraAxes              = CL.GetBool("DoExtraAxes", true);
-   double MuonVeto               = CL.GetDouble("MuonVeto", 0.01);
-   bool DoJet                    = CL.GetBool("DoJet", false);
-   vector<string> JECFiles       = DoJet ? CL.GetStringVector("JEC") : vector<string>{""};
-   string JetTreeName            = DoJet ? CL.Get("Jet") : "";
-   double MinJetPT               = CL.GetDouble("MinJetPT", 15);
-   bool DoMCHiBinShift           = CL.GetBool("DoMCHiBinShift", true);
-   double MCHiBinShift           = DoMCHiBinShift ? CL.GetDouble("MCHiBinShift", 3) : 0;
+   vector<string> InputFileNames      = CL.GetStringVector("Input");
+   string OutputFileName              = CL.Get("Output");
+   bool DoGenLevel                    = CL.GetBool("DoGenLevel", true);
+   double Fraction                    = CL.GetDouble("Fraction", 1.00);
+   double MinZPT                      = CL.GetDouble("MinZPT", 20.00);
+   double MinTrackPT                  = CL.GetDouble("MinTrackPT", 1.00);
+   bool IsData                        = CL.GetBool("IsData", false);
+   bool IsPP                          = CL.GetBool("IsPP", false);
+   bool DoGenCorrelation              = CL.GetBool("DoGenCorrelation", false);
+   bool GenCorrelationCharged         = CL.GetBool("GenCorrelationCharged", false);
+   bool DoBackground                  = CL.GetBool("DoBackground", false);
+   bool DoSumET                       = CL.GetBool("DoSumET", true);
+   bool DoExtraAxes                   = CL.GetBool("DoExtraAxes", true);
+   double MuonVeto                    = CL.GetDouble("MuonVeto", 0.01);
+   bool DoJet                         = CL.GetBool("DoJet", false);
+   vector<string> JECFiles            = DoJet ? CL.GetStringVector("JEC") : vector<string>{""};
+   string JetTreeName                 = DoJet ? CL.Get("Jet") : "";
+   double MinJetPT                    = CL.GetDouble("MinJetPT", 15);
+   bool DoMCHiBinShift                = CL.GetBool("DoMCHiBinShift", true);
+   double MCHiBinShift                = DoMCHiBinShift ? CL.GetDouble("MCHiBinShift", 3) : 0;
 
-   bool DoTrackEfficiency        = CL.GetBool("DoTrackEfficiency", true);
-   string TrackEfficiencyPath    = (DoTrackEfficiency == true) ? CL.Get("TrackEfficiencyPath") : "";
+   bool DoTrackEfficiency             = CL.GetBool("DoTrackEfficiency", true);
+   string TrackEfficiencyPath         = (DoTrackEfficiency == true) ? CL.Get("TrackEfficiencyPath") : "";
+   bool DoTrackResidual               = CL.GetBool("DoTrackResidual", false);
+   string TrackResidualPath           = (DoTrackResidual == true) ? CL.Get("TrackResidualPath") : "";
 
-   string PFTreeName             = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
-   PFTreeName                    = CL.Get("PFTree", PFTreeName);
+   string PFTreeName                  = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
+   PFTreeName                         = CL.Get("PFTree", PFTreeName);
 
-   bool DoCS                     = CL.GetBool("DoCS", false);
-   string RhoTreeName            = CL.Get("RhoTree", "hiPuRhoAnalyzer/t");
+   bool DoCS                          = CL.GetBool("DoCS", false);
+   string RhoTreeName                 = CL.Get("RhoTree", "hiPuRhoAnalyzer/t");
 
    Assert(!(IsPP == true && IsData == true), "Data selections for pp not implemented yet");
    Assert(!(DoGenCorrelation == true && DoGenLevel == false), "You need to turn on gen level to do gen correlation!");
@@ -168,6 +171,7 @@ int main(int argc, char *argv[])
       else
          TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "", false, TrackEfficiencyPath);
    }
+   TrackResidualCorrector TrackResidual(TrackResidualPath);
 
    // Do some pre-caching if we read background files.
    // Later on if speed is an issue we can do some optimizations
@@ -245,6 +249,8 @@ int main(int argc, char *argv[])
    Key = "MinJetPT";                Value = InfoString(MinJetPT);                InfoTree.Fill();
    Key = "DoTrackEfficiency";       Value = InfoString(DoTrackEfficiency);       InfoTree.Fill();
    Key = "TrackEfficiencyPath";     Value = InfoString(TrackEfficiencyPath);     InfoTree.Fill();
+   Key = "DoTrackResidual";         Value = InfoString(DoTrackResidual);         InfoTree.Fill();
+   Key = "TrackResidualPath";       Value = InfoString(TrackResidualPath);       InfoTree.Fill();
    Key = "PFTreeName";              Value = InfoString(PFTreeName);              InfoTree.Fill();
    Key = "RhoTreeName";             Value = InfoString(RhoTreeName);             InfoTree.Fill();
    Key = "Background";              Value = InfoString(BackgroundFileNames);     InfoTree.Fill();
@@ -664,7 +670,13 @@ int main(int argc, char *argv[])
                      else
                         TrackCorrection = TrackEfficiencyPbPb->getCorrection(TrackPT, TrackEta, MZHadron.hiBin);
                   }
+                  double TrackResidualCorrection = 1;
+                  if(DoTrackResidual == true && DoGenCorrelation == false)
+                  {
+                     TrackResidualCorrection = TrackResidual.GetCorrectionFactor(TrackPT, TrackEta, TrackPhi);
+                  }
                   MZHadron.trackWeight->push_back(TrackCorrection);
+                  MZHadron.trackResidualWeight->push_back(TrackResidualCorrection);
                }
             }
 
