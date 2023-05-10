@@ -29,6 +29,7 @@ TestRunMC: Execute
 		--Output /tmp/$(USER)/TestMC.root --Fraction 0.02 --DoGenLevel true --DoGenCorrelation false --IsData false --IsPP false --MinZPT 5 --DoExtraAxes true \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 TestRunGen: Execute
@@ -36,6 +37,7 @@ TestRunGen: Execute
 		--Output /tmp/$(USER)/TestGenMC.root --Fraction 0.1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false --MinZPT 5 --DoExtraAxes true \
 		--DoTrackEfficiency false --GenCorrelationCharged true \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 TestRunGenPP: Execute
@@ -43,6 +45,7 @@ TestRunGenPP: Execute
 		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP true --MinZPT 5 \
 		--DoTrackEfficiency false --GenCorrelationCharged true \
 		--DoJet true --Jet "ak3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBasePPMC)/Spring18_ppRef5TeV_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBasePPMC)/Spring18_ppRef5TeV_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 TestRunBackground: Execute
@@ -53,6 +56,7 @@ TestRunBackground: Execute
 		--HFShift 660 --Tolerance 0 --ToleranceFraction 0.01 --Oversample 10  --HFCeiling 70000 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBase)/Autumn18_HI_RAAV3_DATA_L2L3Residual_AK3PF.txt
 
 TestRunPP: Execute
@@ -60,6 +64,7 @@ TestRunPP: Execute
 		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --IsData false --IsPP true --MinZPT 5 --DoSumET false \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --PFTree "pfcandAnalyzer/pfTree" \
 		--DoJet true --Jet "ak3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBasePP)/Spring18_ppRef5TeV_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBasePP)/Spring18_ppRef5TeV_RAAV3_DATA_L2L3Residual_AK3PF.txt
 
 TestRunBackgroundSimple: Execute
@@ -70,6 +75,7 @@ TestRunBackgroundSimple: Execute
 		--HFShift 660 --Tolerance 0 --ToleranceFraction 0.01 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBase)/Autumn18_HI_RAAV3_DATA_L2L3Residual_AK3PF.txt
 
 TestRunMCBackground: Execute
@@ -80,6 +86,7 @@ TestRunMCBackground: Execute
 		--HFShift 682 --Tolerance 20 --ToleranceFraction 0.05 --DoSumET false --HFCeiling 134000 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 TestRunMCGenBackground: Execute
@@ -90,6 +97,7 @@ TestRunMCGenBackground: Execute
 		--HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --DoSumET false \
 		--DoTrackEfficiency false --GenCorrelationCharged true --VZTolerance 10000 --HFCeiling 156000 \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 #BackgroundCount = 37
@@ -109,6 +117,7 @@ TestRunRandomMCGenBackground: Execute
 		--HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --DoSumET false \
 		--DoTrackEfficiency false --GenCorrelationCharged true --VZTolerance 10000 --HFCeiling 156000 \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 Execute: DoZHadronSkim.cpp
@@ -123,111 +132,122 @@ EOSBase = /eos/cms/store/group/phys_heavyions/pchou
 PrepareToRun:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		5 LogData_0508/ $(EOSBase)/OutputData_0508/ \
+		5 LogData_v8/ $(EOSBase)/OutputData_v8/ \
 		--Fraction 1 --DoGenLevel false --IsData true --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBase)/Autumn18_HI_RAAV3_DATA_L2L3Residual_AK3PF.txt
 
 PrepareToRunMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogMC_0508/ $(EOSBase)/OutputMC_0508/ \
+		5 LogMC_v8/ $(EOSBase)/OutputMC_v8/ \
 		--Fraction 1 --DoGenLevel true --IsData false --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 PrepareToRunGenMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogGenMC_0508/ $(EOSBase)/OutputMCGen_0508/ \
+		5 LogGenMC_v8/ $(EOSBase)/OutputMCGen_v8/ \
  		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
 		--DoTrackEfficiency false --DoSumET false --GenCorrelationCharged true \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 PrepareToRunPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogPP_0508/ $(EOSBase)/OutputPPMC_0508/ \
+		10 LogPP_v8/ $(EOSBase)/OutputPPMC_v8/ \
  		--Fraction 1 --DoGenLevel true --IsData false --IsPP true \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5 \
 		--DoJet true --Jet "ak3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBasePPMC)/Spring18_ppRef5TeV_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBasePPMC)/Spring18_ppRef5TeV_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 PrepareToRunGenPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogGenPP_0508/ $(EOSBase)/OutputPPMCGen_0508/ \
+		10 LogGenPP_v8/ $(EOSBase)/OutputPPMCGen_v8/ \
  		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP true \
 		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5 --DoSumET false --GenCorrelationCharged true \
 		--DoJet true --Jet "ak3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBasePPMC)/Spring18_ppRef5TeV_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBasePPMC)/Spring18_ppRef5TeV_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 PrepareToRunPPData:
 	bash PrepareInput.sh \
 		'$(PPSignalData)/*/' \
-		10 LogPPData_0508/ $(EOSBase)/OutputPPData_0508/ \
+		10 LogPPData_v8/ $(EOSBase)/OutputPPData_v8/ \
  		--Fraction 1 --DoGenLevel false --IsData true --IsPP true \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5 \
 		--DoJet true --Jet "ak3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBasePP)/Spring18_ppRef5TeV_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBasePP)/Spring18_ppRef5TeV_RAAV3_DATA_L2L3Residual_AK3PF.txt
 
 PrepareToRunBackground:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		10 LogDatabkg_0508/ $(EOSBase)/OutputDatabkg_0508/ \
+		10 LogDatabkg_v8/ $(EOSBase)/OutputDatabkg_v8/ \
  		--Fraction 1 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true \
 		--Background /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_10.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_13.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_17.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_20.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_22.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_34.root,/eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/MinBias_Hydjet_Drum5F_2018_5p02TeV/HINPbPbSpring21MiniAOD-NoPUmva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/MinBias_Hydjet_Drum5F_2018_5p02TeV/20221017_ZHadronInitialRunMCMB/221017_113057/0000/HiForestMiniAOD_37.root \
 		--HFShift 660 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5 --HFCeiling 70000 \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBase)/Autumn18_HI_RAAV3_DATA_L2L3Residual_AK3PF.txt
 
 PrepareToRunRandomBackground:
 	bash PrepareInputRandomBackground.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		10 LogDatabkg_0508/ $(EOSBase)/OutputDatabkg_0508/ \
+		10 LogDatabkg_v8/ $(EOSBase)/OutputDatabkg_v8/ \
 		$(PbPbBackgroundData)/ 100 \
  		--Fraction 1 --DoGenLevel false --IsData true --IsPP false \
 		--DoBackground true --HFShift 660 --Tolerance 0 --ToleranceFraction 0.01 --DoSumET false --Oversample 25 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5 --HFCeiling 70000 \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBase)/Autumn18_HI_RAAV3_DATA_L2L3Residual_AK3PF.txt
 
 PrepareToRunMCBackground:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC) \
-		1 LogMCBackground_0508/ $(EOSBase)/OutputMCBackground_0508/ \
+		1 LogMCBackground_v8/ $(EOSBase)/OutputMCBackground_v8/ \
  		--Fraction 1 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root,$(PbPbBackgroundMC)/HiForestMiniAOD_11.root,$(PbPbBackgroundMC)/HiForestMiniAOD_12.root,$(PbPbBackgroundMC)/HiForestMiniAOD_13.root,$(PbPbBackgroundMC)/HiForestMiniAOD_14.root,$(PbPbBackgroundMC)/HiForestMiniAOD_15.root,$(PbPbBackgroundMC)/HiForestMiniAOD_16.root,$(PbPbBackgroundMC)/HiForestMiniAOD_17.root,$(PbPbBackgroundMC)/HiForestMiniAOD_18.root,$(PbPbBackgroundMC)/HiForestMiniAOD_19.root,$(PbPbBackgroundMC)/HiForestMiniAOD_1.root,$(PbPbBackgroundMC)/HiForestMiniAOD_20.root \
 		--HFShift 682 --Tolerance 20 --ToleranceFraction 0.05 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5 --HFCeiling 134000 \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
-		1 LogMCBackground_0508/ $(EOSBase)/OutputMCBackground_0508/ \
+		1 LogMCBackground_v8/ $(EOSBase)/OutputMCBackground_v8/ \
 		$(PbPbBackgroundMC)/ 10 \
  		--Fraction 1 --DoGenLevel true --IsData false --IsPP false \
 		--DoBackground true --HFShift 682 --Tolerance 20 --ToleranceFraction 0.05 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --MinZPT 5 --MinTrackPT 0.5 --HFCeiling 134000 \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
 PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
-		10 LogMCGenbkg_0508/ $(EOSBase)/OutputMCbkgGen_0508/ \
+		10 LogMCGenbkg_v8/ $(EOSBase)/OutputMCbkgGen_v8/ \
 		$(PbPbBackgroundMC)/ 12 \
  		--Fraction 1 --DoGenLevel true --DoGenCorrelation true --IsData false --IsPP false \
 		--DoBackground true --HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --DoSumET false --Oversample 10 \
 		--DoTrackEfficiency false --MinZPT 5 --MinTrackPT 0.5 --GenCorrelationCharged true --VZTolerance 10000 --HFCeiling 156000 \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
+		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
 		--JEC $(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2Relative_AK3PF.txt,$(JECBaseMC)/Autumn18_HI_RAAV3_MC_L2L3Residual_AK3PF.txt
 
