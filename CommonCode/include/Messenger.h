@@ -533,6 +533,7 @@ public:
    std::vector<double> *trackPhi;
    std::vector<bool> *trackMuTagged;
    std::vector<double> *trackWeight;
+   std::vector<double> *trackResidualWeight;
    std::vector<int> *subevent;
    
    std::vector<double> *jetPt;

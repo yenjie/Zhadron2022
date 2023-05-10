@@ -1914,6 +1914,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    trackPhi = new std::vector<double>();
    trackMuTagged = new std::vector<bool>();
    trackWeight = new std::vector<double>();
+   trackResidualWeight = new std::vector<double>();
    subevent = new std::vector<int>();
 
    jetPt = new std::vector<double>();
@@ -1992,6 +1993,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    // Tree->Branch("trackEta",               &trackEta);
    Tree->Branch("trackMuTagged",          &trackMuTagged);
    Tree->Branch("trackWeight",            &trackWeight);
+   Tree->Branch("trackResidualWeight",    &trackResidualWeight);
    Tree->Branch("subevent",               &subevent);
    
    Tree->Branch("jetPt",                  &jetPt);
@@ -2100,6 +2102,7 @@ void ZHadronMessenger::Clear()
    trackEta->clear();
    trackMuTagged->clear();
    trackWeight->clear();
+   trackResidualWeight->clear();
    subevent->clear();
 
    jetPt->clear();
