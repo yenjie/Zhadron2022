@@ -242,6 +242,7 @@ int main(int argc, char *argv[])
    Tree->Add((InputBase + "/*.root?#Tree").c_str());
  
    int HiBin;
+   int NPU;
    vector<double> *ZMass       = nullptr;
    vector<double> *ZPT         = nullptr;
    vector<double> *ZEta        = nullptr;
@@ -281,6 +282,7 @@ int main(int argc, char *argv[])
    vector<double> *trackWeight = nullptr;
 
    Tree->SetBranchAddress("hiBin",                  &HiBin);
+   Tree->SetBranchAddress("NPU",                    &NPU);
    Tree->SetBranchAddress("zMass",                  &ZMass);
    Tree->SetBranchAddress("zPt",                    &ZPT);
    Tree->SetBranchAddress("zEta",                   &ZEta);
@@ -381,7 +383,9 @@ int main(int argc, char *argv[])
             NTrack = TrackPT->size();
          for(int iT = 0; iT < NTrack; iT++)
          {
-            if(OnlyZeroSub == true && subevent->at(iT) != 0) continue;
+            if(OnlyZeroSub == true && DoGenCorrelation == true && subevent->at(iT) != 0) continue;
+
+            if(OnlyZeroSub == true && DoGenCorrelation == false && NPU != 0) continue;
 
             bool TrackPTRange = false;
             if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
