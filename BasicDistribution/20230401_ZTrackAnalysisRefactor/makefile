@@ -2,40 +2,40 @@ default: TestRun
 
 TestRun: Execute
 	mkdir -p log
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_v8/ \
 		--Output GraphDataSignal_v8.root --Fraction 1 \
 		 > log/GraphDataSignal_v8.out 2> log/GraphDataSignal_v8.err < /dev/null &
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_v8/ \
 		--Output GraphDataBackground_v8.root --Fraction 1 \
 		 > log/GraphDataBackground_v8.out 2> log/GraphDataBackground_v8.err < /dev/null &
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_v8/ \
 		--Output GraphMCSignal_v8.root --Fraction 1 \
 		 > log/GraphMCSignal_v8.out 2> log/GraphMCSignal_v8.err < /dev/null &
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCBackground_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCBackground_v8/ \
 		--Output GraphMCBackground_v8.root --Fraction 1 \
 		 > log/GraphMCBackground_v8.out 2> log/GraphMCBackground_v8.err < /dev/null &
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_v8/ \
 		--Output GraphPPMC_v8.root --IgnoreCentrality true --Fraction 1 \
 		 > log/GraphPPMC_v8.out 2> log/GraphPPMC_v8.err < /dev/null &
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_v8/ \
 		--Output GraphPPMC0Sub_v8.root --IgnoreCentrality true --Fraction 1 \
 		 > log/GraphPPMC0Sub_v8.out 2> log/GraphPPMC0Sub_v8.err < /dev/null &
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_v8/ \
 		--Output GraphMCSignalGen_v8.root --Fraction 1 --DoGenCorrelation true \
 		 > log/GraphMCSignalGen_v8.out 2> log/GraphMCSignalGen_v8.err < /dev/null &
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_v8/ \
 		--Output GraphMCSignalGen0Sub_v8.root --OnlyZeroSub true --Fraction 1 --DoGenCorrelation true \
 		 > log/GraphMCSignalGen0Sub_v8.out 2> log/GraphMCSignalGen0Sub_v8.err < /dev/null &
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_v8/ \
 		--Output GraphMCBackgroundGen_v8.root --Fraction 1 --DoGenCorrelation true \
 		 > log/GraphMCBackgroundGen_v8.out 2> log/GraphMCBackgroundGen_v8.err < /dev/null &
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_v8/ \
 		--Output GraphMCBackgroundGen0Sub_v8.root --OnlyZeroSub true --Fraction 1 --DoGenCorrelation true \
 		 > log/GraphMCBackgroundGen0Sub_v8.out 2> log/GraphMCBackgroundGen0Sub_v8.err < /dev/null &
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_v8/ \
 		--Output GraphPPMCGen_v8.root --IgnoreCentrality true --Fraction 1 --DoGenCorrelation true \
 		 > log/GraphPPMCGen_v8.out 2> log/GraphPPMCGen_v8.err < /dev/null &
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_0508/ \
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_v8/ \
 		--Output GraphPPMCGen_v8.root --IgnoreCentrality true --Fraction 1 --DoGenCorrelation true \
 		 > log/GraphPPMCGen_v8.out 2> log/GraphPPMCGen_v8.err < /dev/null &
 

@@ -646,6 +646,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Dphi/C",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/3D/C",typeofdata));
 
+/*
    gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxetaphi/pdf",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxetaphi/C",typeofdata));
    gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxOetaphi/pdf",typeofdata));
@@ -663,7 +664,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAetaphi/C",typeofdata));
    gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/pdf",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/C",typeofdata));
-
+*/
 
    // Draw eta 
 
