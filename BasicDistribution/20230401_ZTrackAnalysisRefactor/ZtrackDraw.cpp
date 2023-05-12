@@ -3147,10 +3147,10 @@ int main(int argc, char *argv[]){
 
    style();
 
-   file_sigMC = TFile::Open("GraphMCSignal_v8_01.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground_v8_01.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal_v8.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground_v8.root","read");
    file_sigDA = TFile::Open("GraphDataSignal_v8.root","read");
-   file_bkgDA = TFile::Open("GraphDataBackground_v8_01.root","read");
+   file_bkgDA = TFile::Open("GraphDataBackground_v8.root","read");
    file_ppMC  = TFile::Open("GraphPPMC0Sub_v8.root","read");
 
    file_sigMCgen = TFile::Open("GraphMCSignalGen_v8_01.root","read");
