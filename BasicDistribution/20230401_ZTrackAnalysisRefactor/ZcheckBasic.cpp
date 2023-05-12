@@ -248,14 +248,16 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
 
    std::cout<<"tM_tNgen0Sub = "<<tM_tNgen0Sub<<std::endl;
 
-   hData_Zeta->Scale(1./tD_tN);
-   hMC_Zeta->Scale(1./tM_tN);
-   hpp_Zeta->Scale(1./tpM_tN);
-   hData_bkg_Zeta->Scale(1./tDb_tN);
-   hMC_bkg_Zeta->Scale(1./tMb_tN);
-   hMC_Zeta_gen->Scale(1./tM_tNgen);
-   hMC_bkg_Zeta_gen->Scale(1./tMb_tNgen);
-   hMC_Zeta_gen0Sub->Scale(1./tM_tNgen0Sub);
+   double bineta = 0.064, binphi = M_PI/50;
+
+   hData_Zeta->Scale(1./tD_tN/bineta);
+   hMC_Zeta->Scale(1./tM_tN/bineta);
+   hpp_Zeta->Scale(1./tpM_tN/bineta);
+   hData_bkg_Zeta->Scale(1./tDb_tN/bineta);
+   hMC_bkg_Zeta->Scale(1./tMb_tN/bineta);
+   hMC_Zeta_gen->Scale(1./tM_tNgen/bineta);
+   hMC_bkg_Zeta_gen->Scale(1./tMb_tNgen/bineta);
+   hMC_Zeta_gen0Sub->Scale(1./tM_tNgen0Sub/bineta);
 
 
    hData_Zeta->Rebin(2);
@@ -298,14 +300,14 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zeta_gen->SetLineWidth(2);
    hMC_Zeta_gen0Sub->SetLineWidth(2);
 
-   hData_Tracketa->Scale(1./tD_tN);
-   hMC_Tracketa->Scale(1./tM_tN);
-   hpp_Tracketa->Scale(1./tpM_tN);
-   hData_bkg_Tracketa->Scale(1./tDb_tN);
-   hMC_bkg_Tracketa->Scale(1./tMb_tN);
-   hMC_Tracketa_gen->Scale(1./tM_tNgen);
-   hMC_bkg_Tracketa_gen->Scale(1./tMb_tNgen);
-   hMC_Tracketa_gen0Sub->Scale(1./tM_tNgen0Sub);
+   hData_Tracketa->Scale(1./tD_tN/bineta);
+   hMC_Tracketa->Scale(1./tM_tN/bineta);
+   hpp_Tracketa->Scale(1./tpM_tN/bineta);
+   hData_bkg_Tracketa->Scale(1./tDb_tN/bineta);
+   hMC_bkg_Tracketa->Scale(1./tMb_tN/bineta);
+   hMC_Tracketa_gen->Scale(1./tM_tNgen/bineta);
+   hMC_bkg_Tracketa_gen->Scale(1./tMb_tNgen/bineta);
+   hMC_Tracketa_gen0Sub->Scale(1./tM_tNgen0Sub/bineta);
 
 
    hData_Tracketa->SetMarkerStyle(24);
@@ -338,14 +340,14 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketa_gen->SetLineWidth(2);
    hMC_Tracketa_gen0Sub->SetLineWidth(2);
 
-   hData_Zphi->Scale(1./tD_tN);
-   hMC_Zphi->Scale(1./tM_tN);
-   hpp_Zphi->Scale(1./tpM_tN);
-   hData_bkg_Zphi->Scale(1./tDb_tN);
-   hMC_bkg_Zphi->Scale(1./tMb_tN);
-   hMC_Zphi_gen->Scale(1./tM_tNgen);
-   hMC_bkg_Zphi_gen->Scale(1./tMb_tNgen);
-   hMC_Zphi_gen0Sub->Scale(1./tM_tNgen0Sub);
+   hData_Zphi->Scale(1./tD_tN/binphi);
+   hMC_Zphi->Scale(1./tM_tN/binphi);
+   hpp_Zphi->Scale(1./tpM_tN/binphi);
+   hData_bkg_Zphi->Scale(1./tDb_tN/binphi);
+   hMC_bkg_Zphi->Scale(1./tMb_tN/binphi);
+   hMC_Zphi_gen->Scale(1./tM_tNgen/binphi);
+   hMC_bkg_Zphi_gen->Scale(1./tMb_tNgen/binphi);
+   hMC_Zphi_gen0Sub->Scale(1./tM_tNgen0Sub/binphi);
 
    hData_Zphi->Rebin(2);
    hMC_Zphi->Rebin(2);
@@ -387,14 +389,14 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zphi_gen->SetLineWidth(2);
    hMC_Zphi_gen0Sub->SetLineWidth(2);
 
-   hData_Trackphi->Scale(1./tD_tN);
-   hMC_Trackphi->Scale(1./tM_tN);
-   hpp_Trackphi->Scale(1./tpM_tN);
-   hData_bkg_Trackphi->Scale(1./tDb_tN);
-   hMC_bkg_Trackphi->Scale(1./tMb_tN);
-   hMC_Trackphi_gen->Scale(1./tM_tNgen);
-   hMC_bkg_Trackphi_gen->Scale(1./tMb_tNgen);
-   hMC_Trackphi_gen0Sub->Scale(1./tM_tNgen0Sub);
+   hData_Trackphi->Scale(1./tD_tN/binphi);
+   hMC_Trackphi->Scale(1./tM_tN/binphi);
+   hpp_Trackphi->Scale(1./tpM_tN/binphi);
+   hData_bkg_Trackphi->Scale(1./tDb_tN/binphi);
+   hMC_bkg_Trackphi->Scale(1./tMb_tN/binphi);
+   hMC_Trackphi_gen->Scale(1./tM_tNgen/binphi);
+   hMC_bkg_Trackphi_gen->Scale(1./tMb_tNgen/binphi);
+   hMC_Trackphi_gen0Sub->Scale(1./tM_tNgen0Sub/binphi);
 
 
    hData_Trackphi->SetMarkerStyle(24);
@@ -427,14 +429,14 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Trackphi_gen->SetLineWidth(2);
    hMC_Trackphi_gen0Sub->SetLineWidth(2);
 
-   hData_Zetaphi->Scale(1./tD_tN);
-   hMC_Zetaphi->Scale(1./tM_tN);
-   hpp_Zetaphi->Scale(1./tpM_tN);
-   hData_bkg_Zetaphi->Scale(1./tDb_tN);
-   hMC_bkg_Zetaphi->Scale(1./tMb_tN);
-   hMC_Zetaphi_gen->Scale(1./tM_tNgen);
-   hMC_bkg_Zetaphi_gen->Scale(1./tMb_tNgen);
-   hMC_Zetaphi_gen0Sub->Scale(1./tM_tNgen0Sub);
+   hData_Zetaphi->Scale(1./tD_tN/binphi/bineta);
+   hMC_Zetaphi->Scale(1./tM_tN/binphi/bineta);
+   hpp_Zetaphi->Scale(1./tpM_tN/binphi/bineta);
+   hData_bkg_Zetaphi->Scale(1./tDb_tN/binphi/bineta);
+   hMC_bkg_Zetaphi->Scale(1./tMb_tN/binphi/bineta);
+   hMC_Zetaphi_gen->Scale(1./tM_tNgen/binphi/bineta);
+   hMC_bkg_Zetaphi_gen->Scale(1./tMb_tNgen/binphi/bineta);
+   hMC_Zetaphi_gen0Sub->Scale(1./tM_tNgen0Sub/binphi/bineta);
 
    hData_Zetaphi->Rebin2D(5,5);
    hMC_Zetaphi->Rebin2D(5,5);
@@ -445,14 +447,14 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zetaphi_gen->Rebin2D(5,5);
    hMC_Zetaphi_gen0Sub->Rebin2D(5,5);
 
-   hData_Tracketaphi->Scale(1./tD_tN);
-   hMC_Tracketaphi->Scale(1./tM_tN);
-   hpp_Tracketaphi->Scale(1./tpM_tN);
-   hData_bkg_Tracketaphi->Scale(1./tDb_tN);
-   hMC_bkg_Tracketaphi->Scale(1./tMb_tN);
-   hMC_Tracketaphi_gen->Scale(1./tM_tNgen);
-   hMC_bkg_Tracketaphi_gen->Scale(1./tMb_tNgen);
-   hMC_Tracketaphi_gen0Sub->Scale(1./tM_tNgen0Sub);
+   hData_Tracketaphi->Scale(1./tD_tN/binphi/bineta);
+   hMC_Tracketaphi->Scale(1./tM_tN/binphi/bineta);
+   hpp_Tracketaphi->Scale(1./tpM_tN/binphi/bineta);
+   hData_bkg_Tracketaphi->Scale(1./tDb_tN/binphi/bineta);
+   hMC_bkg_Tracketaphi->Scale(1./tMb_tN/binphi/bineta);
+   hMC_Tracketaphi_gen->Scale(1./tM_tNgen/binphi/bineta);
+   hMC_bkg_Tracketaphi_gen->Scale(1./tMb_tNgen/binphi/bineta);
+   hMC_Tracketaphi_gen0Sub->Scale(1./tM_tNgen0Sub/binphi/bineta);
 
    hData_Tracketaphi->Rebin2D(5,5);
    hMC_Tracketaphi->Rebin2D(5,5);
@@ -535,6 +537,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zeta_gen->SetXTitle("Signal #eta_{Z}");
    hMC_Zeta->SetXTitle("Signal #eta_{Z}");
    hData_Zeta->SetXTitle("Signal #eta_{Z}");
+   hMC_Zeta_gen->SetYTitle("dN/d#eta");
+   hMC_Zeta->SetYTitle("dN/d#eta");
+   hData_Zeta->SetYTitle("dN/d#eta");
 
    leg.Draw();
    pt->Draw();
@@ -569,6 +574,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zeta_gen->SetXTitle("Background #eta_{Z}");
    hMC_bkg_Zeta->SetXTitle("Background #eta_{Z}");
    hData_bkg_Zeta->SetXTitle("Background #eta_{Z}");
+   hMC_bkg_Zeta_gen->SetYTitle("dN/d#eta");
+   hMC_bkg_Zeta->SetYTitle("dN/d#eta");
+   hData_bkg_Zeta->SetYTitle("dN/d#eta");
 
    leg.Draw();
    pt->Draw();
@@ -607,6 +615,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zphi_gen->SetXTitle("Signal #phi_{Z}");
    hMC_Zphi->SetXTitle("Signal #phi_{Z}");
    hData_Zphi->SetXTitle("Signal #phi_{Z}");
+   hMC_Zphi_gen->SetYTitle("dN/d#phi");
+   hMC_Zphi->SetYTitle("dN/d#phi");
+   hData_Zphi->SetYTitle("dN/d#phi");
 
    leg.Draw();
    pt->Draw();
@@ -641,6 +652,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zphi_gen->SetXTitle("Background #phi_{Z}");
    hMC_bkg_Zphi->SetXTitle("Background #phi_{Z}");
    hData_bkg_Zphi->SetXTitle("Background #phi_{Z}");
+   hMC_bkg_Zphi_gen->SetYTitle("dN/d#phi");
+   hMC_bkg_Zphi->SetYTitle("dN/d#phi");
+   hData_bkg_Zphi->SetYTitle("dN/d#phi");
 
    leg.Draw();
    pt->Draw();
@@ -681,6 +695,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Tracketa_gen->SetXTitle("Signal #eta_{Track}");
    hMC_Tracketa->SetXTitle("Signal #eta_{Track}");
    hData_Tracketa->SetXTitle("Signal #eta_{Track}");
+   hMC_Tracketa_gen->SetYTitle("dN/d#eta");
+   hMC_Tracketa->SetYTitle("dN/d#eta");
+   hData_Tracketa->SetYTitle("dN/d#eta");
 
    leg.Draw();
    pt->Draw();
@@ -715,6 +732,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketa_gen->SetXTitle("Background #eta_{Track}");
    hMC_bkg_Tracketa->SetXTitle("Background #eta_{Track}");
    hData_bkg_Tracketa->SetXTitle("Background #eta_{Track}");
+   hMC_bkg_Tracketa_gen->SetYTitle("dN/d#eta");
+   hMC_bkg_Tracketa->SetYTitle("dN/d#eta");
+   hData_bkg_Tracketa->SetYTitle("dN/d#eta");
 
    leg.Draw();
    pt->Draw();
@@ -753,6 +773,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Trackphi_gen->SetXTitle("Signal #phi_{Track}");
    hMC_Trackphi->SetXTitle("Signal #phi_{Track}");
    hData_Trackphi->SetXTitle("Signal #phi_{Track}");
+   hMC_Trackphi_gen->SetYTitle("dN/d#phi");
+   hMC_Trackphi->SetYTitle("dN/d#phi");
+   hData_Trackphi->SetYTitle("dN/d#phi");
 
    leg.Draw();
    pt->Draw();
@@ -787,6 +810,9 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Trackphi_gen->SetXTitle("Background #phi_{Track}");
    hMC_bkg_Trackphi->SetXTitle("Background #phi_{Track}");
    hData_bkg_Trackphi->SetXTitle("Background #phi_{Track}");
+   hMC_bkg_Trackphi_gen->SetYTitle("dN/d#phi");
+   hMC_bkg_Trackphi->SetYTitle("dN/d#phi");
+   hData_bkg_Trackphi->SetYTitle("dN/d#phi");
 
    leg.Draw();
    pt->Draw();
@@ -816,6 +842,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zetaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_Zetaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_Zetaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_Zetaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    pt3d->Draw();
    pt3d2->Draw();
@@ -835,6 +862,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zetaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_bkg_Zetaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_bkg_Zetaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_bkg_Zetaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    ptNb->Draw();
 
@@ -855,6 +883,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zetaphi->GetXaxis()->SetTitleOffset(3.0);
    hMC_Zetaphi->GetYaxis()->SetTitleOffset(2.5);
    hMC_Zetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_Zetaphi->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    pt3d->Draw();
    pt3d2->Draw();
@@ -874,6 +903,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zetaphi->GetXaxis()->SetTitleOffset(3.0);
    hMC_bkg_Zetaphi->GetYaxis()->SetTitleOffset(2.5);
    hMC_bkg_Zetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_bkg_Zetaphi->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    ptNb->Draw();
 
@@ -894,6 +924,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Tracketaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_Tracketaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_Tracketaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_Tracketaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    pt3d->Draw();
    pt3d2->Draw();
@@ -913,6 +944,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_bkg_Tracketaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_bkg_Tracketaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    ptNb->Draw();
 
@@ -933,6 +965,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Tracketaphi->GetXaxis()->SetTitleOffset(3.0);
    hMC_Tracketaphi->GetYaxis()->SetTitleOffset(2.5);
    hMC_Tracketaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_Tracketaphi->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    pt3d->Draw();
    pt3d2->Draw();
@@ -952,6 +985,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketaphi->GetXaxis()->SetTitleOffset(3.0);
    hMC_bkg_Tracketaphi->GetYaxis()->SetTitleOffset(2.5);
    hMC_bkg_Tracketaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_bkg_Tracketaphi->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    ptNb->Draw();
 
@@ -972,6 +1006,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zetaphi_gen->GetXaxis()->SetTitleOffset(1);
    hMC_Zetaphi_gen->GetYaxis()->SetTitleOffset(1);
    hMC_Zetaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_Zetaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    pt->Draw();
    pt2->Draw();
@@ -991,6 +1026,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zetaphi_gen->GetXaxis()->SetTitleOffset(1);
    hMC_bkg_Zetaphi_gen->GetYaxis()->SetTitleOffset(1);
    hMC_bkg_Zetaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_bkg_Zetaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    ptNb->Draw();
 
@@ -1011,6 +1047,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zetaphi->GetXaxis()->SetTitleOffset(1);
    hMC_Zetaphi->GetYaxis()->SetTitleOffset(1);
    hMC_Zetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_Zetaphi->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    pt->Draw();
    pt2->Draw();
@@ -1030,6 +1067,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zetaphi->GetXaxis()->SetTitleOffset(1);
    hMC_bkg_Zetaphi->GetYaxis()->SetTitleOffset(1);
    hMC_bkg_Zetaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_bkg_Zetaphi->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    ptNb->Draw();
 
@@ -1050,6 +1088,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Tracketaphi_gen->GetXaxis()->SetTitleOffset(1);
    hMC_Tracketaphi_gen->GetYaxis()->SetTitleOffset(1);
    hMC_Tracketaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_Tracketaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    pt->Draw();
    pt2->Draw();
@@ -1069,6 +1108,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketaphi_gen->GetXaxis()->SetTitleOffset(1);
    hMC_bkg_Tracketaphi_gen->GetYaxis()->SetTitleOffset(1);
    hMC_bkg_Tracketaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_bkg_Tracketaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    ptNb->Draw();
 
@@ -1089,6 +1129,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Tracketaphi->GetXaxis()->SetTitleOffset(1);
    hMC_Tracketaphi->GetYaxis()->SetTitleOffset(1);
    hMC_Tracketaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_Tracketaphi->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    pt->Draw();
    pt2->Draw();
@@ -1108,6 +1149,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketaphi->GetXaxis()->SetTitleOffset(1);
    hMC_bkg_Tracketaphi->GetYaxis()->SetTitleOffset(1);
    hMC_bkg_Tracketaphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_bkg_Tracketaphi->GetZaxis()->SetTitle("dN/d#etad#phi");
 
    ptNb->Draw();
 
