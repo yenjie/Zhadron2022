@@ -280,6 +280,7 @@ int main(int argc, char *argv[])
 
    float NCollWeight;
    vector<double> *trackWeight = nullptr;
+   vector<double> *trackResidualWeight = nullptr;
 
    Tree->SetBranchAddress("hiBin",                  &HiBin);
    Tree->SetBranchAddress("NPU",                    &NPU);
@@ -299,6 +300,7 @@ int main(int argc, char *argv[])
 
    Tree->SetBranchAddress("NCollWeight",            &NCollWeight);
    Tree->SetBranchAddress("trackWeight",            &trackWeight);
+   Tree->SetBranchAddress("trackResidualWeight",    &trackResidualWeight);
 
    Tree->SetBranchAddress("subevent",               &subevent);
 
@@ -333,6 +335,8 @@ int main(int argc, char *argv[])
       }
 
       Tree->GetEntry(iE);
+
+      if(OnlyZeroSub == true && DoGenCorrelation == false && NPU != 0) continue;
 
       for(int iC = 0; iC < (int)C.size(); iC++)
       {
@@ -385,8 +389,6 @@ int main(int argc, char *argv[])
          {
             if(OnlyZeroSub == true && DoGenCorrelation == true && subevent->at(iT) != 0) continue;
 
-            if(OnlyZeroSub == true && DoGenCorrelation == false && NPU != 0) continue;
-
             bool TrackPTRange = false;
             if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
                TrackPTRange = true;
@@ -398,7 +400,7 @@ int main(int argc, char *argv[])
             bool PassEvent = ZMassRange && ZPTRange && CentRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
-            double weight = (trackWeight->at(iT))*NCollWeight;
+            double weight = (trackWeight->at(iT))*(trackResidualWeight->at(iT))*NCollWeight;
             //double weight = NCollWeight;
             //double weight = trackWeight->at(iT);
 
