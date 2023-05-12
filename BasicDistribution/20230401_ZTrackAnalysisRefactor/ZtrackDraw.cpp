@@ -13,8 +13,6 @@
 #include <TLatex.h>
 #include <TLine.h>
 
-#include "CommonFunctions.h"
-
 double TptL_min = 0.5;
 
 int main(int argc, char *argv[]);
