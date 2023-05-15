@@ -319,6 +319,24 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Tracketa_gen->Scale(1./tMb_tNgen/bineta);
    hMC_Tracketa_gen0Sub->Scale(1./tM_tNgen0Sub/bineta);
 
+   hData_Tracketa->Rebin(5);
+   hMC_Tracketa->Rebin(5);
+   hpp_Tracketa->Rebin(5);
+   hData_bkg_Tracketa->Rebin(5);
+   hMC_bkg_Tracketa->Rebin(5);
+   hMC_Tracketa_gen->Rebin(5);
+   hMC_bkg_Tracketa_gen->Rebin(5);
+   hMC_Tracketa_gen0Sub->Rebin(5);
+
+   hData_Tracketa->Scale(1./5);
+   hMC_Tracketa->Scale(1./5);
+   hpp_Tracketa->Scale(1./5);
+   hData_bkg_Tracketa->Scale(1./5);
+   hMC_bkg_Tracketa->Scale(1./5);
+   hMC_Tracketa_gen->Scale(1./5);
+   hMC_bkg_Tracketa_gen->Scale(1./5);
+   hMC_Tracketa_gen0Sub->Scale(1./5);
+
 
    hData_Tracketa->SetMarkerStyle(24);
    hMC_Tracketa->SetMarkerStyle(24);
@@ -417,6 +435,24 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Trackphi_gen->SetMarkerStyle(24);
    hMC_bkg_Trackphi_gen->SetMarkerStyle(24);
    hMC_Trackphi_gen0Sub->SetMarkerStyle(24);
+
+   hData_Trackphi->Rebin(5);
+   hMC_Trackphi->Rebin(5);
+   hpp_Trackphi->Rebin(5);
+   hData_bkg_Trackphi->Rebin(5);
+   hMC_bkg_Trackphi->Rebin(5);
+   hMC_Trackphi_gen->Rebin(5);
+   hMC_bkg_Trackphi_gen->Rebin(5);
+   hMC_Trackphi_gen0Sub->Rebin(5);
+
+   hData_Trackphi->Scale(1./5);
+   hMC_Trackphi->Scale(1./5);
+   hpp_Trackphi->Scale(1./5);
+   hData_bkg_Trackphi->Scale(1./5);
+   hMC_bkg_Trackphi->Scale(1./5);
+   hMC_Trackphi_gen->Scale(1./5);
+   hMC_bkg_Trackphi_gen->Scale(1./5);
+   hMC_Trackphi_gen0Sub->Scale(1./5);
 
    hData_Trackphi->SetMarkerColor(kBlack);
    hData_bkg_Trackphi->SetMarkerColor(kBlack);
