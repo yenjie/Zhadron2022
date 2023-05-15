@@ -101,7 +101,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V8b";
+   string Version = "V9";
 
    CommandLine CL(argc, argv);
 
@@ -992,7 +992,10 @@ int main(int argc, char *argv[])
             {
                TLorentzVector Z;
                Z.SetPtEtaPhiM(MZHadron.zPt->at(0), MZHadron.zEta->at(0), MZHadron.zPhi->at(0), MZHadron.zMass->at(0));
-               MZHadron.ZWeight = GetZWeight(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
+               if(IsData == false)
+                  MZHadron.ZWeight = GetZWeightMC(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
+               else
+                  MZHadron.ZWeight = GetZWeightData(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
                // cout << Z.Pt() << " " << Z.Rapidity() << " " << MZHadron.hiBin << " " << MZHadron.ZWeight << endl;
             }
 
