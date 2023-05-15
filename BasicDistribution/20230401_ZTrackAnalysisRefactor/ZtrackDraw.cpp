@@ -803,9 +803,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt2->Draw();
    pt3->Draw();
    hMC_sb_eta->SetMinimum(min1);
-   hMC_sb_eta->SetMaximum(3.0/binnum); 
+   hMC_sb_eta->SetMaximum(1.6*max1); 
    hData_sb_eta->SetMinimum(min1);
-   hData_sb_eta->SetMaximum(3.0/binnum); 
+   hData_sb_eta->SetMaximum(1.6*max1); 
 
    //ptN0->Draw();
 
@@ -836,9 +836,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt2->Draw();
    pt3->Draw();
    hMC_sbr_eta->SetMinimum(min1);
-   hMC_sbr_eta->SetMaximum(3.0/binnum); 
+   hMC_sbr_eta->SetMaximum(1.6*max1); 
    hData_sbr_eta->SetMinimum(min1);
-   hData_sbr_eta->SetMaximum(3.0/binnum); 
+   hData_sbr_eta->SetMaximum(1.6*max1); 
 
    //ptN0->Draw();
 
