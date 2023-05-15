@@ -63,7 +63,7 @@ TFile *file_bkgMCgen;
 
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230512";
+const char *typeofdata = "20230515";
 const char *typeofdatatext = "single muon";
 
 void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -249,6 +249,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    std::cout<<"tM_tNgen0Sub = "<<tM_tNgen0Sub<<std::endl;
 
    double bineta = 0.064, binphi = M_PI/50;
+   double bineta2d = 6.4/150, binphi2d = M_PI/75;
 
    hData_Zeta->Scale(1./tD_tN/bineta);
    hMC_Zeta->Scale(1./tM_tN/bineta);
@@ -268,6 +269,15 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zeta_gen->Rebin(2);
    hMC_bkg_Zeta_gen->Rebin(5);
    hMC_Zeta_gen0Sub->Rebin(2);
+
+   hData_Zeta->Scale(1./2);
+   hMC_Zeta->Scale(1./2);
+   hpp_Zeta->Scale(1./2);
+   hData_bkg_Zeta->Scale(1./5);
+   hMC_bkg_Zeta->Scale(1./5);
+   hMC_Zeta_gen->Scale(1./2);
+   hMC_bkg_Zeta_gen->Scale(1./5);
+   hMC_Zeta_gen0Sub->Scale(1./2);
 
 
    hData_Zeta->SetMarkerStyle(24);
@@ -429,14 +439,14 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Trackphi_gen->SetLineWidth(2);
    hMC_Trackphi_gen0Sub->SetLineWidth(2);
 
-   hData_Zetaphi->Scale(1./tD_tN/binphi/bineta);
-   hMC_Zetaphi->Scale(1./tM_tN/binphi/bineta);
-   hpp_Zetaphi->Scale(1./tpM_tN/binphi/bineta);
-   hData_bkg_Zetaphi->Scale(1./tDb_tN/binphi/bineta);
-   hMC_bkg_Zetaphi->Scale(1./tMb_tN/binphi/bineta);
-   hMC_Zetaphi_gen->Scale(1./tM_tNgen/binphi/bineta);
-   hMC_bkg_Zetaphi_gen->Scale(1./tMb_tNgen/binphi/bineta);
-   hMC_Zetaphi_gen0Sub->Scale(1./tM_tNgen0Sub/binphi/bineta);
+   hData_Zetaphi->Scale(1./tD_tN/binphi2d/bineta2d);
+   hMC_Zetaphi->Scale(1./tM_tN/binphi2d/bineta2d);
+   hpp_Zetaphi->Scale(1./tpM_tN/binphi2d/bineta2d);
+   hData_bkg_Zetaphi->Scale(1./tDb_tN/binphi2d/bineta2d);
+   hMC_bkg_Zetaphi->Scale(1./tMb_tN/binphi2d/bineta2d);
+   hMC_Zetaphi_gen->Scale(1./tM_tNgen/binphi2d/bineta2d);
+   hMC_bkg_Zetaphi_gen->Scale(1./tMb_tNgen/binphi2d/bineta2d);
+   hMC_Zetaphi_gen0Sub->Scale(1./tM_tNgen0Sub/binphi2d/bineta2d);
 
    hData_Zetaphi->Rebin2D(5,5);
    hMC_Zetaphi->Rebin2D(5,5);
@@ -447,14 +457,23 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_bkg_Zetaphi_gen->Rebin2D(5,5);
    hMC_Zetaphi_gen0Sub->Rebin2D(5,5);
 
-   hData_Tracketaphi->Scale(1./tD_tN/binphi/bineta);
-   hMC_Tracketaphi->Scale(1./tM_tN/binphi/bineta);
-   hpp_Tracketaphi->Scale(1./tpM_tN/binphi/bineta);
-   hData_bkg_Tracketaphi->Scale(1./tDb_tN/binphi/bineta);
-   hMC_bkg_Tracketaphi->Scale(1./tMb_tN/binphi/bineta);
-   hMC_Tracketaphi_gen->Scale(1./tM_tNgen/binphi/bineta);
-   hMC_bkg_Tracketaphi_gen->Scale(1./tMb_tNgen/binphi/bineta);
-   hMC_Tracketaphi_gen0Sub->Scale(1./tM_tNgen0Sub/binphi/bineta);
+   hData_Zetaphi->Scale(1./25);
+   hMC_Zetaphi->Scale(1./25);
+   hpp_Zetaphi->Scale(1./25);
+   hData_bkg_Zetaphi->Scale(1./25);
+   hMC_bkg_Zetaphi->Scale(1./25);
+   hMC_Zetaphi_gen->Scale(1./25);
+   hMC_bkg_Zetaphi_gen->Scale(1./25);
+   hMC_Zetaphi_gen0Sub->Scale(1./25);
+
+   hData_Tracketaphi->Scale(1./tD_tN/binphi2d/bineta2d);
+   hMC_Tracketaphi->Scale(1./tM_tN/binphi2d/bineta2d);
+   hpp_Tracketaphi->Scale(1./tpM_tN/binphi2d/bineta2d);
+   hData_bkg_Tracketaphi->Scale(1./tDb_tN/binphi2d/bineta2d);
+   hMC_bkg_Tracketaphi->Scale(1./tMb_tN/binphi2d/bineta2d);
+   hMC_Tracketaphi_gen->Scale(1./tM_tNgen/binphi2d/bineta2d);
+   hMC_bkg_Tracketaphi_gen->Scale(1./tMb_tNgen/binphi2d/bineta2d);
+   hMC_Tracketaphi_gen0Sub->Scale(1./tM_tNgen0Sub/binphi2d/bineta2d);
 
    hData_Tracketaphi->Rebin2D(5,5);
    hMC_Tracketaphi->Rebin2D(5,5);
@@ -464,6 +483,15 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Tracketaphi_gen->Rebin2D(5,5);
    hMC_bkg_Tracketaphi_gen->Rebin2D(5,5);
    hMC_Tracketaphi_gen0Sub->Rebin2D(5,5);
+
+   hData_Tracketaphi->Scale(1./25);
+   hMC_Tracketaphi->Scale(1./25);
+   hpp_Tracketaphi->Scale(1./25);
+   hData_bkg_Tracketaphi->Scale(1./25);
+   hMC_bkg_Tracketaphi->Scale(1./25);
+   hMC_Tracketaphi_gen->Scale(1./25);
+   hMC_bkg_Tracketaphi_gen->Scale(1./25);
+   hMC_Tracketaphi_gen0Sub->Scale(1./25);
 
    if(TptL==0) TptL=TptL_min;
 
