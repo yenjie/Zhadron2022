@@ -28,6 +28,8 @@
    * adding MC centrality shift by 1.5% as per Kaya analysis
 * Version 8 - 2023 May 8
    * Adding tracking residual efficiency by Yenjie
+* Version 8b - 2023 May 15
+   * Bug fix Z weight
 
 
 

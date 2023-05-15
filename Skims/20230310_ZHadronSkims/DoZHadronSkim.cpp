@@ -265,6 +265,10 @@ int main(int argc, char *argv[])
 
    ZHadronMessenger MZHadron;
    MZHadron.SetBranch(&Tree);
+   Tree.SetAlias("zP", "(zPt*cosh(zEta))");
+   Tree.SetAlias("zPz", "(zPt*sinh(zEta))");
+   Tree.SetAlias("zE", "sqrt(zP*zP+zMass*zMass)");
+   Tree.SetAlias("zY", "(0.5*log((zE+zPz)/(zE-zPz)))");
 
    // Loop over signal files
    for(string InputFileName : InputFileNames)
@@ -984,11 +988,12 @@ int main(int argc, char *argv[])
             }
 
             MZHadron.ZWeight = 1;
-            if(DoGenCorrelation == false && MZHadron.genZPt->size() > 0)
+            if(DoGenCorrelation == false && MZHadron.zPt->size() > 0)
             {
                TLorentzVector Z;
-               Z.SetPtEtaPhiM(MZHadron.genZPt->at(0), MZHadron.genZEta->at(0), MZHadron.genZPhi->at(0), MZHadron.genZMass->at(0));
-               MZHadron.ZWeight = GetZWeight(Z.Pt(), Z.Y(), MZHadron.hiBin);
+               Z.SetPtEtaPhiM(MZHadron.zPt->at(0), MZHadron.zEta->at(0), MZHadron.zPhi->at(0), MZHadron.zMass->at(0));
+               MZHadron.ZWeight = GetZWeight(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
+               // cout << Z.Pt() << " " << Z.Rapidity() << " " << MZHadron.hiBin << " " << MZHadron.ZWeight << endl;
             }
 
             MZHadron.FillEntry();
