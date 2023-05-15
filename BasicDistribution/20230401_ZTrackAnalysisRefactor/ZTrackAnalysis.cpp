@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
    bool IgnoreCentrality = CL.GetBool("IgnoreCentrality", false);
    bool OnlyZeroSub      = CL.GetBool("OnlyZeroSub", false);
    bool DoGenCorrelation = CL.GetBool("DoGenCorrelation", false);
+   bool DoSingleFile     = CL.GetBool("DoSingleFile", false);
    
    // Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
    vector<Configuration> C;
@@ -239,7 +240,10 @@ int main(int argc, char *argv[])
    }
   
    TChain *Tree = new TChain("Tree");
-   Tree->Add((InputBase + "/*.root?#Tree").c_str());
+   if(DoSingleFile==false)
+      Tree->Add((InputBase + "/*.root?#Tree").c_str());
+   else
+      Tree->Add((InputBase + "?#Tree").c_str());
  
    int HiBin;
    int NPU;
