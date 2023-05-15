@@ -3202,7 +3202,7 @@ int main(int argc, char *argv[]){
    file_bkgDA = TFile::Open("GraphDataBackground_v8.root","read");
    file_ppMC  = TFile::Open("GraphPPMC0Sub_v8.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_v8_01.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_v8.root","read");
    file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_v8.root","read");
 
 
