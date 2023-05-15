@@ -3194,6 +3194,13 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    delete hData_eta; hData_eta=NULL;
    delete gROOT->FindObject("hMC_eta");
    delete gROOT->FindObject("hData_eta");
+
+   delete hMC_bkg_eta; hMC_bkg_eta=NULL;
+   delete hData_bkg_eta; hData_bkg_eta=NULL;
+
+   delete hMC_sb_eta; hMC_sb_eta=NULL;
+   delete hData_sb_eta; hData_sb_eta=NULL;
+
 }
 
 int main(int argc, char *argv[]){
