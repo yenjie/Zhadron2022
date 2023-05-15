@@ -3216,7 +3216,7 @@ int main(int argc, char *argv[]){
    file_sigMCgen = TFile::Open("GraphMCSignalGen_v8.root","read");
    file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_v8.root","read");
 
-
+/*
    ZtrackDraw_single(40, 20, 2000,  0, 90,  0, 1000);
    ZtrackDraw_single(40,  5, 2000,  0, 90,  0, 1000);
 
@@ -3235,7 +3235,7 @@ int main(int argc, char *argv[]){
    ZtrackDraw_single(40, 20, 2000,  0, 30,  4,    5);
    ZtrackDraw_single(40, 20, 2000,  0, 30,  5,    7);
    ZtrackDraw_single(40, 20, 2000,  0, 30,  7,   10);
-
+*/
 
    /*
    ZtrackDraw_single(40, 30,   40,  0, 90,  0, 1000);
@@ -3250,8 +3250,9 @@ int main(int argc, char *argv[]){
    ZtrackDraw_single(40, 20, 2000,  0, 90,  2,    5);
    ZtrackDraw_single(40, 20, 2000,  0, 90,  5,   10);*/
    ZtrackDraw_single(40, 20, 2000,  0, 90, 10,   20);
-   ZtrackDraw_single(40, 20, 2000,  0, 90, 20,   50);
-   ZtrackDraw_single(40, 20, 2000,  0, 90, 50,  100);/*
+   //ZtrackDraw_single(40, 20, 2000,  0, 90, 20,   50);
+   //ZtrackDraw_single(40, 20, 2000,  0, 90, 50,  100);
+   /*
    ZtrackDraw_single(40, 40, 2000, 50, 90,  0, 1000);
    ZtrackDraw_single(40, 20, 2000, 50, 90,  1,    2);
    ZtrackDraw_single(40, 40, 2000, 50, 90,  1,    2);
@@ -3274,7 +3275,7 @@ int main(int argc, char *argv[]){
    ZtrackDraw_single(40,  5, 2000,  0, 90, 50,  100);
 */
 
-   ZtrackDraw_single(40, 10, 2000,  0, 90,  2, 1000);
+   //ZtrackDraw_single(40, 10, 2000,  0, 90,  2, 1000);
 
    file_sigMC->Close();
    file_bkgMC->Close();
