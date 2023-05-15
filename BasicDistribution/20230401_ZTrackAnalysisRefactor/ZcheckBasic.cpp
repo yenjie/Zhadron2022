@@ -1210,9 +1210,9 @@ int main(int argc, char *argv[]){
 
   ZcheckBasic_single(40, 20, 2000,  0, 90,  4,    5);
   ZcheckBasic_single(40, 20, 2000,  0, 90,  5,    7);
-  ZcheckBasic_single(40, 20, 2000,  0, 90,  7,   10);
+  ZcheckBasic_single(40, 20, 2000,  0, 90,  7,   10);*/
   ZcheckBasic_single(40, 20, 2000,  0, 90, 10,   20);
-  ZcheckBasic_single(40, 20, 2000,  0, 90, 20,   50);
+  /*ZcheckBasic_single(40, 20, 2000,  0, 90, 20,   50);
   ZcheckBasic_single(40, 20, 2000,  0, 90, 50,  100);
 */
   ZcheckBasic_single(40, 10, 2000,  0, 90,  2, 1000);
