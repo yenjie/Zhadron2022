@@ -531,11 +531,11 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
 
    if(TptL==0) TptL=TptL_min;
 
-   TLegend leg(0.58,0.78,0.98,0.9);
+   TLegend leg(0.58,0.72,0.98,0.9);
    leg.AddEntry(hMC_Zeta_gen ,"Monte Carlo: GEN level","l");
    leg.AddEntry(hMC_Zeta ,"Monte Carlo: RECO level","l");
    leg.AddEntry(hData_Zeta ,Form("Data: %s",typeofdatatext),"p");
-   leg.AddEntry(hpp_Zeta ,"pp MC (NPU=0)","p");
+   leg.AddEntry(hpp_Zeta ,"pp MC (NPU=0)","l");
    leg.SetFillColorAlpha(kWhite,0);
    leg.SetLineColor(kBlack);
    leg.SetLineWidth(1);
@@ -1236,7 +1236,7 @@ int main(int argc, char *argv[]){
 
    file_sigMC = TFile::Open("GraphMCSignal_v8_10.root","read");
    file_bkgMC = TFile::Open("GraphMCBackground_v8.root","read");
-   file_sigDA = TFile::Open("GraphDataSignal_v8_10.root","read");
+   file_sigDA = TFile::Open("GraphDataSignal_v8.root","read");
    file_bkgDA = TFile::Open("GraphDataBackground_v8.root","read");
    file_ppMC  = TFile::Open("GraphPPMC0Sub_v8_10.root","read");
 
