@@ -3190,6 +3190,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    */
 
+   delete hMC_eta; hMC_eta=NULL;
+   delete hData_eta; hData_eta=NULL;
 }
 
 int main(int argc, char *argv[]){
