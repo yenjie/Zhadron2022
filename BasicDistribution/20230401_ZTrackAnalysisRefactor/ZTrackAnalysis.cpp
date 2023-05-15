@@ -279,6 +279,7 @@ int main(int argc, char *argv[])
    double maxMoreOppositeWTADPhi;
 
    float NCollWeight;
+   float ZWeight;
    vector<double> *trackWeight = nullptr;
    vector<double> *trackResidualWeight = nullptr;
 
@@ -299,6 +300,8 @@ int main(int argc, char *argv[])
    Tree->SetBranchAddress("trackDphi",              &TrackDPhi);
 
    Tree->SetBranchAddress("NCollWeight",            &NCollWeight);
+   Tree->SetBranchAddress("ZWeight",                &ZWeight);
+
    Tree->SetBranchAddress("trackWeight",            &trackWeight);
    Tree->SetBranchAddress("trackResidualWeight",    &trackResidualWeight);
 
@@ -400,7 +403,7 @@ int main(int argc, char *argv[])
             bool PassEvent = ZMassRange && ZPTRange && CentRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
-            double weight = (trackWeight->at(iT))*(trackResidualWeight->at(iT))*NCollWeight;
+            double weight = (trackWeight->at(iT))*(trackResidualWeight->at(iT))*NCollWeight*ZWeight;
             //double weight = NCollWeight;
             //double weight = trackWeight->at(iT);
 
@@ -502,31 +505,31 @@ int main(int argc, char *argv[])
 
          if(SomethingPassed == true)
          {
-            EventCount[iC] = EventCount[iC] + NCollWeight;
-            HEventCount[iC]->Fill(0., NCollWeight);
+            EventCount[iC] = EventCount[iC] + NCollWeight*ZWeight;
+            HEventCount[iC]->Fill(0., NCollWeight*ZWeight);
             
-            HZPT[iC]->Fill(ZPT_0, NCollWeight);
-            HZEta[iC]->Fill(ZEta_0, NCollWeight);
-            HZPhi[iC]->Fill(ZPhi_0, NCollWeight);
-            HZMass[iC]->Fill(ZMass_0, NCollWeight);
-            HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight);
+            HZPT[iC]->Fill(ZPT_0, NCollWeight*ZWeight);
+            HZEta[iC]->Fill(ZEta_0, NCollWeight*ZWeight);
+            HZPhi[iC]->Fill(ZPhi_0, NCollWeight*ZWeight);
+            HZMass[iC]->Fill(ZMass_0, NCollWeight*ZWeight);
+            HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight*ZWeight);
 
             if(genZEta->size() > 0){
-               GenEventCount[iC] = GenEventCount[iC] + NCollWeight;
-               HGenEventCount[iC]->Fill(0., NCollWeight);
-               HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight);
-               HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight);
-               HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight);
+               GenEventCount[iC] = GenEventCount[iC] + NCollWeight*ZWeight;
+               HGenEventCount[iC]->Fill(0., NCollWeight*ZWeight);
+               HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight*ZWeight);
+               HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight*ZWeight);
+               HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight*ZWeight);
             }
 
             HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta_0,
-               PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight);
+               PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight*ZWeight);
             HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta_0,
-               PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight);
+               PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight*ZWeight);
             HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta_0,
-               PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight);
+               PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
             HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta_0,
-               PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight);
+               PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
          }
       }
    }
