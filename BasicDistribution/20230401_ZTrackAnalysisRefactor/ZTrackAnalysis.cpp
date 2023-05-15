@@ -454,6 +454,11 @@ int main(int argc, char *argv[])
                HTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0), weight);
                HTrackEtaPhi[iC]->Fill(TrackDEta->at(iT) + ZEta_0, PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0), weight);
                
+
+               if(TrackPT->at(iT)>10&&TrackPT->at(iT)<20&&ZPT->at(0)>20){
+                  std::cout<<"TrackPT = "<<TrackPT->at(iT)<<", TrackEta = "<<TrackDEta->at(iT) + ZEta_0<<", TrackPhi = "<<PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0);
+                  std::cout<<", NCollWeight = "<<NCollWeight<<", trackWeight = "<<trackWeight<<", trackResidualWeight = "<<trackResidualWeight<<", ZWeight = "<<ZWeight<<", zPt = "<<ZPT_0<<", ZEta = "<<ZEta_0<<", ZMass = "<<ZMass_0<<std::endl;
+               }
                if(genZEta->size() > 0){
                   HGenTrackEta[iC]->Fill(TrackDEta->at(iT) + genZEta->at(0), weight);
                   HGenTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + genZPhi->at(0)), weight);
