@@ -59,7 +59,7 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "20230512";
+const char *typeofdata = "20230513";
 const char *typeofdatatext = "single muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -292,7 +292,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    std::cout<<"tM_tNgen = "<<tM_tNgen<<std::endl;
    std::cout<<"tMb_tNgen = "<<tMb_tNgen<<std::endl;
 
-   double bineta = 0.064, binphi = M_PI/50;
+   double bineta = 0.032, binphi = M_PI/50;
+   double bineta2d = 6.4/150, binphi2d = M_PI/75;
 
    hData_eta->Scale(1./tD_tN/bineta);
    hMC_eta->Scale(1./tM_tN/bineta);
@@ -306,18 +307,18 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_bkg_phi->Scale(1./tDb_tN/binphi);
    hMC_bkg_phi->Scale(1./tMb_tN/binphi);
 
-   hData_etaphi_1->Scale(1./tD_tN/bineta/binphi);
-   hMC_etaphi_1->Scale(1./tM_tN/bineta/binphi);
-   hpp_etaphi_1->Scale(1./tpM_tN/bineta/binphi);
+   hData_etaphi_1->Scale(1./tD_tN/bineta2d/binphi2d);
+   hMC_etaphi_1->Scale(1./tM_tN/bineta2d/binphi2d);
+   hpp_etaphi_1->Scale(1./tpM_tN/bineta2d/binphi2d);
 
    hpp_phi->Scale(1./tpM_tN/binphi);
    hpp_eta->Scale(1./tpM_tN/bineta);
 
-   hMC_etaphi_gen->Scale(1./tM_tNgen/bineta/binphi);
-   hMC_bkg_etaphi_gen->Scale(1./tMb_tNgen/bineta/binphi);
+   hMC_etaphi_gen->Scale(1./tM_tNgen/bineta2d/binphi2d);
+   hMC_bkg_etaphi_gen->Scale(1./tMb_tNgen/bineta2d/binphi2d);
 
-   hData_bkg_etaphi_1->Scale(1./tDb_tN/bineta/binphi);
-   hMC_bkg_etaphi_1->Scale(1./tMb_tN/bineta/binphi);
+   hData_bkg_etaphi_1->Scale(1./tDb_tN/bineta2d/binphi2d);
+   hMC_bkg_etaphi_1->Scale(1./tMb_tN/bineta2d/binphi2d);
 
    hData_maxetaphi->Scale(1./tD_tN);
    hMC_maxetaphi->Scale(1./tM_tN);
@@ -364,8 +365,14 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_etaphi_1->Rebin2D(10,10);
    hData_bkg_etaphi_1->Rebin2D(10,10);
 
+   hData_etaphi_1->Scale(1./100);
+   hData_bkg_etaphi_1->Scale(1./100);
+
    hData_MuDetaphi->Rebin2D(5,5);
    hData_bkg_MuDetaphi->Rebin2D(5,5);
+
+   hData_MuDetaphi->Scale(1./25);
+   hData_bkg_MuDetaphi->Scale(1./25);
 
    hData_maxetaphi->Rebin2D(5,5);
    hData_bkg_maxetaphi->Rebin2D(5,5);
@@ -376,6 +383,15 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_WTAMoreetaphi->Rebin2D(5,5);
    hData_bkg_WTAMoreetaphi->Rebin2D(5,5);
 
+   hData_maxetaphi->Scale(1./25);
+   hData_bkg_maxetaphi->Scale(1./25);
+   hData_maxOetaphi->Scale(1./25);
+   hData_bkg_maxOetaphi->Scale(1./25);
+   hData_WTAetaphi->Scale(1./25);
+   hData_bkg_WTAetaphi->Scale(1./25);
+   hData_WTAMoreetaphi->Scale(1./25);
+   hData_bkg_WTAMoreetaphi->Scale(1./25);
+
    hData_Zmaxetaphi->Rebin2D(5,5);
    hData_Zbkg_maxetaphi->Rebin2D(5,5);
    hData_ZmaxOetaphi->Rebin2D(5,5);
@@ -385,33 +401,67 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_ZWTAMoreetaphi->Rebin2D(5,5);
    hData_Zbkg_WTAMoreetaphi->Rebin2D(5,5);
 
-   hpp_etaphi_1->Rebin2D(2,2);
+   hData_Zmaxetaphi->Scale(1./25);
+   hData_Zbkg_maxetaphi->Scale(1./25);
+   hData_ZmaxOetaphi->Scale(1./25);
+   hData_Zbkg_maxOetaphi->Scale(1./25);
+   hData_ZWTAetaphi->Scale(1./25);
+   hData_Zbkg_WTAetaphi->Scale(1./25);
+   hData_ZWTAMoreetaphi->Scale(1./25);
+   hData_Zbkg_WTAMoreetaphi->Scale(1./25);
 
-   hMC_MuDetaphi->Rebin2D(2,2);
-   hMC_bkg_MuDetaphi->Rebin2D(2,2);
+   hpp_etaphi_1->Rebin2D(4,4);
 
-   hMC_etaphi_1->Rebin2D(2,2);
-   hMC_bkg_etaphi_1->Rebin2D(2,2);
+   hMC_MuDetaphi->Rebin2D(4,4);
+   hMC_bkg_MuDetaphi->Rebin2D(4,4);
 
-   hMC_etaphi_gen->Rebin2D(2,2);
-   hMC_bkg_etaphi_gen->Rebin2D(2,2);
+   hMC_etaphi_1->Rebin2D(4,4);
+   hMC_bkg_etaphi_1->Rebin2D(4,4);
 
-   hMC_maxetaphi->Rebin2D(2,2);
-   hMC_bkg_maxetaphi->Rebin2D(2,2);
-   hMC_maxOetaphi->Rebin2D(2,2);
-   hMC_bkg_maxOetaphi->Rebin2D(2,2);
-   hMC_WTAetaphi->Rebin2D(2,2);
-   hMC_bkg_WTAetaphi->Rebin2D(2,2);
-   hMC_WTAMoreetaphi->Rebin2D(2,2);
-   hMC_bkg_WTAMoreetaphi->Rebin2D(2,2);
-   hMC_Zmaxetaphi->Rebin2D(2,2);
-   hMC_Zbkg_maxetaphi->Rebin2D(2,2);
-   hMC_ZmaxOetaphi->Rebin2D(2,2);
-   hMC_Zbkg_maxOetaphi->Rebin2D(2,2);
-   hMC_ZWTAetaphi->Rebin2D(2,2);
-   hMC_Zbkg_WTAetaphi->Rebin2D(2,2);
-   hMC_ZWTAMoreetaphi->Rebin2D(2,2);
-   hMC_Zbkg_WTAMoreetaphi->Rebin2D(2,2);
+   hMC_etaphi_gen->Rebin2D(4,4);
+   hMC_bkg_etaphi_gen->Rebin2D(4,4);
+
+   hpp_etaphi_1->Scale(1./16);
+   hMC_MuDetaphi->Scale(1./16);
+   hMC_bkg_MuDetaphi->Scale(1./16);
+   hMC_etaphi_1->Scale(1./16);
+   hMC_bkg_etaphi_1->Scale(1./16);
+   hMC_etaphi_gen->Scale(1./16);
+   hMC_bkg_etaphi_gen->Scale(1./16);
+
+   hMC_maxetaphi->Rebin2D(4,4);
+   hMC_bkg_maxetaphi->Rebin2D(4,4);
+   hMC_maxOetaphi->Rebin2D(4,4);
+   hMC_bkg_maxOetaphi->Rebin2D(4,4);
+   hMC_WTAetaphi->Rebin2D(4,4);
+   hMC_bkg_WTAetaphi->Rebin2D(4,4);
+   hMC_WTAMoreetaphi->Rebin2D(4,4);
+   hMC_bkg_WTAMoreetaphi->Rebin2D(4,4);
+   hMC_Zmaxetaphi->Rebin2D(4,4);
+   hMC_Zbkg_maxetaphi->Rebin2D(4,4);
+   hMC_ZmaxOetaphi->Rebin2D(4,4);
+   hMC_Zbkg_maxOetaphi->Rebin2D(4,4);
+   hMC_ZWTAetaphi->Rebin2D(4,4);
+   hMC_Zbkg_WTAetaphi->Rebin2D(4,4);
+   hMC_ZWTAMoreetaphi->Rebin2D(4,4);
+   hMC_Zbkg_WTAMoreetaphi->Rebin2D(4,4);
+
+   hMC_maxetaphi->Scale(1./16);
+   hMC_bkg_maxetaphi->Scale(1./16);
+   hMC_maxOetaphi->Scale(1./16);
+   hMC_bkg_maxOetaphi->Scale(1./16);
+   hMC_WTAetaphi->Scale(1./16);
+   hMC_bkg_WTAetaphi->Scale(1./16);
+   hMC_WTAMoreetaphi->Scale(1./16);
+   hMC_bkg_WTAMoreetaphi->Scale(1./16);
+   hMC_Zmaxetaphi->Scale(1./16);
+   hMC_Zbkg_maxetaphi->Scale(1./16);
+   hMC_ZmaxOetaphi->Scale(1./16);
+   hMC_Zbkg_maxOetaphi->Scale(1./16);
+   hMC_ZWTAetaphi->Scale(1./16);
+   hMC_Zbkg_WTAetaphi->Scale(1./16);
+   hMC_ZWTAMoreetaphi->Scale(1./16);
+   hMC_Zbkg_WTAMoreetaphi->Scale(1./16);
 
    TH1D *hData_sb_eta = (TH1D*) hData_eta->Clone("hData_sb_eta");
    TH1D *hMC_sb_eta = (TH1D*) hMC_eta->Clone("hMC_sb_eta");
