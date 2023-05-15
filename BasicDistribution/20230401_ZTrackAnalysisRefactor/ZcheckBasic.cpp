@@ -535,6 +535,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    leg.AddEntry(hMC_Zeta_gen ,"Monte Carlo: GEN level","l");
    leg.AddEntry(hMC_Zeta ,"Monte Carlo: RECO level","l");
    leg.AddEntry(hData_Zeta ,Form("Data: %s",typeofdatatext),"p");
+   leg.AddEntry(hpp_Zeta ,"pp MC (NPU=0)","p");
    leg.SetFillColorAlpha(kWhite,0);
    leg.SetLineColor(kBlack);
    leg.SetLineWidth(1);
@@ -594,6 +595,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zeta_gen->Draw("hist same");
    hMC_Zeta->Draw("hist same");
    hData_Zeta->Draw("same");
+   hpp_Zeta->Draw("hist same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
@@ -672,6 +674,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Zphi_gen->Draw("hist same");
    hMC_Zphi->Draw("hist same");
    hData_Zphi->Draw("same");
+   hpp_Zphi->Draw("hist same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
@@ -752,6 +755,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Tracketa_gen->Draw("hist same");
    hMC_Tracketa->Draw("hist same");
    hData_Tracketa->Draw("same");
+   hpp_Tracketa->Draw("hist same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
@@ -830,6 +834,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    hMC_Trackphi_gen->Draw("hist same");
    hMC_Trackphi->Draw("hist same");
    hData_Trackphi->Draw("same");
+   hpp_Trackphi->Draw("hist same");
 
    if(max1<max2 && max3<max2)  max1=max2;
    else if(max1<max3 && max2<max3) max1=max3;
@@ -1233,7 +1238,7 @@ int main(int argc, char *argv[]){
    file_bkgMC = TFile::Open("GraphMCBackground_v8.root","read");
    file_sigDA = TFile::Open("GraphDataSignal_v8_10.root","read");
    file_bkgDA = TFile::Open("GraphDataBackground_v8.root","read");
-   file_ppMC  = TFile::Open("GraphPPMC_v8.root","read");
+   file_ppMC  = TFile::Open("GraphPPMC0Sub_v8_10.root","read");
 
    file_sigMCgen = TFile::Open("GraphMCSignalGen_v8_10.root","read");
    file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_v8.root","read");
