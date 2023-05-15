@@ -457,7 +457,7 @@ int main(int argc, char *argv[])
 
                if(TrackPT->at(iT)>10&&TrackPT->at(iT)<20&&ZPT->at(0)>20){
                   std::cout<<"TrackPT = "<<TrackPT->at(iT)<<", TrackEta = "<<TrackDEta->at(iT) + ZEta_0<<", TrackPhi = "<<PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0);
-                  std::cout<<", NCollWeight = "<<NCollWeight<<", trackWeight = "<<trackWeight<<", trackResidualWeight = "<<trackResidualWeight<<", ZWeight = "<<ZWeight<<", zPt = "<<ZPT_0<<", ZEta = "<<ZEta_0<<", ZMass = "<<ZMass_0<<std::endl;
+                  std::cout<<", NCollWeight = "<<NCollWeight<<", trackWeight = "<<trackWeight->at(iT)<<", trackResidualWeight = "<<trackResidualWeight->at(iT)<<", ZWeight = "<<ZWeight<<", zPt = "<<ZPT_0<<", ZEta = "<<ZEta_0<<", ZMass = "<<ZMass_0<<std::endl;
                }
                if(genZEta->size() > 0){
                   HGenTrackEta[iC]->Fill(TrackDEta->at(iT) + genZEta->at(0), weight);
