@@ -3281,6 +3281,9 @@ int main(int argc, char *argv[]){
 
    ZtrackDraw_single(40, 10, 2000,  0, 90,  2, 1000);
 
+   ZtrackDraw_single(40, 20, 2000,  0, 10,  0, 1000);
+   ZtrackDraw_single(40, 20, 2000,  0, 10, 10,   20);
+
    file_sigMC->Close();
    file_bkgMC->Close();
    file_sigDA->Close();
