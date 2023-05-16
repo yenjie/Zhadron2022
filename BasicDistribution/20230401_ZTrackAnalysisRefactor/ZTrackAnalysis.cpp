@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
    
    // Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
    vector<Configuration> C;
-   /*
+   
    C.push_back(Configuration(40, 20, 2000,  0, 90,  0, 1000));
    C.push_back(Configuration(40,  5, 2000,  0, 90,  0, 1000));
    C.push_back(Configuration(40,  5,   20,  0, 90,  0, 1000));
@@ -72,8 +72,8 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 20, 2000, 50, 90,  0, 1000));
    C.push_back(Configuration(40, 20, 2000,  0, 90,  1,    2));
    C.push_back(Configuration(40, 20, 2000,  0, 90,  2,    5));
-   C.push_back(Configuration(40, 20, 2000,  0, 90,  5,   10));*/
-   C.push_back(Configuration(40, 20, 2000,  0, 90, 10,   20));/*
+   C.push_back(Configuration(40, 20, 2000,  0, 90,  5,   10));
+   C.push_back(Configuration(40, 20, 2000,  0, 90, 10,   20));
    C.push_back(Configuration(40, 20, 2000,  0, 90, 20,   50));
    C.push_back(Configuration(40, 20, 2000,  0, 90, 50,  100));
    C.push_back(Configuration(40, 40, 2000, 50, 90,  0, 1000));
@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40,  5,   20,  0, 30,  5,    7));
    C.push_back(Configuration(40,  5,   20,  0, 30,  7,   10));
 
-   C.push_back(Configuration(40, 10, 2000,  0, 90,  2, 1000));*/
+   C.push_back(Configuration(40, 10, 2000,  0, 90,  2, 1000));
 
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
@@ -335,14 +335,14 @@ int main(int argc, char *argv[])
    ProgressBar Bar(cout, EntryCount);
    Bar.SetStyle(-1);
 
-   std::cout<<"TrackPT, TrackEta, TrackPhi, NCollWeight, trackWeight, trackResidualWeight, ZWeight, zPt, ZEta, ZMass"<<std::endl;
+   //std::cout<<"TrackPT, TrackEta, TrackPhi, NCollWeight, trackWeight, trackResidualWeight, ZWeight, zPt, ZEta, ZMass"<<std::endl;
             
    for(int iE = 0; iE < EntryCount; iE++)
    {
       if(EntryCount < 500 || (iE % (EntryCount / 300)) == 0)
       {
          Bar.Update(iE);
-         //Bar.Print();
+         Bar.Print();
       }
 
       Tree->GetEntry(iE);
@@ -458,8 +458,8 @@ int main(int argc, char *argv[])
                HTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0), weight);
                HTrackEtaPhi[iC]->Fill(TrackDEta->at(iT) + ZEta_0, PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0), weight);
                
-               std::cout<<TrackPT->at(iT)<<", "<<TrackDEta->at(iT) + ZEta_0<<", "<<PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0);
-               std::cout<<", "<<NCollWeight<<", "<<trackWeight->at(iT)<<", "<<trackResidualWeight->at(iT)<<", "<<ZWeight<<", "<<ZPT_0<<", "<<ZEta_0<<", "<<ZMass_0<<std::endl;
+               //std::cout<<TrackPT->at(iT)<<", "<<TrackDEta->at(iT) + ZEta_0<<", "<<PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0);
+               //std::cout<<", "<<NCollWeight<<", "<<trackWeight->at(iT)<<", "<<trackResidualWeight->at(iT)<<", "<<ZWeight<<", "<<ZPT_0<<", "<<ZEta_0<<", "<<ZMass_0<<std::endl;
             
                if(genZEta->size() > 0){
                   HGenTrackEta[iC]->Fill(TrackDEta->at(iT) + genZEta->at(0), weight);
