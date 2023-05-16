@@ -19,7 +19,7 @@
 * Version 5 - 2023 May 2
    * Adding HF ceiling for matching.  if lower bound of HF matching is larger than this, it is lowered to the HF ceiling value.  Set to -1 to disable this option.
 * Version 5b - 2023 May 4
-   * Disable VZ cut in track selection if it's data MB for the time being.
+   * Disable VZ cut in track selection if it is data MB for the time being.
 * Version 6 - 2023 May 5
    * reinstantiate the VZ cut in data MB
 * Version 7 - 2023 May 7
@@ -28,6 +28,10 @@
    * adding MC centrality shift by 1.5% as per Kaya analysis
 * Version 8 - 2023 May 8
    * Adding tracking residual efficiency by Yenjie
+* Version 8b - 2023 May 15
+   * Bug fix Z weight
+* Version 9 - 2023 May 15
+   * Adding Z weight for data with muon tag and probe folded in
 
 
 
