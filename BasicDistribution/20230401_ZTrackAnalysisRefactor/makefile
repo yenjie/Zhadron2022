@@ -18,7 +18,7 @@ TestRun: Execute
 		--Output GraphPPMC_v8_1.root --IgnoreCentrality true --Fraction 1 \
 		 > log/GraphPPMC_v8_1.out 2> log/GraphPPMC_v8_1.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_v8/ \
-		--Output GraphPPMC0Sub_v8_1.root --IgnoreCentrality true --Fraction 1 \
+		--Output GraphPPMC0Sub_v8_1.root --IgnoreCentrality true --OnlyZeroSub true --Fraction 1 \
 		 > log/GraphPPMC0Sub_v8_1.out 2> log/GraphPPMC0Sub_v8_1.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_v8/ \
 		--Output GraphMCSignalGen_v8_1.root --Fraction 1 --DoGenCorrelation true \
