@@ -72,6 +72,8 @@ std::string InfoString(double Info);
 std::string InfoString(bool Info);
 std::string InfoString(std::vector<std::string> Info);
 double GetZWeight(double PT, double Y, double HiBin);
+double GetZWeightMC(double PT, double Y, double HiBin);
+double GetZWeightData(double PT, double Y, double HiBin);
 
 // Function implementations
 
@@ -655,6 +657,26 @@ double GetZWeight(double PT, double Y, double HiBin)
    // cout << YWeight << " " << CWeight << " " << CWeight2 << endl;
 
    return 1 / (YWeight * CWeight * CWeight2 * PTWeight);
+}
+
+double GetZWeightMC(double PT, double Y, double HiBin)
+{
+   return GetZWeight(PT, Y, HiBin);
+}
+
+double GetZWeightData(double PT, double Y, double HiBin)
+{
+   double BaseWeight = GetZWeight(PT, Y, HiBin);
+
+   double CWeight = 1;
+   if(HiBin < 20)        CWeight = 0.9055;
+   else if(HiBin < 40)   CWeight = 0.9242;
+   else if(HiBin < 80)   CWeight = 0.9613;
+   else                  CWeight = 0.9714;
+
+   double YWeight = 1.002 + 0.002775 * Y - 0.001617 * Y * Y - 0.0003243 * Y * Y * Y - 0.00005662 * Y * Y * Y * Y;
+
+   return BaseWeight / CWeight / YWeight;
 }
 
 #endif
