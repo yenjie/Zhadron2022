@@ -284,7 +284,7 @@ int main(int argc, char *argv[])
    double maxMoreOppositeWTADPhi;
 
    float NCollWeight;
-   float ZWeight=1;
+   float ZWeight;
    vector<double> *trackWeight = nullptr;
    vector<double> *trackResidualWeight = nullptr;
 
@@ -305,7 +305,7 @@ int main(int argc, char *argv[])
    Tree->SetBranchAddress("trackDphi",              &TrackDPhi);
 
    Tree->SetBranchAddress("NCollWeight",            &NCollWeight);
-   //Tree->SetBranchAddress("ZWeight",                &ZWeight);
+   Tree->SetBranchAddress("ZWeight",                &ZWeight);
 
    Tree->SetBranchAddress("trackWeight",            &trackWeight);
    Tree->SetBranchAddress("trackResidualWeight",    &trackResidualWeight);
