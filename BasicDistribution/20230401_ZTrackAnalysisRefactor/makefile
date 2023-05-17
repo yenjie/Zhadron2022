@@ -36,8 +36,8 @@ TestRun: Execute
 		--Output GraphPPMCGen_v9.root --IgnoreCentrality true --Fraction 1 --DoGenCorrelation true \
 		 > log/GraphPPMCGen_v9.out 2> log/GraphPPMCGen_v9.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_v9/ \
-		--Output GraphPPMCGen_v9.root --IgnoreCentrality true --Fraction 1 --DoGenCorrelation true \
-		 > log/GraphPPMCGen_v9.out 2> log/GraphPPMCGen_v9.err < /dev/null &
+		--Output GraphPPMCGen_v9.root --IgnoreCentrality true --OnlyZeroSub true --Fraction 1 --DoGenCorrelation true \
+		 > log/GraphPPMCGen_v9.out 2> log/GraphPPMCGen0Sub_v9.err < /dev/null &
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
