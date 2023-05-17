@@ -1,4 +1,4 @@
-executable   = ./do_ZtrackAna.sh
+executable   = ./do_ZTrackAna.sh
 
 arguments    = $(ProcId)
 
