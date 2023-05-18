@@ -59,7 +59,7 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "20230517";
+const char *typeofdata = "20230518";
 const char *typeofdatatext = "single muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -3272,7 +3272,7 @@ int main(int argc, char *argv[]){
    ZtrackDraw_single(40, 30, 2000, 30, 50,  1, 1000);
    ZtrackDraw_single(40, 30, 2000, 50, 90,  1, 1000);*/
 
-/* Not implemented yet.
+/* 
    ZtrackDraw_single(40,  5, 2000,  0, 90,  5,   10);
    ZtrackDraw_single(40,  5, 2000,  0, 90, 10,   20);
    ZtrackDraw_single(40,  5, 2000,  0, 90, 20,   50);
@@ -3282,6 +3282,11 @@ int main(int argc, char *argv[]){
    ZtrackDraw_single(40, 10, 2000,  0, 90,  2, 1000);
 
    //ZtrackDraw_single(40, 20, 2000,  0, 10, 10,   20);
+
+   ZtrackDraw_single(40, 20, 2000,  0, 10, 10,   20);
+   ZtrackDraw_single(40, 20, 2000, 10, 30, 10,   20);
+   ZtrackDraw_single(40, 20, 2000, 30, 50, 10,   20);
+   ZtrackDraw_single(40, 20, 2000, 50, 90, 10,   20);
 
    file_sigMC->Close();
    file_bkgMC->Close();
