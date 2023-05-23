@@ -9,6 +9,8 @@ PPSignalMC = /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL
 PPSignalData = /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/SingleMuon/Run2017G-17Nov2017-v1/AOD/SingleMuon/20230405_ZHadronSingleMuonWithMuTreePP/230405_185259/
 JECBase = $(ProjectBase)/CommonCode/text/JEC/Autumn18_HI_RAAV3_DATA/
 
+TrackResidualPath = $(ProjectBase)/CommonCode/root/20230522_TrackResidualCorrection_V9_0_20.root,$(ProjectBase)/CommonCode/root/20230522_TrackResidualCorrection_V9_20_60.root,$(ProjectBase)/CommonCode/root/20230522_TrackResidualCorrection_V9_60_100.root,$(ProjectBase)/CommonCode/root/20230522_TrackResidualCorrection_V9_100_200.root
+
 
 default: TestRun
 
@@ -16,7 +18,7 @@ TestRun: Execute
 	./Execute --Input $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_14.root \
 		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel false --IsData true --IsPP false --MinZPT 5 --MinTrackPT 0.5 \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
-		--DoTrackResidual true --TrackResidualPath $(ProjectBase)/CommonCode/root/20230509_TrackResidualCorrection.root \
+		--DoTrackResidual true --TrackResidualPath $(TrackResidualPath) \
 		--Jet "akCs3PFJetAnalyzer/t" \
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBase)/Autumn18_HI_RAAV3_DATA_L2L3Residual_AK3PF.txt
 

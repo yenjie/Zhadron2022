@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
    bool DoTrackEfficiency             = CL.GetBool("DoTrackEfficiency", true);
    string TrackEfficiencyPath         = (DoTrackEfficiency == true) ? CL.Get("TrackEfficiencyPath") : "";
    bool DoTrackResidual               = CL.GetBool("DoTrackResidual", false);
-   string TrackResidualPath           = (DoTrackResidual == true) ? CL.Get("TrackResidualPath") : "";
+   vector<string> TrackResidualPath   = (DoTrackResidual == true) ? CL.GetStringVector("TrackResidualPath") : vector<string>{"", "", "", ""};
 
    string PFTreeName                  = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
    PFTreeName                         = CL.Get("PFTree", PFTreeName);
@@ -139,6 +139,8 @@ int main(int argc, char *argv[])
 
    Assert(!(IsPP == true && IsData == true), "Data selections for pp not implemented yet");
    Assert(!(DoGenCorrelation == true && DoGenLevel == false), "You need to turn on gen level to do gen correlation!");
+   if(DoTrackResidual == true)
+      Assert(TrackResidualPath.size() == 4, "you need 4 files for residual correction");
 
    JetCorrector JEC(JECFiles);
 
@@ -171,7 +173,7 @@ int main(int argc, char *argv[])
       else
          TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "", false, TrackEfficiencyPath);
    }
-   TrackResidualCorrector TrackResidual(TrackResidualPath);
+   TrackResidualCentralityCorrector TrackResidual(TrackResidualPath[0], TrackResidualPath[1], TrackResidualPath[2], TrackResidualPath[3]);
 
    // Do some pre-caching if we read background files.
    // Later on if speed is an issue we can do some optimizations
@@ -677,7 +679,7 @@ int main(int argc, char *argv[])
                   double TrackResidualCorrection = 1;
                   if(DoTrackResidual == true && DoGenCorrelation == false)
                   {
-                     TrackResidualCorrection = TrackResidual.GetCorrectionFactor(TrackPT, TrackEta, TrackPhi);
+                     TrackResidualCorrection = TrackResidual.GetCorrectionFactor(TrackPT, TrackEta, TrackPhi, MZHadron.hiBin);
                   }
                   MZHadron.trackWeight->push_back(TrackCorrection);
                   MZHadron.trackResidualWeight->push_back(TrackResidualCorrection);
