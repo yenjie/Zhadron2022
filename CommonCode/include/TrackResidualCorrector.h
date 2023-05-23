@@ -48,6 +48,64 @@ private:
    TH1D *hPhiCorrTotal;
 };
 
+class TrackResidualCentralityCorrector
+{
+public:
+   TrackResidualCentralityCorrector(std::string F1, std::string F2, std::string F3, std::string F4)
+   {
+      TRC1 = new TrackResidualCorrector(F1);
+      TRC2 = new TrackResidualCorrector(F2);
+      TRC3 = new TrackResidualCorrector(F3);
+      TRC4 = new TrackResidualCorrector(F4);
+   }
+   
+   TrackResidualCentralityCorrector(std::vector<std::string> F)
+   {
+      if(F.size() == 4)
+      {
+         TRC1 = new TrackResidualCorrector(F[0]);
+         TRC2 = new TrackResidualCorrector(F[1]);
+         TRC3 = new TrackResidualCorrector(F[2]);
+         TRC4 = new TrackResidualCorrector(F[3]);
+      }
+      else if(F.size() == 1)
+      {
+         TRC1 = new TrackResidualCorrector(F[0]);
+         TRC2 = new TrackResidualCorrector(F[0]);
+         TRC3 = new TrackResidualCorrector(F[0]);
+         TRC4 = new TrackResidualCorrector(F[0]);
+      }
+      else
+      {
+         TRC1 = nullptr;
+         TRC2 = nullptr;
+         TRC3 = nullptr;
+         TRC4 = nullptr;
+      }
+   }
 
+   ~TrackResidualCentralityCorrector()
+   {
+      if(TRC1 != nullptr)   delete TRC1;
+      if(TRC2 != nullptr)   delete TRC2;
+      if(TRC3 != nullptr)   delete TRC3;
+      if(TRC4 != nullptr)   delete TRC4;
+   }
+
+   double GetCorrectionFactor(double pt, double eta, double phi, int hiBin)
+   {
+      if(hiBin < 20)         return TRC1->GetCorrectionFactor(pt, eta, phi);
+      else if(hiBin < 60)    return TRC2->GetCorrectionFactor(pt, eta, phi);
+      else if(hiBin < 100)   return TRC3->GetCorrectionFactor(pt, eta, phi);
+      else                   return TRC4->GetCorrectionFactor(pt, eta, phi);
+      return 0;
+   }
+
+private:
+   TrackResidualCorrector *TRC1;
+   TrackResidualCorrector *TRC2;
+   TrackResidualCorrector *TRC3;
+   TrackResidualCorrector *TRC4;
+};
 
 
