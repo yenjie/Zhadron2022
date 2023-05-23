@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
    Assert(!(IsPP == true && IsData == true), "Data selections for pp not implemented yet");
    Assert(!(DoGenCorrelation == true && DoGenLevel == false), "You need to turn on gen level to do gen correlation!");
    if(DoTrackResidual == true)
-      Assert(TrackResidualPath.size() == 4, "you need 4 files for residual correction");
+      Assert(TrackResidualPath.size() == 1 || TrackResidualPath.size() == 4, "You need 1 file for residual correction or 4 files for centrality-dependence");
 
    JetCorrector JEC(JECFiles);
 
@@ -173,7 +173,7 @@ int main(int argc, char *argv[])
       else
          TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "", false, TrackEfficiencyPath);
    }
-   TrackResidualCentralityCorrector TrackResidual(TrackResidualPath[0], TrackResidualPath[1], TrackResidualPath[2], TrackResidualPath[3]);
+   TrackResidualCentralityCorrector TrackResidual(TrackResidualPath);
 
    // Do some pre-caching if we read background files.
    // Later on if speed is an issue we can do some optimizations
