@@ -12,6 +12,7 @@ JECBase = $(ProjectBase)/CommonCode/text/JEC/Autumn18_HI_RAAV3_DATA/
 JECBaseMC = $(ProjectBase)/CommonCode/text/JEC/Autumn18_HI_RAAV3_MC/
 JECBasePP = $(ProjectBase)/CommonCode/text/JEC/Spring18_ppRef5TeV_RAAV3_DATA/
 JECBasePPMC = $(ProjectBase)/CommonCode/text/JEC/Spring18_ppRef5TeV_RAAV3_MC/
+TrackResidualPath = $(ProjectBase)/CommonCode/root/20230522_TrackResidualCorrection_V9_0_20.root,$(ProjectBase)/CommonCode/root/20230522_TrackResidualCorrection_V9_20_60.root,$(ProjectBase)/CommonCode/root/20230522_TrackResidualCorrection_V9_60_100.root,$(ProjectBase)/CommonCode/root/20230522_TrackResidualCorrection_V9_100_200.root
 
 default: TestRun
 
