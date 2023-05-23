@@ -58,6 +58,31 @@ public:
       TRC3 = new TrackResidualCorrector(F3);
       TRC4 = new TrackResidualCorrector(F4);
    }
+   
+   TrackResidualCentralityCorrector(std::vector<std::string> F)
+   {
+      if(F.size() == 4)
+      {
+         TRC1 = new TrackResidualCorrector(F[0]);
+         TRC2 = new TrackResidualCorrector(F[1]);
+         TRC3 = new TrackResidualCorrector(F[2]);
+         TRC4 = new TrackResidualCorrector(F[3]);
+      }
+      else if(F.size() == 1)
+      {
+         TRC1 = new TrackResidualCorrector(F[0]);
+         TRC2 = new TrackResidualCorrector(F[0]);
+         TRC3 = new TrackResidualCorrector(F[0]);
+         TRC4 = new TrackResidualCorrector(F[0]);
+      }
+      else
+      {
+         TRC1 = nullptr;
+         TRC2 = nullptr;
+         TRC3 = nullptr;
+         TRC4 = nullptr;
+      }
+   }
 
    ~TrackResidualCentralityCorrector()
    {
