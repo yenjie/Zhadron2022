@@ -53,9 +53,11 @@ int main(int argc, char *argv[])
    bool IgnoreCentrality = CL.GetBool("IgnoreCentrality", false);
    bool OnlyZeroSub      = CL.GetBool("OnlyZeroSub", false);
    bool DoGenCorrelation = CL.GetBool("DoGenCorrelation", false);
+   bool DoSingleFile     = CL.GetBool("DoSingleFile", false);
    
    // Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
    vector<Configuration> C;
+   
    C.push_back(Configuration(40, 20, 2000,  0, 90,  0, 1000));
    C.push_back(Configuration(40,  5, 2000,  0, 90,  0, 1000));
    C.push_back(Configuration(40,  5,   20,  0, 90,  0, 1000));
@@ -124,6 +126,34 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40,  5,   20,  0, 30,  7,   10));
 
    C.push_back(Configuration(40, 10, 2000,  0, 90,  2, 1000));
+
+   C.push_back(Configuration(40,  5, 2000,  0, 90,  5,   10));
+   C.push_back(Configuration(40,  5, 2000,  0, 90, 10,   20));
+   C.push_back(Configuration(40,  5, 2000,  0, 90, 20,   50));
+   C.push_back(Configuration(40,  5, 2000,  0, 90, 50,  100));
+
+   C.push_back(Configuration(40, 20, 2000,  0, 10, 10,   20));
+   C.push_back(Configuration(40, 20, 2000, 10, 30, 10,   20));
+   C.push_back(Configuration(40, 20, 2000, 30, 50, 10,   20));
+   C.push_back(Configuration(40, 20, 2000, 50, 90, 10,   20));
+
+   C.push_back(Configuration(40, 20, 2000,  0, 10,  1,    2));
+   C.push_back(Configuration(40, 20, 2000, 10, 30,  1,    2));
+   C.push_back(Configuration(40, 20, 2000, 30, 50,  1,    2));
+   C.push_back(Configuration(40, 20, 2000,  0, 10,  2,    5));
+   C.push_back(Configuration(40, 20, 2000, 10, 30,  2,    5));
+   C.push_back(Configuration(40, 20, 2000, 30, 50,  2,    5));
+   C.push_back(Configuration(40, 20, 2000,  0, 10,  5,   10));
+   C.push_back(Configuration(40, 20, 2000, 10, 30,  5,   10));
+   C.push_back(Configuration(40, 20, 2000, 30, 50,  5,   10));
+   C.push_back(Configuration(40, 20, 2000,  0, 10, 20,   50));
+   C.push_back(Configuration(40, 20, 2000, 10, 30, 20,   50));
+   C.push_back(Configuration(40, 20, 2000, 30, 50, 20,   50));
+   C.push_back(Configuration(40, 20, 2000,  0, 10, 50,  100));
+   C.push_back(Configuration(40, 20, 2000, 10, 30, 50,  100));
+   C.push_back(Configuration(40, 20, 2000, 30, 50, 50,  100));
+
+
 
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
@@ -239,9 +269,13 @@ int main(int argc, char *argv[])
    }
   
    TChain *Tree = new TChain("Tree");
-   Tree->Add((InputBase + "/*.root?#Tree").c_str());
+   if(DoSingleFile==false)
+      Tree->Add((InputBase + "/*.root?#Tree").c_str());
+   else
+      Tree->Add((InputBase + "?#Tree").c_str());
  
    int HiBin;
+   int NPU;
    vector<double> *ZMass       = nullptr;
    vector<double> *ZPT         = nullptr;
    vector<double> *ZEta        = nullptr;
@@ -278,9 +312,12 @@ int main(int argc, char *argv[])
    double maxMoreOppositeWTADPhi;
 
    float NCollWeight;
+   float ZWeight;
    vector<double> *trackWeight = nullptr;
+   vector<double> *trackResidualWeight = nullptr;
 
    Tree->SetBranchAddress("hiBin",                  &HiBin);
+   Tree->SetBranchAddress("NPU",                    &NPU);
    Tree->SetBranchAddress("zMass",                  &ZMass);
    Tree->SetBranchAddress("zPt",                    &ZPT);
    Tree->SetBranchAddress("zEta",                   &ZEta);
@@ -296,7 +333,10 @@ int main(int argc, char *argv[])
    Tree->SetBranchAddress("trackDphi",              &TrackDPhi);
 
    Tree->SetBranchAddress("NCollWeight",            &NCollWeight);
+   Tree->SetBranchAddress("ZWeight",                &ZWeight);
+
    Tree->SetBranchAddress("trackWeight",            &trackWeight);
+   Tree->SetBranchAddress("trackResidualWeight",    &trackResidualWeight);
 
    Tree->SetBranchAddress("subevent",               &subevent);
 
@@ -322,6 +362,9 @@ int main(int argc, char *argv[])
    int EntryCount = Tree->GetEntries() * Fraction;
    ProgressBar Bar(cout, EntryCount);
    Bar.SetStyle(-1);
+
+   //std::cout<<"TrackPT, TrackEta, TrackPhi, NCollWeight, trackWeight, trackResidualWeight, ZWeight, zPt, ZEta, ZMass"<<std::endl;
+            
    for(int iE = 0; iE < EntryCount; iE++)
    {
       if(EntryCount < 500 || (iE % (EntryCount / 300)) == 0)
@@ -331,6 +374,8 @@ int main(int argc, char *argv[])
       }
 
       Tree->GetEntry(iE);
+
+      if(OnlyZeroSub == true && DoGenCorrelation == false && NPU != 0) continue;
 
       for(int iC = 0; iC < (int)C.size(); iC++)
       {
@@ -381,7 +426,7 @@ int main(int argc, char *argv[])
             NTrack = TrackPT->size();
          for(int iT = 0; iT < NTrack; iT++)
          {
-            if(OnlyZeroSub == true && subevent->at(iT) != 0) continue;
+            if(OnlyZeroSub == true && DoGenCorrelation == true && subevent->at(iT) != 0) continue;
 
             bool TrackPTRange = false;
             if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
@@ -394,7 +439,7 @@ int main(int argc, char *argv[])
             bool PassEvent = ZMassRange && ZPTRange && CentRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
-            double weight = (trackWeight->at(iT))*NCollWeight;
+            double weight = (trackWeight->at(iT))*(trackResidualWeight->at(iT))*NCollWeight*ZWeight;
             //double weight = NCollWeight;
             //double weight = trackWeight->at(iT);
 
@@ -441,6 +486,9 @@ int main(int argc, char *argv[])
                HTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0), weight);
                HTrackEtaPhi[iC]->Fill(TrackDEta->at(iT) + ZEta_0, PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0), weight);
                
+               //std::cout<<TrackPT->at(iT)<<", "<<TrackDEta->at(iT) + ZEta_0<<", "<<PhiRangeSymmetric(TrackDPhi->at(iT) + ZPhi_0);
+               //std::cout<<", "<<NCollWeight<<", "<<trackWeight->at(iT)<<", "<<trackResidualWeight->at(iT)<<", "<<ZWeight<<", "<<ZPT_0<<", "<<ZEta_0<<", "<<ZMass_0<<std::endl;
+            
                if(genZEta->size() > 0){
                   HGenTrackEta[iC]->Fill(TrackDEta->at(iT) + genZEta->at(0), weight);
                   HGenTrackPhi[iC]->Fill(PhiRangeSymmetric(TrackDPhi->at(iT) + genZPhi->at(0)), weight);
@@ -496,31 +544,31 @@ int main(int argc, char *argv[])
 
          if(SomethingPassed == true)
          {
-            EventCount[iC] = EventCount[iC] + NCollWeight;
-            HEventCount[iC]->Fill(0., NCollWeight);
+            EventCount[iC] = EventCount[iC] + NCollWeight*ZWeight;
+            HEventCount[iC]->Fill(0., NCollWeight*ZWeight);
             
-            HZPT[iC]->Fill(ZPT_0, NCollWeight);
-            HZEta[iC]->Fill(ZEta_0, NCollWeight);
-            HZPhi[iC]->Fill(ZPhi_0, NCollWeight);
-            HZMass[iC]->Fill(ZMass_0, NCollWeight);
-            HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight);
+            HZPT[iC]->Fill(ZPT_0, NCollWeight*ZWeight);
+            HZEta[iC]->Fill(ZEta_0, NCollWeight*ZWeight);
+            HZPhi[iC]->Fill(ZPhi_0, NCollWeight*ZWeight);
+            HZMass[iC]->Fill(ZMass_0, NCollWeight*ZWeight);
+            HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight*ZWeight);
 
             if(genZEta->size() > 0){
-               GenEventCount[iC] = GenEventCount[iC] + NCollWeight;
-               HGenEventCount[iC]->Fill(0., NCollWeight);
-               HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight);
-               HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight);
-               HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight);
+               GenEventCount[iC] = GenEventCount[iC] + NCollWeight*ZWeight;
+               HGenEventCount[iC]->Fill(0., NCollWeight*ZWeight);
+               HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight*ZWeight);
+               HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight*ZWeight);
+               HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight*ZWeight);
             }
 
             HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta_0,
-               PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight);
+               PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight*ZWeight);
             HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta_0,
-               PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight);
+               PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight*ZWeight);
             HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta_0,
-               PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight);
+               PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
             HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta_0,
-               PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight);
+               PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
          }
       }
    }
