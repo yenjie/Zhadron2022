@@ -415,9 +415,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_MuDetaphi->Rebin2D(4,4);
    hMC_bkg_MuDetaphi->Rebin2D(4,4);
 
-   hMC_etaphi_1->Rebin2D(4,4);
-   hMC_bkg_etaphi_1->Rebin2D(4,4);
-
+   hMC_etaphi_gen->Rebin2D(4,4);
+   hMC_bkg_etaphi_gen->Rebin2D(4,4);
 
    hpp_etaphi_1->Scale(1./16);
    hMC_MuDetaphi->Scale(1./16);
@@ -426,13 +425,12 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_etaphi_gen->Scale(1./16);
    hMC_bkg_etaphi_gen->Scale(1./16);
 
+   hMC_etaphi_1->Rebin2D(5,5);
+   hMC_bkg_etaphi_1->Rebin2D(5,5);
 
-   hMC_etaphi_1->Scale(1./100);
-   hMC_bkg_etaphi_1->Scale(1./100);
-
-   hMC_etaphi_gen->Rebin2D(10,10);
-   hMC_bkg_etaphi_gen->Rebin2D(10,10);
-
+   hMC_etaphi_1->Scale(1./25);
+   hMC_bkg_etaphi_1->Scale(1./25);
+   
    hMC_maxetaphi->Rebin2D(4,4);
    hMC_bkg_maxetaphi->Rebin2D(4,4);
    hMC_maxOetaphi->Rebin2D(4,4);
