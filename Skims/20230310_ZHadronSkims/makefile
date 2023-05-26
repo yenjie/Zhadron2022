@@ -69,6 +69,11 @@ TestRunPP: Execute
 		--DoTrackResidual true --TrackResidualPath $(TrackResidualPath) \
 		--JEC $(JECBasePP)/Spring18_ppRef5TeV_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBasePP)/Spring18_ppRef5TeV_RAAV3_DATA_L2L3Residual_AK3PF.txt
 
+TestRunPPData: Execute
+	./Execute --Input $(PPSignalData)/0000/HiForestAOD_12.root \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel false --IsData true --IsPP true --MinZPT 5 --DoSumET false \
+		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --PFTree "pfcandAnalyzer/pfTree" --DoTrackResidual false
+
 TestRunBackgroundSimple: Execute
 	./Execute --Input $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_14.root \
 		--Output /tmp/$(USER)/Test.root --Fraction 1 --DoGenLevel false --IsData true --IsPP false \
