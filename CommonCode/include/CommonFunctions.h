@@ -71,9 +71,11 @@ std::string InfoString(float Info);
 std::string InfoString(double Info);
 std::string InfoString(bool Info);
 std::string InfoString(std::vector<std::string> Info);
-double GetZWeight(double PT, double Y, double HiBin);
-double GetZWeightMC(double PT, double Y, double HiBin);
-double GetZWeightData(double PT, double Y, double HiBin);
+double GetZWeightPbPb(double PT, double Y, double HiBin);
+double GetZWeightPbPbMC(double PT, double Y, double HiBin);
+double GetZWeightPbPbData(double PT, double Y, double HiBin);
+double GetZWeightPPMC(double PT, double Y);
+double GetZWeightPPData(double PT, double Y);
 
 // Function implementations
 
@@ -636,7 +638,7 @@ std::string InfoString(std::vector<std::string> Info)
    return Result;
 }
 
-double GetZWeight(double PT, double Y, double HiBin)
+double GetZWeightPbPb(double PT, double Y, double HiBin)
 {
    // Tree->SetAlias("YWeight", "(1/(0.907863-0.00478487*Y+0.0190346*Y*Y+0.000807052*Y*Y*Y-0.00919791*Y*Y*Y*Y+0.000399488*Y*Y*Y*Y*Y+0.00319896*Y*Y*Y*Y*Y*Y-0.0000754237*Y*Y*Y*Y*Y*Y*Y-0.000386165*Y*Y*Y*Y*Y*Y*Y*Y))")
    double PY[9] = {0.907863, -0.00478487, 0.0190346, 0.000807052, -0.00919791, 0.000399488, 0.00319896, -0.0000754237, -0.000386165};
@@ -659,14 +661,14 @@ double GetZWeight(double PT, double Y, double HiBin)
    return 1 / (YWeight * CWeight * CWeight2 * PTWeight);
 }
 
-double GetZWeightMC(double PT, double Y, double HiBin)
+double GetZWeightPbPbMC(double PT, double Y, double HiBin)
 {
-   return GetZWeight(PT, Y, HiBin);
+   return GetZWeightPbPb(PT, Y, HiBin);
 }
 
-double GetZWeightData(double PT, double Y, double HiBin)
+double GetZWeightPbPbData(double PT, double Y, double HiBin)
 {
-   double BaseWeight = GetZWeight(PT, Y, HiBin);
+   double BaseWeight = GetZWeightPbPb(PT, Y, HiBin);
 
    double CWeight = 1;
    if(HiBin < 20)        CWeight = 0.9055;
@@ -677,6 +679,28 @@ double GetZWeightData(double PT, double Y, double HiBin)
    double YWeight = 1.002 + 0.002775 * Y - 0.001617 * Y * Y - 0.0003243 * Y * Y * Y - 0.00005662 * Y * Y * Y * Y;
 
    return BaseWeight / CWeight / YWeight;
+}
+
+double GetZWeightPPMC(double PT, double Y)
+{
+   double PY[7] = {0.946307, -0.000706671, 0.0173304, 0.000445317, -0.00192675, -0.0000253594, -0.000132195};
+   double YWeight = 0;
+   for(int i = 6; i >= 0; i--)
+      YWeight = YWeight * Y + PY[i];
+
+   double PTWeight = 1.00301 - 0.00287347 * log(PT) / log(10);
+
+   return 1 / (YWeight * PTWeight);
+}
+
+double GetZWeightPPData(double PT, double Y)
+{
+   double PY[7] = {0.957442, -0.00770481, -0.00381821, 0.00254708, 0.000737472, -0.000274649, 0.000160242};
+   double YWeight = 0;
+   for(int i = 6; i >= 0; i--)
+      YWeight = YWeight * Y + PY[i];
+   
+   return GetZWeightPPMC(PT, Y) / YWeight;
 }
 
 #endif
