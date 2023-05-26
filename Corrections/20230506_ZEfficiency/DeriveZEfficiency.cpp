@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
    vector<double> Ys             = CL.GetDoubleVector("Y", vector<double>{-2.4, -2.0, -1.6, -1.2, -0.8, -0.4, 0, 0.4, 0.8, 1.2, 1.6, 2.0, 2.4});
    vector<double> PTs            = CL.GetDoubleVector("PT", vector<double>{0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 125, 150, 1000});
    double Fraction               = CL.GetDouble("Fraction", 1.00);
+   bool IsPP                     = CL.GetBool("IsPP", false);
 
    sort(Ys.begin(), Ys.end());
    sort(PTs.begin(), PTs.end());
@@ -44,7 +45,8 @@ int main(int argc, char *argv[])
    PdfFile.AddTextPage("Z efficiency derivation");
 
    TTree Tree("Tree", "Z efficiency tree");
-   double TreeZPT, TreeZY, TreeZPhi, TreeZMass;   bool TreeZHasReco;   double TreeHiBin, TreeW, TreeWData;
+   double TreeZPT, TreeZY, TreeZPhi, TreeZMass;   bool TreeZHasReco;   double TreeHiBin;
+   double TreeWPbPbMC, TreeWPbPbData, TreeWPPMC, TreeWPPData;
    double TreeMu1TnP1, TreeMu1TnP2, TreeMu1TnP3, TreeMu2TnP1, TreeMu2TnP2, TreeMu2TnP3;
    Tree.Branch("PT", &TreeZPT, "PT/D");
    Tree.Branch("Y", &TreeZY, "Y/D");
@@ -52,8 +54,10 @@ int main(int argc, char *argv[])
    Tree.Branch("Mass", &TreeZMass, "Mass/D");
    Tree.Branch("HasReco", &TreeZHasReco, "Y/O");
    Tree.Branch("HiBin", &TreeHiBin, "HiBin/D");
-   Tree.Branch("W", &TreeW, "TreeW/D");
-   Tree.Branch("WData", &TreeWData, "TreeWData/D");
+   Tree.Branch("WPbPbMC", &TreeWPbPbMC, "TreeWPbPbMC/D");
+   Tree.Branch("WPbPbData", &TreeWPbPbData, "TreeWPbPbData/D");
+   Tree.Branch("WPPMC", &TreeWPPMC, "TreeWPPMC/D");
+   Tree.Branch("WPPData", &TreeWPPData, "TreeWPPData/D");
    Tree.Branch("Mu1TnP1", &TreeMu1TnP1, "Mu1TnP1/D");
    Tree.Branch("Mu1TnP2", &TreeMu1TnP2, "Mu1TnP2/D");
    Tree.Branch("Mu1TnP3", &TreeMu1TnP3, "Mu1TnP3/D");
@@ -114,9 +118,12 @@ int main(int argc, char *argv[])
          MEvent.GetEntry(iE);
          MMu.GetEntry(iE);
 
-         MEvent.hiBin = MEvent.hiBin - 3;   // MC shift
-         if(MEvent.hiBin < 0)   // out of range after shifting.  Skip!
-            continue;
+         if(IsPP == false)
+         {
+            MEvent.hiBin = MEvent.hiBin - 3;   // MC shift
+            if(MEvent.hiBin < 0)   // out of range after shifting.  Skip!
+               continue;
+         }
 
          if(MMu.NGen == 0)
             continue;
@@ -249,15 +256,29 @@ int main(int argc, char *argv[])
             TreeZMass = PGenZ[i].M();
             TreeZHasReco = (NReco > 0);
             TreeHiBin = MEvent.hiBin;
-            TreeW = GetZWeightMC(TreeZPT, TreeZY, TreeHiBin);
-            TreeWData = GetZWeightData(TreeZPT, TreeZY, TreeHiBin);
+            TreeWPbPbMC = GetZWeightPbPbMC(TreeZPT, TreeZY, TreeHiBin);
+            TreeWPbPbData = GetZWeightPbPbData(TreeZPT, TreeZY, TreeHiBin);
+            TreeWPPMC = GetZWeightPPMC(TreeZPT, TreeZY);
+            TreeWPPData = GetZWeightPPData(TreeZPT, TreeZY);
 
-            TreeMu1TnP1 = tnp_weight_glbPFtrk_pbpb(PGenMu1[i].Eta(), TreeHiBin * 0.5, 0);
-            TreeMu1TnP2 = tnp_weight_muid_pbpb(PGenMu1[i].Eta(), 0);
-            TreeMu1TnP3 = tnp_weight_trig_pbpb(PGenMu1[i].Pt(), PGenMu1[i].Eta(), TreeHiBin * 0.5, 0);
-            TreeMu2TnP1 = tnp_weight_glbPFtrk_pbpb(PGenMu2[i].Eta(), TreeHiBin * 0.5, 0);
-            TreeMu2TnP2 = tnp_weight_muid_pbpb(PGenMu2[i].Eta(), 0);
-            TreeMu2TnP3 = tnp_weight_trig_pbpb(PGenMu2[i].Pt(), PGenMu2[i].Eta(), TreeHiBin * 0.5, 0);
+            if(IsPP == false)
+            {
+               TreeMu1TnP1 = tnp_weight_glbPFtrk_pbpb(PGenMu1[i].Eta(), TreeHiBin * 0.5, 0);
+               TreeMu1TnP2 = tnp_weight_muid_pbpb(PGenMu1[i].Eta(), 0);
+               TreeMu1TnP3 = tnp_weight_trig_pbpb(PGenMu1[i].Pt(), PGenMu1[i].Eta(), TreeHiBin * 0.5, 0);
+               TreeMu2TnP1 = tnp_weight_glbPFtrk_pbpb(PGenMu2[i].Eta(), TreeHiBin * 0.5, 0);
+               TreeMu2TnP2 = tnp_weight_muid_pbpb(PGenMu2[i].Eta(), 0);
+               TreeMu2TnP3 = tnp_weight_trig_pbpb(PGenMu2[i].Pt(), PGenMu2[i].Eta(), TreeHiBin * 0.5, 0);
+            }
+            else
+            {
+               TreeMu1TnP1 = tnp_weight_TightID_pp(PGenMu1[i].Eta());
+               TreeMu1TnP2 = tnp_weight_L3Mu12_pp(PGenMu1[i].Eta());
+               TreeMu1TnP3 = 1;
+               TreeMu2TnP1 = tnp_weight_TightID_pp(PGenMu2[i].Eta());
+               TreeMu2TnP2 = tnp_weight_L3Mu12_pp(PGenMu2[i].Eta());
+               TreeMu2TnP3 = 1;
+            }
             
             Tree.Fill();
          }
