@@ -44,6 +44,11 @@ double tnp_weight_glbPFtrk_pbpb(double eta, double cent, int idx = 0);
 double tnp_weight_muid_pbpb(double eta, int idx=0);
 double tnp_weight_trig_pbpb(double pt, double eta, double cent, int idx=0);
 
+double tnp_weight_TightID_pp(double eta);
+double tnp_weight_TightID_PFIsoTight_pp(double eta);
+double tnp_weight_L3Mu12_pp(double eta);
+double tnp_weight_L3Mu12_PFIsoTight_pp(double eta);
+
 
 ///////////////////////////////////////////////////
 //              G l b P F  T r k    P b P b           //
@@ -610,6 +615,81 @@ double tnp_weight_trig_pbpb(double pt, double eta, double cent, int idx)
 	return (num / den);
 }
 
+double tnp_weight_TightID_pp(double eta)
+{
+   if(eta < -2.1 && eta >= -2.4)   return 0.99197;
+   if(eta < -1.6 && eta >= -2.1)   return 0.997666;
+   if(eta < -1.2 && eta >= -1.6)   return 0.996269;
+   if(eta < -0.9 && eta >= -1.2)   return 0.994066;
+   if(eta < -0.6 && eta >= -0.9)   return 0.996537;
+   if(eta < -0.3 && eta >= -0.6)   return 0.995147;
+   if(eta < 0 && eta >= -0.3)   return 0.997214;
+   if(eta < 0.3 && eta >= 0)   return 0.989001;
+   if(eta < 0.6 && eta >= 0.3)   return 0.992532;
+   if(eta < 0.9 && eta >= 0.6)   return 0.997035;
+   if(eta < 1.2 && eta >= 0.9)   return 0.995832;
+   if(eta < 1.6 && eta >= 1.2)   return 0.996298;
+   if(eta < 2.1 && eta >= 1.6)   return 0.995379;
+   if(eta < 2.4 && eta >= 2.1)   return 0.986206;
+   return 1;
+}
+
+double tnp_weight_TightID_PFIsoTight_pp(double eta)
+{
+   if(eta < -2.1 && eta >= -2.4)   return 0.995003;
+   if(eta < -1.6 && eta >= -2.1)   return 1.00209;
+   if(eta < -1.2 && eta >= -1.6)   return 0.995934;
+   if(eta < -0.9 && eta >= -1.2)   return 0.989854;
+   if(eta < -0.6 && eta >= -0.9)   return 0.993851;
+   if(eta < -0.3 && eta >= -0.6)   return 0.992648;
+   if(eta < 0 && eta >= -0.3)   return 0.994836;
+   if(eta < 0.3 && eta >= 0)   return 0.988882;
+   if(eta < 0.6 && eta >= 0.3)   return 0.99508;
+   if(eta < 0.9 && eta >= 0.6)   return 0.998866;
+   if(eta < 1.2 && eta >= 0.9)   return 0.992233;
+   if(eta < 1.6 && eta >= 1.2)   return 0.99683;
+   if(eta < 2.1 && eta >= 1.6)   return 0.995585;
+   if(eta < 2.4 && eta >= 2.1)   return 0.991093;
+   return 1;
+}
+
+double tnp_weight_L3Mu12_pp(double eta)
+{
+   if(eta < -2.1 && eta >= -2.4)   return 1.00347;
+   if(eta < -1.6 && eta >= -2.1)   return 0.977317;
+   if(eta < -1.2 && eta >= -1.6)   return 0.984707;
+   if(eta < -0.9 && eta >= -1.2)   return 0.976465;
+   if(eta < -0.6 && eta >= -0.9)   return 0.983223;
+   if(eta < -0.3 && eta >= -0.6)   return 0.990828;
+   if(eta < 0 && eta >= -0.3)   return 0.987445;
+   if(eta < 0.3 && eta >= 0)   return 0.989734;
+   if(eta < 0.6 && eta >= 0.3)   return 0.986748;
+   if(eta < 0.9 && eta >= 0.6)   return 0.976808;
+   if(eta < 1.2 && eta >= 0.9)   return 0.969258;
+   if(eta < 1.6 && eta >= 1.2)   return 0.969321;
+   if(eta < 2.1 && eta >= 1.6)   return 0.98434;
+   if(eta < 2.4 && eta >= 2.1)   return 0.999777;
+   return 1;
+}
+
+double tnp_weight_L3Mu12_PFIsoTight_pp(double eta)
+{
+   if(eta < -2.1 && eta >= -2.4)   return 1.00373;
+   if(eta < -1.6 && eta >= -2.1)   return 0.980444;
+   if(eta < -1.2 && eta >= -1.6)   return 0.98444;
+   if(eta < -0.9 && eta >= -1.2)   return 0.976874;
+   if(eta < -0.6 && eta >= -0.9)   return 0.982639;
+   if(eta < -0.3 && eta >= -0.6)   return 0.990206;
+   if(eta < 0 && eta >= -0.3)   return 0.987445;
+   if(eta < 0.3 && eta >= 0)   return 0.989312;
+   if(eta < 0.6 && eta >= 0.3)   return 0.987004;
+   if(eta < 0.9 && eta >= 0.6)   return 0.977648;
+   if(eta < 1.2 && eta >= 0.9)   return 0.969058;
+   if(eta < 1.6 && eta >= 1.2)   return 0.96981;
+   if(eta < 2.1 && eta >= 1.6)   return 0.983832;
+   if(eta < 2.4 && eta >= 2.1)   return 1.00299;
+   return 1;
+}
 
 
 #endif //#ifndef tnp_weight_h
