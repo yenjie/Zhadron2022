@@ -1013,11 +1013,20 @@ int main(int argc, char *argv[])
             {
                TLorentzVector Z;
                Z.SetPtEtaPhiM(MZHadron.zPt->at(0), MZHadron.zEta->at(0), MZHadron.zPhi->at(0), MZHadron.zMass->at(0));
-               if(IsData == false)
-                  MZHadron.ZWeight = GetZWeightMC(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
+               if(IsPP == false)
+               {
+                  if(IsData == false)
+                     MZHadron.ZWeight = GetZWeightPbPbMC(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
+                  else
+                     MZHadron.ZWeight = GetZWeightPbPbData(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
+               }
                else
-                  MZHadron.ZWeight = GetZWeightData(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
-               // cout << Z.Pt() << " " << Z.Rapidity() << " " << MZHadron.hiBin << " " << MZHadron.ZWeight << endl;
+               {
+                  if(IsData == false)
+                     MZHadron.ZWeight = GetZWeightPPMC(Z.Pt(), Z.Rapidity());
+                  else
+                     MZHadron.ZWeight = GetZWeightPPData(Z.Pt(), Z.Rapidity());
+               }
             }
 
             MZHadron.FillEntry();
