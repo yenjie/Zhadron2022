@@ -49,6 +49,9 @@ then
 elif [ $1 -eq 11 ]
 then
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_v10/ --Output GraphPPMCGen0Sub_v10.root --IgnoreCentrality true  --OnlyZeroSub true --Fraction 1 --DoGenCorrelation true
+elif [ $1 -eq 12 ]
+then
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_v10/ --Output GraphMCSignal0Sub_v10.root --OnlyZeroSub true --Fraction 1
 else
 	echo "Input number exceeded"
 fi
