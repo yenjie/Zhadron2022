@@ -1023,6 +1023,11 @@ void TriggerTreeMessenger::FillTriggerNames()
    Name.push_back("HLT_AK4PFJet80FWD_v14");
 
    // muon triggers
+   Name.push_back("HLT_HIL2Mu12_v1");
+   Name.push_back("HLT_HIL2Mu12_v2");
+   Name.push_back("HLT_HIL2Mu12_v3");
+   Name.push_back("HLT_HIL2Mu12_v4");
+   Name.push_back("HLT_HIL2Mu12_v5");
    Name.push_back("HLT_HIL3Mu12_v1");
    Name.push_back("HLT_HIL3Mu12_v2");
    Name.push_back("HLT_HIL3Mu12_v3");

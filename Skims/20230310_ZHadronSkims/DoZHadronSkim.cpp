@@ -101,7 +101,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V10";
+   string Version = "V11";
 
    CommandLine CL(argc, argv);
 
@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
    bool DoCS                          = CL.GetBool("DoCS", false);
    string RhoTreeName                 = CL.Get("RhoTree", "hiPuRhoAnalyzer/t");
 
-   Assert(!(IsPP == true && IsData == true), "Data selections for pp not implemented yet");
+   // Assert(!(IsPP == true && IsData == true), "Data selections for pp not implemented yet");
    Assert(!(DoGenCorrelation == true && DoGenLevel == false), "You need to turn on gen level to do gen correlation!");
    if(DoTrackResidual == true)
       Assert(TrackResidualPath.size() == 1 || TrackResidualPath.size() == 4, "You need 1 file for residual correction or 4 files for centrality-dependence");
@@ -372,7 +372,25 @@ int main(int argc, char *argv[])
          if(IsPP == true)
          {
             if(IsData == true)
-               cerr << "Warning!  pp data mode not implemented yet!" << endl;
+            {
+               int pprimaryVertexFilter = MSignalSkim.PVFilter;
+               int beamScrapingFilter = MSignalSkim.BeamScrapingFilter;
+      
+               // Event selection criteria
+               //    see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
+               if(pprimaryVertexFilter == 0 || beamScrapingFilter == 0)
+                  continue;
+      
+               //HLT trigger to select dimuon events, see Kaya's note: AN2019_143_v12, p.5
+               int HLT_HIL2Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL2Mu12");
+               int HLT_HIL3Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL3Mu12");
+               if(HLT_HIL3Mu12 == 0 && HLT_HIL2Mu12 == 0)
+                  continue;
+
+               MZHadron.NCollWeight = 1;
+            }
+            else
+               MZHadron.NCollWeight = 1;
          }
          else
          {
@@ -391,6 +409,7 @@ int main(int argc, char *argv[])
                int HLT_HIL3Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL3Mu12");
                if(HLT_HIL3Mu12 == 0)
                   continue;
+
                MZHadron.NCollWeight = 1;
             }
             else
@@ -994,11 +1013,20 @@ int main(int argc, char *argv[])
             {
                TLorentzVector Z;
                Z.SetPtEtaPhiM(MZHadron.zPt->at(0), MZHadron.zEta->at(0), MZHadron.zPhi->at(0), MZHadron.zMass->at(0));
-               if(IsData == false)
-                  MZHadron.ZWeight = GetZWeightMC(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
+               if(IsPP == false)
+               {
+                  if(IsData == false)
+                     MZHadron.ZWeight = GetZWeightPbPbMC(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
+                  else
+                     MZHadron.ZWeight = GetZWeightPbPbData(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
+               }
                else
-                  MZHadron.ZWeight = GetZWeightData(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
-               // cout << Z.Pt() << " " << Z.Rapidity() << " " << MZHadron.hiBin << " " << MZHadron.ZWeight << endl;
+               {
+                  if(IsData == false)
+                     MZHadron.ZWeight = GetZWeightPPMC(Z.Pt(), Z.Rapidity());
+                  else
+                     MZHadron.ZWeight = GetZWeightPPData(Z.Pt(), Z.Rapidity());
+               }
             }
 
             MZHadron.FillEntry();
