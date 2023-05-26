@@ -15,6 +15,8 @@ using namespace std;
 #include "CommonFunctions.h"
 #include "SetStyle.h"
 
+#include "tnp_weight.h"
+
 #define MAX 10000
 
 int main(int argc, char *argv[]);
@@ -29,7 +31,7 @@ int main(int argc, char *argv[])
    vector<string> InputFileNames = CL.GetStringVector("Input");
    string OutputFileName         = CL.Get("Output", "EfficiencyPlots.pdf");
    string RootOutputFileName     = CL.Get("RootOutput", "ZEfficiency.root");
-   vector<double> Ys             = CL.GetDoubleVector("Y", vector<double>{-10, -2.4, -1.6, -0.8, 0, 0.8, 1.6, 2.4, 10});
+   vector<double> Ys             = CL.GetDoubleVector("Y", vector<double>{-2.4, -2.0, -1.6, -1.2, -0.8, -0.4, 0, 0.4, 0.8, 1.2, 1.6, 2.0, 2.4});
    vector<double> PTs            = CL.GetDoubleVector("PT", vector<double>{0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 125, 150, 1000});
    double Fraction               = CL.GetDouble("Fraction", 1.00);
 
@@ -42,13 +44,22 @@ int main(int argc, char *argv[])
    PdfFile.AddTextPage("Z efficiency derivation");
 
    TTree Tree("Tree", "Z efficiency tree");
-   double TreeZPT, TreeZY, TreeZPhi, TreeZMass;   bool TreeZHasReco;   double TreeHiBin;
+   double TreeZPT, TreeZY, TreeZPhi, TreeZMass;   bool TreeZHasReco;   double TreeHiBin, TreeW, TreeWData;
+   double TreeMu1TnP1, TreeMu1TnP2, TreeMu1TnP3, TreeMu2TnP1, TreeMu2TnP2, TreeMu2TnP3;
    Tree.Branch("PT", &TreeZPT, "PT/D");
    Tree.Branch("Y", &TreeZY, "Y/D");
    Tree.Branch("Phi", &TreeZPhi, "Phi/D");
    Tree.Branch("Mass", &TreeZMass, "Mass/D");
    Tree.Branch("HasReco", &TreeZHasReco, "Y/O");
    Tree.Branch("HiBin", &TreeHiBin, "HiBin/D");
+   Tree.Branch("W", &TreeW, "TreeW/D");
+   Tree.Branch("WData", &TreeWData, "TreeWData/D");
+   Tree.Branch("Mu1TnP1", &TreeMu1TnP1, "Mu1TnP1/D");
+   Tree.Branch("Mu1TnP2", &TreeMu1TnP2, "Mu1TnP2/D");
+   Tree.Branch("Mu1TnP3", &TreeMu1TnP3, "Mu1TnP3/D");
+   Tree.Branch("Mu2TnP1", &TreeMu2TnP1, "Mu2TnP1/D");
+   Tree.Branch("Mu2TnP2", &TreeMu2TnP2, "Mu2TnP2/D");
+   Tree.Branch("Mu2TnP3", &TreeMu2TnP3, "Mu2TnP3/D");
 
    int NY = Ys.size() - 1;
    int NPT = PTs.size() - 1;
@@ -57,8 +68,6 @@ int main(int argc, char *argv[])
       YBins[i] = Ys[i];
    for(int i = 0; i <= NPT; i++)
       PTBins[i] = PTs[i];
-   YBins[0] = YBins[1] - 2;
-   YBins[NY] = YBins[NY-1] + 2;
    PTBins[0] = PTBins[1] * 0.5;
    PTBins[NPT] = PTBins[NPT-1] * 1.25;
 
@@ -66,10 +75,11 @@ int main(int argc, char *argv[])
    TH1D HNReco("HNReco", ";Number of Reco Z found;", 25, 0, 25);
    TH2D HGenZ("HGenZ", ";y;p_{T}", NY, YBins, NPT, PTBins);
    TH2D HRecoZ("HRecoZ", ";y;p_{T}", NY, YBins, NPT, PTBins);
-   TH1D HMatchDR("HMatchDR", ";#DeltaR(y-$phi);", 100, 0, 10);
+   TH1D HMatchDR("HMatchDR", ";#DeltaR(y-#phi);", 100, 0, 1.5);
    TH2D HMatchZ("HMatchZ", ";y;p_{T}", NY, YBins, NPT, PTBins);
    TH2D HGenZHasReco("HGenZHasReco", ";y;p_{T}", NY, YBins, NPT, PTBins);
    TH2D HEfficiency("HEfficiency", ";y;p_{T}", NY, YBins, NPT, PTBins);
+   TH2D HGenZHasRecoWeighted("HGenZHasRecoWeighted", ";y;p_{T}", NY, YBins, NPT, PTBins);
 
    HNGen.SetStats(0);
    HNReco.SetStats(0);
@@ -79,6 +89,7 @@ int main(int argc, char *argv[])
    HMatchZ.SetStats(0);
    HGenZHasReco.SetStats(0);
    HEfficiency.SetStats(0);
+   HGenZHasRecoWeighted.SetStats(0);
 
    for(string InputFileName : InputFileNames)
    {
@@ -102,6 +113,10 @@ int main(int argc, char *argv[])
 
          MEvent.GetEntry(iE);
          MMu.GetEntry(iE);
+
+         MEvent.hiBin = MEvent.hiBin - 3;   // MC shift
+         if(MEvent.hiBin < 0)   // out of range after shifting.  Skip!
+            continue;
 
          if(MMu.NGen == 0)
             continue;
@@ -132,7 +147,9 @@ int main(int argc, char *argv[])
                TLorentzVector Mu2;
                Mu2.SetPtEtaPhiM(MMu.GenPT[iMu2], MMu.GenEta[iMu2], MMu.GenPhi[iMu2], M_MU);
 
-               if((Mu1 + Mu2).M() < 60)
+               TLorentzVector Z = Mu1 + Mu2;
+
+               if(Z.M() < 60 || Z.M() > 120)
                   continue;
 
                PGenZ.push_back(Mu1 + Mu2);
@@ -145,7 +162,7 @@ int main(int argc, char *argv[])
          HNGen.Fill(NGen);
          for(int i = 0; i < NGen; i++)
          {
-            int iY = FindBin(PGenZ[i].Y(), Ys);
+            int iY = FindBin(PGenZ[i].Rapidity(), Ys);
             int iPT = FindBin(PGenZ[i].Pt(), PTs);
             HGenZ.SetBinContent(iY + 1, iPT + 1, HGenZ.GetBinContent(iY + 1, iPT + 1) + 1);
          }
@@ -171,6 +188,8 @@ int main(int argc, char *argv[])
             Mu1.SetPtEtaPhiM(MMu.DiPT1[ipair], MMu.DiEta1[ipair], MMu.DiPhi1[ipair], M_MU);
             Mu2.SetPtEtaPhiM(MMu.DiPT2[ipair], MMu.DiEta2[ipair], MMu.DiPhi2[ipair], M_MU);
 
+            if(Z.Rapidity() < -2.4 || Z.Rapidity() > 2.4)      continue;
+
             PRecoZ.push_back(Z);
             PRecoMu1.push_back(Mu1);
             PRecoMu2.push_back(Mu2);
@@ -180,7 +199,7 @@ int main(int argc, char *argv[])
          HNReco.Fill(NReco);
          for(int i = 0; i < NReco; i++)
          {
-            int iY = FindBin(PRecoZ[i].Y(), Ys);
+            int iY = FindBin(PRecoZ[i].Rapidity(), Ys);
             int iPT = FindBin(PRecoZ[i].Pt(), PTs);
             HRecoZ.SetBinContent(iY + 1, iPT + 1, HRecoZ.GetBinContent(iY + 1, iPT + 1) + 1);
          }
@@ -189,9 +208,11 @@ int main(int argc, char *argv[])
          {
             for(int i = 0; i < NGen; i++)
             {
-               int iY = FindBin(PGenZ[i].Y(), Ys);
+               int iY = FindBin(PGenZ[i].Rapidity(), Ys);
                int iPT = FindBin(PGenZ[i].Pt(), PTs);
                HGenZHasReco.SetBinContent(iY + 1, iPT + 1, HGenZHasReco.GetBinContent(iY + 1, iPT + 1) + 1);
+
+               // double W = GetZWeight(PGenZ[i].Pt(), PGenZ[i].Rapidity(), MEvent.hiBin);
             }
          }
  
@@ -202,7 +223,7 @@ int main(int argc, char *argv[])
 
             for(int j = 0; j < NReco; j++)
             {
-               double DY = PGenZ[i].Y() - PRecoZ[j].Y();
+               double DY = PGenZ[i].Rapidity() - PRecoZ[j].Rapidity();
                double DPhi = DeltaPhi(PGenZ[i].Phi(), PRecoZ[j].Phi());
                double DR = sqrt(DY * DY + DPhi * DPhi);
 
@@ -213,7 +234,7 @@ int main(int argc, char *argv[])
             HMatchDR.Fill(BestDR);
             if(BestDR < 5)   // Matched!
             {
-               int iY = FindBin(PGenZ[i].Y(), Ys);
+               int iY = FindBin(PGenZ[i].Rapidity(), Ys);
                int iPT = FindBin(PGenZ[i].Pt(), PTs);
                HMatchZ.SetBinContent(iY + 1, iPT + 1, HMatchZ.GetBinContent(iY + 1, iPT + 1) + 1);
             }
@@ -223,11 +244,21 @@ int main(int argc, char *argv[])
          for(int i = 0; i < NGen; i++)
          {
             TreeZPT = PGenZ[i].Pt();
-            TreeZY = PGenZ[i].Y();
+            TreeZY = PGenZ[i].Rapidity();
             TreeZPhi = PGenZ[i].Phi();
             TreeZMass = PGenZ[i].M();
             TreeZHasReco = (NReco > 0);
             TreeHiBin = MEvent.hiBin;
+            TreeW = GetZWeightMC(TreeZPT, TreeZY, TreeHiBin);
+            TreeWData = GetZWeightData(TreeZPT, TreeZY, TreeHiBin);
+
+            TreeMu1TnP1 = tnp_weight_glbPFtrk_pbpb(PGenMu1[i].Eta(), TreeHiBin * 0.5, 0);
+            TreeMu1TnP2 = tnp_weight_muid_pbpb(PGenMu1[i].Eta(), 0);
+            TreeMu1TnP3 = tnp_weight_trig_pbpb(PGenMu1[i].Pt(), PGenMu1[i].Eta(), TreeHiBin * 0.5, 0);
+            TreeMu2TnP1 = tnp_weight_glbPFtrk_pbpb(PGenMu2[i].Eta(), TreeHiBin * 0.5, 0);
+            TreeMu2TnP2 = tnp_weight_muid_pbpb(PGenMu2[i].Eta(), 0);
+            TreeMu2TnP3 = tnp_weight_trig_pbpb(PGenMu2[i].Pt(), PGenMu2[i].Eta(), TreeHiBin * 0.5, 0);
+            
             Tree.Fill();
          }
       }
