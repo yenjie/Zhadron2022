@@ -1300,10 +1300,14 @@ bool TrackTreeMessenger::PassZHadron2022Cut(int index)
    if(RelativeUncertainty > 0.1)
       return false;
 
-   if(trkDxyOverDxyError[index] > 3)
+   // if(trkDxyOverDxyError[index] > 3)
+   //    return false;
+   if(fabs(trkDxy1[index]) / trkDxyError1[index] > 3)
       return false;
 
-   if(trkDzOverDzError[index] > 3)
+   // if(trkDzOverDzError[index] > 3)
+   //    return false;
+   if(fabs(trkDz1[index]) / trkDzError1[index] > 3)
       return false;
 
    if(trkEta[index] < -2.4 || trkEta[index] > 2.4)
