@@ -40,6 +40,7 @@ std::vector<int> GetPrimaryColors();
 std::vector<int> GetCVDColors6();
 std::vector<int> GetCVDColors8();
 std::vector<int> GetCVDColors10();
+void SetCorrelationStyle();
 
 void SetThesisStyle()
 {
@@ -1147,6 +1148,37 @@ std::vector<int> GetCVDColors10()
       Colors.push_back(TColor::GetColor(ColorStrings[i].c_str()));
 
    return Colors;
+}
+
+void SetCorrelationStyle()
+{
+  gROOT->SetStyle("Plain");
+  gStyle->SetPalette(1);
+  gStyle->SetPadTickX(1);
+  gStyle->SetPadTickY(1);
+  gStyle->SetLabelFont(43,"xyz");
+  gStyle->SetTitleFont(43);
+  gStyle->SetTitleFont(43,"xyz");
+  gStyle->SetStatFont(43);
+
+  gStyle->SetFrameFillColor(kWhite);
+  gStyle->SetCanvasColor(kWhite);
+  gStyle->SetOptStat(0); /*don't show statistics box*/
+  gStyle->SetOptTitle(0); /*don't show histogram titles*/
+  gStyle->SetTitleSize(48, "xyz");
+  gStyle->SetTitleOffset(1, "xyz");
+  gStyle->SetLabelSize(36, "xyz");
+  gStyle->SetLegendBorderSize(0);
+  gStyle->SetLegendFillColor(kWhite);
+
+  gStyle->SetPadTopMargin(0.05);
+  gStyle->SetPadBottomMargin(0.15);
+  gStyle->SetPadLeftMargin(0.15);
+  gStyle->SetPadRightMargin(0.05);
+
+  gStyle->SetLineScalePS(1.5);
+
+  gROOT->ForceStyle();
 }
 
 
