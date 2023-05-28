@@ -28,7 +28,7 @@ struct Files;
 struct Plots;
 struct Setting;
 int main(int argc, char *argv[]);
-void ZtrackDraw_single(Files &File, Setting &S);
+void ZtrackDraw_single(Files &File, Setting S);
 void DivideByBinWidth(TH1D *H = nullptr);
 void DivideByBinWidth(TH2D *H = nullptr);
 void Draw1DPlot(TH1D *H1, TH1D *H2, string XTitle, string YTitle, bool WithMin,
@@ -188,6 +188,93 @@ public:
    {
    }
 };
+
+int main(int argc, char *argv[])
+{
+   SetCorrelationStyle();
+
+   Files File;
+   
+   File.SignalData      = TFile::Open("GraphDataSignal_v9.root", "read");
+   File.SignalMC        = TFile::Open("GraphMCSignal_v9.root", "read");
+   File.BackgroundData  = TFile::Open("GraphDataBackground_v9.root", "read");
+   File.BackgroundMC    = TFile::Open("GraphMCBackground_v9.root", "read");
+   File.ppData          = nullptr;
+   File.ppMC            = TFile::Open("GraphPPMC0Sub_v9.root", "read");
+   File.SignalMCGen     = TFile::Open("GraphMCSignalGen_v9.root", "read");
+   File.BackgroundMCGen = TFile::Open("GraphMCBackgroundGen_v9.root", "read");
+
+/*
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90,  0, 1000));
+
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  1,    2));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  2,    5));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,   10));
+
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  4,    5));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,    7));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  7,   10));
+
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  1,    2));
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  2,    5));
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  5,   10));
+*/
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  4,    5));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  5,    7));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  7,   10));
+
+
+   /*
+   ZtrackDraw_single(File, Setting(40, 30,   40,  0, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 40,   60,  0, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 60,   80,  0, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 80,  100,  0, 90,  0, 1000));*/
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 10, 30,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 30, 50,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  1,    2));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  2,    5));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,   10));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 10,   20));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 20,   50));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 50,  100));
+   /*
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  1,    2));
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  1,    2));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  2,    5));
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  2,    5));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  5,   10));
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  5,   10));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 20,   50));
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90, 20,   50));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 50,  100));
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90, 50,  100));
+   ZtrackDraw_single(File, Setting(40, 30, 2000,  0, 30,  1, 1000));
+   ZtrackDraw_single(File, Setting(40, 30, 2000, 30, 50,  1, 1000));
+   ZtrackDraw_single(File, Setting(40, 30, 2000, 50, 90,  1, 1000));*/
+
+/* 
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90,  5,   10));
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 10,   20));
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 20,   50));
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 50,  100));
+*/
+
+   ZtrackDraw_single(File, Setting(40, 10, 2000,  0, 90,  2, 1000));
+
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10, 10,   20));
+
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10, 10,   20));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 10, 30, 10,   20));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 30, 50, 10,   20));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 10,   20));
+
+   return 0;
+
+}
 
 void ZtrackDraw_single(Files &Files, Setting S)
 {
@@ -855,92 +942,6 @@ void ZtrackDraw_single(Files &Files, Setting S)
    // */
 }
 
-int main(int argc, char *argv[])
-{
-   SetCorrelationStyle();
-
-   Files File;
-   
-   File.SignalData      = TFile::Open("GraphDataSignal_v9.root","read");
-   File.SignalMC        = TFile::Open("GraphMCSignal_v9.root","read");
-   File.BackgroundData  = TFile::Open("GraphDataBackground_v9.root","read");
-   File.BackgroundMC    = TFile::Open("GraphMCBackground_v9.root","read");
-   File.ppData          = nullptr;
-   File.ppMC            = TFile::Open("GraphPPMC0Sub_v9.root","read");
-   File.SignalMCGen     = TFile::Open("GraphMCSignalGen_v9.root","read");
-   File.BackgroundMCGen = TFile::Open("GraphMCBackgroundGen_v9.root","read");
-
-/*
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90,  0, 1000));
-
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  1,    2));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  2,    5));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,   10));
-
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  4,    5));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,    7));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  7,   10));
-
-   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  1,    2));
-   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  2,    5));
-   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  5,   10));
-*/
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  4,    5));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  5,    7));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  7,   10));
-
-
-   /*
-   ZtrackDraw_single(File, Setting(40, 30,   40,  0, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 40,   60,  0, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 60,   80,  0, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 80,  100,  0, 90,  0, 1000));*/
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 10, 30,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 30, 50,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  1,    2));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  2,    5));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,   10));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 10,   20));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 20,   50));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 50,  100));
-   /*
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  1,    2));
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  1,    2));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  2,    5));
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  2,    5));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  5,   10));
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  5,   10));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 20,   50));
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90, 20,   50));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 50,  100));
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90, 50,  100));
-   ZtrackDraw_single(File, Setting(40, 30, 2000,  0, 30,  1, 1000));
-   ZtrackDraw_single(File, Setting(40, 30, 2000, 30, 50,  1, 1000));
-   ZtrackDraw_single(File, Setting(40, 30, 2000, 50, 90,  1, 1000));*/
-
-/* 
-   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90,  5,   10));
-   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 10,   20));
-   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 20,   50));
-   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 50,  100));
-*/
-
-   ZtrackDraw_single(File, Setting(40, 10, 2000,  0, 90,  2, 1000));
-
-   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10, 10,   20));
-
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10, 10,   20));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 10, 30, 10,   20));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 30, 50, 10,   20));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 10,   20));
-
-   return 0;
-
-}
 
 void DivideByBinWidth(TH1D *H)
 {
