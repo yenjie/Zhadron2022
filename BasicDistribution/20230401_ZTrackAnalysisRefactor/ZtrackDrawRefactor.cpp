@@ -329,180 +329,52 @@ void ZtrackDraw_single(Files &Files, Setting S)
 
    //// // Draw eta 
 
+   string Identifier = Form("%.0f_%.0f_%.0f_%.0f_%.0f_%.0f", S.ptL, S.ptH, S.centL, S.centH, S.TptL, S.TptH);
+
    Draw1DPlot(HSignalMC.H1["HEta"], HSignalData.H1["HEta"],
-      "Signal |#Delta#eta_{Z,track}}", "dN/d#Delta#eta", S,
+      "Signal |#Delta#eta_{Z,track}|", "dN/d#Delta#eta", S,
       BaseFolder + "/" + typeofdata + "/Deta",
-      Form("Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta", typeofdata, S.ptL, S.ptH, S.centL, S.centH, S.TptL, S.TptH));
+      Form("Ztrack_%s_sig_%s_Deta", typeofdata, Identifier.c_str()));
    
    Draw1DPlot(HBackgroundMC.H1["HEta"], HBackgroundData.H1["HEta"],
-      "Background |#Delta#eta_{Z,track}}", "dN/d#Delta#eta", S,
+      "Background |#Delta#eta_{Z,track}|", "dN/d#Delta#eta", S,
       BaseFolder + "/" + typeofdata + "/Deta",
-      Form("Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta", typeofdata, S.ptL, S.ptH, S.centL, S.centH, S.TptL, S.TptH));
+      Form("Ztrack_%s_bkg_%s_Deta", typeofdata, Identifier.c_str()));
    
    Draw1DPlot(HSignalMCSB.H1["HEta"], HSignalDataSB.H1["HEta"],
-      "Signal - Background |#Delta#eta_{Z,track}}", "dN/d#Delta#eta", S,
+      "Signal - Background |#Delta#eta_{Z,track}|", "dN/d#Delta#eta", S,
       BaseFolder + "/" + typeofdata + "/Deta",
-      Form("Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta", typeofdata, S.ptL, S.ptH, S.centL, S.centH, S.TptL, S.TptH));
+      Form("Ztrack_%s_sb_%s_Deta", typeofdata, Identifier.c_str()));
    
    Draw1DPlot(HSignalMCSBR.H1["HEta"], HSignalDataSBR.H1["HEta"],
-      "Signal - Background |#Delta#eta_{Z,track}}", "dN/d#Delta#eta", S,
+      "Signal - Background |#Delta#eta_{Z,track}|", "dN/d#Delta#eta", S,
       BaseFolder + "/" + typeofdata + "/Deta",
-      Form("Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta", typeofdata, S.ptL, S.ptH, S.centL, S.centH, S.TptL, S.TptH));
+      Form("Ztrack_%s_sb_%s_Deta", typeofdata, Identifier.c_str()));
    
-   //// max1 = hMC_MuDeta->GetMaximum();
-   //// max2 = hData_MuDeta->GetMaximum();
-   //// 
-   //// if(max1<max2) hData_MuDeta->Draw();
-   //// else hMC_MuDeta->Draw();
-   //// hMC_MuDeta->Draw("same");
-   //// hData_MuDeta->Draw("same");
-
-   //// hMC_MuDeta->SetXTitle("Signal |#Delta#eta_{#mu#mu}|");
-   //// hData_MuDeta->SetXTitle("Signal |#Delta#eta_{#mu#mu}|");
-   //// hMC_MuDeta->SetYTitle("dN/d#Delta#eta");
-   //// hData_MuDeta->SetYTitle("dN/d#Delta#eta");
-
-   //// leg.Draw();
-   //// pt->Draw();
-   //// pt2->Draw();
-   //// pt3->Draw();
-   //// hMC_MuDeta->SetMinimum(0);
-   //// hMC_MuDeta->SetMaximum(3.0/binnum); 
-   //// hData_MuDeta->SetMinimum(0);
-   //// hData_MuDeta->SetMaximum(3.0/binnum); 
-
-   //// //ptN0->Draw();
-
-   //// c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/muD/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_muDeta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/muD/pdf/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_muDeta.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/muD/C/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_muDeta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// c->Clear();
-
-   //// max1 = hMC_bkg_MuDeta->GetMaximum();
-   //// max2 = hData_bkg_MuDeta->GetMaximum();
-   //// 
-   //// if(max1<max2) hData_bkg_MuDeta->Draw();
-   //// else hMC_bkg_MuDeta->Draw();
-   //// hMC_bkg_MuDeta->Draw("same");
-   //// hData_bkg_MuDeta->Draw("same");
-
-   //// hMC_bkg_eta->SetXTitle("Background |#Delta#eta_{#mu#mu}|");
-   //// hData_bkg_eta->SetXTitle("Background |#Delta#eta_{#mu#mu}|");
-   //// hMC_bkg_eta->SetYTitle("dN/d#Delta#eta");
-   //// hData_bkg_eta->SetYTitle("dN/d#Delta#eta");
-
-   //// leg.Draw();
-   //// pt->Draw();
-   //// pt2->Draw();
-   //// pt3->Draw();
-   //// hMC_bkg_MuDeta->SetMinimum(0);
-   //// hMC_bkg_MuDeta->SetMaximum(3.0/binnum); 
-   //// hData_bkg_MuDeta->SetMinimum(0);
-   //// hData_bkg_MuDeta->SetMaximum(3.0/binnum); 
-
-   //// //ptNb->Draw();
-
-   //// c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/muD/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_muDeta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/muD/pdf/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_muDeta.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/muD/C/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_muDeta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// c->Clear();
-
-   //// max1 = hMC_phi->GetMaximum();
-   //// max2 = hData_phi->GetMaximum();
-   //// 
-   //// if(max1<max2) hData_phi->Draw();
-   //// else hMC_phi->Draw();
-   //// hMC_phi->Draw("same");
-   //// hData_phi->Draw("same");
-
-   //// if(max1<max2) max1=max2;
-
-   //// hMC_phi->SetXTitle("Signal #Delta#phi_{Z,track}");
-   //// hData_phi->SetXTitle("Signal #Delta#phi_{Z,track}");
-   //// hMC_phi->SetYTitle("dN/d#Delta#phi");
-   //// hData_phi->SetYTitle("dN/d#Delta#phi");
-
-   //// leg.Draw();
-   //// pt->Draw();
-   //// pt2->Draw();
-   //// pt3->Draw();
-   //// hMC_phi->SetMinimum(0);
-   //// hMC_phi->SetMaximum(1.6*max1);
-   //// hData_phi->SetMinimum(0);
-   //// hData_phi->SetMaximum(1.6*max1);
-
-   //// ptN0->Draw();
-
-   //// c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/pdf/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/C/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// c->Clear();
-
-   //// max1 = hMC_bkg_phi->GetMaximum();
-   //// max2 = hData_bkg_phi->GetMaximum();
-   //// 
-   //// if(max1<max2) hData_bkg_phi->Draw();
-   //// else hMC_bkg_phi->Draw();
-   //// hMC_bkg_phi->Draw("same");
-   //// hData_bkg_phi->Draw("same");
-
-   //// if(max1<max2) max1=max2;
-
-   //// hMC_bkg_phi->SetXTitle("Background #Delta#phi_{Z,track}");
-   //// hData_bkg_phi->SetXTitle("Background #Delta#phi_{Z,track}");
-   //// hMC_bkg_phi->SetYTitle("dN/d#Delta#phi");
-   //// hData_bkg_phi->SetYTitle("dN/d#Delta#phi");
-
-   //// leg.Draw();
-   //// pt->Draw();
-   //// pt2->Draw();
-   //// pt3->Draw();
-   //// hMC_bkg_phi->SetMinimum(0);
-   //// hMC_bkg_phi->SetMaximum(1.6*max1);
-   //// hData_bkg_phi->SetMinimum(0);
-   //// hData_bkg_phi->SetMaximum(1.6*max1);
-
-   //// ptNb->Draw();
-
-   //// c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/pdf/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/C/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// c->Clear();
-
-   //// max1 = hMC_sb_phi->GetMaximum();
-   //// max2 = hData_sb_phi->GetMaximum();
-
-   //// min1 = hMC_sb_phi->GetMinimum();
-   //// min2 = hData_sb_phi->GetMinimum();
-   //// if(min2<min1) min1=min2;
-   //// 
-   //// if(max1<max2) hData_sb_phi->Draw();
-   //// else hMC_sb_phi->Draw();
-   //// hMC_sb_phi->Draw("same");
-   //// hData_sb_phi->Draw("same");
-
-   //// if(max1<max2) max1=max2;
-
-   //// hMC_sb_phi->SetXTitle("Signal - Background #Delta#phi_{Z,track}");
-   //// hData_sb_phi->SetXTitle("Signal - Background #Delta#phi_{Z,track}");
-   //// hMC_sb_phi->SetYTitle("dN/d#Delta#phi");
-   //// hData_sb_phi->SetYTitle("dN/d#Delta#phi");
-
-   //// leg.Draw();
-   //// pt->Draw();
-   //// pt2->Draw();
-   //// pt3->Draw();
-   //// hMC_sb_phi->SetMinimum(min1);
-   //// hMC_sb_phi->SetMaximum(1.6*max1);
-   //// hData_sb_phi->SetMinimum(min1);
-   //// hData_sb_phi->SetMaximum(1.6*max1);
-
-   //// //ptN0->Draw();
-
-   //// c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/pdf/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// c->Clear();
+   Draw1DPlot(HSignalMC.H1["HTrackMuonEta"], HSignalData.H1["HTrackMuonEta"],
+      "Signal |#Delta#eta_{#mu#mu}|", "dN/d#Delta#eta", S,
+      BaseFolder + "/" + typeofdata + "/muD",
+      Form("Ztrack_%s_sig_%s_muDeta", typeofdata, Identifier.c_str()));
+   
+   Draw1DPlot(HBackgroundMC.H1["HTrackMuonEta"], HBackgroundData.H1["HTrackMuonEta"],
+      "Background |#Delta#eta_{#mu#mu}|", "dN/d#Delta#eta", S,
+      BaseFolder + "/" + typeofdata + "/muD",
+      Form("Ztrack_%s_bkg_%s_muDeta", typeofdata, Identifier.c_str()));
+   
+   Draw1DPlot(HSignalMC.H1["HPhi"], HSignalData.H1["HPhi"],
+      "Signal |#Delta#phi_{Z,track}|", "dN/d#Delta#phi", S,
+      BaseFolder + "/" + typeofdata + "/Dphi",
+      Form("Ztrack_%s_sig_%s_Dphi", typeofdata, Identifier.c_str()));
+   
+   Draw1DPlot(HBackgroundMC.H1["HPhi"], HBackgroundData.H1["HPhi"],
+      "Background |#Delta#phi_{Z,track}|", "dN/d#Delta#phi", S,
+      BaseFolder + "/" + typeofdata + "/Dphi",
+      Form("Ztrack_%s_bkg_%s_Dphi", typeofdata, Identifier.c_str()));
+   
+   Draw1DPlot(HSignalMCSB.H1["HPhi"], HSignalDataSB.H1["HPhi"],
+      "Signal - Background |#Delta#phi_{Z,track}|", "dN/d#Delta#phi", S,
+      BaseFolder + "/" + typeofdata + "/Dphi",
+      Form("Ztrack_%s_sb_%s_Dphi", typeofdata, Identifier.c_str()));
 
    //// TH1D *hMC_phi_com = (TH1D*) hMC_phi->Clone("hMC_phi_com");
    //// TH1D *hMC_bkg_phi_com = (TH1D*) hMC_bkg_phi->Clone("hMC_bkg_phi_com");
