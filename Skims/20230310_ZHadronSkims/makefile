@@ -129,7 +129,7 @@ TestRunRandomMCGenBackground: Execute
 
 Execute: DoZHadronSkim.cpp
 	g++ DoZHadronSkim.cpp -I. -I$(ProjectBase)/CommonCode/include \
-		-o Execute `root-config --cflags --libs` -std=c++14 \
+		-o Execute `root-config --cflags --libs` -std=c++17 \
 		$(ProjectBase)/CommonCode/library/Messenger.o \
 		# $(FJExtra) $(FJCExtra)
 
