@@ -1,3 +1,4 @@
+#include <map>
 #include <cmath>
 #include <iostream>
 using namespace std;
@@ -64,6 +65,10 @@ public:
 struct Plots
 {
 public:
+   vector<string> N1;
+   vector<string> N2;
+   map<string, TH1D *> H1;
+   map<string, TH2D *> H2;
    TH1D *HEta;
    TH1D *HPhi;
    TH2D *HEtaphi;
@@ -80,73 +85,41 @@ public:
    TH2D *HZWTAMoreetaphi;
 public:
    Plots() {}
-   Plots(TFile *File, string FolderName, int Rebin1D = 1, int Rebin2D = 1)
+   Plots(TFile *File, string FolderName, int Rebin1D = 1, int Rebin2D = 1) :
+      N1{"HEta", "HPhi", "HTrackMuonDEta", "HTrackMuonDPhi"},
+      N2{"HEtaPhi", "HTrackMuonDEtaDPhi", "HMaxHadronEtaPhi", "HMaxOppositeHadronEtaPhi",
+         "HWTAEtaPhi", "HWTAMoreEtaPhi", "HZMaxHadronEtaPhi", "HZMaxOppositeHadronEtaPhi",
+         "HZWTAEtaPhi", "HZWTAMoreEtaPhi"}
    {
-      HEta            = Prepare1DHistogram(File, FolderName, "HEta", Rebin1D);
-      HPhi            = Prepare1DHistogram(File, FolderName, "HPhi", Rebin1D);
-      HEtaphi         = Prepare2DHistogram(File, FolderName, "HEtaPhi", Rebin2D);
-      HMuDeta         = Prepare1DHistogram(File, FolderName, "HTrackMuonDEta", Rebin1D);
-      HMuDphi         = Prepare1DHistogram(File, FolderName, "HTrackMuonDPhi", Rebin1D);
-      HMuDetaphi      = Prepare2DHistogram(File, FolderName, "HTrackMuonDEtaDPhi", Rebin2D);
-      HMaxetaphi      = Prepare2DHistogram(File, FolderName, "HMaxHadronEtaPhi", Rebin2D);
-      HMaxOetaphi     = Prepare2DHistogram(File, FolderName, "HMaxOppositeHadronEtaPhi", Rebin2D);
-      HWTAetaphi      = Prepare2DHistogram(File, FolderName, "HWTAEtaPhi", Rebin2D);
-      HWTAMoreetaphi  = Prepare2DHistogram(File, FolderName, "HWTAMoreEtaPhi", Rebin2D);
-      HZmaxetaphi     = Prepare2DHistogram(File, FolderName, "HZMaxHadronEtaPhi", Rebin2D);
-      HZmaxOetaphi    = Prepare2DHistogram(File, FolderName, "HZMaxOppositeHadronEtaPhi", Rebin2D);
-      HZWTAetaphi     = Prepare2DHistogram(File, FolderName, "HZWTAEtaPhi", Rebin2D);
-      HZWTAMoreetaphi = Prepare2DHistogram(File, FolderName, "HZWTAMoreEtaPhi", Rebin2D);
+      for(string N : N1) H1[N] = Prepare1DHistogram(File, FolderName, N, Rebin1D);
+      for(string N : N2) H2[N] = Prepare2DHistogram(File, FolderName, N, Rebin2D);
    }
-   Plots(Plots &other)
+   Plots(Plots &other) : N1(other.N1), N2(other.N2)
    {
-      HEta            = (other.HEta != nullptr) ? (TH1D *)other.HEta->Clone() : nullptr;
-      HPhi            = (other.HPhi != nullptr) ? (TH1D *)other.HPhi->Clone() : nullptr;
-      HEtaphi         = (other.HEtaphi != nullptr) ? (TH2D *)other.HEtaphi->Clone() : nullptr;
-      HMuDeta         = (other.HMuDeta != nullptr) ? (TH1D *)other.HMuDeta->Clone() : nullptr;
-      HMuDphi         = (other.HMuDphi != nullptr) ? (TH1D *)other.HMuDphi->Clone() : nullptr;
-      HMuDetaphi      = (other.HMuDetaphi != nullptr) ? (TH2D *)other.HMuDetaphi->Clone() : nullptr;
-      HMaxetaphi      = (other.HMaxetaphi != nullptr) ? (TH2D *)other.HMaxetaphi->Clone() : nullptr;
-      HMaxOetaphi     = (other.HMaxOetaphi != nullptr) ? (TH2D *)other.HMaxOetaphi->Clone() : nullptr;
-      HWTAetaphi      = (other.HWTAetaphi != nullptr) ? (TH2D *)other.HWTAetaphi->Clone() : nullptr;
-      HWTAMoreetaphi  = (other.HWTAMoreetaphi != nullptr) ? (TH2D *)other.HWTAMoreetaphi->Clone() : nullptr;
-      HZmaxetaphi     = (other.HZmaxetaphi != nullptr) ? (TH2D *)other.HZmaxetaphi->Clone() : nullptr;
-      HZmaxOetaphi    = (other.HZmaxOetaphi != nullptr) ? (TH2D *)other.HZmaxOetaphi->Clone() : nullptr;
-      HZWTAetaphi     = (other.HZWTAetaphi != nullptr) ? (TH2D *)other.HZWTAetaphi->Clone() : nullptr;
-      HZWTAMoreetaphi = (other.HZWTAMoreetaphi != nullptr) ? (TH2D *)other.HZWTAMoreetaphi->Clone() : nullptr;
+      for(string N : N1)
+         if(other.H1[N] != nullptr)
+            H1[N] = (TH1D *)other.H1[N]->Clone();
+      for(string N : N2)
+         if(other.H2[N] != nullptr)
+            H2[N] = (TH2D *)other.H2[N]->Clone();
    }
    void Subtract(Plots &other)
    {
-      if(HEta != nullptr && other.HEta != nullptr) HEta->Add(other.HEta, -1);
-      if(HPhi != nullptr && other.HPhi != nullptr) HPhi->Add(other.HPhi, -1);
-      if(HEtaphi != nullptr && other.HEtaphi != nullptr) HEtaphi->Add(other.HEtaphi, -1);
-      if(HMuDeta != nullptr && other.HMuDeta != nullptr) HMuDeta->Add(other.HMuDeta, -1);
-      if(HMuDphi != nullptr && other.HMuDphi != nullptr) HMuDphi->Add(other.HMuDphi, -1);
-      if(HMuDetaphi != nullptr && other.HMuDetaphi != nullptr) HMuDetaphi->Add(other.HMuDetaphi, -1);
-      if(HMaxetaphi != nullptr && other.HMaxetaphi != nullptr) HMaxetaphi->Add(other.HMaxetaphi, -1);
-      if(HMaxOetaphi != nullptr && other.HMaxOetaphi != nullptr) HMaxOetaphi->Add(other.HMaxOetaphi, -1);
-      if(HWTAetaphi != nullptr && other.HWTAetaphi != nullptr) HWTAetaphi->Add(other.HWTAetaphi, -1);
-      if(HWTAMoreetaphi != nullptr && other.HWTAMoreetaphi != nullptr) HWTAMoreetaphi->Add(other.HWTAMoreetaphi, -1);
-      if(HZmaxetaphi != nullptr && other.HZmaxetaphi != nullptr) HZmaxetaphi->Add(other.HZmaxetaphi, -1);
-      if(HZmaxOetaphi != nullptr && other.HZmaxOetaphi != nullptr) HZmaxOetaphi->Add(other.HZmaxOetaphi, -1);
-      if(HZWTAetaphi != nullptr && other.HZWTAetaphi != nullptr) HZWTAetaphi->Add(other.HZWTAetaphi, -1);
-      if(HZWTAMoreetaphi != nullptr && other.HZWTAMoreetaphi != nullptr) HZWTAMoreetaphi->Add(other.HZWTAMoreetaphi, -1);
+      for(string N : N1)
+         if(other.H1.find(N) != other.H1.end() && other.H1[N] != nullptr && H1[N] != nullptr)
+            H1[N]->Add(other.H1[N], -1);
+      for(string N : N2)
+         if(other.H2.find(N) != other.H2.end() && other.H2[N] != nullptr && H2[N] != nullptr)
+            H2[N]->Add(other.H2[N], -1);
    }
    void Divide(Plots &other)
    {
-      if(HEta != nullptr && other.HEta != nullptr) HEta->Divide(other.HEta);
-      if(HPhi != nullptr && other.HPhi != nullptr) HPhi->Divide(other.HPhi);
-      if(HEtaphi != nullptr && other.HEtaphi != nullptr) HEtaphi->Divide(other.HEtaphi);
-      if(HMuDeta != nullptr && other.HMuDeta != nullptr) HMuDeta->Divide(other.HMuDeta);
-      if(HMuDphi != nullptr && other.HMuDphi != nullptr) HMuDphi->Divide(other.HMuDphi);
-      if(HMuDetaphi != nullptr && other.HMuDetaphi != nullptr) HMuDetaphi->Divide(other.HMuDetaphi);
-      if(HMaxetaphi != nullptr && other.HMaxetaphi != nullptr) HMaxetaphi->Divide(other.HMaxetaphi);
-      if(HMaxOetaphi != nullptr && other.HMaxOetaphi != nullptr) HMaxOetaphi->Divide(other.HMaxOetaphi);
-      if(HWTAetaphi != nullptr && other.HWTAetaphi != nullptr) HWTAetaphi->Divide(other.HWTAetaphi);
-      if(HWTAMoreetaphi != nullptr && other.HWTAMoreetaphi != nullptr) HWTAMoreetaphi->Divide(other.HWTAMoreetaphi);
-      if(HZmaxetaphi != nullptr && other.HZmaxetaphi != nullptr) HZmaxetaphi->Divide(other.HZmaxetaphi);
-      if(HZmaxOetaphi != nullptr && other.HZmaxOetaphi != nullptr) HZmaxOetaphi->Divide(other.HZmaxOetaphi);
-      if(HZWTAetaphi != nullptr && other.HZWTAetaphi != nullptr) HZWTAetaphi->Divide(other.HZWTAetaphi);
-      if(HZWTAMoreetaphi != nullptr && other.HZWTAMoreetaphi != nullptr) HZWTAMoreetaphi->Divide(other.HZWTAMoreetaphi);
+      for(string N : N1)
+         if(other.H1.find(N) != other.H1.end() && other.H1[N] != nullptr && H1[N] != nullptr)
+            H1[N]->Divide(other.H1[N]);
+      for(string N : N2)
+         if(other.H2.find(N) != other.H2.end() && other.H2[N] != nullptr && H2[N] != nullptr)
+            H2[N]->Divide(other.H2[N]);
    }
    TH1D *Prepare1DHistogram(TFile *File, string FolderName, string HistogramName, int Rebin)
    {
@@ -225,14 +198,14 @@ void ZtrackDraw_single(Files &Files, int binnum,
    HSignalMCSBR.Divide(HBackgroundMC);
    HSignalMCGenSBR.Divide(HBackgroundMCGen);
    
-   int countD0 = HSignalData.HEta->GetEntries();
+   int countD0 = HSignalData.H1["HEta"]->GetEntries();
    cout<<"Data 0 = "<<countD0<<endl;
-   int countM0 = HSignalMC.HEta->GetEntries();
+   int countM0 = HSignalMC.H1["HEta"]->GetEntries();
    cout<<"MC 0 = "<<countM0<<endl;
 
-   int countDb = HBackgroundData.HEta->GetEntries();
+   int countDb = HBackgroundData.H1["HEta"]->GetEntries();
    cout<<"Data Bkg = "<<countDb<<endl;
-   int countMb = HBackgroundMC.HEta->GetEntries();
+   int countMb = HBackgroundMC.H1["HEta"]->GetEntries();
    cout<<"MC Bkg = "<<countMb<<endl;
 
    //// cout<<"Drawing..."<<endl;
@@ -286,7 +259,7 @@ void ZtrackDraw_single(Files &Files, int binnum,
    //// hData_sbr_phi->SetLineColor(kBlack);
    //// hMC_sbr_phi->SetLineColor(kRed);
 
-   //// if(TptL==0) TptL=TptL_min;
+   if(TptL==0) TptL=TptL_min;
 
    //// TLegend leg(0.58,0.78,0.98,0.9);
    //// leg.AddEntry(hMC_eta ,"Monte Carlo: DYLL","lep");
