@@ -28,7 +28,7 @@ struct Files;
 struct Plots;
 struct Setting;
 int main(int argc, char *argv[]);
-void ZtrackDraw_single(Files &File, Setting S);
+void ZtrackDraw_single(Files &File, Setting S, string OutputBase);
 void DivideByBinWidth(TH1D *H = nullptr);
 void DivideByBinWidth(TH2D *H = nullptr);
 void Draw1DPlot(TH1D *H1, TH1D *H2, string XTitle, string YTitle, bool WithMin,
@@ -204,79 +204,82 @@ int main(int argc, char *argv[])
    File.SignalMCGen     = TFile::Open("GraphMCSignalGen_v9.root", "read");
    File.BackgroundMCGen = TFile::Open("GraphMCBackgroundGen_v9.root", "read");
 
+   string OutputBase = "/eos/user/p/pchou/figs/track";
+   // string OutputBase = ".";
+
 /*
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  0, 1000), OutputBase);
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90,  0, 1000), OutputBase);
 
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  1,    2));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  2,    5));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,   10));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  1,    2), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  2,    5), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,   10), OutputBase);
 
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  4,    5));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,    7));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  7,   10));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  4,    5), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,    7), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  7,   10), OutputBase);
 
-   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  1,    2));
-   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  2,    5));
-   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  5,   10));
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  1,    2), OutputBase);
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  2,    5), OutputBase);
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  5,   10), OutputBase);
 */
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  4,    5));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  5,    7));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  7,   10));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  4,    5), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  5,    7), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  7,   10), OutputBase);
 
 
    /*
-   ZtrackDraw_single(File, Setting(40, 30,   40,  0, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 40,   60,  0, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 60,   80,  0, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 80,  100,  0, 90,  0, 1000));*/
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 10, 30,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 30, 50,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  1,    2));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  2,    5));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,   10));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 10,   20));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 20,   50));
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 50,  100));
+   ZtrackDraw_single(File, Setting(40, 30,   40,  0, 90,  0, 1000), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 40,   60,  0, 90,  0, 1000), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 60,   80,  0, 90,  0, 1000), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 80,  100,  0, 90,  0, 1000), OutputBase);*/
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10,  0, 1000), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 10, 30,  0, 1000), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 30, 50,  0, 1000), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  0, 1000), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  1,    2), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  2,    5), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,   10), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 10,   20), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 20,   50), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 50,  100), OutputBase);
    /*
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  0, 1000));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  1,    2));
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  1,    2));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  2,    5));
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  2,    5));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  5,   10));
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  5,   10));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 20,   50));
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90, 20,   50));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 50,  100));
-   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90, 50,  100));
-   ZtrackDraw_single(File, Setting(40, 30, 2000,  0, 30,  1, 1000));
-   ZtrackDraw_single(File, Setting(40, 30, 2000, 30, 50,  1, 1000));
-   ZtrackDraw_single(File, Setting(40, 30, 2000, 50, 90,  1, 1000));*/
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  0, 1000), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  1,    2), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  1,    2), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  2,    5), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  2,    5), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  5,   10), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  5,   10), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 20,   50), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90, 20,   50), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 50,  100), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90, 50,  100), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 30, 2000,  0, 30,  1, 1000), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 30, 2000, 30, 50,  1, 1000), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 30, 2000, 50, 90,  1, 1000), OutputBase);*/
 
 /* 
-   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90,  5,   10));
-   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 10,   20));
-   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 20,   50));
-   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 50,  100));
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90,  5,   10), OutputBase);
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 10,   20), OutputBase);
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 20,   50), OutputBase);
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 50,  100), OutputBase);
 */
 
-   ZtrackDraw_single(File, Setting(40, 10, 2000,  0, 90,  2, 1000));
+   ZtrackDraw_single(File, Setting(40, 10, 2000,  0, 90,  2, 1000), OutputBase);
 
-   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10, 10,   20));
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10, 10,   20), OutputBase);
 
-   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10, 10,   20));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 10, 30, 10,   20));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 30, 50, 10,   20));
-   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 10,   20));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10, 10,   20), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 10, 30, 10,   20), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 30, 50, 10,   20), OutputBase);
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 10,   20), OutputBase);
 
    return 0;
 
 }
 
-void ZtrackDraw_single(Files &Files, Setting S)
+void ZtrackDraw_single(Files &File, Setting S, string OutputBase)
 {
    cout << "ptL = " << S.ptL << ", ptH = " << S.ptH
       << ", centL = " << S.centL << ", centH = " << S.centH
@@ -289,14 +292,14 @@ void ZtrackDraw_single(Files &Files, Setting S)
    string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",S.ptL,S.ptH,S.centL,S.centH,S.TptL,S.TptH);
    replace(FolderName.begin(), FolderName.end(), '.', 'p');
 
-   Plots HSignalData(Files.SignalData, FolderName, 1, 5);
-   Plots HSignalMC(Files.SignalMC, FolderName, 1, 4);
-   Plots HppData(Files.ppData, FolderName, 1, 5);
-   Plots HppMC(Files.ppMC, FolderName, 1, 4);
-   Plots HBackgroundData(Files.BackgroundData, FolderName, 1, 5);
-   Plots HBackgroundMC(Files.BackgroundMC, FolderName, 1, 4);
-   Plots HSignalMCGen(Files.SignalMCGen, FolderName, 1, 4);
-   Plots HBackgroundMCGen(Files.BackgroundMCGen, FolderName, 1, 4);
+   Plots HSignalData(File.SignalData, FolderName, 1, 5);
+   Plots HSignalMC(File.SignalMC, FolderName, 1, 4);
+   Plots HppData(File.ppData, FolderName, 1, 5);
+   Plots HppMC(File.ppMC, FolderName, 1, 4);
+   Plots HBackgroundData(File.BackgroundData, FolderName, 1, 5);
+   Plots HBackgroundMC(File.BackgroundMC, FolderName, 1, 4);
+   Plots HSignalMCGen(File.SignalMCGen, FolderName, 1, 4);
+   Plots HBackgroundMCGen(File.BackgroundMCGen, FolderName, 1, 4);
 
    HSignalData.HistogramStyle(kBlack, 24);
    HSignalMC.HistogramStyle(kRed, 24);
@@ -385,39 +388,37 @@ void ZtrackDraw_single(Files &Files, Setting S)
 
    // == Start drawing == //
 
-   string BaseFolder = "/eos/user/p/pchou/figs/track";
-   // string BaseFolder = ".";
-   gSystem->Exec(Form("mkdir -p %s/%s", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/Deta", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/Dphi", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/3D", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/pp", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/muD", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/gen", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/Deta/pdf", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/Dphi/pdf", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/3D/pdf", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/Deta/C", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/Dphi/C", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/3D/C", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/Deta", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/Dphi", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/3D", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/pp", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/muD", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/gen", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/Deta/pdf", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/Dphi/pdf", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/3D/pdf", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/Deta/C", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/Dphi/C", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/3D/C", OutputBase.c_str(), typeofdata));
 
-   gSystem->Exec(Form("mkdir -p %s/%s/maxetaphi/pdf", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/maxetaphi/C", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/maxOetaphi/pdf", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/maxOetaphi/C", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/WTAetaphi/pdf", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/WTAetaphi/C", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/WTAMoreetaphi/pdf", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/WTAMoreetaphi/C", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/maxetaphi/pdf", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/maxetaphi/C", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/maxOetaphi/pdf", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/maxOetaphi/C", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/WTAetaphi/pdf", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/WTAetaphi/C", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/WTAMoreetaphi/pdf", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/WTAMoreetaphi/C", OutputBase.c_str(), typeofdata));
 
-   gSystem->Exec(Form("mkdir -p %s/%s/Zmaxetaphi/pdf", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/Zmaxetaphi/C", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/ZmaxOetaphi/pdf", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/ZmaxOetaphi/C", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/ZWTAetaphi/pdf", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/ZWTAetaphi/C", BaseFolder.c_str(), typeofdata));
-   gSystem->Exec(Form("mkdir -p %s/%s/ZWTAMoreetaphi/pdf", BaseFolder.c_str(), typeofdata));
-   //gSystem->Exec(Form("mkdir -p %s/%s/ZWTAMoreetaphi/C", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/Zmaxetaphi/pdf", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/Zmaxetaphi/C", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/ZmaxOetaphi/pdf", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/ZmaxOetaphi/C", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/ZWTAetaphi/pdf", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/ZWTAetaphi/C", OutputBase.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/ZWTAMoreetaphi/pdf", OutputBase.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/ZWTAMoreetaphi/C", OutputBase.c_str(), typeofdata));
 
    //// // Draw eta 
 
@@ -425,47 +426,47 @@ void ZtrackDraw_single(Files &Files, Setting S)
 
    Draw1DPlot(HSignalMC.H1["HEta"], HSignalData.H1["HEta"],
       "Signal |#Delta#eta_{Z,track}|", "dN/d#Delta#eta", false, S,
-      BaseFolder + "/" + typeofdata + "/Deta",
+      OutputBase + "/" + typeofdata + "/Deta",
       Form("Ztrack_%s_sig_%s_Deta", typeofdata, Identifier.c_str()));
    
    Draw1DPlot(HBackgroundMC.H1["HEta"], HBackgroundData.H1["HEta"],
       "Background |#Delta#eta_{Z,track}|", "dN/d#Delta#eta", false, S,
-      BaseFolder + "/" + typeofdata + "/Deta",
+      OutputBase + "/" + typeofdata + "/Deta",
       Form("Ztrack_%s_bkg_%s_Deta", typeofdata, Identifier.c_str()));
    
    Draw1DPlot(HSignalMCSB.H1["HEta"], HSignalDataSB.H1["HEta"],
       "Signal - Background |#Delta#eta_{Z,track}|", "dN/d#Delta#eta", false, S,
-      BaseFolder + "/" + typeofdata + "/Deta",
+      OutputBase + "/" + typeofdata + "/Deta",
       Form("Ztrack_%s_sb_%s_Deta", typeofdata, Identifier.c_str()));
    
    Draw1DPlot(HSignalMCSBR.H1["HEta"], HSignalDataSBR.H1["HEta"],
       "Signal - Background |#Delta#eta_{Z,track}|", "dN/d#Delta#eta", false, S,
-      BaseFolder + "/" + typeofdata + "/Deta",
+      OutputBase + "/" + typeofdata + "/Deta",
       Form("Ztrack_%s_sb_%s_Deta", typeofdata, Identifier.c_str()));
    
    Draw1DPlot(HSignalMC.H1["HTrackMuonEta"], HSignalData.H1["HTrackMuonEta"],
       "Signal |#Delta#eta_{#mu#mu}|", "dN/d#Delta#eta", false, S,
-      BaseFolder + "/" + typeofdata + "/muD",
+      OutputBase + "/" + typeofdata + "/muD",
       Form("Ztrack_%s_sig_%s_muDeta", typeofdata, Identifier.c_str()));
    
    Draw1DPlot(HBackgroundMC.H1["HTrackMuonEta"], HBackgroundData.H1["HTrackMuonEta"],
       "Background |#Delta#eta_{#mu#mu}|", "dN/d#Delta#eta", false, S,
-      BaseFolder + "/" + typeofdata + "/muD",
+      OutputBase + "/" + typeofdata + "/muD",
       Form("Ztrack_%s_bkg_%s_muDeta", typeofdata, Identifier.c_str()));
    
    Draw1DPlot(HSignalMC.H1["HPhi"], HSignalData.H1["HPhi"],
       "Signal |#Delta#phi_{Z,track}|", "dN/d#Delta#phi", false, S,
-      BaseFolder + "/" + typeofdata + "/Dphi",
+      OutputBase + "/" + typeofdata + "/Dphi",
       Form("Ztrack_%s_sig_%s_Dphi", typeofdata, Identifier.c_str()));
    
    Draw1DPlot(HBackgroundMC.H1["HPhi"], HBackgroundData.H1["HPhi"],
       "Background |#Delta#phi_{Z,track}|", "dN/d#Delta#phi", false, S,
-      BaseFolder + "/" + typeofdata + "/Dphi",
+      OutputBase + "/" + typeofdata + "/Dphi",
       Form("Ztrack_%s_bkg_%s_Dphi", typeofdata, Identifier.c_str()));
    
    Draw1DPlot(HSignalMCSB.H1["HPhi"], HSignalDataSB.H1["HPhi"],
       "Signal - Background |#Delta#phi_{Z,track}|", "dN/d#Delta#phi", false, S,
-      BaseFolder + "/" + typeofdata + "/Dphi",
+      OutputBase + "/" + typeofdata + "/Dphi",
       Form("Ztrack_%s_sb_%s_Dphi", typeofdata, Identifier.c_str()));
 
    {
@@ -557,7 +558,7 @@ void ZtrackDraw_single(Files &Files, Setting S)
 
    Draw1DPlot(HSignalMCSBR.H1["HPhi"], HSignalDataSBR.H1["HPhi"],
          "Signal / Background |#Delta#phi_{Z,track}|", "dN/d#Delta#phi", true, S,
-         BaseFolder + "/" + typeofdata + "/Dphi",
+         OutputBase + "/" + typeofdata + "/Dphi",
          Form("Ztrack_%s_sbr_%s_Dphi", typeofdata, Identifier.c_str()));
 
    // TODO Check this?
@@ -565,14 +566,14 @@ void ZtrackDraw_single(Files &Files, Setting S)
    //// hData_MuDphi->SetMaximum(3.0/binnum); 
    Draw1DPlot(HSignalMC.H1["HTrackMuonPhi"], HSignalData.H1["HTrackMuonPhi"],
          "Signal |#Delta#phi_{#mu#mu}|", "dN/d#Delta#phi", false, S,
-         BaseFolder + "/" + typeofdata + "/muD",
+         OutputBase + "/" + typeofdata + "/muD",
          Form("Ztrack_%s_sig_%s_muDphi", typeofdata, Identifier.c_str()));
    
    //// hMC_bkg_MuDphi->SetMaximum(3.0/binnum); 
    //// hData_bkg_MuDphi->SetMaximum(3.0/binnum); 
    Draw1DPlot(HSignalMC.H1["HTrackMuonPhi"], HSignalData.H1["HTrackMuonPhi"],
       "Background |#Delta#phi_{#mu#mu}|", "dN/d#Delta#phi", false, S,
-      BaseFolder + "/" + typeofdata + "/muD",
+      OutputBase + "/" + typeofdata + "/muD",
       Form("Ztrack_%s_bkg_%s_muDphi", typeofdata, Identifier.c_str()));
 
 
@@ -580,50 +581,50 @@ void ZtrackDraw_single(Files &Files, Setting S)
 
    Draw2DPlot2Panel(HSignalMC.H2["HEtaPhi"], HSignalData.H2["HEtaPhi"],
       "Signal #Delta#eta_{Z,track}", "Signal #Delta#phi_{Z,track}", "dN/d#Delta#etad#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/3D",
+      OutputBase + "/" + typeofdata + "/3D",
       Form("Ztrack_%s_sig_%s_Detaphi_3D", typeofdata, Identifier.c_str()), "lego20");
    
    Draw2DPlot2Panel(HBackgroundMC.H2["HEtaPhi"], HBackgroundData.H2["HEtaPhi"],
       "Background #Delta#eta_{Z,track}", "Background #Delta#phi_{Z,track}", "dN/d#Delta#etad#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/3D",
+      OutputBase + "/" + typeofdata + "/3D",
       Form("Ztrack_%s_bkg_%s_Detaphi_3D", typeofdata, Identifier.c_str()), "lego20");
 
    Draw2DPlot2Panel(HSignalMCSB.H2["HEtaPhi"], HSignalDataSB.H2["HEtaPhi"],
       "Signal - Background #Delta#eta_{Z,track}", "Signal - Background #Delta#phi_{Z,track}", "dN/d#Delta#etad#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/3D",
+      OutputBase + "/" + typeofdata + "/3D",
       Form("Ztrack_%s_sb_%s_Detaphi_3D", typeofdata, Identifier.c_str()), "lego20");
    
    Draw2DPlot2Panel(HSignalMCSBR.H2["HEtaPhi"], HSignalDataSBR.H2["HEtaPhi"],
       "Signal/Background #Delta#eta_{Z,track}", "Signal/Background #Delta#phi_{Z,track}", "dN/d#Delta#etad#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/3D",
+      OutputBase + "/" + typeofdata + "/3D",
       Form("Ztrack_%s_sbr_%s_Detaphi_3D", typeofdata, Identifier.c_str()), "lego20");
    
    Draw2DPlot2Panel(HSignalMCSBR.H2["HEtaPhi"], HSignalDataSBR.H2["HEtaPhi"],
       "Signal/Background #Delta#eta_{Z,track}", "Signal/Background #Delta#phi_{Z,track}", "dN/d#Delta#etad#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/3D",
+      OutputBase + "/" + typeofdata + "/3D",
       Form("Ztrack_%s_sbr_%s_Detaphi_COLZ", typeofdata, Identifier.c_str()), "colz");
    
    Draw2DPlot2Panel(HSignalMCGen.H2["HEtaPhi"], HSignalMCGen.H2["HEtaPhi"],
       "MC Gen #Delta#eta_{Z,track}", "MC Gen #Delta#phi_{Z,track}", "dN/d#Delta#etad#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/gen",
+      OutputBase + "/" + typeofdata + "/gen",
       Form("Ztrack_%s_sig_%s_Detaphi_gen", typeofdata, Identifier.c_str()), "lego20",
       {"Signal", "Background"});
    
    Draw2DPlot2Panel(HSignalMCGenSB.H2["HEtaPhi"], HSignalMCGenSBR.H2["HEtaPhi"],
       "MC Gen #Delta#eta_{Z,track}", "MC Gen #Delta#phi_{Z,track}", "dN/d#Delta#etad#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/gen",
+      OutputBase + "/" + typeofdata + "/gen",
       Form("Ztrack_%s_sig_%s_Detaphi_gensub", typeofdata, Identifier.c_str()), "lego20",
       {"Signal - Background", "Signal/Background"});
    
    Draw2DPlot2Panel(HSignalMCGen.H2["HEtaPhi"], HSignalMCGen.H2["HEtaPhi"],
       "MC Gen #Delta#eta_{Z,track}", "MC Gen #Delta#phi_{Z,track}", "dN/d#Delta#etad#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/gen",
+      OutputBase + "/" + typeofdata + "/gen",
       Form("Ztrack_%s_sig_%s_Detaphi_gen_COLZ", typeofdata, Identifier.c_str()), "colz",
       {"Signal", "Background"});
 
    Draw2DPlot2Panel(HSignalMCGenSB.H2["HEtaPhi"], HSignalMCGenSBR.H2["HEtaPhi"],
       "MC Gen #Delta#eta_{Z,track}", "MC Gen #Delta#phi_{Z,track}", "dN/d#Delta#etad#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/gen",
+      OutputBase + "/" + typeofdata + "/gen",
       Form("Ztrack_%s_sig_%s_Detaphi_gensub_COLZ", typeofdata, Identifier.c_str()), "colz",
       {"Signal - Background", "Signal/Background"});
   
@@ -631,25 +632,25 @@ void ZtrackDraw_single(Files &Files, Setting S)
    
    Draw2DPlot3Panel(HSignalMCSB.H2["HEtaPhi"], HSignalDataSB.H2["HEtaPhi"], HppMC.H2["HEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "dN/d#Delta#eta#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/pp",
+      OutputBase + "/" + typeofdata + "/pp",
       Form("Ztrack_%s_sb_%s_Detaphi_pp", typeofdata, Identifier.c_str()), "lego20",
       {"Signal - Background MC", "Signal - Background Data", "pp MC (NPU = 0)"});
    
    Draw2DPlot3Panel(HSignalMCSB.H2["HEtaPhi"], HSignalDataSB.H2["HEtaPhi"], HppMC.H2["HEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "dN/d#Delta#eta#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/pp",
+      OutputBase + "/" + typeofdata + "/pp",
       Form("Ztrack_%s_sb_%s_Detaphi_pp_COLZ", typeofdata, Identifier.c_str()), "colz",
       {"Signal - Background MC", "Signal - Background Data", "pp MC (NPU = 0)"});
 
    Draw2DPlot3Panel(HSignalMCSB.H2["HEtaPhi"], HSignalMCSBR.H2["HEtaPhi"], HppMC.H2["HEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "dN/d#Delta#eta#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/pp",
+      OutputBase + "/" + typeofdata + "/pp",
       Form("Ztrack_%s_sbr_%s_Detaphi_pp", typeofdata, Identifier.c_str()), "lego20",
       {"Signal - Background MC", "Signal/Background Data", "pp MC (NPU = 0)"});
    
    Draw2DPlot3Panel(HSignalMCSB.H2["HEtaPhi"], HSignalMCSBR.H2["HEtaPhi"], HppMC.H2["HEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "dN/d#Delta#eta#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/pp",
+      OutputBase + "/" + typeofdata + "/pp",
       Form("Ztrack_%s_sbr_%s_Detaphi_pp_COLZ", typeofdata, Identifier.c_str()), "colz",
       {"Signal - Background MC", "Signal/Background Data", "pp MC (NPU = 0)"});
   
@@ -657,13 +658,13 @@ void ZtrackDraw_single(Files &Files, Setting S)
    
    Draw2DPlot2Panel(HSignalMC.H2["HTrackMuonDEtaDPhi"], HSignalData.H2["HTrackMuonDEtaDPhi"],
       "#Delta#eta_{#mu#mu}", "#Delta#phi_{#mu#mu}", "dN/d#Delta#etad#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/muD",
+      OutputBase + "/" + typeofdata + "/muD",
       Form("Ztrack_%s_sig_%s_muDetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal MC", "Signal Data"});
 
    Draw2DPlot2Panel(HBackgroundMC.H2["HTrackMuonDEtaDPhi"], HBackgroundData.H2["HTrackMuonDEtaDPhi"],
       "#Delta#eta_{#mu#mu}", "#Delta#phi_{#mu#mu}", "dN/d#Delta#etad#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "/muD",
+      OutputBase + "/" + typeofdata + "/muD",
       Form("Ztrack_%s_bkg_%s_muDetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Background MC", "Background Data"});
 
@@ -749,193 +750,193 @@ void ZtrackDraw_single(Files &Files, Setting S)
    // /* Don't draw other axes yet 
    Draw2DPlot2Panel(HSignalMC.H2["HMaxHadronEtaPhi"], HSignalData.H2["HMaxHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/maxetaphi",
+      OutputBase + "/" + typeofdata + "/maxetaphi",
       Form("Ztrack_%s_sig_%s_Detaphi_maxetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal MC", "Signal Data"});
    
    Draw2DPlot2Panel(HBackgroundMC.H2["HMaxHadronEtaPhi"], HBackgroundData.H2["HMaxHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/maxetaphi",
+      OutputBase + "/" + typeofdata + "/maxetaphi",
       Form("Ztrack_%s_bkg_%s_Detaphi_maxetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Background MC", "Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSB.H2["HMaxHadronEtaPhi"], HSignalDataSB.H2["HMaxHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/maxetaphi",
+      OutputBase + "/" + typeofdata + "/maxetaphi",
       Form("Ztrack_%s_sb_%s_Detaphi_maxetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal-Background MC", "Signal-Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSBR.H2["HMaxHadronEtaPhi"], HSignalDataSBR.H2["HMaxHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/maxetaphi",
+      OutputBase + "/" + typeofdata + "/maxetaphi",
       Form("Ztrack_%s_sbr_%s_Detaphi_maxetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal/Background MC", "Signal/Background Data"});
    
    Draw2DPlot2Panel(HSignalMC.H2["HMaxOppositeHadronEtaPhi"], HSignalData.H2["HMaxOppositeHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/maxOetaphi",
+      OutputBase + "/" + typeofdata + "/maxOetaphi",
       Form("Ztrack_%s_sig_%s_Detaphi_maxOetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal MC", "Signal Data"});
    
    Draw2DPlot2Panel(HBackgroundMC.H2["HMaxOppositeHadronEtaPhi"], HBackgroundData.H2["HMaxOppositeHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/maxOetaphi",
+      OutputBase + "/" + typeofdata + "/maxOetaphi",
       Form("Ztrack_%s_bkg_%s_Detaphi_maxOetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Background MC", "Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSB.H2["HMaxOppositeHadronEtaPhi"], HSignalDataSB.H2["HMaxOppositeHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/maxOetaphi",
+      OutputBase + "/" + typeofdata + "/maxOetaphi",
       Form("Ztrack_%s_sb_%s_Detaphi_maxOetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal-Background MC", "Signal-Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSBR.H2["HMaxOppositeHadronEtaPhi"], HSignalDataSBR.H2["HMaxOppositeHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/maxOetaphi",
+      OutputBase + "/" + typeofdata + "/maxOetaphi",
       Form("Ztrack_%s_sbr_%s_Detaphi_maxOetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal/Background MC", "Signal/Background Data"});
    
    Draw2DPlot2Panel(HSignalMC.H2["HWTAEtaPhi"], HSignalData.H2["HWTAEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/WTAetaphi",
+      OutputBase + "/" + typeofdata + "/WTAetaphi",
       Form("Ztrack_%s_sig_%s_Detaphi_WTAetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal MC", "Signal Data"});
    
    Draw2DPlot2Panel(HBackgroundMC.H2["HWTAEtaPhi"], HBackgroundData.H2["HWTAEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/WTAetaphi",
+      OutputBase + "/" + typeofdata + "/WTAetaphi",
       Form("Ztrack_%s_bkg_%s_Detaphi_WTAetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Background MC", "Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSB.H2["HWTAEtaPhi"], HSignalDataSB.H2["HWTAEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/WTAetaphi",
+      OutputBase + "/" + typeofdata + "/WTAetaphi",
       Form("Ztrack_%s_sb_%s_Detaphi_WTAetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal-Background MC", "Signal-Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSBR.H2["HWTAEtaPhi"], HSignalDataSBR.H2["HWTAEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/WTAetaphi",
+      OutputBase + "/" + typeofdata + "/WTAetaphi",
       Form("Ztrack_%s_sbr_%s_Detaphi_WTAetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal/Background MC", "Signal/Background Data"});
 
    Draw2DPlot2Panel(HSignalMC.H2["HWTAMoreEtaPhi"], HSignalData.H2["HWTAMoreEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/WTAMoreetaphi",
+      OutputBase + "/" + typeofdata + "/WTAMoreetaphi",
       Form("Ztrack_%s_sig_%s_Detaphi_WTAMoreetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal MC", "Signal Data"});
    
    Draw2DPlot2Panel(HBackgroundMC.H2["HWTAMoreEtaPhi"], HBackgroundData.H2["HWTAMoreEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/WTAMoreetaphi",
+      OutputBase + "/" + typeofdata + "/WTAMoreetaphi",
       Form("Ztrack_%s_bkg_%s_Detaphi_WTAMoreetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Background MC", "Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSB.H2["HWTAMoreEtaPhi"], HSignalDataSB.H2["HWTAMoreEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/WTAMoreetaphi",
+      OutputBase + "/" + typeofdata + "/WTAMoreetaphi",
       Form("Ztrack_%s_sb_%s_Detaphi_WTAMoreetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal-Background MC", "Signal-Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSBR.H2["HWTAMoreEtaPhi"], HSignalDataSBR.H2["HWTAMoreEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/WTAMoreetaphi",
+      OutputBase + "/" + typeofdata + "/WTAMoreetaphi",
       Form("Ztrack_%s_sbr_%s_Detaphi_WTAMoreetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal/Background MC", "Signal/Background Data"});
 
    Draw2DPlot2Panel(HSignalMC.H2["HZMaxHadronEtaPhi"], HSignalData.H2["HZMaxHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/Zmaxetaphi",
+      OutputBase + "/" + typeofdata + "/Zmaxetaphi",
       Form("Ztrack_%s_sig_%s_Detaphi_Zmaxetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal MC", "Signal Data"});
    
    Draw2DPlot2Panel(HBackgroundMC.H2["HZMaxHadronEtaPhi"], HBackgroundData.H2["HZMaxHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/Zmaxetaphi",
+      OutputBase + "/" + typeofdata + "/Zmaxetaphi",
       Form("Ztrack_%s_bkg_%s_Detaphi_Zmaxetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Background MC", "Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSB.H2["HZMaxHadronEtaPhi"], HSignalDataSB.H2["HZMaxHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/Zmaxetaphi",
+      OutputBase + "/" + typeofdata + "/Zmaxetaphi",
       Form("Ztrack_%s_sb_%s_Detaphi_Zmaxetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal-Background MC", "Signal-Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSBR.H2["HZMaxHadronEtaPhi"], HSignalDataSBR.H2["HZMaxHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/Zmaxetaphi",
+      OutputBase + "/" + typeofdata + "/Zmaxetaphi",
       Form("Ztrack_%s_sbr_%s_Detaphi_Zmaxetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal/Background MC", "Signal/Background Data"});
    
    Draw2DPlot2Panel(HSignalMC.H2["HZMaxOppositeHadronEtaPhi"], HSignalData.H2["HZMaxOppositeHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZmaxOetaphi",
+      OutputBase + "/" + typeofdata + "/ZmaxOetaphi",
       Form("Ztrack_%s_sig_%s_Detaphi_ZmaxOetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal MC", "Signal Data"});
    
    Draw2DPlot2Panel(HBackgroundMC.H2["HZMaxOppositeHadronEtaPhi"], HBackgroundData.H2["HZMaxOppositeHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZmaxOetaphi",
+      OutputBase + "/" + typeofdata + "/ZmaxOetaphi",
       Form("Ztrack_%s_bkg_%s_Detaphi_ZmaxOetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Background MC", "Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSB.H2["HZMaxOppositeHadronEtaPhi"], HSignalDataSB.H2["HZMaxOppositeHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZmaxOetaphi",
+      OutputBase + "/" + typeofdata + "/ZmaxOetaphi",
       Form("Ztrack_%s_sb_%s_Detaphi_ZmaxOetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal-Background MC", "Signal-Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSBR.H2["HZMaxOppositeHadronEtaPhi"], HSignalDataSBR.H2["HZMaxOppositeHadronEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZmaxOetaphi",
+      OutputBase + "/" + typeofdata + "/ZmaxOetaphi",
       Form("Ztrack_%s_sbr_%s_Detaphi_ZmaxOetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal/Background MC", "Signal/Background Data"});
    
    Draw2DPlot2Panel(HSignalMC.H2["HZWTAEtaPhi"], HSignalData.H2["HZWTAEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZWTAetaphi",
+      OutputBase + "/" + typeofdata + "/ZWTAetaphi",
       Form("Ztrack_%s_sig_%s_Detaphi_ZWTAetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal MC", "Signal Data"});
    
    Draw2DPlot2Panel(HBackgroundMC.H2["HZWTAEtaPhi"], HBackgroundData.H2["HZWTAEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZWTAetaphi",
+      OutputBase + "/" + typeofdata + "/ZWTAetaphi",
       Form("Ztrack_%s_bkg_%s_Detaphi_ZWTAetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Background MC", "Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSB.H2["HZWTAEtaPhi"], HSignalDataSB.H2["HZWTAEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZWTAetaphi",
+      OutputBase + "/" + typeofdata + "/ZWTAetaphi",
       Form("Ztrack_%s_sb_%s_Detaphi_ZWTAetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal-Background MC", "Signal-Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSBR.H2["HZWTAEtaPhi"], HSignalDataSBR.H2["HZWTAEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZWTAetaphi",
+      OutputBase + "/" + typeofdata + "/ZWTAetaphi",
       Form("Ztrack_%s_sbr_%s_Detaphi_ZWTAetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal/Background MC", "Signal/Background Data"});
 
    Draw2DPlot2Panel(HSignalMC.H2["HZWTAMoreEtaPhi"], HSignalData.H2["HZWTAMoreEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZWTAMoreetaphi",
+      OutputBase + "/" + typeofdata + "/ZWTAMoreetaphi",
       Form("Ztrack_%s_sig_%s_Detaphi_ZWTAMoreetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal MC", "Signal Data"});
    
    Draw2DPlot2Panel(HBackgroundMC.H2["HZWTAMoreEtaPhi"], HBackgroundData.H2["HZWTAMoreEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZWTAMoreetaphi",
+      OutputBase + "/" + typeofdata + "/ZWTAMoreetaphi",
       Form("Ztrack_%s_bkg_%s_Detaphi_ZWTAMoreetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Background MC", "Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSB.H2["HZWTAMoreEtaPhi"], HSignalDataSB.H2["HZWTAMoreEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZWTAMoreetaphi",
+      OutputBase + "/" + typeofdata + "/ZWTAMoreetaphi",
       Form("Ztrack_%s_sb_%s_Detaphi_ZWTAMoreetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal-Background MC", "Signal-Background Data"});
    
    Draw2DPlot2Panel(HSignalMCSBR.H2["HZWTAMoreEtaPhi"], HSignalDataSBR.H2["HZWTAMoreEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "", S,
-      BaseFolder + "/" + typeofdata + "/ZWTAMoreetaphi",
+      OutputBase + "/" + typeofdata + "/ZWTAMoreetaphi",
       Form("Ztrack_%s_sbr_%s_Detaphi_ZWTAMoreetaphi", typeofdata, Identifier.c_str()), "lego20",
       {"Signal/Background MC", "Signal/Background Data"});
    // */
