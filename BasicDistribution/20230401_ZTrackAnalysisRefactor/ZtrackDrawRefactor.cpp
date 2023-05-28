@@ -50,14 +50,14 @@ public:
    }
    ~Files()
    {
-      if(SignalMC != nullptr)          delete SignalMC;
-      if(BackgroundMC != nullptr)      delete BackgroundMC;
-      if(SignalData != nullptr)        delete SignalData;
-      if(BackgroundData != nullptr)    delete BackgroundData;
-      if(ppMC != nullptr)              delete ppMC;
-      if(ppData != nullptr)            delete ppData;
-      if(SignalMCGen != nullptr)       delete SignalMCGen;
-      if(BackgroundMCGen != nullptr)   delete BackgroundMCGen;
+      if(SignalMC != nullptr)          {SignalMC->Close(); delete SignalMC;}
+      if(BackgroundMC != nullptr)      {BackgroundMC->Close(); delete BackgroundMC;}
+      if(SignalData != nullptr)        {SignalData->Close(); delete SignalData;}
+      if(BackgroundData != nullptr)    {BackgroundData->Close(); delete BackgroundData;}
+      if(ppMC != nullptr)              {ppMC->Close(); delete ppMC;}
+      if(ppData != nullptr)            {ppData->Close(); delete ppData;}
+      if(SignalMCGen != nullptr)       {SignalMCGen->Close(); delete SignalMCGen;}
+      if(BackgroundMCGen != nullptr)   {BackgroundMCGen->Close(); delete BackgroundMCGen;}
    }
 };
 
