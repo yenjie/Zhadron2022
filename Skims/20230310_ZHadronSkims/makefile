@@ -66,7 +66,7 @@ TestRunPP: Execute
 		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --DoGenLevel true --IsData false --IsPP true --MinZPT 5 --DoSumET false \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ --PFTree "pfcandAnalyzer/pfTree" \
 		--DoJet true --Jet "ak3PFJetAnalyzer/t" \
-		--DoTrackResidual true --TrackResidualPath $(TrackResidualPath) \
+		--DoTrackResidual false --TrackResidualPath $(TrackResidualPath) \
 		--JEC $(JECBasePP)/Spring18_ppRef5TeV_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBasePP)/Spring18_ppRef5TeV_RAAV3_DATA_L2L3Residual_AK3PF.txt
 
 TestRunPPData: Execute
@@ -129,7 +129,7 @@ TestRunRandomMCGenBackground: Execute
 
 Execute: DoZHadronSkim.cpp
 	g++ DoZHadronSkim.cpp -I. -I$(ProjectBase)/CommonCode/include \
-		-o Execute `root-config --cflags --libs` -std=c++17 \
+		-o Execute `root-config --cflags --libs` -std=c++14 \
 		$(ProjectBase)/CommonCode/library/Messenger.o \
 		# $(FJExtra) $(FJCExtra)
 
