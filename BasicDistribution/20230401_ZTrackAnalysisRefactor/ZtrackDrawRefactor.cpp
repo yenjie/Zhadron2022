@@ -25,13 +25,12 @@ using namespace std;
 
 struct Files;
 struct Plots;
+struct Setting;
 int main(int argc, char *argv[]);
-void ZtrackDraw_single(Files &File, int binnum = 40,
-   float ptL = 20, float ptH = 2000,
-   float centL = 0, float centH = 90,
-   float TptL = 0, float TptH = 10000);
+void ZtrackDraw_single(Files &File, Setting &S);
 void DivideByBinWidth(TH1D *H = nullptr);
 void DivideByBinWidth(TH2D *H = nullptr);
+void Draw1DPlot(TH1D *H1, TH1D *H2, string XTitle, string YTitle, Setting &S, string Base, string Tag);
 
 struct Files
 {
@@ -69,20 +68,6 @@ public:
    vector<string> N2;
    map<string, TH1D *> H1;
    map<string, TH2D *> H2;
-   TH1D *HEta;
-   TH1D *HPhi;
-   TH2D *HEtaphi;
-   TH1D *HMuDeta;
-   TH1D *HMuDphi;
-   TH2D *HMuDetaphi;
-   TH2D *HMaxetaphi;
-   TH2D *HMaxOetaphi;
-   TH2D *HWTAetaphi;
-   TH2D *HWTAMoreetaphi;
-   TH2D *HZmaxetaphi;
-   TH2D *HZmaxOetaphi;
-   TH2D *HZWTAetaphi;
-   TH2D *HZWTAMoreetaphi;
 public:
    Plots() {}
    Plots(TFile *File, string FolderName, int Rebin1D = 1, int Rebin2D = 1) :
@@ -102,6 +87,27 @@ public:
       for(string N : N2)
          if(other.H2[N] != nullptr)
             H2[N] = (TH2D *)other.H2[N]->Clone();
+   }
+   void HistogramStyle(int Color, int Marker)
+   {
+      for(string N : N1)
+      {
+         if(H1[N] != nullptr)
+         {
+            H1[N]->SetLineColor(Color);
+            H1[N]->SetMarkerColor(Color);
+            H1[N]->SetLineWidth(2);
+            H1[N]->SetMarkerStyle(Marker);
+         }
+      }
+      for(string N : N2)
+      {
+         if(H2[N] != nullptr)
+         {
+            H2[N]->SetMarkerColor(Color);
+            H2[N]->SetMarkerStyle(Marker);
+         }
+      }
    }
    void Subtract(Plots &other)
    {
@@ -159,18 +165,35 @@ public:
    }
 };
 
-void ZtrackDraw_single(Files &Files, int binnum,
-   float ptL, float ptH, float centL, float centH, float TptL, float TptH)
+struct Setting
 {
-   cout << "ptL = " << ptL << ", ptH = " << ptH
-      << ", centL = " << centL << ", centH = " << centH
-      << ", TptL = " << TptL << ", TptH = " << TptH << endl;
+public:
+   int binnum;
+   float ptL;
+   float ptH;
+   float centL;
+   float centH;
+   float TptL;
+   float TptH;
+public:
+   Setting() {}
+   Setting(int b, float p1, float p2, float c1, float c2, float T1, float T2)
+      : binnum(b), ptL(p1), ptH(p2), centL(c1), centH(c2), TptL(T1), TptH(T2)
+   {
+   }
+};
+
+void ZtrackDraw_single(Files &Files, Setting S)
+{
+   cout << "ptL = " << S.ptL << ", ptH = " << S.ptH
+      << ", centL = " << S.centL << ", centH = " << S.centH
+      << ", TptL = " << S.TptL << ", TptH = " << S.TptH << endl;
    
-   TCanvas *c = new TCanvas("c","",800,800);
+   TCanvas *c = new TCanvas("Canvas", "", 800, 800);
 
-   cout<<"Getting histograms..."<<endl;
+   cout << "Getting histograms..." << endl;
 
-   string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",ptL,ptH,centL,centH,TptL,TptH);
+   string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",S.ptL,S.ptH,S.centL,S.centH,S.TptL,S.TptH);
    replace(FolderName.begin(), FolderName.end(), '.', 'p');
 
    Plots HSignalData(Files.SignalData, FolderName);
@@ -181,6 +204,13 @@ void ZtrackDraw_single(Files &Files, int binnum,
    Plots HBackgroundMC(Files.BackgroundMC, FolderName);
    Plots HSignalMCGen(Files.SignalMCGen, FolderName);
    Plots HBackgroundMCGen(Files.BackgroundMCGen, FolderName);
+
+   HSignalData.HistogramStyle(kBlack, 24);
+   HSignalMC.HistogramStyle(kRed, 24);
+   HppData.HistogramStyle(kBlack, 24);
+   HppMC.HistogramStyle(kRed, 24);
+   HBackgroundData.HistogramStyle(kBlack, 24);
+   HBackgroundMC.HistogramStyle(kRed, 24);
 
    Plots HSignalDataSB(HSignalData);
    Plots HSignalMCSB(HSignalMC);
@@ -208,65 +238,16 @@ void ZtrackDraw_single(Files &Files, int binnum,
    int countMb = HBackgroundMC.H1["HEta"]->GetEntries();
    cout<<"MC Bkg = "<<countMb<<endl;
 
-   //// cout<<"Drawing..."<<endl;
+   if(S.TptL==0) S.TptL=TptL_min;
 
-   //// hMC_eta->SetMarkerStyle(24);
-   //// hMC_phi->SetMarkerStyle(24);
-   //// hMC_bkg_eta->SetMarkerStyle(24);
-   //// hMC_bkg_phi->SetMarkerStyle(24);
-   //// hMC_sb_eta->SetMarkerStyle(24);
-   //// hMC_sb_phi->SetMarkerStyle(24);
-   //// hMC_sbr_eta->SetMarkerStyle(24);
-   //// hMC_sbr_phi->SetMarkerStyle(24);
-
-   //// hData_eta->SetMarkerColor(kBlack);
-   //// hMC_eta->SetMarkerColor(kRed);
-   //// hData_phi->SetMarkerColor(kBlack);
-   //// hMC_phi->SetMarkerColor(kRed);
-
-   //// hData_eta->SetLineColor(kBlack);
-   //// hMC_eta->SetLineColor(kRed);
-   //// hData_phi->SetLineColor(kBlack);
-   //// hMC_phi->SetLineColor(kRed);
-
-   //// hData_bkg_eta->SetMarkerColor(kBlack);
-   //// hMC_bkg_eta->SetMarkerColor(kRed);
-   //// hData_bkg_phi->SetMarkerColor(kBlack);
-   //// hMC_bkg_phi->SetMarkerColor(kRed);
-
-   //// hData_bkg_eta->SetLineColor(kBlack);
-   //// hMC_bkg_eta->SetLineColor(kRed);
-   //// hData_bkg_phi->SetLineColor(kBlack);
-   //// hMC_bkg_phi->SetLineColor(kRed);
-
-   //// hData_sb_eta->SetMarkerColor(kBlack);
-   //// hMC_sb_eta->SetMarkerColor(kRed);
-   //// hData_sb_phi->SetMarkerColor(kBlack);
-   //// hMC_sb_phi->SetMarkerColor(kRed);
-
-   //// hData_sb_eta->SetLineColor(kBlack);
-   //// hMC_sb_eta->SetLineColor(kRed);
-   //// hData_sb_phi->SetLineColor(kBlack);
-   //// hMC_sb_phi->SetLineColor(kRed);
-
-   //// hData_sbr_eta->SetMarkerColor(kBlack);
-   //// hMC_sbr_eta->SetMarkerColor(kRed);
-   //// hData_sbr_phi->SetMarkerColor(kBlack);
-   //// hMC_sbr_phi->SetMarkerColor(kRed);
-
-   //// hData_sbr_eta->SetLineColor(kBlack);
-   //// hMC_sbr_eta->SetLineColor(kRed);
-   //// hData_sbr_phi->SetLineColor(kBlack);
-   //// hMC_sbr_phi->SetLineColor(kRed);
-
-   if(TptL==0) TptL=TptL_min;
-
-   //// TLegend leg(0.58,0.78,0.98,0.9);
-   //// leg.AddEntry(hMC_eta ,"Monte Carlo: DYLL","lep");
-   //// leg.AddEntry(hData_eta ,Form("Data: %s",typeofdatatext),"lep");
-   //// leg.SetFillColorAlpha(kWhite,0);
-   //// leg.SetLineColor(kBlack);
-   //// leg.SetLineWidth(1);
+   TLegend Legend(0.58, 0.78, 0.98, 0.90);
+   Legend.AddEntry(HSignalMC.H1["HEta"], "Monte Carlo: DYLL","lep");
+   Legend.AddEntry(HSignalData.H1["HEta"], Form("Data: %s",typeofdatatext),"lep");
+   Legend.SetFillStyle(0);
+   Legend.SetLineColor(kBlack);
+   Legend.SetLineWidth(1);
+   Legend.SetTextFont(42);
+   Legend.SetTextSize(0.035);
 
    //// TLatex *pt = new TLatex(0.18,0.88,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
    //// pt->SetTextFont(42);
@@ -309,173 +290,65 @@ void ZtrackDraw_single(Files &Files, int binnum,
    //// ptNb->SetTextSize(0.03);
    //// ptNb->SetNDC(kTRUE);
 
-   //// // == Start drawing == //
+   // == Start drawing == //
 
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Deta",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Dphi",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/3D",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/pp",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/muD",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/gen",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Deta/pdf",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Dphi/pdf",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/3D/pdf",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Deta/C",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Dphi/C",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/3D/C",typeofdata));
+   string BaseFolder = "/eos/user/p/pchou/figs/track";
+   gSystem->Exec(Form("mkdir -p %s/%s", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/Deta", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/Dphi", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/3D", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/pp", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/muD", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/gen", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/Deta/pdf", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/Dphi/pdf", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/3D/pdf", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/Deta/C", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/Dphi/C", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/3D/C", BaseFolder.c_str(), typeofdata));
 
 /*
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxetaphi/pdf",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxetaphi/C",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxOetaphi/pdf",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxOetaphi/C",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/WTAetaphi/pdf",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/WTAetaphi/C",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/pdf",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/C",typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/maxetaphi/pdf", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/maxetaphi/C", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/maxOetaphi/pdf", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/maxOetaphi/C", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/WTAetaphi/pdf", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/WTAetaphi/C", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/WTAMoreetaphi/pdf", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/WTAMoreetaphi/C", BaseFolder.c_str(), typeofdata));
 
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Zmaxetaphi/pdf",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Zmaxetaphi/C",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZmaxOetaphi/pdf",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZmaxOetaphi/C",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAetaphi/pdf",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAetaphi/C",typeofdata));
-   //// gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/pdf",typeofdata));
-   //// //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/C",typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/Zmaxetaphi/pdf", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/Zmaxetaphi/C", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/ZmaxOetaphi/pdf", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/ZmaxOetaphi/C", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/ZWTAetaphi/pdf", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/ZWTAetaphi/C", BaseFolder.c_str(), typeofdata));
+   gSystem->Exec(Form("mkdir -p %s/%s/ZWTAMoreetaphi/pdf", BaseFolder.c_str(), typeofdata));
+   //gSystem->Exec(Form("mkdir -p %s/%s/ZWTAMoreetaphi/C", BaseFolder.c_str(), typeofdata));
 */
 
    //// // Draw eta 
 
-   //// double max1 = hMC_eta->GetMaximum();
-   //// double max2 = hData_eta->GetMaximum();
-   //// 
-   //// if(max1<max2) hData_eta->Draw();
-   //// else hMC_eta->Draw();
-   //// hMC_eta->Draw("same");
-   //// hData_eta->Draw("same");
-
-   //// if(max1<max2) max1=max2;
-
-   //// hMC_eta->SetXTitle("Signal |#Delta#eta_{Z,track}|");
-   //// hData_eta->SetXTitle("Signal |#Delta#eta_{Z,track}|");
-   //// hMC_eta->SetYTitle("dN/d#Delta#eta");
-   //// hData_eta->SetYTitle("dN/d#Delta#eta");
-
-   //// leg.Draw();
-   //// pt->Draw();
-   //// pt2->Draw();
-   //// pt3->Draw();
-   //// hMC_eta->SetMinimum(0);
-   //// hMC_eta->SetMaximum(1.6*max1); 
-   //// hData_eta->SetMinimum(0);
-   //// hData_eta->SetMaximum(1.6*max1); 
-
-   //// ptN0->Draw();
-
-   //// c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/pdf/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/C/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// c->Clear();
-
-   //// max1 = hMC_bkg_eta->GetMaximum();
-   //// max2 = hData_bkg_eta->GetMaximum();
-   //// 
-   //// if(max1<max2) hData_bkg_eta->Draw();
-   //// else hMC_bkg_eta->Draw();
-   //// hMC_bkg_eta->Draw("same");
-   //// hData_bkg_eta->Draw("same");
-
-   //// if(max1<max2) max1=max2;
-
-   //// hMC_bkg_eta->SetXTitle("Background |#Delta#eta_{Z,track}|");
-   //// hData_bkg_eta->SetXTitle("Background |#Delta#eta_{Z,track}|");
-   //// hMC_bkg_eta->SetYTitle("dN/d#Delta#eta");
-   //// hData_bkg_eta->SetYTitle("dN/d#Delta#eta");
-
-   //// leg.Draw();
-   //// pt->Draw();
-   //// pt2->Draw();
-   //// pt3->Draw();
-   //// hMC_bkg_eta->SetMinimum(0);
-   //// hMC_bkg_eta->SetMaximum(1.6*max1); 
-   //// hData_bkg_eta->SetMinimum(0);
-   //// hData_bkg_eta->SetMaximum(1.6*max1); 
-
-   //// ptNb->Draw();
-
-   //// c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/pdf/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/C/Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// c->Clear();
-
-
-   //// max1 = hMC_sb_eta->GetMaximum();
-   //// max2 = hData_sb_eta->GetMaximum();
-
-   //// double min1 = hMC_sb_phi->GetMinimum();
-   //// double min2 = hData_sb_phi->GetMinimum();
-   //// if(min2<min1) min1=min2;
-   //// 
-   //// if(max1<max2) hData_sb_eta->Draw();
-   //// else hMC_sb_eta->Draw();
-   //// hMC_sb_eta->Draw("same");
-   //// hData_sb_eta->Draw("same");
-
-   //// hMC_sb_eta->SetXTitle("Signal - Background |#Delta#eta_{Z,track}|");
-   //// hData_sb_eta->SetXTitle("Signal - Background |#Delta#eta_{Z,track}|");
-   //// hMC_sb_eta->SetYTitle("dN/d#Delta#eta");
-   //// hData_sb_eta->SetYTitle("dN/d#Delta#eta");
-
-   //// leg.Draw();
-   //// pt->Draw();
-   //// pt2->Draw();
-   //// pt3->Draw();
-   //// hMC_sb_eta->SetMinimum(min1);
-   //// hMC_sb_eta->SetMaximum(1.6*max1); 
-   //// hData_sb_eta->SetMinimum(min1);
-   //// hData_sb_eta->SetMaximum(1.6*max1); 
-
-   //// //ptN0->Draw();
-
-   //// c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/pdf/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// c->Clear();
-
-   //// max1 = hMC_sbr_eta->GetMaximum();
-   //// max2 = hData_sbr_eta->GetMaximum();
-
-   //// min1 = hMC_sbr_phi->GetMinimum();
-   //// min2 = hData_sbr_phi->GetMinimum();
-   //// if(min2<min1) min1=min2;
-   //// 
-   //// if(max1<max2) hData_sbr_eta->Draw();
-   //// else hMC_sbr_eta->Draw();
-   //// hMC_sbr_eta->Draw("same");
-   //// hData_sbr_eta->Draw("same");
-
-   //// hMC_sbr_eta->SetXTitle("Signal/Background |#Delta#eta_{Z,track}|");
-   //// hData_sbr_eta->SetXTitle("Signal/Background |#Delta#eta_{Z,track}|");
-   //// hMC_sbr_eta->SetYTitle("dN/d#Delta#eta");
-   //// hData_sbr_eta->SetYTitle("dN/d#Delta#eta");
-
-   //// leg.Draw();
-   //// pt->Draw();
-   //// pt2->Draw();
-   //// pt3->Draw();
-   //// hMC_sbr_eta->SetMinimum(min1);
-   //// hMC_sbr_eta->SetMaximum(1.6*max1); 
-   //// hData_sbr_eta->SetMinimum(min1);
-   //// hData_sbr_eta->SetMaximum(1.6*max1); 
-
-   //// //ptN0->Draw();
-
-   //// c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Deta/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //// c->Clear();
-
+   Draw1DPlot(HSignalMC.H1["HEta"], HSignalData.H1["HEta"],
+      "Signal |#Delta#eta_{Z,track}}", "dN/d#Delta#eta", S,
+      BaseFolder + "/" + typeofdata + "/Deta",
+      Form("Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta", typeofdata, S.ptL, S.ptH, S.centL, S.centH, S.TptL, S.TptH));
+   
+   Draw1DPlot(HBackgroundMC.H1["HEta"], HBackgroundData.H1["HEta"],
+      "Background |#Delta#eta_{Z,track}}", "dN/d#Delta#eta", S,
+      BaseFolder + "/" + typeofdata + "/Deta",
+      Form("Ztrack_%s_bkg_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta", typeofdata, S.ptL, S.ptH, S.centL, S.centH, S.TptL, S.TptH));
+   
+   Draw1DPlot(HSignalMCSB.H1["HEta"], HSignalDataSB.H1["HEta"],
+      "Signal - Background |#Delta#eta_{Z,track}}", "dN/d#Delta#eta", S,
+      BaseFolder + "/" + typeofdata + "/Deta",
+      Form("Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta", typeofdata, S.ptL, S.ptH, S.centL, S.centH, S.TptL, S.TptH));
+   
+   Draw1DPlot(HSignalMCSBR.H1["HEta"], HSignalDataSBR.H1["HEta"],
+      "Signal - Background |#Delta#eta_{Z,track}}", "dN/d#Delta#eta", S,
+      BaseFolder + "/" + typeofdata + "/Deta",
+      Form("Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Deta", typeofdata, S.ptL, S.ptH, S.centL, S.centH, S.TptL, S.TptH));
+   
    //// max1 = hMC_MuDeta->GetMaximum();
    //// max2 = hData_MuDeta->GetMaximum();
    //// 
@@ -2852,72 +2725,72 @@ int main(int argc, char *argv[])
    File.BackgroundMCGen = TFile::Open("GraphMCBackgroundGen_v9.root","read");
 
 /*
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90,  0, 1000);
-   ZtrackDraw_single(File, 40,  5, 2000,  0, 90,  0, 1000);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90,  0, 1000));
 
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90,  1,    2);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90,  2,    5);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90,  5,   10);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  1,    2));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  2,    5));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,   10));
 
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90,  4,    5);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90,  5,    7);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90,  7,   10);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  4,    5));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,    7));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  7,   10));
 
-   //ZtrackDraw_single(File, 40, 20, 2000,  0, 30,  1,    2);
-   //ZtrackDraw_single(File, 40, 20, 2000,  0, 30,  2,    5);
-   //ZtrackDraw_single(File, 40, 20, 2000,  0, 30,  5,   10);
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  1,    2));
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  2,    5));
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  5,   10));
 */
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 30,  4,    5);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 30,  5,    7);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 30,  7,   10);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  4,    5));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  5,    7));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 30,  7,   10));
 
 
    /*
-   ZtrackDraw_single(File, 40, 30,   40,  0, 90,  0, 1000);
-   ZtrackDraw_single(File, 40, 40,   60,  0, 90,  0, 1000);
-   ZtrackDraw_single(File, 40, 60,   80,  0, 90,  0, 1000);
-   ZtrackDraw_single(File, 40, 80,  100,  0, 90,  0, 1000);*/
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 10,  0, 1000);
-   ZtrackDraw_single(File, 40, 20, 2000, 10, 30,  0, 1000);
-   ZtrackDraw_single(File, 40, 20, 2000, 30, 50,  0, 1000);
-   ZtrackDraw_single(File, 40, 20, 2000, 50, 90,  0, 1000);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90,  1,    2);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90,  2,    5);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90,  5,   10);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90, 10,   20);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90, 20,   50);
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 90, 50,  100);
+   ZtrackDraw_single(File, Setting(40, 30,   40,  0, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 40,   60,  0, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 60,   80,  0, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 80,  100,  0, 90,  0, 1000));*/
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 10, 30,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 30, 50,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  1,    2));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  2,    5));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90,  5,   10));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 10,   20));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 20,   50));
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 90, 50,  100));
    /*
-   ZtrackDraw_single(File, 40, 40, 2000, 50, 90,  0, 1000);
-   ZtrackDraw_single(File, 40, 20, 2000, 50, 90,  1,    2);
-   ZtrackDraw_single(File, 40, 40, 2000, 50, 90,  1,    2);
-   ZtrackDraw_single(File, 40, 20, 2000, 50, 90,  2,    5);
-   ZtrackDraw_single(File, 40, 40, 2000, 50, 90,  2,    5);
-   ZtrackDraw_single(File, 40, 20, 2000, 50, 90,  5,   10);
-   ZtrackDraw_single(File, 40, 40, 2000, 50, 90,  5,   10);
-   ZtrackDraw_single(File, 40, 20, 2000, 50, 90, 20,   50);
-   ZtrackDraw_single(File, 40, 40, 2000, 50, 90, 20,   50);
-   ZtrackDraw_single(File, 40, 20, 2000, 50, 90, 50,  100);
-   ZtrackDraw_single(File, 40, 40, 2000, 50, 90, 50,  100);
-   ZtrackDraw_single(File, 40, 30, 2000,  0, 30,  1, 1000);
-   ZtrackDraw_single(File, 40, 30, 2000, 30, 50,  1, 1000);
-   ZtrackDraw_single(File, 40, 30, 2000, 50, 90,  1, 1000);*/
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  0, 1000));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  1,    2));
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  1,    2));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  2,    5));
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  2,    5));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90,  5,   10));
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90,  5,   10));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 20,   50));
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90, 20,   50));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 50,  100));
+   ZtrackDraw_single(File, Setting(40, 40, 2000, 50, 90, 50,  100));
+   ZtrackDraw_single(File, Setting(40, 30, 2000,  0, 30,  1, 1000));
+   ZtrackDraw_single(File, Setting(40, 30, 2000, 30, 50,  1, 1000));
+   ZtrackDraw_single(File, Setting(40, 30, 2000, 50, 90,  1, 1000));*/
 
 /* 
-   ZtrackDraw_single(File, 40,  5, 2000,  0, 90,  5,   10);
-   ZtrackDraw_single(File, 40,  5, 2000,  0, 90, 10,   20);
-   ZtrackDraw_single(File, 40,  5, 2000,  0, 90, 20,   50);
-   ZtrackDraw_single(File, 40,  5, 2000,  0, 90, 50,  100);
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90,  5,   10));
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 10,   20));
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 20,   50));
+   ZtrackDraw_single(File, Setting(40,  5, 2000,  0, 90, 50,  100));
 */
 
-   ZtrackDraw_single(File, 40, 10, 2000,  0, 90,  2, 1000);
+   ZtrackDraw_single(File, Setting(40, 10, 2000,  0, 90,  2, 1000));
 
-   //ZtrackDraw_single(File, 40, 20, 2000,  0, 10, 10,   20);
+   //ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10, 10,   20));
 
-   ZtrackDraw_single(File, 40, 20, 2000,  0, 10, 10,   20);
-   ZtrackDraw_single(File, 40, 20, 2000, 10, 30, 10,   20);
-   ZtrackDraw_single(File, 40, 20, 2000, 30, 50, 10,   20);
-   ZtrackDraw_single(File, 40, 20, 2000, 50, 90, 10,   20);
+   ZtrackDraw_single(File, Setting(40, 20, 2000,  0, 10, 10,   20));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 10, 30, 10,   20));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 30, 50, 10,   20));
+   ZtrackDraw_single(File, Setting(40, 20, 2000, 50, 90, 10,   20));
 
    return 0;
 
@@ -2959,3 +2832,58 @@ void DivideByBinWidth(TH2D *H)
    }
 }
 
+void Draw1DPlot(TH1D *H1, TH1D *H2, string XTitle, string YTitle, Setting &S, string Base, string Tag)
+{
+   TCanvas Canvas;
+
+   double Max1 = H1->GetMaximum();
+   double Max2 = H2->GetMaximum();
+   
+   if(Max1 < Max2)
+   {
+      H1->Draw();
+      H2->Draw("same");
+   }
+   else
+   {
+      H2->Draw();
+      H1->Draw("same");
+   }
+
+   double Max = (Max1 < Max2) ? Max2 : Max1;
+
+   H1->SetXTitle(XTitle.c_str());
+   H1->SetYTitle(YTitle.c_str());
+   H2->SetXTitle(XTitle.c_str());
+   H2->SetYTitle(YTitle.c_str());
+
+   TLegend Legend(0.58, 0.78, 0.98, 0.90);
+   Legend.AddEntry(H1, "Monte Carlo: DYLL","lep");
+   Legend.AddEntry(H2, Form("Data: %s",typeofdatatext),"lep");
+   Legend.SetFillStyle(0);
+   Legend.SetLineColor(kBlack);
+   Legend.SetLineWidth(1);
+   Legend.SetTextFont(42);
+   Legend.SetTextSize(0.035);
+   
+   Legend.Draw();
+
+   TLatex Latex;
+   Latex.SetTextFont(42);
+   Latex.SetTextSize(0.03);
+   Latex.SetNDC();
+
+   Latex.DrawLatex(0.18, 0.88, Form("%.0f %%< Centrality < %.0f %%", S.centL, S.centH));
+   Latex.DrawLatex(0.18, 0.82, Form("%.1f < Z p_{T} < %.1f", S.ptL, S.ptH));
+   Latex.DrawLatex(0.18, 0.76, Form("%.1f < Track p_{T} < %.1f", S.TptL, S.TptH));
+   // Latex.DrawLatex(0.10, 0.97, Form("Signal N_{MC}^{Z} = %.1f, N_{Data}^{Z} = %.1f", tM_tN, tD_tN));
+
+   H1->SetMinimum(0);
+   H1->SetMaximum(1.6 * Max); 
+   H2->SetMinimum(0);
+   H2->SetMaximum(1.6 * Max); 
+
+   Canvas.SaveAs(Form("%s/%s.png", Base.c_str(), Tag.c_str())); 
+   // Canvas.SaveAs(Form("%s/pdf/%s.pdf", Base.c_str(), Tag.c_str())); 
+   // Canvas.SaveAs(Form("%s/C/%s.C", Base.c_str(), Tag.c_str())); 
+}
