@@ -289,14 +289,14 @@ void ZtrackDraw_single(Files &Files, Setting S)
    string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",S.ptL,S.ptH,S.centL,S.centH,S.TptL,S.TptH);
    replace(FolderName.begin(), FolderName.end(), '.', 'p');
 
-   Plots HSignalData(Files.SignalData, FolderName);
-   Plots HSignalMC(Files.SignalMC, FolderName);
-   Plots HppData(Files.ppData, FolderName);
-   Plots HppMC(Files.ppMC, FolderName);
-   Plots HBackgroundData(Files.BackgroundData, FolderName);
-   Plots HBackgroundMC(Files.BackgroundMC, FolderName);
-   Plots HSignalMCGen(Files.SignalMCGen, FolderName);
-   Plots HBackgroundMCGen(Files.BackgroundMCGen, FolderName);
+   Plots HSignalData(Files.SignalData, FolderName, 1, 5);
+   Plots HSignalMC(Files.SignalMC, FolderName, 1, 4);
+   Plots HppData(Files.ppData, FolderName, 1, 5);
+   Plots HppMC(Files.ppMC, FolderName, 1, 4);
+   Plots HBackgroundData(Files.BackgroundData, FolderName, 1, 5);
+   Plots HBackgroundMC(Files.BackgroundMC, FolderName, 1, 4);
+   Plots HSignalMCGen(Files.SignalMCGen, FolderName, 1, 4);
+   Plots HBackgroundMCGen(Files.BackgroundMCGen, FolderName, 1, 4);
 
    HSignalData.HistogramStyle(kBlack, 24);
    HSignalMC.HistogramStyle(kRed, 24);
@@ -386,6 +386,7 @@ void ZtrackDraw_single(Files &Files, Setting S)
    // == Start drawing == //
 
    string BaseFolder = "/eos/user/p/pchou/figs/track";
+   // string BaseFolder = ".";
    gSystem->Exec(Form("mkdir -p %s/%s", BaseFolder.c_str(), typeofdata));
    gSystem->Exec(Form("mkdir -p %s/%s/Deta", BaseFolder.c_str(), typeofdata));
    gSystem->Exec(Form("mkdir -p %s/%s/Dphi", BaseFolder.c_str(), typeofdata));
@@ -400,7 +401,6 @@ void ZtrackDraw_single(Files &Files, Setting S)
    //gSystem->Exec(Form("mkdir -p %s/%s/Dphi/C", BaseFolder.c_str(), typeofdata));
    //gSystem->Exec(Form("mkdir -p %s/%s/3D/C", BaseFolder.c_str(), typeofdata));
 
-/*
    gSystem->Exec(Form("mkdir -p %s/%s/maxetaphi/pdf", BaseFolder.c_str(), typeofdata));
    //gSystem->Exec(Form("mkdir -p %s/%s/maxetaphi/C", BaseFolder.c_str(), typeofdata));
    gSystem->Exec(Form("mkdir -p %s/%s/maxOetaphi/pdf", BaseFolder.c_str(), typeofdata));
@@ -418,7 +418,6 @@ void ZtrackDraw_single(Files &Files, Setting S)
    //gSystem->Exec(Form("mkdir -p %s/%s/ZWTAetaphi/C", BaseFolder.c_str(), typeofdata));
    gSystem->Exec(Form("mkdir -p %s/%s/ZWTAMoreetaphi/pdf", BaseFolder.c_str(), typeofdata));
    //gSystem->Exec(Form("mkdir -p %s/%s/ZWTAMoreetaphi/C", BaseFolder.c_str(), typeofdata));
-*/
 
    //// // Draw eta 
 
@@ -632,25 +631,25 @@ void ZtrackDraw_single(Files &Files, Setting S)
    
    Draw2DPlot3Panel(HSignalMCSB.H2["HEtaPhi"], HSignalDataSB.H2["HEtaPhi"], HppMC.H2["HEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "dN/d#Delta#eta#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "",
+      BaseFolder + "/" + typeofdata + "/pp",
       Form("Ztrack_%s_sb_%s_Detaphi_pp", typeofdata, Identifier.c_str()), "lego20",
       {"Signal - Background MC", "Signal - Background Data", "pp MC (NPU = 0)"});
    
    Draw2DPlot3Panel(HSignalMCSB.H2["HEtaPhi"], HSignalDataSB.H2["HEtaPhi"], HppMC.H2["HEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "dN/d#Delta#eta#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "",
+      BaseFolder + "/" + typeofdata + "/pp",
       Form("Ztrack_%s_sb_%s_Detaphi_pp_COLZ", typeofdata, Identifier.c_str()), "colz",
       {"Signal - Background MC", "Signal - Background Data", "pp MC (NPU = 0)"});
 
    Draw2DPlot3Panel(HSignalMCSB.H2["HEtaPhi"], HSignalMCSBR.H2["HEtaPhi"], HppMC.H2["HEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "dN/d#Delta#eta#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "",
+      BaseFolder + "/" + typeofdata + "/pp",
       Form("Ztrack_%s_sbr_%s_Detaphi_pp", typeofdata, Identifier.c_str()), "lego20",
       {"Signal - Background MC", "Signal/Background Data", "pp MC (NPU = 0)"});
    
    Draw2DPlot3Panel(HSignalMCSB.H2["HEtaPhi"], HSignalMCSBR.H2["HEtaPhi"], HppMC.H2["HEtaPhi"],
       "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}", "dN/d#Delta#eta#Delta#phi", S,
-      BaseFolder + "/" + typeofdata + "",
+      BaseFolder + "/" + typeofdata + "/pp",
       Form("Ztrack_%s_sbr_%s_Detaphi_pp_COLZ", typeofdata, Identifier.c_str()), "colz",
       {"Signal - Background MC", "Signal/Background Data", "pp MC (NPU = 0)"});
   
@@ -1087,6 +1086,10 @@ void Draw2DPlot2Panel(TH2D *H1, TH2D *H2, string XTitle, string YTitle, string Z
    Latex.DrawLatex(0.03, 0.88, Form("%.1f < Z p_{T} < %.1f", S.ptL, S.ptH));
    Latex.DrawLatex(0.03, 0.82, Form("%.1f < Track p_{T} < %.1f", S.TptL, S.TptH));
 
+   Latex.SetTextSize(0.05);
+   Latex.SetTextAlign(32);
+   Latex.DrawLatex(0.97, 0.94, H1->GetTitle());
+   
    TPad *P2 = (TPad *)Canvas.cd(2);
    P2->SetTheta(60.839);
    P2->SetPhi(38.0172);
@@ -1105,6 +1108,10 @@ void Draw2DPlot2Panel(TH2D *H1, TH2D *H2, string XTitle, string YTitle, string Z
    H2->GetXaxis()->SetNdivisions(50205, kFALSE);
    H2->GetZaxis()->SetTitle(ZTitle.c_str());
 
+   Latex.SetTextSize(0.05);
+   Latex.SetTextAlign(32);
+   Latex.DrawLatex(0.97, 0.94, H2->GetTitle());
+   
    // ptN0->Draw();
 
    Canvas.SaveAs(Form("%s/%s.png", Base.c_str(), Tag.c_str())); 
@@ -1148,6 +1155,10 @@ void Draw2DPlot3Panel(TH2D *H1, TH2D *H2, TH2D *H3, string XTitle, string YTitle
    Latex.DrawLatex(0.03, 0.88, Form("%.1f < Z p_{T} < %.1f", S.ptL, S.ptH));
    Latex.DrawLatex(0.03, 0.82, Form("%.1f < Track p_{T} < %.1f", S.TptL, S.TptH));
 
+   Latex.SetTextSize(0.05);
+   Latex.SetTextAlign(32);
+   Latex.DrawLatex(0.97, 0.94, H1->GetTitle());
+
    TPad *P2 = (TPad *)Canvas.cd(2);
    P2->SetTheta(60.839);
    P2->SetPhi(38.0172);
@@ -1165,6 +1176,10 @@ void Draw2DPlot3Panel(TH2D *H1, TH2D *H2, TH2D *H3, string XTitle, string YTitle
    H2->GetYaxis()->SetTitleOffset(2.5);
    H2->GetXaxis()->SetNdivisions(50205, kFALSE);
    H2->GetZaxis()->SetTitle(ZTitle.c_str());
+   
+   Latex.SetTextSize(0.05);
+   Latex.SetTextAlign(32);
+   Latex.DrawLatex(0.97, 0.94, H2->GetTitle());
 
    TPad *P3 = (TPad *)Canvas.cd(3);
    P3->SetTheta(60.839);
@@ -1184,6 +1199,10 @@ void Draw2DPlot3Panel(TH2D *H1, TH2D *H2, TH2D *H3, string XTitle, string YTitle
    H3->GetXaxis()->SetNdivisions(50205, kFALSE);
    H3->GetZaxis()->SetTitle(ZTitle.c_str());
 
+   Latex.SetTextSize(0.05);
+   Latex.SetTextAlign(32);
+   Latex.DrawLatex(0.97, 0.94, H3->GetTitle());
+   
    // ptN0->Draw();
 
    Canvas.SaveAs(Form("%s/%s.png", Base.c_str(), Tag.c_str())); 
