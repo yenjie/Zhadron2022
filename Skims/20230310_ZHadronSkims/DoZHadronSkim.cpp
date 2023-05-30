@@ -366,6 +366,11 @@ int main(int argc, char *argv[])
             MZHadron.VXError = IsPP ? MSignalTrackPP.xVtxErr[BestVertex] : MSignalTrack.VXError->at(BestVertex);
             MZHadron.VYError = IsPP ? MSignalTrackPP.yVtxErr[BestVertex] : MSignalTrack.VYError->at(BestVertex);
             MZHadron.VZError = IsPP ? MSignalTrackPP.zVtxErr[BestVertex] : MSignalTrack.VZError->at(BestVertex);
+
+            if(IsData == false)
+               MZHadron.VZWeight = IsPP ? GetVZWeightPP(MZHadron.VZ) : GetVZWeightPbPb(MZHadron.VZ);
+            else
+               MZHadron.VZWeight = 1;
          }
 
          // Do event selection and triggers
