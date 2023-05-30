@@ -59,7 +59,7 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "20230525";
+const char *typeofdata = "20230529";
 const char *typeofdatatext = "single muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -699,22 +699,22 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/3D/C",typeofdata));
 
 
-   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxetaphi/pdf",typeofdata));
+   //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxetaphi",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxetaphi/C",typeofdata));
-   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxOetaphi/pdf",typeofdata));
+   //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxOetaphi",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/maxOetaphi/C",typeofdata));
-   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/WTAetaphi/pdf",typeofdata));
+   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/WTAetaphi",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/WTAetaphi/C",typeofdata));
-   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/pdf",typeofdata));
+   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/WTAMoreetaphi",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/C",typeofdata));
 
-   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Zmaxetaphi/pdf",typeofdata));
+   //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Zmaxetaphi",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/Zmaxetaphi/C",typeofdata));
-   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZmaxOetaphi/pdf",typeofdata));
+   //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZmaxOetaphi",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZmaxOetaphi/C",typeofdata));
-   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAetaphi/pdf",typeofdata));
+   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAetaphi",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAetaphi/C",typeofdata));
-   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/pdf",typeofdata));
+   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi",typeofdata));
    //gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/C",typeofdata));
 
 
@@ -1941,7 +1941,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->Clear();
 
    // Don't draw other axes yet 
-
+/*
    c->Divide(2);
    c->cd(1);
 
@@ -2253,7 +2253,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/maxOetaphi/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_maxOetaphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/maxOetaphi/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_maxOetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
-
+*/
    c->Divide(2);
    c->cd(1);
 
@@ -2369,6 +2369,12 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/pdf/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   max1 = hMC_sb_WTAetaphi->GetMaximum();
+   hMC_sb_WTAetaphi->SetMaximum(max1/10);
+   max2 = hData_sb_WTAetaphi->GetMaximum();
+   hData_sb_WTAetaphi->SetMaximum(max2/10);
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi_zoom.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+
    c->Clear();
 
    c->Divide(2);
@@ -2408,6 +2414,11 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   max1 = hMC_sbr_WTAetaphi->GetMaximum();
+   hMC_sbr_WTAetaphi->SetMaximum(max1/10);
+   max2 = hData_sbr_WTAetaphi->GetMaximum();
+   hData_sbr_WTAetaphi->SetMaximum(max2/10);
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi_zoom.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -2446,7 +2457,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/pdf/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
-   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/C/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/C/Ztrack_%s_sig_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH));    
    c->Clear();
 
    c->Divide(2);
@@ -2525,6 +2536,11 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/pdf/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   max1 = hMC_sb_WTAMoreetaphi->GetMaximum();
+   hMC_sb_WTAMoreetaphi->SetMaximum(max1/10);
+   max2 = hData_sb_WTAMoreetaphi->GetMaximum();
+   hData_sb_WTAMoreetaphi->SetMaximum(max2/10);
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi_zoom.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -2564,7 +2580,14 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   max1 = hMC_sbr_WTAMoreetaphi->GetMaximum();
+   hMC_sbr_WTAMoreetaphi->SetMaximum(max1/10);
+   max2 = hData_sbr_WTAMoreetaphi->GetMaximum();
+   hData_sbr_WTAMoreetaphi->SetMaximum(max2/10);
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi_zoom.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
+
+   /*
 
    c->Divide(2);
    c->cd(1);
@@ -2878,6 +2901,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZmaxOetaphi/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZmaxOetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
+   */
+
    c->Divide(2);
    c->cd(1);
 
@@ -2993,6 +3018,11 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAetaphi/pdf/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAetaphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAetaphi/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   max1 = hMC_Zsb_WTAetaphi->GetMaximum();
+   hMC_Zsb_WTAetaphi->SetMaximum(max1/10);
+   max2 = hData_Zsb_WTAetaphi->GetMaximum();
+   hData_Zsb_WTAetaphi->SetMaximum(max2/10);
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAetaphi_zoom.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -3032,6 +3062,11 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAetaphi/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAetaphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAetaphi/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   max1 = hMC_Zsbr_WTAetaphi->GetMaximum();
+   hMC_Zsbr_WTAetaphi->SetMaximum(max1/10);
+   max2 = hData_Zsbr_WTAetaphi->GetMaximum();
+   hData_Zsbr_WTAetaphi->SetMaximum(max2/10);
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAetaphi_zoom.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -3149,6 +3184,11 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAMoreetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/pdf/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAMoreetaphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAMoreetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   max1 = hMC_Zsb_WTAMoreetaphi->GetMaximum();
+   hMC_Zsb_WTAMoreetaphi->SetMaximum(max1/10);
+   max2 = hData_Zsb_WTAMoreetaphi->GetMaximum();
+   hData_Zsb_WTAMoreetaphi->SetMaximum(max2/10);
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAMoreetaphi_zoom.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -3188,6 +3228,11 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAMoreetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAMoreetaphi.pdf",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAMoreetaphi.C",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   max1 = hMC_Zsbr_WTAMoreetaphi->GetMaximum();
+   hMC_Zsbr_WTAMoreetaphi->SetMaximum(max1/10);
+   max2 = hData_Zsbr_WTAMoreetaphi->GetMaximum();
+   hData_Zsbr_WTAMoreetaphi->SetMaximum(max2/10);
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAMoreetaphi_zoom.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    
@@ -3213,14 +3258,14 @@ int main(int argc, char *argv[]){
 
    style();
 
-   file_sigMC = TFile::Open("GraphMCSignal_v10.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground_v10.root","read");
-   file_sigDA = TFile::Open("GraphDataSignal_v10.root","read");
-   file_bkgDA = TFile::Open("GraphDataBackground_v10.root","read");
-   file_ppMC  = TFile::Open("GraphPPMC0Sub_v10.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal_v10-1.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground_v10-1.root","read");
+   file_sigDA = TFile::Open("GraphDataSignal_v10-1.root","read");
+   file_bkgDA = TFile::Open("GraphDataBackground_v10-1.root","read");
+   file_ppMC  = TFile::Open("GraphPPMC0Sub_v12.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_v10.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_v10.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_v10-1.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_v10-1.root","read");
 
 /*
    ZtrackDraw_single(40, 20, 2000,  0, 90,  0, 1000);
