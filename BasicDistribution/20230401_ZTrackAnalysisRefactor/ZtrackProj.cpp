@@ -59,7 +59,7 @@ TFile *file_ppData;
 TFile *file_sigMC0Sub;
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230526";
+const char *typeofdata = "20230530";
 const char *typeofdatatext = "single muon";
 
 void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
