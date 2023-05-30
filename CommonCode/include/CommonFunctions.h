@@ -711,7 +711,7 @@ double GetVZWeightPbPb(double VZ)
    double Weight = 0;
    for(int i = 4; i >= 0; i--)
       Weight = Weight * VZ + P[i];
-   return Weight;
+   return 1 / Weight;
 }
 
 double GetVZWeightPP(double VZ)
@@ -720,7 +720,7 @@ double GetVZWeightPP(double VZ)
    double Weight = 0;
    for(int i = 4; i >= 0; i--)
       Weight = Weight * VZ + P[i];
-   return Weight;
+   return 1 / Weight;
 }
 
 #endif
