@@ -76,6 +76,8 @@ double GetZWeightPbPbMC(double PT, double Y, double HiBin);
 double GetZWeightPbPbData(double PT, double Y, double HiBin);
 double GetZWeightPPMC(double PT, double Y);
 double GetZWeightPPData(double PT, double Y);
+double GetVZWeightPbPb(double VZ);
+double GetVZWeightPP(double VZ);
 
 // Function implementations
 
@@ -701,6 +703,24 @@ double GetZWeightPPData(double PT, double Y)
       YWeight = YWeight * Y + PY[i];
    
    return GetZWeightPPMC(PT, Y) / YWeight;
+}
+
+double GetVZWeightPbPb(double VZ)
+{
+   double P[5] = {0.99095, 0.017396, -0.000292688, 0.00000591932, 0.00000440875};
+   double Weight = 0;
+   for(int i = 4; i >= 0; i--)
+      Weight = Weight * VZ + P[i];
+   return Weight;
+}
+
+double GetVZWeightPP(double VZ)
+{
+   double P[5] = {1.00646, -0.00269911, -0.000138962, 0.0000118646, -0.000000400376};
+   double Weight = 0;
+   for(int i = 4; i >= 0; i--)
+      Weight = Weight * VZ + P[i];
+   return Weight;
 }
 
 #endif
