@@ -404,6 +404,15 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_gen_projphi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_gen_projphi->GetYaxis()->SetTitle("dN/d#Delta#phi");
 
+   TLegend leg1(0.58,0.72,0.98,0.9);
+   leg1.AddEntry(hpp_projphi ,"pp Data","l");
+   leg1.AddEntry(hMC_rec_projphi ,"PbPb Pythia MC RECO","l");
+   leg1.AddEntry(hMC_gen_projphi ,"PbPb Pythia MC GEN","l");
+   leg1.SetFillColorAlpha(kWhite,0);
+   leg1.SetLineColor(kBlack);
+   leg1.SetLineWidth(1);
+   leg1.Draw();
+
    pt->Draw();
    pt2->Draw();
    pt3->Draw();
@@ -443,6 +452,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_gen_projphi_cent->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hMC_gen_projphi_cent->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_gen_projphi_cent->GetYaxis()->SetTitle("dN/d#Delta#phi");
+
+   leg1.Draw();
 
    pt->Draw();
    pt2->Draw();
@@ -484,6 +495,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_gen_projeta->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_gen_projeta->GetYaxis()->SetTitle("dN/d#Delta#eta");
 
+   leg1.Draw();
+
    pt->Draw();
    pt2->Draw();
    pt3->Draw();
@@ -524,6 +537,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_gen_projeta_peak->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_gen_projeta_peak->GetYaxis()->SetTitle("dN/d#Delta#eta");
 
+   leg1.Draw();
+   
    pt->Draw();
    pt2->Draw();
    pt3->Draw();
