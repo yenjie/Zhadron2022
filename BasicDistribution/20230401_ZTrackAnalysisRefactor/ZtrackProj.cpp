@@ -165,25 +165,22 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hData_etaphi_1->Rebin2D(10,10);
    hData_bkg_etaphi_1->Rebin2D(10,10);
-
-   hData_etaphi_1->Scale(1./100);
-   hData_bkg_etaphi_1->Scale(1./100);
-
-   hpp_etaphi_1->Rebin2D(4,4);
-
-   hMC_etaphi_gen->Rebin2D(4,4);
-   hMC_etaphi_rec->Rebin2D(4,4);
-
-   hpp_etaphi_1->Scale(1./16);
-   
-   hMC_etaphi_gen->Scale(1./16);
-   hMC_etaphi_rec->Scale(1./16);
-
    hMC_etaphi_1->Rebin2D(10,10);
    hMC_bkg_etaphi_1->Rebin2D(10,10);
 
-   hMC_etaphi_1->Scale(1./100);
-   hMC_bkg_etaphi_1->Scale(1./100);
+   hData_etaphi_1->Scale(1./10);
+   hData_bkg_etaphi_1->Scale(1./10);
+   hMC_etaphi_1->Scale(1./10);
+   hMC_bkg_etaphi_1->Scale(1./10);
+
+   hpp_etaphi_1->Rebin2D(4,4);
+   hMC_etaphi_gen->Rebin2D(4,4);
+   hMC_etaphi_rec->Rebin2D(4,4);
+
+   hpp_etaphi_1->Scale(1./4);
+   hMC_etaphi_gen->Scale(1./4);
+   hMC_etaphi_rec->Scale(1./4);
+
    
    TH2D *hMC_sb_etaphi_1 = (TH2D*) hMC_etaphi_1->Clone("hMC_sb_etaphi_1");
    TH2D *hData_sb_etaphi_1 = (TH2D*) hData_etaphi_1->Clone("hData_sb_etaphi_1");
@@ -245,9 +242,6 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_sb_projphi = (TH1D*) hMC_sb_etaphi_1->ProjectionY("hMC_sb_projphi",1,MCNbinsX);
    TH1D* hData_sb_projphi = (TH1D*) hData_sb_etaphi_1->ProjectionY("hData_sb_projphi",1,DataNbinsX);
 
-   hMC_sb_projphi->Scale(1./MCNbinsX);
-   hData_sb_projphi->Scale(1./DataNbinsX);
-
    hMC_sb_projphi->Draw("EP");
    hMC_sb_projphi->GetXaxis()->SetTitle("Sig-Bkg MC #Delta#phi_{Z,track}");
    hMC_sb_projphi->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -277,8 +271,6 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_sb_projphi_cent = (TH1D*) hMC_sb_etaphi_1->ProjectionY("hMC_sb_projphi_cent",(int) MCNbinsX/4,(int) 3*MCNbinsX/4);
    TH1D* hData_sb_projphi_cent = (TH1D*) hData_sb_etaphi_1->ProjectionY("hData_sb_projphi_cent",(int) MCNbinsX/4,(int) 3*MCNbinsX/4);
 
-   hMC_sb_projphi_cent->Scale(2./MCNbinsX);
-   hData_sb_projphi_cent->Scale(2./DataNbinsX);
 
    hMC_sb_projphi_cent->Draw("EP");
    hMC_sb_projphi_cent->GetXaxis()->SetTitle("Sig-Bkg MC #Delta#phi_{Z,track} (projection in peak region)");
@@ -309,8 +301,6 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_sb_projeta = (TH1D*) hMC_sb_etaphi_1->ProjectionX("hMC_sb_projeta",1,(int) MCNbinsY/2);
    TH1D* hData_sb_projeta = (TH1D*) hData_sb_etaphi_1->ProjectionX("hData_sb_projeta",1,(int) DataNbinsY/2);
 
-   hMC_sb_projeta->Scale(2./MCNbinsY);
-   hData_sb_projeta->Scale(2./DataNbinsY);
 
    hMC_sb_projeta->Draw("EP");
    hMC_sb_projeta->GetXaxis()->SetTitle("Sig-Bkg MC #Delta#eta_{Z,track}");
@@ -341,8 +331,6 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_sb_projeta_peak = (TH1D*) hMC_sb_etaphi_1->ProjectionX("hMC_sb_projeta_peak",(int) MCNbinsY/2,MCNbinsY);
    TH1D* hData_sb_projeta_peak = (TH1D*) hData_sb_etaphi_1->ProjectionX("hData_sb_projeta_peak",(int) MCNbinsY/2,DataNbinsY);
 
-   hMC_sb_projeta_peak->Scale(2./MCNbinsY);
-   hData_sb_projeta_peak->Scale(2./DataNbinsY);
 
    hMC_sb_projeta_peak->Draw("EP");
    hMC_sb_projeta_peak->GetXaxis()->SetTitle("Sig-Bkg MC #Delta#eta_{Z,track}");
@@ -377,9 +365,6 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_rec_projphi = (TH1D*) hMC_etaphi_rec->ProjectionY("hMC_rec_projphi",1,recNbinsX);
    TH1D* hMC_gen_projphi = (TH1D*) hMC_etaphi_gen->ProjectionY("hMC_gen_projphi",1,genNbinsX);
 
-   hpp_projphi->Scale(1./ppNbinsX);
-   hMC_rec_projphi->Scale(1./recNbinsX);
-   hMC_gen_projphi->Scale(1./genNbinsX);
 
    double max1 = hpp_projphi->GetMaximum();
    double max2 = hMC_rec_projphi->GetMaximum();
@@ -437,9 +422,6 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_rec_projphi_cent = (TH1D*) hMC_etaphi_rec->ProjectionY("hMC_rec_projphi_cent",(int) recNbinsX/4,(int) 3*recNbinsX/4);
    TH1D* hMC_gen_projphi_cent = (TH1D*) hMC_etaphi_gen->ProjectionY("hMC_gen_projphi_cent",(int) genNbinsX/4,(int) 3*genNbinsX/4);
 
-   hpp_projphi_cent->Scale(2./ppNbinsX);
-   hMC_rec_projphi_cent->Scale(2./recNbinsX);
-   hMC_gen_projphi_cent->Scale(2./genNbinsX);
 
    max1 = hpp_projphi_cent->GetMaximum();
    max2 = hMC_rec_projphi_cent->GetMaximum();
@@ -490,10 +472,6 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_rec_projeta = (TH1D*) hMC_etaphi_rec->ProjectionX("hMC_rec_projeta",1,(int) recNbinsY/2);
    TH1D* hMC_gen_projeta = (TH1D*) hMC_etaphi_gen->ProjectionX("hMC_gen_projeta",1,(int) genNbinsY/2);
 
-   hpp_projeta->Scale(2./ppNbinsY);
-   hMC_rec_projeta->Scale(2./recNbinsY);
-   hMC_gen_projeta->Scale(2./genNbinsY);
-
    max1 = hpp_projeta->GetMaximum();
    max2 = hMC_rec_projeta->GetMaximum();
    max3 = hMC_gen_projeta->GetMaximum();
@@ -542,10 +520,6 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hpp_projeta_peak = (TH1D*) hpp_etaphi_1->ProjectionX("hpp_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
    TH1D* hMC_rec_projeta_peak = (TH1D*) hMC_etaphi_rec->ProjectionX("hMC_rec_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
    TH1D* hMC_gen_projeta_peak = (TH1D*) hMC_etaphi_gen->ProjectionX("hMC_gen_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
-
-   hpp_projeta_peak->Scale(2./ppNbinsY);
-   hMC_rec_projeta_peak->Scale(2./recNbinsY);
-   hMC_gen_projeta_peak->Scale(2./genNbinsY);
 
    max1 = hpp_projeta_peak->GetMaximum();
    max2 = hMC_rec_projeta_peak->GetMaximum();
