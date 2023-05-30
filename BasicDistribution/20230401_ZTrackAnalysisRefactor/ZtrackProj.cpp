@@ -47,6 +47,8 @@ void style(){
 
   gStyle->SetLineScalePS(1.5);
 
+  gStyle->SetHistMinimumZero();
+
   gROOT->ForceStyle();
 }
 
