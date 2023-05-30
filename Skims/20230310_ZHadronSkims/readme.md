@@ -41,6 +41,7 @@
    * Fixing pp track selection problem
 * Version 12b - 2023 May 30
    * Adding track charge information
+   * Adding vz weight for pp and PbPb
 
 
 
