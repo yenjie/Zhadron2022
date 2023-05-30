@@ -117,7 +117,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *npM_tN = (TNamed *) file_ppData->Get(Form("%s/EntryCount",FolderName.c_str()));
 
-   TNamed *nM_tNrec = (TNamed *) file_sigMC0Sub->Get(Form("%s/GenEntryCount",FolderName.c_str()));
+   TNamed *nM_tNrec = (TNamed *) file_sigMC0Sub->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nM_tNgen = (TNamed *) file_sigMCgen0Sub->Get(Form("%s/GenEntryCount",FolderName.c_str()));
 
    std::string sD_tN  = (std::string) nD_tN->GetTitle();
@@ -404,6 +404,17 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_gen_projphi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_gen_projphi->GetYaxis()->SetTitle("dN/d#Delta#phi");
 
+   hpp_projphi->SetLineColor(kBlack);
+   hMC_rec_projphi->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_gen_projphi->SetLineColor(TColor::GetColor("#377eb8"));//blue
+
+   hpp_projphi->SetLineWidth(2);
+   hMC_rec_projphi->SetLineWidth(2);
+   hMC_gen_projphi->SetLineWidth(2);
+
+   hpp_projphi->SetMarkerStyle(24);
+   hpp_projphi->SetMarkerColor(kBlack);
+
    TLegend leg1(0.58,0.72,0.98,0.9);
    leg1.AddEntry(hpp_projphi ,"pp Data","l");
    leg1.AddEntry(hMC_rec_projphi ,"PbPb Pythia MC RECO","l");
@@ -453,6 +464,17 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_gen_projphi_cent->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_gen_projphi_cent->GetYaxis()->SetTitle("dN/d#Delta#phi");
 
+   hpp_projphi_cent->SetLineColor(kBlack);
+   hMC_rec_projphi_cent->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_gen_projphi_cent->SetLineColor(TColor::GetColor("#377eb8"));//blue
+
+   hpp_projphi_cent->SetLineWidth(2);
+   hMC_rec_projphi_cent->SetLineWidth(2);
+   hMC_gen_projphi_cent->SetLineWidth(2);
+
+   hpp_projphi_cent->SetMarkerStyle(24);
+   hpp_projphi_cent->SetMarkerColor(kBlack);
+
    leg1.Draw();
 
    pt->Draw();
@@ -494,6 +516,17 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_gen_projeta->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
    hMC_gen_projeta->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_gen_projeta->GetYaxis()->SetTitle("dN/d#Delta#eta");
+
+   hpp_projeta->SetLineColor(kBlack);
+   hMC_rec_projeta->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_gen_projeta->SetLineColor(TColor::GetColor("#377eb8"));//blue
+
+   hpp_projeta->SetLineWidth(2);
+   hMC_rec_projeta->SetLineWidth(2);
+   hMC_gen_projeta->SetLineWidth(2);
+
+   hpp_projeta->SetMarkerStyle(24);
+   hpp_projeta->SetMarkerColor(kBlack);
 
    leg1.Draw();
 
@@ -537,8 +570,19 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_gen_projeta_peak->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_gen_projeta_peak->GetYaxis()->SetTitle("dN/d#Delta#eta");
 
+   hpp_projeta_peak->SetLineColor(kBlack);
+   hMC_rec_projeta_peak->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hMC_gen_projeta_peak->SetLineColor(TColor::GetColor("#377eb8"));//blue
+
+   hpp_projeta_peak->SetLineWidth(2);
+   hMC_rec_projeta_peak->SetLineWidth(2);
+   hMC_gen_projeta_peak->SetLineWidth(2);
+
+   hpp_projeta_peak->SetMarkerStyle(24);
+   hpp_projeta_peak->SetMarkerColor(kBlack);
+
    leg1.Draw();
-   
+
    pt->Draw();
    pt2->Draw();
    pt3->Draw();
