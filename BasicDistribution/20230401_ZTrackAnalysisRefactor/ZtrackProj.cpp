@@ -242,14 +242,14 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    int MCNbinsY = hMC_sb_etaphi_1->GetNbinsY();
    int DataNbinsY = hData_sb_etaphi_1->GetNbinsY();
 
-   double Nmc_full = hMC_sb_etaphi_1->GetIntegral();
-   double Ndata_full = hData_sb_etaphi_1->GetIntegral();
+   double Nmc_full = hMC_sb_etaphi_1->GetEntries();
+   double Ndata_full = hData_sb_etaphi_1->GetEntries();
 
    TH1D* hMC_sb_projphi = (TH1D*) hMC_sb_etaphi_1->ProjectionY("hMC_sb_projphi",1,MCNbinsX);
    TH1D* hData_sb_projphi = (TH1D*) hData_sb_etaphi_1->ProjectionY("hData_sb_projphi",1,DataNbinsX);
 
-   double Nmc_proj = hMC_sb_projphi->GetIntegral();
-   double Ndata_proj = hData_sb_projphi->GetIntegral();
+   double Nmc_proj = hMC_sb_projphi->GetEntries();
+   double Ndata_proj = hData_sb_projphi->GetEntries();
 
    hMC_sb_projphi->Scale(Nmc_full/Nmc_proj);
    hData_sb_projphi->Scale(Ndata_full/Ndata_proj);
@@ -280,8 +280,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_sb_projphi_cent = (TH1D*) hMC_sb_etaphi_1->ProjectionY("hMC_sb_projphi_cent",(int) MCNbinsX/4,(int) 3*MCNbinsX/4);
    TH1D* hData_sb_projphi_cent = (TH1D*) hData_sb_etaphi_1->ProjectionY("hData_sb_projphi_cent",(int) MCNbinsX/4,(int) 3*MCNbinsX/4);
 
-   Nmc_proj = hMC_sb_projphi_cent->GetIntegral();
-   Ndata_proj = hData_sb_projphi_cent->GetIntegral();
+   Nmc_proj = hMC_sb_projphi_cent->GetEntries();
+   Ndata_proj = hData_sb_projphi_cent->GetEntries();
 
    hMC_sb_projphi_cent->Scale(Nmc_full/Nmc_proj);
    hData_sb_projphi_cent->Scale(Ndata_full/Ndata_proj);
@@ -312,8 +312,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_sb_projeta = (TH1D*) hMC_sb_etaphi_1->ProjectionX("hMC_sb_projeta",1,(int) MCNbinsY/2);
    TH1D* hData_sb_projeta = (TH1D*) hData_sb_etaphi_1->ProjectionX("hData_sb_projeta",1,(int) DataNbinsY/2);
 
-   Nmc_proj = hMC_sb_projeta->GetIntegral();
-   Ndata_proj = hData_sb_projeta->GetIntegral();
+   Nmc_proj = hMC_sb_projeta->GetEntries();
+   Ndata_proj = hData_sb_projeta->GetEntries();
 
    hMC_sb_projeta->Scale(Nmc_full/Nmc_proj);
    hData_sb_projeta->Scale(Ndata_full/Ndata_proj);
@@ -344,8 +344,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_sb_projeta_peak = (TH1D*) hMC_sb_etaphi_1->ProjectionX("hMC_sb_projeta_peak",(int) MCNbinsY/2,MCNbinsY);
    TH1D* hData_sb_projeta_peak = (TH1D*) hData_sb_etaphi_1->ProjectionX("hData_sb_projeta_peak",(int) MCNbinsY/2,DataNbinsY);
 
-   Nmc_proj = hMC_sb_projeta_peak->GetIntegral();
-   Ndata_proj = hData_sb_projeta_peak->GetIntegral();
+   Nmc_proj = hMC_sb_projeta_peak->GetEntries();
+   Ndata_proj = hData_sb_projeta_peak->GetEntries();
 
    hMC_sb_projeta_peak->Scale(Nmc_full/Nmc_proj);
    hData_sb_projeta_peak->Scale(Ndata_full/Ndata_proj);
@@ -379,17 +379,17 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    int recNbinsY = hMC_etaphi_rec->GetNbinsY();
    int genNbinsY = hMC_etaphi_gen->GetNbinsY();
 
-   double  Npp_full = hpp_etaphi_1->GetIntegral();
-   double Nrec_full = hMC_etaphi_rec->GetIntegral();
-   double Ngen_full = hMC_etaphi_gen->GetIntegral();
+   double  Npp_full = hpp_etaphi_1->GetEntries();
+   double Nrec_full = hMC_etaphi_rec->GetEntries();
+   double Ngen_full = hMC_etaphi_gen->GetEntries();
 
    TH1D* hpp_projphi = (TH1D*) hpp_etaphi_1->ProjectionY("hpp_projphi",1,ppNbinsX);
    TH1D* hMC_rec_projphi = (TH1D*) hMC_etaphi_rec->ProjectionY("hMC_rec_projphi",1,recNbinsX);
    TH1D* hMC_gen_projphi = (TH1D*) hMC_etaphi_gen->ProjectionY("hMC_gen_projphi",1,genNbinsX);
 
-   double  Npp_proj = hpp_projphi->GetIntegral();
-   double Nrec_proj = hMC_rec_projphi->GetIntegral();
-   double Ngen_proj = hMC_gen_projphi->GetIntegral();
+   double  Npp_proj = hpp_projphi->GetEntries();
+   double Nrec_proj = hMC_rec_projphi->GetEntries();
+   double Ngen_proj = hMC_gen_projphi->GetEntries();
 
    hpp_projphi->Scale(Npp_full/Npp_proj);
    hMC_rec_projphi->Scale(Nrec_full/Nrec_proj);
@@ -451,9 +451,9 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_rec_projphi_cent = (TH1D*) hMC_etaphi_rec->ProjectionY("hMC_rec_projphi_cent",(int) recNbinsX/4,(int) 3*recNbinsX/4);
    TH1D* hMC_gen_projphi_cent = (TH1D*) hMC_etaphi_gen->ProjectionY("hMC_gen_projphi_cent",(int) genNbinsX/4,(int) 3*genNbinsX/4);
 
-   Npp_proj  = hpp_projphi_cent->GetIntegral();
-   Nrec_proj = hMC_rec_projphi_cent->GetIntegral();
-   Ngen_proj = hMC_gen_projphi_cent->GetIntegral();
+   Npp_proj  = hpp_projphi_cent->GetEntries();
+   Nrec_proj = hMC_rec_projphi_cent->GetEntries();
+   Ngen_proj = hMC_gen_projphi_cent->GetEntries();
 
    hpp_projphi_cent->Scale(Npp_full/Npp_proj);
    hMC_rec_projphi_cent->Scale(Nrec_full/Nrec_proj);
@@ -508,9 +508,9 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_rec_projeta = (TH1D*) hMC_etaphi_rec->ProjectionX("hMC_rec_projeta",1,(int) recNbinsY/2);
    TH1D* hMC_gen_projeta = (TH1D*) hMC_etaphi_gen->ProjectionX("hMC_gen_projeta",1,(int) genNbinsY/2);
 
-   Npp_proj  = hpp_projeta->GetIntegral();
-   Nrec_proj = hMC_rec_projeta->GetIntegral();
-   Ngen_proj = hMC_gen_projeta->GetIntegral();
+   Npp_proj  = hpp_projeta->GetEntries();
+   Nrec_proj = hMC_rec_projeta->GetEntries();
+   Ngen_proj = hMC_gen_projeta->GetEntries();
 
    hpp_projeta->Scale(Npp_full/Npp_proj);
    hMC_rec_projeta->Scale(Nrec_full/Nrec_proj);
@@ -565,9 +565,9 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D* hMC_rec_projeta_peak = (TH1D*) hMC_etaphi_rec->ProjectionX("hMC_rec_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
    TH1D* hMC_gen_projeta_peak = (TH1D*) hMC_etaphi_gen->ProjectionX("hMC_gen_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
 
-   Npp_proj  = hpp_projeta_peak->GetIntegral();
-   Nrec_proj = hMC_rec_projeta_peak->GetIntegral();
-   Ngen_proj = hMC_gen_projeta_peak->GetIntegral();
+   Npp_proj  = hpp_projeta_peak->GetEntries();
+   Nrec_proj = hMC_rec_projeta_peak->GetEntries();
+   Ngen_proj = hMC_gen_projeta_peak->GetEntries();
 
    hpp_projeta_peak->Scale(Npp_full/Npp_proj);
    hMC_rec_projeta_peak->Scale(Nrec_full/Nrec_proj);
