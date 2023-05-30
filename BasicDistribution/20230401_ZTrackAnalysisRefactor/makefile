@@ -97,3 +97,10 @@ CheckBasic: ExecuteZcheckBasic
 ExecuteZcheckBasic: ZcheckBasic.cpp
 	g++ ZcheckBasic.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o ExecuteZcheckBasic `root-config --cflags --libs` -std=c++17
+
+DrawProj: ExecuteDrawProj
+	./ExecuteDrawProj
+
+ExecuteDrawProj: ZtrackProj.cpp
+	g++ ZtrackProj.cpp -I. -I$(ProjectBase)/CommonCode/include \
+		-o ExecuteDrawProj `root-config --cflags --libs` -std=c++17
