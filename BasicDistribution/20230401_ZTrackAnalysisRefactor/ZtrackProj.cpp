@@ -416,7 +416,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hpp_projphi->SetMarkerColor(kBlack);
 
    TLegend leg1(0.58,0.72,0.98,0.9);
-   leg1.AddEntry(hpp_projphi ,"pp Data","l");
+   leg1.AddEntry(hpp_projphi ,"pp Data","ep");
    leg1.AddEntry(hMC_rec_projphi ,"PbPb Pythia MC RECO","l");
    leg1.AddEntry(hMC_gen_projphi ,"PbPb Pythia MC GEN","l");
    leg1.SetFillColorAlpha(kWhite,0);
@@ -486,9 +486,9 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projphi_cent.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   TH1D* hpp_projeta = (TH1D*) hpp_etaphi_1->ProjectionY("hpp_projeta",1,(int) ppNbinsY/2);
-   TH1D* hMC_rec_projeta = (TH1D*) hMC_etaphi_rec->ProjectionY("hMC_rec_projeta",1,(int) recNbinsY/2);
-   TH1D* hMC_gen_projeta = (TH1D*) hMC_etaphi_gen->ProjectionY("hMC_gen_projeta",1,(int) genNbinsY/2);
+   TH1D* hpp_projeta = (TH1D*) hpp_etaphi_1->ProjectionX("hpp_projeta",1,(int) ppNbinsY/2);
+   TH1D* hMC_rec_projeta = (TH1D*) hMC_etaphi_rec->ProjectionX("hMC_rec_projeta",1,(int) recNbinsY/2);
+   TH1D* hMC_gen_projeta = (TH1D*) hMC_etaphi_gen->ProjectionX("hMC_gen_projeta",1,(int) genNbinsY/2);
 
    hpp_projeta->Scale(2./ppNbinsY);
    hMC_rec_projeta->Scale(2./recNbinsY);
@@ -539,9 +539,9 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projeta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   TH1D* hpp_projeta_peak = (TH1D*) hpp_etaphi_1->ProjectionY("hpp_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
-   TH1D* hMC_rec_projeta_peak = (TH1D*) hMC_etaphi_rec->ProjectionY("hMC_rec_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
-   TH1D* hMC_gen_projeta_peak = (TH1D*) hMC_etaphi_gen->ProjectionY("hMC_gen_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
+   TH1D* hpp_projeta_peak = (TH1D*) hpp_etaphi_1->ProjectionX("hpp_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
+   TH1D* hMC_rec_projeta_peak = (TH1D*) hMC_etaphi_rec->ProjectionX("hMC_rec_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
+   TH1D* hMC_gen_projeta_peak = (TH1D*) hMC_etaphi_gen->ProjectionX("hMC_gen_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
 
    hpp_projeta_peak->Scale(2./ppNbinsY);
    hMC_rec_projeta_peak->Scale(2./recNbinsY);
