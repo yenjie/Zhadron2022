@@ -39,6 +39,8 @@
    * Adding pp Z weight for both MC and data
 * Version 12 - 2023 May 27
    * Fixing pp track selection problem
+* Version 12b - 2023 May 30
+   * Adding track charge information
 
 
 

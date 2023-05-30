@@ -101,7 +101,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V12";
+   string Version = "V12b";
 
    CommandLine CL(argc, argv);
 
@@ -651,6 +651,7 @@ int main(int argc, char *argv[])
                   double TrackEta = DoGenCorrelation ? MGen->Eta->at(itrack) : (IsPP ? MTrackPP->trkEta[itrack] : MTrack->TrackEta->at(itrack));
                   double TrackPhi = DoGenCorrelation ? MGen->Phi->at(itrack) : (IsPP ? MTrackPP->trkPhi[itrack] : MTrack->TrackPhi->at(itrack));
                   double TrackPT  = DoGenCorrelation ? MGen->PT->at(itrack) : (IsPP ? MTrackPP->trkPt[itrack] : MTrack->TrackPT->at(itrack));
+                  int TrackCharge = DoGenCorrelation ? MGen->Charge->at(itrack) : (IsPP ? MTrackPP->trkCharge[itrack] : MTrack->TrackCharge->at(itrack));
                   int SubEvent    = DoGenCorrelation ? (MGen->SubEvent->at(itrack) + DoBackground) : (IsPP ? 0 : DoBackground);
 
                   double Mu1Eta = DoGenCorrelation ? MZHadron.genMuEta1->at(0) : MZHadron.muEta1->at(0);
