@@ -120,7 +120,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TNamed *npM_tN = (TNamed *) file_ppData->Get(Form("%s/EntryCount",FolderName.c_str()));
 
    TNamed *nM_tNrec = (TNamed *) file_sigMC0Sub->Get(Form("%s/EntryCount",FolderName.c_str()));
-   TNamed *nM_tNgen = (TNamed *) file_sigMCgen0Sub->Get(Form("%s/GenEntryCount",FolderName.c_str()));
+   TNamed *nM_tNgen = (TNamed *) file_sigMCgen0Sub->Get(Form("%s/EntryCount",FolderName.c_str()));
 
    std::string sD_tN  = (std::string) nD_tN->GetTitle();
    std::string sM_tN  = (std::string) nM_tN->GetTitle();
