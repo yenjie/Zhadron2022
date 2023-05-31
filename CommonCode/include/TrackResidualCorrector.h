@@ -68,7 +68,7 @@ public:
    
    TrackResidualCentralityCorrector(std::vector<std::string> F)
    {
-      cout << F.size() << " " << F[0] << endl;
+      // cout << F.size() << " " << F[0] << endl;
       if(F.size() == 4)
       {
          TRC1 = new TrackResidualCorrector(F[0]);
