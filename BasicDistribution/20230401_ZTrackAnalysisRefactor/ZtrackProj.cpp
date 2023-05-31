@@ -117,8 +117,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TNamed *nM_tN  = (TNamed *) file_sigMC->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nDb_tN = (TNamed *) file_bkgDA->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
+   
    TNamed *npM_tN = (TNamed *) file_ppData->Get(Form("%s/EntryCount",FolderName.c_str()));
-
    TNamed *nM_tNrec = (TNamed *) file_sigMC0Sub->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nM_tNgen = (TNamed *) file_sigMCgen0Sub->Get(Form("%s/EntryCount",FolderName.c_str()));
 
@@ -126,8 +126,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    std::string sM_tN  = (std::string) nM_tN->GetTitle();
    std::string sDb_tN = (std::string) nDb_tN->GetTitle();
    std::string sMb_tN = (std::string) nMb_tN->GetTitle();
-   std::string spM_tN = (std::string) npM_tN->GetTitle();
 
+   std::string spM_tN = (std::string) npM_tN->GetTitle();
    std::string sM_tNgen = (std::string) nM_tNgen->GetTitle();
    std::string sM_tNrec = (std::string) nM_tNrec->GetTitle();
 
@@ -135,8 +135,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    float tM_tN  = std::stof(sM_tN);
    float tDb_tN = std::stof(sDb_tN);
    float tMb_tN = std::stof(sMb_tN);
-   float tpM_tN = std::stof(spM_tN);
 
+   float tpM_tN = std::stof(spM_tN);
    float tM_tNgen  = std::stof(sM_tNgen);
    float tM_tNrec = std::stof(sM_tNrec);
 
@@ -153,15 +153,12 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hData_etaphi_1->Scale(1./tD_tN/bineta2d/binphi2d);
    hMC_etaphi_1->Scale(1./tM_tN/bineta2d/binphi2d);
-   hpp_etaphi_1->Scale(1./tpM_tN/bineta2d/binphi2d);
-
-
-   hMC_etaphi_gen->Scale(1./tM_tNgen/bineta2d/binphi2d);
-   hMC_etaphi_rec->Scale(1./tM_tNrec/bineta2d/binphi2d);
-
    hData_bkg_etaphi_1->Scale(1./tDb_tN/bineta2d/binphi2d);
    hMC_bkg_etaphi_1->Scale(1./tMb_tN/bineta2d/binphi2d);
-
+   
+   hpp_etaphi_1->Scale(1./tpM_tN/bineta2d/binphi2d);
+   hMC_etaphi_gen->Scale(1./tM_tNgen/bineta2d/binphi2d/1.305);
+   hMC_etaphi_rec->Scale(1./tM_tNrec/bineta2d/binphi2d/2.1104);
 
    std::cout<<"Rebinning..."<<std::endl;
 
@@ -170,18 +167,18 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_etaphi_1->Rebin2D(10,10);
    hMC_bkg_etaphi_1->Rebin2D(10,10);
 
-   hData_etaphi_1->Scale(1./10);
-   hData_bkg_etaphi_1->Scale(1./10);
-   hMC_etaphi_1->Scale(1./10);
-   hMC_bkg_etaphi_1->Scale(1./10);
+   hData_etaphi_1->Scale(1./100);
+   hData_bkg_etaphi_1->Scale(1./100);
+   hMC_etaphi_1->Scale(1./100);
+   hMC_bkg_etaphi_1->Scale(1./100);
 
    hpp_etaphi_1->Rebin2D(4,4);
    hMC_etaphi_gen->Rebin2D(4,4);
    hMC_etaphi_rec->Rebin2D(4,4);
 
-   hpp_etaphi_1->Scale(1./4);
-   hMC_etaphi_gen->Scale(1./4);
-   hMC_etaphi_rec->Scale(1./4);
+   hpp_etaphi_1->Scale(1./16);
+   hMC_etaphi_gen->Scale(1./16);
+   hMC_etaphi_rec->Scale(1./16);
 
    
    TH2D *hMC_sb_etaphi_1 = (TH2D*) hMC_etaphi_1->Clone("hMC_sb_etaphi_1");
