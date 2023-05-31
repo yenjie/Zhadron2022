@@ -156,7 +156,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_bkg_etaphi_1->Scale(1./tDb_tN/bineta2d/binphi2d);
    hMC_bkg_etaphi_1->Scale(1./tMb_tN/bineta2d/binphi2d);
    
-   hpp_etaphi_1->Scale(1./tpM_tN/bineta2d/binphi2d/tpM_tN);
+   hpp_etaphi_1->Scale(1./tpM_tN/bineta2d/binphi2d/tM_tNgen);
    hMC_etaphi_gen->Scale(1./tM_tNgen/bineta2d/binphi2d/tM_tNgen);
    hMC_etaphi_rec->Scale(1./tM_tNrec/bineta2d/binphi2d/tM_tNrec);
 
