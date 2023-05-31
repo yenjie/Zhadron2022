@@ -83,11 +83,11 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_etaphi_1->SetName("hMC_etaphi_1");
    hpp_etaphi_1->SetName("hpp_etaphi_1");
 
-   TH2D* hMC_etaphi_rec = (TH2D*) file_sigMC0Sub->Get(Form("%s/HEtaPhi", FolderName.c_str()));
+   //TH2D* hMC_etaphi_rec = (TH2D*) file_sigMC0Sub->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    TH2D* hMC_etaphi_gen = (TH2D*) file_sigMCgen0Sub->Get(Form("%s/HEtaPhi", FolderName.c_str()));
 
    hMC_etaphi_gen->SetName("hMC_etaphi_gen");
-   hMC_etaphi_rec->SetName("hMC_etaphi_rec");
+   //hMC_etaphi_rec->SetName("hMC_etaphi_rec");
 
    TH2D* hData_bkg_etaphi_1 = (TH2D*) file_bkgDA->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    TH2D* hMC_bkg_etaphi_1 = (TH2D*) file_bkgMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
@@ -156,9 +156,9 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_bkg_etaphi_1->Scale(1./tDb_tN/bineta2d/binphi2d);
    hMC_bkg_etaphi_1->Scale(1./tMb_tN/bineta2d/binphi2d);
    
-   hpp_etaphi_1->Scale(1./tpM_tN/bineta2d/binphi2d/tM_tNrec);
-   hMC_etaphi_gen->Scale(1./tM_tNgen/bineta2d/binphi2d/tM_tNgen);
-   hMC_etaphi_rec->Scale(1./tM_tNrec/bineta2d/binphi2d/tM_tNrec);
+   hpp_etaphi_1->Scale(1./tpM_tN/bineta2d/binphi2d);
+   hMC_etaphi_gen->Scale(1./tM_tNgen/bineta2d/binphi2d);
+   //hMC_etaphi_rec->Scale(1./tM_tNrec/bineta2d/binphi2d);
 
    std::cout<<"Rebinning..."<<std::endl;
 
@@ -186,6 +186,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hMC_sb_etaphi_1->Add(hMC_bkg_etaphi_1,-1);
    hData_sb_etaphi_1->Add(hData_bkg_etaphi_1,-1);
+
+   TH2D *hMC_etaphi_rec = (TH2D*) hMC_sb_etaphi_1->Clone("hMC_etaphi_rec");
 
    std::cout<<"Drawing..."<<std::endl;
 
