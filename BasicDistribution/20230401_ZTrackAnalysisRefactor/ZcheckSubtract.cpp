@@ -138,19 +138,27 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    std::cout<<"tMb_tNgen = "<<tMb_tNgen<<std::endl;
    std::cout<<"tM_tNgen0Sub = "<<tM_tNgen0Sub<<std::endl;
 
-   hMC_etaphi_1->Scale(1./tM_tN);
-   hMC_bkg_etaphi_1->Scale(1./tMb_tN);
-   hMC_etaphi_gen->Scale(1./tM_tNgen);
-   hMC_bkg_etaphi_gen->Scale(1./tMb_tNgen);
-   hMC_etaphi_gen0Sub->Scale(1./tM_tNgen0Sub);
+   double bineta2d = 6.4/150, binphi2d = M_PI/75;
+
+   hMC_etaphi_1->Scale(1./tM_tN/bineta2d/binphi2d);
+   hMC_bkg_etaphi_1->Scale(1./tMb_tN/bineta2d/binphi2d);
+   hMC_etaphi_gen->Scale(1./tM_tNgen/bineta2d/binphi2d);
+   hMC_bkg_etaphi_gen->Scale(1./tMb_tNgen/bineta2d/binphi2d);
+   hMC_etaphi_gen0Sub->Scale(1./tM_tNgen0Sub/bineta2d/binphi2d);
 
    std::cout<<"Rebinning..."<<std::endl;
 
-   hMC_etaphi_1->Rebin2D(2,2);
-   hMC_bkg_etaphi_1->Rebin2D(2,2);
-   hMC_etaphi_gen->Rebin2D(2,2);
-   hMC_bkg_etaphi_gen->Rebin2D(2,2);
-   hMC_etaphi_gen0Sub->Rebin2D(2,2);
+   hMC_etaphi_1->Rebin2D(10,10);
+   hMC_bkg_etaphi_1->Rebin2D(10,10);
+   hMC_etaphi_gen->Rebin2D(10,10);
+   hMC_bkg_etaphi_gen->Rebin2D(10,10);
+   hMC_etaphi_gen0Sub->Rebin2D(10,10);
+
+   hMC_etaphi_1->Scale(1./100);
+   hMC_bkg_etaphi_1->Scale(1./100);
+   hMC_etaphi_gen->Scale(1./100);
+   hMC_bkg_etaphi_gen->Scale(1./100);
+   hMC_etaphi_gen0Sub->Scale(1./100);
 
    TH2D *hMC_sb_etaphi_1 = (TH2D*) hMC_etaphi_1->Clone("hMC_sb_etaphi_1");
    TH2D *hMC_sb_etaphi_gen = (TH2D*) hMC_etaphi_gen->Clone("hMC_sb_etaphi_gen");
@@ -221,6 +229,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_etaphi_gen->Draw("lego20");
    hMC_etaphi_gen->GetYaxis()->SetTitle("Signal MC GEN #Delta#phi_{Z,track}");
    hMC_etaphi_gen->GetXaxis()->SetTitle("Signal MC GEN #Delta#eta_{Z,track}");
+   hMC_etaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_etaphi_gen->GetXaxis()->SetTitleSize(24);
    hMC_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
@@ -234,6 +243,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    RECO_o_GEN_sig->Draw("lego20");
    RECO_o_GEN_sig->GetYaxis()->SetTitle("Signal MC RECO/GEN #Delta#phi_{Z,track}");
    RECO_o_GEN_sig->GetXaxis()->SetTitle("Signal MC RECO/GEN #Delta#eta_{Z,track}");
+   RECO_o_GEN_sig->GetZaxis()->SetTitle("dN/d#etad#phi");
    RECO_o_GEN_sig->GetXaxis()->SetTitleSize(24);
    RECO_o_GEN_sig->GetYaxis()->SetTitleSize(24);
    RECO_o_GEN_sig->GetXaxis()->SetTitleOffset(3.0);
@@ -255,6 +265,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_bkg_etaphi_1->Draw("lego20");
    hMC_bkg_etaphi_1->GetYaxis()->SetTitle("Background MC RECO #Delta#phi_{Z,track}");
    hMC_bkg_etaphi_1->GetXaxis()->SetTitle("Background MC RECO #Delta#eta_{Z,track}");
+   hMC_bkg_etaphi_1->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_bkg_etaphi_1->GetXaxis()->SetTitleSize(24);
    hMC_bkg_etaphi_1->GetYaxis()->SetTitleSize(24);
    hMC_bkg_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
@@ -272,6 +283,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_bkg_etaphi_gen->Draw("lego20");
    hMC_bkg_etaphi_gen->GetYaxis()->SetTitle("Background MC GEN #Delta#phi_{Z,track}");
    hMC_bkg_etaphi_gen->GetXaxis()->SetTitle("Background MC GEN #Delta#eta_{Z,track}");
+   hMC_bkg_etaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_bkg_etaphi_gen->GetXaxis()->SetTitleSize(24);
    hMC_bkg_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_bkg_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
@@ -285,6 +297,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    RECO_o_GEN_bkg->Draw("lego20");
    RECO_o_GEN_bkg->GetYaxis()->SetTitle("Background MC RECO/GEN #Delta#phi_{Z,track}");
    RECO_o_GEN_bkg->GetXaxis()->SetTitle("Background MC RECO/GEN #Delta#eta_{Z,track}");
+   RECO_o_GEN_bkg->GetZaxis()->SetTitle("dN/d#etad#phi");
    RECO_o_GEN_bkg->GetXaxis()->SetTitleSize(24);
    RECO_o_GEN_bkg->GetYaxis()->SetTitleSize(24);
    RECO_o_GEN_bkg->GetXaxis()->SetTitleOffset(3.0);
@@ -303,6 +316,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_sb_etaphi_gen->Draw("lego20");
    hMC_sb_etaphi_gen->GetYaxis()->SetTitle("GEN MC Sig-Bkg #Delta#phi_{Z,track}");
    hMC_sb_etaphi_gen->GetXaxis()->SetTitle("GEN MC Sig-Bkg #Delta#eta_{Z,track}");
+   hMC_sb_etaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_sb_etaphi_gen->GetXaxis()->SetTitleSize(24);
    hMC_sb_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_sb_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
@@ -320,6 +334,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_etaphi_gen0Sub->Draw("lego20");
    hMC_etaphi_gen0Sub->GetYaxis()->SetTitle("GEN Pythia MC Sig #Delta#phi_{Z,track}");
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitle("GEN Pythia MC Sig #Delta#eta_{Z,track}");
+   hMC_etaphi_gen0Sub->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitleSize(24);
    hMC_etaphi_gen0Sub->GetYaxis()->SetTitleSize(24);
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitleOffset(3.0);
@@ -333,6 +348,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    GENsb_o_GEN0->Draw("lego20");
    GENsb_o_GEN0->GetYaxis()->SetTitle("GEN MC (Sig-Bkg)/(Sig Pythia) #Delta#phi_{Z,track}");
    GENsb_o_GEN0->GetXaxis()->SetTitle("GEN MC (Sig-Bkg)/(Sig Pythia) #Delta#eta_{Z,track}");
+   GENsb_o_GEN0->GetZaxis()->SetTitle("dN/d#etad#phi");
    GENsb_o_GEN0->GetXaxis()->SetTitleSize(24);
    GENsb_o_GEN0->GetYaxis()->SetTitleSize(24);
    GENsb_o_GEN0->GetXaxis()->SetTitleOffset(3.0);
@@ -354,6 +370,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_sb_etaphi_1->Draw("lego20");
    hMC_sb_etaphi_1->GetYaxis()->SetTitle("RECO MC Sig-Bkg #Delta#phi_{Z,track}");
    hMC_sb_etaphi_1->GetXaxis()->SetTitle("RECO MC Sig-Bkg #Delta#eta_{Z,track}");
+   hMC_sb_etaphi_1->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_sb_etaphi_1->GetXaxis()->SetTitleSize(24);
    hMC_sb_etaphi_1->GetYaxis()->SetTitleSize(24);
    hMC_sb_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
@@ -371,6 +388,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_etaphi_gen0Sub->Draw("lego20");
    hMC_etaphi_gen0Sub->GetYaxis()->SetTitle("GEN Pythia MC Sig #Delta#phi_{Z,track}");
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitle("GEN Pythia MC Sig #Delta#eta_{Z,track}");
+   hMC_etaphi_gen0Sub->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitleSize(24);
    hMC_etaphi_gen0Sub->GetYaxis()->SetTitleSize(24);
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitleOffset(3.0);
@@ -384,6 +402,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    RECOsb_o_GEN0->Draw("lego20");
    RECOsb_o_GEN0->GetYaxis()->SetTitle("RECO MC (Sig-Bkg)/(Sig Pythia) #Delta#phi_{Z,track}");
    RECOsb_o_GEN0->GetXaxis()->SetTitle("RECO MC (Sig-Bkg)/(Sig Pythia) #Delta#eta_{Z,track}");
+   RECOsb_o_GEN0->GetZaxis()->SetTitle("dN/d#etad#phi");
    RECOsb_o_GEN0->GetXaxis()->SetTitleSize(24);
    RECOsb_o_GEN0->GetYaxis()->SetTitleSize(24);
    RECOsb_o_GEN0->GetXaxis()->SetTitleOffset(3.0);
