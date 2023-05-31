@@ -95,6 +95,13 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_bkg_etaphi_1->SetName("hData_bkg_etaphi_1");
    hMC_bkg_etaphi_1->SetName("hMC_bkg_etaphi_1");
 
+   TH2D* hMC_phi = (TH2D*) file_sigMC->Get(Form("%s/HPhi", FolderName.c_str()));
+   TH2D* hMC_bkg_phi = (TH2D*) file_bkgMC->Get(Form("%s/HPhi", FolderName.c_str()));
+
+   hMC_phi->SetName("hMC_phi");
+   hMC_bkg_phi->SetName("hMC_bkg_phi");
+
+
    std::cout<<"Setting histograms..."<<std::endl;
 
    float hfL=0, hfH=0;
