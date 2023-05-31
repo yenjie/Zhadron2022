@@ -27,7 +27,7 @@ TestRun: Execute
 		--JEC $(JECBase)/Autumn18_HI_RAAV3_DATA_L2Relative_AK3PF.txt,$(JECBase)/Autumn18_HI_RAAV3_DATA_L2L3Residual_AK3PF.txt
 
 TestRunMC: Execute
-	time ./Execute --Input PbPbMC/HiForestMiniAOD_211.root \
+	time ./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_211.root \
 		--Output /tmp/$(USER)/TestMC.root --Fraction 0.02 --DoGenLevel true --DoGenCorrelation false --IsData false --IsPP false --MinZPT 5 --DoExtraAxes true \
 		--DoTrackEfficiency true --TrackEfficiencyPath $(ProjectBase)/CommonCode/root/ \
 		--DoJet true --Jet "akCs3PFJetAnalyzer/t" \
