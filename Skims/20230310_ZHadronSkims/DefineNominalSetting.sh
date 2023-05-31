@@ -15,9 +15,9 @@ PbPbJECData=Autumn18_HI_RAAV3_DATA
 
 JECBase=${ProjectBase}/CommonCode/text/JEC/
 
-PPJetMC="--DoJet true --Jet \"ak3PFJetAnlayzer/t\" --JEC ${JECBase}/$PPJECMC/${PPJECMC}_L2Relative_AK3PF.txt"
-PPJetData="--DoJet true --Jet \"ak3PFJetAnlayzer/t\" --JEC ${JECBase}/$PPJECData/${PPJECData}_L2Relative_AK3PF.txt,$JECBase/$PPJECData/${PPJECData}_L2L3Residual_AK3PF.txt"
-PbPbJetMC="--DoJet true --Jet \"akCs3PFJetAnlayzer/t\" --JEC ${JECBase}/$PbPbJECMC/${PbPbJECMC}_L2Relative_AK3PF.txt"
+PPJetMC="    --DoJet true --Jet \"ak3PFJetAnlayzer/t\"   --JEC ${JECBase}/$PPJECMC/${PPJECMC}_L2Relative_AK3PF.txt"
+PPJetData="  --DoJet true --Jet \"ak3PFJetAnlayzer/t\"   --JEC ${JECBase}/$PPJECData/${PPJECData}_L2Relative_AK3PF.txt,$JECBase/$PPJECData/${PPJECData}_L2L3Residual_AK3PF.txt"
+PbPbJetMC="  --DoJet true --Jet \"akCs3PFJetAnlayzer/t\" --JEC ${JECBase}/$PbPbJECMC/${PbPbJECMC}_L2Relative_AK3PF.txt"
 PbPbJetData="--DoJet true --Jet \"akCs3PFJetAnlayzer/t\" --JEC ${JECBase}/$PbPbJECData/${PbPbJECData}_L2Relative_AK3PF.txt,$JECBase/$PbPbJECData/${PbPbJECData}_L2L3Residual_AK3PF.txt"
 
 TrackResidualPathPbPb="${ProjectBase}/CommonCode/root/20230522_TrackResidualCorrection_V9_0_20.root,${ProjectBase}/CommonCode/root/20230522_TrackResidualCorrection_V9_20_60.root,${ProjectBase}/CommonCode/root/20230522_TrackResidualCorrection_V9_60_100.root,${ProjectBase}/CommonCode/root/20230522_TrackResidualCorrection_V9_100_200.root"
@@ -28,7 +28,7 @@ PPRecoTrack="--DoTrackEfficiency true --TrackEfficiencyPath ${ProjectBase}/Commo
 PbPbRecoTrack="--DoTrackEfficiency true --TrackEfficiencyPath ${ProjectBase}/CommonCode/root/ --DoTrackResidual true --TrackResidualPath $TrackResidualPathPbPb"
 
 BackgroundMC="   --DoBackground true --HFShift 682  --Tolerance 20 --ToleranceFraction 0.05 --Oversample 10 --HFCeiling 134000"
-BackgroundGenMC="--DoBackground true --HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --VZTolerance 10000 --HFCeiling 156000"
+BackgroundGenMC="--DoBackground true --HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
 BackgroundData=" --DoBackground true --HFShift 660  --Tolernace 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
 
 DHSet Setting.dh PPSignalMC          Nominal string "$Common $MC    --IsPP true  $AODPF     $PPJetMC      $PPRecoTrack"
