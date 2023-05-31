@@ -42,6 +42,9 @@
 * Version 12b - 2023 May 30
    * Adding track charge information
    * Adding vz weight for pp and PbPb
+* Version 14 - 2023 May 31
+   * Adding pp residual tracking weight by Yenjie
+   * Deal with PT overflow correctly in the track residual weight code
 
 
 
