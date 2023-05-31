@@ -49,6 +49,8 @@ void style(){
 
   gStyle->SetLineScalePS(1.5);
 
+  gStyle->SetHistMinimumZero();
+
   gROOT->ForceStyle();
 }
 
@@ -238,6 +240,8 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    RECO_o_GEN_sig->GetYaxis()->SetTitleOffset(2.5);
    RECO_o_GEN_sig->GetXaxis()->SetNdivisions(50205,kFALSE);
 
+   RECO_o_GEN_sig->SetMaximum(10);
+
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
@@ -334,6 +338,8 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    GENsb_o_GEN0->GetYaxis()->SetTitleOffset(2.5);
    GENsb_o_GEN0->GetXaxis()->SetNdivisions(50205,kFALSE);
 
+   GENsb_o_GEN0->SetMaximum(10);
+
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
@@ -381,6 +387,8 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    RECOsb_o_GEN0->GetXaxis()->SetTitleOffset(3.0);
    RECOsb_o_GEN0->GetYaxis()->SetTitleOffset(2.5);
    RECOsb_o_GEN0->GetXaxis()->SetNdivisions(50205,kFALSE);
+
+   RECOsb_o_GEN0->SetMaximum(10);
 
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
