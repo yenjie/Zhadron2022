@@ -61,7 +61,7 @@ TFile *file_ppData;
 TFile *file_sigMC0Sub;
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230530";
+const char *typeofdata = "20230531";
 const char *typeofdatatext = "single muon";
 
 void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -637,22 +637,22 @@ int main(int argc, char *argv[]){
    file_sigMC0Sub    = TFile::Open("GraphMCSignal0Sub_v10-1.root","read");
    file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_v10-1.root","read");
 
-   ZtrackProj_single(40, 20, 2000,  0, 30,  4,    5);
-   ZtrackProj_single(40, 20, 2000,  0, 30,  5,    7);
-   ZtrackProj_single(40, 20, 2000,  0, 30,  7,   10);
+   //ZtrackProj_single(40, 20, 2000,  0, 30,  4,    5);
+   //ZtrackProj_single(40, 20, 2000,  0, 30,  5,    7);
+   //ZtrackProj_single(40, 20, 2000,  0, 30,  7,   10);
 
    /*
    ZtrackProj_single(40, 30,   40,  0, 90,  0, 1000);
    ZtrackProj_single(40, 40,   60,  0, 90,  0, 1000);
    ZtrackProj_single(40, 60,   80,  0, 90,  0, 1000);
    ZtrackProj_single(40, 80,  100,  0, 90,  0, 1000);*/
-   ZtrackProj_single(40, 20, 2000,  0, 10,  0, 1000);
-   ZtrackProj_single(40, 20, 2000, 10, 30,  0, 1000);
-   ZtrackProj_single(40, 20, 2000, 30, 50,  0, 1000);
-   ZtrackProj_single(40, 20, 2000, 50, 90,  0, 1000);
-   ZtrackProj_single(40, 20, 2000,  0, 90,  1,    2);
-   ZtrackProj_single(40, 20, 2000,  0, 90,  2,    5);
-   ZtrackProj_single(40, 20, 2000,  0, 90,  5,   10);
+   //ZtrackProj_single(40, 20, 2000,  0, 10,  0, 1000);
+   //ZtrackProj_single(40, 20, 2000, 10, 30,  0, 1000);
+   //ZtrackProj_single(40, 20, 2000, 30, 50,  0, 1000);
+   //ZtrackProj_single(40, 20, 2000, 50, 90,  0, 1000);
+   //ZtrackProj_single(40, 20, 2000,  0, 90,  1,    2);
+   //ZtrackProj_single(40, 20, 2000,  0, 90,  2,    5);
+   //ZtrackProj_single(40, 20, 2000,  0, 90,  5,   10);
    ZtrackProj_single(40, 20, 2000,  0, 90, 10,   20);
    ZtrackProj_single(40, 20, 2000,  0, 90, 20,   50);
    ZtrackProj_single(40, 20, 2000,  0, 90, 50,  100);
@@ -661,10 +661,10 @@ int main(int argc, char *argv[]){
 
    //ZtrackProj_single(40, 20, 2000,  0, 10, 10,   20);
 
-   ZtrackProj_single(40, 20, 2000,  0, 10, 10,   20);
-   ZtrackProj_single(40, 20, 2000, 10, 30, 10,   20);
-   ZtrackProj_single(40, 20, 2000, 30, 50, 10,   20);
-   ZtrackProj_single(40, 20, 2000, 50, 90, 10,   20);
+   //ZtrackProj_single(40, 20, 2000,  0, 10, 10,   20);
+   //ZtrackProj_single(40, 20, 2000, 10, 30, 10,   20);
+   //ZtrackProj_single(40, 20, 2000, 30, 50, 10,   20);
+   //ZtrackProj_single(40, 20, 2000, 50, 90, 10,   20);
 
    file_sigMC->Close();
    file_bkgMC->Close();
