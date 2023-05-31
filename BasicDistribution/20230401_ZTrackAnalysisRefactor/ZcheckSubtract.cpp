@@ -250,7 +250,9 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    RECO_o_GEN_sig->GetYaxis()->SetTitleOffset(2.5);
    RECO_o_GEN_sig->GetXaxis()->SetNdivisions(50205,kFALSE);
 
-   RECO_o_GEN_sig->SetMaximum(10);
+   int max3 = RECO_o_GEN_sig->GetMaximum();
+   if(max3>10) max3=10;
+   RECO_o_GEN_sig->SetMaximum(max3);
    RECO_o_GEN_sig->SetMinimum(0);
 
    gPad->SetTheta(60.839);
@@ -304,6 +306,11 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    RECO_o_GEN_bkg->GetYaxis()->SetTitleOffset(2.5);
    RECO_o_GEN_bkg->GetXaxis()->SetNdivisions(50205,kFALSE);
 
+   max3 = RECO_o_GEN_bkg->GetMaximum();
+   if(max3>10) max3=10;
+   RECO_o_GEN_bkg->SetMaximum(max3);
+   RECO_o_GEN_bkg->SetMinimum(0);
+
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
@@ -355,7 +362,9 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    GENsb_o_GEN0->GetYaxis()->SetTitleOffset(2.5);
    GENsb_o_GEN0->GetXaxis()->SetNdivisions(50205,kFALSE);
 
-   GENsb_o_GEN0->SetMaximum(10);
+   max3 = GENsb_o_GEN0->GetMaximum();
+   if(max3>10) max3=10;
+   GENsb_o_GEN0->SetMaximum(max3);
    GENsb_o_GEN0->SetMinimum(0);
 
    gPad->SetTheta(60.839);
@@ -409,7 +418,9 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    RECOsb_o_GEN0->GetYaxis()->SetTitleOffset(2.5);
    RECOsb_o_GEN0->GetXaxis()->SetNdivisions(50205,kFALSE);
 
-   RECOsb_o_GEN0->SetMaximum(10);
+   max3 = RECOsb_o_GEN0->GetMaximum();
+   if(max3>10) max3=10;
+   RECOsb_o_GEN0->SetMaximum(max3);
    RECOsb_o_GEN0->SetMinimum(0);
 
    gPad->SetTheta(60.839);
