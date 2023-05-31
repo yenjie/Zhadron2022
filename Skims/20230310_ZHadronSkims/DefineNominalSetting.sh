@@ -27,9 +27,9 @@ GenTrack="--DoTrackEfficiency false --TrackEfficiencyPath ${ProjectBase}/CommonC
 PPRecoTrack="--DoTrackEfficiency true --TrackEfficiencyPath ${ProjectBase}/CommonCode/root/ --DoTrackResidual true --TrackResidualPath $TrackResidualPathPP"
 PbPbRecoTrack="--DoTrackEfficiency true --TrackEfficiencyPath ${ProjectBase}/CommonCode/root/ --DoTrackResidual true --TrackResidualPath $TrackResidualPathPbPb"
 
-BackgroundMC="--DoBackground true --HFShift 682 --Tolerance 20 --ToleranceFraction 0.05 --HFCeiling 134000"
-BackgroundGenMC="--DoBackground true --HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --VZTolerance 10000 --HFCeiling 156000"
-BackgroundData="--DoBackground true --HFShift 660 --Tolernace 0 --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
+BackgroundMC="   --DoBackground true --HFShift 682  --Tolerance 20 --ToleranceFraction 0.05 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMC="--DoBackground true --HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --VZTolerance 10000 --HFCeiling 156000"
+BackgroundData=" --DoBackground true --HFShift 660  --Tolernace 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
 
 DHSet Setting.dh PPSignalMC          Nominal string "$Common $MC    --IsPP true  $AODPF     $PPJetMC      $PPRecoTrack"
 DHSet Setting.dh PPSignalGenMC       Nominal string "$Common $MCGen --IsPP true  $AODPF     $PPJetMC      $GenTrack"
