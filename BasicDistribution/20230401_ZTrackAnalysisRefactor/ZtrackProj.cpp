@@ -172,13 +172,13 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_etaphi_1->Scale(1./100);
    hMC_bkg_etaphi_1->Scale(1./100);
 
-   hpp_etaphi_1->Rebin2D(4,4);
-   hMC_etaphi_gen->Rebin2D(4,4);
-   hMC_etaphi_rec->Rebin2D(4,4);
+   hpp_etaphi_1->Rebin2D(10,10);
+   hMC_etaphi_gen->Rebin2D(10,10);
+   //hMC_etaphi_rec->Rebin2D(4,4);
 
-   hpp_etaphi_1->Scale(1./16);
-   hMC_etaphi_gen->Scale(1./16);
-   hMC_etaphi_rec->Scale(1./16);
+   hpp_etaphi_1->Scale(1./100);
+   hMC_etaphi_gen->Scale(1./100);
+   //hMC_etaphi_rec->Scale(1./16);
 
    
    TH2D *hMC_sb_etaphi_1 = (TH2D*) hMC_etaphi_1->Clone("hMC_sb_etaphi_1");
