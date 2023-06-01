@@ -25,16 +25,23 @@ public:
       if(phi < 0)
          phi += 2 * M_PI;
 
+      double PTMax = hPtCorrTotal->GetXaxis()->GetBinUpEdge(hPtCorrTotal->GetNbinsX());
+
       int bin_pt = hPtCorrTotal->GetXaxis()->FindBin(pt);
       int bin_eta = hEtaCorrTotal->GetXaxis()->FindBin(eta);
       int bin_phi = hPhiCorrTotal->GetXaxis()->FindBin(phi);
+     
+      // last bin in PT is overflow
+      if(pt >= PTMax)
+         bin_pt = hPtCorrTotal->GetNbinsX();
+      
       double corr = hPtCorrTotal->GetBinContent(bin_pt) *
          hEtaCorrTotal->GetBinContent(bin_eta) *
          hPhiCorrTotal->GetBinContent(bin_phi);
 
       if(isnan(corr))
       {
-         std::cerr << "Error! 0 efficiency! " << bin_pt << " " << bin_eta << " " << bin_phi << std::endl;
+         std::cerr << "Error!  nan efficiency! " << bin_pt << " " << bin_eta << " " << bin_phi << std::endl;
          corr = 1;
       }
 
@@ -61,6 +68,7 @@ public:
    
    TrackResidualCentralityCorrector(std::vector<std::string> F)
    {
+      // cout << F.size() << " " << F[0] << endl;
       if(F.size() == 4)
       {
          TRC1 = new TrackResidualCorrector(F[0]);
