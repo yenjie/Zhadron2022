@@ -200,6 +200,7 @@ void get3D(TTree *t, Tree &b, TH3D *h, const Parameters& par)
 	     //if (!isGen) residualCorr = cfg.GetCorrectionFactor((*b.trackPt)[j],trackEta,trackPhi);
 	     //cout <<isGen<<" "<<residualCorr<<" "<<cfg.GetCorrectionFactor((*b.trackPt)[j],trackEta,trackPhi)<<endl;
 	     h->Fill((*b.trackPt)[j], trackEta, trackPhi,(b.NCollWeight)*(*b.trackWeight)[j]*residualCorr);
+//	     cout <<"fill"<<endl;
  	  }
        }
     }
@@ -302,80 +303,99 @@ public:
 // Main analysis
 //============================================================//
 
-int compareDataMCLoop(double ZptCutL=20, double ZptCutH=200, double ptL=1, double ptH=4, double hiBinL=0, double
-hiBinH=20)
+int compareDataMCLoop(double ZptCutL=20, double ZptCutH=300, double ptL=0.5, double ptH=2, double hiBinL=0, double hiBinH=60)
 {
+   TCanvas *c = new TCanvas("c", "", 800, 800);
+
    // Initialize a Parameters object with default values
    Parameters par(ZptCutL, ZptCutH, ptL, ptH, hiBinL, hiBinH);
-   par.isGen=0;
-   par.mix=0;
-   par.scaleFactor=0.01;
+   par.isGen = 0;
+   par.mix = 0;
+   par.scaleFactor = 1;
 
-   //Analyze Data
-   DataAnalyzer analyzerData("sample/HISingleMuon_V8.root", "Tree", "Data");
+   // Initialize a Parameters object with default values for pp
+   Parameters parPP(ZptCutL, ZptCutH, ptL, ptH, -10, 10);
+   parPP.isGen = 0;
+   parPP.mix = 0;
+   parPP.scaleFactor = 0.01;
+
+   // Analyze Data
+   DataAnalyzer analyzerData("sample/HISingleMuon_V9.root", "Tree", "Data");
    analyzerData.analyze(par);
 
-   TFile *outf = new TFile(Form("result/output_data_%.1f_%.1f_%.0f_%.0f.root",ptL,ptH,ZptCutL,ZptCutH),"recreate");
-   analyzerData.writeHistograms(outf);
+   par.scaleFactor = 0.01;
 
    // Analyze MC
-   DataAnalyzer analyzerMC("sample/PbPbMC_V8.root", "Tree","MC");
-   analyzerMC.analyze(par);
-   analyzerMC.writeHistograms(outf);
+   DataAnalyzer analyzerMC("sample/PPMC_v13.root", "Tree", "MC");
+   analyzerMC.analyze(parPP);
 
    // Analyze MC Gen level
-   DataAnalyzer analyzerMCGen("sample/PbPbMCGen_V8.root", "Tree","MCGen");
-   par.isGen=1;
-   analyzerMCGen.analyze(par);
+   DataAnalyzer analyzerMCGen("sample/PPMCGen_v13.root", "Tree", "MCGen");
+   par.isGen = 1;
+   analyzerMCGen.analyze(parPP);
 
+   // Analyze pp Data
+   DataAnalyzer analyzerPP("sample/SingleMuon_v13.root", "Tree", "ppData");
+   analyzerPP.analyze(parPP);
 
+   TFile *outf = new TFile(Form("result/output_data_%.1f_%.1f_%.0f_%.0f_%.0f_%.0f.root", ptL, ptH, ZptCutL, ZptCutH, hiBinL, hiBinH), "recreate");
+   analyzerData.writeHistograms(outf);
+   analyzerMC.writeHistograms(outf);
    analyzerMCGen.writeHistograms(outf);
+   analyzerPP.writeHistograms(outf);
+
+   cout << "done!" << endl;
    
-   cout <<"done!"<<endl;   
 
    // Plotting
    outf->cd();
-   TCanvas *c = new TCanvas("c","",800,800);
    analyzerMC.hDiff->SetLineColor(2);
    analyzerMC.hDiff->SetMarkerColor(2);
    analyzerMCGen.hDiff->SetLineColor(4);
    analyzerMCGen.hDiff->SetMarkerColor(4);
-   
-   analyzerMC.hDiff->SetAxisRange(-6,6,"Y");
-   analyzerMC.hDiff->SetAxisRange(0,3.2,"X");
+   analyzerPP.hDiff->SetLineColor(6);
+   analyzerPP.hDiff->SetMarkerColor(6);
 
-   TLegend *leg = new TLegend(0.5,0.7,0.9,0.9);
+   HistogramRangeChecker checker;
+   checker.checkHistogramRange(analyzerMC.hDiff);
+   cout <<checker.getMinValue()<<" "<<checker.getMaxValue()<<endl;
+   checker.checkHistogramRange(analyzerMCGen.hDiff);
+   cout <<checker.getMinValue()<<" "<<checker.getMaxValue()<<endl;
+   checker.checkHistogramRange(analyzerData.hDiff);
+   cout <<checker.getMinValue()<<" "<<checker.getMaxValue()<<endl;
+   checker.checkHistogramRange(analyzerPP.hDiff);
+   cout <<checker.getMinValue()<<" "<<checker.getMaxValue()<<endl;
+   
+
+
+   analyzerMC.hDiff->SetAxisRange(checker.getMinValue() - (checker.getMaxValue() - checker.getMinValue()) * 0.1,
+                                  checker.getMaxValue() + (checker.getMaxValue() - checker.getMinValue()) * 0.1, "Y");
+   analyzerMC.hDiff->SetAxisRange(0, 3.2, "X");
+
+   TLegend *leg = new TLegend(0.5, 0.7, 0.9, 0.9);
    leg->SetBorderSize(0);
-   leg->AddEntry(analyzerData.hDiff,"Data","pl");
-   leg->AddEntry(analyzerMC.hDiff,"MC","pl");
-   leg->AddEntry(analyzerMCGen.hDiff,"MC Gen","pl");
-   leg->AddEntry(analyzerMC.hDiff,Form("%.1f<Track p_{T}<%.1f",ptL,ptH),"");
-   leg->AddEntry(analyzerMC.hDiff,Form("%.0f<Z p_{T}<%.0f",ZptCutL,ZptCutH),"");
+   leg->AddEntry(analyzerData.hDiff, Form("Data %.0f-%.0f%%", hiBinL / 2., hiBinH / 2.), "pl");
+   leg->AddEntry(analyzerMC.hDiff, "MC", "pl");
+   leg->AddEntry(analyzerMCGen.hDiff, "MC Gen", "pl");
+   leg->AddEntry(analyzerPP.hDiff, "pp Data", "pl");
+   leg->AddEntry(analyzerMC.hDiff, Form("%.1f<Track p_{T}<%.1f", ptL, ptH), "");
+   leg->AddEntry(analyzerMC.hDiff, Form("%.0f<Z p_{T}<%.0f", ZptCutL, ZptCutH), "");
+
    analyzerMC.hDiff->SetXTitle("#Delta#phi(Z,track)");
    analyzerMC.hDiff->SetYTitle("#Delta N_{ch} / Event");
    analyzerMC.hDiff->Draw();
    analyzerMCGen.hDiff->Draw("hist same");
-   leg->Draw();
    analyzerData.hDiff->Draw("same");
-      
+   analyzerPP.hDiff->Draw("same");
+   leg->Draw();
 
-/*
-   double mcY= analyzerMC.hDiff->Integral(1,5);
-   double dataY= analyzerData.hDiff->Integral(1,5);
-   double mcYD= analyzerMC.hDiff->Integral(1,5)-analyzerMC.hDiff->Integral(6,10);
-   double dataYD= analyzerData.hDiff->Integral(1,5)-analyzerData.hDiff->Integral(6,10);
-   */
-//   nt->Fill(ZptCutL,ZptCutH,ptL,ptH,mcY,dataY,mcYD,dataYD);
-   c->SaveAs(Form("result/Z_%.1f_%.1f_%.0f_%.0f.pdf",ptL,ptH,ZptCutL,ZptCutH));
-   c->SaveAs(Form("result/Z_%.1f_%.1f_%.0f_%.0f.gif",ptL,ptH,ZptCutL,ZptCutH));
+   c->SaveAs(Form("result/Z_%.1f_%.1f_%.0f_%.0f_%.0f_%.0f.gif", ptL, ptH, ZptCutL, ZptCutH, hiBinL, hiBinH));
+   c->SaveAs(Form("result/Z_%.1f_%.1f_%.0f_%.0f_%.0f_%.0f.pdf", ptL, ptH, ZptCutL, ZptCutH, hiBinL, hiBinH));
    c->Write();
-//   nt->Write();
-//   analyzerMC.h3D->ProjectionX()->Draw();
-   cout <<outf->GetName()<<endl;
+
+   cout << outf->GetName() << endl;
    return 1;
 }
-
-
 
 //============================================================//
 // Efficiency Study
@@ -391,7 +411,7 @@ int efficiencyStudy(double ZptCutL=5, double ZptCutH=200, double ptL=0, double p
    for (unsigned int i=0;i<4;i++) {
       par.hiBinL=hiBin[i];
       par.hiBinH=hiBin[i+1];
-   TFile *outf = new TFile(Form("result/output_data_%.1f_%.1f_%.0f_%.0f_%d_%d.root",ptL,ptH,ZptCutL,ZptCutH,par.hiBinL,par.hiBinH),"recreate");
+      TFile *outf = new TFile(Form("result/output_data_%.1f_%.1f_%.0f_%.0f_%d_%d.root",ptL,ptH,ZptCutL,ZptCutH,par.hiBinL,par.hiBinH),"recreate");
       DataAnalyzer* analyzerMC = new DataAnalyzer("PbPbMC_V9.root", "Tree",Form("MC", hiBin[i], hiBin[i+1]));
       analyzerMC->analyze3D(par);
       cout <<"good"<<endl;
@@ -408,3 +428,27 @@ int efficiencyStudy(double ZptCutL=5, double ZptCutH=200, double ptL=0, double p
    return 1;
 }
 
+
+int efficiencyStudyPP(double ZptCutL=5, double ZptCutH=200, double ptL=0, double ptH=10)
+{
+    // Initialize a Parameters object with default values
+   Parameters par(ZptCutL, ZptCutH, ptL, ptH);
+   par.hiBinL=-10;
+   par.hiBinH=0;
+  
+   TFile *outf = new TFile(Form("result/output_dataPP_%.1f_%.1f_%.0f_%.0f.root",ptL,ptH,ZptCutL,ZptCutH),"recreate");
+   DataAnalyzer* analyzerMC = new DataAnalyzer("PPMC_v12.root", "Tree","MC");
+   analyzerMC->analyze3D(par);
+   cout <<"good"<<endl;
+   analyzerMC->writeHistograms(outf);
+   delete analyzerMC;
+
+   DataAnalyzer* analyzerMCGen = new DataAnalyzer("PPMCGen_v12.root", "Tree","MCGen");
+   analyzerMCGen->analyze3D(par);
+   analyzerMCGen->writeHistograms(outf);
+   
+   delete analyzerMCGen;
+   outf->Close();
+   
+   return 1;
+}
