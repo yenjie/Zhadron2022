@@ -29,21 +29,21 @@ PbPbRecoTrack="--DoTrackEfficiency true --TrackEfficiencyPath ${ProjectBase}/Com
 
 BackgroundMC="   --DoBackground true --HFShift 682  --Tolerance 20 --ToleranceFraction 0.05 --Oversample 10 --HFCeiling 134000"
 BackgroundGenMC="--DoBackground true --HFShift 1083 --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-BackgroundData=" --DoBackground true --HFShift 660  --Tolernace 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
+BackgroundData=" --DoBackground true --HFShift 660  --Tolerance 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
 
 BackgroundMCUEUp25="     --DoBackground true --HFShift 699   --Tolerance 20 --ToleranceFraction 0.05 --Oversample 10 --HFCeiling 134000"
 BackgroundGenMCUEUp25="  --DoBackground true --HFShift 1110  --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-BackgroundDataUEUp25="   --DoBackground true --HFShift 676.5 --Tolernace 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
+BackgroundDataUEUp25="   --DoBackground true --HFShift 676.5 --Tolerance 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
 BackgroundMCUEDown25="   --DoBackground true --HFShift 665   --Tolerance 20 --ToleranceFraction 0.05 --Oversample 10 --HFCeiling 134000"
 BackgroundGenMCUEDown25="--DoBackground true --HFShift 1056  --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-BackgroundDataUEDown25=" --DoBackground true --HFShift 643.5 --Tolernace 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
+BackgroundDataUEDown25=" --DoBackground true --HFShift 643.5 --Tolerance 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
 
 BackgroundMCUEUp30="     --DoBackground true --HFShift 702.5  --Tolerance 20 --ToleranceFraction 0.05 --Oversample 10 --HFCeiling 134000"
 BackgroundGenMCUEUp30="  --DoBackground true --HFShift 1115.5 --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-BackgroundDataUEUp30="   --DoBackground true --HFShift 680    --Tolernace 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
+BackgroundDataUEUp30="   --DoBackground true --HFShift 680    --Tolerance 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
 BackgroundMCUEDown30="   --DoBackground true --HFShift 661.5  --Tolerance 20 --ToleranceFraction 0.05 --Oversample 10 --HFCeiling 134000"
 BackgroundGenMCUEDown30="--DoBackground true --HFShift 1050.5 --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-BackgroundDataUEDown30=" --DoBackground true --HFShift 640.2  --Tolernace 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
+BackgroundDataUEDown30=" --DoBackground true --HFShift 640.2  --Tolerance 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
 
 DHSet Setting.dh PPSignalMC          Nominal string "$Common $MC    --IsPP true  $AODPF     $PPJetMC      $PPRecoTrack"
 DHSet Setting.dh PPSignalGenMC       Nominal string "$Common $MCGen --IsPP true  $AODPF     $PPJetMC      $GenTrack"
