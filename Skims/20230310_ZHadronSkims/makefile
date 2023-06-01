@@ -45,8 +45,8 @@ TestRunBackground: Execute
 		`./Expand Setting.dh PbPbSignalData Nominal`
 
 TestRunPP: Execute
-	./Execute --Input `ls $(PPSignalMC)/*root | head -n2 | tr '\n' ','` \
-		--Output /tmp/$(USER)/TestPP.root --Fraction 1 \
+	./Execute --Input `ls $(PPSignalMC)/*root | head -n 2 | tr '\n' ','` \
+		--Output /tmp/$(USER)/TestPP.root --Fraction 0.1 \
 		`./Expand Setting.dh PPSignalMC Nominal`
 
 TestRunPPData: Execute
