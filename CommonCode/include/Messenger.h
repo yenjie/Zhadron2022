@@ -512,6 +512,7 @@ public:
 
    float NCollWeight;
    float ZWeight;
+   float VZWeight;
 
    int NVertex;
    float VX, VY, VZ, VXError, VYError, VZError;
@@ -534,6 +535,7 @@ public:
    std::vector<bool> *trackMuTagged;
    std::vector<double> *trackWeight;
    std::vector<double> *trackResidualWeight;
+   std::vector<int> *trackCharge;
    std::vector<int> *subevent;
    
    std::vector<double> *jetPt;
