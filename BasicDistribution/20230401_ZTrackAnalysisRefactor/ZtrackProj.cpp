@@ -62,6 +62,7 @@ TFile *file_sigMC0Sub;
 TFile *file_sigMCgen0Sub;
 
 const char *typeofdata = "v14/20230601";
+const char *typeofdata1 = "v14_20230601";
 const char *typeofdatatext = "single muon";
 
 void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -279,7 +280,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    pt_p1->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projphi.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -311,7 +312,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    pt_p2->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projphi_cent.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projphi_cent.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -343,7 +344,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    pt_p3->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projeta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projeta.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -375,7 +376,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    pt_p4->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projeta_peak.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projeta_peak.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->SetCanvasSize(800,800);
@@ -452,7 +453,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    pt_p1->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projphi.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    TH1D* hpp_projphi_cent = (TH1D*) hpp_etaphi_1->ProjectionY("hpp_projphi_cent",(int) ppNbinsX/4,(int) 3*ppNbinsX/4);
@@ -509,7 +510,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    pt_p2->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projphi_cent.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projphi_cent.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    TH1D* hpp_projeta = (TH1D*) hpp_etaphi_1->ProjectionX("hpp_projeta",1,(int) ppNbinsY/2);
@@ -566,7 +567,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    pt_p3->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projeta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projeta.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    TH1D* hpp_projeta_peak = (TH1D*) hpp_etaphi_1->ProjectionX("hpp_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
@@ -623,7 +624,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    pt_p4->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projeta_peak.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projeta_peak.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
 

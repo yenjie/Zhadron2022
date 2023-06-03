@@ -66,6 +66,7 @@ TFile *file_bkgMCgen;
 TFile *file_sigMCgen0Sub;
 
 const char *typeofdata = "v14/20230601";
+const char *typeofdata1 = "v14_20230601";
 const char *typeofdatatext = "single muon";
 
 void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -258,7 +259,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOGEN_sig.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOGEN_sig.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(3);
@@ -314,7 +315,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOGEN_bkg.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOGEN_bkg.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(3);
@@ -370,7 +371,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_GENsb_GEN0.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_GENsb_GEN0.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(3);
@@ -426,7 +427,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOsb_GEN0.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOsb_GEN0.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
 }
