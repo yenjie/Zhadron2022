@@ -415,6 +415,10 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_rec_projphi->Draw("hist same");
    hMC_gen_projphi->Draw("hist same");
 
+   hpp_projphi->SetMaximum(1.6*max1); 
+   hMC_rec_projphi->SetMaximum(1.6*max2); 
+   hMC_gen_projphi->SetMaximum(1.6*max3); 
+
    hpp_projphi->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hpp_projphi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hpp_projphi->GetYaxis()->SetTitle("dN/d#Delta#phi");
@@ -479,6 +483,10 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_rec_projphi_cent->Draw("hist same");
    hMC_gen_projphi_cent->Draw("hist same");
 
+   hpp_projphi_cent->SetMaximum(1.6*max1); 
+   hMC_rec_projphi_cent->SetMaximum(1.6*max2); 
+   hMC_gen_projphi_cent->SetMaximum(1.6*max3); 
+
    hpp_projphi_cent->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hpp_projphi_cent->GetXaxis()->SetNdivisions(50205,kFALSE);
    hpp_projphi_cent->GetYaxis()->SetTitle("dN/d#Delta#phi");
@@ -536,6 +544,10 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_rec_projeta->Draw("hist same");
    hMC_gen_projeta->Draw("hist same");
 
+   hpp_projeta->SetMaximum(1.6*max1); 
+   hMC_rec_projeta->SetMaximum(1.6*max2); 
+   hMC_gen_projeta->SetMaximum(1.6*max3); 
+
    hpp_projeta->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
    hpp_projeta->GetXaxis()->SetNdivisions(50205,kFALSE);
    hpp_projeta->GetYaxis()->SetTitle("dN/d#Delta#eta");
@@ -592,6 +604,10 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hpp_projeta_peak->Draw("ep same");
    hMC_rec_projeta_peak->Draw("hist same");
    hMC_gen_projeta_peak->Draw("hist same");
+
+   hpp_projeta_peak->SetMaximum(1.6*max1); 
+   hMC_rec_projeta_peak->SetMaximum(1.6*max2); 
+   hMC_gen_projeta_peak->SetMaximum(1.6*max3); 
 
    hpp_projeta_peak->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
    hpp_projeta_peak->GetXaxis()->SetNdivisions(50205,kFALSE);
