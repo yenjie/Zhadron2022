@@ -2372,10 +2372,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi.C",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    Int_t max_x, max_y, max_z, max_bin;
    max_bin = hMC_sb_WTAetaphi->GetMaximumBin(max_x,max_y,max_z);
-   max1 = hMC_sb_WTAetaphi->Integral(max_x-5,max_x-3,max_y-1,max_y+1)/9.;
+   max1 = hMC_sb_WTAetaphi->Integral(max_x-5,max_x-3,max_y-1,max_y+1)/4.;
    hMC_sb_WTAetaphi->SetMaximum(fabs(max1)*5);
    max_bin = hData_sb_WTAetaphi->GetMaximumBin(max_x,max_y,max_z);
-   max2 = hData_sb_WTAetaphi->Integral(max_x-5,max_x-3,max_y-1,max_y+1)/9.;
+   max2 = hData_sb_WTAetaphi->Integral(max_x-5,max_x-3,max_y-1,max_y+1)/4.;
    hData_sb_WTAetaphi->SetMaximum(fabs(max2)*5);
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi_zoom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
 
