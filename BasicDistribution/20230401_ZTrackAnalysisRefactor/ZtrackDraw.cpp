@@ -2373,10 +2373,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    Int_t max_x, max_y, max_z, max_bin;
    max_bin = hMC_sb_WTAetaphi->GetMaximumBin(max_x,max_y,max_z);
    max1 = hMC_sb_WTAetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hMC_sb_WTAetaphi->SetMaximum(max1/10);
+   hMC_sb_WTAetaphi->SetMaximum(max1*2);
    max_bin = hData_sb_WTAetaphi->GetMaximumBin(max_x,max_y,max_z);
    max2 = hData_sb_WTAetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hData_sb_WTAetaphi->SetMaximum(max2/10);
+   hData_sb_WTAetaphi->SetMaximum(max2*2);
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi_zoom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
 
    c->Clear();
@@ -2420,10 +2420,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi.C",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    max_bin = hMC_sbr_WTAetaphi->GetMaximumBin(max_x,max_y,max_z);
    max1 = hMC_sbr_WTAetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hMC_sbr_WTAetaphi->SetMaximum(max1/10);
+   hMC_sbr_WTAetaphi->SetMaximum(max1*2);
    max_bin = hData_sbr_WTAetaphi->GetMaximumBin(max_x,max_y,max_z);
    max2 = hData_sbr_WTAetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hData_sbr_WTAetaphi->SetMaximum(max2/10);
+   hData_sbr_WTAetaphi->SetMaximum(max2*2);
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAetaphi_zoom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
@@ -2546,10 +2546,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    max_bin = hMC_sb_WTAMoreetaphi->GetMaximumBin(max_x,max_y,max_z);
    max1 = hMC_sb_WTAMoreetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hMC_sb_WTAMoreetaphi->SetMaximum(max1/10);
+   hMC_sb_WTAMoreetaphi->SetMaximum(max1*2);
    max_bin = hData_sb_WTAMoreetaphi->GetMaximumBin(max_x,max_y,max_z);
    max2 = hData_sb_WTAMoreetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hData_sb_WTAMoreetaphi->SetMaximum(max2/10);
+   hData_sb_WTAMoreetaphi->SetMaximum(max2*2);
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi_zoom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
@@ -2594,10 +2594,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    max_bin = hMC_sbr_WTAMoreetaphi->GetMaximumBin(max_x,max_y,max_z);
    max1 = hMC_sbr_WTAMoreetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hMC_sbr_WTAMoreetaphi->SetMaximum(max1/10);
+   hMC_sbr_WTAMoreetaphi->SetMaximum(max1*2);
    max_bin = hData_sbr_WTAMoreetaphi->GetMaximumBin(max_x,max_y,max_z);
    max2 = hData_sbr_WTAMoreetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hData_sbr_WTAMoreetaphi->SetMaximum(max2/10);
+   hData_sbr_WTAMoreetaphi->SetMaximum(max2*2);
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/WTAMoreetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_WTAMoreetaphi_zoom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
@@ -3036,10 +3036,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    max_bin = hMC_Zsb_WTAetaphi->GetMaximumBin(max_x,max_y,max_z);
    max1 = hMC_Zsb_WTAetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hMC_Zsb_WTAetaphi->SetMaximum(max1/10);
+   hMC_Zsb_WTAetaphi->SetMaximum(max1*2);
    max_bin = hData_Zsb_WTAetaphi->GetMaximumBin(max_x,max_y,max_z);
    max2 = hData_Zsb_WTAetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hData_Zsb_WTAetaphi->SetMaximum(max2/10);
+   hData_Zsb_WTAetaphi->SetMaximum(max2*2);
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAetaphi_zoom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
@@ -3084,10 +3084,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    max_bin = hMC_Zsbr_WTAetaphi->GetMaximumBin(max_x,max_y,max_z);
    max1 = hMC_Zsbr_WTAetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hMC_Zsbr_WTAetaphi->SetMaximum(max1/10);
+   hMC_Zsbr_WTAetaphi->SetMaximum(max1*2);
    max_bin = hData_Zsbr_WTAetaphi->GetMaximumBin(max_x,max_y,max_z);
    max2 = hData_Zsbr_WTAetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hData_Zsbr_WTAetaphi->SetMaximum(max2/10);
+   hData_Zsbr_WTAetaphi->SetMaximum(max2*2);
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAetaphi_zoom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
@@ -3210,10 +3210,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    max_bin = hMC_Zsb_WTAMoreetaphi->GetMaximumBin(max_x,max_y,max_z);
    max1 = hMC_Zsb_WTAMoreetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hMC_Zsb_WTAMoreetaphi->SetMaximum(max1/10);
+   hMC_Zsb_WTAMoreetaphi->SetMaximum(max1*2);
    max_bin = hData_Zsb_WTAMoreetaphi->GetMaximumBin(max_x,max_y,max_z);
    max2 = hData_Zsb_WTAMoreetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hData_Zsb_WTAMoreetaphi->SetMaximum(max2/10);
+   hData_Zsb_WTAMoreetaphi->SetMaximum(max2*2);
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAMoreetaphi_zoom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
@@ -3258,10 +3258,10 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    max_bin = hMC_Zsbr_WTAMoreetaphi->GetMaximumBin(max_x,max_y,max_z);
    max1 = hMC_Zsbr_WTAMoreetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hMC_Zsbr_WTAMoreetaphi->SetMaximum(max1/10);
+   hMC_Zsbr_WTAMoreetaphi->SetMaximum(max1*2);
    max_bin = hData_Zsbr_WTAMoreetaphi->GetMaximumBin(max_x,max_y,max_z);
    max2 = hData_Zsbr_WTAMoreetaphi->Integral(max_x-9,max_x-5,max_y-9,max_y-5)/25.;
-   hData_Zsbr_WTAMoreetaphi->SetMaximum(max2/10);
+   hData_Zsbr_WTAMoreetaphi->SetMaximum(max2*2);
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/ZWTAMoreetaphi/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_ZWTAMoreetaphi_zoom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
