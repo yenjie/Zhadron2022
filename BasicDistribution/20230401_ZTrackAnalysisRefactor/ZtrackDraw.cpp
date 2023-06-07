@@ -59,8 +59,8 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v14/20230601";
-const char *typeofdata1 = "v14_20230601";
+const char *typeofdata = "v14/20230607";
+const char *typeofdata1 = "v14_20230607";
 const char *typeofdatatext = "single muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -1005,15 +1005,49 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   TH1D *hMC_phi_com = (TH1D*) hMC_phi->Clone("hMC_phi_com");
-   TH1D *hMC_bkg_phi_com = (TH1D*) hMC_bkg_phi->Clone("hMC_bkg_phi_com");
-   TH1D *hMC_sb_phi_com = (TH1D*) hMC_sb_phi->Clone("hMC_sb_phi_com");
-   TH1D *hpp_phi_com = (TH1D*) hpp_phi->Clone("hpp_phi_com");
+   //TH1D *hMC_phi_com = (TH1D*) hMC_phi->Clone("hMC_phi_com");
+   //TH1D *hMC_bkg_phi_com = (TH1D*) hMC_bkg_phi->Clone("hMC_bkg_phi_com");
+   //TH1D *hMC_sb_phi_com = (TH1D*) hMC_sb_phi->Clone("hMC_sb_phi_com");
+   //TH1D *hpp_phi_com = (TH1D*) hpp_phi->Clone("hpp_phi_com");
 
-   hMC_phi_com->GetXaxis()->SetRangeUser(0,3.2);
-   hMC_bkg_phi_com->GetXaxis()->SetRangeUser(0,3.2);
-   hMC_sb_phi_com->GetXaxis()->SetRangeUser(0,3.2);
-   hpp_phi_com->GetXaxis()->SetRangeUser(0,3.2);
+   TH1D *hMC_phi_com = new TH1D("hMC_phi_com","",20,0,M_PI);
+   TH1D *hMC_bkg_phi_com = new TH1D("hMC_bkg_phi_com","",20,0,M_PI);
+   TH1D *hMC_sb_phi_com = new TH1D("hMC_sb_phi_com","",20,0,M_PI);
+   TH1D *hpp_phi_com = new TH1D("hpp_phi_com","",20,0,M_PI);
+
+   for (int bin=1; bin<=hMC_phi->GetNbinsX(); bin++) {
+     double x = hMC_phi->GetBinCenter(bin);
+     double y = hMC_phi->GetBinContent(bin);
+     //double err = hMC_phi->SetBinError(bin);
+     double newX = (x < 0) ? fabs(x) : ((x > M_PI) ? 2*M_PI - x : x); // apply the modifications
+     hMC_phi_com->Fill(newX, y);
+   }
+
+   for (int bin=1; bin<=hMC_bkg_phi->GetNbinsX(); bin++) {
+     double x = hMC_bkg_phi->GetBinCenter(bin);
+     double y = hMC_bkg_phi->GetBinContent(bin);
+     double newX = (x < 0) ? fabs(x) : ((x > M_PI) ? 2*M_PI - x : x); // apply the modifications
+     hMC_bkg_phi_com->Fill(newX, y);
+   }
+
+   for (int bin=1; bin<=hMC_sb_phi->GetNbinsX(); bin++) {
+     double x = hMC_sb_phi->GetBinCenter(bin);
+     double y = hMC_sb_phi->GetBinContent(bin);
+     double newX = (x < 0) ? fabs(x) : ((x > M_PI) ? 2*M_PI - x : x); // apply the modifications
+     hMC_sb_phi_com->Fill(newX, y);
+   }
+
+   for (int bin=1; bin<=hpp_phi->GetNbinsX(); bin++) {
+     double x = hpp_phi->GetBinCenter(bin);
+     double y = hpp_phi->GetBinContent(bin);
+     double newX = (x < 0) ? fabs(x) : ((x > M_PI) ? 2*M_PI - x : x); // apply the modifications
+     hpp_phi_com->Fill(newX, y);
+   }
+
+   //hMC_phi_com->GetXaxis()->SetRangeUser(0,3.14);
+   //hMC_bkg_phi_com->GetXaxis()->SetRangeUser(0,3.14);
+   //hMC_sb_phi_com->GetXaxis()->SetRangeUser(0,3.14);
+   //hpp_phi_com->GetXaxis()->SetRangeUser(0,3.14);
 
 
    max1 = hMC_phi_com->GetMaximum();
