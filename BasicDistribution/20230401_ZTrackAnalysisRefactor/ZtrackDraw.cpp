@@ -1005,11 +1005,11 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/C/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphi.C",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   //TH1D *hMC_phi_com = (TH1D*) hMC_phi->Clone("hMC_phi_com");
-   //TH1D *hMC_bkg_phi_com = (TH1D*) hMC_bkg_phi->Clone("hMC_bkg_phi_com");
-   //TH1D *hMC_sb_phi_com = (TH1D*) hMC_sb_phi->Clone("hMC_sb_phi_com");
-   //TH1D *hpp_phi_com = (TH1D*) hpp_phi->Clone("hpp_phi_com");
-
+   TH1D *hMC_phi_com = (TH1D*) hMC_phi->Clone("hMC_phi_com");
+   TH1D *hMC_bkg_phi_com = (TH1D*) hMC_bkg_phi->Clone("hMC_bkg_phi_com");
+   TH1D *hMC_sb_phi_com = (TH1D*) hMC_sb_phi->Clone("hMC_sb_phi_com");
+   TH1D *hpp_phi_com = (TH1D*) hpp_phi->Clone("hpp_phi_com");
+/*
    TH1D *hMC_phi_com = new TH1D("hMC_phi_com","",20,0,M_PI);
    TH1D *hMC_bkg_phi_com = new TH1D("hMC_bkg_phi_com","",20,0,M_PI);
    TH1D *hMC_sb_phi_com = new TH1D("hMC_sb_phi_com","",20,0,M_PI);
@@ -1043,11 +1043,11 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
      double newX = (x < 0) ? fabs(x) : ((x > M_PI) ? 2*M_PI - x : x); // apply the modifications
      hpp_phi_com->Fill(newX, y);
    }
-
-   //hMC_phi_com->GetXaxis()->SetRangeUser(0,3.14);
-   //hMC_bkg_phi_com->GetXaxis()->SetRangeUser(0,3.14);
-   //hMC_sb_phi_com->GetXaxis()->SetRangeUser(0,3.14);
-   //hpp_phi_com->GetXaxis()->SetRangeUser(0,3.14);
+*/
+   hMC_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
+   hMC_bkg_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
+   hMC_sb_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
+   hpp_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
 
 
    max1 = hMC_phi_com->GetMaximum();
