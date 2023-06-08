@@ -151,13 +151,13 @@ PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
 		1 LogMCBackground_v14/ $(EOSBase)/OutputMCBackground_v14/ \
-		$(PbPbBackgroundMC)/ 10 \
+		$(PbPbBackgroundMC)/ 20 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
 PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
 		10 LogMCGenbkg_v14/ $(EOSBase)/OutputMCbkgGen_v14/ \
-		$(PbPbBackgroundMC)/ 12 \
+		$(PbPbBackgroundMC)/ 20 \
  		`./Expand Setting.dh PbPbBackgroundGenMC Nominal`
 
