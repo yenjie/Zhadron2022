@@ -46,7 +46,7 @@
    * Adding pp residual tracking weight by Yenjie
    * Deal with PT overflow correctly in the track residual weight code
 * (non-version update) - 2023 May 31
-   * Now we consolidate settings into a settings file.  Do `make Prepare` to prepare the settings database.  Do `DHQuery Setting.sh PPSignalMC Nominal` to see the settings for PP signal MC for example.
+   * Now we consolidate settings into a settings file.  Do `make Prepare` to prepare the settings database.  Do `DHQuery Setting.dh PPSignalMC Nominal` to see the settings for PP signal MC for example.
 
 
 ## Arguments

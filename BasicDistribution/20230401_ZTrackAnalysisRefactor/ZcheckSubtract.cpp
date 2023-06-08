@@ -49,6 +49,8 @@ void style(){
 
   gStyle->SetLineScalePS(1.5);
 
+  gStyle->SetHistMinimumZero();
+
   gROOT->ForceStyle();
 }
 
@@ -63,7 +65,8 @@ TFile *file_bkgMCgen;
 
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230518";
+const char *typeofdata = "v14/20230601";
+const char *typeofdata1 = "v14_20230601";
 const char *typeofdatatext = "single muon";
 
 void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -136,19 +139,27 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    std::cout<<"tMb_tNgen = "<<tMb_tNgen<<std::endl;
    std::cout<<"tM_tNgen0Sub = "<<tM_tNgen0Sub<<std::endl;
 
-   hMC_etaphi_1->Scale(1./tM_tN);
-   hMC_bkg_etaphi_1->Scale(1./tMb_tN);
-   hMC_etaphi_gen->Scale(1./tM_tNgen);
-   hMC_bkg_etaphi_gen->Scale(1./tMb_tNgen);
-   hMC_etaphi_gen0Sub->Scale(1./tM_tNgen0Sub);
+   double bineta2d = 6.4/150, binphi2d = M_PI/75;
+
+   hMC_etaphi_1->Scale(1./tM_tN/bineta2d/binphi2d);
+   hMC_bkg_etaphi_1->Scale(1./tMb_tN/bineta2d/binphi2d);
+   hMC_etaphi_gen->Scale(1./tM_tNgen/bineta2d/binphi2d);
+   hMC_bkg_etaphi_gen->Scale(1./tMb_tNgen/bineta2d/binphi2d);
+   hMC_etaphi_gen0Sub->Scale(1./tM_tNgen0Sub/bineta2d/binphi2d);
 
    std::cout<<"Rebinning..."<<std::endl;
 
-   hMC_etaphi_1->Rebin2D(2,2);
-   hMC_bkg_etaphi_1->Rebin2D(2,2);
-   hMC_etaphi_gen->Rebin2D(2,2);
-   hMC_bkg_etaphi_gen->Rebin2D(2,2);
-   hMC_etaphi_gen0Sub->Rebin2D(2,2);
+   hMC_etaphi_1->Rebin2D(10,10);
+   hMC_bkg_etaphi_1->Rebin2D(10,10);
+   hMC_etaphi_gen->Rebin2D(10,10);
+   hMC_bkg_etaphi_gen->Rebin2D(10,10);
+   hMC_etaphi_gen0Sub->Rebin2D(10,10);
+
+   hMC_etaphi_1->Scale(1./100);
+   hMC_bkg_etaphi_1->Scale(1./100);
+   hMC_etaphi_gen->Scale(1./100);
+   hMC_bkg_etaphi_gen->Scale(1./100);
+   hMC_etaphi_gen0Sub->Scale(1./100);
 
    TH2D *hMC_sb_etaphi_1 = (TH2D*) hMC_etaphi_1->Clone("hMC_sb_etaphi_1");
    TH2D *hMC_sb_etaphi_gen = (TH2D*) hMC_etaphi_gen->Clone("hMC_sb_etaphi_gen");
@@ -219,6 +230,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_etaphi_gen->Draw("lego20");
    hMC_etaphi_gen->GetYaxis()->SetTitle("Signal MC GEN #Delta#phi_{Z,track}");
    hMC_etaphi_gen->GetXaxis()->SetTitle("Signal MC GEN #Delta#eta_{Z,track}");
+   hMC_etaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_etaphi_gen->GetXaxis()->SetTitleSize(24);
    hMC_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
@@ -232,16 +244,22 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    RECO_o_GEN_sig->Draw("lego20");
    RECO_o_GEN_sig->GetYaxis()->SetTitle("Signal MC RECO/GEN #Delta#phi_{Z,track}");
    RECO_o_GEN_sig->GetXaxis()->SetTitle("Signal MC RECO/GEN #Delta#eta_{Z,track}");
+   RECO_o_GEN_sig->GetZaxis()->SetTitle("dN/d#etad#phi");
    RECO_o_GEN_sig->GetXaxis()->SetTitleSize(24);
    RECO_o_GEN_sig->GetYaxis()->SetTitleSize(24);
    RECO_o_GEN_sig->GetXaxis()->SetTitleOffset(3.0);
    RECO_o_GEN_sig->GetYaxis()->SetTitleOffset(2.5);
    RECO_o_GEN_sig->GetXaxis()->SetNdivisions(50205,kFALSE);
 
+   int max3 = RECO_o_GEN_sig->GetMaximum();
+   if(max3>10) max3=10;
+   RECO_o_GEN_sig->SetMaximum(max3);
+   RECO_o_GEN_sig->SetMinimum(0);
+
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOGEN_sig.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOGEN_sig.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(3);
@@ -250,6 +268,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_bkg_etaphi_1->Draw("lego20");
    hMC_bkg_etaphi_1->GetYaxis()->SetTitle("Background MC RECO #Delta#phi_{Z,track}");
    hMC_bkg_etaphi_1->GetXaxis()->SetTitle("Background MC RECO #Delta#eta_{Z,track}");
+   hMC_bkg_etaphi_1->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_bkg_etaphi_1->GetXaxis()->SetTitleSize(24);
    hMC_bkg_etaphi_1->GetYaxis()->SetTitleSize(24);
    hMC_bkg_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
@@ -267,6 +286,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_bkg_etaphi_gen->Draw("lego20");
    hMC_bkg_etaphi_gen->GetYaxis()->SetTitle("Background MC GEN #Delta#phi_{Z,track}");
    hMC_bkg_etaphi_gen->GetXaxis()->SetTitle("Background MC GEN #Delta#eta_{Z,track}");
+   hMC_bkg_etaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_bkg_etaphi_gen->GetXaxis()->SetTitleSize(24);
    hMC_bkg_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_bkg_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
@@ -280,16 +300,22 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    RECO_o_GEN_bkg->Draw("lego20");
    RECO_o_GEN_bkg->GetYaxis()->SetTitle("Background MC RECO/GEN #Delta#phi_{Z,track}");
    RECO_o_GEN_bkg->GetXaxis()->SetTitle("Background MC RECO/GEN #Delta#eta_{Z,track}");
+   RECO_o_GEN_bkg->GetZaxis()->SetTitle("dN/d#etad#phi");
    RECO_o_GEN_bkg->GetXaxis()->SetTitleSize(24);
    RECO_o_GEN_bkg->GetYaxis()->SetTitleSize(24);
    RECO_o_GEN_bkg->GetXaxis()->SetTitleOffset(3.0);
    RECO_o_GEN_bkg->GetYaxis()->SetTitleOffset(2.5);
    RECO_o_GEN_bkg->GetXaxis()->SetNdivisions(50205,kFALSE);
 
+   max3 = RECO_o_GEN_bkg->GetMaximum();
+   if(max3>10) max3=10;
+   RECO_o_GEN_bkg->SetMaximum(max3);
+   RECO_o_GEN_bkg->SetMinimum(0);
+
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOGEN_bkg.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOGEN_bkg.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(3);
@@ -298,6 +324,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_sb_etaphi_gen->Draw("lego20");
    hMC_sb_etaphi_gen->GetYaxis()->SetTitle("GEN MC Sig-Bkg #Delta#phi_{Z,track}");
    hMC_sb_etaphi_gen->GetXaxis()->SetTitle("GEN MC Sig-Bkg #Delta#eta_{Z,track}");
+   hMC_sb_etaphi_gen->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_sb_etaphi_gen->GetXaxis()->SetTitleSize(24);
    hMC_sb_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_sb_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
@@ -315,6 +342,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_etaphi_gen0Sub->Draw("lego20");
    hMC_etaphi_gen0Sub->GetYaxis()->SetTitle("GEN Pythia MC Sig #Delta#phi_{Z,track}");
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitle("GEN Pythia MC Sig #Delta#eta_{Z,track}");
+   hMC_etaphi_gen0Sub->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitleSize(24);
    hMC_etaphi_gen0Sub->GetYaxis()->SetTitleSize(24);
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitleOffset(3.0);
@@ -328,16 +356,22 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    GENsb_o_GEN0->Draw("lego20");
    GENsb_o_GEN0->GetYaxis()->SetTitle("GEN MC (Sig-Bkg)/(Sig Pythia) #Delta#phi_{Z,track}");
    GENsb_o_GEN0->GetXaxis()->SetTitle("GEN MC (Sig-Bkg)/(Sig Pythia) #Delta#eta_{Z,track}");
+   GENsb_o_GEN0->GetZaxis()->SetTitle("dN/d#etad#phi");
    GENsb_o_GEN0->GetXaxis()->SetTitleSize(24);
    GENsb_o_GEN0->GetYaxis()->SetTitleSize(24);
    GENsb_o_GEN0->GetXaxis()->SetTitleOffset(3.0);
    GENsb_o_GEN0->GetYaxis()->SetTitleOffset(2.5);
    GENsb_o_GEN0->GetXaxis()->SetNdivisions(50205,kFALSE);
 
+   max3 = GENsb_o_GEN0->GetMaximum();
+   if(max3>10) max3=10;
+   GENsb_o_GEN0->SetMaximum(max3);
+   GENsb_o_GEN0->SetMinimum(0);
+
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_GENsb_GEN0.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_GENsb_GEN0.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(3);
@@ -346,6 +380,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_sb_etaphi_1->Draw("lego20");
    hMC_sb_etaphi_1->GetYaxis()->SetTitle("RECO MC Sig-Bkg #Delta#phi_{Z,track}");
    hMC_sb_etaphi_1->GetXaxis()->SetTitle("RECO MC Sig-Bkg #Delta#eta_{Z,track}");
+   hMC_sb_etaphi_1->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_sb_etaphi_1->GetXaxis()->SetTitleSize(24);
    hMC_sb_etaphi_1->GetYaxis()->SetTitleSize(24);
    hMC_sb_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
@@ -363,6 +398,7 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    hMC_etaphi_gen0Sub->Draw("lego20");
    hMC_etaphi_gen0Sub->GetYaxis()->SetTitle("GEN Pythia MC Sig #Delta#phi_{Z,track}");
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitle("GEN Pythia MC Sig #Delta#eta_{Z,track}");
+   hMC_etaphi_gen0Sub->GetZaxis()->SetTitle("dN/d#etad#phi");
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitleSize(24);
    hMC_etaphi_gen0Sub->GetYaxis()->SetTitleSize(24);
    hMC_etaphi_gen0Sub->GetXaxis()->SetTitleOffset(3.0);
@@ -376,16 +412,22 @@ void ZcheckSubtract_single(int binnum=40,float ptL=20,float ptH=2000,float centL
    RECOsb_o_GEN0->Draw("lego20");
    RECOsb_o_GEN0->GetYaxis()->SetTitle("RECO MC (Sig-Bkg)/(Sig Pythia) #Delta#phi_{Z,track}");
    RECOsb_o_GEN0->GetXaxis()->SetTitle("RECO MC (Sig-Bkg)/(Sig Pythia) #Delta#eta_{Z,track}");
+   RECOsb_o_GEN0->GetZaxis()->SetTitle("dN/d#etad#phi");
    RECOsb_o_GEN0->GetXaxis()->SetTitleSize(24);
    RECOsb_o_GEN0->GetYaxis()->SetTitleSize(24);
    RECOsb_o_GEN0->GetXaxis()->SetTitleOffset(3.0);
    RECOsb_o_GEN0->GetYaxis()->SetTitleOffset(2.5);
    RECOsb_o_GEN0->GetXaxis()->SetNdivisions(50205,kFALSE);
 
+   max3 = RECOsb_o_GEN0->GetMaximum();
+   if(max3>10) max3=10;
+   RECOsb_o_GEN0->SetMaximum(max3);
+   RECOsb_o_GEN0->SetMinimum(0);
+
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOsb_GEN0.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/CheckSubtract/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_RECOsb_GEN0.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
 }
@@ -394,20 +436,26 @@ int main(int argc, char *argv[]){
 
   style();
 
-   file_sigMC = TFile::Open("GraphMCSignal_v9.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground_v9.root","read");
-   //file_sigDA = TFile::Open("GraphDataSignal_v9.root","read");
-   //file_bkgDA = TFile::Open("GraphDataBackground_v9.root","read");
-   //file_ppMC  = TFile::Open("GraphPPMC_v9.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal_v14.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground_v14.root","read");
+   //file_sigDA = TFile::Open("GraphDataSignal_v14.root","read");
+   //file_bkgDA = TFile::Open("GraphDataBackground_v14.root","read");
+   //file_ppMC  = TFile::Open("GraphPPMC_v14.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_v9.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_v9.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_v14.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_v14.root","read");
 
-   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_v9.root","read");
+   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_v14.root","read");
 
    
-  ZcheckSubtract_single(40, 20, 2000,  0, 90,  0, 1000);
-  ZcheckSubtract_single(40,  5, 2000,  0, 90,  0, 1000);
+  //ZcheckSubtract_single(40, 20, 2000,  0, 90,  0, 1000);
+  //ZcheckSubtract_single(40,  5, 2000,  0, 90,  0, 1000);
+
+  ZcheckSubtract_single(40, 20, 2000,  0, 90, 10,   20);
+  ZcheckSubtract_single(40, 20, 2000,  0, 90, 20,   50);
+  ZcheckSubtract_single(40, 20, 2000,  0, 90, 50,  100);
+
+  ZcheckSubtract_single(40, 10, 2000,  0, 90,  2, 1000);
 
   return 0;
 }
