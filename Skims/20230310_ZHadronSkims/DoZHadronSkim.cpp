@@ -334,6 +334,11 @@ int main(int argc, char *argv[])
          MZHadron.Lumi  = MSignalEvent.Lumi;
          MZHadron.Event = MSignalEvent.Event;
          MZHadron.hiBin = MSignalEvent.hiBin;
+         if(IsPP == false && IsData == true)   // need hiBin shifts!
+         {
+            MZHadron.hiBinUp   = GetHiBin(MSignalEvent.hiHF, 1);
+            MZHadron.hiBinDown = GetHiBin(MSignalEvent.hiHF, -1);
+         }
          MZHadron.hiHF  = MSignalEvent.hiHF;
          MZHadron.NPU   = 0;
          if(MSignalEvent.npus->size() == 9)
