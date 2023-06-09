@@ -47,6 +47,8 @@
    * Deal with PT overflow correctly in the track residual weight code
 * (non-version update) - 2023 May 31
    * Now we consolidate settings into a settings file.  Do `make Prepare` to prepare the settings database.  Do `DHQuery Setting.sh PPSignalMC Nominal` to see the settings for PP signal MC for example.
+* Version 14b - 2023 Jun 9
+   * Adding shifted hiBin for data
 
 
 ## Arguments
