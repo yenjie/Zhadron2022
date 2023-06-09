@@ -504,41 +504,46 @@ int main(int argc, char *argv[])
                HEtaPhi[iC]->Fill(-TrackDEta->at(iT), PhiRangeCorrelation(+TrackDPhi->at(iT)), 0.25*weight);
                HEtaPhi[iC]->Fill(-TrackDEta->at(iT), PhiRangeCorrelation(-TrackDPhi->at(iT)), 0.25*weight);
                
-               HMaxHadronEta[iC]->Fill(DEtaToMax, weight);
-               HMaxHadronPhi[iC]->Fill(PhiRangeCorrelation(+DPhiToMax), 0.5*weight);
-               HMaxHadronPhi[iC]->Fill(PhiRangeCorrelation(-DPhiToMax), 0.5*weight);
-
-               HMaxHadronEtaPhi[iC]->Fill(+DEtaToMax, PhiRangeCorrelation(+DPhiToMax), 0.25*weight);
-               HMaxHadronEtaPhi[iC]->Fill(+DEtaToMax, PhiRangeCorrelation(-DPhiToMax), 0.25*weight);
-               HMaxHadronEtaPhi[iC]->Fill(-DEtaToMax, PhiRangeCorrelation(+DPhiToMax), 0.25*weight);
-               HMaxHadronEtaPhi[iC]->Fill(-DEtaToMax, PhiRangeCorrelation(-DPhiToMax), 0.25*weight);
+               if(fabs(maxDEta + ZEta_0)<M_PI/2){
+                  HMaxHadronEta[iC]->Fill(DEtaToMax, weight);
+                  HMaxHadronPhi[iC]->Fill(PhiRangeCorrelation(+DPhiToMax), 0.5*weight);
+                  HMaxHadronPhi[iC]->Fill(PhiRangeCorrelation(-DPhiToMax), 0.5*weight);
                
-               HMaxOppositeHadronEta[iC]->Fill(DEtaToMaxOpposite, weight);
-               HMaxOppositeHadronPhi[iC]->Fill(PhiRangeCorrelation(+DPhiToMaxOpposite), 0.5*weight);
-               HMaxOppositeHadronPhi[iC]->Fill(PhiRangeCorrelation(-DPhiToMaxOpposite), 0.5*weight);
-
-               HMaxOppositeHadronEtaPhi[iC]->Fill(+DEtaToMaxOpposite, PhiRangeCorrelation(+DPhiToMaxOpposite), 0.25*weight);
-               HMaxOppositeHadronEtaPhi[iC]->Fill(+DEtaToMaxOpposite, PhiRangeCorrelation(-DPhiToMaxOpposite), 0.25*weight);
-               HMaxOppositeHadronEtaPhi[iC]->Fill(-DEtaToMaxOpposite, PhiRangeCorrelation(+DPhiToMaxOpposite), 0.25*weight);
-               HMaxOppositeHadronEtaPhi[iC]->Fill(-DEtaToMaxOpposite, PhiRangeCorrelation(-DPhiToMaxOpposite), 0.25*weight);
+                  HMaxHadronEtaPhi[iC]->Fill(+DEtaToMax, PhiRangeCorrelation(+DPhiToMax), 0.25*weight);
+                  HMaxHadronEtaPhi[iC]->Fill(+DEtaToMax, PhiRangeCorrelation(-DPhiToMax), 0.25*weight);
+                  HMaxHadronEtaPhi[iC]->Fill(-DEtaToMax, PhiRangeCorrelation(+DPhiToMax), 0.25*weight);
+                  HMaxHadronEtaPhi[iC]->Fill(-DEtaToMax, PhiRangeCorrelation(-DPhiToMax), 0.25*weight);
+               }
+               if(fabs(maxOppositeDEta + ZEta_0)<M_PI/2){
+                  HMaxOppositeHadronEta[iC]->Fill(DEtaToMaxOpposite, weight);
+                  HMaxOppositeHadronPhi[iC]->Fill(PhiRangeCorrelation(+DPhiToMaxOpposite), 0.5*weight);
+                  HMaxOppositeHadronPhi[iC]->Fill(PhiRangeCorrelation(-DPhiToMaxOpposite), 0.5*weight);
                
-               HWTAEta[iC]->Fill(DEtaToOppositeWTA, weight);
-               HWTAPhi[iC]->Fill(PhiRangeCorrelation(+DPhiToOppositeWTA), 0.5*weight);
-               HWTAPhi[iC]->Fill(PhiRangeCorrelation(-DPhiToOppositeWTA), 0.5*weight);
-
-               HWTAEtaPhi[iC]->Fill(+DEtaToOppositeWTA, PhiRangeCorrelation(+DPhiToOppositeWTA), 0.25*weight);
-               HWTAEtaPhi[iC]->Fill(+DEtaToOppositeWTA, PhiRangeCorrelation(-DPhiToOppositeWTA), 0.25*weight);
-               HWTAEtaPhi[iC]->Fill(-DEtaToOppositeWTA, PhiRangeCorrelation(+DPhiToOppositeWTA), 0.25*weight);
-               HWTAEtaPhi[iC]->Fill(-DEtaToOppositeWTA, PhiRangeCorrelation(-DPhiToOppositeWTA), 0.25*weight);
+                  HMaxOppositeHadronEtaPhi[iC]->Fill(+DEtaToMaxOpposite, PhiRangeCorrelation(+DPhiToMaxOpposite), 0.25*weight);
+                  HMaxOppositeHadronEtaPhi[iC]->Fill(+DEtaToMaxOpposite, PhiRangeCorrelation(-DPhiToMaxOpposite), 0.25*weight);
+                  HMaxOppositeHadronEtaPhi[iC]->Fill(-DEtaToMaxOpposite, PhiRangeCorrelation(+DPhiToMaxOpposite), 0.25*weight);
+                  HMaxOppositeHadronEtaPhi[iC]->Fill(-DEtaToMaxOpposite, PhiRangeCorrelation(-DPhiToMaxOpposite), 0.25*weight);
+               }
+               if(fabs(maxOppositeWTADEta + ZEta_0)<M_PI/2){
+                  HWTAEta[iC]->Fill(DEtaToOppositeWTA, weight);
+                  HWTAPhi[iC]->Fill(PhiRangeCorrelation(+DPhiToOppositeWTA), 0.5*weight);
+                  HWTAPhi[iC]->Fill(PhiRangeCorrelation(-DPhiToOppositeWTA), 0.5*weight);
                
-               HWTAMoreEta[iC]->Fill(DEtaToMoreOppositeWTA, weight);
-               HWTAMorePhi[iC]->Fill(PhiRangeCorrelation(+DPhiToMoreOppositeWTA), 0.5*weight);
-               HWTAMorePhi[iC]->Fill(PhiRangeCorrelation(-DPhiToMoreOppositeWTA), 0.5*weight);
-
-               HWTAMoreEtaPhi[iC]->Fill(+DEtaToMoreOppositeWTA, PhiRangeCorrelation(+DPhiToMoreOppositeWTA), 0.25*weight);
-               HWTAMoreEtaPhi[iC]->Fill(+DEtaToMoreOppositeWTA, PhiRangeCorrelation(-DPhiToMoreOppositeWTA), 0.25*weight);
-               HWTAMoreEtaPhi[iC]->Fill(-DEtaToMoreOppositeWTA, PhiRangeCorrelation(+DPhiToMoreOppositeWTA), 0.25*weight);
-               HWTAMoreEtaPhi[iC]->Fill(-DEtaToMoreOppositeWTA, PhiRangeCorrelation(-DPhiToMoreOppositeWTA), 0.25*weight);
+                  HWTAEtaPhi[iC]->Fill(+DEtaToOppositeWTA, PhiRangeCorrelation(+DPhiToOppositeWTA), 0.25*weight);
+                  HWTAEtaPhi[iC]->Fill(+DEtaToOppositeWTA, PhiRangeCorrelation(-DPhiToOppositeWTA), 0.25*weight);
+                  HWTAEtaPhi[iC]->Fill(-DEtaToOppositeWTA, PhiRangeCorrelation(+DPhiToOppositeWTA), 0.25*weight);
+                  HWTAEtaPhi[iC]->Fill(-DEtaToOppositeWTA, PhiRangeCorrelation(-DPhiToOppositeWTA), 0.25*weight);
+               }
+               if(fabs(maxMoreOppositeWTADEta + ZEta_0)<M_PI/2){
+                  HWTAMoreEta[iC]->Fill(DEtaToMoreOppositeWTA, weight);
+                  HWTAMorePhi[iC]->Fill(PhiRangeCorrelation(+DPhiToMoreOppositeWTA), 0.5*weight);
+                  HWTAMorePhi[iC]->Fill(PhiRangeCorrelation(-DPhiToMoreOppositeWTA), 0.5*weight);
+               
+                  HWTAMoreEtaPhi[iC]->Fill(+DEtaToMoreOppositeWTA, PhiRangeCorrelation(+DPhiToMoreOppositeWTA), 0.25*weight);
+                  HWTAMoreEtaPhi[iC]->Fill(+DEtaToMoreOppositeWTA, PhiRangeCorrelation(-DPhiToMoreOppositeWTA), 0.25*weight);
+                  HWTAMoreEtaPhi[iC]->Fill(-DEtaToMoreOppositeWTA, PhiRangeCorrelation(+DPhiToMoreOppositeWTA), 0.25*weight);
+                  HWTAMoreEtaPhi[iC]->Fill(-DEtaToMoreOppositeWTA, PhiRangeCorrelation(-DPhiToMoreOppositeWTA), 0.25*weight);
+               }
             }
          }
 
@@ -560,15 +565,18 @@ int main(int argc, char *argv[])
                HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight*ZWeight);
                HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight*ZWeight);
             }
-
-            HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta_0,
-               PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight*ZWeight);
-            HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta_0,
-               PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight*ZWeight);
-            HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta_0,
-               PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
-            HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta_0,
-               PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
+            
+            if(fabs(maxDEta + ZEta_0)<M_PI/2)
+               HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta_0, PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight*ZWeight);
+            
+            if(fabs(maxOppositeDEta + ZEta_0)<M_PI/2)
+               HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta_0, PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight*ZWeight);
+            
+            if(fabs(maxOppositeWTADEta + ZEta_0)<M_PI/2)
+               HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta_0, PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
+            
+            if(fabs(maxMoreOppositeWTADEta + ZEta_0)<M_PI/2)
+               HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta_0, PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
          }
       }
    }
