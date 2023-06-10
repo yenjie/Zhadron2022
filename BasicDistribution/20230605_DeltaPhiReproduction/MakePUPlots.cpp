@@ -43,6 +43,8 @@ int main(int argc, char *argv[])
 
       H1->SetLineColor(Colors[0]);
       H2->SetLineColor(Colors[1]);
+      H1->SetLineWidth(2);
+      H2->SetLineWidth(2);
       H1->SetMarkerColor(Colors[0]);
       H2->SetMarkerColor(Colors[1]);
       H1->SetMarkerSize(2);

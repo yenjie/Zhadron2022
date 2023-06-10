@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
    vector<string> InputFileNames = CL.GetStringVector("Input");
    string OutputFileName         = CL.Get("Output");
    bool DoGen                    = CL.GetBool("DoGen", false);
+   bool DoSignalSubevent         = CL.GetBool("DoSignalSubevent", false);
    bool IsMC                     = CL.GetBool("IsMC", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
    double Fraction               = CL.GetDouble("Fraction", 1.00);
@@ -132,14 +133,16 @@ int main(int argc, char *argv[])
 
             for(int iC = 0; iC < (int)Cs.size(); iC++)
             {
-               if(IsPP == false && M.hiBin * 0.5 < Cs[iC].CMin)    continue;
-               if(IsPP == false && M.hiBin * 0.5 >= Cs[iC].CMax)   continue;
-               if(ZPT < Cs[iC].ZPTMin)                             continue;
-               if(ZPT >= Cs[iC].ZPTMax)                            continue;
-               if(M.trackPt->at(iT) < Cs[iC].PTMin)                continue;
-               if(M.trackPt->at(iT) >= Cs[iC].PTMax)               continue;
-               if(M.NVertex < Cs[iC].NPVMin)                       continue;
-               if(M.NVertex > Cs[iC].NPVMax)                       continue;
+               if(IsPP == false && M.hiBin * 0.5 < Cs[iC].CMin)       continue;
+               if(IsPP == false && M.hiBin * 0.5 >= Cs[iC].CMax)      continue;
+               if(ZPT < Cs[iC].ZPTMin)                                continue;
+               if(ZPT >= Cs[iC].ZPTMax)                               continue;
+               if(M.trackPt->at(iT) < Cs[iC].PTMin)                   continue;
+               if(M.trackPt->at(iT) >= Cs[iC].PTMax)                  continue;
+               if(M.NVertex < Cs[iC].NPVMin)                          continue;
+               if(M.NVertex > Cs[iC].NPVMax)                          continue;
+
+               if(DoSignalEvent == true && M.subevent->at(iT) != 0)   continue;
 
                HDeltaPhi[iC]->Fill(fabs(TrackDPhi), TrackWeight);
                HDeltaEta[iC]->Fill(fabs(TrackDEta), TrackWeight);
