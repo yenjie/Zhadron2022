@@ -36,7 +36,8 @@ int main(int argc, char *argv[])
 
    vector<string> InputFileNames = CL.GetStringVector("Input");
    string OutputFileName         = CL.Get("Output");
-   bool DoGenZ                   = CL.GetBool("DoGenZ", false);
+   bool DoGen                    = CL.GetBool("DoGen", false);
+   bool DoSignalSubevent         = CL.GetBool("DoSignalSubevent", false);
    bool IsMC                     = CL.GetBool("IsMC", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
    double Fraction               = CL.GetDouble("Fraction", 1.00);
@@ -94,18 +95,15 @@ int main(int argc, char *argv[])
       {
          M.GetEntry(iE);
 
-         if(M.zPt->size() == 0)   // no identified Z in this event
-            continue;
+         // no identified Z in this event
+         if(DoGen == true && M.genZPt->size() == 0)   continue;
+         if(DoGen == false && M.zPt->size() == 0)     continue;
 
-         double ZPT = M.zPt->at(0);
-         double ZEta = M.zEta->at(0);
-         double ZPhi = M.zPhi->at(0);
+         double ZPT  = DoGen ? M.genZPt->at(0)  : M.zPt->at(0);
+         double ZEta = DoGen ? M.genZEta->at(0) : M.zEta->at(0);
+         double ZPhi = DoGen ? M.genZPhi->at(0) : M.zPhi->at(0);
 
          double EventWeight = M.NCollWeight * M.ZWeight * M.VZWeight;
-         // if(IsMC == true && IsPP == false)
-         //    EventWeight = M.NCollWeight * M.ZWeight;
-         // if(IsMC == true && IsPP == true)
-         //    EventWeight = M.ZWeight;
 
          for(int iC = 0; iC < (int)Cs.size(); iC++)
          {
@@ -135,14 +133,16 @@ int main(int argc, char *argv[])
 
             for(int iC = 0; iC < (int)Cs.size(); iC++)
             {
-               if(IsPP == false && M.hiBin * 0.5 < Cs[iC].CMin)    continue;
-               if(IsPP == false && M.hiBin * 0.5 >= Cs[iC].CMax)   continue;
-               if(ZPT < Cs[iC].ZPTMin)                             continue;
-               if(ZPT >= Cs[iC].ZPTMax)                            continue;
-               if(M.trackPt->at(iT) < Cs[iC].PTMin)                continue;
-               if(M.trackPt->at(iT) >= Cs[iC].PTMax)               continue;
-               if(M.NVertex < Cs[iC].NPVMin)                       continue;
-               if(M.NVertex > Cs[iC].NPVMax)                       continue;
+               if(IsPP == false && M.hiBin * 0.5 < Cs[iC].CMin)       continue;
+               if(IsPP == false && M.hiBin * 0.5 >= Cs[iC].CMax)      continue;
+               if(ZPT < Cs[iC].ZPTMin)                                continue;
+               if(ZPT >= Cs[iC].ZPTMax)                               continue;
+               if(M.trackPt->at(iT) < Cs[iC].PTMin)                   continue;
+               if(M.trackPt->at(iT) >= Cs[iC].PTMax)                  continue;
+               if(M.NVertex < Cs[iC].NPVMin)                          continue;
+               if(M.NVertex > Cs[iC].NPVMax)                          continue;
+
+               if(DoSignalEvent == true && M.subevent->at(iT) != 0)   continue;
 
                HDeltaPhi[iC]->Fill(fabs(TrackDPhi), TrackWeight);
                HDeltaEta[iC]->Fill(fabs(TrackDEta), TrackWeight);
