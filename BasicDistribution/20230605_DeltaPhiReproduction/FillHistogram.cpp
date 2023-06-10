@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 
    vector<string> InputFileNames = CL.GetStringVector("Input");
    string OutputFileName         = CL.Get("Output");
-   bool DoGenZ                   = CL.GetBool("DoGenZ", false);
+   bool DoGen                    = CL.GetBool("DoGen", false);
    bool IsMC                     = CL.GetBool("IsMC", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
    double Fraction               = CL.GetDouble("Fraction", 1.00);
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 
    vector<pair<int, int>> NPV{pair<int, int>(0, 10), pair<int, int>(0, 1), pair<int, int>(2, 10)};
    vector<pair<int, int>> Centrality{pair<int, int>(0, 10), pair<int, int>(10, 30), pair<int, int>(30, 50), pair<int, int>(50, 90), pair<int, int>(0, 30), pair<int, int>(30, 90)};
-   vector<pair<double, double>> TrackPT{pair<double, double>(1, 4), pair<double, double>(1, 2), pair<double, double>(2, 5), pair<double, double>(5,10), pair<double, double>(10, 100)};
+   vector<pair<double, double>> TrackPT{pair<double, double>(1, 4), pair<double, double>(1, 2), pair<double, double>(2, 5), pair<double, double>(5,10), pair<double, double>(1, 100)};
    vector<double> ZPTMin{30, 40, 60};
    
    for(double ZPT : ZPTMin)
@@ -94,18 +94,15 @@ int main(int argc, char *argv[])
       {
          M.GetEntry(iE);
 
-         if(M.zPt->size() == 0)   // no identified Z in this event
-            continue;
+         // no identified Z in this event
+         if(DoGen == true && M.genZPt->size() == 0)   continue;
+         if(DoGen == false && M.zPt->size() == 0)     continue;
 
-         double ZPT = M.zPt->at(0);
-         double ZEta = M.zEta->at(0);
-         double ZPhi = M.zPhi->at(0);
+         double ZPT  = DoGen ? M.genZPt->at(0)  : M.zPt->at(0);
+         double ZEta = DoGen ? M.genZEta->at(0) : M.zEta->at(0);
+         double ZPhi = DoGen ? M.genZPhi->at(0) : M.zPhi->at(0);
 
          double EventWeight = M.NCollWeight * M.ZWeight * M.VZWeight;
-         // if(IsMC == true && IsPP == false)
-         //    EventWeight = M.NCollWeight * M.ZWeight;
-         // if(IsMC == true && IsPP == true)
-         //    EventWeight = M.ZWeight;
 
          for(int iC = 0; iC < (int)Cs.size(); iC++)
          {
