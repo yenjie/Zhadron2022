@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 
    vector<pair<int, int>> NPV{pair<int, int>(0, 10), pair<int, int>(0, 1), pair<int, int>(2, 10)};
    vector<pair<int, int>> Centrality{pair<int, int>(0, 10), pair<int, int>(10, 30), pair<int, int>(30, 50), pair<int, int>(50, 90), pair<int, int>(0, 30), pair<int, int>(30, 90)};
-   vector<pair<double, double>> TrackPT{pair<double, double>(1, 4), pair<double, double>(1, 2), pair<double, double>(2, 5), pair<double, double>(5,10), pair<double, double>(10, 100)};
+   vector<pair<double, double>> TrackPT{pair<double, double>(1, 4), pair<double, double>(1, 2), pair<double, double>(2, 5), pair<double, double>(5,10), pair<double, double>(10, 100), pair<double, double>(1, 100)};
    vector<double> ZPTMin{30, 40, 60};
    
    for(double ZPT : ZPTMin)
@@ -67,10 +67,10 @@ int main(int argc, char *argv[])
    
    for(Configuration &C : Cs)
    {
-      HDeltaPhi.push_back(new TH1D(Form("HDeltaPhi_%s", C.Tag.c_str()), ";#Delta#phi;", 10, 0, M_PI));
-      HDeltaEta.push_back(new TH1D(Form("HDeltaEta_%s", C.Tag.c_str()), ";#Delta#eta;", 10, 0, 5));
-      HDeltaEtaZSide.push_back(new TH1D(Form("HDeltaEtaZSide_%s", C.Tag.c_str()), ";#Delta#eta;", 10, 0, 5));
-      HDeltaEtaJetSide.push_back(new TH1D(Form("HDeltaEtaJetSide_%s", C.Tag.c_str()), ";#Delta#eta;", 10, 0, 5));
+      HDeltaPhi.push_back(new TH1D(Form("HDeltaPhi_%s", C.Tag.c_str()), ";|#Delta#phi|;", 10, 0, M_PI));
+      HDeltaEta.push_back(new TH1D(Form("HDeltaEta_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
+      HDeltaEtaZSide.push_back(new TH1D(Form("HDeltaEtaZSide_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
+      HDeltaEtaJetSide.push_back(new TH1D(Form("HDeltaEtaJetSide_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
       HN.push_back(new TH1D(Form("HN_%s", C.Tag.c_str()), ";;", 1, 0, 1));
    }
 
