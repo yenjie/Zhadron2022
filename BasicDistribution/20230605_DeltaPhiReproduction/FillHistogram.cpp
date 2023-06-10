@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
    bool IsMC                     = CL.GetBool("IsMC", false);
    bool IsPP                     = CL.GetBool("IsPP", false);
    double Fraction               = CL.GetDouble("Fraction", 1.00);
+   bool SkipResidual             = CL.GetBool("SkipResidual", false);
 
    vector<Configuration> Cs;
 
@@ -130,6 +131,8 @@ int main(int argc, char *argv[])
             double TrackDPhi = DeltaPhi(TrackPhi, ZPhi);
 
             double TrackWeight = M.trackWeight->at(iT) * M.trackResidualWeight->at(iT) * EventWeight;
+            if(SkipResidual == true)
+               TrackWeight = M.trackWeight->at(iT) * EventWeight;
 
             for(int iC = 0; iC < (int)Cs.size(); iC++)
             {

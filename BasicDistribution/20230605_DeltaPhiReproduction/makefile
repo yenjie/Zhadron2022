@@ -1,6 +1,6 @@
 
 
-default: TestRunPlot
+default: TestRunGenRecoPlot
 
 Prepare:
 	ln -sf /eos/cms/store/group/phys_heavyions/pchou/ PinChunOutput
@@ -22,6 +22,17 @@ TestRunPlot: ExecutePlot
 	./ExecutePlot --Tag Centrality_0_30_ZPT_40_200_TrackPT_50_100_PV_2_10    --Output PlotsPV_0_30_40_5_10.pdf
 	./ExecutePlot --Tag Centrality_0_30_ZPT_40_200_TrackPT_100_1000_PV_2_10  --Output PlotsPV_0_30_40_10_100.pdf
 	cp Plots*.pdf ~/public/html/
+
+TestRunPUPlot: ExecutePUPlot
+	./ExecutePUPlot
+
+TestRunGenRecoPlot: ExecuteGenRecoPlot
+	./ExecuteGenRecoPlot --Gen PPMCGen.root --Reco PPMC.root --OutputTag PP \
+		--Tag Centrality_0_30_ZPT_40_200_TrackPT_10_1000_PV_0_10
+	./ExecuteGenRecoPlot --Gen MCGen.root --Reco MC.root --OutputTag PbPb0To30 \
+		--Tag Centrality_0_30_ZPT_40_200_TrackPT_10_1000_PV_0_10
+	./ExecuteGenRecoPlot --Gen MCGen.root --Reco MC.root --OutputTag PbPb30To90 \
+		--Tag Centrality_30_90_ZPT_40_200_TrackPT_10_1000_PV_0_10
 
 Execute: FillHistogram.cpp
 	g++ FillHistogram.cpp -o Execute `root-config --cflags --libs` \
@@ -54,3 +65,12 @@ RunPPData: Execute
 ExecutePlot: MakePlots.cpp
 	g++ MakePlots.cpp -o ExecutePlot `root-config --cflags --libs` \
 		-I$(ProjectBase)/CommonCode/include
+
+ExecutePUPlot: MakePUPlots.cpp
+	g++ MakePUPlots.cpp -o ExecutePUPlot `root-config --cflags --libs` \
+		-I$(ProjectBase)/CommonCode/include
+
+ExecuteGenRecoPlot: MakeGenRecoClosure.cpp
+	g++ MakeGenRecoClosure.cpp -o ExecuteGenRecoPlot `root-config --cflags --libs` \
+		-I$(ProjectBase)/CommonCode/include
+
