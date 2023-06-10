@@ -1771,13 +1771,6 @@ bool ZHadronMessenger::Initialize()
 
    Initialized = true;
 
-   int Run;
-   int Event;
-   int Lumi;
-   
-   int hiBin;
-   float hiHF;
-   
    zMass = nullptr;
    zEta = nullptr;
    zPhi = nullptr;
@@ -1793,6 +1786,8 @@ bool ZHadronMessenger::Initialize()
    trackEta = nullptr;
    trackPhi = nullptr;
    trackMuTagged = nullptr;
+   trackWeight = nullptr;
+   trackResidualWeight = nullptr;
    trackCharge = nullptr;
 
    jetPt = nullptr;
@@ -1836,61 +1831,90 @@ bool ZHadronMessenger::Initialize()
    Tree->SetBranchAddress("Lumi", &Lumi);
 
    Tree->SetBranchAddress("hiBin", &hiBin);
+   Tree->SetBranchAddress("hiBinUp", &hiBinUp);
+   Tree->SetBranchAddress("hiBinDown", &hiBinDown);
    Tree->SetBranchAddress("hiHF", &hiHF);
    
-   Tree->SetBranchAddress("zMass", zMass);
-   Tree->SetBranchAddress("zEta", zEta);
-   Tree->SetBranchAddress("zPhi", zPhi);
-   Tree->SetBranchAddress("zPt", zPt);
-   Tree->SetBranchAddress("genZMass", genZMass);
-   Tree->SetBranchAddress("genZEta", genZEta);
-   Tree->SetBranchAddress("genZPhi", genZPhi);
-   Tree->SetBranchAddress("genZPt", genZPt);
-   Tree->SetBranchAddress("trackDphi", trackDphi);
-   Tree->SetBranchAddress("trackPt", trackPt);
-   Tree->SetBranchAddress("trackDeta", trackDeta);
-   Tree->SetBranchAddress("trackPDFId", trackPDFId);
-   // Tree->SetBranchAddress("trackEta", trackEta);
-   // Tree->SetBranchAddress("trackPhi", trackPhi);
-   Tree->SetBranchAddress("trackCharge", trackCharge);
+   Tree->SetBranchAddress("SignalHF", &SignalHF);
+   Tree->SetBranchAddress("BackgroundHF", &BackgroundHF);
+   Tree->SetBranchAddress("SignalVZ", &SignalVZ);
 
-   Tree->SetBranchAddress("jetPt", jetPt);
-   Tree->SetBranchAddress("jetDeta", jetDeta);
-   Tree->SetBranchAddress("jetDphi", jetDphi);
-   Tree->SetBranchAddress("jetRefPt", jetRefPt);
-   Tree->SetBranchAddress("jetRefDeta", jetRefDeta);
-   Tree->SetBranchAddress("jetRefDphi", jetRefDphi);
-   Tree->SetBranchAddress("jetMuTagged", jetMuTagged);
+   Tree->SetBranchAddress("NCollWeight", &NCollWeight);
+   Tree->SetBranchAddress("ZWeight", &ZWeight);
+   Tree->SetBranchAddress("VZWeight", &VZWeight);
+
+   Tree->SetBranchAddress("NVertex", &NVertex);
+   Tree->SetBranchAddress("VX", &VX);
+   Tree->SetBranchAddress("VY", &VY);
+   Tree->SetBranchAddress("VZ", &VZ);
+   Tree->SetBranchAddress("VXError", &VXError);
+   Tree->SetBranchAddress("VYError", &VYError);
+   Tree->SetBranchAddress("VZError", &VZError);
+   Tree->SetBranchAddress("NPU", &NPU);
    
-   Tree->SetBranchAddress("genJetPt", genJetPt);
-   Tree->SetBranchAddress("genJetEta", genJetEta);
-   Tree->SetBranchAddress("genJetPhi", genJetPhi);
+   Tree->SetBranchAddress("zMass", &zMass);
+   Tree->SetBranchAddress("zEta", &zEta);
+   Tree->SetBranchAddress("zPhi", &zPhi);
+   Tree->SetBranchAddress("zPt", &zPt);
+   Tree->SetBranchAddress("genZMass", &genZMass);
+   Tree->SetBranchAddress("genZEta", &genZEta);
+   Tree->SetBranchAddress("genZPhi", &genZPhi);
+   Tree->SetBranchAddress("genZPt", &genZPt);
+   Tree->SetBranchAddress("trackDphi", &trackDphi);
+   Tree->SetBranchAddress("trackPt", &trackPt);
+   Tree->SetBranchAddress("trackDeta", &trackDeta);
+   Tree->SetBranchAddress("trackPDFId", &trackPDFId);
+   // Tree->SetBranchAddress("trackEta", &trackEta);
+   // Tree->SetBranchAddress("trackPhi", &trackPhi);
+   Tree->SetBranchAddress("trackMuTagged", &trackMuTagged);
+   Tree->SetBranchAddress("trackWeight", &trackWeight);
+   Tree->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+   Tree->SetBranchAddress("trackCharge", &trackCharge);
 
-   Tree->SetBranchAddress("muEta1", muEta1);
-   Tree->SetBranchAddress("muEta2", muEta2);
-   Tree->SetBranchAddress("muPhi1", muPhi1);
-   Tree->SetBranchAddress("muPhi2", muPhi2);
-   Tree->SetBranchAddress("muPt1", muPt1);
-   Tree->SetBranchAddress("muPt2", muPt2);
+   Tree->SetBranchAddress("jetPt", &jetPt);
+   Tree->SetBranchAddress("jetDeta", &jetDeta);
+   Tree->SetBranchAddress("jetDphi", &jetDphi);
+   Tree->SetBranchAddress("jetRefPt", &jetRefPt);
+   Tree->SetBranchAddress("jetRefDeta", &jetRefDeta);
+   Tree->SetBranchAddress("jetRefDphi", &jetRefDphi);
+   Tree->SetBranchAddress("jetMuTagged", &jetMuTagged);
+   
+   Tree->SetBranchAddress("genJetPt", &genJetPt);
+   Tree->SetBranchAddress("genJetEta", &genJetEta);
+   Tree->SetBranchAddress("genJetPhi", &genJetPhi);
+
+   Tree->SetBranchAddress("muEta1", &muEta1);
+   Tree->SetBranchAddress("muEta2", &muEta2);
+   Tree->SetBranchAddress("muPhi1", &muPhi1);
+   Tree->SetBranchAddress("muPhi2", &muPhi2);
+   Tree->SetBranchAddress("muPt1", &muPt1);
+   Tree->SetBranchAddress("muPt2", &muPt2);
  
-   Tree->SetBranchAddress("muDeta", muDeta);
-   Tree->SetBranchAddress("muDphi", muDphi);
-   Tree->SetBranchAddress("muDR", muDR);
-   Tree->SetBranchAddress("muDphiS", muDphiS);
+   Tree->SetBranchAddress("muDeta", &muDeta);
+   Tree->SetBranchAddress("muDphi", &muDphi);
+   Tree->SetBranchAddress("muDR", &muDR);
+   Tree->SetBranchAddress("muDphiS", &muDphiS);
   
-   Tree->SetBranchAddress("genMuPt1", genMuPt1);
-   Tree->SetBranchAddress("genMuPt2", genMuPt2);
-   Tree->SetBranchAddress("genMuEta1", genMuEta1);
-   Tree->SetBranchAddress("genMuEta2", genMuEta2);
-   Tree->SetBranchAddress("genMuPhi1", genMuPhi1);
-   Tree->SetBranchAddress("genMuPhi2", genMuPhi2);
+   Tree->SetBranchAddress("genMuPt1", &genMuPt1);
+   Tree->SetBranchAddress("genMuPt2", &genMuPt2);
+   Tree->SetBranchAddress("genMuEta1", &genMuEta1);
+   Tree->SetBranchAddress("genMuEta2", &genMuEta2);
+   Tree->SetBranchAddress("genMuPhi1", &genMuPhi1);
+   Tree->SetBranchAddress("genMuPhi2", &genMuPhi2);
    
-   Tree->SetBranchAddress("genMuDeta", genMuDeta);
-   Tree->SetBranchAddress("genMuDphi", genMuDphi);
-   Tree->SetBranchAddress("genMuDR", genMuDR);
-   Tree->SetBranchAddress("genMuDphiS", genMuDphiS);
+   Tree->SetBranchAddress("genMuDeta", &genMuDeta);
+   Tree->SetBranchAddress("genMuDphi", &genMuDphi);
+   Tree->SetBranchAddress("genMuDR", &genMuDR);
+   Tree->SetBranchAddress("genMuDphiS", &genMuDphiS);
    
    return true;
+}
+
+int ZHadronMessenger::GetEntries()
+{
+   if(Tree == nullptr)
+      return 0;
+   return Tree->GetEntries();
 }
 
 bool ZHadronMessenger::GetEntry(int iEntry)
@@ -1972,6 +1996,8 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("event",                  &Event,        "event/L");
    Tree->Branch("lumi",                   &Lumi,         "lumi/I");
    Tree->Branch("hiBin",                  &hiBin,        "hiBin/I");
+   Tree->Branch("hiBinUp",                &hiBinUp,      "hiBinUp/I");
+   Tree->Branch("hiBinDown",              &hiBinDown,    "hiBinDown/I");
    Tree->Branch("hiHF",                   &hiHF,         "hiHF/F");
 
    Tree->Branch("SignalHF",               &SignalHF,     "SignalHF/F");

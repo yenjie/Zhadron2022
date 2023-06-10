@@ -63,7 +63,8 @@ TFile *file_bkgMCgen;
 
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "20230517";
+const char *typeofdata = "v14/20230601";
+const char *typeofdata1 = "v14_20230601";
 const char *typeofdatatext = "single muon";
 
 void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -658,7 +659,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
 
    ptNb->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zeta.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zeta.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -737,7 +738,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
 
    ptNb->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zphi.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
 
@@ -818,7 +819,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
 
    ptNb->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketa.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketa.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -897,7 +898,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
 
    ptNb->Draw();
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Trackphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Trackphi.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -938,7 +939,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_GEN.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_GEN.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -979,7 +980,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
     c->Divide(2);
@@ -1020,7 +1021,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_GEN.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_GEN.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -1061,7 +1062,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -1102,7 +1103,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_GEN_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_GEN_COLZ.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -1143,7 +1144,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_Z_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Zetaphi_COLZ.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -1184,7 +1185,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_GEN_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_GEN_COLZ.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->Divide(2);
@@ -1225,7 +1226,7 @@ void ZcheckBasic_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_COLZ.png",typeofdata,typeofdata,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Basic/ZH_track_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Tracketaphi_COLZ.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
 
@@ -1234,16 +1235,16 @@ int main(int argc, char *argv[]){
 
   style();
 
-   file_sigMC = TFile::Open("GraphMCSignal_v9.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground_v9.root","read");
-   file_sigDA = TFile::Open("GraphDataSignal_v9.root","read");
-   file_bkgDA = TFile::Open("GraphDataBackground_v9.root","read");
-   file_ppMC  = TFile::Open("GraphPPMC0Sub_v9.root","read");
+   file_sigMC = TFile::Open("GraphMCSignal_v14.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground_v14.root","read");
+   file_sigDA = TFile::Open("GraphDataSignal_v14.root","read");
+   file_bkgDA = TFile::Open("GraphDataBackground_v14.root","read");
+   file_ppMC  = TFile::Open("GraphPPMC0Sub_v14.root","read");
 
-   file_sigMCgen = TFile::Open("GraphMCSignalGen_v9.root","read");
-   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_v9.root","read");
+   file_sigMCgen = TFile::Open("GraphMCSignalGen_v14.root","read");
+   file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_v14.root","read");
 
-   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_v9.root","read");
+   file_sigMCgen0Sub = TFile::Open("GraphMCSignalGen0Sub_v14.root","read");
 
   /* 
   ZcheckBasic_single(40, 20, 2000,  0, 90,  0, 1000);
@@ -1259,4 +1260,4 @@ int main(int argc, char *argv[]){
   ZcheckBasic_single(40, 10, 2000,  0, 90,  2, 1000);
 
   return 0;
-}
+}z

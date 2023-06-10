@@ -504,6 +504,8 @@ public:
    int Lumi;
    
    int hiBin;
+   int hiBinUp;
+   int hiBinDown;
    float hiHF;
 
    float SignalHF;
@@ -615,6 +617,7 @@ public:
    ~ZHadronMessenger();
    bool Initialize(TTree *ZHadronTree);
    bool Initialize();
+   int GetEntries();
    bool GetEntry(int iEntry);
    bool SetBranch(TTree *T);
    void Clear();
