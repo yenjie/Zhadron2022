@@ -33,6 +33,12 @@ TestRunGenRecoPlot: ExecuteGenRecoPlot
 		--Tag Centrality_0_30_ZPT_40_200_TrackPT_10_1000_PV_0_10
 	./ExecuteGenRecoPlot --Gen MCGen.root --Reco MC.root --OutputTag PbPb30To90 \
 		--Tag Centrality_30_90_ZPT_40_200_TrackPT_10_1000_PV_0_10
+	./ExecuteGenRecoPlot --Gen PPMCGen.root --Reco PPMCNoResidual.root --OutputTag PPNoResidual \
+		--Tag Centrality_0_30_ZPT_40_200_TrackPT_10_1000_PV_0_10
+	./ExecuteGenRecoPlot --Gen MCGen.root --Reco MCNoResidual.root --OutputTag PbPb0To30NoResidual \
+		--Tag Centrality_0_30_ZPT_40_200_TrackPT_10_1000_PV_0_10
+	./ExecuteGenRecoPlot --Gen MCGen.root --Reco MCNoResidual.root --OutputTag PbPb30To90NoResidual \
+		--Tag Centrality_30_90_ZPT_40_200_TrackPT_10_1000_PV_0_10
 
 Execute: FillHistogram.cpp
 	g++ FillHistogram.cpp -o Execute `root-config --cflags --libs` \

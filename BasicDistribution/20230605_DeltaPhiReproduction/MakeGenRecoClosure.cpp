@@ -40,6 +40,9 @@ int main(int argc, char *argv[])
 
       TCanvas Canvas;
 
+      H1->SetMinimum(0);
+      H1->SetMaximum(H1->GetMaximum() * 1.5);
+
       H1->SetStats(0);
       H2->SetStats(0);
 
