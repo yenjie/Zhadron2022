@@ -40,6 +40,8 @@ void style(){
   gStyle->SetLegendBorderSize(0);
   gStyle->SetLegendFillColor(kWhite);
 
+  gStyle->SetLineWidth(3);
+
   gStyle->SetPadTopMargin(0.05);
   gStyle->SetPadBottomMargin(0.15);
   gStyle->SetPadLeftMargin(0.15);
@@ -278,6 +280,10 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_projphi->Scale(Nmc_full/Nmc_proj);
    hData_sb_projphi->Scale(Ndata_full/Ndata_proj);
 
+   double max1 = hMC_sb_projphi->GetMaximum();
+   double max2 = hData_sb_projphi->GetMaximum();
+   hMC_sb_projphi->SetMaximum(1.4*max1);
+   hData_sb_projphi->SetMaximum(1.4*max2);
    
    hMC_sb_projphi->Draw("hist");
    hMC_sb_projphi->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
@@ -310,6 +316,11 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_projphi_cent->Scale(Nmc_full/Nmc_proj);
    hData_sb_projphi_cent->Scale(Ndata_full/Ndata_proj);
 
+   max1 = hMC_sb_projphi_cent->GetMaximum();
+   max2 = hData_sb_projphi_cent->GetMaximum();
+   hMC_sb_projphi_cent->SetMaximum(1.4*max1);
+   hData_sb_projphi_cent->SetMaximum(1.4*max2);
+
    hMC_sb_projphi_cent->Draw("hist");
    hMC_sb_projphi_cent->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hMC_sb_projphi_cent->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -339,6 +350,11 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hMC_sb_projeta->Scale(Nmc_full/Nmc_proj);
    hData_sb_projeta->Scale(Ndata_full/Ndata_proj);
+
+   max1 = hMC_sb_projeta->GetMaximum();
+   max2 = hData_sb_projeta->GetMaximum();
+   hMC_sb_projeta->SetMaximum(1.4*max1);
+   hData_sb_projeta->SetMaximum(1.4*max2);
 
    hMC_sb_projeta->Draw("hist");
    hMC_sb_projeta->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
@@ -370,6 +386,11 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hMC_sb_projeta_peak->Scale(Nmc_full/Nmc_proj);
    hData_sb_projeta_peak->Scale(Ndata_full/Ndata_proj);
+
+   max1 = hMC_sb_projeta_peak->GetMaximum();
+   max2 = hData_sb_projeta_peak->GetMaximum();
+   hMC_sb_projeta_peak->SetMaximum(1.4*max1);
+   hData_sb_projeta_peak->SetMaximum(1.4*max2);
 
    hMC_sb_projeta_peak->Draw("hist");
    hMC_sb_projeta_peak->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
@@ -417,8 +438,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_rec_projphi->Scale(Nrec_full/Nrec_proj);
    hMC_gen_projphi->Scale(Ngen_full/Ngen_proj);
 
-   double max1 = hpp_projphi->GetMaximum();
-   double max2 = hMC_rec_projphi->GetMaximum();
+   max1 = hpp_projphi->GetMaximum();
+   max2 = hMC_rec_projphi->GetMaximum();
    double max3 = hMC_gen_projphi->GetMaximum();
    
    if(max1<max2 && max3<max2) hMC_rec_projphi->Draw("hist");
