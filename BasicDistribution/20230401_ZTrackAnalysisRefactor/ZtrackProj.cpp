@@ -61,15 +61,15 @@ TFile *file_ppData;
 TFile *file_sigMC0Sub;
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "v14/20230601";
-const char *typeofdata1 = "v14_20230601";
+const char *typeofdata = "v14/20230610";
+const char *typeofdata1 = "v14_20230610";
 const char *typeofdatatext = "single muon";
 
 void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
 {
 
    std::cout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
-   TCanvas *c = new TCanvas("c","",1400,800);
+   TCanvas *c = new TCanvas("c","",800,800);
 
    std::cout<<"Getting histograms..."<<std::endl;
 
@@ -197,6 +197,18 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH2D *hMC_etaphi_rec = (TH2D*) hMC_sb_etaphi_1->Clone("hMC_etaphi_rec");
 
+   hMC_sb_etaphi_1->SetLineColor(TColor::GetColor("#377eb8"));//blue
+   hData_sb_etaphi_1->SetLineColor(kBlack);
+
+   hMC_sb_etaphi_1->SetMarkerColor(TColor::GetColor("#377eb8"));//blue
+   hData_sb_etaphi_1->SetMarkerColor(kBlack);
+
+   hMC_sb_etaphi_1->SetLineWidth(3);
+   hData_sb_etaphi_1->SetLineWidth(3);
+
+   hMC_sb_etaphi_1->SetMarkerStyle(24);
+   hData_sb_etaphi_1->SetMarkerStyle(24);
+
    std::cout<<"Drawing..."<<std::endl;
 
    if(TptL==0) TptL=TptL_min;
@@ -222,7 +234,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt_p1->SetTextSize(0.03);
    pt_p1->SetNDC(kTRUE);
 
-   TLatex *pt_p2 = new TLatex(0.1,0.97,"Projected at |#Delta#eta|<#pi/2");
+   TLatex *pt_p2 = new TLatex(0.1,0.97,"Projected at |#Delta#eta|<#pi/2 (peak region)");
    pt_p2->SetTextFont(42);
    pt_p2->SetTextSize(0.03);
    pt_p2->SetNDC(kTRUE);
@@ -232,19 +244,22 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt_p3->SetTextSize(0.03);
    pt_p3->SetNDC(kTRUE);
 
-   TLatex *pt_p4 = new TLatex(0.1,0.97,"Projected at |#Delta#phi|>#pi/2");
+   TLatex *pt_p4 = new TLatex(0.1,0.97,"Projected at |#Delta#phi|>#pi/2 (peak region)");
    pt_p4->SetTextFont(42);
    pt_p4->SetTextSize(0.03);
    pt_p4->SetNDC(kTRUE);
 
+   TLegend leg(0.58,0.72,0.98,0.9);
+   leg.AddEntry(hMC_sb_etaphi_1 ,"PbPb MC Raw-Bkg","l");
+   leg.AddEntry(hData_sb_etaphi_1 ,"PbPb Data Raw-Bkg","lep");
+   leg.SetFillColorAlpha(kWhite,0);
+   leg.SetLineColor(kBlack);
+   leg.SetLineWidth(1);
+   
 
    // == Start drawing == //
 
    gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/proj",typeofdata));
-
-   c->Divide(2);
-   c->cd(1);
-
 
    int MCNbinsX = hMC_sb_etaphi_1->GetNbinsX();
    int DataNbinsX = hData_sb_etaphi_1->GetNbinsX();
@@ -263,8 +278,9 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_projphi->Scale(Nmc_full/Nmc_proj);
    hData_sb_projphi->Scale(Ndata_full/Ndata_proj);
 
-   hMC_sb_projphi->Draw("EP");
-   hMC_sb_projphi->GetXaxis()->SetTitle("Sig-Bkg MC #Delta#phi_{Z,track}");
+   
+   hMC_sb_projphi->Draw("hist");
+   hMC_sb_projphi->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hMC_sb_projphi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projphi->GetYaxis()->SetTitle("dN/d#Delta#phi");
 
@@ -272,19 +288,18 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt2->Draw();
    pt3->Draw();
 
-   c->cd(2);
-   hData_sb_projphi->Draw("EP");
-   hData_sb_projphi->GetXaxis()->SetTitle("Sig-Bkg Data #Delta#phi_{Z,track}");
+   hData_sb_projphi->Draw("EP same");
+   hData_sb_projphi->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hData_sb_projphi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hData_sb_projphi->GetYaxis()->SetTitle("dN/d#Delta#phi");
 
    pt_p1->Draw();
+   leg.Draw();
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projphi.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projphi.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   c->Divide(2);
-   c->cd(1);
 
    TH1D* hMC_sb_projphi_cent = (TH1D*) hMC_sb_etaphi_1->ProjectionY("hMC_sb_projphi_cent",(int) MCNbinsX/4,(int) 3*MCNbinsX/4);
    TH1D* hData_sb_projphi_cent = (TH1D*) hData_sb_etaphi_1->ProjectionY("hData_sb_projphi_cent",(int) DataNbinsX/4,(int) 3*DataNbinsX/4);
@@ -295,8 +310,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_projphi_cent->Scale(Nmc_full/Nmc_proj);
    hData_sb_projphi_cent->Scale(Ndata_full/Ndata_proj);
 
-   hMC_sb_projphi_cent->Draw("EP");
-   hMC_sb_projphi_cent->GetXaxis()->SetTitle("Sig-Bkg MC #Delta#phi_{Z,track} (projection in peak region)");
+   hMC_sb_projphi_cent->Draw("hist");
+   hMC_sb_projphi_cent->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hMC_sb_projphi_cent->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projphi_cent->GetYaxis()->SetTitle("dN/d#Delta#phi");
 
@@ -304,19 +319,17 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt2->Draw();
    pt3->Draw();
 
-   c->cd(2);
-   hData_sb_projphi_cent->Draw("EP");
-   hData_sb_projphi_cent->GetXaxis()->SetTitle("Sig-Bkg Data #Delta#phi_{Z,track} (projection in peak region)");
+   hData_sb_projphi_cent->Draw("EP same");
+   hData_sb_projphi_cent->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hData_sb_projphi_cent->GetXaxis()->SetNdivisions(50205,kFALSE);
    hData_sb_projphi_cent->GetYaxis()->SetTitle("dN/d#Delta#phi");
 
    pt_p2->Draw();
+   leg.Draw();
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projphi_cent.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projphi_cent.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
-
-   c->Divide(2);
-   c->cd(1);
 
    TH1D* hMC_sb_projeta = (TH1D*) hMC_sb_etaphi_1->ProjectionX("hMC_sb_projeta",1,(int) MCNbinsY/2);
    TH1D* hData_sb_projeta = (TH1D*) hData_sb_etaphi_1->ProjectionX("hData_sb_projeta",1,(int) DataNbinsY/2);
@@ -327,8 +340,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_projeta->Scale(Nmc_full/Nmc_proj);
    hData_sb_projeta->Scale(Ndata_full/Ndata_proj);
 
-   hMC_sb_projeta->Draw("EP");
-   hMC_sb_projeta->GetXaxis()->SetTitle("Sig-Bkg MC #Delta#eta_{Z,track}");
+   hMC_sb_projeta->Draw("hist");
+   hMC_sb_projeta->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
    hMC_sb_projeta->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projeta->GetYaxis()->SetTitle("dN/d#Delta#eta");
 
@@ -336,19 +349,18 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt2->Draw();
    pt3->Draw();
 
-   c->cd(2);
-   hData_sb_projeta->Draw("EP");
-   hData_sb_projeta->GetXaxis()->SetTitle("Sig-Bkg Data #Delta#eta_{Z,track}");
+   hData_sb_projeta->Draw("EP same");
+   hData_sb_projeta->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
    hData_sb_projeta->GetXaxis()->SetNdivisions(50205,kFALSE);
    hData_sb_projeta->GetYaxis()->SetTitle("dN/d#Delta#eta");
 
    pt_p3->Draw();
+   leg.Draw();
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projeta.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projeta.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   c->Divide(2);
-   c->cd(1);
 
    TH1D* hMC_sb_projeta_peak = (TH1D*) hMC_sb_etaphi_1->ProjectionX("hMC_sb_projeta_peak",(int) MCNbinsY/2,MCNbinsY);
    TH1D* hData_sb_projeta_peak = (TH1D*) hData_sb_etaphi_1->ProjectionX("hData_sb_projeta_peak",(int) DataNbinsY/2,DataNbinsY);
@@ -359,8 +371,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_projeta_peak->Scale(Nmc_full/Nmc_proj);
    hData_sb_projeta_peak->Scale(Ndata_full/Ndata_proj);
 
-   hMC_sb_projeta_peak->Draw("EP");
-   hMC_sb_projeta_peak->GetXaxis()->SetTitle("Sig-Bkg MC #Delta#eta_{Z,track}");
+   hMC_sb_projeta_peak->Draw("hist");
+   hMC_sb_projeta_peak->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
    hMC_sb_projeta_peak->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projeta_peak->GetYaxis()->SetTitle("dN/d#Delta#eta");
 
@@ -368,18 +380,19 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt2->Draw();
    pt3->Draw();
 
-   c->cd(2);
-   hData_sb_projeta_peak->Draw("EP");
-   hData_sb_projeta_peak->GetXaxis()->SetTitle("Sig-Bkg Data #Delta#eta_{Z,track}");
+   hData_sb_projeta_peak->Draw("EP same");
+   hData_sb_projeta_peak->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
    hData_sb_projeta_peak->GetXaxis()->SetNdivisions(50205,kFALSE);
    hData_sb_projeta_peak->GetYaxis()->SetTitle("dN/d#Delta#eta");
 
    pt_p4->Draw();
+   leg.Draw();
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projeta_peak.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projeta_peak.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-   c->SetCanvasSize(800,800);
+   //c->SetCanvasSize(800,800);
 
    int ppNbinsX = hpp_etaphi_1->GetNbinsX();
    int recNbinsX = hMC_etaphi_rec->GetNbinsX();
@@ -458,6 +471,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt_p1->Draw();
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projphi.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projphi.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    TH1D* hpp_projphi_cent = (TH1D*) hpp_etaphi_1->ProjectionY("hpp_projphi_cent",(int) ppNbinsX/4,(int) 3*ppNbinsX/4);
@@ -519,6 +533,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt_p2->Draw();
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projphi_cent.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projphi_cent.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    TH1D* hpp_projeta = (TH1D*) hpp_etaphi_1->ProjectionX("hpp_projeta",1,(int) ppNbinsY/2);
@@ -580,6 +595,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt_p3->Draw();
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projeta.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projeta.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    TH1D* hpp_projeta_peak = (TH1D*) hpp_etaphi_1->ProjectionX("hpp_projeta_peak",(int) ppNbinsY/2,ppNbinsY);
@@ -641,6 +657,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt_p4->Draw();
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projeta_peak.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sub0_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_projeta_peak.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
 
