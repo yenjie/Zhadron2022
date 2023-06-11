@@ -34,9 +34,9 @@ void style(){
   gStyle->SetCanvasColor(kWhite);
   gStyle->SetOptStat(0); /*don't show statistics box*/
   gStyle->SetOptTitle(0); /*don't show histogram titles*/
-  gStyle->SetTitleSize(48, "xyz");
+  gStyle->SetTitleSize(40, "xyz");
   gStyle->SetTitleOffset(1.5, "xyz");
-  gStyle->SetLabelSize(36, "xyz");
+  gStyle->SetLabelSize(24, "xyz");
   gStyle->SetLegendBorderSize(0);
   gStyle->SetLegendFillColor(kWhite);
 
@@ -287,7 +287,10 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_projphi->SetLineWidth(3);
    hData_sb_projphi->SetLineWidth(3);
    
-   hMC_sb_projphi->Draw("hist");
+   if(max1>max2) hMC_sb_projphi->Draw("hist");
+   else hData_sb_projphi->Draw("EP");
+
+   hMC_sb_projphi->Draw("hist same");
    hMC_sb_projphi->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hMC_sb_projphi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projphi->GetYaxis()->SetTitle("dN/d#Delta#phi");
@@ -325,7 +328,10 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_projphi_cent->SetLineWidth(3);
    hData_sb_projphi_cent->SetLineWidth(3);
 
-   hMC_sb_projphi_cent->Draw("hist");
+   if(max1>max2) hMC_sb_projphi_cent->Draw("hist");
+   else hData_sb_projphi_cent->Draw("EP");
+
+   hMC_sb_projphi_cent->Draw("hist same");
    hMC_sb_projphi_cent->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hMC_sb_projphi_cent->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projphi_cent->GetYaxis()->SetTitle("dN/d#Delta#phi");
@@ -362,7 +368,10 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_projeta->SetLineWidth(3);
    hData_sb_projeta->SetLineWidth(3);
 
-   hMC_sb_projeta->Draw("hist");
+   if(max1>max2) hMC_sb_projeta->Draw("hist");
+   else hData_sb_projeta->Draw("EP");
+
+   hMC_sb_projeta->Draw("hist same");
    hMC_sb_projeta->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
    hMC_sb_projeta->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projeta->GetYaxis()->SetTitle("dN/d#Delta#eta");
@@ -400,7 +409,10 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_projeta_peak->SetLineWidth(3);
    hData_sb_projeta_peak->SetLineWidth(3);
 
-   hMC_sb_projeta_peak->Draw("hist");
+   if(max1>max2) hMC_sb_projeta_peak->Draw("hist");
+   else hData_sb_projeta_peak->Draw("EP");
+
+   hMC_sb_projeta_peak->Draw("hist same");
    hMC_sb_projeta_peak->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
    hMC_sb_projeta_peak->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projeta_peak->GetYaxis()->SetTitle("dN/d#Delta#eta");
