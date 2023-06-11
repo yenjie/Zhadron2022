@@ -33,6 +33,8 @@ RunMix: RunDataMix RunMCMix
 
 RunNoMix: RunData RunMC RunPPMC RunPPData
 
+RunGen: RunPPGen RunMCGen RunMCSignalGen
+
 RunData: Execute
 	./Execute --Input `ls PinChunOutput/OutputData_v14/*root | tr '\n' ','` --Output Data.root --IsPP false --IsMC false
 
@@ -50,6 +52,15 @@ RunPPMC: Execute
 
 RunPPData: Execute
 	./Execute --Input `ls PinChunOutput/OutputPPData_v14/*root | tr '\n' ','` --Output PPData.root --Fraction 0.1 --IsPP true --IsMC false
+
+RunPPGen: Execute
+	./Execute --Input `ls PinChunOutput/OutputPPMCGen_v14/*root | tr '\n' ','` --Output PPMCGen.root --Fraction 0.1 --IsPP true --IsMC true --DoGen true
+
+RunMCGen: Execute
+	./Execute --Input `ls PinChunOutput/OutputMCGen_v14/*root | tr '\n' ','` --Output MCGen.root --IsPP false --IsMC true --Fraction 1.0 --DoGen true
+
+RunMCSignalGen: Execute
+	./Execute --Input `ls PinChunOutput/OutputMCGen_v14/*root | tr '\n' ','` --Output MCSignalGen.root --IsPP false --IsMC true --Fraction 1.0 --DoGen true --DoSignalEvent true
 
 ExecutePlot: MakePlots.cpp
 	g++ MakePlots.cpp -o ExecutePlot `root-config --cflags --libs` \
