@@ -34,13 +34,13 @@ void style(){
   gStyle->SetCanvasColor(kWhite);
   gStyle->SetOptStat(0); /*don't show statistics box*/
   gStyle->SetOptTitle(0); /*don't show histogram titles*/
-  gStyle->SetTitleSize(30, "xyz");
+  gStyle->SetTitleSize(48, "xyz");
   gStyle->SetTitleOffset(1.5, "xyz");
-  gStyle->SetLabelSize(24, "xyz");
+  gStyle->SetLabelSize(36, "xyz");
   gStyle->SetLegendBorderSize(0);
   gStyle->SetLegendFillColor(kWhite);
 
-  gStyle->SetLineWidth(3);
+  gStyle->SetLineWidth(2);
 
   gStyle->SetPadTopMargin(0.05);
   gStyle->SetPadBottomMargin(0.15);
@@ -216,17 +216,17 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    if(TptL==0) TptL=TptL_min;
 
    TLatex *pt = new TLatex(0.18,0.88,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
-   pt->SetTextFont(42);
+   pt->SetTextFont(62);
    pt->SetTextSize(0.03);
    pt->SetNDC(kTRUE);
 
    TLatex *pt2 = new TLatex(0.18,0.82,Form("%.1f < Z p_{T} < %.1f",ptL,ptH));
-   pt2->SetTextFont(42);
+   pt2->SetTextFont(62);
    pt2->SetTextSize(0.03);
    pt2->SetNDC(kTRUE);
 
    TLatex *pt3 = new TLatex(0.18,0.76,Form("%.1f < Track p_{T} < %.1f",TptL,TptH));
-   pt3->SetTextFont(42);
+   pt3->SetTextFont(62);
    pt3->SetTextSize(0.03);
    pt3->SetNDC(kTRUE);
 
@@ -251,7 +251,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt_p4->SetTextSize(0.03);
    pt_p4->SetNDC(kTRUE);
 
-   TLegend leg(0.58,0.72,0.98,0.9);
+   TLegend leg(0.58,0.78,0.98,0.9);
    leg.AddEntry(hMC_sb_etaphi_1 ,"PbPb MC Raw-Bkg","l");
    leg.AddEntry(hData_sb_etaphi_1 ,"PbPb Data Raw-Bkg","lep");
    leg.SetFillColorAlpha(kWhite,0);
@@ -284,6 +284,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    double max2 = hData_sb_projphi->GetMaximum();
    hMC_sb_projphi->SetMaximum(1.4*max1);
    hData_sb_projphi->SetMaximum(1.4*max2);
+   hMC_sb_projphi->SetLineWidth(3);
+   hData_sb_projphi->SetLineWidth(3);
    
    hMC_sb_projphi->Draw("hist");
    hMC_sb_projphi->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
@@ -320,6 +322,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    max2 = hData_sb_projphi_cent->GetMaximum();
    hMC_sb_projphi_cent->SetMaximum(1.4*max1);
    hData_sb_projphi_cent->SetMaximum(1.4*max2);
+   hMC_sb_projphi_cent->SetLineWidth(3);
+   hData_sb_projphi_cent->SetLineWidth(3);
 
    hMC_sb_projphi_cent->Draw("hist");
    hMC_sb_projphi_cent->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
@@ -355,6 +359,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    max2 = hData_sb_projeta->GetMaximum();
    hMC_sb_projeta->SetMaximum(1.4*max1);
    hData_sb_projeta->SetMaximum(1.4*max2);
+   hMC_sb_projeta->SetLineWidth(3);
+   hData_sb_projeta->SetLineWidth(3);
 
    hMC_sb_projeta->Draw("hist");
    hMC_sb_projeta->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
@@ -391,6 +397,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    max2 = hData_sb_projeta_peak->GetMaximum();
    hMC_sb_projeta_peak->SetMaximum(1.4*max1);
    hData_sb_projeta_peak->SetMaximum(1.4*max2);
+   hMC_sb_projeta_peak->SetLineWidth(3);
+   hData_sb_projeta_peak->SetLineWidth(3);
 
    hMC_sb_projeta_peak->Draw("hist");
    hMC_sb_projeta_peak->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
