@@ -35,7 +35,7 @@ void style(){
   gStyle->SetOptStat(0); /*don't show statistics box*/
   gStyle->SetOptTitle(0); /*don't show histogram titles*/
   gStyle->SetTitleSize(40, "xyz");
-  gStyle->SetTitleOffset(1.5, "xyz");
+  gStyle->SetTitleOffset(1., "xyz");
   gStyle->SetLabelSize(24, "xyz");
   gStyle->SetLegendBorderSize(0);
   gStyle->SetLegendFillColor(kWhite);
