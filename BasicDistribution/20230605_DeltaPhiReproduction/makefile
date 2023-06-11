@@ -38,13 +38,15 @@ Execute: FillHistogram.cpp
 	g++ FillHistogram.cpp -o Execute `root-config --cflags --libs` \
 		-I$(ProjectBase)/CommonCode/include $(ProjectBase)/CommonCode/library/*.o
 
-RunAll: RunMix RunNoMix
+RunAll: RunMix RunNoMix RunGen RunNoResidual
 
 RunMix: RunDataMix RunMCMix
 
 RunNoMix: RunData RunMC RunPPMC RunPPData
 
 RunGen: RunPPGen RunMCGen RunMCSignalGen
+
+RunNoResidual: RunMCNoResidual RunPPMCNoResidual
 
 RunData: Execute
 	./Execute --Input `ls PinChunOutput/OutputData_v14/*root | tr '\n' ','` --Output Data.root --IsPP false --IsMC false
@@ -59,19 +61,26 @@ RunMCMix: Execute
 	./Execute --Input `ls PinChunOutput/OutputMCBackground_v14/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true
 
 RunPPMC: Execute
-	./Execute --Input `ls PinChunOutput/OutputPPMC_v14/*root | tr '\n' ','` --Output PPMC.root --Fraction 0.1 --IsPP true --IsMC true
+	./Execute --Input `ls PinChunOutput/OutputPPMC_v14/*root | tr '\n' ','` --Output PPMC.root --Fraction 1.0 --IsPP true --IsMC true
 
 RunPPData: Execute
-	./Execute --Input `ls PinChunOutput/OutputPPData_v14/*root | tr '\n' ','` --Output PPData.root --Fraction 0.1 --IsPP true --IsMC false
+	./Execute --Input `ls PinChunOutput/OutputPPData_v14/*root | tr '\n' ','` --Output PPData.root --Fraction 1.0 --IsPP true --IsMC false
 
 RunPPGen: Execute
-	./Execute --Input `ls PinChunOutput/OutputPPMCGen_v14/*root | tr '\n' ','` --Output PPMCGen.root --Fraction 0.1 --IsPP true --IsMC true --DoGen true
+	./Execute --Input `ls PinChunOutput/OutputPPMCGen_v14/*root | tr '\n' ','` --Output PPMCGen.root --Fraction 1.0 --IsPP true --IsMC true --DoGen true
 
 RunMCGen: Execute
 	./Execute --Input `ls PinChunOutput/OutputMCGen_v14/*root | tr '\n' ','` --Output MCGen.root --IsPP false --IsMC true --Fraction 1.0 --DoGen true
 
 RunMCSignalGen: Execute
 	./Execute --Input `ls PinChunOutput/OutputMCGen_v14/*root | tr '\n' ','` --Output MCSignalGen.root --IsPP false --IsMC true --Fraction 1.0 --DoGen true --DoSignalEvent true
+
+RunMCNoResidual: Execute
+	./Execute --Input `ls PinChunOutput/OutputMC_v14/*root | tr '\n' ','` --Output MCNoResidual.root --IsPP false --IsMC true --Fraction 1.0 --SkipResidual true
+
+RunPPMCNoResidual: Execute
+	./Execute --Input `ls PinChunOutput/OutputPPMC_v14/*root | tr '\n' ','` --Output PPMCNoResidual.root --Fraction 1.0 --IsPP true --IsMC true --SkipResidual true
+
 
 ExecutePlot: MakePlots.cpp
 	g++ MakePlots.cpp -o ExecutePlot `root-config --cflags --libs` \
