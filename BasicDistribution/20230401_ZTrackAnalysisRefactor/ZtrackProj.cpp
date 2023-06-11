@@ -34,7 +34,7 @@ void style(){
   gStyle->SetCanvasColor(kWhite);
   gStyle->SetOptStat(0); /*don't show statistics box*/
   gStyle->SetOptTitle(0); /*don't show histogram titles*/
-  gStyle->SetTitleSize(40, "xyz");
+  gStyle->SetTitleSize(48, "xyz");
   gStyle->SetTitleOffset(1., "xyz");
   gStyle->SetLabelSize(24, "xyz");
   gStyle->SetLegendBorderSize(0);
@@ -217,41 +217,41 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TLatex *pt = new TLatex(0.18,0.88,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
    pt->SetTextFont(62);
-   pt->SetTextSize(0.03);
+   pt->SetTextSize(0.05);
    pt->SetNDC(kTRUE);
 
    TLatex *pt2 = new TLatex(0.18,0.82,Form("%.1f < Z p_{T} < %.1f",ptL,ptH));
    pt2->SetTextFont(62);
-   pt2->SetTextSize(0.03);
+   pt2->SetTextSize(0.05);
    pt2->SetNDC(kTRUE);
 
    TLatex *pt3 = new TLatex(0.18,0.76,Form("%.1f < Track p_{T} < %.1f",TptL,TptH));
    pt3->SetTextFont(62);
-   pt3->SetTextSize(0.03);
+   pt3->SetTextSize(0.05);
    pt3->SetNDC(kTRUE);
 
 
    TLatex *pt_p1 = new TLatex(0.1,0.97,"Projected at |#Delta#eta|<#pi");
-   pt_p1->SetTextFont(42);
-   pt_p1->SetTextSize(0.03);
+   pt_p1->SetTextFont(62);
+   pt_p1->SetTextSize(0.04);
    pt_p1->SetNDC(kTRUE);
 
    TLatex *pt_p2 = new TLatex(0.1,0.97,"Projected at |#Delta#eta|<#pi/2 (peak region)");
-   pt_p2->SetTextFont(42);
-   pt_p2->SetTextSize(0.03);
+   pt_p2->SetTextFont(62);
+   pt_p2->SetTextSize(0.04);
    pt_p2->SetNDC(kTRUE);
 
    TLatex *pt_p3 = new TLatex(0.1,0.97,"Projected at |#Delta#phi|<#pi/2");
-   pt_p3->SetTextFont(42);
-   pt_p3->SetTextSize(0.03);
+   pt_p3->SetTextFont(62);
+   pt_p3->SetTextSize(0.04);
    pt_p3->SetNDC(kTRUE);
 
    TLatex *pt_p4 = new TLatex(0.1,0.97,"Projected at |#Delta#phi|>#pi/2 (peak region)");
-   pt_p4->SetTextFont(42);
-   pt_p4->SetTextSize(0.03);
+   pt_p4->SetTextFont(62);
+   pt_p4->SetTextSize(0.04);
    pt_p4->SetNDC(kTRUE);
 
-   TLegend leg(0.58,0.78,0.98,0.9);
+   TLegend leg(0.54,0.78,0.95,0.9);
    leg.AddEntry(hMC_sb_etaphi_1 ,"PbPb MC Raw-Bkg","l");
    leg.AddEntry(hData_sb_etaphi_1 ,"PbPb Data Raw-Bkg","lep");
    leg.SetFillColorAlpha(kWhite,0);
