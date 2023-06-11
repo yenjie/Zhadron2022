@@ -217,17 +217,17 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TLatex *pt = new TLatex(0.18,0.88,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
    pt->SetTextFont(62);
-   pt->SetTextSize(0.05);
+   pt->SetTextSize(0.04);
    pt->SetNDC(kTRUE);
 
    TLatex *pt2 = new TLatex(0.18,0.82,Form("%.1f < Z p_{T} < %.1f",ptL,ptH));
    pt2->SetTextFont(62);
-   pt2->SetTextSize(0.05);
+   pt2->SetTextSize(0.04);
    pt2->SetNDC(kTRUE);
 
    TLatex *pt3 = new TLatex(0.18,0.76,Form("%.1f < Track p_{T} < %.1f",TptL,TptH));
    pt3->SetTextFont(62);
-   pt3->SetTextSize(0.05);
+   pt3->SetTextSize(0.04);
    pt3->SetNDC(kTRUE);
 
 
