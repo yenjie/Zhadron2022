@@ -515,6 +515,7 @@ public:
    float NCollWeight;
    float ZWeight;
    float VZWeight;
+   float ExtraZWeight[12];
 
    int NVertex;
    float VX, VY, VZ, VXError, VYError, VZError;

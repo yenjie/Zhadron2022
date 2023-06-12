@@ -1846,6 +1846,7 @@ bool ZHadronMessenger::Initialize()
    Tree->SetBranchAddress("NCollWeight", &NCollWeight);
    Tree->SetBranchAddress("ZWeight", &ZWeight);
    Tree->SetBranchAddress("VZWeight", &VZWeight);
+   Tree->SetBranchAddress("ExtraZWeight", &ExtraZWeight);
 
    Tree->SetBranchAddress("NVertex", &NVertex);
    Tree->SetBranchAddress("VX", &VX);
@@ -2014,6 +2015,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    Tree->Branch("NCollWeight",            &NCollWeight,  "NCollWeight/F");
    Tree->Branch("ZWeight",                &ZWeight,      "ZWeight/F");
    Tree->Branch("VZWeight",               &VZWeight,     "VZWeight/F");
+   Tree->Branch("ExtraZWeight",           &ExtraZWeight, "ExtraZWeight[12]/F");
    
    Tree->Branch("NVertex",                &NVertex,      "NVertex/I");
    Tree->Branch("VX",                     &VX,           "VX/F");
@@ -2126,6 +2128,8 @@ void ZHadronMessenger::Clear()
    NCollWeight = 1;
    ZWeight = 1;
    VZWeight = 1;
+   for(int i = 0; i < 12; i++)
+      ExtraZWeight = 1;
 
    NVertex = 0;
    VX = 0;
