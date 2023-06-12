@@ -58,9 +58,9 @@ int main(int argc, char *argv[])
    // Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
    vector<Configuration> C;
 
-   C.push_back(Configuration(40, 30, 2000,  0, 30,  1, 1000));
-   C.push_back(Configuration(40, 30, 2000, 30, 50,  1, 1000));
-   C.push_back(Configuration(40, 30, 2000, 50, 90,  1, 1000));
+   //C.push_back(Configuration(40, 30, 2000,  0, 30,  1, 1000));
+   //C.push_back(Configuration(40, 30, 2000, 30, 50,  1, 1000));
+   //C.push_back(Configuration(40, 30, 2000, 50, 90,  1, 1000));
 
    C.push_back(Configuration(40, 30, 2000,  0, 90,  1, 1000));
 
@@ -77,6 +77,15 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 30, 2000,  3,  4,  1, 1000));
    C.push_back(Configuration(40, 30, 2000,  2,  3,  1, 1000));
    C.push_back(Configuration(40, 30, 2000,  1,  2,  1, 1000));
+
+   C.push_back(Configuration(40, 30, 2000,  8, 10,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  6,  8,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  4,  6,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  2,  4,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,0.5,  2,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  7, 10,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  4,  7,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  1,  4,  1, 1000));
    
    /*
    C.push_back(Configuration(40, 20, 2000,  0, 90,  0, 1000));
@@ -173,8 +182,8 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 20, 2000,  0, 10, 50,  100));
    C.push_back(Configuration(40, 20, 2000, 10, 30, 50,  100));
    C.push_back(Configuration(40, 20, 2000, 30, 50, 50,  100));
-   */
-
+   
+*/
 
 
    vector<TDirectory *>     Folder;
