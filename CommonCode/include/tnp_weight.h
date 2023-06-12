@@ -44,10 +44,10 @@ double tnp_weight_glbPFtrk_pbpb(double eta, double cent, int idx = 0);
 double tnp_weight_muid_pbpb(double eta, int idx=0);
 double tnp_weight_trig_pbpb(double pt, double eta, double cent, int idx=0);
 
-double tnp_weight_TightID_pp(double eta);
-double tnp_weight_TightID_PFIsoTight_pp(double eta);
-double tnp_weight_L3Mu12_pp(double eta);
-double tnp_weight_L3Mu12_PFIsoTight_pp(double eta);
+double tnp_weight_TightID_pp(double eta, int idx = 0);
+double tnp_weight_TightID_PFIsoTight_pp(double eta, int idx = 0);
+double tnp_weight_L3Mu12_pp(double eta, int idx = 0);
+double tnp_weight_L3Mu12_PFIsoTight_pp(double eta, int idx = 0);
 
 
 ///////////////////////////////////////////////////
@@ -98,18 +98,18 @@ double tnp_weight_glbPFtrk_pbpb(double eta, double cent, int idx) //cent 0-100%
 			else if (abseta > 2.1 && abseta <= 2.4) { num = 0.96104; }
 		}
 		if (idx == -1|| idx == -3) { // syst up
-		if (abseta >= 0 && abseta <= 0.9) { num = 0.971762; }
-		else if (abseta > 0.9 && abseta <= 1.2) { num = 0.959959; }
-		else if (abseta > 1.2 && abseta <= 1.6) { num = 0.988186; }
-		else if (abseta > 1.6 && abseta <= 2.1) { num = 0.983305; }
-		else if (abseta > 2.1 && abseta <= 2.4) { num = 0.966265; }
+			if (abseta >= 0 && abseta <= 0.9) { num = 0.971762; }
+			else if (abseta > 0.9 && abseta <= 1.2) { num = 0.959959; }
+			else if (abseta > 1.2 && abseta <= 1.6) { num = 0.988186; }
+			else if (abseta > 1.6 && abseta <= 2.1) { num = 0.983305; }
+			else if (abseta > 2.1 && abseta <= 2.4) { num = 0.966265; }
 		}
 		if (idx == -2 || idx == -4) { // syst down
-		if (abseta >= 0 && abseta <= 0.9) { num = 0.970584; }
-		else if (abseta > 0.9 && abseta <= 1.2) { num = 0.956336; }
-		else if (abseta > 1.2 && abseta <= 1.6) { num = 0.986467; }
-		else if (abseta > 1.6 && abseta <= 2.1) { num = 0.982912; }
-		else if (abseta > 2.1 && abseta <= 2.4) { num = 0.964651; }
+			if (abseta >= 0 && abseta <= 0.9) { num = 0.970584; }
+			else if (abseta > 0.9 && abseta <= 1.2) { num = 0.956336; }
+			else if (abseta > 1.2 && abseta <= 1.6) { num = 0.986467; }
+			else if (abseta > 1.6 && abseta <= 2.1) { num = 0.982912; }
+			else if (abseta > 2.1 && abseta <= 2.4) { num = 0.964651; }
 		}
 
 	}
@@ -147,18 +147,18 @@ double tnp_weight_glbPFtrk_pbpb(double eta, double cent, int idx) //cent 0-100%
 			else if (abseta > 2.1 && abseta <= 2.4) { num = 0.984224; }
 		}
 		if (idx == -1 || idx == -3) { // syst up
-		if (abseta >= 0 && abseta <= 0.9) { num = 0.986813; }
-		else if (abseta > 0.9 && abseta <= 1.2) { num = 0.994583; }
-		else if (abseta > 1.2 && abseta <= 1.6) { num = 0.997692; }
-		else if (abseta > 1.6 && abseta <= 2.1) { num = 0.994297; }
-		else if (abseta > 2.1 && abseta <= 2.4) { num = 0.991597; }
+			if (abseta >= 0 && abseta <= 0.9) { num = 0.986813; }
+			else if (abseta > 0.9 && abseta <= 1.2) { num = 0.994583; }
+			else if (abseta > 1.2 && abseta <= 1.6) { num = 0.997692; }
+			else if (abseta > 1.6 && abseta <= 2.1) { num = 0.994297; }
+			else if (abseta > 2.1 && abseta <= 2.4) { num = 0.991597; }
 		}
 		if (idx == -2 || idx == -4) { // syst down
-		if (abseta >= 0 && abseta <= 0.9) { num = 0.984977; }
-		else if (abseta > 0.9 && abseta <= 1.2) { num = 0.994074; }
-		else if (abseta > 1.2 && abseta <= 1.6) { num = 0.996367; }
-		else if (abseta > 1.6 && abseta <= 2.1) { num = 0.992047; }
-		else if (abseta > 2.1 && abseta <= 2.4) { num = 0.989711; }
+			if (abseta >= 0 && abseta <= 0.9) { num = 0.984977; }
+			else if (abseta > 0.9 && abseta <= 1.2) { num = 0.994074; }
+			else if (abseta > 1.2 && abseta <= 1.6) { num = 0.996367; }
+			else if (abseta > 1.6 && abseta <= 2.1) { num = 0.992047; }
+			else if (abseta > 2.1 && abseta <= 2.4) { num = 0.989711; }
 		}
 	}
 
@@ -209,7 +209,7 @@ double tnp_uncertainty_pf_pbpb(double eta, double cent, int idx)
 		else if (abseta > 1.6 && abseta <= 2.1) { den = 0.991639; }
 		else if (abseta > 2.1 && abseta <= 2.4) { den = 0.978643; }
 
-	
+
 		if (idx == 0 || idx == 200) { 
 			if (abseta >= 0 && abseta <= 0.9) { num = 0.989266; }
 			else if (abseta > 0.9 && abseta <= 1.2) { num = 0.984868; }
@@ -252,87 +252,87 @@ double tnp_uncertainty_pf_pbpb(double eta, double cent, int idx)
 ///////////////////////////////////////////////////
 double tnp_weight_muid_pbpb(double eta, int idx)
 {
-   double syst = 0.6e-2;    //preliminary
+	double syst = 0.6e-2;    //preliminary
 
-   double num=1,den=1;
-   
-   if (fabs(eta) > 2.4) { cout << "[WARNING] Muon pseudo-rapidity (" << eta << ") outside [-2.4, 2.4]" << endl; return 1.0; }
+	double num=1,den=1;
 
-   // MC
-   if (eta >= -2.4 && eta <= -2.1) { den = 0.994139; }
-   else if (eta > -2.1 && eta <= -1.6) { den = 0.99449; }
-   else if (eta > -1.6 && eta <= -1.2) { den = 0.983536; }
-   else if (eta > -1.2 && eta <= -0.9) { den = 0.964562; }
-   else if (eta > -0.9 && eta <= -0.6) { den = 0.973316; }
-   else if (eta > -0.6 && eta <= -0.3) { den = 0.981446; }
-   else if (eta > -0.3 && eta <= 0) { den = 0.968189; }
-   else if (eta > 0 && eta <= 0.3) { den = 0.9617; }
-   else if (eta > 0.3 && eta <= 0.6) { den = 0.979738; }
-   else if (eta > 0.6 && eta <= 0.9) { den = 0.969536; }
-   else if (eta > 0.9 && eta <= 1.2) { den = 0.960259; }
-   else if (eta > 1.2 && eta <= 1.6) { den = 0.983279; }
-   else if (eta > 1.6 && eta <= 2.1) { den = 0.99477; }
-   else if (eta > 2.1 && eta <= 2.4) { den = 0.994065; }
+	if (fabs(eta) > 2.4) { cout << "[WARNING] Muon pseudo-rapidity (" << eta << ") outside [-2.4, 2.4]" << endl; return 1.0; }
 
-
-   // data
-   if (idx <= 0 || idx > 10) { // nominal
-	   if (eta >= -2.4 && eta <= -2.1) { num = 0.984278; }
-	   else if (eta > -2.1 && eta <= -1.6) { num = 0.994031; }
-	   else if (eta > -1.6 && eta <= -1.2) { num = 0.978562; }
-	   else if (eta > -1.2 && eta <= -0.9) { num = 0.954321; }
-	   else if (eta > -0.9 && eta <= -0.6) { num = 0.966508; }
-	   else if (eta > -0.6 && eta <= -0.3) { num = 0.98402; }
-	   else if (eta > -0.3 && eta <= 0) { num = 0.958369; }
-	   else if (eta > 0 && eta <= 0.3) { num = 0.959429; }
-	   else if (eta > 0.3 && eta <= 0.6) { num = 0.976528; }
-	   else if (eta > 0.6 && eta <= 0.9) { num = 0.967646; }
-	   else if (eta > 0.9 && eta <= 1.2) { num = 0.961046; }
-	   else if (eta > 1.2 && eta <= 1.6) { num = 0.980274; }
-	   else if (eta > 1.6 && eta <= 2.1) { num = 0.991677; }
-	   else if (eta > 2.1 && eta <= 2.4) { num = 0.993007; }
-   }
-   else if (idx == 1) { // stat up
-	   if (eta >= -2.4 && eta <= -2.1) { num = 0.987203; }
-	   else if (eta > -2.1 && eta <= -1.6) { num = 0.995641; }
-	   else if (eta > -1.6 && eta <= -1.2) { num = 0.981641; }
-	   else if (eta > -1.2 && eta <= -0.9) { num = 0.958889; }
-	   else if (eta > -0.9 && eta <= -0.6) { num = 0.970274; }
-	   else if (eta > -0.6 && eta <= -0.3) { num = 0.986882; }
-	   else if (eta > -0.3 && eta <= 0) { num = 0.962433; }
-	   else if (eta > 0 && eta <= 0.3) { num = 0.96344; }
-	   else if (eta > 0.3 && eta <= 0.6) { num = 0.979706; }
-	   else if (eta > 0.6 && eta <= 0.9) { num = 0.971414; }
-	   else if (eta > 0.9 && eta <= 1.2) { num = 0.965537; }
-	   else if (eta > 1.2 && eta <= 1.6) { num = 0.983167; }
-	   else if (eta > 1.6 && eta <= 2.1) { num = 0.99336; }
-	   else if (eta > 2.1 && eta <= 2.4) { num = 0.995579; }
-   }
-   else if (idx == 2) { // stat down
-	   if (eta >= -2.4 && eta <= -2.1) { num = 0.98094; }
-	   else if (eta > -2.1 && eta <= -1.6) { num = 0.992199; }
-	   else if (eta > -1.6 && eta <= -1.2) { num = 0.975247; }
-	   else if (eta > -1.2 && eta <= -0.9) { num = 0.949482; }
-	   else if (eta > -0.9 && eta <= -0.6) { num = 0.962497; }
-	   else if (eta > -0.6 && eta <= -0.3) { num = 0.980916; }
-	   else if (eta > -0.3 && eta <= 0) { num = 0.954075; }
-	   else if (eta > 0 && eta <= 0.3) { num = 0.955169; }
-	   else if (eta > 0.3 && eta <= 0.6) { num = 0.973111; }
-	   else if (eta > 0.6 && eta <= 0.9) { num = 0.963634; }
-	   else if (eta > 0.9 && eta <= 1.2) { num = 0.956295; }
-	   else if (eta > 1.2 && eta <= 1.6) { num = 0.977135; }
-	   else if (eta > 1.6 && eta <= 2.1) { num = 0.987932; }
-	   else if (eta > 2.1 && eta <= 2.4) { num = 0.989895; }
-   }
-
-   if (idx == 200) den = 1.;
-   if (idx == 300) num = den * den;
+	// MC
+	if (eta >= -2.4 && eta <= -2.1) { den = 0.994139; }
+	else if (eta > -2.1 && eta <= -1.6) { den = 0.99449; }
+	else if (eta > -1.6 && eta <= -1.2) { den = 0.983536; }
+	else if (eta > -1.2 && eta <= -0.9) { den = 0.964562; }
+	else if (eta > -0.9 && eta <= -0.6) { den = 0.973316; }
+	else if (eta > -0.6 && eta <= -0.3) { den = 0.981446; }
+	else if (eta > -0.3 && eta <= 0) { den = 0.968189; }
+	else if (eta > 0 && eta <= 0.3) { den = 0.9617; }
+	else if (eta > 0.3 && eta <= 0.6) { den = 0.979738; }
+	else if (eta > 0.6 && eta <= 0.9) { den = 0.969536; }
+	else if (eta > 0.9 && eta <= 1.2) { den = 0.960259; }
+	else if (eta > 1.2 && eta <= 1.6) { den = 0.983279; }
+	else if (eta > 1.6 && eta <= 2.1) { den = 0.99477; }
+	else if (eta > 2.1 && eta <= 2.4) { den = 0.994065; }
 
 
-   double syst_factor = 1.;
-   if (idx == -1) syst_factor = 1 + syst;
-   if (idx == -2) syst_factor = 1 - syst;
-   return (num / den)*syst_factor;
+	// data
+	if (idx <= 0 || idx > 10) { // nominal
+		if (eta >= -2.4 && eta <= -2.1) { num = 0.984278; }
+		else if (eta > -2.1 && eta <= -1.6) { num = 0.994031; }
+		else if (eta > -1.6 && eta <= -1.2) { num = 0.978562; }
+		else if (eta > -1.2 && eta <= -0.9) { num = 0.954321; }
+		else if (eta > -0.9 && eta <= -0.6) { num = 0.966508; }
+		else if (eta > -0.6 && eta <= -0.3) { num = 0.98402; }
+		else if (eta > -0.3 && eta <= 0) { num = 0.958369; }
+		else if (eta > 0 && eta <= 0.3) { num = 0.959429; }
+		else if (eta > 0.3 && eta <= 0.6) { num = 0.976528; }
+		else if (eta > 0.6 && eta <= 0.9) { num = 0.967646; }
+		else if (eta > 0.9 && eta <= 1.2) { num = 0.961046; }
+		else if (eta > 1.2 && eta <= 1.6) { num = 0.980274; }
+		else if (eta > 1.6 && eta <= 2.1) { num = 0.991677; }
+		else if (eta > 2.1 && eta <= 2.4) { num = 0.993007; }
+	}
+	else if (idx == 1) { // stat up
+		if (eta >= -2.4 && eta <= -2.1) { num = 0.987203; }
+		else if (eta > -2.1 && eta <= -1.6) { num = 0.995641; }
+		else if (eta > -1.6 && eta <= -1.2) { num = 0.981641; }
+		else if (eta > -1.2 && eta <= -0.9) { num = 0.958889; }
+		else if (eta > -0.9 && eta <= -0.6) { num = 0.970274; }
+		else if (eta > -0.6 && eta <= -0.3) { num = 0.986882; }
+		else if (eta > -0.3 && eta <= 0) { num = 0.962433; }
+		else if (eta > 0 && eta <= 0.3) { num = 0.96344; }
+		else if (eta > 0.3 && eta <= 0.6) { num = 0.979706; }
+		else if (eta > 0.6 && eta <= 0.9) { num = 0.971414; }
+		else if (eta > 0.9 && eta <= 1.2) { num = 0.965537; }
+		else if (eta > 1.2 && eta <= 1.6) { num = 0.983167; }
+		else if (eta > 1.6 && eta <= 2.1) { num = 0.99336; }
+		else if (eta > 2.1 && eta <= 2.4) { num = 0.995579; }
+	}
+	else if (idx == 2) { // stat down
+		if (eta >= -2.4 && eta <= -2.1) { num = 0.98094; }
+		else if (eta > -2.1 && eta <= -1.6) { num = 0.992199; }
+		else if (eta > -1.6 && eta <= -1.2) { num = 0.975247; }
+		else if (eta > -1.2 && eta <= -0.9) { num = 0.949482; }
+		else if (eta > -0.9 && eta <= -0.6) { num = 0.962497; }
+		else if (eta > -0.6 && eta <= -0.3) { num = 0.980916; }
+		else if (eta > -0.3 && eta <= 0) { num = 0.954075; }
+		else if (eta > 0 && eta <= 0.3) { num = 0.955169; }
+		else if (eta > 0.3 && eta <= 0.6) { num = 0.973111; }
+		else if (eta > 0.6 && eta <= 0.9) { num = 0.963634; }
+		else if (eta > 0.9 && eta <= 1.2) { num = 0.956295; }
+		else if (eta > 1.2 && eta <= 1.6) { num = 0.977135; }
+		else if (eta > 1.6 && eta <= 2.1) { num = 0.987932; }
+		else if (eta > 2.1 && eta <= 2.4) { num = 0.989895; }
+	}
+
+	if (idx == 200) den = 1.;
+	if (idx == 300) num = den * den;
+
+
+	double syst_factor = 1.;
+	if (idx == -1) syst_factor = 1 + syst;
+	if (idx == -2) syst_factor = 1 - syst;
+	return (num / den)*syst_factor;
 }
 
 
@@ -615,80 +615,240 @@ double tnp_weight_trig_pbpb(double pt, double eta, double cent, int idx)
 	return (num / den);
 }
 
-double tnp_weight_TightID_pp(double eta)
+double tnp_weight_TightID_pp(double eta, int idx)
 {
-   if(eta < -2.1 && eta >= -2.4)   return 0.99197;
-   if(eta < -1.6 && eta >= -2.1)   return 0.997666;
-   if(eta < -1.2 && eta >= -1.6)   return 0.996269;
-   if(eta < -0.9 && eta >= -1.2)   return 0.994066;
-   if(eta < -0.6 && eta >= -0.9)   return 0.996537;
-   if(eta < -0.3 && eta >= -0.6)   return 0.995147;
-   if(eta < 0 && eta >= -0.3)   return 0.997214;
-   if(eta < 0.3 && eta >= 0)   return 0.989001;
-   if(eta < 0.6 && eta >= 0.3)   return 0.992532;
-   if(eta < 0.9 && eta >= 0.6)   return 0.997035;
-   if(eta < 1.2 && eta >= 0.9)   return 0.995832;
-   if(eta < 1.6 && eta >= 1.2)   return 0.996298;
-   if(eta < 2.1 && eta >= 1.6)   return 0.995379;
-   if(eta < 2.4 && eta >= 2.1)   return 0.986206;
-   return 1;
+	if(idx == 0)
+	{
+		if(eta < -2.1 && eta >= -2.4)   return 0.99197;
+		if(eta < -1.6 && eta >= -2.1)   return 0.997666;
+		if(eta < -1.2 && eta >= -1.6)   return 0.996269;
+		if(eta < -0.9 && eta >= -1.2)   return 0.994066;
+		if(eta < -0.6 && eta >= -0.9)   return 0.996537;
+		if(eta < -0.3 && eta >= -0.6)   return 0.995147;
+		if(eta < 0 && eta >= -0.3)   return 0.997214;
+		if(eta < 0.3 && eta >= 0)   return 0.989001;
+		if(eta < 0.6 && eta >= 0.3)   return 0.992532;
+		if(eta < 0.9 && eta >= 0.6)   return 0.997035;
+		if(eta < 1.2 && eta >= 0.9)   return 0.995832;
+		if(eta < 1.6 && eta >= 1.2)   return 0.996298;
+		if(eta < 2.1 && eta >= 1.6)   return 0.995379;
+		if(eta < 2.4 && eta >= 2.1)   return 0.986206;
+	}
+
+	if(idx < 0)
+	{
+		if(eta < -2.1 && eta >= -2.4)   return 0.98798;
+		if(eta < -1.6 && eta >= -2.1)   return 0.994208;
+		if(eta < -1.2 && eta >= -1.6)   return 0.994789;
+		if(eta < -0.9 && eta >= -1.2)   return 0.990871;
+		if(eta < -0.6 && eta >= -0.9)   return 0.994272;
+		if(eta < -0.3 && eta >= -0.6)   return 0.993019;
+		if(eta < 0 && eta >= -0.3)   return 0.994244;
+		if(eta < 0.3 && eta >= 0)   return 0.985501;
+		if(eta < 0.6 && eta >= 0.3)   return 0.989337;
+		if(eta < 0.9 && eta >= 0.6)   return 0.993503;
+		if(eta < 1.2 && eta >= 0.9)   return 0.992745;
+		if(eta < 1.6 && eta >= 1.2)   return 0.992151;
+		if(eta < 2.1 && eta >= 1.6)   return 0.993462;
+		if(eta < 2.4 && eta >= 2.1)   return 0.97791;
+	}
+
+	if(idx > 0)
+	{
+		if(eta < -2.1 && eta >= -2.4)   return 0.99583;
+		if(eta < -1.6 && eta >= -2.1)   return 1.00109;
+		if(eta < -1.2 && eta >= -1.6)   return 0.997653;
+		if(eta < -0.9 && eta >= -1.2)   return 0.997178;
+		if(eta < -0.6 && eta >= -0.9)   return 0.998698;
+		if(eta < -0.3 && eta >= -0.6)   return 0.997167;
+		if(eta < 0 && eta >= -0.3)   return 1.0001;
+		if(eta < 0.3 && eta >= 0)   return 0.992336;
+		if(eta < 0.6 && eta >= 0.3)   return 0.995651;
+		if(eta < 0.9 && eta >= 0.6)   return 1.0005;
+		if(eta < 1.2 && eta >= 0.9)   return 0.998838;
+		if(eta < 1.6 && eta >= 1.2)   return 1.00041;
+		if(eta < 2.1 && eta >= 1.6)   return 0.997219;
+		if(eta < 2.4 && eta >= 2.1)   return 0.994454;
+	}
+
+	return 1;
 }
 
-double tnp_weight_TightID_PFIsoTight_pp(double eta)
+double tnp_weight_TightID_PFIsoTight_pp(double eta, int idx)
 {
-   if(eta < -2.1 && eta >= -2.4)   return 0.995003;
-   if(eta < -1.6 && eta >= -2.1)   return 1.00209;
-   if(eta < -1.2 && eta >= -1.6)   return 0.995934;
-   if(eta < -0.9 && eta >= -1.2)   return 0.989854;
-   if(eta < -0.6 && eta >= -0.9)   return 0.993851;
-   if(eta < -0.3 && eta >= -0.6)   return 0.992648;
-   if(eta < 0 && eta >= -0.3)   return 0.994836;
-   if(eta < 0.3 && eta >= 0)   return 0.988882;
-   if(eta < 0.6 && eta >= 0.3)   return 0.99508;
-   if(eta < 0.9 && eta >= 0.6)   return 0.998866;
-   if(eta < 1.2 && eta >= 0.9)   return 0.992233;
-   if(eta < 1.6 && eta >= 1.2)   return 0.99683;
-   if(eta < 2.1 && eta >= 1.6)   return 0.995585;
-   if(eta < 2.4 && eta >= 2.1)   return 0.991093;
-   return 1;
+	if(idx == 0)
+	{
+		if(eta < -2.1 && eta >= -2.4)   return 0.995003;
+		if(eta < -1.6 && eta >= -2.1)   return 1.00209;
+		if(eta < -1.2 && eta >= -1.6)   return 0.995934;
+		if(eta < -0.9 && eta >= -1.2)   return 0.989854;
+		if(eta < -0.6 && eta >= -0.9)   return 0.993851;
+		if(eta < -0.3 && eta >= -0.6)   return 0.992648;
+		if(eta < 0 && eta >= -0.3)   return 0.994836;
+		if(eta < 0.3 && eta >= 0)   return 0.988882;
+		if(eta < 0.6 && eta >= 0.3)   return 0.99508;
+		if(eta < 0.9 && eta >= 0.6)   return 0.998866;
+		if(eta < 1.2 && eta >= 0.9)   return 0.992233;
+		if(eta < 1.6 && eta >= 1.2)   return 0.99683;
+		if(eta < 2.1 && eta >= 1.6)   return 0.995585;
+		if(eta < 2.4 && eta >= 2.1)   return 0.991093;
+	}
+
+	if(idx < 0)
+	{
+		if(eta < -2.1 && eta >= -2.4)   return 0.989961;
+		if(eta < -1.6 && eta >= -2.1)   return 0.998392;
+		if(eta < -1.2 && eta >= -1.6)   return 0.991391;
+		if(eta < -0.9 && eta >= -1.2)   return 0.984239;
+		if(eta < -0.6 && eta >= -0.9)   return 0.989812;
+		if(eta < -0.3 && eta >= -0.6)   return 0.987306;
+		if(eta < 0 && eta >= -0.3)   return 0.98971;
+		if(eta < 0.3 && eta >= 0)   return 0.984;
+		if(eta < 0.6 && eta >= 0.3)   return 0.99131;
+		if(eta < 0.9 && eta >= 0.6)   return 0.991863;
+		if(eta < 1.2 && eta >= 0.9)   return 0.988633;
+		if(eta < 1.6 && eta >= 1.2)   return 0.992627;
+		if(eta < 2.1 && eta >= 1.6)   return 0.99141;
+		if(eta < 2.4 && eta >= 2.1)   return 0.983076;
+	}
+
+	if(idx > 0)
+	{
+		if(eta < -2.1 && eta >= -2.4)   return 0.999905;
+		if(eta < -1.6 && eta >= -2.1)   return 1.00574;
+		if(eta < -1.2 && eta >= -1.6)   return 1.00042;
+		if(eta < -0.9 && eta >= -1.2)   return 0.995397;
+		if(eta < -0.6 && eta >= -0.9)   return 0.997803;
+		if(eta < -0.3 && eta >= -0.6)   return 0.997924;
+		if(eta < 0 && eta >= -0.3)   return 0.999897;
+		if(eta < 0.3 && eta >= 0)   return 0.993715;
+		if(eta < 0.6 && eta >= 0.3)   return 0.998762;
+		if(eta < 0.9 && eta >= 0.6)   return 1.00581;
+		if(eta < 1.2 && eta >= 0.9)   return 0.995745;
+		if(eta < 1.6 && eta >= 1.2)   return 1.00097;
+		if(eta < 2.1 && eta >= 1.6)   return 0.999707;
+		if(eta < 2.4 && eta >= 2.1)   return 0.999017;
+	}
+
+	return 1;
 }
 
-double tnp_weight_L3Mu12_pp(double eta)
+double tnp_weight_L3Mu12_pp(double eta, int idx)
 {
-   if(eta < -2.1 && eta >= -2.4)   return 1.00347;
-   if(eta < -1.6 && eta >= -2.1)   return 0.977317;
-   if(eta < -1.2 && eta >= -1.6)   return 0.984707;
-   if(eta < -0.9 && eta >= -1.2)   return 0.976465;
-   if(eta < -0.6 && eta >= -0.9)   return 0.983223;
-   if(eta < -0.3 && eta >= -0.6)   return 0.990828;
-   if(eta < 0 && eta >= -0.3)   return 0.987445;
-   if(eta < 0.3 && eta >= 0)   return 0.989734;
-   if(eta < 0.6 && eta >= 0.3)   return 0.986748;
-   if(eta < 0.9 && eta >= 0.6)   return 0.976808;
-   if(eta < 1.2 && eta >= 0.9)   return 0.969258;
-   if(eta < 1.6 && eta >= 1.2)   return 0.969321;
-   if(eta < 2.1 && eta >= 1.6)   return 0.98434;
-   if(eta < 2.4 && eta >= 2.1)   return 0.999777;
-   return 1;
+	if(idx == 0)
+	{
+		if(eta < -2.1 && eta >= -2.4)   return 1.00347;
+		if(eta < -1.6 && eta >= -2.1)   return 0.977317;
+		if(eta < -1.2 && eta >= -1.6)   return 0.984707;
+		if(eta < -0.9 && eta >= -1.2)   return 0.976465;
+		if(eta < -0.6 && eta >= -0.9)   return 0.983223;
+		if(eta < -0.3 && eta >= -0.6)   return 0.990828;
+		if(eta < 0 && eta >= -0.3)   return 0.987445;
+		if(eta < 0.3 && eta >= 0)   return 0.989734;
+		if(eta < 0.6 && eta >= 0.3)   return 0.986748;
+		if(eta < 0.9 && eta >= 0.6)   return 0.976808;
+		if(eta < 1.2 && eta >= 0.9)   return 0.969258;
+		if(eta < 1.6 && eta >= 1.2)   return 0.969321;
+		if(eta < 2.1 && eta >= 1.6)   return 0.98434;
+		if(eta < 2.4 && eta >= 2.1)   return 0.999777;
+	}
+
+	if(idx < 0)
+	{
+		if(eta < -2.1 && eta >= -2.4)   return 0.997391;
+		if(eta < -1.6 && eta >= -2.1)   return 0.973319;
+		if(eta < -1.2 && eta >= -1.6)   return 0.981583;
+		if(eta < -0.9 && eta >= -1.2)   return 0.973346;
+		if(eta < -0.6 && eta >= -0.9)   return 0.979763;
+		if(eta < -0.3 && eta >= -0.6)   return 0.988388;
+		if(eta < 0 && eta >= -0.3)   return 0.984145;
+		if(eta < 0.3 && eta >= 0)   return 0.986435;
+		if(eta < 0.6 && eta >= 0.3)   return 0.984174;
+		if(eta < 0.9 && eta >= 0.6)   return 0.973015;
+		if(eta < 1.2 && eta >= 0.9)   return 0.965251;
+		if(eta < 1.6 && eta >= 1.2)   return 0.964534;
+		if(eta < 2.1 && eta >= 1.6)   return 0.980845;
+		if(eta < 2.4 && eta >= 2.1)   return 0.994351;
+	}
+
+	if(idx > 0)
+	{
+		if(eta < -2.1 && eta >= -2.4)   return 1.00957;
+		if(eta < -1.6 && eta >= -2.1)   return 0.98125;
+		if(eta < -1.2 && eta >= -1.6)   return 0.987747;
+		if(eta < -0.9 && eta >= -1.2)   return 0.979478;
+		if(eta < -0.6 && eta >= -0.9)   return 0.986607;
+		if(eta < -0.3 && eta >= -0.6)   return 0.993167;
+		if(eta < 0 && eta >= -0.3)   return 0.990665;
+		if(eta < 0.3 && eta >= 0)   return 0.992894;
+		if(eta < 0.6 && eta >= 0.3)   return 0.989243;
+		if(eta < 0.9 && eta >= 0.6)   return 0.980524;
+		if(eta < 1.2 && eta >= 0.9)   return 0.973275;
+		if(eta < 1.6 && eta >= 1.2)   return 0.974044;
+		if(eta < 2.1 && eta >= 1.6)   return 0.987806;
+		if(eta < 2.4 && eta >= 2.1)   return 1.00509;
+	}
+
+	return 1;
 }
 
-double tnp_weight_L3Mu12_PFIsoTight_pp(double eta)
+double tnp_weight_L3Mu12_PFIsoTight_pp(double eta, int idx)
 {
-   if(eta < -2.1 && eta >= -2.4)   return 1.00373;
-   if(eta < -1.6 && eta >= -2.1)   return 0.980444;
-   if(eta < -1.2 && eta >= -1.6)   return 0.98444;
-   if(eta < -0.9 && eta >= -1.2)   return 0.976874;
-   if(eta < -0.6 && eta >= -0.9)   return 0.982639;
-   if(eta < -0.3 && eta >= -0.6)   return 0.990206;
-   if(eta < 0 && eta >= -0.3)   return 0.987445;
-   if(eta < 0.3 && eta >= 0)   return 0.989312;
-   if(eta < 0.6 && eta >= 0.3)   return 0.987004;
-   if(eta < 0.9 && eta >= 0.6)   return 0.977648;
-   if(eta < 1.2 && eta >= 0.9)   return 0.969058;
-   if(eta < 1.6 && eta >= 1.2)   return 0.96981;
-   if(eta < 2.1 && eta >= 1.6)   return 0.983832;
-   if(eta < 2.4 && eta >= 2.1)   return 1.00299;
-   return 1;
+	if(idx == 0)
+	{
+		if(eta < -2.1 && eta >= -2.4)   return 1.00373;
+		if(eta < -1.6 && eta >= -2.1)   return 0.980444;
+		if(eta < -1.2 && eta >= -1.6)   return 0.98444;
+		if(eta < -0.9 && eta >= -1.2)   return 0.976874;
+		if(eta < -0.6 && eta >= -0.9)   return 0.982639;
+		if(eta < -0.3 && eta >= -0.6)   return 0.990206;
+		if(eta < 0 && eta >= -0.3)   return 0.987445;
+		if(eta < 0.3 && eta >= 0)   return 0.989312;
+		if(eta < 0.6 && eta >= 0.3)   return 0.987004;
+		if(eta < 0.9 && eta >= 0.6)   return 0.977648;
+		if(eta < 1.2 && eta >= 0.9)   return 0.969058;
+		if(eta < 1.6 && eta >= 1.2)   return 0.96981;
+		if(eta < 2.1 && eta >= 1.6)   return 0.983832;
+		if(eta < 2.4 && eta >= 2.1)   return 1.00299;
+	}
+
+	if(idx < 0)
+	{
+		if(eta < -2.10048 && eta >= -2.40048)   return 0.998226;
+		if(eta < -1.60009 && eta >= -2.10009)   return 0.975636;
+		if(eta < -1.20007 && eta >= -1.60007)   return 0.981422;
+		if(eta < -0.89995 && eta >= -1.19995)   return 0.973333;
+		if(eta < -0.600216 && eta >= -0.900216)   return 0.973606;
+		if(eta < -0.300024 && eta >= -0.600024)   return 0.987991;
+		if(eta < -2.1e-05 && eta >= -0.300021)   return 0.986451;
+		if(eta < 0.300381 && eta >= 0.000381)   return 0.986263;
+		if(eta < 0.600264 && eta >= 0.300264)   return 0.984614;
+		if(eta < 0.900435 && eta >= 0.600435)   return 0.974304;
+		if(eta < 1.20062 && eta >= 0.90062)   return 0.965644;
+		if(eta < 1.60033 && eta >= 1.20033)   return 0.966116;
+		if(eta < 2.10042 && eta >= 1.60042)   return 0.9808;
+		if(eta < 2.40001 && eta >= 2.10001)   return 0.99785;
+	}
+
+	if(idx > 0)
+	{
+		if(eta < -2.10048 && eta >= -2.40048)   return 1.00914;
+		if(eta < -1.60009 && eta >= -2.10009)   return 0.985205;
+		if(eta < -1.20007 && eta >= -1.60007)   return 0.987403;
+		if(eta < -0.89995 && eta >= -1.19995)   return 0.980295;
+		if(eta < -0.600216 && eta >= -0.900216)   return 0.99167;
+		if(eta < -0.300024 && eta >= -0.600024)   return 0.992304;
+		if(eta < -2.1e-05 && eta >= -0.300021)   return 0.990154;
+		if(eta < 0.300381 && eta >= 0.000381)   return 0.992101;
+		if(eta < 0.600264 && eta >= 0.300264)   return 0.989287;
+		if(eta < 0.900435 && eta >= 0.600435)   return 0.98086;
+		if(eta < 1.20062 && eta >= 0.90062)   return 0.972356;
+		if(eta < 1.60033 && eta >= 1.20033)   return 0.973436;
+		if(eta < 2.10042 && eta >= 1.60042)   return 0.986793;
+		if(eta < 2.40001 && eta >= 2.10001)   return 1.00756;
+	}
+
+	return 1;
 }
 
 
