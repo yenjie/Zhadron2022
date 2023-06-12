@@ -535,6 +535,7 @@ public:
    std::vector<double> *trackEta;
    std::vector<double> *trackPhi;
    std::vector<bool> *trackMuTagged;
+   std::vector<double> *trackMuDR;
    std::vector<double> *trackWeight;
    std::vector<double> *trackResidualWeight;
    std::vector<int> *trackCharge;

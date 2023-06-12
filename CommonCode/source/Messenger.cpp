@@ -1715,6 +1715,8 @@ ZHadronMessenger::~ZHadronMessenger()
       delete trackPt;
       delete trackDeta;
       delete trackDphi;
+      delete trackMuTagged;
+      delete trackMuDR;
       delete trackPDFId;
       delete trackEta;
       delete trackPhi;
@@ -1786,9 +1788,11 @@ bool ZHadronMessenger::Initialize()
    trackEta = nullptr;
    trackPhi = nullptr;
    trackMuTagged = nullptr;
+   trackMuDR = nullptr;
    trackWeight = nullptr;
    trackResidualWeight = nullptr;
    trackCharge = nullptr;
+   subevent = nullptr;
 
    jetPt = nullptr;
    jetDeta = nullptr;
@@ -1867,9 +1871,11 @@ bool ZHadronMessenger::Initialize()
    // Tree->SetBranchAddress("trackEta", &trackEta);
    // Tree->SetBranchAddress("trackPhi", &trackPhi);
    Tree->SetBranchAddress("trackMuTagged", &trackMuTagged);
+   Tree->SetBranchAddress("trackMuDR", &trackMuDR);
    Tree->SetBranchAddress("trackWeight", &trackWeight);
    Tree->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
    Tree->SetBranchAddress("trackCharge", &trackCharge);
+   Tree->SetBranchAddress("subevent", &subevent);
 
    Tree->SetBranchAddress("jetPt", &jetPt);
    Tree->SetBranchAddress("jetDeta", &jetDeta);
@@ -1949,6 +1955,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    trackEta = new std::vector<double>();
    trackPhi = new std::vector<double>();
    trackMuTagged = new std::vector<bool>();
+   trackMuDR = new std::vector<double>();
    trackWeight = new std::vector<double>();
    trackResidualWeight = new std::vector<double>();
    trackCharge = new std::vector<int>();
@@ -2032,6 +2039,7 @@ bool ZHadronMessenger::SetBranch(TTree *T)
    // Tree->Branch("trackPhi",               &trackPhi);
    // Tree->Branch("trackEta",               &trackEta);
    Tree->Branch("trackMuTagged",          &trackMuTagged);
+   Tree->Branch("trackMuDR",              &trackMuDR);
    Tree->Branch("trackWeight",            &trackWeight);
    Tree->Branch("trackResidualWeight",    &trackResidualWeight);
    Tree->Branch("trackCharge",            &trackCharge);
@@ -2143,6 +2151,7 @@ void ZHadronMessenger::Clear()
    trackPhi->clear();
    trackEta->clear();
    trackMuTagged->clear();
+   trackMuDR->clear();
    trackWeight->clear();
    trackResidualWeight->clear();
    trackCharge->clear();
