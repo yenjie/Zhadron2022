@@ -3,47 +3,47 @@ default: TestRun
 TestRun: Execute
 	mkdir -p log
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_v14/ \
-		--Output GraphDataSignal_v14_02test.root --Fraction 0.2 \
-		 > log/GraphDataSignal_v14_02test.out 2> log/GraphDataSignal_v14_02test.err < /dev/null &
+		--Output GraphDataSignal_v14_05test.root --Fraction 0.5 \
+		 > log/GraphDataSignal_v14_05test.out 2> log/GraphDataSignal_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_v14/ \
-		--Output GraphDataBackground_v14_02test.root --Fraction 0.2 \
-		 > log/GraphDataBackground_v14_02test.out 2> log/GraphDataBackground_v14_02test.err < /dev/null &
+		--Output GraphDataBackground_v14_05test.root --Fraction 0.5 \
+		 > log/GraphDataBackground_v14_05test.out 2> log/GraphDataBackground_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_v14/ \
-		--Output GraphMCSignal_v14_02test.root --Fraction 0.2 \
-		 > log/GraphMCSignal_v14_02test.out 2> log/GraphMCSignal_v14_02test.err < /dev/null &
+		--Output GraphMCSignal_v14_05test.root --Fraction 0.5 \
+		 > log/GraphMCSignal_v14_05test.out 2> log/GraphMCSignal_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCBackground_v14/ \
-		--Output GraphMCBackground_v14_02test.root --Fraction 0.2 \
-		 > log/GraphMCBackground_v14_02test.out 2> log/GraphMCBackground_v14_02test.err < /dev/null &
+		--Output GraphMCBackground_v14_05test.root --Fraction 0.5 \
+		 > log/GraphMCBackground_v14_05test.out 2> log/GraphMCBackground_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_v14/ \
-		--Output GraphPPMC_v14_02test.root --IgnoreCentrality true --Fraction 0.2 \
-		 > log/GraphPPMC_v14_02test.out 2> log/GraphPPMC_v14_02test.err < /dev/null &
+		--Output GraphPPMC_v14_05test.root --IgnoreCentrality true --Fraction 0.5 \
+		 > log/GraphPPMC_v14_05test.out 2> log/GraphPPMC_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMC_v14/ \
-		--Output GraphPPMC0Sub_v14_02test.root --IgnoreCentrality true --OnlyZeroSub true --Fraction 0.2 \
-		 > log/GraphPPMC0Sub_v14_02test.out 2> log/GraphPPMC0Sub_v14_02test.err < /dev/null &
+		--Output GraphPPMC0Sub_v14_05test.root --IgnoreCentrality true --OnlyZeroSub true --Fraction 0.5 \
+		 > log/GraphPPMC0Sub_v14_05test.out 2> log/GraphPPMC0Sub_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_v14/ \
-		--Output GraphMCSignalGen_v14_02test.root --Fraction 0.2 --DoGenCorrelation true \
-		 > log/GraphMCSignalGen_v14_02test.out 2> log/GraphMCSignalGen_v14_02test.err < /dev/null &
+		--Output GraphMCSignalGen_v14_05test.root --Fraction 0.5 --DoGenCorrelation true \
+		 > log/GraphMCSignalGen_v14_05test.out 2> log/GraphMCSignalGen_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCGen_v14/ \
-		--Output GraphMCSignalGen0Sub_v14_02test.root --OnlyZeroSub true --Fraction 0.2 --DoGenCorrelation true \
-		 > log/GraphMCSignalGen0Sub_v14_02test.out 2> log/GraphMCSignalGen0Sub_v14_02test.err < /dev/null &
+		--Output GraphMCSignalGen0Sub_v14_05test.root --OnlyZeroSub true --Fraction 0.5 --DoGenCorrelation true \
+		 > log/GraphMCSignalGen0Sub_v14_05test.out 2> log/GraphMCSignalGen0Sub_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_v14/ \
-		--Output GraphMCBackgroundGen_v14_02test.root --Fraction 0.2 --DoGenCorrelation true \
-		 > log/GraphMCBackgroundGen_v14_02test.out 2> log/GraphMCBackgroundGen_v14_02test.err < /dev/null &
+		--Output GraphMCBackgroundGen_v14_05test.root --Fraction 0.5 --DoGenCorrelation true \
+		 > log/GraphMCBackgroundGen_v14_05test.out 2> log/GraphMCBackgroundGen_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_v14/ \
-		--Output GraphMCBackgroundGen0Sub_v14_02test.root --OnlyZeroSub true --Fraction 0.2 --DoGenCorrelation true \
-		 > log/GraphMCBackgroundGen0Sub_v14_02test.out 2> log/GraphMCBackgroundGen0Sub_v14_02test.err < /dev/null &
+		--Output GraphMCBackgroundGen0Sub_v14_05test.root --OnlyZeroSub true --Fraction 0.5 --DoGenCorrelation true \
+		 > log/GraphMCBackgroundGen0Sub_v14_05test.out 2> log/GraphMCBackgroundGen0Sub_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_v14/ \
-		--Output GraphPPMCGen_v14_02test.root --IgnoreCentrality true --Fraction 0.2 --DoGenCorrelation true \
-		 > log/GraphPPMCGen_v14_02test.out 2> log/GraphPPMCGen_v14_02test.err < /dev/null &
+		--Output GraphPPMCGen_v14_05test.root --IgnoreCentrality true --Fraction 0.5 --DoGenCorrelation true \
+		 > log/GraphPPMCGen_v14_05test.out 2> log/GraphPPMCGen_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCGen_v14/ \
-		--Output GraphPPMCGen_v14_02test.root --IgnoreCentrality true --OnlyZeroSub true --Fraction 0.2 --DoGenCorrelation true \
-		 > log/GraphPPMCGen_v14_02test.out 2> log/GraphPPMCGen0Sub_v14_02test.err < /dev/null &
+		--Output GraphPPMCGen_v14_05test.root --IgnoreCentrality true --OnlyZeroSub true --Fraction 0.5 --DoGenCorrelation true \
+		 > log/GraphPPMCGen_v14_05test.out 2> log/GraphPPMCGen0Sub_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_v14/ \
-		--Output GraphMCSignal0Sub_v14_02test.root --OnlyZeroSub true --Fraction 0.2 \
-		 > log/GraphMCSignal0Sub_v14_02test.out 2> log/GraphMCSignal0Sub_v14_02test.err < /dev/null &
+		--Output GraphMCSignal0Sub_v14_05test.root --OnlyZeroSub true --Fraction 0.5 \
+		 > log/GraphMCSignal0Sub_v14_05test.out 2> log/GraphMCSignal0Sub_v14_05test.err < /dev/null &
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPData_v14/ \
-		--Output GraphPPData_v14_02test.root --IgnoreCentrality true --Fraction 0.2 \
-		 > log/GraphPPData_v14_02test.out 2> log/GraphPPData_v14_02test.err < /dev/null &
+		--Output GraphPPData_v14_05test.root --IgnoreCentrality true --Fraction 0.5 \
+		 > log/GraphPPData_v14_05test.out 2> log/GraphPPData_v14_05test.err < /dev/null &
 
 TestExploration: ExecuteExploration
 	./ExecuteExploration --SignalFile GraphMCSignal.root --BackgroundFile GraphMCBackground.root \
