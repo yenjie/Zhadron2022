@@ -101,7 +101,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V14b";
+   string Version = "V14c";
 
    CommandLine CL(argc, argv);
 
@@ -696,6 +696,7 @@ int main(int argc, char *argv[])
                   MZHadron.trackDeta->push_back(deltaEta);
                   MZHadron.trackPt->push_back(TrackPT);
                   MZHadron.trackMuTagged->push_back(MuTagged);
+                  MZHadron.trackMuDR->push_back(min(DeltaRMu1, DeltaRMu2));
                   MZHadron.subevent->push_back(SubEvent);
 
                   double TrackCorrection = 1;
