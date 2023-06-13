@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 30, 2000,  4,  7,  1, 1000));
    C.push_back(Configuration(40, 30, 2000,  1,  4,  1, 1000));
    
-   /*
+   
    C.push_back(Configuration(40, 20, 2000,  0, 90,  0, 1000));
    C.push_back(Configuration(40,  5, 2000,  0, 90,  0, 1000));
    C.push_back(Configuration(40,  5,   20,  0, 90,  0, 1000));
@@ -183,7 +183,7 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 20, 2000, 10, 30, 50,  100));
    C.push_back(Configuration(40, 20, 2000, 30, 50, 50,  100));
    
-*/
+
 
 
    vector<TDirectory *>     Folder;
