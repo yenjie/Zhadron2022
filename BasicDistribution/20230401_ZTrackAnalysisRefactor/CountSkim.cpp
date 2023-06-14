@@ -146,7 +146,10 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 
 	fout<<"======================================"<<std::endl;
 
-	gSystem->Exec(("cp " + OutputFileName + " " + OutputFileName.replace(OutputFileName.end()-4,OutputFileName.end(),"_bkup.txt") ).c_str());
+	string OutputFileNameBkup = OutputFileName;
+	OutputFileNameBkup.replace(OutputFileNameBkup.end()-4,OutputFileNameBkup.end(),"_bkup.txt");
+
+	gSystem->Exec(("cp " + OutputFileName + " " + OutputFileNameBkup).c_str());
 
 }
 //void CountSkim(){
