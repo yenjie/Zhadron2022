@@ -42,7 +42,7 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 
    	double cent[201];
 
-   	for(i=0;i<201;i++){
+   	for(int i=0;i<201;i++){
    		if(CentUD==0)
    			cent[i]=BinEdge[i];
    		else if(CentUD==1)
