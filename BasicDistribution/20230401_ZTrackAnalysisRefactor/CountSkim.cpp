@@ -37,7 +37,7 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 
 	fout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
 
-	int CentUD = CL.Get("CentUD", 0);
+	int CentUD = CL.GetInteger("CentUD", 0);
 	string OutputFileName = CL.Get("Output", "SkimCount30.txt");
 
    	double cent[201];
