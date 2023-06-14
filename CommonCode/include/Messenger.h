@@ -504,6 +504,8 @@ public:
    int Lumi;
    
    int hiBin;
+   int hiBinUp;
+   int hiBinDown;
    float hiHF;
 
    float SignalHF;
@@ -513,6 +515,7 @@ public:
    float NCollWeight;
    float ZWeight;
    float VZWeight;
+   float ExtraZWeight[12];
 
    int NVertex;
    float VX, VY, VZ, VXError, VYError, VZError;
@@ -533,6 +536,7 @@ public:
    std::vector<double> *trackEta;
    std::vector<double> *trackPhi;
    std::vector<bool> *trackMuTagged;
+   std::vector<double> *trackMuDR;
    std::vector<double> *trackWeight;
    std::vector<double> *trackResidualWeight;
    std::vector<int> *trackCharge;
@@ -615,6 +619,7 @@ public:
    ~ZHadronMessenger();
    bool Initialize(TTree *ZHadronTree);
    bool Initialize();
+   int GetEntries();
    bool GetEntry(int iEntry);
    bool SetBranch(TTree *T);
    void Clear();

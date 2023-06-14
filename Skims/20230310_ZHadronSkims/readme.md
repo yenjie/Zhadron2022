@@ -47,6 +47,12 @@
    * Deal with PT overflow correctly in the track residual weight code
 * (non-version update) - 2023 May 31
    * Now we consolidate settings into a settings file.  Do `make Prepare` to prepare the settings database.  Do `DHQuery Setting.dh PPSignalMC Nominal` to see the settings for PP signal MC for example.
+* Version 14b - 2023 Jun 9
+   * Adding shifted hiBin for data
+* Version 14c - 2023 Jun 12
+   * Adding branch needed for track mu DR matching systematics
+* Version 15 - 2023 Jun 12
+   * Adding branches for Z weight systematics (muon tag and probe)
 
 
 ## Arguments
