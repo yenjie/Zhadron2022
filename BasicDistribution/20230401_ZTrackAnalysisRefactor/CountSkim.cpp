@@ -10,7 +10,6 @@
 #include <fstream>
 #include <iomanip>
 
-#include "CommonFunctions.h"
 #include "CommandLine.h"
 
 int main(int argc, char *argv[]);
@@ -151,7 +150,7 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 
 }
 //void CountSkim(){
-int main(int argc, char *argv[]);
+int main(int argc, char *argv[]){
 
 	CommandLine CL(argc, argv);
 
