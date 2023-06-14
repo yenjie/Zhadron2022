@@ -172,8 +172,6 @@ int main(int argc, char *argv[]){
 	TreeBkgData->Add((InputBase + BkgDataDir + "/*.root?#Tree").c_str());
 	TreePP0Data->Add((InputBase + "OutputPPData_v14/*.root?#Tree").c_str());
 
-	Tree->Add((InputBase + "/*.root?#Tree").c_str());
-
 	TreeSig->Add("/eos/cms/store/group/phys_heavyions/pchou/SkimMC_v14.root");
 	//TreeBkg->Add("/eos/cms/store/group/phys_heavyions/pchou/SkimMCbkg_v14.root");
 	TreePP0->Add("/eos/cms/store/group/phys_heavyions/pchou/SkimPPMC_v14.root");
