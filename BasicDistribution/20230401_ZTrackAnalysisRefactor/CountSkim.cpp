@@ -176,11 +176,21 @@ int main(int argc, char *argv[]){
 	TreePP0Data->Add((InputBase + "OutputPPData_v14/*.root?#Tree").c_str());
 
 	CountSkim_single(CL,40,200,0,30,1,2);
-	CountSkim_single(CL,40,200,0,30,2,5);
-	CountSkim_single(CL,40,200,0,30,5,10);
-	CountSkim_single(CL,40,200,30,90,1,2);
-	CountSkim_single(CL,40,200,30,90,2,5);
-	CountSkim_single(CL,40,200,30,90,5,10);
+	CountSkim_single(CL,40,200,0,30,2,4);
+	CountSkim_single(CL,40,200,0,30,4,10);
+	CountSkim_single(CL,40,200,0,30,10,20);
+	CountSkim_single(CL,40,200,0,30,20,50);
+	CountSkim_single(CL,40,200,30,50,1,2);
+	CountSkim_single(CL,40,200,30,50,2,4);
+	CountSkim_single(CL,40,200,30,50,4,10);
+	CountSkim_single(CL,40,200,30,50,10,20);
+	CountSkim_single(CL,40,200,30,50,20,50);
+	CountSkim_single(CL,40,200,50,90,1,2);
+	CountSkim_single(CL,40,200,50,90,2,4);
+	CountSkim_single(CL,40,200,50,90,4,10);
+	CountSkim_single(CL,40,200,50,90,10,20);
+	CountSkim_single(CL,40,200,50,90,20,50);
+
 	CountSkim_single(CL,20,2000,0,10,10,20);
 	CountSkim_single(CL,20,2000,0,10,20,50);
 	CountSkim_single(CL,20,2000,0,10,50,100);
