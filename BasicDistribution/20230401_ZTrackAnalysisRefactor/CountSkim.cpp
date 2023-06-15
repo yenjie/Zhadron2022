@@ -157,7 +157,7 @@ int main(int argc, char *argv[]){
 
 	CommandLine CL(argc, argv);
 
-	string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions_ops/pchou/");
+	string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions/pchou/");
    	string OutputFileName = CL.Get("Output", "SkimCount30.txt");
    	string BkgDataDir     = CL.Get("BkgDataDir", "OutputDatabkg_v14");
    	string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v14");
