@@ -175,19 +175,6 @@ int main(int argc, char *argv[]){
 	TreeBkgData->Add((InputBase + BkgDataDir + "/*.root?#Tree").c_str());
 	TreePP0Data->Add((InputBase + "OutputPPData_v14/*.root?#Tree").c_str());
 
-	TreeSig->Add("/eos/cms/store/group/phys_heavyions/pchou/SkimMC_v14.root");
-	//TreeBkg->Add("/eos/cms/store/group/phys_heavyions/pchou/SkimMCbkg_v14.root");
-	TreePP0->Add("/eos/cms/store/group/phys_heavyions/pchou/SkimPPMC_v14.root");
-	//TreeSgG->Add("/eos/cms/store/group/phys_heavyions/pchou/SkimMCGen_v14.root");
-	//TreeBgG->Add("/eos/cms/store/group/phys_heavyions/pchou/SkimMCbkgGen_v14.root");
-
-	TreeBkg->Add("/eos/cms/store/group/phys_heavyions/pchou/OutputMCBackground_v14/Result*.root");
-	//TreeBgG->Add("/eos/cms/store/group/phys_heavyions/pchou/OutputMCbkgGen_v14/Result*.root");
-
-	TreeSigData->Add("/eos/cms/store/group/phys_heavyions/pchou/OutputData_v14/Result*.root");
-	TreeBkgData->Add("/eos/cms/store/group/phys_heavyions/pchou/OutputDatabkg_v14/Result*.root");
-	TreePP0Data->Add("/eos/cms/store/group/phys_heavyions/pchou/OutputPPData_v14/Result*.root");
-
 	CountSkim_single(CL,40,200,0,30,1,2);
 	CountSkim_single(CL,40,200,0,30,2,5);
 	CountSkim_single(CL,40,200,0,30,5,10);
