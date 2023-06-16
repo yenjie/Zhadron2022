@@ -2129,7 +2129,7 @@ void ZHadronMessenger::Clear()
    ZWeight = 1;
    VZWeight = 1;
    for(int i = 0; i < 12; i++)
-      ExtraZWeight = 1;
+      ExtraZWeight[i] = 1;
 
    NVertex = 0;
    VX = 0;
