@@ -1,17 +1,22 @@
 #!/bin/bash
 
-Tags=Centrality_0_30_ZPT_40_200_TrackPT_10_20_PV_0_10,Centrality_0_30_ZPT_40_200_TrackPT_20_50_PV_0_10,Centrality_0_30_ZPT_40_200_TrackPT_50_100_PV_0_10
-SecondTags=Centrality_0_30_ZPT_40_200_TrackPT_10_20_PV_0_1,Centrality_0_30_ZPT_40_200_TrackPT_20_50_PV_0_1,Centrality_0_30_ZPT_40_200_TrackPT_50_100_PV_0_1
-Labels="1 < p_{T}^{trk} < 2 GeV","2 < p_{T}^{trk} < 5 GeV","5 < p_{T}^{trk} < 10 GeV"
+Tags=Centrality_0_30_ZPT_40_200_TrackPT_10_20_PV_0_10,Centrality_0_30_ZPT_40_200_TrackPT_20_40_PV_0_10,Centrality_0_30_ZPT_40_200_TrackPT_40_100_PV_0_10
+SecondTags=Centrality_0_30_ZPT_40_200_TrackPT_10_20_PV_0_1,Centrality_0_30_ZPT_40_200_TrackPT_20_40_PV_0_1,Centrality_0_30_ZPT_40_200_TrackPT_40_100_PV_0_1
+Labels="1 < p_{T}^{trk} < 2 GeV","2 < p_{T}^{trk} < 4 GeV","4 < p_{T}^{trk} < 10 GeV"
 PPExtraInfo="p_{T}^{Z} > 40 GeV"
 ExtraInfo="p_{T}^{Z} > 40 GeV,0-30%"
 Plotting="--XAxisLabel |#Delta#phi_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.1415926535 --YMin -5 --YMax 10 --RMin -1.9 --RMax 1.9 --LegendLeft 0.08 --LegendBottom 0.40"
 Suffix="C030"
 
-Tags=Centrality_30_90_ZPT_40_200_TrackPT_10_20_PV_0_10,Centrality_30_90_ZPT_40_200_TrackPT_20_50_PV_0_10,Centrality_30_90_ZPT_40_200_TrackPT_50_100_PV_0_10
-SecondTags=Centrality_30_90_ZPT_40_200_TrackPT_10_20_PV_0_1,Centrality_30_90_ZPT_40_200_TrackPT_20_50_PV_0_1,Centrality_30_90_ZPT_40_200_TrackPT_50_100_PV_0_1
+Tags=Centrality_30_50_ZPT_40_200_TrackPT_10_20_PV_0_10,Centrality_30_50_ZPT_40_200_TrackPT_20_40_PV_0_10,Centrality_30_50_ZPT_40_200_TrackPT_40_100_PV_0_10
+SecondTags=Centrality_30_50_ZPT_40_200_TrackPT_10_20_PV_0_1,Centrality_30_50_ZPT_40_200_TrackPT_20_40_PV_0_1,Centrality_30_50_ZPT_40_200_TrackPT_40_100_PV_0_1
 ExtraInfo="p_{T}^{Z} > 40 GeV,30-90%"
-Suffix="C3090"
+Suffix="C3050"
+
+Tags=Centrality_50_90_ZPT_40_200_TrackPT_10_20_PV_0_10,Centrality_50_90_ZPT_40_200_TrackPT_20_40_PV_0_10,Centrality_50_90_ZPT_40_200_TrackPT_40_100_PV_0_10
+SecondTags=Centrality_50_90_ZPT_40_200_TrackPT_10_20_PV_0_1,Centrality_50_90_ZPT_40_200_TrackPT_20_40_PV_0_1,Centrality_50_90_ZPT_40_200_TrackPT_40_100_PV_0_1
+ExtraInfo="p_{T}^{Z} > 40 GeV,30-90%"
+Suffix="C5090"
 
 mkdir -p Plots
 
