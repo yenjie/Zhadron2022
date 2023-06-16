@@ -123,6 +123,15 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 	double z7N = HNBkgData1.GetBinContent(1);
 	double z8N = HNPP0Data1.GetBinContent(1);
 
+	int z1N0 = HNSig1.GetEntries();
+	int z2N0 = HNBkg1.GetEntries();
+	//int z3N0 = HNSgG1.GetEntries();
+	int z4N0 = HNPP01.GetEntries();
+	//int z5N0 = HNBgG1.GetEntries();
+	int z6N0 = HNSigData1.GetEntries();
+	int z7N0 = HNBkgData1.GetEntries();
+	int z8N0 = HNPP0Data1.GetEntries();
+
 	double z1E = HNSig1.GetBinError(1);
 	double z2E = HNBkg1.GetBinError(1);
 	//double z3E = HNSgG1.GetBinError(1);
@@ -139,10 +148,11 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 
 	fout<<"======================================"<<std::endl;
 
-	fout<<left<<setw(15)<< "Sample"    <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig MC" <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Bkg MC" <<setw(2)<<"|"<<left<<setw(15)<< "ppMC NPU=0" <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"|"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"|"<<left<<setw(15)<< "pp Data"   << std::endl;
-	fout<<left<<setw(15)<< "Nevt"      <<setw(2)<<"|"<<left<<setw(15)<< z1N           <<setw(2)<<"|"<<left<<setw(15)<< z2N           <<setw(2)<<"|"<<left<<setw(15)<< z4N          <<setw(2)<<"|"<<left<<setw(15)<< z6N            <<setw(2)<<"|"<<left<<setw(15)<< z7N            <<setw(2)<<"|"<<left<<setw(15)<< z8N         << std::endl;
-	fout<<left<<setw(15)<< "Ntrk/Nevt" <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"|"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"|"<<left<<setw(15)<< t4N/z4N      <<setw(2)<<"|"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"|"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"|"<<left<<setw(15)<< t8N/z8N     << std::endl;
-	fout<<left<<setw(15)<< "Error"     <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N*fe1   <<setw(2)<<"|"<<left<<setw(15)<< t2N/z2N*fe2   <<setw(2)<<"|"<<left<<setw(15)<< t4N/z4N*fe4  <<setw(2)<<"|"<<left<<setw(15)<< t6N/z6N*fe6    <<setw(2)<<"|"<<left<<setw(15)<< t7N/z7N*fe7    <<setw(2)<<"|"<<left<<setw(15)<< t8N/z8N*fe8 << std::endl;
+	fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig MC" <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Bkg MC" <<setw(2)<<"|"<<left<<setw(15)<< "ppMC NPU=0" <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"|"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"|"<<left<<setw(15)<< "pp Data"   << std::endl;
+	fout<<left<<setw(15)<< "N_Z (unweighted)" <<setw(2)<<"|"<<left<<setw(15)<< z1N0          <<setw(2)<<"|"<<left<<setw(15)<< z2N0          <<setw(2)<<"|"<<left<<setw(15)<< z4N0         <<setw(2)<<"|"<<left<<setw(15)<< z6N0           <<setw(2)<<"|"<<left<<setw(15)<< z7N0           <<setw(2)<<"|"<<left<<setw(15)<< z8N0        << std::endl;
+	fout<<left<<setw(15)<< "Nevt (weighted)"  <<setw(2)<<"|"<<left<<setw(15)<< z1N           <<setw(2)<<"|"<<left<<setw(15)<< z2N           <<setw(2)<<"|"<<left<<setw(15)<< z4N          <<setw(2)<<"|"<<left<<setw(15)<< z6N            <<setw(2)<<"|"<<left<<setw(15)<< z7N            <<setw(2)<<"|"<<left<<setw(15)<< z8N         << std::endl;
+	fout<<left<<setw(15)<< "Ntrk/Nevt" 	      <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"|"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"|"<<left<<setw(15)<< t4N/z4N      <<setw(2)<<"|"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"|"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"|"<<left<<setw(15)<< t8N/z8N     << std::endl;
+	fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N*fe1   <<setw(2)<<"|"<<left<<setw(15)<< t2N/z2N*fe2   <<setw(2)<<"|"<<left<<setw(15)<< t4N/z4N*fe4  <<setw(2)<<"|"<<left<<setw(15)<< t6N/z6N*fe6    <<setw(2)<<"|"<<left<<setw(15)<< t7N/z7N*fe7    <<setw(2)<<"|"<<left<<setw(15)<< t8N/z8N*fe8 << std::endl;
 
 	fout<<"======================================"<<std::endl;
 
