@@ -35,14 +35,15 @@ static double BinEdgeUp[201] = {0, 10.5075, 11.2107, 11.838, 12.4797, 13.1213, 1
 
 void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int centH=90,float TptL=0,float TptH=10000/*,double t0[8]={0},double z0[8]={0}*/){
 
-	fout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
-
 	int CentUD = CL.GetInteger("CentUD", 0);
 	string OutputFileName = CL.Get("Output", "SkimCount30.txt");
 
-	double HFShift        = CL.GetDouble("HFShift",0);
+	double HFShift        = CL.GetDouble("HFShift",682);
     double HFTolerance    = CL.GetDouble("Tolerance",1000000000000);
     //HFToleranceFraction   = CL.GetDouble("ToleranceFraction");
+
+    fout<<"HFShift = "<<HFShift<<", HFTolerance = "<<HFTolerance<<endl;
+    fout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
 
    	double cent[201];
 
@@ -64,6 +65,7 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 	TCut evtCutPP = Form("zMass[0]>60&&zPt[0]>%f&&zPt[0]<%f",ptL,ptH);
 
 	TCut SBHF = Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShift-HFTolerance,HFShift+HFTolerance);
+
 
 	TH1D HNSig("HNSig","Normalization", 1, 0, 1);
 	TH1D HNBkg("HNBkg","Normalization", 1, 0, 1);
