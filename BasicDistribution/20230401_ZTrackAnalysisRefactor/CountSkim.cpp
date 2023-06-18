@@ -179,9 +179,6 @@ int main(int argc, char *argv[]){
    	string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v14");
    	//string BkgMCGenDir	  = CL.Get("BkgMCGenDir", "OutputMCbkgGen_v14");
 
-   	string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v14");
-   	
-
    	//int CentUD = CL.Get("CentUD", 0);
    	//int UEUD = CL.Get("UEUD", 0);
 
