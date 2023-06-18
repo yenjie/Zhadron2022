@@ -40,6 +40,10 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 	int CentUD = CL.GetInteger("CentUD", 0);
 	string OutputFileName = CL.Get("Output", "SkimCount30.txt");
 
+	double HFShift        = CL.GetDouble("HFShift",0);
+    double HFTolerance    = CL.GetDouble("Tolerance",1000000000000);
+    //HFToleranceFraction   = CL.GetDouble("ToleranceFraction");
+
    	double cent[201];
 
    	for(int i=0;i<201;i++){
@@ -59,6 +63,8 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 	TCut trkCut = Form("trackMuTagged==0&&trackPt>%f&&trackPt<%f",TptL,TptH);
 	TCut evtCutPP = Form("zMass[0]>60&&zPt[0]>%f&&zPt[0]<%f",ptL,ptH);
 
+	TCut SBHF = Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShift-HFTolerance,HFShift+HFTolerance);
+
 	TH1D HNSig("HNSig","Normalization", 1, 0, 1);
 	TH1D HNBkg("HNBkg","Normalization", 1, 0, 1);
 	//TH1D HNSgG("HNSgG","Normalization", 1, 0, 1);
@@ -69,12 +75,12 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 	TH1D HNPP0Data("HNPP0Data","Normalization", 1, 0, 1);
 
 	TreeSig		 ->Draw("0>>HNSig","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut));
-	TreeBkg		 ->Draw("0>>HNBkg","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut));
+	TreeBkg		 ->Draw("0>>HNBkg","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut&&SBHF));
 	//TreeSgG		 ->Draw("0>>HNSgG","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutGen&&trkCut));
 	TreePP0		 ->Draw("0>>HNPP0","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutPP&&trkCut&&"NPU==0"));
-	//TreeBgG		 ->Draw("0>>HNBgG","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutGen&&trkCut));
+	//TreeBgG		 ->Draw("0>>HNBgG","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutGen&&trkCut&&SBHF));
 	TreeSigData->Draw("0>>HNSigData","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut));
-	TreeBkgData->Draw("0>>HNBkgData","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut));
+	TreeBkgData->Draw("0>>HNBkgData","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut&&SBHF));
 	TreePP0Data->Draw("0>>HNPP0Data","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutPP&&trkCut));
 
 	double t1N = HNSig.GetBinContent(1);
@@ -106,12 +112,12 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 	TH1D HNPP0Data1("HNPP0Data1","Normalization", 1, 0, 1);
 
 	TreeSig		 ->Draw("0>>HNSig1","NCollWeight"*evtCut);
-	TreeBkg		 ->Draw("0>>HNBkg1","NCollWeight"*evtCut);
+	TreeBkg		 ->Draw("0>>HNBkg1","NCollWeight"*(evtCut&&SBHF));
 	//TreeSgG		 ->Draw("0>>HNSgG1","NCollWeight"*evtCutGen);
 	TreePP0		 ->Draw("0>>HNPP01","NCollWeight"*(evtCutPP&&"NPU==0"));
 	//TreeBgG		 ->Draw("0>>HNBgG1","NCollWeight"*evtCutGen);
 	TreeSigData->Draw("0>>HNSigData1","NCollWeight"*evtCut);
-	TreeBkgData->Draw("0>>HNBkgData1","NCollWeight"*evtCut);
+	TreeBkgData->Draw("0>>HNBkgData1","NCollWeight"*(evtCut&&SBHF));
 	TreePP0Data->Draw("0>>HNPP0Data1","NCollWeight"*evtCutPP);
 
 	double z1N = HNSig1.GetBinContent(1);
@@ -172,6 +178,9 @@ int main(int argc, char *argv[]){
    	string BkgDataDir     = CL.Get("BkgDataDir", "OutputDatabkg_v14");
    	string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v14");
    	//string BkgMCGenDir	  = CL.Get("BkgMCGenDir", "OutputMCbkgGen_v14");
+
+   	string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v14");
+   	
 
    	//int CentUD = CL.Get("CentUD", 0);
    	//int UEUD = CL.Get("UEUD", 0);
