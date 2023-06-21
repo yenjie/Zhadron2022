@@ -338,7 +338,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH1D* hMC_sb_projphi_cent = (TH1D*) hMC_sb_etaphi_1->ProjectionY("hMC_sb_projphi_cent",(int) MCNbinsX/4,(int) 3*MCNbinsX/4);
    TH1D* hData_sb_projphi_cent = (TH1D*) hData_sb_etaphi_1->ProjectionY("hData_sb_projphi_cent",(int) DataNbinsX/4,(int) 3*DataNbinsX/4);
-   TH1D* hppMC_projphi_cent = (TH1D*) hpp_etaphi_MC->ProjectionY("hppMC_sb_projphi_cent",(int) ppMCNbinsX/4,(int) 3*ppMCNbinsX/4)
+   TH1D* hppMC_projphi_cent = (TH1D*) hpp_etaphi_MC->ProjectionY("hppMC_sb_projphi_cent",(int) ppMCNbinsX/4,(int) 3*ppMCNbinsX/4);
 
    Nmc_proj = hMC_sb_etaphi_1->Integral((int) MCNbinsX/4,(int) 3*MCNbinsX/4,1,MCNbinsY,"width");
    Ndata_proj = hData_sb_etaphi_1->Integral((int) DataNbinsX/4,(int) 3*DataNbinsX/4,1,DataNbinsY,"width");
