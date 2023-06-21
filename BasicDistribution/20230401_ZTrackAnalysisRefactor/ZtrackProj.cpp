@@ -239,12 +239,12 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt3->SetNDC(kTRUE);
 
 
-   TLatex *pt_p1 = new TLatex(0.1,0.97,"Projected at |#Delta#eta|<#pi");
+   TLatex *pt_p1 = new TLatex(0.1,0.97,"Projected at |#Delta#eta|<3.2");
    pt_p1->SetTextFont(62);
    pt_p1->SetTextSize(0.04);
    pt_p1->SetNDC(kTRUE);
 
-   TLatex *pt_p2 = new TLatex(0.1,0.97,"Projected at |#Delta#eta|<#pi/2 (peak region)");
+   TLatex *pt_p2 = new TLatex(0.1,0.97,"Projected at |#Delta#eta|<1.6 (peak region)");
    pt_p2->SetTextFont(62);
    pt_p2->SetTextSize(0.04);
    pt_p2->SetNDC(kTRUE);
@@ -391,7 +391,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH1D* hMC_sb_projeta = (TH1D*) hMC_sb_etaphi_1->ProjectionX("hMC_sb_projeta",1,(int) MCNbinsY/2);
    TH1D* hData_sb_projeta = (TH1D*) hData_sb_etaphi_1->ProjectionX("hData_sb_projeta",1,(int) DataNbinsY/2);
-   TH1D* hppMC_projeta = (TH1D*) hpp_etaphi_MC->ProjectionY("hppMC_projeta",1,(int) ppMCNbinsY/2);
+   TH1D* hppMC_projeta = (TH1D*) hpp_etaphi_MC->ProjectionX("hppMC_projeta",1,(int) ppMCNbinsY/2);
 
    Nmc_proj = hMC_sb_etaphi_1->Integral(1,MCNbinsX,1,(int) MCNbinsY/2,"width");
    Ndata_proj = hData_sb_etaphi_1->Integral(1,MCNbinsX,1,(int) DataNbinsY/2,"width");
@@ -445,7 +445,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH1D* hMC_sb_projeta_peak = (TH1D*) hMC_sb_etaphi_1->ProjectionX("hMC_sb_projeta_peak",(int) MCNbinsY/2,MCNbinsY);
    TH1D* hData_sb_projeta_peak = (TH1D*) hData_sb_etaphi_1->ProjectionX("hData_sb_projeta_peak",(int) DataNbinsY/2,DataNbinsY);
-   TH1D* hppMC_projeta_peak = (TH1D*) hpp_etaphi_MC->ProjectionY("hppMC_projeta_peak",(int) ppMCNbinsY/2,ppMCNbinsY);
+   TH1D* hppMC_projeta_peak = (TH1D*) hpp_etaphi_MC->ProjectionX("hppMC_projeta_peak",(int) ppMCNbinsY/2,ppMCNbinsY);
 
    Nmc_proj = hMC_sb_etaphi_1->Integral(1,MCNbinsX,(int) MCNbinsY/2,MCNbinsY,"width");
    Ndata_proj = hData_sb_etaphi_1->Integral(1,MCNbinsX,(int) DataNbinsY/2,DataNbinsY,"width");
