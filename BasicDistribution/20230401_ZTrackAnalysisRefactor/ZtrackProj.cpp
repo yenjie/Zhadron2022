@@ -58,13 +58,14 @@ TFile *file_sigMC;
 TFile *file_bkgMC;
 TFile *file_sigDA;
 TFile *file_bkgDA;
+TFile *file_ppMC;
 
 TFile *file_ppData;
 TFile *file_sigMC0Sub;
 TFile *file_sigMCgen0Sub;
 
-const char *typeofdata = "v14/20230610";
-const char *typeofdata1 = "v14_20230610";
+const char *typeofdata = "v15/20230621/nominal";
+const char *typeofdata1 = "v15_nominal";
 const char *typeofdatatext = "single muon";
 
 void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -81,10 +82,12 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH2D* hData_etaphi_1 = (TH2D*) file_sigDA->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    TH2D* hMC_etaphi_1 = (TH2D*) file_sigMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    TH2D* hpp_etaphi_1 = (TH2D*) file_ppData->Get(Form("%s/HEtaPhi", FolderName.c_str()));
+   TH2D* hpp_etaphi_MC = (TH2D*) file_ppMC->Get(Form("%s/HEtaPhi", FolderName.c_str()));
 
    hData_etaphi_1->SetName("hData_etaphi_1");
    hMC_etaphi_1->SetName("hMC_etaphi_1");
    hpp_etaphi_1->SetName("hpp_etaphi_1");
+   hpp_etaphi_MC->SetName("hpp_etaphi_MC");
 
    //TH2D* hMC_etaphi_rec = (TH2D*) file_sigMC0Sub->Get(Form("%s/HEtaPhi", FolderName.c_str()));
    TH2D* hMC_etaphi_gen = (TH2D*) file_sigMCgen0Sub->Get(Form("%s/HEtaPhi", FolderName.c_str()));
@@ -97,12 +100,6 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hData_bkg_etaphi_1->SetName("hData_bkg_etaphi_1");
    hMC_bkg_etaphi_1->SetName("hMC_bkg_etaphi_1");
-
-   TH2D* hMC_phi = (TH2D*) file_sigMC->Get(Form("%s/HPhi", FolderName.c_str()));
-   TH2D* hMC_bkg_phi = (TH2D*) file_bkgMC->Get(Form("%s/HPhi", FolderName.c_str()));
-
-   hMC_phi->SetName("hMC_phi");
-   hMC_bkg_phi->SetName("hMC_bkg_phi");
 
 
    std::cout<<"Setting histograms..."<<std::endl;
@@ -127,8 +124,10 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TNamed *nM_tN  = (TNamed *) file_sigMC->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nDb_tN = (TNamed *) file_bkgDA->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
-   
-   TNamed *npM_tN = (TNamed *) file_ppData->Get(Form("%s/EntryCount",FolderName.c_str()));
+
+
+   TNamed *npM_tN = (TNamed *) file_ppMC->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *npD_tN = (TNamed *) file_ppData->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nM_tNrec = (TNamed *) file_sigMC0Sub->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nM_tNgen = (TNamed *) file_sigMCgen0Sub->Get(Form("%s/EntryCount",FolderName.c_str()));
 
@@ -138,6 +137,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    std::string sMb_tN = (std::string) nMb_tN->GetTitle();
 
    std::string spM_tN = (std::string) npM_tN->GetTitle();
+   std::string spD_tN = (std::string) npD_tN->GetTitle();
    std::string sM_tNgen = (std::string) nM_tNgen->GetTitle();
    std::string sM_tNrec = (std::string) nM_tNrec->GetTitle();
 
@@ -147,6 +147,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    float tMb_tN = std::stof(sMb_tN);
 
    float tpM_tN = std::stof(spM_tN);
+   float tpD_tN = std::stof(spD_tN);
    float tM_tNgen  = std::stof(sM_tNgen);
    float tM_tNrec = std::stof(sM_tNrec);
 
@@ -155,6 +156,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    std::cout<<"tDb_tN = "<<tDb_tN<<std::endl;
    std::cout<<"tMb_tN = "<<tMb_tN<<std::endl;
    std::cout<<"tpM_tN = "<<tpM_tN<<std::endl;
+   std::cout<<"tpD_tN = "<<tpD_tN<<std::endl;
 
    std::cout<<"tM_tNgen = "<<tM_tNgen<<std::endl;
    std::cout<<"tM_tNrec = "<<tM_tNrec<<std::endl;
@@ -166,7 +168,8 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_bkg_etaphi_1->Scale(1./tDb_tN/bineta2d/binphi2d);
    hMC_bkg_etaphi_1->Scale(1./tMb_tN/bineta2d/binphi2d);
    
-   hpp_etaphi_1->Scale(1./tpM_tN/bineta2d/binphi2d);
+   hpp_etaphi_1->Scale(1./tpD_tN/bineta2d/binphi2d);
+   hpp_etaphi_MC->Scale(1./tpM_tN/bineta2d/binphi2d);
    hMC_etaphi_gen->Scale(1./tM_tNgen/bineta2d/binphi2d);
    //hMC_etaphi_rec->Scale(1./tM_tNrec/bineta2d/binphi2d);
 
@@ -183,10 +186,12 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_bkg_etaphi_1->Scale(1./100);
 
    hpp_etaphi_1->Rebin2D(10,10);
+   hpp_etaphi_MC->Rebin2D(10,10);
    hMC_etaphi_gen->Rebin2D(10,10);
    //hMC_etaphi_rec->Rebin2D(4,4);
 
    hpp_etaphi_1->Scale(1./100);
+   hpp_etaphi_MC->Scale(1./100);
    hMC_etaphi_gen->Scale(1./100);
    //hMC_etaphi_rec->Scale(1./16);
 
@@ -210,6 +215,9 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hMC_sb_etaphi_1->SetMarkerStyle(24);
    hData_sb_etaphi_1->SetMarkerStyle(24);
+
+   hpp_etaphi_MC->SetLineColor(TColor::GetColor("#e41a1c"));//red
+   hpp_etaphi_MC->SetLineWidth(3);
 
    std::cout<<"Drawing..."<<std::endl;
 
@@ -251,8 +259,9 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt_p4->SetTextSize(0.04);
    pt_p4->SetNDC(kTRUE);
 
-   TLegend leg(0.54,0.78,0.95,0.9);
+   TLegend leg(0.58,0.72,0.98,0.9);
    leg.AddEntry(hMC_sb_etaphi_1 ,"PbPb MC Raw-Bkg","l");
+   leg.AddEntry(hpp_etaphi_MC ,"pp MC (NPU=0)","l");
    leg.AddEntry(hData_sb_etaphi_1 ,"PbPb Data Raw-Bkg","lep");
    leg.SetFillColorAlpha(kWhite,0);
    leg.SetLineColor(kBlack);
@@ -267,33 +276,49 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    int DataNbinsX = hData_sb_etaphi_1->GetNbinsX();
    int MCNbinsY = hMC_sb_etaphi_1->GetNbinsY();
    int DataNbinsY = hData_sb_etaphi_1->GetNbinsY();
+   int ppMCNbinsX = hpp_etaphi_MC->GetNbinsX();
+   int ppMCNbinsY = hpp_etaphi_MC->GetNbinsY();
 
    double Nmc_full = hMC_sb_etaphi_1->Integral(1,MCNbinsX,1,MCNbinsY,"width");
    double Ndata_full = hData_sb_etaphi_1->Integral(1,DataNbinsX,1,DataNbinsY,"width");
+   double NppMC_full = hpp_etaphi_MC->Integral(1,ppMCNbinsX,1,ppMCNbinsY,"width");
 
    TH1D* hMC_sb_projphi = (TH1D*) hMC_sb_etaphi_1->ProjectionY("hMC_sb_projphi",1,MCNbinsX);
    TH1D* hData_sb_projphi = (TH1D*) hData_sb_etaphi_1->ProjectionY("hData_sb_projphi",1,DataNbinsX);
+   TH1D* hppMC_projphi = (TH1D*) hpp_etaphi_MC->ProjectionY("hppMC_sb_projphi",1,ppMCNbinsX);
 
    double Nmc_proj = hMC_sb_etaphi_1->Integral(1,MCNbinsX,1,MCNbinsY,"width");
    double Ndata_proj = hData_sb_etaphi_1->Integral(1,DataNbinsX,1,DataNbinsY,"width");
+   double Nppmc_proj = hpp_etaphi_MC->Integral(1,ppMCNbinsX,1,ppMCNbinsY,"width");
 
    hMC_sb_projphi->Scale(Nmc_full/Nmc_proj);
    hData_sb_projphi->Scale(Ndata_full/Ndata_proj);
+   hppMC_projphi->Scale(NppMC_full/Nppmc_proj);
 
    double max1 = hMC_sb_projphi->GetMaximum();
    double max2 = hData_sb_projphi->GetMaximum();
+   double max3 = hppMC_projphi->GetMaximum();
+
    hMC_sb_projphi->SetMaximum(1.4*max1);
    hData_sb_projphi->SetMaximum(1.4*max2);
+   hppMC_projphi->SetMaximum(1.4*max3);
    hMC_sb_projphi->SetLineWidth(3);
    hData_sb_projphi->SetLineWidth(3);
+   hppMC_projphi->SetLineWidth(3);
    
-   if(max1>max2) hMC_sb_projphi->Draw("hist");
+   if(max1>max2&&max1>max3) hMC_sb_projphi->Draw("hist");
+   else if(max3>max1&&max3>max2) hppMC_projphi->Draw("hist");
    else hData_sb_projphi->Draw("EP");
 
    hMC_sb_projphi->Draw("hist same");
    hMC_sb_projphi->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hMC_sb_projphi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projphi->GetYaxis()->SetTitle("dN/d#Delta#phi");
+
+   hppMC_projphi->Draw("hist same");
+   hppMC_projphi->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
+   hppMC_projphi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hppMC_projphi->GetYaxis()->SetTitle("dN/d#Delta#phi");
 
    pt->Draw();
    pt2->Draw();
@@ -311,30 +336,42 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/proj/Ztrack_%s_sb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_projphi.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
-
    TH1D* hMC_sb_projphi_cent = (TH1D*) hMC_sb_etaphi_1->ProjectionY("hMC_sb_projphi_cent",(int) MCNbinsX/4,(int) 3*MCNbinsX/4);
    TH1D* hData_sb_projphi_cent = (TH1D*) hData_sb_etaphi_1->ProjectionY("hData_sb_projphi_cent",(int) DataNbinsX/4,(int) 3*DataNbinsX/4);
+   TH1D* hppMC_projphi_cent = (TH1D*) hpp_etaphi_MC->ProjectionY("hppMC_sb_projphi_cent",(int) ppMCNbinsX/4,(int) 3*ppMCNbinsX/4)
 
    Nmc_proj = hMC_sb_etaphi_1->Integral((int) MCNbinsX/4,(int) 3*MCNbinsX/4,1,MCNbinsY,"width");
    Ndata_proj = hData_sb_etaphi_1->Integral((int) DataNbinsX/4,(int) 3*DataNbinsX/4,1,DataNbinsY,"width");
+   Nppmc_proj = hpp_etaphi_MC->Integral((int) ppMCNbinsX/4,(int) 3*ppMCNbinsX/4,1,ppMCNbinsY,"width");
 
    hMC_sb_projphi_cent->Scale(Nmc_full/Nmc_proj);
    hData_sb_projphi_cent->Scale(Ndata_full/Ndata_proj);
+   hppMC_projphi_cent->Scale(NppMC_full/Nppmc_proj);
 
    max1 = hMC_sb_projphi_cent->GetMaximum();
    max2 = hData_sb_projphi_cent->GetMaximum();
+   max3 = hppMC_projphi_cent->GetMaximum();
+
    hMC_sb_projphi_cent->SetMaximum(1.4*max1);
    hData_sb_projphi_cent->SetMaximum(1.4*max2);
+   hppMC_projphi_cent->SetMaximum(1.4*max3);
    hMC_sb_projphi_cent->SetLineWidth(3);
    hData_sb_projphi_cent->SetLineWidth(3);
+   hppMC_projphi_cent->SetLineWidth(3);
 
-   if(max1>max2) hMC_sb_projphi_cent->Draw("hist");
+   if(max1>max2&&max1>max3) hMC_sb_projphi_cent->Draw("hist");
+   else if(max3>max1&&max3>max2) hppMC_projphi_cent->Draw("hist");
    else hData_sb_projphi_cent->Draw("EP");
 
    hMC_sb_projphi_cent->Draw("hist same");
    hMC_sb_projphi_cent->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
    hMC_sb_projphi_cent->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projphi_cent->GetYaxis()->SetTitle("dN/d#Delta#phi");
+
+   hppMC_projphi_cent->Draw("hist same");
+   hppMC_projphi_cent->GetXaxis()->SetTitle("#Delta#phi_{Z,track}");
+   hppMC_projphi_cent->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hppMC_projphi_cent->GetYaxis()->SetTitle("dN/d#Delta#phi");
 
    pt->Draw();
    pt2->Draw();
@@ -354,27 +391,40 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH1D* hMC_sb_projeta = (TH1D*) hMC_sb_etaphi_1->ProjectionX("hMC_sb_projeta",1,(int) MCNbinsY/2);
    TH1D* hData_sb_projeta = (TH1D*) hData_sb_etaphi_1->ProjectionX("hData_sb_projeta",1,(int) DataNbinsY/2);
+   TH1D* hppMC_projeta = (TH1D*) hpp_etaphi_MC->ProjectionY("hppMC_projeta",1,(int) ppMCNbinsY/2);
 
    Nmc_proj = hMC_sb_etaphi_1->Integral(1,MCNbinsX,1,(int) MCNbinsY/2,"width");
    Ndata_proj = hData_sb_etaphi_1->Integral(1,MCNbinsX,1,(int) DataNbinsY/2,"width");
+   Nppmc_proj = hpp_etaphi_MC->Integral(1,ppMCNbinsX,1,(int) ppMCNbinsY/2,"width");
 
    hMC_sb_projeta->Scale(Nmc_full/Nmc_proj);
    hData_sb_projeta->Scale(Ndata_full/Ndata_proj);
+   hppMC_projeta->Scale(NppMC_full/Nppmc_proj);
 
    max1 = hMC_sb_projeta->GetMaximum();
    max2 = hData_sb_projeta->GetMaximum();
+   max3 = hppMC_projeta->GetMaximum();
+
    hMC_sb_projeta->SetMaximum(1.4*max1);
    hData_sb_projeta->SetMaximum(1.4*max2);
+   hppMC_projeta->SetMaximum(1.4*max3);
    hMC_sb_projeta->SetLineWidth(3);
    hData_sb_projeta->SetLineWidth(3);
+   hppMC_projeta->SetLineWidth(3);
 
-   if(max1>max2) hMC_sb_projeta->Draw("hist");
+   if(max1>max2&&max1>max3) hMC_sb_projeta->Draw("hist");
+   else if(max3>max1&&max3>max2) hppMC_projeta->Draw("hist");
    else hData_sb_projeta->Draw("EP");
 
    hMC_sb_projeta->Draw("hist same");
    hMC_sb_projeta->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
    hMC_sb_projeta->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projeta->GetYaxis()->SetTitle("dN/d#Delta#eta");
+
+   hppMC_projeta->Draw("hist same");
+   hppMC_projeta->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
+   hppMC_projeta->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hppMC_projeta->GetYaxis()->SetTitle("dN/d#Delta#eta");
 
    pt->Draw();
    pt2->Draw();
@@ -395,27 +445,40 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH1D* hMC_sb_projeta_peak = (TH1D*) hMC_sb_etaphi_1->ProjectionX("hMC_sb_projeta_peak",(int) MCNbinsY/2,MCNbinsY);
    TH1D* hData_sb_projeta_peak = (TH1D*) hData_sb_etaphi_1->ProjectionX("hData_sb_projeta_peak",(int) DataNbinsY/2,DataNbinsY);
+   TH1D* hppMC_projeta_peak = (TH1D*) hpp_etaphi_MC->ProjectionY("hppMC_projeta_peak",(int) ppMCNbinsY/2,ppMCNbinsY);
 
    Nmc_proj = hMC_sb_etaphi_1->Integral(1,MCNbinsX,(int) MCNbinsY/2,MCNbinsY,"width");
    Ndata_proj = hData_sb_etaphi_1->Integral(1,MCNbinsX,(int) DataNbinsY/2,DataNbinsY,"width");
+   Nppmc_proj = hpp_etaphi_MC->Integral(1,ppMCNbinsX,(int) ppMCNbinsY/2,ppMCNbinsY,"width");
 
    hMC_sb_projeta_peak->Scale(Nmc_full/Nmc_proj);
    hData_sb_projeta_peak->Scale(Ndata_full/Ndata_proj);
+   hppMC_projeta_peak->Scale(NppMC_full/Nppmc_proj);
 
    max1 = hMC_sb_projeta_peak->GetMaximum();
    max2 = hData_sb_projeta_peak->GetMaximum();
+   max3 = hppMC_projeta_peak->GetMaximum();
+
    hMC_sb_projeta_peak->SetMaximum(1.4*max1);
    hData_sb_projeta_peak->SetMaximum(1.4*max2);
+   hppMC_projeta_peak->SetMaximum(1.4*max3);
    hMC_sb_projeta_peak->SetLineWidth(3);
    hData_sb_projeta_peak->SetLineWidth(3);
+   hppMC_projeta_peak->SetLineWidth(3);
 
-   if(max1>max2) hMC_sb_projeta_peak->Draw("hist");
+   if(max1>max2&&max1>max3) hMC_sb_projeta_peak->Draw("hist");
+   else if(max3>max1&&max3>max2) hppMC_projeta_peak->Draw("hist");
    else hData_sb_projeta_peak->Draw("EP");
 
    hMC_sb_projeta_peak->Draw("hist same");
    hMC_sb_projeta_peak->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
    hMC_sb_projeta_peak->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_projeta_peak->GetYaxis()->SetTitle("dN/d#Delta#eta");
+
+   hppMC_projeta_peak->Draw("hist same");
+   hppMC_projeta_peak->GetXaxis()->SetTitle("#Delta#eta_{Z,track}");
+   hppMC_projeta_peak->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hppMC_projeta_peak->GetYaxis()->SetTitle("dN/d#Delta#eta");
 
    pt->Draw();
    pt2->Draw();
@@ -460,7 +523,7 @@ void ZtrackProj_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    max1 = hpp_projphi->GetMaximum();
    max2 = hMC_rec_projphi->GetMaximum();
-   double max3 = hMC_gen_projphi->GetMaximum();
+   max3 = hMC_gen_projphi->GetMaximum();
    
    if(max1<max2 && max3<max2) hMC_rec_projphi->Draw("hist");
    else if(max1<max3 && max2<max3) hMC_gen_projphi->Draw("hist");
@@ -710,9 +773,10 @@ int main(int argc, char *argv[]){
    style();
 
    file_sigMC = TFile::Open("GraphMCSignal_v14.root","read");
-   file_bkgMC = TFile::Open("GraphMCBackground_v14.root","read");
+   file_bkgMC = TFile::Open("GraphMCBackground_v15.root","read");
    file_sigDA = TFile::Open("GraphDataSignal_v14.root","read");
-   file_bkgDA = TFile::Open("GraphDataBackground_v14.root","read");
+   file_bkgDA = TFile::Open("GraphDataBackground_v15.root","read");
+   file_ppMC = TFile::Open("GraphPPMC0Sub_v14.root","read");
 
    file_ppData       = TFile::Open("GraphPPMC0Sub_v14.root","read");
    file_sigMC0Sub    = TFile::Open("GraphMCSignal0Sub_v14.root","read");
@@ -751,6 +815,7 @@ int main(int argc, char *argv[]){
    file_bkgMC->Close();
    file_sigDA->Close();
    file_bkgDA->Close();
+   file_ppMC->Close();
 
    file_ppData->Close();
    file_sigMC0Sub->Close();
