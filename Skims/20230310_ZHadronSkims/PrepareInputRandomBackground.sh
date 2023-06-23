@@ -33,18 +33,18 @@ mkdir -p $OutputBase
 
 Condor=Submit.condor
 
-echo "Universe              = vanilla"           > $Condor
-echo "Executable            = $PWD/RunCondor.sh" >> $Condor
-echo "should_transfer_files = NO"                >> $Condor
-echo "+JobFlavour           = \"tomorrow\""      >> $Condor
-echo                                             >> $Condor
+echo "Universe              = vanilla"                         > $Condor
+echo "Executable            = $PWD/RunCondorCopyBackground.sh" >> $Condor
+echo "should_transfer_files = NO"                              >> $Condor
+echo "+JobFlavour           = \"tomorrow\""                    >> $Condor
+echo                                                           >> $Condor
 
 Count=0
 for i in `ls $Directory/*root | Reformat $Number | sed "s/ /,/g" | sed "s/[,]*$//"`
 do
    BackgroundFiles=`ls $BackgroundFolder/* | shuf | head -n$BackgroundCount | tr '\n' ',' | sed "s/,$//"`
 
-   echo "Arguments = $PWD $ProjectBase $CMSSW_BASE $OutputBase/Result${Count}.root $Count --Input $i --Background $BackgroundFiles $@" >> $Condor
+   echo "Arguments = $PWD $ProjectBase $CMSSW_BASE $OutputBase/Result${Count}.root $Count $BackgroundFiles --Input $i $@" >> $Condor
    echo "Output    = $ScriptFolder/Part${Count}.out"                                         >> $Condor
    echo "Error     = $ScriptFolder/Part${Count}.err"                                         >> $Condor
    echo "Log       = $ScriptFolder/Part${Count}.log"                                         >> $Condor

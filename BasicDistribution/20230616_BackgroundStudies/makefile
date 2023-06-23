@@ -1,5 +1,5 @@
 
-default: TestRun
+default: TestRunQuick
 
 
 Prepare:
@@ -14,4 +14,6 @@ Execute: DoQuickTree.cpp
 		-o Execute `root-config --cflags --libs` \
 		$(ProjectBase)/CommonCode/library/Messenger.o
 
-
+TestRunQuick:
+	CompileRootMacro QuickDraw.cpp a.out
+	./a.out
