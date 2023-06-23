@@ -107,33 +107,51 @@ ExecuteDrawProj: ZtrackProj.cpp
 
 CountSkim: ExecuteCount
 	mkdir -p SkimCount/log
-	./ExecuteCount --Output SkimCount/SkimCount_nominal_centN.txt --CentUD 0 \
+	./ExecuteCount --Output SkimCount/SkimCount_nominal_centN.txt --CentUD 0 --HFShift 682 --Tolerance 187.5 \
 		--BkgDataDir OutputDatabkg_v15 --BkgMCDir OutputMCBackground_v15 \
 		> SkimCount/log/SkimCount_nominal_centN.out 2> SkimCount/log/SkimCount_nominal_centN.err < /dev/null &
-	./ExecuteCount --Output SkimCount/SkimCount_nominal_centU.txt --CentUD 1 \
+	./ExecuteCount --Output SkimCount/SkimCount_nominal_centN_50.txt --CentUD 0 --HFShift 682 --Tolerance 50 \
 		--BkgDataDir OutputDatabkg_v15 --BkgMCDir OutputMCBackground_v15 \
-		> SkimCount/log/SkimCount_nominal_centU.out 2> SkimCount/log/SkimCount_nominal_centU.err < /dev/null &
-	./ExecuteCount --Output SkimCount/SkimCount_nominal_centD.txt --CentUD 2 \
+		> SkimCount/log/SkimCount_nominal_centN_50.out 2> SkimCount/log/SkimCount_nominal_centN_50.err < /dev/null &
+	./ExecuteCount --Output SkimCount/SkimCount_nominal_centN_30.txt --CentUD 0 --HFShift 682 --Tolerance 30 \
 		--BkgDataDir OutputDatabkg_v15 --BkgMCDir OutputMCBackground_v15 \
-		> SkimCount/log/SkimCount_nominal_centD.out 2> SkimCount/log/SkimCount_nominal_centD.err < /dev/null &
-	./ExecuteCount --Output SkimCount/SkimCount_UEDown25_centN.txt --CentUD 0 \
+		> SkimCount/log/SkimCount_nominal_centN_30.out 2> SkimCount/log/SkimCount_nominal_centN_30.err < /dev/null &
+	#./ExecuteCount --Output SkimCount/SkimCount_nominal_centU.txt --CentUD 1 \
+	#	--BkgDataDir OutputDatabkg_v15 --BkgMCDir OutputMCBackground_v15 \
+	#	> SkimCount/log/SkimCount_nominal_centU.out 2> SkimCount/log/SkimCount_nominal_centU.err < /dev/null &
+	#./ExecuteCount --Output SkimCount/SkimCount_nominal_centD.txt --CentUD 2 \
+	#	--BkgDataDir OutputDatabkg_v15 --BkgMCDir OutputMCBackground_v15 \
+	#	> SkimCount/log/SkimCount_nominal_centD.out 2> SkimCount/log/SkimCount_nominal_centD.err < /dev/null &
+	./ExecuteCount --Output SkimCount/SkimCount_UEDown25_centN.txt --CentUD 0 --HFShift 665 --Tolerance 187.5 \
 		--BkgDataDir OutputDatabkgUEDown25_v15 --BkgMCDir OutputMCBackgroundUEDown25_v15 \
 		> SkimCount/log/SkimCount_UEDown25_centN.out 2> SkimCount/log/SkimCount_UEDown25_centN.err < /dev/null &
-	./ExecuteCount --Output SkimCount/SkimCount_UEDown25_centU.txt --CentUD 1 \
+	./ExecuteCount --Output SkimCount/SkimCount_UEDown25_centN_50.txt --CentUD 0 --HFShift 665 --Tolerance 50 \
 		--BkgDataDir OutputDatabkgUEDown25_v15 --BkgMCDir OutputMCBackgroundUEDown25_v15 \
-		> SkimCount/log/SkimCount_UEDown25_centU.out 2> SkimCount/log/SkimCount_UEDown25_centU.err < /dev/null &
-	./ExecuteCount --Output SkimCount/SkimCount_UEDown25_centD.txt --CentUD 2 \
+		> SkimCount/log/SkimCount_UEDown25_centN_50.out 2> SkimCount/log/SkimCount_UEDown25_centN_50.err < /dev/null &
+	./ExecuteCount --Output SkimCount/SkimCount_UEDown25_centN_30.txt --CentUD 0 --HFShift 665 --Tolerance 30 \
 		--BkgDataDir OutputDatabkgUEDown25_v15 --BkgMCDir OutputMCBackgroundUEDown25_v15 \
-		> SkimCount/log/SkimCount_UEDown25_centD.out 2> SkimCount/log/SkimCount_UEDown25_centD.err < /dev/null &
-	./ExecuteCount --Output SkimCount/SkimCount_UEUp25_centN.txt --CentUD 0 \
+		> SkimCount/log/SkimCount_UEDown25_centN_30.out 2> SkimCount/log/SkimCount_UEDown25_centN_30.err < /dev/null &
+	#./ExecuteCount --Output SkimCount/SkimCount_UEDown25_centU.txt --CentUD 1 \
+	#	--BkgDataDir OutputDatabkgUEDown25_v15 --BkgMCDir OutputMCBackgroundUEDown25_v15 \
+	#	> SkimCount/log/SkimCount_UEDown25_centU.out 2> SkimCount/log/SkimCount_UEDown25_centU.err < /dev/null &
+	#./ExecuteCount --Output SkimCount/SkimCount_UEDown25_centD.txt --CentUD 2 \
+	#	--BkgDataDir OutputDatabkgUEDown25_v15 --BkgMCDir OutputMCBackgroundUEDown25_v15 \
+	#	> SkimCount/log/SkimCount_UEDown25_centD.out 2> SkimCount/log/SkimCount_UEDown25_centD.err < /dev/null &
+	./ExecuteCount --Output SkimCount/SkimCount_UEUp25_centN.txt --CentUD 0 --HFShift 699 --Tolerance 187.5 \
 		--BkgDataDir OutputDatabkgUEUp25_v15 --BkgMCDir OutputMCBackgroundUEUp25_v15 \
 		> SkimCount/log/SkimCount_UEUp25_centN.out 2> SkimCount/log/SkimCount_UEUp25_centN.err < /dev/null &
-	./ExecuteCount --Output SkimCount/SkimCount_UEUp25_centU.txt --CentUD 1 \
+	./ExecuteCount --Output SkimCount/SkimCount_UEUp25_centN_50.txt --CentUD 0 --HFShift 699 --Tolerance 50 \
 		--BkgDataDir OutputDatabkgUEUp25_v15 --BkgMCDir OutputMCBackgroundUEUp25_v15 \
-		> SkimCount/log/SkimCount_UEUp25_centU.out 2> SkimCount/log/SkimCount_UEUp25_centU.err < /dev/null &
-	./ExecuteCount --Output SkimCount/SkimCount_UEUp25_centD.txt --CentUD 2 \
+		> SkimCount/log/SkimCount_UEUp25_centN_50.out 2> SkimCount/log/SkimCount_UEUp25_centN_50.err < /dev/null &
+	./ExecuteCount --Output SkimCount/SkimCount_UEUp25_centN_30.txt --CentUD 0 --HFShift 699 --Tolerance 30 \
 		--BkgDataDir OutputDatabkgUEUp25_v15 --BkgMCDir OutputMCBackgroundUEUp25_v15 \
-		> SkimCount/log/SkimCount_UEUp25_centD.out 2> SkimCount/log/SkimCount_UEUp25_centD.err < /dev/null &
+		> SkimCount/log/SkimCount_UEUp25_centN_30.out 2> SkimCount/log/SkimCount_UEUp25_centN_30.err < /dev/null &
+	#./ExecuteCount --Output SkimCount/SkimCount_UEUp25_centU.txt --CentUD 1 \
+	#	--BkgDataDir OutputDatabkgUEUp25_v15 --BkgMCDir OutputMCBackgroundUEUp25_v15 \
+	#	> SkimCount/log/SkimCount_UEUp25_centU.out 2> SkimCount/log/SkimCount_UEUp25_centU.err < /dev/null &
+	#./ExecuteCount --Output SkimCount/SkimCount_UEUp25_centD.txt --CentUD 2 \
+	#	--BkgDataDir OutputDatabkgUEUp25_v15 --BkgMCDir OutputMCBackgroundUEUp25_v15 \
+	#	> SkimCount/log/SkimCount_UEUp25_centD.out 2> SkimCount/log/SkimCount_UEUp25_centD.err < /dev/null &	
 	#./ExecuteCount --Output SkimCount/SkimCount_UEDown30_centN.txt --CentUD 0 \
 	#	--BkgDataDir OutputDatabkgUEDown30_v15 --BkgMCDir OutputMCBackgroundUEDown30_v15 \
 	#	> SkimCount/log/SkimCount_UEDown30_centN.out 2> SkimCount/log/SkimCount_UEDown30_centN.err < /dev/null &

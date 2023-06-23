@@ -39,7 +39,9 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 	string OutputFileName = CL.Get("Output", "SkimCount30.txt");
 
 	double HFShift        = CL.GetDouble("HFShift",682);
-    double HFTolerance    = CL.GetDouble("Tolerance",1000000000000);
+	double HFShiftData    = CL.GetDouble("HFShiftData",660);
+    double HFTolerance    = CL.GetDouble("Tolerance",187.5);
+    double HFToleranceData= CL.GetDouble("ToleranceData",150);
     //HFToleranceFraction   = CL.GetDouble("ToleranceFraction");
 
     fout<<"HFShift = "<<HFShift<<", HFTolerance = "<<HFTolerance<<endl;
@@ -65,6 +67,7 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 	TCut evtCutPP = Form("zMass[0]>60&&zPt[0]>%f&&zPt[0]<%f",ptL,ptH);
 
 	TCut SBHF = Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShift-HFTolerance,HFShift+HFTolerance);
+	TCut SBHFData = Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShiftData-HFToleranceData,HFShiftData+HFToleranceData);
 
 
 	TH1D HNSig("HNSig","Normalization", 1, 0, 1);
@@ -82,7 +85,7 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 	TreePP0		 ->Draw("0>>HNPP0","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutPP&&trkCut&&"NPU==0"));
 	//TreeBgG		 ->Draw("0>>HNBgG","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutGen&&trkCut&&SBHF));
 	//TreeSigData->Draw("0>>HNSigData","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut));
-	//TreeBkgData->Draw("0>>HNBkgData","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut&&SBHF));
+	//TreeBkgData->Draw("0>>HNBkgData","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut&&SBHFData));
 	//TreePP0Data->Draw("0>>HNPP0Data","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutPP&&trkCut));
 
 	double t1N = HNSig.GetBinContent(1);
@@ -119,7 +122,7 @@ void CountSkim_single(CommandLine CL,float ptL=20,float ptH=2000,int centL=0,int
 	TreePP0		 ->Draw("0>>HNPP01","NCollWeight"*(evtCutPP&&"NPU==0"));
 	//TreeBgG		 ->Draw("0>>HNBgG1","NCollWeight"*evtCutGen);
 //	TreeSigData->Draw("0>>HNSigData1","NCollWeight"*evtCut);
-//	TreeBkgData->Draw("0>>HNBkgData1","NCollWeight"*(evtCut&&SBHF));
+//	TreeBkgData->Draw("0>>HNBkgData1","NCollWeight"*(evtCut&&SBHFData));
 //	TreePP0Data->Draw("0>>HNPP0Data1","NCollWeight"*evtCutPP);
 
 	double z1N = HNSig1.GetBinContent(1);
