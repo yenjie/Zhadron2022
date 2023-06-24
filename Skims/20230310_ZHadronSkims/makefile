@@ -136,9 +136,9 @@ PrepareToRunBackground:
 PrepareToRunRandomBackground:
 	bash PrepareInputRandomBackground.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		10 LogDatabkgUEUp25_v15_1/ $(EOSBase)/OutputDatabkgUEUp25_v15_1/ \
+		10 LogDatabkg_v15_50/ $(EOSBase)/OutputDatabkg_v15_50/ \
 		$(PbPbBackgroundData)/ 100 \
-		`./Expand Setting.dh PbPbBackgroundData UEUp25`
+		`./Expand Setting.dh PbPbBackgroundData Nominal`
 
 PrepareToRunMCBackground:
 	bash PrepareInput.sh \
@@ -150,9 +150,9 @@ PrepareToRunMCBackground:
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
-		1 LogMCbkgUEUp25_v15_1/ $(EOSBase)/OutputMCbkgUEUp25_v15_1/ \
+		1 LogMCbkg_v15_50/ $(EOSBase)/OutputMCbkg_v15_50/ \
 		$(PbPbBackgroundMC)/ 5 \
-		`./Expand Setting.dh PbPbBackgroundMC UEUp25`
+		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
 PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
