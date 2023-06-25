@@ -156,7 +156,7 @@ PrepareToRunMCBackground:
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
-		1 LogMCbkg_v15_120_2/ $(EOSBase)/OutputMCbkg_v15_120_2/ \
+		1 LogMCbkg_v15_105/ $(EOSBase)/OutputMCbkg_v15_105/ \
 		$(PbPbBackgroundMC)/ 5 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
