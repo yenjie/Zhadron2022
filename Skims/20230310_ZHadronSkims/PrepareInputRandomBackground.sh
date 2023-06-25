@@ -37,6 +37,7 @@ echo "Universe              = vanilla"                         > $Condor
 echo "Executable            = $PWD/RunCondorCopyBackground.sh" >> $Condor
 echo "should_transfer_files = NO"                              >> $Condor
 echo "+JobFlavour           = \"tomorrow\""                    >> $Condor
+echo "request_disk          = 2500MB"                          >> $Condor
 echo                                                           >> $Condor
 
 Count=0
