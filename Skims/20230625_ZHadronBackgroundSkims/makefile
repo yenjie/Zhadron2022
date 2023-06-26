@@ -28,6 +28,13 @@ TestRun: Execute
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root,$(PbPbBackgroundMC)/HiForestMiniAOD_14.root,$(PbPbBackgroundMC)/HiForestMiniAOD_15.root,$(PbPbBackgroundMC)/HiForestMiniAOD_16.root \
 		--ReuseBackground true
 
+TestRunMCGenBackground: Execute
+	./Execute --Input $(EOSBase)/OutputMCGen_v14/Result10.root \
+		--Output /tmp/$(USER)/TestMCGen.root --Fraction 0.1 \
+		`./Expand Setting.dh PbPbBackgroundGenMC Nominal` \
+		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root,$(PbPbBackgroundMC)/HiForestMiniAOD_14.root,$(PbPbBackgroundMC)/HiForestMiniAOD_15.root,$(PbPbBackgroundMC)/HiForestMiniAOD_16.root \
+		--ReuseBackground true
+
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(EOSBase)/OutputMC_v14/ LogMCBackground_v15b/ $(EOSBase)/OutputMCBackground_v15b/ $(PbPbBackgroundMC)/ 20 \
@@ -37,6 +44,11 @@ PrepareToRunRandomDataBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(EOSBase)/OutputData_v14/ LogDataBackground_v15b/ $(EOSBase)/OutputDataBackground_v15b/ $(PbPbBackgroundData)/ 200 \
 		`./Expand Setting.dh PbPbBackgroundData Nominal`
+
+PrepareToRunRandomMCGenBackground:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputMCGen_v14/ LogMCGenbkg_v15b/ $(EOSBase)/OutputMCGenbkg_v15b/ $(PbPbBackgroundMC)/ 20 \
+		`./Expand Setting.dh PbPbBackgroundGenMC Nominal`
 
 PrepareToRunRandomMCBackgroundUEUp25:
 	bash PrepareInputRandomBackground.sh \
