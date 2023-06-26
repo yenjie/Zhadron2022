@@ -18,21 +18,23 @@ Execute: DoZHadronSkim.cpp
 		$(ProjectBase)/CommonCode/library/Messenger.o
 
 TestRun: Execute
-	./Execute --Input PinChunMCV14/Result14.root \
+	./Execute --Input $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_14.root \
 		--Output /tmp/$(USER)/Test.root --Fraction 0.1 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal` \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_14.root,$(PbPbBackgroundMC)/HiForestMiniAOD_15.root,$(PbPbBackgroundMC)/HiForestMiniAOD_16.root \
 		--ReuseBackground true
 	
-EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230625_ZHadronSkims
+#EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230625_ZHadronSkims
+EOSBase = /eos/cms/store/group/phys_heavyions/pchou
+
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
-		/eos/cms/store/group/phys_heavyions/pchou/OutputMC_v14/ LogMCBackground/ $(EOSBase)/OutputMCBackground_v15/ $(PbPbBackgroundMC)/ 20 \
+		$(EOSBase)/OutputMC_v14/ LogMCBackground_v15b/ $(EOSBase)/OutputMCBackground_v15b/ $(PbPbBackgroundMC)/ 5 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
 PrepareToRunRandomDataBackground:
 	bash PrepareInputRandomBackground.sh \
-		/eos/cms/store/group/phys_heavyions/pchou/OutputData_v14/ LogDataBackground/ $(EOSBase)/OutputDataBackground_v15/ $(PbPbBackgroundData)/ 200 \
+		$(EOSBase)/OutputData_v14/ LogDataBackground_v15b/ $(EOSBase)/OutputDataBackground_v15b/ $(PbPbBackgroundData)/ 100 \
 		`./Expand Setting.dh PbPbBackgroundData Nominal`
 
 
