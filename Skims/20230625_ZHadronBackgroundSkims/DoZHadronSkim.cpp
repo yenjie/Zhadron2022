@@ -52,7 +52,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "X";
+   string Version = "V15b";
 
    CommandLine CL(argc, argv);
 
