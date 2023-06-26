@@ -6,7 +6,7 @@ default: TestRun
 
 TestRun: Execute
 	./Execute --Input $(PPSignalMC)/HiForestAOD_14.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --IsData false --IsPP true --MinZPT 5 \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.2 --IsData false --IsPP true --MinZPT 5 \
 		--DoBackground true --Background $(PbPbBackgroundMC)/HiForestMiniAOD_14.root
 	root -l -b -q /tmp/chenyi/Test.root QuickPlot.C 
 	cp Meow*.pdf ~/public/html/

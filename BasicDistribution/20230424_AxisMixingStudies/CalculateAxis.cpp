@@ -367,13 +367,21 @@ int main(int argc, char *argv[])
                MixedPFSum = Sum(CSPFPT);
                if(MZHadron.zPt->at(0) > 60)
                {
+                  // ConstituentSubtraction(CSPFEta, CSPFPhi, CSPFPT,
+                  //    MBackgroundRho[iBF]->EtaMin, MBackgroundRho[iBF]->EtaMax, MBackgroundRho[iBF]->Rho, 0.5, 3.0);
+
+                  vector<double> EtaMin = {-3};
+                  vector<double> EtaMax = {+3};
+                  vector<double> Rho = {(MixedPFSum - SignalPFSum) / (6 * 2 * M_PI)};
+                  ConstituentSubtraction(CSPFEta, CSPFPhi, CSPFPT, &EtaMin, &EtaMax, &Rho, -1, 3.0);
+                  
                   cout << "Before " << MixedPFSum << endl;
-                  ConstituentSubtraction(CSPFEta, CSPFPhi, CSPFPT,
-                     MBackgroundRho[iBF]->EtaMin, MBackgroundRho[iBF]->EtaMax, MBackgroundRho[iBF]->Rho, 0.5, 3.0);
                   cout << "After " << Sum(CSPFPT) << endl;
                   cout << "Signal " << SignalPFSum << endl;
+                  CSPFSum = Sum(CSPFPT);
                }
-               CSPFSum = Sum(CSPFPT);
+               else
+                  CSPFSum = -1;
                
                vector<double> &SignalCSPFEta = SignalPFEta;
                vector<double> &SignalCSPFPhi = SignalPFPhi;
