@@ -42,15 +42,28 @@ int main(int argc, char *argv[])
    bool IsPP                     = CL.GetBool("IsPP", false);
    double Fraction               = CL.GetDouble("Fraction", 1.00);
    bool SkipResidual             = CL.GetBool("SkipResidual", false);
+   bool RedoHiBin                = CL.GetBool("RedoHiBin", false);
+   int HiBinVariation            = RedoHiBin ? CL.GetInt("HiBinVariation") : 0;
+   bool AlternateMuTag           = CL.GetBool("AlternateMuTag", false);
+   double MuTagRange             = AlternateMuTag ? CL.GetDouble("MuTagRange") : 1000;
+   bool DoExtraZWeight           = CL.GetBool("DoExtraZWeight", false);
+   int ExtraZWeightIndex         = DoExtraZWeight ? CL.GetInt("ExtraZWeightIndex") : 0;
+   bool DoAdHocSignalHF          = CL.GetBool("DoAdHocSignalHF", false);
 
    vector<Configuration> Cs;
 
    Cs.push_back(Configuration(0,  30,  5,  20, 1, 4, 0, 10));
    Cs.push_back(Configuration(0,  30,  5,  20, 1, 2, 0, 10));
 
-   vector<pair<int, int>> NPV{pair<int, int>(0, 10), pair<int, int>(0, 1), pair<int, int>(2, 10)};
-   vector<pair<int, int>> Centrality{pair<int, int>(0, 10), pair<int, int>(10, 30), pair<int, int>(30, 50), pair<int, int>(50, 90), pair<int, int>(0, 30), pair<int, int>(30, 90)};
-   vector<pair<double, double>> TrackPT{pair<double, double>(1, 4), pair<double, double>(1, 2), pair<double, double>(2, 5), pair<double, double>(5,10), pair<double, double>(10, 100), pair<double, double>(1, 100)};
+   // vector<pair<int, int>> NPV{pair<int, int>(0, 10), pair<int, int>(0, 1), pair<int, int>(2, 10)};
+   // vector<pair<int, int>> Centrality{pair<int, int>(0, 10), pair<int, int>(10, 30), pair<int, int>(30, 50), pair<int, int>(50, 90), pair<int, int>(0, 30), pair<int, int>(30, 90), pair<int, int>(0, 90), pair<int, int>(0, 50), pair<int, int>(10, 90), pair<int, int>(50, 70), pair<int, int>(70, 90)};
+   // vector<pair<double, double>> TrackPT{pair<double, double>(1, 4), pair<double, double>(1, 2), pair<double, double>(2, 5), pair<double, double>(5, 10), pair<double, double>(10, 100), pair<double, double>(1, 100), pair<double, double>(4, 10), pair<double, double>(2, 4), pair<double, double>(1, 10), pair<double, double>(5, 100), pair<double, double>(2, 100)};
+   // vector<double> ZPTMin{30, 40, 50, 60};
+
+   // Reduced set for faster running
+   vector<pair<int, int>> NPV{pair<int, int>(0, 10), pair<int, int>(0, 1)};
+   vector<pair<int, int>> Centrality{pair<int, int>(0, 10), pair<int, int>(10, 30), pair<int, int>(30, 50), pair<int, int>(50, 90), pair<int, int>(0, 30), pair<int, int>(30, 90), pair<int, int>(0, 90), pair<int, int>(0, 50)};
+   vector<pair<double, double>> TrackPT{pair<double, double>(1, 2), pair<double, double>(10, 100), pair<double, double>(1, 100), pair<double, double>(4, 10), pair<double, double>(2, 4), pair<double, double>(1, 10)};
    vector<double> ZPTMin{30, 40, 60};
    
    for(double ZPT : ZPTMin)
@@ -59,12 +72,23 @@ int main(int argc, char *argv[])
             for(pair<int, int> C : Centrality)
                Cs.push_back(Configuration(C.first, C.second, ZPT, 200, Track.first, Track.second, PV.first, PV.second));
 
+   double HiHFBins[401] = {0};
+   for(int i = 0; i <= 400; i++)
+      HiHFBins[i] = exp((log(6000) - log(1)) / 400 * i + log(1));
+   
+   double SignalHFBins[401] = {0};
+   for(int i = 0; i <= 400; i++)
+      SignalHFBins[i] = exp((log(135000) - log(500)) / 400 * i + log(500));
+
    TFile OutputFile(OutputFileName.c_str(), "RECREATE");
 
    vector<TH1D *> HDeltaPhi;
    vector<TH1D *> HDeltaEta;
    vector<TH1D *> HDeltaEtaZSide;
    vector<TH1D *> HDeltaEtaJetSide;
+   vector<TH1D *> HHiBin;
+   vector<TH1D *> HHiHF;
+   vector<TH1D *> HSignalHF;
    vector<TH1D *> HN;
    
    for(Configuration &C : Cs)
@@ -73,6 +97,9 @@ int main(int argc, char *argv[])
       HDeltaEta.push_back(new TH1D(Form("HDeltaEta_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
       HDeltaEtaZSide.push_back(new TH1D(Form("HDeltaEtaZSide_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
       HDeltaEtaJetSide.push_back(new TH1D(Form("HDeltaEtaJetSide_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
+      HHiBin.push_back(new TH1D(Form("HHiBin_%s", C.Tag.c_str()), ";hiBin;", 200, 0, 200));
+      HHiHF.push_back(new TH1D(Form("HHiHF_%s", C.Tag.c_str()), ";hiHF;", 400, HiHFBins));
+      HSignalHF.push_back(new TH1D(Form("HSignalHF_%s", C.Tag.c_str()), ";SumHF;", 400, SignalHFBins));
       HN.push_back(new TH1D(Form("HN_%s", C.Tag.c_str()), ";;", 1, 0, 1));
    }
 
@@ -96,6 +123,10 @@ int main(int argc, char *argv[])
       {
          M.GetEntry(iE);
 
+         // hibin recalculate if needed
+         if(RedoHiBin == true)
+            M.hiBin = GetHiBin(M.hiHF, HiBinVariation);
+
          // no identified Z in this event
          if(DoGen == true && M.genZPt->size() == 0)   continue;
          if(DoGen == false && M.zPt->size() == 0)     continue;
@@ -104,7 +135,25 @@ int main(int argc, char *argv[])
          double ZEta = DoGen ? M.genZEta->at(0) : M.zEta->at(0);
          double ZPhi = DoGen ? M.genZPhi->at(0) : M.zPhi->at(0);
 
+         double Mu1Eta = DoGen ? M.genMuEta1->at(0) : M.muEta1->at(0);
+         double Mu1Phi = DoGen ? M.genMuPhi1->at(0) : M.muPhi1->at(0);
+         double Mu2Eta = DoGen ? M.genMuEta2->at(0) : M.muEta2->at(0);
+         double Mu2Phi = DoGen ? M.genMuPhi2->at(0) : M.muPhi2->at(0);
+
+         double Mu1DEta = Mu1Eta - ZEta;
+         double Mu1DPhi = DeltaPhi(Mu1Phi, ZPhi);
+         double Mu2DEta = Mu2Eta - ZEta;
+         double Mu2DPhi = DeltaPhi(Mu2Phi, ZPhi);
+
          double EventWeight = M.NCollWeight * M.ZWeight * M.VZWeight;
+         if(DoExtraZWeight == true && ExtraZWeightIndex >= 0)
+            EventWeight = EventWeight * M.ExtraZWeight[ExtraZWeightIndex];
+
+         if(DoAdHocSignalHF == true)
+         {
+            double SignalHFWeight = 0.04585 + 187.7 / M.SignalHF + 0.0007564 * log(M.SignalHF);
+            EventWeight = EventWeight / SignalHFWeight;
+         }
 
          for(int iC = 0; iC < (int)Cs.size(); iC++)
          {
@@ -116,12 +165,24 @@ int main(int argc, char *argv[])
             if(M.NVertex > Cs[iC].NPVMax)                       continue;
             
             HN[iC]->Fill(0.0, EventWeight);
+            HHiBin[iC]->Fill(M.hiBin, EventWeight);
+            HHiHF[iC]->Fill(M.hiHF, EventWeight);
+            HSignalHF[iC]->Fill(M.SignalHF, EventWeight);
          }
 
          int TrackCount = M.trackPt->size();
          for(int iT = 0; iT < TrackCount; iT++)
          {
-            if(M.trackMuTagged->at(iT) == true)
+            double TrackMuDEta1 = M.trackDeta->at(iT) - Mu1DEta;
+            double TrackMuDPhi1 = DeltaPhi(M.trackDphi->at(iT), Mu1DPhi);
+            double TrackMuDR1 = sqrt(TrackMuDEta1 * TrackMuDEta1 + TrackMuDPhi1 * TrackMuDPhi1);
+            double TrackMuDEta2 = M.trackDeta->at(iT) - Mu2DEta;
+            double TrackMuDPhi2 = DeltaPhi(M.trackDphi->at(iT), Mu2DPhi);
+            double TrackMuDR2 = sqrt(TrackMuDEta2 * TrackMuDEta2 + TrackMuDPhi2 * TrackMuDPhi2);
+
+            if(AlternateMuTag == false && M.trackMuTagged->at(iT) == true)
+               continue;
+            if(AlternateMuTag == true && min(TrackMuDR1, TrackMuDR2) < MuTagRange)
                continue;
             if(DoSignalEvent == true && M.subevent->at(iT) != 0)
                continue;
@@ -168,6 +229,9 @@ int main(int argc, char *argv[])
       HDeltaEta[i]->Write();
       HDeltaEtaZSide[i]->Write();
       HDeltaEtaJetSide[i]->Write();
+      HHiBin[i]->Write();
+      HHiHF[i]->Write();
+      HSignalHF[i]->Write();
       HN[i]->Write();
    }
 

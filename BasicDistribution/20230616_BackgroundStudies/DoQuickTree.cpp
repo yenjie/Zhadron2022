@@ -38,11 +38,11 @@ int main(int argc, char *argv[])
    double hiHF;
 
    Tree.Branch("NTrack", &NTrack, "NTrack/I");
-   Tree.Branch("TrackPT", &TrackPT, "TrackPT[NTrack]/D");
-   Tree.Branch("TrackEta", &TrackEta, "TrackEta[NTrack]/D");
-   Tree.Branch("TrackPhi", &TrackPhi, "TrackPhi[NTrack]/D");
-   Tree.Branch("TrackWeight", &TrackWeight, "TrackWeight[NTrack]/D");
-   Tree.Branch("TrackResidualWeight", &TrackResidualWeight, "TrackResidualWeight[NTrack]/D");
+   Tree.Branch("TrackPT", TrackPT, "TrackPT[NTrack]/D");
+   Tree.Branch("TrackEta", TrackEta, "TrackEta[NTrack]/D");
+   Tree.Branch("TrackPhi", TrackPhi, "TrackPhi[NTrack]/D");
+   Tree.Branch("TrackWeight", TrackWeight, "TrackWeight[NTrack]/D");
+   Tree.Branch("TrackResidualWeight", TrackResidualWeight, "TrackResidualWeight[NTrack]/D");
    Tree.Branch("SumHF", &SumHF, "SumHF/D");
    Tree.Branch("hiHF", &hiHF, "HiHF/D");
 
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
       SumHF = GetHFSum(&MPF);
       hiHF = MEvent.hiHF;
 
-      int NTrack = 0;
+      NTrack = 0;
       int NInputTrack = MTrack.TrackPT->size();
       for(int iT = 0; iT < NInputTrack; iT++)
       {

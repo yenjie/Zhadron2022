@@ -143,6 +143,13 @@ int main(int argc, char *argv[])
    if(DoTrackResidual == true)
       Assert(TrackResidualPath.size() == 1 || TrackResidualPath.size() == 4, "You need 1 file for residual correction or 4 files for centrality-dependence");
 
+   if(DoBackground == true)
+   {
+      cerr << "=== WARNING ===" << endl;
+      cerr << "Background mixing mode not supported anymore with this code.  Please use other specialized code for this.  I won't stop you though, proceed with your own risk" << endl;
+      cerr << "=== WARNING ===" << endl;
+   }
+
    JetCorrector JEC(JECFiles);
 
    vector<string> BackgroundFileNames;

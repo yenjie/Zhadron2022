@@ -2227,6 +2227,112 @@ void ZHadronMessenger::Clear()
    genMuDphiS->clear();
 }
 
+void ZHadronMessenger::CopyNonTrack(ZHadronMessenger &M)
+{
+   Run          = M.Run;
+   Event        = M.Event;
+   Lumi         = M.Lumi;
+   
+   hiBin        = M.hiBin;
+   hiBinUp      = M.hiBinUp;
+   hiBinDown    = M.hiBinDown;
+   hiHF         = M.hiHF;
+
+   SignalHF     = M.SignalHF;
+   BackgroundHF = M.BackgroundHF;
+   SignalVZ     = M.SignalVZ;
+
+   NCollWeight  = M.NCollWeight;
+   ZWeight      = M.ZWeight;
+   VZWeight     = M.VZWeight;
+   for(int i = 0; i < 12; i++)
+      ExtraZWeight[i] = M.ExtraZWeight[i];
+
+   NVertex      = M.NVertex;
+   VX           = M.VX;
+   VY           = M.VY;
+   VZ           = M.VZ;
+   VXError      = M.VXError;
+   VYError      = M.VYError;
+   VZError      = M.VZError;
+   NPU          = M.NPU;
+  
+   if(zMass != nullptr && M.zMass != nullptr)   *zMass = *(M.zMass);
+   if(zEta != nullptr && M.zEta != nullptr)   *zEta = *(M.zEta);
+   if(zPhi != nullptr && M.zPhi != nullptr)   *zPhi = *(M.zPhi);
+   if(zPt != nullptr && M.zPt != nullptr)   *zPt = *(M.zPt);
+   if(genZMass != nullptr && M.genZMass != nullptr)   *genZMass = *(M.genZMass);
+   if(genZEta != nullptr && M.genZEta != nullptr)   *genZEta = *(M.genZEta);
+   if(genZPhi != nullptr && M.genZPhi != nullptr)   *genZPhi = *(M.genZPhi);
+   if(genZPt != nullptr && M.genZPt != nullptr)   *genZPt = *(M.genZPt);
+   
+   if(jetPt != nullptr && M.jetPt != nullptr)   *jetPt = *(M.jetPt);
+   if(jetDeta != nullptr && M.jetDeta != nullptr)   *jetDeta = *(M.jetDeta);
+   if(jetDphi != nullptr && M.jetDphi != nullptr)   *jetDphi = *(M.jetDphi);
+   if(jetRefPt != nullptr && M.jetRefPt != nullptr)   *jetRefPt = *(M.jetRefPt);
+   if(jetRefDeta != nullptr && M.jetRefDeta != nullptr)   *jetRefDeta = *(M.jetRefDeta);
+   if(jetRefDphi != nullptr && M.jetRefDphi != nullptr)   *jetRefDphi = *(M.jetRefDphi);
+   if(jetMuTagged != nullptr && M.jetMuTagged != nullptr)   *jetMuTagged = *(M.jetMuTagged);
+   
+   if(genJetPt != nullptr && M.genJetPt != nullptr)   *genJetPt = *(M.genJetPt);
+   if(genJetEta != nullptr && M.genJetEta != nullptr)   *genJetEta = *(M.genJetEta);
+   if(genJetPhi != nullptr && M.genJetPhi != nullptr)   *genJetPhi = *(M.genJetPhi);
+
+   maxOppositeDEta = M.maxOppositeDEta;
+   maxOppositeDPhi = M.maxOppositeDPhi;
+   maxDEta = M.maxDEta;
+   maxDPhi = M.maxDPhi;
+   maxOppositeWTADEta = M.maxOppositeWTADEta;
+   maxOppositeWTADPhi = M.maxOppositeWTADPhi;
+   maxMoreOppositeWTADEta = M.maxMoreOppositeWTADEta;
+   maxMoreOppositeWTADPhi = M.maxMoreOppositeWTADPhi;
+   maxOppositeCSWTADEta = M.maxOppositeCSWTADEta;
+   maxOppositeCSWTADPhi = M.maxOppositeCSWTADPhi;
+   maxOppositeChargedWTADEta = M.maxOppositeChargedWTADEta;
+   maxOppositeChargedWTADPhi = M.maxOppositeChargedWTADPhi;
+   maxMoreOppositeChargedWTADEta = M.maxMoreOppositeChargedWTADEta;
+   maxMoreOppositeChargedWTADPhi = M.maxMoreOppositeChargedWTADPhi;
+   maxOppositeHardChargedWTADEta = M.maxOppositeHardChargedWTADEta;
+   maxOppositeHardChargedWTADPhi = M.maxOppositeHardChargedWTADPhi;
+
+   maxOppositeJet12Pt = M.maxOppositeJet12Pt;
+   maxOppositeJet12DEta = M.maxOppositeJet12DEta;
+   maxOppositeJet12DPhi = M.maxOppositeJet12DPhi;
+   maxOppositeJet34Pt = M.maxOppositeJet34Pt;
+   maxOppositeJet34DEta = M.maxOppositeJet34DEta;
+   maxOppositeJet34DPhi = M.maxOppositeJet34DPhi;
+   maxOppositeJet56Pt = M.maxOppositeJet56Pt;
+   maxOppositeJet56DEta = M.maxOppositeJet56DEta;
+   maxOppositeJet56DPhi = M.maxOppositeJet56DPhi;
+   maxOppositeJet78Pt = M.maxOppositeJet78Pt;
+   maxOppositeJet78DEta = M.maxOppositeJet78DEta;
+   maxOppositeJet78DPhi = M.maxOppositeJet78DPhi;
+
+   if(muEta1 != nullptr && M.muEta1 != nullptr)   *muEta1 = *(M.muEta1);
+   if(muEta2 != nullptr && M.muEta2 != nullptr)   *muEta2 = *(M.muEta2);
+   if(muPhi1 != nullptr && M.muPhi1 != nullptr)   *muPhi1 = *(M.muPhi1);
+   if(muPhi2 != nullptr && M.muPhi2 != nullptr)   *muPhi2 = *(M.muPhi2);
+   if(muPt1 != nullptr && M.muPt1 != nullptr)   *muPt1 = *(M.muPt1);
+   if(muPt2 != nullptr && M.muPt2 != nullptr)   *muPt2 = *(M.muPt2);
+
+   if(muDeta != nullptr && M.muDeta != nullptr)   *muDeta = *(M.muDeta);
+   if(muDphi != nullptr && M.muDphi != nullptr)   *muDphi = *(M.muDphi);
+   if(muDR != nullptr && M.muDR != nullptr)   *muDR = *(M.muDR);
+   if(muDphiS != nullptr && M.muDphiS != nullptr)   *muDphiS = *(M.muDphiS);
+
+   if(genMuPt1 != nullptr && M.genMuPt1 != nullptr)   *genMuPt1 = *(M.genMuPt1);
+   if(genMuPt2 != nullptr && M.genMuPt2 != nullptr)   *genMuPt2 = *(M.genMuPt2);
+   if(genMuEta1 != nullptr && M.genMuEta1 != nullptr)   *genMuEta1 = *(M.genMuEta1);
+   if(genMuEta2 != nullptr && M.genMuEta2 != nullptr)   *genMuEta2 = *(M.genMuEta2);
+   if(genMuPhi1 != nullptr && M.genMuPhi1 != nullptr)   *genMuPhi1 = *(M.genMuPhi1);
+   if(genMuPhi2 != nullptr && M.genMuPhi2 != nullptr)   *genMuPhi2 = *(M.genMuPhi2);
+
+   if(genMuDeta != nullptr && M.genMuDeta != nullptr)   *genMuDeta = *(M.genMuDeta);
+   if(genMuDphi != nullptr && M.genMuDphi != nullptr)   *genMuDphi = *(M.genMuDphi);
+   if(genMuDR != nullptr && M.genMuDR != nullptr)   *genMuDR = *(M.genMuDR);
+   if(genMuDphiS != nullptr && M.genMuDphiS != nullptr)   *genMuDphiS = *(M.genMuDphiS);
+}
+
 bool ZHadronMessenger::FillEntry()
 {
    if(Initialized == false)

@@ -623,6 +623,7 @@ public:
    bool GetEntry(int iEntry);
    bool SetBranch(TTree *T);
    void Clear();
+   void CopyNonTrack(ZHadronMessenger &M);
    bool FillEntry();
 };
 

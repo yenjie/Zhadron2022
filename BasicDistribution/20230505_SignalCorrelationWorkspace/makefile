@@ -1,9 +1,17 @@
 
 
-default: RunPlots
+default: RunPlots2
+	cp Plot*pdf ~/public/html/
 
 RunPlots: Execute
+	ln -sf /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/AllData.root AllData.root
+	ln -sf /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/AllMC89.root AllMC89.root
+	ln -sf /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/AllMCGen89.root AllMCGen89.root
 	bash RunPlots.sh
+
+RunPlots2: Execute
+	ln -sf /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/*v8.root .
+	bash RunPlots2.sh
 
 TestRun: Execute
 	./Execute \

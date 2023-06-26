@@ -30,12 +30,19 @@ int main(int argc, char *argv[])
    bool File1IsGen = CL.GetBool("File1IsGen", false);
    bool File2IsGen = CL.GetBool("File2IsGen", false);
    bool File3IsGen = CL.GetBool("File3IsGen", false);
+   bool File1IsPP = CL.GetBool("File1IsPP", false);
+   bool File2IsPP = CL.GetBool("File2IsPP", false);
+   bool File3IsPP = CL.GetBool("File3IsPP", false);
 
    string EventCut1 = CL.Get("EventCut1", "(zMass[0] > 60 && zPt[0] > 60 && hiBin < 20)");
    string EventCut2 = CL.Get("EventCut2", "(zMass[0] > 60 && zPt[0] > 5 && zPt[0] < 20 && hiBin < 20)");
    string EventCut3 = CL.Get("EventCut3", "(zMass[0] > 60 && zPt[0] > 5 && zPt[0] < 30 && hiBin < 30)");
    if(EventCut2 == "same")   EventCut2 = EventCut1;
    if(EventCut3 == "same")   EventCut3 = EventCut1;
+
+   if(File1IsPP == true)   EventCut1 = "(" + EventCut1 + " && NPU == 0)";
+   if(File2IsPP == true)   EventCut2 = "(" + EventCut2 + " && NPU == 0)";
+   if(File3IsPP == true)   EventCut3 = "(" + EventCut3 + " && NPU == 0)";
 
    string TrackCut1 = CL.Get("TrackCut1", "(trackMuTagged == 0 && abs(DPhi) > 2)");
    string TrackCut2 = CL.Get("TrackCut2", TrackCut1);
