@@ -9,8 +9,8 @@ PPSignalData         := $(shell DHQuery Setting.dh Sample PPSignalData)
 default: Prepare TestRun
 
 Prepare:
-	# bash DefineNominalSetting.sh
-	# chmod u+x Expand
+	ln -sf $(ProjectBase)/Skims/20230310_ZHadronSkims/Setting.dh .
+	chmod u+x Expand
 	
 Execute: DoZHadronSkim.cpp
 	g++ DoZHadronSkim.cpp -I. -I$(ProjectBase)/CommonCode/include \
