@@ -22,9 +22,9 @@ TChain *TreePP0 = new TChain("Tree");
 //TChain *TreeSgG = new TChain("Tree"); 
 //TChain *TreeBgG = new TChain("Tree"); 
 
-//TChain *TreeSigData = new TChain("Tree"); 
-//TChain *TreeBkgData = new TChain("Tree"); 
-//TChain *TreePP0Data = new TChain("Tree"); 
+TChain *TreeSigData = new TChain("Tree"); 
+TChain *TreeBkgData = new TChain("Tree"); 
+TChain *TreePP0Data = new TChain("Tree"); 
 
 ofstream fout;
 
@@ -60,7 +60,6 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
    			cent[i]=0;
    	}
 
-
 	TCut evtCut = Form("zMass[0]>60&&zPt[0]>%f&&zPt[0]<%f&&hiHF<=%f&&hiHF>%f",ptL,ptH,cent[200-2*centL],cent[200-2*centH]);
 	TCut evtCutGen = Form("genZMass[0]>60&&genZPt[0]>%f&&genZPt[0]<%f&&hiHF<=%f&&hiHF>%f",ptL,ptH,cent[200-2*centL],cent[200-2*centH]);
 	TCut trkCut = Form("trackMuTagged==0&&trackPt>%f&&trackPt<%f",TptL,TptH);
@@ -69,42 +68,41 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TCut SBHF = Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShift-HFTolerance,HFShift+HFTolerance);
 	TCut SBHFData = Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShiftData-HFToleranceData,HFShiftData+HFToleranceData);
 
-
 	TH1D HNSig("HNSig","Normalization", 1, 0, 1);
 	TH1D HNBkg("HNBkg","Normalization", 1, 0, 1);
 	//TH1D HNSgG("HNSgG","Normalization", 1, 0, 1);
 	TH1D HNPP0("HNPP0","Normalization", 1, 0, 1);
 	//TH1D HNBgG("HNBgG","Normalization", 1, 0, 1);
-	//TH1D HNSigData("HNSigData","Normalization", 1, 0, 1);
-	//TH1D HNBkgData("HNBkgData","Normalization", 1, 0, 1);
-	//TH1D HNPP0Data("HNPP0Data","Normalization", 1, 0, 1);
+	TH1D HNSigData("HNSigData","Normalization", 1, 0, 1);
+	TH1D HNBkgData("HNBkgData","Normalization", 1, 0, 1);
+	TH1D HNPP0Data("HNPP0Data","Normalization", 1, 0, 1);
 
 	TreeSig		 ->Draw("0>>HNSig","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut));
 	TreeBkg		 ->Draw("0>>HNBkg","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut&&SBHF));
 	//TreeSgG		 ->Draw("0>>HNSgG","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutGen&&trkCut));
 	TreePP0		 ->Draw("0>>HNPP0","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutPP&&trkCut&&"NPU==0"));
 	//TreeBgG		 ->Draw("0>>HNBgG","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutGen&&trkCut&&SBHF));
-	//TreeSigData->Draw("0>>HNSigData","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut));
-	//TreeBkgData->Draw("0>>HNBkgData","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut&&SBHFData));
-	//TreePP0Data->Draw("0>>HNPP0Data","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutPP&&trkCut));
+	TreeSigData->Draw("0>>HNSigData","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut));
+	TreeBkgData->Draw("0>>HNBkgData","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut&&SBHFData));
+	TreePP0Data->Draw("0>>HNPP0Data","(NCollWeight*trackWeight*trackResidualWeight)"*(evtCutPP&&trkCut));
 
 	double t1N = HNSig.GetBinContent(1);
 	double t2N = HNBkg.GetBinContent(1);
 	//double t3N = HNSgG.GetBinContent(1);
 	double t4N = HNPP0.GetBinContent(1);
 	//double t5N = HNBgG.GetBinContent(1);
-	double t6N = 1;//HNSigData.GetBinContent(1);
-	double t7N = 1;//HNBkgData.GetBinContent(1);
-	double t8N = 1;//HNPP0Data.GetBinContent(1);
+	double t6N = HNSigData.GetBinContent(1);
+	double t7N = HNBkgData.GetBinContent(1);
+	double t8N = HNPP0Data.GetBinContent(1);
 
 	double t1E = HNSig.GetBinError(1);
 	double t2E = HNBkg.GetBinError(1);
 	//double t3E = HNSgG.GetBinError(1);
 	double t4E = HNPP0.GetBinError(1);
 	//double t5E = HNBgG.GetBinError(1);
-	double t6E = 1;//HNSigData.GetBinError(1);
-	double t7E = 1;//HNBkgData.GetBinError(1);
-	double t8E = 1;//HNPP0Data.GetBinError(1);
+	double t6E = HNSigData.GetBinError(1);
+	double t7E = HNBkgData.GetBinError(1);
+	double t8E = HNPP0Data.GetBinError(1);
 
 
 	TH1D HNSig1("HNSig1","Normalization", 1, 0, 1);
@@ -112,66 +110,62 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	//TH1D HNSgG1("HNSgG1","Normalization", 1, 0, 1);
 	TH1D HNPP01("HNPP01","Normalization", 1, 0, 1);
 	//TH1D HNBgG1("HNBgG1","Normalization", 1, 0, 1);
-	//TH1D HNSigData1("HNSigData1","Normalization", 1, 0, 1);
-	//TH1D HNBkgData1("HNBkgData1","Normalization", 1, 0, 1);
-	//TH1D HNPP0Data1("HNPP0Data1","Normalization", 1, 0, 1);
+	TH1D HNSigData1("HNSigData1","Normalization", 1, 0, 1);
+	TH1D HNBkgData1("HNBkgData1","Normalization", 1, 0, 1);
+	TH1D HNPP0Data1("HNPP0Data1","Normalization", 1, 0, 1);
 
 	TreeSig		 ->Draw("0>>HNSig1","NCollWeight"*evtCut);
 	TreeBkg		 ->Draw("0>>HNBkg1","NCollWeight"*(evtCut&&SBHF));
 	//TreeSgG		 ->Draw("0>>HNSgG1","NCollWeight"*evtCutGen);
 	TreePP0		 ->Draw("0>>HNPP01","NCollWeight"*(evtCutPP&&"NPU==0"));
 	//TreeBgG		 ->Draw("0>>HNBgG1","NCollWeight"*evtCutGen);
-//	TreeSigData->Draw("0>>HNSigData1","NCollWeight"*evtCut);
-//	TreeBkgData->Draw("0>>HNBkgData1","NCollWeight"*(evtCut&&SBHFData));
-//	TreePP0Data->Draw("0>>HNPP0Data1","NCollWeight"*evtCutPP);
+	TreeSigData->Draw("0>>HNSigData1","NCollWeight"*evtCut);
+	TreeBkgData->Draw("0>>HNBkgData1","NCollWeight"*(evtCut&&SBHFData));
+	TreePP0Data->Draw("0>>HNPP0Data1","NCollWeight"*evtCutPP);
 
 	double z1N = HNSig1.GetBinContent(1);
 	double z2N = HNBkg1.GetBinContent(1);
 	//double z3N = HNSgG1.GetBinContent(1);
 	double z4N = HNPP01.GetBinContent(1);
 	//double z5N = HNBgG1.GetBinContent(1);
-	double z6N = 1;//HNSigData1.GetBinContent(1);
-	double z7N = 1;//HNBkgData1.GetBinContent(1);
-	double z8N = 1;//HNPP0Data1.GetBinContent(1);
+	double z6N = HNSigData1.GetBinContent(1);
+	double z7N = HNBkgData1.GetBinContent(1);
+	double z8N = HNPP0Data1.GetBinContent(1);
 
 	int z1N0 = HNSig1.GetEntries();
 	int z2N0 = HNBkg1.GetEntries();
 	//int z3N0 = HNSgG1.GetEntries();
 	int z4N0 = HNPP01.GetEntries();
 	//int z5N0 = HNBgG1.GetEntries();
-	int z6N0 = 1;//HNSigData1.GetEntries();
-	int z7N0 = 1;//HNBkgData1.GetEntries();
-	int z8N0 = 1;//HNPP0Data1.GetEntries();
+	int z6N0 = HNSigData1.GetEntries();
+	int z7N0 = HNBkgData1.GetEntries();
+	int z8N0 = HNPP0Data1.GetEntries();
 
 	double z1E = HNSig1.GetBinError(1);
 	double z2E = HNBkg1.GetBinError(1);
 	//double z3E = HNSgG1.GetBinError(1);
 	double z4E = HNPP01.GetBinError(1);
 	//double z5E = HNBgG1.GetBinError(1);
-	double z6E = 1;//HNSigData1.GetBinError(1);
-	double z7E = 1;//HNBkgData1.GetBinError(1);
-	double z8E = 1;//HNPP0Data1.GetBinError(1);
+	double z6E = HNSigData1.GetBinError(1);
+	double z7E = HNBkgData1.GetBinError(1);
+	double z8E = HNPP0Data1.GetBinError(1);
 
 	double et1 = t1E/t1N, et2 = t2E/t2N, et4 = t4E/t4N, et6 = t6E/t6N, et7 = t7E/t7N, et8 = t8E/t8N;
 	double ez1 = z1E/z1N, ez2 = z2E/z2N, ez4 = z4E/z4N, ez6 = z6E/z6N, ez7 = z7E/z7N, ez8 = z8E/z8N;
 
-	//double fe1 = fabs(et1-ez1), fe2 = fabs(et2-ez2), fe4 = fabs(et4-ez4), fe6 = fabs(et6-ez6), fe7 = fabs(et7-ez7), fe8 = fabs(et8-ez8);
-
 	fout<<"======================================"<<std::endl;
-
-	//fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig MC" <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Bkg MC" <<setw(2)<<"|"<<left<<setw(15)<< "ppMC NPU=0" <<endl;//setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"|"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"|"<<left<<setw(15)<< "pp Data"   << std::endl;
-	//fout<<left<<setw(15)<< "N_Z (unweighted)" <<setw(2)<<"|"<<left<<setw(15)<< z1N0          <<setw(2)<<"|"<<left<<setw(15)<< z2N0          <<setw(2)<<"|"<<left<<setw(15)<< z4N0         <<endl;//setw(2)<<"|"<<left<<setw(15)<< z6N0           <<setw(2)<<"|"<<left<<setw(15)<< z7N0           <<setw(2)<<"|"<<left<<setw(15)<< z8N0        << std::endl;
-	//fout<<left<<setw(15)<< "Nevt (weighted)"  <<setw(2)<<"|"<<left<<setw(15)<< z1N           <<setw(2)<<"|"<<left<<setw(15)<< z2N           <<setw(2)<<"|"<<left<<setw(15)<< z4N          <<endl;//setw(2)<<"|"<<left<<setw(15)<< z6N            <<setw(2)<<"|"<<left<<setw(15)<< z7N            <<setw(2)<<"|"<<left<<setw(15)<< z8N         << std::endl;
-	//fout<<left<<setw(15)<< "Ntrk/Nevt" 	      <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"|"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"|"<<left<<setw(15)<< t4N/z4N      <<endl;//setw(2)<<"|"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"|"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"|"<<left<<setw(15)<< t8N/z8N     << std::endl;
-	////fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N*fe1   <<setw(2)<<"|"<<left<<setw(15)<< t2N/z2N*fe2   <<setw(2)<<"|"<<left<<setw(15)<< t4N/z4N*fe4  <<setw(2)<<"|"<<left<<setw(15)<< t6N/z6N*fe6    <<setw(2)<<"|"<<left<<setw(15)<< t7N/z7N*fe7    <<setw(2)<<"|"<<left<<setw(15)<< t8N/z8N*fe8 << std::endl;
-	//fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"|"<<left<<setw(15)<< t1E/z1N   <<setw(2)<<"|"<<left<<setw(15)<< t2E/z2N   <<setw(2)<<"|"<<left<<setw(15)<< t4E/z4N  <<endl;//<<setw(2)<<"|"<<left<<setw(15)<< t6E/z6N    <<setw(2)<<"|"<<left<<setw(15)<< t7E/z7N    <<setw(2)<<"|"<<left<<setw(15)<< t8E/z8N << std::endl;
-
 
 	fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig MC" <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Bkg MC" <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig-Bkg MC" <<setw(2)<<"|"<<left<<setw(15)<< "ppMC NPU=0" <<endl;
 	fout<<left<<setw(15)<< "N_Z (unweighted)" <<setw(2)<<"|"<<left<<setw(15)<< z1N0          <<setw(2)<<"|"<<left<<setw(15)<< z2N0          <<setw(2)<<"|"<<left<<setw(15)<< z1N0-z2N0         <<setw(2)<<"|"<<left<<setw(15)<< z4N0         <<endl;
 	fout<<left<<setw(15)<< "Nevt (weighted)"  <<setw(2)<<"|"<<left<<setw(15)<< z1N           <<setw(2)<<"|"<<left<<setw(15)<< z2N           <<setw(2)<<"|"<<left<<setw(15)<< z1N-z2N           <<setw(2)<<"|"<<left<<setw(15)<< z4N          <<endl;
 	fout<<left<<setw(15)<< "Ntrk/Nevt" 	      <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"|"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N-t2N/z2N   <<setw(2)<<"|"<<left<<setw(15)<< t4N/z4N      <<endl;
 	fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"|"<<left<<setw(15)<< t1E/z1N       <<setw(2)<<"|"<<left<<setw(15)<< t2E/z2N       <<setw(2)<<"|"<<left<<setw(15)<< sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N)) <<setw(2)<<"|"<<left<<setw(15)<< t4E/z4N      <<endl;
+
+	fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"|"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig-Bkg Data"<<setw(2)<<"|"<<left<<setw(15)<< "pp Data NPU=0" <<endl;
+	fout<<left<<setw(15)<< "N_Z (unweighted)" <<setw(2)<<"|"<<left<<setw(15)<< z6N0           <<setw(2)<<"|"<<left<<setw(15)<< z7N0           <<setw(2)<<"|"<<left<<setw(15)<< z6N0-z7N0          <<setw(2)<<"|"<<left<<setw(15)<< z8N0            <<endl;
+	fout<<left<<setw(15)<< "Nevt (weighted)"  <<setw(2)<<"|"<<left<<setw(15)<< z6N            <<setw(2)<<"|"<<left<<setw(15)<< z7N            <<setw(2)<<"|"<<left<<setw(15)<< z6N-z7N            <<setw(2)<<"|"<<left<<setw(15)<< z8N             <<endl;
+	fout<<left<<setw(15)<< "Ntrk/Nevt" 	      <<setw(2)<<"|"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"|"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"|"<<left<<setw(15)<< t6N/z6N-t7N/z7N    <<setw(2)<<"|"<<left<<setw(15)<< t8N/z8N         <<endl;
+	fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"|"<<left<<setw(15)<< t6E/z6N        <<setw(2)<<"|"<<left<<setw(15)<< t7E/z7N        <<setw(2)<<"|"<<left<<setw(15)<< sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N)) <<setw(2)<<"|"<<left<<setw(15)<< t8E/z8N      <<endl;
 
 	fout<<"======================================"<<std::endl;
 
@@ -200,9 +194,9 @@ int main(int argc, char *argv[]){
 	TreeSig->Add((InputBase + "SkimMC_v14.root").c_str());
 	TreePP0->Add((InputBase + "SkimPPMC_v14.root").c_str());
 	TreeBkg->Add((InputBase + BkgMCDir + "/*.root?#Tree").c_str());
-	//TreeSigData->Add((InputBase + "OutputData_v14/*.root?#Tree").c_str());
-	//TreeBkgData->Add((InputBase + BkgDataDir + "/*.root?#Tree").c_str());
-	//TreePP0Data->Add((InputBase + "OutputPPData_v14/*.root?#Tree").c_str());
+	TreeSigData->Add((InputBase + "OutputData_v14/*.root?#Tree").c_str());
+	TreeBkgData->Add((InputBase + BkgDataDir + "/*.root?#Tree").c_str());
+	TreePP0Data->Add((InputBase + "OutputPPData_v14/*.root?#Tree").c_str());
 
 	CountSkim_single(CL,40,200,0,30,1,2);
 	CountSkim_single(CL,40,200,0,30,2,4);
