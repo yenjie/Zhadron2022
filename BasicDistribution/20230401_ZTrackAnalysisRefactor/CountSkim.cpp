@@ -161,6 +161,8 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	fout<<left<<setw(15)<< "Ntrk/Nevt" 	      <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"|"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N-t2N/z2N   <<setw(2)<<"|"<<left<<setw(15)<< t4N/z4N      <<endl;
 	fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"|"<<left<<setw(15)<< t1E/z1N       <<setw(2)<<"|"<<left<<setw(15)<< t2E/z2N       <<setw(2)<<"|"<<left<<setw(15)<< sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N)) <<setw(2)<<"|"<<left<<setw(15)<< t4E/z4N      <<endl;
 
+	fout<<"--------------------------------------"<<std::endl;
+
 	fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"|"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig-Bkg Data"<<setw(2)<<"|"<<left<<setw(15)<< "pp Data NPU=0" <<endl;
 	fout<<left<<setw(15)<< "N_Z (unweighted)" <<setw(2)<<"|"<<left<<setw(15)<< z6N0           <<setw(2)<<"|"<<left<<setw(15)<< z7N0           <<setw(2)<<"|"<<left<<setw(15)<< z6N0-z7N0          <<setw(2)<<"|"<<left<<setw(15)<< z8N0            <<endl;
 	fout<<left<<setw(15)<< "Nevt (weighted)"  <<setw(2)<<"|"<<left<<setw(15)<< z6N            <<setw(2)<<"|"<<left<<setw(15)<< z7N            <<setw(2)<<"|"<<left<<setw(15)<< z6N-z7N            <<setw(2)<<"|"<<left<<setw(15)<< z8N             <<endl;
