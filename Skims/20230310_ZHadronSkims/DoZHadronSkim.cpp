@@ -127,6 +127,9 @@ int main(int argc, char *argv[])
    bool DoMCHiBinShift                = CL.GetBool("DoMCHiBinShift", true);
    double MCHiBinShift                = DoMCHiBinShift ? CL.GetDouble("MCHiBinShift", 3) : 0;
 
+   bool DoAlternateTrackSelection     = CL.GetBool("DoAlternateTrackSelection", false);
+   int AlternateTrackSelection        = DoAlternateTrackSelection ? CL.GetInt("AlternateTrackSelection") : 0;
+
    bool DoTrackEfficiency             = CL.GetBool("DoTrackEfficiency", true);
    string TrackEfficiencyPath         = (DoTrackEfficiency == true) ? CL.Get("TrackEfficiencyPath") : "";
    bool DoTrackResidual               = CL.GetBool("DoTrackResidual", false);
@@ -179,7 +182,16 @@ int main(int argc, char *argv[])
       if(IsPP == true)
          TrackEfficiencyPP = new TrkEff2017pp(false, TrackEfficiencyPath);
       else
-         TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "", false, TrackEfficiencyPath);
+      {
+         if(DoAlternateTrackSelection == false)
+            TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "", false, TrackEfficiencyPath);
+         if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0)
+            TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "", false, TrackEfficiencyPath);
+         if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1)
+            TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "Loose", false, TrackEfficiencyPath);
+         if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2)
+            TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "Tight", false, TrackEfficiencyPath);
+      }
    }
    TrackResidualCentralityCorrector TrackResidual(TrackResidualPath);
 
@@ -631,10 +643,28 @@ int main(int argc, char *argv[])
                {
                   if(DoGenCorrelation == false)   // track selection on reco
                   {
-                     if(IsPP == true && MTrackPP->PassZHadron2022Cut(itrack) == false)
-                        continue;
-                     if(IsPP == false && MTrack->PassZHadron2022Cut(itrack) == false)
-                        continue;
+                     if(IsPP == true)
+                     {
+                        if(DoAlternateTrackSelection == false && MTrackPP->PassZHadron2022Cut(itrack) == false)
+                           continue;
+                        if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0 && MTrackPP->PassZHadron2022Cut(itrack) == false)
+                           continue;
+                        if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1 && MTrackPP->PassZHadron2022CutLoose(itrack) == false)
+                           continue;
+                        if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2 && MTrackPP->PassZHadron2022CutTight(itrack) == false)
+                           continue;
+                     }
+                     if(IsPP == false)
+                     {
+                        if(DoAlternateTrackSelection == false && MTrack->PassZHadron2022Cut(itrack) == false)
+                           continue;
+                        if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0 && MTrack->PassZHadron2022Cut(itrack) == false)
+                           continue;
+                        if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1 && MTrack->PassZHadron2022CutLoose(itrack) == false)
+                           continue;
+                        if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2 && MTrack->PassZHadron2022CutTight(itrack) == false)
+                           continue;
+                     }
                      // if(IsPP == false)
                      // {
                      //    if(DoBackground == true && IsData == true)
@@ -958,11 +988,29 @@ int main(int argc, char *argv[])
                int NTrack = IsPP ? MSignalTrackPP.nTrk : MSignalTrack.TrackPT->size();
                for(int iTrack = 0; iTrack < NTrack; iTrack++)
                {
-                  if(IsPP == true && MSignalTrackPP.PassZHadron2022Cut(iTrack) == false)
-                     continue;
-                  if(IsPP == false && MSignalTrack.PassZHadron2022Cut(iTrack) == false)
-                     continue;
-                 
+                  if(IsPP == true)
+                  {
+                     if(DoAlternateTrackSelection == false && MSignalTrackPP.PassZHadron2022Cut(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0 && MSignalTrackPP.PassZHadron2022Cut(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1 && MSignalTrackPP.PassZHadron2022CutLoose(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2 && MSignalTrackPP.PassZHadron2022CutTight(iTrack) == false)
+                        continue;
+                  }
+                  if(IsPP == false)
+                  {
+                     if(DoAlternateTrackSelection == false && MSignalTrack.PassZHadron2022Cut(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0 && MSignalTrack.PassZHadron2022Cut(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1 && MSignalTrack.PassZHadron2022CutLoose(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2 && MSignalTrack.PassZHadron2022CutTight(iTrack) == false)
+                        continue;
+                  }
+
                   double TrackPT = IsPP ? MSignalTrackPP.trkPt[iTrack] : MSignalTrack.TrackPT->at(iTrack);
                   double TrackEta = IsPP ? MSignalTrackPP.trkEta[iTrack] : MSignalTrack.TrackEta->at(iTrack);
                   double TrackPhi = IsPP ? MSignalTrackPP.trkPhi[iTrack] : MSignalTrack.TrackPhi->at(iTrack);

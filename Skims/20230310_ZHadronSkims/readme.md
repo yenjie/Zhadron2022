@@ -55,6 +55,8 @@
    * Adding branches for Z weight systematics (muon tag and probe)
 * Version 15b - 2023 Jun 25
    * Nothing changed here, except that background mode is not recommended anymore.  Please use 20230625 code for background mixing.
+* Version 15c - 2023 Jun 27
+   * Adding different types of track selection (loose/tight)
 
 
 ## Arguments
@@ -87,6 +89,8 @@
 | JECFiles | vector<string> | _required if DoJet is true_ | JEC text file list |
 | Jet | string | _required if DoJet is true_ | Name of the jet tree. |
 | MinJetPT | double | 15 | Minimum jet PT to store |
+| DoAlternateTrackSelection | false | Whether to use alternate track selection or not |
+| AlternateTrackSelection | _required if DoAlternateTrackSelection is true_ | 0 is default, 1 is loose, 2 is tight |
 | DoTrackEfficiency | bool | true | If we want to store track efficiency correction factor |
 | TrackEfficiencyPath | string | _required if DoTrackEfficiency is true_ | Base path for track correction files |
 | DoTrackResidual | bool | true | If we want to store track residual efficiency correction factor |
