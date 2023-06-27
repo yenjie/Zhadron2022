@@ -1316,6 +1316,66 @@ bool TrackTreeMessenger::PassZHadron2022Cut(int index)
    return true;
 }
 
+bool TrackTreeMessenger::PassZHadron2022CutLoose(int index)
+{
+   // TODO
+
+   if(index >= nTrk)
+      return false;
+
+   if(highPurity[index] == false)
+      return false;
+
+   double RelativeUncertainty = trkPtError[index] / trkPt[index];
+   if(RelativeUncertainty > 0.15)
+      return false;
+
+   // if(trkDxyOverDxyError[index] > 3)
+   //    return false;
+   if(fabs(trkDxy1[index]) / trkDxyError1[index] > 5)
+      return false;
+
+   // if(trkDzOverDzError[index] > 3)
+   //    return false;
+   if(fabs(trkDz1[index]) / trkDzError1[index] > 5)
+      return false;
+
+   if(trkEta[index] < -2.4 || trkEta[index] > 2.4)
+      return false;
+
+   return true;
+}
+
+bool TrackTreeMessenger::PassZHadron2022CutTight(int index)
+{
+   // TODO
+   
+   if(index >= nTrk)
+      return false;
+
+   if(highPurity[index] == false)
+      return false;
+
+   double RelativeUncertainty = trkPtError[index] / trkPt[index];
+   if(RelativeUncertainty > 0.15)
+      return false;
+
+   // if(trkDxyOverDxyError[index] > 3)
+   //    return false;
+   if(fabs(trkDxy1[index]) / trkDxyError1[index] > 2)
+      return false;
+
+   // if(trkDzOverDzError[index] > 3)
+   //    return false;
+   if(fabs(trkDz1[index]) / trkDzError1[index] > 2)
+      return false;
+
+   if(trkEta[index] < -2.4 || trkEta[index] > 2.4)
+      return false;
+
+   return true;
+}
+
 MuTreeMessenger::MuTreeMessenger(TFile &File, std::string TreeName)
 {
    Tree = (TTree *)File.Get(TreeName.c_str());
@@ -1657,6 +1717,90 @@ bool PbPbTrackTreeMessenger::PassZHadron2022CutNoVZ(int index)
       return false;
 
    if(TrackNormChi2->at(index) / TrackNLayers->at(index) >= 0.18)
+      return false;
+
+   double ECAL = -1, HCAL = -1;
+   if(PFEcal != nullptr && PFEcal->size() > index)   ECAL = PFEcal->at(index);
+   if(PFHcal != nullptr && PFHcal->size() > index)   HCAL = PFHcal->at(index);
+   // if(TrackPT->at(index) > 20 && ((ECAL + HCAL) / cosh(TrackEta->at(index)) < 0.5 * TrackPT->at(index)))
+   //    return false;
+
+   if(fabs(TrackEta->at(index)) > 2.4)
+      return false;
+
+   return true;
+}
+
+bool PbPbTrackTreeMessenger::PassZHadron2022CutLoose(int index)
+{
+   if(TrackPT == nullptr)
+      return false;
+   if(index >= TrackPT->size())
+      return false;
+
+   if(TrackHighPurity->at(index) == false)
+      return false;
+
+   double RelativeUncertainty = TrackPTError->at(index) / TrackPT->at(index);
+   if(RelativeUncertainty >= 0.15)
+      return false;
+
+   // double XYVertexSignificance = fabs(TrackAssociatedVertexDxy->at(index) / TrackAssociatedVertexDxyError->at(index));
+   double XYVertexSignificance = fabs(TrackFirstVertexDxy->at(index) / TrackFirstVertexDxyError->at(index));
+   if(XYVertexSignificance >= 5)
+      return false;
+
+   // double ZVertexSignificance = fabs(TrackAssociatedVertexDz->at(index) / TrackAssociatedVertexDzError->at(index));
+   double ZVertexSignificance = fabs(TrackFirstVertexDz->at(index) / TrackFirstVertexDzError->at(index));
+   if(ZVertexSignificance >= 5)
+      return false;
+
+   if(TrackNHits->at(index) < 11)
+      return false;
+
+   if(TrackNormChi2->at(index) / TrackNLayers->at(index) >= 0.18)
+      return false;
+
+   double ECAL = -1, HCAL = -1;
+   if(PFEcal != nullptr && PFEcal->size() > index)   ECAL = PFEcal->at(index);
+   if(PFHcal != nullptr && PFHcal->size() > index)   HCAL = PFHcal->at(index);
+   // if(TrackPT->at(index) > 20 && ((ECAL + HCAL) / cosh(TrackEta->at(index)) < 0.5 * TrackPT->at(index)))
+   //    return false;
+
+   if(fabs(TrackEta->at(index)) > 2.4)
+      return false;
+
+   return true;
+}
+
+bool PbPbTrackTreeMessenger::PassZHadron2022CutTight(int index)
+{
+   if(TrackPT == nullptr)
+      return false;
+   if(index >= TrackPT->size())
+      return false;
+
+   if(TrackHighPurity->at(index) == false)
+      return false;
+
+   double RelativeUncertainty = TrackPTError->at(index) / TrackPT->at(index);
+   if(RelativeUncertainty >= 0.05)
+      return false;
+
+   // double XYVertexSignificance = fabs(TrackAssociatedVertexDxy->at(index) / TrackAssociatedVertexDxyError->at(index));
+   double XYVertexSignificance = fabs(TrackFirstVertexDxy->at(index) / TrackFirstVertexDxyError->at(index));
+   if(XYVertexSignificance >= 2)
+      return false;
+
+   // double ZVertexSignificance = fabs(TrackAssociatedVertexDz->at(index) / TrackAssociatedVertexDzError->at(index));
+   double ZVertexSignificance = fabs(TrackFirstVertexDz->at(index) / TrackFirstVertexDzError->at(index));
+   if(ZVertexSignificance >= 2)
+      return false;
+
+   if(TrackNHits->at(index) < 11)
+      return false;
+
+   if(TrackNormChi2->at(index) / TrackNLayers->at(index) >= 0.15)
       return false;
 
    double ECAL = -1, HCAL = -1;
