@@ -281,24 +281,24 @@ int main(int argc, char *argv[])
                {
                   if(IsPP == true)
                   {
-                     if(DoAlternateTrackSelection == false && MTrackPP.PassZHadron2022Cut(iTrack) == false)
+                     if(DoAlternateTrackSelection == false && MTrackPP.PassZHadron2022Cut(itrack) == false)
                         continue;
-                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0 && MTrackPP.PassZHadron2022Cut(iTrack) == false)
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0 && MTrackPP.PassZHadron2022Cut(itrack) == false)
                         continue;
-                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1 && MTrackPP.PassZHadron2022CutLoose(iTrack) == false)
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1 && MTrackPP.PassZHadron2022CutLoose(itrack) == false)
                         continue;
-                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2 && MTrackPP.PassZHadron2022CutTight(iTrack) == false)
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2 && MTrackPP.PassZHadron2022CutTight(itrack) == false)
                         continue;
                   }
                   if(IsPP == false)
                   {
-                     if(DoAlternateTrackSelection == false && MTrack.PassZHadron2022Cut(iTrack) == false)
+                     if(DoAlternateTrackSelection == false && MTrack.PassZHadron2022Cut(itrack) == false)
                         continue;
-                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0 && MTrack.PassZHadron2022Cut(iTrack) == false)
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0 && MTrack.PassZHadron2022Cut(itrack) == false)
                         continue;
-                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1 && MTrack.PassZHadron2022CutLoose(iTrack) == false)
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1 && MTrack.PassZHadron2022CutLoose(itrack) == false)
                         continue;
-                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2 && MTrack.PassZHadron2022CutTight(iTrack) == false)
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2 && MTrack.PassZHadron2022CutTight(itrack) == false)
                         continue;
                   }
                   if((IsPP ? MTrackPP.trkPt[itrack] : MTrack.TrackPT->at(itrack)) < MinTrackPT)
