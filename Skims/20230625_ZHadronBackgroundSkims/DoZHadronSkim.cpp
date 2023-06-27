@@ -70,6 +70,8 @@ int main(int argc, char *argv[])
    string PFTreeName                  = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
    PFTreeName                         = CL.Get("PFTree", PFTreeName);
 
+   bool DoAlternateTrackSelection     = CL.GetBool("DoAlternateTrackSelection", false);
+   int AlternateTrackSelection        = DoAlternateTrackSelection ? CL.GetInt("AlternateTrackSelection") : 0;
    bool DoTrackEfficiency             = CL.GetBool("DoTrackEfficiency", true);
    string TrackEfficiencyPath         = (DoTrackEfficiency == true) ? CL.Get("TrackEfficiencyPath") : "";
    bool DoTrackResidual               = CL.GetBool("DoTrackResidual", false);
@@ -97,7 +99,16 @@ int main(int argc, char *argv[])
       if(IsPP == true)
          TrackEfficiencyPP = new TrkEff2017pp(false, TrackEfficiencyPath);
       else
-         TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "", false, TrackEfficiencyPath);
+      {
+         if(DoAlternateTrackSelection == false)
+            TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "", false, TrackEfficiencyPath);
+         if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0)
+            TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "", false, TrackEfficiencyPath);
+         if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1)
+            TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "Loose", false, TrackEfficiencyPath);
+         if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2)
+            TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "Tight", false, TrackEfficiencyPath);
+      }
    }
    TrackResidualCentralityCorrector TrackResidual(TrackResidualPath);
 
@@ -268,10 +279,28 @@ int main(int argc, char *argv[])
             {
                if(DoGenCorrelation == false)   // track selection on reco
                {
-                  if(IsPP == true && MTrackPP.PassZHadron2022Cut(itrack) == false)
-                     continue;
-                  if(IsPP == false && MTrack.PassZHadron2022Cut(itrack) == false)
-                     continue;
+                  if(IsPP == true)
+                  {
+                     if(DoAlternateTrackSelection == false && MTrackPP.PassZHadron2022Cut(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0 && MTrackPP.PassZHadron2022Cut(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1 && MTrackPP.PassZHadron2022CutLoose(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2 && MTrackPP.PassZHadron2022CutTight(iTrack) == false)
+                        continue;
+                  }
+                  if(IsPP == false)
+                  {
+                     if(DoAlternateTrackSelection == false && MTrack.PassZHadron2022Cut(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 0 && MTrack.PassZHadron2022Cut(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 1 && MTrack.PassZHadron2022CutLoose(iTrack) == false)
+                        continue;
+                     if(DoAlternateTrackSelection == true && AlternateTrackSelection == 2 && MTrack.PassZHadron2022CutTight(iTrack) == false)
+                        continue;
+                  }
                   if((IsPP ? MTrackPP.trkPt[itrack] : MTrack.TrackPT->at(itrack)) < MinTrackPT)
                      continue;
                }
