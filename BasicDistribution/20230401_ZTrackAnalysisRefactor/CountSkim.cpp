@@ -65,8 +65,8 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TCut trkCut = Form("trackMuTagged==0&&trackPt>%f&&trackPt<%f",TptL,TptH);
 	TCut evtCutPP = Form("zMass[0]>60&&zPt[0]>%f&&zPt[0]<%f",ptL,ptH);
 
-	TCut SBHF = Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShift-HFTolerance,HFShift+HFTolerance);
-	TCut SBHFData = Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShiftData-HFToleranceData,HFShiftData+HFToleranceData);
+	TCut SBHF = "";//Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShift-HFTolerance,HFShift+HFTolerance);
+	TCut SBHFData = "";//Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShiftData-HFToleranceData,HFShiftData+HFToleranceData);
 
 	TH1D HNSig("HNSig","Normalization", 1, 0, 1);
 	TH1D HNBkg("HNBkg","Normalization", 1, 0, 1);
