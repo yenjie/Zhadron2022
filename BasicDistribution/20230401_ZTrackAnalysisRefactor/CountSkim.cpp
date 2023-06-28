@@ -195,9 +195,9 @@ int main(int argc, char *argv[]){
 
 	TreeSig->Add((InputBase + "SkimMC_v14.root").c_str());
 	TreePP0->Add((InputBase + "SkimPPMC_v14.root").c_str());
-	TreeBkg->Add((InputBase + BkgMCDir + "/*.root?#Tree").c_str());
+	TreeBkg->Add((InputBase + BkgMCDir + "/Result1*.root?#Tree").c_str());
 	TreeSigData->Add((InputBase + "OutputData_v14/*.root?#Tree").c_str());
-	TreeBkgData->Add((InputBase + BkgDataDir + "/*.root?#Tree").c_str());
+	TreeBkgData->Add((InputBase + BkgDataDir + "/Result1*.root?#Tree").c_str());
 	TreePP0Data->Add((InputBase + "OutputPPData_v14/*.root?#Tree").c_str());
 
 	CountSkim_single(CL,40,200,0,30,1,2);
