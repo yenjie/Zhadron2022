@@ -1,4 +1,4 @@
-executable   = ./do_ZTrackAna_UE.sh
+executable   = ./do_ZTrackAna_bkg.sh
 
 arguments    = $(ProcId)
 
@@ -15,4 +15,4 @@ when_to_transfer_output = ON_EXIT
 
 +JobFlavour = "tomorrow"
 
-queue 12
+queue 6
