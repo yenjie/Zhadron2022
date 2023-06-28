@@ -52,7 +52,7 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 
     fout<<"\\begin{tabular}{|l|c|c|c|c|}"<<endl;
 
-    fout<<"\\multicolumn{5}{l}{ HFShift = "<<HFShift<<", HFTolerance = "<<HFTolerance<<"}\\\\"endl;
+    fout<<"\\multicolumn{5}{l}{ HFShift = "<<HFShift<<", HFTolerance = "<<HFTolerance<<"}\\\\"<<std::endl;
     fout<<"\\multicolumn{5}{l}{  = $"<<ptL<<" < p_{T}^{Z} < "<<ptH<<", "<<centL<<" < Centrality < "<<centH<<", "<<TptL<<" < p_{T}^{trk} < "<<TptH<<"$}\\\\"<<std::endl;
 
    	double cent[201];
