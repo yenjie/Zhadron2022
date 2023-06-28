@@ -93,14 +93,14 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TH1D HNBkgData("HNBkgData","Normalization", 1, 0, 1);
 	TH1D HNPP0Data("HNPP0Data","Normalization", 1, 0, 1);
 
-	TreeSig		 ->Draw("0>>HNSig",(ZWt*TrkWt)*(evtCut&&trkCut));
-	TreeBkg		 ->Draw("0>>HNBkg",(ZWt*TrkWt)*(evtCut&&trkCut&&SBHF));
-	//TreeSgG		 ->Draw("0>>HNSgG",(ZWt*TrkWt)*(evtCutGen&&trkCut));
-	TreePP0		 ->Draw("0>>HNPP0",(ZWt*TrkWt)*(evtCutPP&&trkCut&&ppNPU));
-	//TreeBgG		 ->Draw("0>>HNBgG",(ZWt*TrkWt)*(evtCutGen&&trkCut&&SBHF));
-	TreeSigData->Draw("0>>HNSigData",(ZWt*TrkWt)*(evtCut&&trkCut));
-	TreeBkgData->Draw("0>>HNBkgData",(ZWt*TrkWt)*(evtCut&&trkCut&&SBHFData));
-	TreePP0Data->Draw("0>>HNPP0Data",(ZWt*TrkWt)*(evtCutPP&&trkCut));
+	TreeSig		 ->Draw("0>>HNSig",(ZWt*TrkWt)*(VZCut&&evtCut&&trkCut));
+	TreeBkg		 ->Draw("0>>HNBkg",(ZWt*TrkWt)*(VZCut&&evtCut&&trkCut&&SBHF));
+	//TreeSgG		 ->Draw("0>>HNSgG",(ZWt*TrkWt)*(VZCut&&evtCutGen&&trkCut));
+	TreePP0		 ->Draw("0>>HNPP0",(ZWt*TrkWt)*(VZCut&&evtCutPP&&trkCut&&ppNPU));
+	//TreeBgG		 ->Draw("0>>HNBgG",(ZWt*TrkWt)*(VZCut&&evtCutGen&&trkCut&&SBHF));
+	TreeSigData->Draw("0>>HNSigData",(ZWt*TrkWt)*(VZCut&&evtCut&&trkCut));
+	TreeBkgData->Draw("0>>HNBkgData",(ZWt*TrkWt)*(VZCut&&evtCut&&trkCut&&SBHFData));
+	TreePP0Data->Draw("0>>HNPP0Data",(ZWt*TrkWt)*(VZCut&&evtCutPP&&trkCut));
 
 	double t1N = HNSig.GetBinContent(1);
 	double t2N = HNBkg.GetBinContent(1);
@@ -130,14 +130,14 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TH1D HNBkgData1("HNBkgData1","Normalization", 1, 0, 1);
 	TH1D HNPP0Data1("HNPP0Data1","Normalization", 1, 0, 1);
 
-	TreeSig		 ->Draw("0>>HNSig1",ZWt*evtCut);
-	TreeBkg		 ->Draw("0>>HNBkg1",ZWt*(evtCut&&SBHF));
-	//TreeSgG		 ->Draw("0>>HNSgG1",ZWt*evtCutGen);
-	TreePP0		 ->Draw("0>>HNPP01",ZWt*(evtCutPP&&ppNPU));
+	TreeSig		 ->Draw("0>>HNSig1",ZWt*(VZCut&&evtCut));
+	TreeBkg		 ->Draw("0>>HNBkg1",ZWt*(VZCut&&evtCut&&SBHF));
+	//TreeSgG		 ->Draw("0>>HNSgG1",ZWt*(VZCut&&evtCutGen));
+	TreePP0		 ->Draw("0>>HNPP01",ZWt*(VZCut&&evtCutPP&&ppNPU));
 	//TreeBgG		 ->Draw("0>>HNBgG1",ZWt*evtCutGen);
-	TreeSigData->Draw("0>>HNSigData1",ZWt*evtCut);
-	TreeBkgData->Draw("0>>HNBkgData1",ZWt*(evtCut&&SBHFData));
-	TreePP0Data->Draw("0>>HNPP0Data1",ZWt*evtCutPP);
+	TreeSigData->Draw("0>>HNSigData1",ZWt*(VZCut&&evtCut));
+	TreeBkgData->Draw("0>>HNBkgData1",ZWt*(VZCut&&evtCut&&SBHFData));
+	TreePP0Data->Draw("0>>HNPP0Data1",ZWt*(VZCut&&evtCutPP));
 
 	double z1N = HNSig1.GetBinContent(1);
 	double z2N = HNBkg1.GetBinContent(1);
