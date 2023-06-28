@@ -50,8 +50,10 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 
     int ppNPU= CL.GetInteger("ppNPU",0);
 
-    fout<<"HFShift = "<<HFShift<<", HFTolerance = "<<HFTolerance<<endl;
-    fout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
+    fout<<"\\begin{tabular}{|l|c|c|c|c|}"<<endl;
+
+    fout<<"\\multicolumn{5}{l}{ HFShift = "<<HFShift<<", HFTolerance = "<<HFTolerance<<"}\\\\"endl;
+    fout<<"\\multicolumn{5}{l}{  = $"<<ptL<<" < p_{T}^{Z} < "<<ptH<<", "<<centL<<" < Centrality < "<<centH<<", "<<TptL<<" < p_{T}^{trk} < "<<TptH<<"$}\\\\"<<std::endl;
 
    	double cent[201];
 
@@ -176,24 +178,28 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	double et1 = t1E/t1N, et2 = t2E/t2N, et4 = t4E/t4N, et6 = t6E/t6N, et7 = t7E/t7N, et8 = t8E/t8N;
 	double ez1 = z1E/z1N, ez2 = z2E/z2N, ez4 = z4E/z4N, ez6 = z6E/z6N, ez7 = z7E/z7N, ez8 = z8E/z8N;
 
-	fout<<"======================================"<<std::endl;
+	
+	//fout<<"======================================"<<std::endl;
+	fout<<"\\hline\\hline"<<std::endl;
 
-	fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig MC" <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Bkg MC" <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig-Bkg MC" <<setw(2)<<"|"<<left<<setw(15)<< "ppMC NPU=0" <<endl;
-	fout<<left<<setw(15)<< "N_Z (unweighted)" <<setw(2)<<"|"<<left<<setw(15)<< z1N0          <<setw(2)<<"|"<<left<<setw(15)<< z2N0          <<setw(2)<<"|"<<left<<setw(15)<< z1N0-z2N0         <<setw(2)<<"|"<<left<<setw(15)<< z4N0         <<endl;
-	fout<<left<<setw(15)<< "Nevt (weighted)"  <<setw(2)<<"|"<<left<<setw(15)<< z1N           <<setw(2)<<"|"<<left<<setw(15)<< z2N           <<setw(2)<<"|"<<left<<setw(15)<< z1N-z2N           <<setw(2)<<"|"<<left<<setw(15)<< z4N          <<endl;
-	fout<<left<<setw(15)<< "Ntrk/Nevt" 	      <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"|"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"|"<<left<<setw(15)<< t1N/z1N-t2N/z2N   <<setw(2)<<"|"<<left<<setw(15)<< t4N/z4N      <<endl;
-	fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"|"<<left<<setw(15)<< t1E/z1N       <<setw(2)<<"|"<<left<<setw(15)<< t2E/z2N       <<setw(2)<<"|"<<left<<setw(15)<< sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N)) <<setw(2)<<"|"<<left<<setw(15)<< t4E/z4N      <<endl;
+	fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig MC" <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg MC" <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig-Bkg MC" <<setw(2)<<"&"<<left<<setw(15)<< "ppMC NPU=0" <<"\\\\"<<endl;
+	fout<<left<<setw(15)<<"$N_Z$ (unweighted)"<<setw(2)<<"&"<<left<<setw(15)<< z1N0          <<setw(2)<<"&"<<left<<setw(15)<< z2N0          <<setw(2)<<"&"<<left<<setw(15)<< z1N0-z2N0         <<setw(2)<<"&"<<left<<setw(15)<< z4N0         <<"\\\\"<<endl;
+	fout<<left<<setw(15)<<"N_{evt} (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z1N           <<setw(2)<<"&"<<left<<setw(15)<< z2N           <<setw(2)<<"&"<<left<<setw(15)<< z1N-z2N           <<setw(2)<<"&"<<left<<setw(15)<< z4N          <<"\\\\"<<endl;
+	fout<<left<<setw(15)<< "N_{trk}/N_{evt}"  <<setw(2)<<"&"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"&"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"&"<<left<<setw(15)<< t1N/z1N-t2N/z2N   <<setw(2)<<"&"<<left<<setw(15)<< t4N/z4N      <<"\\\\"<<endl;
+	fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"&"<<left<<setw(15)<< t1E/z1N       <<setw(2)<<"&"<<left<<setw(15)<< t2E/z2N       <<setw(2)<<"&"<<left<<setw(15)<< sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N)) <<setw(2)<<"&"<<left<<setw(15)<< t4E/z4N <<"\\\\"<<endl;
 
-	fout<<"--------------------------------------"<<std::endl;
+	//fout<<"--------------------------------------"<<std::endl;
+	fout<<"\\hline"<<std::endl;
 
-	fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"|"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"|"<<left<<setw(15)<< "PbPb Sig-Bkg Data"<<setw(2)<<"|"<<left<<setw(15)<< "pp Data NPU=0" <<endl;
-	fout<<left<<setw(15)<< "N_Z (unweighted)" <<setw(2)<<"|"<<left<<setw(15)<< z6N0           <<setw(2)<<"|"<<left<<setw(15)<< z7N0           <<setw(2)<<"|"<<left<<setw(15)<< z6N0-z7N0          <<setw(2)<<"|"<<left<<setw(15)<< z8N0            <<endl;
-	fout<<left<<setw(15)<< "Nevt (weighted)"  <<setw(2)<<"|"<<left<<setw(15)<< z6N            <<setw(2)<<"|"<<left<<setw(15)<< z7N            <<setw(2)<<"|"<<left<<setw(15)<< z6N-z7N            <<setw(2)<<"|"<<left<<setw(15)<< z8N             <<endl;
-	fout<<left<<setw(15)<< "Ntrk/Nevt" 	      <<setw(2)<<"|"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"|"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"|"<<left<<setw(15)<< t6N/z6N-t7N/z7N    <<setw(2)<<"|"<<left<<setw(15)<< t8N/z8N         <<endl;
-	fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"|"<<left<<setw(15)<< t6E/z6N        <<setw(2)<<"|"<<left<<setw(15)<< t7E/z7N        <<setw(2)<<"|"<<left<<setw(15)<< sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N)) <<setw(2)<<"|"<<left<<setw(15)<< t8E/z8N      <<endl;
+	fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig-Bkg Data"<<setw(2)<<"&"<<left<<setw(15)<< "pp Data NPU=0" <<"\\\\"<<endl;
+	fout<<left<<setw(15)<<"$N_Z$ (unweighted)"<<setw(2)<<"&"<<left<<setw(15)<< z6N0           <<setw(2)<<"&"<<left<<setw(15)<< z7N0           <<setw(2)<<"&"<<left<<setw(15)<< z6N0-z7N0          <<setw(2)<<"&"<<left<<setw(15)<< z8N0            <<"\\\\"<<endl;
+	fout<<left<<setw(15)<<"N_{evt} (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z6N            <<setw(2)<<"&"<<left<<setw(15)<< z7N            <<setw(2)<<"&"<<left<<setw(15)<< z6N-z7N            <<setw(2)<<"&"<<left<<setw(15)<< z8N             <<"\\\\"<<endl;
+	fout<<left<<setw(15)<< "N_{trk}/N_{evt}"  <<setw(2)<<"&"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"&"<<left<<setw(15)<< t6N/z6N-t7N/z7N    <<setw(2)<<"&"<<left<<setw(15)<< t8N/z8N         <<"\\\\"<<endl;
+	fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"&"<<left<<setw(15)<< t6E/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7E/z7N        <<setw(2)<<"&"<<left<<setw(15)<< sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N)) <<setw(2)<<"&"<<left<<setw(15)<< t8E/z8N <<"\\\\"<<endl;
 
-	fout<<"======================================"<<std::endl;
-
+	//fout<<"======================================"<<std::endl;
+	fout<<"\\hline\\hline"<<std::endl;
+	fout<<"\\end{tabular}"<<std::endl;
 	string OutputFileNameBkup = OutputFileName;
 	OutputFileNameBkup.replace(OutputFileNameBkup.end()-4,OutputFileNameBkup.end(),"_bkup.txt");
 
@@ -206,7 +212,7 @@ int main(int argc, char *argv[]){
 	CommandLine CL(argc, argv);
 
 	string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions/pchou/");
-   	string OutputFileName = CL.Get("Output", "SkimCount30.txt");
+   	string OutputFileName = CL.Get("Output", "SkimCount.tex");
    	string BkgDataDir     = CL.Get("BkgDataDir", "OutputDataBackground_v15b");
    	string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v15b");
    	//string BkgMCGenDir	  = CL.Get("BkgMCGenDir", "OutputMCbkgGen_v14");
@@ -223,15 +229,15 @@ int main(int argc, char *argv[]){
 
 	string YiBase = "/eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/";
 
-	TreeSig->Add((YiBase + SigMCDir + "/Result1*.root?#Tree").c_str());
+	TreeSig->Add((YiBase + SigMCDir + "/Result*.root?#Tree").c_str());
 	TreePP0->Add((YiBase + SigPPMCDir + "/Result*.root?#Tree").c_str());
-	TreeBkg->Add((InputBase + BkgMCDir + "/Result1*.root?#Tree").c_str());
-	TreeSigData->Add((YiBase + SigDataDir + "/Result5*.root?#Tree").c_str());
-	TreeSigData->Add((YiBase + SigDataDir + "/Result6*.root?#Tree").c_str());
-	TreeBkgData->Add((InputBase + BkgDataDir + "/Result5*.root?#Tree").c_str());
-	TreeBkgData->Add((InputBase + BkgDataDir + "/Result6*.root?#Tree").c_str());
-	TreePP0Data->Add((YiBase + SigPPDataDir + "/Result5*.root?#Tree").c_str());
-	TreePP0Data->Add((YiBase + SigPPDataDir + "/Result6*.root?#Tree").c_str());
+	TreeBkg->Add((InputBase + BkgMCDir + "/Result*.root?#Tree").c_str());
+	TreeSigData->Add((YiBase + SigDataDir + "/Result*.root?#Tree").c_str());
+	//TreeSigData->Add((YiBase + SigDataDir + "/Result6*.root?#Tree").c_str());
+	TreeBkgData->Add((InputBase + BkgDataDir + "/Result*.root?#Tree").c_str());
+	//TreeBkgData->Add((InputBase + BkgDataDir + "/Result6*.root?#Tree").c_str());
+	TreePP0Data->Add((YiBase + SigPPDataDir + "/Result*.root?#Tree").c_str());
+	//TreePP0Data->Add((YiBase + SigPPDataDir + "/Result6*.root?#Tree").c_str());
 
 	CountSkim_single(CL,40,200,0,30,1,2);
 	CountSkim_single(CL,40,200,0,30,2,4);
