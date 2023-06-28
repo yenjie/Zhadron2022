@@ -71,10 +71,10 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TCut trkCut = Form("trackMuTagged==0&&trackPt>%f&&trackPt<%f",TptL,TptH);
 	TCut evtCutPP = Form("zMass[0]>60&&zPt[0]>%f&&zPt[0]<%f",ptL,ptH);
 
-	//TCut VZCut = Form("SignalVZ>%f&&SignalVZ<%f",VZMin,VZMax);
+	TCut VZCut = Form("SignalVZ>%f&&SignalVZ<%f",VZMin,VZMax);
 	//string ZWt = Form("NCollWeight*ZWeight*ExtraZWeight[%d]*VZWeight",ZWtID);
 
-	string ExtZwt = "ExtraZWeight["+ ZWtID + "]";
+	string ExtZwt = "ExtraZWeight["+ Form("%d",ZWtID) + "]";
 	if(ZWtID==-1) 
 		ExtZwt = "";
 
