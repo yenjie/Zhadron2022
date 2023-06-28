@@ -74,12 +74,12 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TCut VZCut = Form("SignalVZ>%f&&SignalVZ<%f",VZMin,VZMax);
 	TCut ZWt = Form("NCollWeight*ZWeight*ExtraZWeight[%d]*VZWeight",ZWtID);
 	if(ZWtID==-1) 
-		ZWt = "NCollWeight*ZWeight*VZWeight";
+		ZWt = (TCut) "NCollWeight*ZWeight*VZWeight";
 
 	TCut TrkWt = "trackWeight*trackResidualWeight";
 	TCut ppNPUcut = "";
 	if(ppNPU==0)
-		ppNPUcut = "NPU==0";
+		ppNPUcut = (TCut) "NPU==0";
 
 	TCut SBHF = "";//Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShift-HFTolerance,HFShift+HFTolerance);
 	TCut SBHFData = "";//Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShiftData-HFToleranceData,HFShiftData+HFToleranceData);
