@@ -71,12 +71,14 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TCut trkCut = Form("trackMuTagged==0&&trackPt>%f&&trackPt<%f",TptL,TptH);
 	TCut evtCutPP = Form("zMass[0]>60&&zPt[0]>%f&&zPt[0]<%f",ptL,ptH);
 
-	TCut VZCut = Form("SignalVZ>%f&&SignalVZ<%f",VZMin,VZMax);
-	string ZWt = Form("NCollWeight*ZWeight*ExtraZWeight[%d]*VZWeight",ZWtID);
-	if(ZWtID==-1) 
-		ZWt = "(NCollWeight*ZWeight*VZWeight)";
+	//TCut VZCut = Form("SignalVZ>%f&&SignalVZ<%f",VZMin,VZMax);
+	//string ZWt = Form("NCollWeight*ZWeight*ExtraZWeight[%d]*VZWeight",ZWtID);
 
-	string TrkWt = "(" + ZWt + "*trackWeight*trackResidualWeight)";
+	string ExtZwt = "ExtraZWeight["+ ZWtID + "]";
+	if(ZWtID==-1) 
+		ExtZwt = "";
+
+	//string TrkWt = "(" + ZWt + "*trackWeight*trackResidualWeight)";
 	TCut ppNPUcut = "";
 	if(ppNPU==0)
 		ppNPUcut = (TCut) "NPU==0";
@@ -93,14 +95,15 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TH1D HNBkgData("HNBkgData","Normalization", 1, 0, 1);
 	TH1D HNPP0Data("HNPP0Data","Normalization", 1, 0, 1);
 
-	TreeSig		 ->Draw("0>>HNSig",TrkWt*(VZCut&&evtCut&&trkCut));
-	TreeBkg		 ->Draw("0>>HNBkg",TrkWt*(VZCut&&evtCut&&trkCut&&SBHF));
-	//TreeSgG		 ->Draw("0>>HNSgG",TrkWt*(VZCut&&evtCutGen&&trkCut));
-	TreePP0		 ->Draw("0>>HNPP0",TrkWt*(VZCut&&evtCutPP&&trkCut&&ppNPU));
-	//TreeBgG		 ->Draw("0>>HNBgG",TrkWt*(VZCut&&evtCutGen&&trkCut&&SBHF));
-	TreeSigData->Draw("0>>HNSigData",TrkWt*(VZCut&&evtCut&&trkCut));
-	TreeBkgData->Draw("0>>HNBkgData",TrkWt*(VZCut&&evtCut&&trkCut&&SBHFData));
-	TreePP0Data->Draw("0>>HNPP0Data",TrkWt*(VZCut&&evtCutPP&&trkCut));
+	if(ZWtID==-1)
+	TreeSig		 ->Draw("0>>HNSig",Form("(NCollWeight*ZWeight*%s*VZWeight*trackWeight*trackResidualWeight)",ExtZwt)*(VZCut&&evtCut&&trkCut));
+	TreeBkg		 ->Draw("0>>HNBkg",Form("(NCollWeight*ZWeight*%s*VZWeight*trackWeight*trackResidualWeight)",ExtZwt)*(VZCut&&evtCut&&trkCut&&SBHF));
+	//TreeSgG		 ->Draw("0>>HNSgG",Form("(NCollWeight*ZWeight*%s*VZWeight*trackWeight*trackResidualWeight)",ExtZwt)*(VZCut&&evtCutGen&&trkCut));
+	TreePP0		 ->Draw("0>>HNPP0",Form("(NCollWeight*ZWeight*%s*VZWeight*trackWeight*trackResidualWeight)",ExtZwt)*(VZCut&&evtCutPP&&trkCut&&ppNPU));
+	//TreeBgG		 ->Draw("0>>HNBgG",Form("(NCollWeight*ZWeight*%s*VZWeight*trackWeight*trackResidualWeight)",ExtZwt)*(VZCut&&evtCutGen&&trkCut&&SBHF));
+	TreeSigData->Draw("0>>HNSigData",Form("(NCollWeight*ZWeight*%s*VZWeight*trackWeight*trackResidualWeight)",ExtZwt)*(VZCut&&evtCut&&trkCut));
+	TreeBkgData->Draw("0>>HNBkgData",Form("(NCollWeight*ZWeight*%s*VZWeight*trackWeight*trackResidualWeight)",ExtZwt)*(VZCut&&evtCut&&trkCut&&SBHFData));
+	TreePP0Data->Draw("0>>HNPP0Data",Form("(NCollWeight*ZWeight*%s*VZWeight*trackWeight*trackResidualWeight)",ExtZwt)*(VZCut&&evtCutPP&&trkCut));
 
 	double t1N = HNSig.GetBinContent(1);
 	double t2N = HNBkg.GetBinContent(1);
@@ -130,14 +133,14 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TH1D HNBkgData1("HNBkgData1","Normalization", 1, 0, 1);
 	TH1D HNPP0Data1("HNPP0Data1","Normalization", 1, 0, 1);
 
-	TreeSig		 ->Draw("0>>HNSig1",ZWt*(VZCut&&evtCut));
-	TreeBkg		 ->Draw("0>>HNBkg1",ZWt*(VZCut&&evtCut&&SBHF));
-	//TreeSgG		 ->Draw("0>>HNSgG1",ZWt*(VZCut&&evtCutGen));
-	TreePP0		 ->Draw("0>>HNPP01",ZWt*(VZCut&&evtCutPP&&ppNPU));
-	//TreeBgG		 ->Draw("0>>HNBgG1",ZWt*evtCutGen);
-	TreeSigData->Draw("0>>HNSigData1",ZWt*(VZCut&&evtCut));
-	TreeBkgData->Draw("0>>HNBkgData1",ZWt*(VZCut&&evtCut&&SBHFData));
-	TreePP0Data->Draw("0>>HNPP0Data1",ZWt*(VZCut&&evtCutPP));
+	TreeSig		 ->Draw("0>>HNSig1",Form("(NCollWeight*ZWeight*%s*VZWeight)",ExtZwt)*(VZCut&&evtCut));
+	TreeBkg		 ->Draw("0>>HNBkg1",Form("(NCollWeight*ZWeight*%s*VZWeight)",ExtZwt)*(VZCut&&evtCut&&SBHF));
+	//TreeSgG		 ->Draw("0>>HNSgG1",Form("(NCollWeight*ZWeight*%s*VZWeight)",ExtZwt)*(VZCut&&evtCutGen));
+	TreePP0		 ->Draw("0>>HNPP01",Form("(NCollWeight*ZWeight*%s*VZWeight)",ExtZwt)*(VZCut&&evtCutPP&&ppNPU));
+	//TreeBgG		 ->Draw("0>>HNBgG1",Form("(NCollWeight*ZWeight*%s*VZWeight)",ExtZwt)*evtCutGen);
+	TreeSigData->Draw("0>>HNSigData1",Form("(NCollWeight*ZWeight*%s*VZWeight)",ExtZwt)*(VZCut&&evtCut));
+	TreeBkgData->Draw("0>>HNBkgData1",Form("(NCollWeight*ZWeight*%s*VZWeight)",ExtZwt)*(VZCut&&evtCut&&SBHFData));
+	TreePP0Data->Draw("0>>HNPP0Data1",Form("(NCollWeight*ZWeight*%s*VZWeight)",ExtZwt)*(VZCut&&evtCutPP));
 
 	double z1N = HNSig1.GetBinContent(1);
 	double z2N = HNBkg1.GetBinContent(1);
