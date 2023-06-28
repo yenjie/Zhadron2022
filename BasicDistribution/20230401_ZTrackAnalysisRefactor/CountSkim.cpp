@@ -74,7 +74,7 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TCut VZCut = Form("SignalVZ>%f&&SignalVZ<%f",VZMin,VZMax);
 	//string ZWt = Form("NCollWeight*ZWeight*ExtraZWeight[%d]*VZWeight",ZWtID);
 
-	string ExtZwt = "ExtraZWeight["+ Form("%d",ZWtID) + "]";
+	string ExtZwt = Form("ExtraZWeight[%d]",ZWtID);
 	if(ZWtID==-1) 
 		ExtZwt = "";
 
