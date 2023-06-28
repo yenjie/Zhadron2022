@@ -72,11 +72,11 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TCut evtCutPP = Form("zMass[0]>60&&zPt[0]>%f&&zPt[0]<%f",ptL,ptH);
 
 	TCut VZCut = Form("SignalVZ>%f&&SignalVZ<%f",VZMin,VZMax);
-	TCut ZWt = Form("NCollWeight*ZWeight*ExtraZWeight[%d]*VZWeight",ZWtID);
+	string ZWt = Form("NCollWeight*ZWeight*ExtraZWeight[%d]*VZWeight",ZWtID);
 	if(ZWtID==-1) 
-		ZWt = (TCut) "NCollWeight*ZWeight*VZWeight";
+		ZWt = "(NCollWeight*ZWeight*VZWeight)";
 
-	TCut TrkWt = "trackWeight*trackResidualWeight";
+	string TrkWt = "(" + ZWt + "*trackWeight*trackResidualWeight)";
 	TCut ppNPUcut = "";
 	if(ppNPU==0)
 		ppNPUcut = (TCut) "NPU==0";
@@ -93,14 +93,14 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TH1D HNBkgData("HNBkgData","Normalization", 1, 0, 1);
 	TH1D HNPP0Data("HNPP0Data","Normalization", 1, 0, 1);
 
-	TreeSig		 ->Draw("0>>HNSig",(ZWt*TrkWt)*(VZCut&&evtCut&&trkCut));
-	TreeBkg		 ->Draw("0>>HNBkg",(ZWt*TrkWt)*(VZCut&&evtCut&&trkCut&&SBHF));
-	//TreeSgG		 ->Draw("0>>HNSgG",(ZWt*TrkWt)*(VZCut&&evtCutGen&&trkCut));
-	TreePP0		 ->Draw("0>>HNPP0",(ZWt*TrkWt)*(VZCut&&evtCutPP&&trkCut&&ppNPU));
-	//TreeBgG		 ->Draw("0>>HNBgG",(ZWt*TrkWt)*(VZCut&&evtCutGen&&trkCut&&SBHF));
-	TreeSigData->Draw("0>>HNSigData",(ZWt*TrkWt)*(VZCut&&evtCut&&trkCut));
-	TreeBkgData->Draw("0>>HNBkgData",(ZWt*TrkWt)*(VZCut&&evtCut&&trkCut&&SBHFData));
-	TreePP0Data->Draw("0>>HNPP0Data",(ZWt*TrkWt)*(VZCut&&evtCutPP&&trkCut));
+	TreeSig		 ->Draw("0>>HNSig",TrkWt*(VZCut&&evtCut&&trkCut));
+	TreeBkg		 ->Draw("0>>HNBkg",TrkWt*(VZCut&&evtCut&&trkCut&&SBHF));
+	//TreeSgG		 ->Draw("0>>HNSgG",TrkWt*(VZCut&&evtCutGen&&trkCut));
+	TreePP0		 ->Draw("0>>HNPP0",TrkWt*(VZCut&&evtCutPP&&trkCut&&ppNPU));
+	//TreeBgG		 ->Draw("0>>HNBgG",TrkWt*(VZCut&&evtCutGen&&trkCut&&SBHF));
+	TreeSigData->Draw("0>>HNSigData",TrkWt*(VZCut&&evtCut&&trkCut));
+	TreeBkgData->Draw("0>>HNBkgData",TrkWt*(VZCut&&evtCut&&trkCut&&SBHFData));
+	TreePP0Data->Draw("0>>HNPP0Data",TrkWt*(VZCut&&evtCutPP&&trkCut));
 
 	double t1N = HNSig.GetBinContent(1);
 	double t2N = HNBkg.GetBinContent(1);
