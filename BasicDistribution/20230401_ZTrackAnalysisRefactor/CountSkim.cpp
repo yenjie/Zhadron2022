@@ -44,6 +44,12 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
     double HFToleranceData= CL.GetDouble("ToleranceData",150);
     //HFToleranceFraction   = CL.GetDouble("ToleranceFraction");
 
+    int ZWtID= CL.GetInteger("ZWtID",-1);
+    double VZMin= CL.GetDouble("VZMin",-10000);
+    double VZMax= CL.GetDouble("VZMax",10000);
+
+    int ppNPU= CL.GetInteger("ppNPU",0);
+
     fout<<"HFShift = "<<HFShift<<", HFTolerance = "<<HFTolerance<<endl;
     fout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
 
@@ -65,6 +71,16 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TCut trkCut = Form("trackMuTagged==0&&trackPt>%f&&trackPt<%f",TptL,TptH);
 	TCut evtCutPP = Form("zMass[0]>60&&zPt[0]>%f&&zPt[0]<%f",ptL,ptH);
 
+	TCut VZCut = Form("SignalVZ>%f&&SignalVZ<%f",VZMin,VZMax);
+	TCut ZWt = Form("NCollWeight*ZWeight*ExtraZWeight[%d]*VZWeight",ZWtID);
+	if(ZWtID==-1) 
+		ZWt = "NCollWeight*ZWeight*VZWeight";
+
+	TCut TrkWt = "trackWeight*trackResidualWeight";
+	TCut ppNPUcut = "";
+	if(ppNPU==0)
+		ppNPUcut = "NPU==0";
+
 	TCut SBHF = "";//Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShift-HFTolerance,HFShift+HFTolerance);
 	TCut SBHFData = "";//Form("SignalHF-BackgroundHF>%f&&SignalHF-BackgroundHF<%f",HFShiftData-HFToleranceData,HFShiftData+HFToleranceData);
 
@@ -77,14 +93,14 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TH1D HNBkgData("HNBkgData","Normalization", 1, 0, 1);
 	TH1D HNPP0Data("HNPP0Data","Normalization", 1, 0, 1);
 
-	TreeSig		 ->Draw("0>>HNSig","(NCollWeight*ZWeight*VZWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut));
-	TreeBkg		 ->Draw("0>>HNBkg","(NCollWeight*ZWeight*VZWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut&&SBHF));
-	//TreeSgG		 ->Draw("0>>HNSgG","(NCollWeight*ZWeight*VZWeight*trackWeight*trackResidualWeight)"*(evtCutGen&&trkCut));
-	TreePP0		 ->Draw("0>>HNPP0","(NCollWeight*ZWeight*VZWeight*trackWeight*trackResidualWeight)"*(evtCutPP&&trkCut&&"NPU==0"));
-	//TreeBgG		 ->Draw("0>>HNBgG","(NCollWeight*ZWeight*VZWeight*trackWeight*trackResidualWeight)"*(evtCutGen&&trkCut&&SBHF));
-	TreeSigData->Draw("0>>HNSigData","(NCollWeight*ZWeight*VZWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut));
-	TreeBkgData->Draw("0>>HNBkgData","(NCollWeight*ZWeight*VZWeight*trackWeight*trackResidualWeight)"*(evtCut&&trkCut&&SBHFData));
-	TreePP0Data->Draw("0>>HNPP0Data","(NCollWeight*ZWeight*VZWeight*trackWeight*trackResidualWeight)"*(evtCutPP&&trkCut));
+	TreeSig		 ->Draw("0>>HNSig",(ZWt*TrkWt)*(evtCut&&trkCut));
+	TreeBkg		 ->Draw("0>>HNBkg",(ZWt*TrkWt)*(evtCut&&trkCut&&SBHF));
+	//TreeSgG		 ->Draw("0>>HNSgG",(ZWt*TrkWt)*(evtCutGen&&trkCut));
+	TreePP0		 ->Draw("0>>HNPP0",(ZWt*TrkWt)*(evtCutPP&&trkCut&&ppNPU));
+	//TreeBgG		 ->Draw("0>>HNBgG",(ZWt*TrkWt)*(evtCutGen&&trkCut&&SBHF));
+	TreeSigData->Draw("0>>HNSigData",(ZWt*TrkWt)*(evtCut&&trkCut));
+	TreeBkgData->Draw("0>>HNBkgData",(ZWt*TrkWt)*(evtCut&&trkCut&&SBHFData));
+	TreePP0Data->Draw("0>>HNPP0Data",(ZWt*TrkWt)*(evtCutPP&&trkCut));
 
 	double t1N = HNSig.GetBinContent(1);
 	double t2N = HNBkg.GetBinContent(1);
@@ -114,14 +130,14 @@ void CountSkim_single(CommandLine &CL,float ptL=20,float ptH=2000,int centL=0,in
 	TH1D HNBkgData1("HNBkgData1","Normalization", 1, 0, 1);
 	TH1D HNPP0Data1("HNPP0Data1","Normalization", 1, 0, 1);
 
-	TreeSig		 ->Draw("0>>HNSig1","(NCollWeight*ZWeight*VZWeight)"*evtCut);
-	TreeBkg		 ->Draw("0>>HNBkg1","(NCollWeight*ZWeight*VZWeight)"*(evtCut&&SBHF));
-	//TreeSgG		 ->Draw("0>>HNSgG1","(NCollWeight*ZWeight*VZWeight)"*evtCutGen);
-	TreePP0		 ->Draw("0>>HNPP01","(NCollWeight*ZWeight*VZWeight)"*(evtCutPP&&"NPU==0"));
-	//TreeBgG		 ->Draw("0>>HNBgG1","(NCollWeight*ZWeight*VZWeight)"*evtCutGen);
-	TreeSigData->Draw("0>>HNSigData1","(NCollWeight*ZWeight*VZWeight)"*evtCut);
-	TreeBkgData->Draw("0>>HNBkgData1","(NCollWeight*ZWeight*VZWeight)"*(evtCut&&SBHFData));
-	TreePP0Data->Draw("0>>HNPP0Data1","(NCollWeight*ZWeight*VZWeight)"*evtCutPP);
+	TreeSig		 ->Draw("0>>HNSig1",ZWt*evtCut);
+	TreeBkg		 ->Draw("0>>HNBkg1",ZWt*(evtCut&&SBHF));
+	//TreeSgG		 ->Draw("0>>HNSgG1",ZWt*evtCutGen);
+	TreePP0		 ->Draw("0>>HNPP01",ZWt*(evtCutPP&&ppNPU));
+	//TreeBgG		 ->Draw("0>>HNBgG1",ZWt*evtCutGen);
+	TreeSigData->Draw("0>>HNSigData1",ZWt*evtCut);
+	TreeBkgData->Draw("0>>HNBkgData1",ZWt*(evtCut&&SBHFData));
+	TreePP0Data->Draw("0>>HNPP0Data1",ZWt*evtCutPP);
 
 	double z1N = HNSig1.GetBinContent(1);
 	double z2N = HNBkg1.GetBinContent(1);
@@ -184,22 +200,31 @@ int main(int argc, char *argv[]){
 
 	string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions/pchou/");
    	string OutputFileName = CL.Get("Output", "SkimCount30.txt");
-   	string BkgDataDir     = CL.Get("BkgDataDir", "OutputDatabkg_v14");
-   	string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v14");
+   	string BkgDataDir     = CL.Get("BkgDataDir", "OutputDataBackground_v15b");
+   	string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v15b");
    	//string BkgMCGenDir	  = CL.Get("BkgMCGenDir", "OutputMCbkgGen_v14");
+
+   	string SigMCDir		  = CL.Get("SigMCDir", "OutputMC_v15");
+   	string SigPPMCDir     = CL.Get("SigPPMCDir", "OutputPPMC_v15");
+   	string SigPPDataDir	  = CL.Get("SigPPDataDir", "OutputPPData_v15");
+   	string SigDataDir	  = CL.Get("SigDataDir", "OutputData_v15");
 
    	//int CentUD = CL.Get("CentUD", 0);
    	//int UEUD = CL.Get("UEUD", 0);
 
 	fout.open(OutputFileName);
 
-	TreeSig->Add((InputBase + "SkimMC_v14.root").c_str());
-	TreePP0->Add((InputBase + "SkimPPMC_v14.root").c_str());
+	string YiBase = "/eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/";
+
+	TreeSig->Add((YiBase + SigMCDir + "/Result1*.root?#Tree").c_str());
+	TreePP0->Add((YiBase + SigPPMCDir + "/Result*.root?#Tree").c_str());
 	TreeBkg->Add((InputBase + BkgMCDir + "/Result1*.root?#Tree").c_str());
-	TreeSigData->Add((InputBase + "OutputData_v14/*.root?#Tree").c_str());
+	TreeSigData->Add((YiBase + SigDataDir + "/Result5*.root?#Tree").c_str());
+	TreeSigData->Add((YiBase + SigDataDir + "/Result6*.root?#Tree").c_str());
 	TreeBkgData->Add((InputBase + BkgDataDir + "/Result5*.root?#Tree").c_str());
 	TreeBkgData->Add((InputBase + BkgDataDir + "/Result6*.root?#Tree").c_str());
-	TreePP0Data->Add((InputBase + "OutputPPData_v14/*.root?#Tree").c_str());
+	TreePP0Data->Add((YiBase + SigPPDataDir + "/Result5*.root?#Tree").c_str());
+	TreePP0Data->Add((YiBase + SigPPDataDir + "/Result6*.root?#Tree").c_str());
 
 	CountSkim_single(CL,40,200,0,30,1,2);
 	CountSkim_single(CL,40,200,0,30,2,4);
