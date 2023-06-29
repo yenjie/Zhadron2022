@@ -45,6 +45,7 @@ double tnp_weight_glbPFtrk_pbpb(double eta, double cent, int idx = 0);
 double tnp_weight_muid_pbpb(double eta, int idx=0);
 double tnp_weight_trig_pbpb(double pt, double eta, double cent, int idx=0);
 pair<double, double> tnp_trig_pbpb(double pt, double eta, double cent, int idx=0);
+double tnp_weight_trig_double_pbpb(double pt1, double eta1, double cent1, double pt2, double eta2, double cent2, int idx=0);
 
 double tnp_weight_TightID_pp(double eta, int idx = 0);
 double tnp_weight_TightID_PFIsoTight_pp(double eta, int idx = 0);
@@ -58,6 +59,7 @@ double eff_MC_TightID_pp(double eta, int idx = 0);
 double eff_MC_TightID_PFIsoTight_pp(double eta, int idx = 0);
 double eff_MC_L3Mu12_pp(double eta, int idx = 0);
 double eff_MC_L3Mu12_PFIsoTight_pp(double eta, int idx = 0);
+double tnp_weight_L3Mu12_double_pp(double eta1, double eta2, int idx=0);
 
 
 ///////////////////////////////////////////////////
@@ -901,6 +903,14 @@ pair<double, double> tnp_trig_pbpb(double pt, double eta, double cent, int idx)
 	return pair<double, double>(num, den);
 }
 
+double tnp_weight_trig_double_pbpb(double pt1, double eta1, double cent1, double pt2, double eta2, double cent2, int idx)
+{
+   pair<double, double> eff1 = tnp_trig_pbpb(pt1, eta1, cent1, idx);
+   pair<double, double> eff2 = tnp_trig_pbpb(pt2, eta2, cent2, idx);
+
+   return (1 - (1 - eff1.first) * (1 - eff2.first) / (1 - (1 - eff1.second) * (1 - eff2.second)));
+}
+
 double tnp_weight_TightID_pp(double eta, int idx)
 {
    if(idx == 0)
@@ -1585,6 +1595,16 @@ double eff_MC_L3Mu12_PFIsoTight_pp(double eta, int idx)
       if(eta < 2.4 && eta >= 2.1)   return 0.934377;
    }
    return 1;
+}
+
+double tnp_weight_L3Mu12_double_pp(double eta1, double eta2, int idx)
+{
+   double Eff1Data = eff_data_L3Mu12_pp(eta1, idx);
+   double Eff1MC   = eff_MC_L3Mu12_pp(eta1, idx);
+   double Eff2Data = eff_data_L3Mu12_pp(eta2, idx);
+   double Eff2MC   = eff_MC_L3Mu12_pp(eta2, idx);
+
+   return (1 - (1 - Eff1Data) * (1 - Eff2Data) / (1 - (1 - Eff1MC) * (1 - Eff2MC)));
 }
 
 #endif //#ifndef tnp_weight_h
