@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
    TTree Tree("Tree", "Z efficiency tree");
    double TreeZPT, TreeZY, TreeZPhi, TreeZMass;   bool TreeZHasReco;   double TreeHiBin;
-   double TreeWPbPbMC, TreeWPbPbData, TreeWPPMC, TreeWPPData;
+   double TreeWPbPbMC, TreeWPbPbData, TreeWPbPbDataTrigger, TreeWPPMC, TreeWPPData, TreeWPPDataTrigger;
    double TreeMu1TnP1, TreeMu1TnP2, TreeMu1TnP3, TreeMu2TnP1, TreeMu2TnP2, TreeMu2TnP3;
    double TreeMu1TnP1P1, TreeMu1TnP2P1, TreeMu1TnP3P1, TreeMu2TnP1P1, TreeMu2TnP2P1, TreeMu2TnP3P1;
    double TreeMu1TnP1N1, TreeMu1TnP2N1, TreeMu1TnP3N1, TreeMu2TnP1N1, TreeMu2TnP2N1, TreeMu2TnP3N1;
@@ -60,8 +60,10 @@ int main(int argc, char *argv[])
    Tree.Branch("HiBin", &TreeHiBin, "HiBin/D");
    Tree.Branch("WPbPbMC", &TreeWPbPbMC, "TreeWPbPbMC/D");
    Tree.Branch("WPbPbData", &TreeWPbPbData, "TreeWPbPbData/D");
+   Tree.Branch("WPbPbDataTrigger", &TreeWPbPbDataTrigger, "TreeWPbPbDataTrigger/D");
    Tree.Branch("WPPMC", &TreeWPPMC, "TreeWPPMC/D");
    Tree.Branch("WPPData", &TreeWPPData, "TreeWPPData/D");
+   Tree.Branch("WPPDataTrigger", &TreeWPPDataTrigger, "TreeWPPDataTrigger/D");
    Tree.Branch("Mu1TnP1", &TreeMu1TnP1, "Mu1TnP1/D");
    Tree.Branch("Mu1TnP2", &TreeMu1TnP2, "Mu1TnP2/D");
    Tree.Branch("Mu1TnP3", &TreeMu1TnP3, "Mu1TnP3/D");
@@ -286,8 +288,10 @@ int main(int argc, char *argv[])
             TreeHiBin = MEvent.hiBin;
             TreeWPbPbMC = GetZWeightPbPbMC(TreeZPT, TreeZY, TreeHiBin);
             TreeWPbPbData = GetZWeightPbPbData(TreeZPT, TreeZY, TreeHiBin);
+            TreeWPbPbDataTrigger = GetZWeightPbPbDataTrigger(TreeZPT, TreeZY, TreeHiBin);
             TreeWPPMC = GetZWeightPPMC(TreeZPT, TreeZY);
             TreeWPPData = GetZWeightPPData(TreeZPT, TreeZY);
+            TreeWPPDataTrigger = GetZWeightPPDataTrigger(TreeZPT, TreeZY);
 
             if(IsPP == false)
             {
