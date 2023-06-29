@@ -74,6 +74,7 @@ std::string InfoString(std::vector<std::string> Info);
 double GetZWeightPbPb(double PT, double Y, double HiBin);
 double GetZWeightPbPbMC(double PT, double Y, double HiBin);
 double GetZWeightPbPbData(double PT, double Y, double HiBin);
+double GetZWeightPbPbDataTrig(double PT, double Y, double HiBin);
 double GetZWeightPPMC(double PT, double Y);
 double GetZWeightPPData(double PT, double Y);
 double GetVZWeightPbPb(double VZ);
@@ -684,6 +685,19 @@ double GetZWeightPbPbData(double PT, double Y, double HiBin)
    return BaseWeight / CWeight / YWeight;
 }
 
+double GetZWeightPbPbDataTrigger(double PT, double Y, double HiBin)
+{
+   double BaseWeight = GetZWeightPbPb(PT, Y, HiBin);
+
+   double CWeight = 1;
+   if(HiBin < 20)        CWeight = 9.66820e-01;
+   else if(HiBin < 40)   CWeight = 9.66820e-01;
+   else if(HiBin < 80)   CWeight = 9.77292e-01;
+   else                  CWeight = 9.87452e-01;
+
+   return BaseWeight / CWeight;
+}
+
 double GetZWeightPPMC(double PT, double Y)
 {
    double PY[7] = {0.946307, -0.000706671, 0.0173304, 0.000445317, -0.00192675, -0.0000253594, -0.000132195};
@@ -699,6 +713,16 @@ double GetZWeightPPMC(double PT, double Y)
 double GetZWeightPPData(double PT, double Y)
 {
    double PY[7] = {0.957442, -0.00770481, -0.00381821, 0.00254708, 0.000737472, -0.000274649, 0.000160242};
+   double YWeight = 0;
+   for(int i = 6; i >= 0; i--)
+      YWeight = YWeight * Y + PY[i];
+   
+   return GetZWeightPPMC(PT, Y) / YWeight;
+}
+
+double GetZWeightPPDataTrigger(double PT, double Y)
+{
+   double PY[7] = {9.87569e-01, -1.13884e-03, 6.51882e-05, 3.75163e-04, 7.16973e-05, -9.64381e-05, -1.04866e-04};
    double YWeight = 0;
    for(int i = 6; i >= 0; i--)
       YWeight = YWeight * Y + PY[i];
