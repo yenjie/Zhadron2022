@@ -57,6 +57,8 @@
    * Nothing changed here, except that background mode is not recommended anymore.  Please use 20230625 code for background mixing.
 * Version 15c - 2023 Jun 27
    * Adding different types of track selection (loose/tight)
+* Version 16 - 2023 Jun 29
+   * Replacing Z weight for data with correct trigger treatment
 
 
 ## Arguments

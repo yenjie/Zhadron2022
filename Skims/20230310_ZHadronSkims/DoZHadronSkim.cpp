@@ -102,7 +102,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V15";
+   string Version = "V16";
 
    CommandLine CL(argc, argv);
 
@@ -1087,7 +1087,7 @@ int main(int argc, char *argv[])
                      MZHadron.ZWeight = GetZWeightPbPbMC(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
                   else
                   {
-                     MZHadron.ZWeight = GetZWeightPbPbData(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
+                     MZHadron.ZWeight = GetZWeightPbPbDataTrigger(Z.Pt(), Z.Rapidity(), MZHadron.hiBin);
                      
                      double Mu1Eta = MZHadron.muEta1->at(0);
                      double Mu1PT = MZHadron.muPt1->at(0);
@@ -1115,16 +1115,22 @@ int main(int argc, char *argv[])
                         / tnp_weight_muid_pbpb(Mu1Eta, 0)
                         * tnp_weight_muid_pbpb(Mu2Eta, -2)
                         / tnp_weight_muid_pbpb(Mu2Eta, 0);
+                     // MZHadron.ExtraZWeight[4] =
+                     //    tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, -1)
+                     //    / tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 0)
+                     //    * tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, -1)
+                     //    / tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 0);
+                     // MZHadron.ExtraZWeight[5] =
+                     //    tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, -2)
+                     //    / tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 0)
+                     //    * tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, -2)
+                     //    / tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 0);
                      MZHadron.ExtraZWeight[4] =
-                        tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, -1)
-                        / tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 0)
-                        * tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, -1)
-                        / tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 0);
+                        tnp_weight_trig_double_pbpb(Mu1PT, Mu1Eta, Centrality, Mu2PT, Mu2Eta, Centrality, -1)
+                        / tnp_weight_trig_double_pbpb(Mu1PT, Mu1Eta, Centrality, Mu2PT, Mu2Eta, Centrality, 0);
                      MZHadron.ExtraZWeight[5] =
-                        tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, -2)
-                        / tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 0)
-                        * tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, -2)
-                        / tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 0);
+                        tnp_weight_trig_double_pbpb(Mu1PT, Mu1Eta, Centrality, Mu2PT, Mu2Eta, Centrality, -2)
+                        / tnp_weight_trig_double_pbpb(Mu1PT, Mu1Eta, Centrality, Mu2PT, Mu2Eta, Centrality, 0);
 
                      MZHadron.ExtraZWeight[6] =
                         tnp_weight_glbPFtrk_pbpb(Mu1Eta, Centrality, 1)
@@ -1146,16 +1152,22 @@ int main(int argc, char *argv[])
                         / tnp_weight_muid_pbpb(Mu1Eta, 0)
                         * tnp_weight_muid_pbpb(Mu2Eta, 2)
                         / tnp_weight_muid_pbpb(Mu2Eta, 0);
+                     // MZHadron.ExtraZWeight[10] =
+                     //    tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 1)
+                     //    / tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 0)
+                     //    * tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 1)
+                     //    / tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 0);
+                     // MZHadron.ExtraZWeight[11] =
+                     //    tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 2)
+                     //    / tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 0)
+                     //    * tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 2)
+                     //    / tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 0);
                      MZHadron.ExtraZWeight[10] =
-                        tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 1)
-                        / tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 0)
-                        * tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 1)
-                        / tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 0);
+                        tnp_weight_trig_double_pbpb(Mu1PT, Mu1Eta, Centrality, Mu2PT, Mu2Eta, Centrality, 1)
+                        / tnp_weight_trig_double_pbpb(Mu1PT, Mu1Eta, Centrality, Mu2PT, Mu2Eta, Centrality, 0);
                      MZHadron.ExtraZWeight[11] =
-                        tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 2)
-                        / tnp_weight_trig_pbpb(Mu1PT, Mu1Eta, Centrality, 0)
-                        * tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 2)
-                        / tnp_weight_trig_pbpb(Mu2PT, Mu2Eta, Centrality, 0);
+                        tnp_weight_trig_double_pbpb(Mu1PT, Mu1Eta, Centrality, Mu2PT, Mu2Eta, Centrality, 2)
+                        / tnp_weight_trig_double_pbpb(Mu1PT, Mu1Eta, Centrality, Mu2PT, Mu2Eta, Centrality, 0);
                   }
                }
                else
@@ -1164,7 +1176,7 @@ int main(int argc, char *argv[])
                      MZHadron.ZWeight = GetZWeightPPMC(Z.Pt(), Z.Rapidity());
                   else
                   {
-                     MZHadron.ZWeight = GetZWeightPPData(Z.Pt(), Z.Rapidity());
+                     MZHadron.ZWeight = GetZWeightPPDataTrigger(Z.Pt(), Z.Rapidity());
                      // Extra Z weight for systematics
 
                      double Mu1Eta = MZHadron.muEta1->at(0);
@@ -1182,16 +1194,22 @@ int main(int argc, char *argv[])
                         / tnp_weight_TightID_pp(Mu1Eta, 0)
                         * tnp_weight_TightID_pp(Mu2Eta, -1)
                         / tnp_weight_TightID_pp(Mu2Eta, 0);
+                     // MZHadron.ExtraZWeight[2] =
+                     //    tnp_weight_L3Mu12_pp(Mu1Eta, 1)
+                     //    / tnp_weight_L3Mu12_pp(Mu1Eta, 0)
+                     //    * tnp_weight_L3Mu12_pp(Mu2Eta, 1)
+                     //    / tnp_weight_L3Mu12_pp(Mu2Eta, 0);
+                     // MZHadron.ExtraZWeight[3] =
+                     //    tnp_weight_L3Mu12_pp(Mu1Eta, -1)
+                     //    / tnp_weight_L3Mu12_pp(Mu1Eta, 0)
+                     //    * tnp_weight_L3Mu12_pp(Mu2Eta, -1)
+                     //    / tnp_weight_L3Mu12_pp(Mu2Eta, 0);
                      MZHadron.ExtraZWeight[2] =
-                        tnp_weight_L3Mu12_pp(Mu1Eta, 1)
-                        / tnp_weight_L3Mu12_pp(Mu1Eta, 0)
-                        * tnp_weight_L3Mu12_pp(Mu2Eta, 1)
-                        / tnp_weight_L3Mu12_pp(Mu2Eta, 0);
+                        tnp_weight_L3Mu12_double_pp(Mu1Eta, Mu2Eta, 1)
+                        / tnp_weight_L3Mu12_double_pp(Mu1Eta, Mu2Eta, 0);
                      MZHadron.ExtraZWeight[3] =
-                        tnp_weight_L3Mu12_pp(Mu1Eta, -1)
-                        / tnp_weight_L3Mu12_pp(Mu1Eta, 0)
-                        * tnp_weight_L3Mu12_pp(Mu2Eta, -1)
-                        / tnp_weight_L3Mu12_pp(Mu2Eta, 0);
+                        tnp_weight_L3Mu12_double_pp(Mu1Eta, Mu2Eta, -1)
+                        / tnp_weight_L3Mu12_double_pp(Mu1Eta, Mu2Eta, 0);
 
                      for(int i = 4; i < 12; i++)
                         MZHadron.ExtraZWeight[i] = 1;
