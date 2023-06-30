@@ -99,13 +99,13 @@ EOSBase = /eos/cms/store/group/phys_heavyions/pchou
 PrepareToRun:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		5 LogData_v15/ $(EOSBase)/OutputData_v15/ \
+		5 LogData_v14/ $(EOSBase)/OutputData_v15/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalData Nominal`
 
 PrepareToRunMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogMC_v15/ $(EOSBase)/OutputMC_v15/ \
+		5 LogMC_v14/ $(EOSBase)/OutputMC_v15/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Nominal`
 
 PrepareToRunGenMC:
@@ -117,7 +117,7 @@ PrepareToRunGenMC:
 PrepareToRunPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogPP_v15/ $(EOSBase)/OutputPPMC_v15/ \
+		10 LogPP_v14/ $(EOSBase)/OutputPPMC_v15/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalMC Nominal`
 
 PrepareToRunGenPP:
@@ -129,7 +129,7 @@ PrepareToRunGenPP:
 PrepareToRunPPData:
 	bash PrepareInput.sh \
 		'$(PPSignalData)/*/' \
-		10 LogPPData_v15/ $(EOSBase)/OutputPPData_v15/ \
+		10 LogPPData_v14/ $(EOSBase)/OutputPPData_v15/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalData Nominal`
 
 PrepareToRunBackground:
@@ -142,7 +142,7 @@ PrepareToRunBackground:
 PrepareToRunRandomBackground:
 	bash PrepareInputRandomBackground.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		10 LogDatabkg_v15_105_2/ $(EOSBase)/OutputDatabkg_v15_105_2/ \
+		10 LogDataBackground_v15/ $(EOSBase)/OutputDataBackground_v15/ \
 		$(PbPbBackgroundData)/ 100 \
 		`./Expand Setting.dh PbPbBackgroundData Nominal`
 
@@ -156,7 +156,7 @@ PrepareToRunMCBackground:
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(PbPbSignalMC) \
-		1 LogMCbkg_v15_105_2/ $(EOSBase)/OutputMCbkg_v15_105_2/ \
+		1 LogMCBackground_v15/ $(EOSBase)/OutputMCBackground_v15_batch2/ \
 		$(PbPbBackgroundMC)/ 5 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
