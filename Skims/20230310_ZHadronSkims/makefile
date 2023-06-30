@@ -93,8 +93,8 @@ TestRunRandomMCGenBackground: Execute
 		--Background $(BackgroundFiles) \
 		`./Expand Setting.dh PbPbSignalMC Nominal`
 
-#EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims
-EOSBase = /eos/cms/store/group/phys_heavyions/pchou
+EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims
+# EOSBase = /eos/cms/store/group/phys_heavyions/pchou
 
 PrepareToRun:
 	bash PrepareInput.sh \
@@ -107,6 +107,18 @@ PrepareToRunMC:
 		$(PbPbSignalMC)/ \
 		5 LogMC_v14/ $(EOSBase)/OutputMC_v15/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Nominal`
+
+PrepareToRunLoose:
+	bash PrepareInput.sh \
+		'$(PbPbSignalSingleMuon)/*/' \
+		5 LogData_v15c/ $(EOSBase)/OutputDataLoose_v15c/ \
+		--Fraction 1 `./Expand Setting.dh PbPbSignalData Loose`
+
+PrepareToRunMCLoose:
+	bash PrepareInput.sh \
+		$(PbPbSignalMC)/ \
+		5 LogMCLoose_v15c/ $(EOSBase)/OutputMCLoose_v15c/ \
+		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Loose`
 
 PrepareToRunGenMC:
 	bash PrepareInput.sh \

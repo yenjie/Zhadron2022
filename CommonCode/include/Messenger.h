@@ -346,6 +346,8 @@ public:
    bool GetEntry(int iEntry);
    int GetBestVertexIndex();
    bool PassZHadron2022Cut(int index);
+   bool PassZHadron2022CutLoose(int index);
+   bool PassZHadron2022CutTight(int index);
 };
 
 class MuTreeMessenger
@@ -493,6 +495,8 @@ public:
    bool GetEntry(int iEntry);
    bool PassZHadron2022Cut(int index);
    bool PassZHadron2022CutNoVZ(int index);
+   bool PassZHadron2022CutLoose(int index);
+   bool PassZHadron2022CutTight(int index);
 };
 
 class ZHadronMessenger
