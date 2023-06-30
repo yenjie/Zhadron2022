@@ -6,6 +6,7 @@ PbPbBackgroundMC     := $(shell DHQuery Setting.dh Sample PbPbBackgroundMC)
 PPSignalMC           := $(shell DHQuery Setting.dh Sample PPSignalMC)
 PPSignalData         := $(shell DHQuery Setting.dh Sample PPSignalData)
 
+YiEOS =  /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/
 #EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230625_ZHadronSkims
 EOSBase = /eos/cms/store/group/phys_heavyions/pchou
 
@@ -22,7 +23,7 @@ Execute: DoZHadronSkim.cpp
 		$(ProjectBase)/CommonCode/library/Messenger.o
 
 TestRun: Execute
-	./Execute --Input $(EOSBase)/OutputMC_v14/Result10.root \
+	./Execute --Input $(YiEOS)/OutputMC_v15/Result10.root \
 		--Output /tmp/$(USER)/Test.root --Fraction 0.1 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal` \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root,$(PbPbBackgroundMC)/HiForestMiniAOD_14.root,$(PbPbBackgroundMC)/HiForestMiniAOD_15.root,$(PbPbBackgroundMC)/HiForestMiniAOD_16.root \
@@ -37,55 +38,55 @@ TestRunMCGenBackground: Execute
 
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v14/ LogMCBackground_v15b/ $(EOSBase)/OutputMCBackground_v15b/ $(PbPbBackgroundMC)/ 20 \
+		$(YiEOS)/OutputMC_v15/ LogMCBackground_v15b2/ $(EOSBase)/OutputMCBackground_v15b2/ $(PbPbBackgroundMC)/ 20 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
 PrepareToRunRandomDataBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputData_v14/ LogDataBackground_v15b/ $(EOSBase)/OutputDataBackground_v15b/ $(PbPbBackgroundData)/ 200 \
+		$(YiEOS)/OutputData_v15/ LogDataBackground_v15b2/ $(EOSBase)/OutputDataBackground_v15b2/ $(PbPbBackgroundData)/ 200 \
 		`./Expand Setting.dh PbPbBackgroundData Nominal`
 
 PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMCGen_v14/ LogMCGenbkg_v15b/ $(EOSBase)/OutputMCGenbkg_v15b/ $(PbPbBackgroundMC)/ 20 \
+		$(EOSBase)/OutputMCGen_v14/ LogMCGenbkg_v15b2/ $(EOSBase)/OutputMCGenbkg_v15b2/ $(PbPbBackgroundMC)/ 20 \
 		`./Expand Setting.dh PbPbBackgroundGenMC Nominal`
 
 PrepareToRunRandomMCBackgroundUEUp25:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v14/ LogMCBackgroundUEUp25_v15b/ $(EOSBase)/OutputMCBackgroundUEUp25_v15b/ $(PbPbBackgroundMC)/ 20 \
+		$(YiEOS)/OutputMC_v15/ LogMCBackgroundUEUp25_v15b2/ $(EOSBase)/OutputMCBackgroundUEUp25_v15b2/ $(PbPbBackgroundMC)/ 20 \
 		`./Expand Setting.dh PbPbBackgroundMC UEUp25`
 
 PrepareToRunRandomDataBackgroundUEUp25:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputData_v14/ LogDataBackgroundUEUp25_v15b/ $(EOSBase)/OutputDataBackgroundUEUp25_v15b/ $(PbPbBackgroundData)/ 200 \
+		$(YiEOS)/OutputData_v15/ LogDataBackgroundUEUp25_v15b2/ $(EOSBase)/OutputDataBackgroundUEUp25_v15b2/ $(PbPbBackgroundData)/ 200 \
 		`./Expand Setting.dh PbPbBackgroundData UEUp25`
 
 PrepareToRunRandomMCBackgroundUEDown25:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v14/ LogMCBackgroundUEDown25_v15b/ $(EOSBase)/OutputMCBackgroundUEDown25_v15b/ $(PbPbBackgroundMC)/ 20 \
+		$(YiEOS)/OutputMC_v15/ LogMCBackgroundUEDown25_v15b2/ $(EOSBase)/OutputMCBackgroundUEDown25_v15b2/ $(PbPbBackgroundMC)/ 20 \
 		`./Expand Setting.dh PbPbBackgroundMC UEDown25`
 
 PrepareToRunRandomDataBackgroundUEDown25:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputData_v14/ LogDataBackgroundUEDown25_v15b/ $(EOSBase)/OutputDataBackgroundUEDown25_v15b/ $(PbPbBackgroundData)/ 200 \
+		$(YiEOS)/OutputData_v15/ LogDataBackgroundUEDown25_v15b2/ $(EOSBase)/OutputDataBackgroundUEDown25_v15b2/ $(PbPbBackgroundData)/ 200 \
 		`./Expand Setting.dh PbPbBackgroundData UEDown25`
 
 PrepareToRunRandomMCBackgroundUEUp30:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v14/ LogMCBackgroundUEUp30_v15b/ $(EOSBase)/OutputMCBackgroundUEUp30_v15b/ $(PbPbBackgroundMC)/ 20 \
+		$(YiEOS)/OutputMC_v15/ LogMCBackgroundUEUp30_v15b2/ $(EOSBase)/OutputMCBackgroundUEUp30_v15b2/ $(PbPbBackgroundMC)/ 20 \
 		`./Expand Setting.dh PbPbBackgroundMC UEUp30`
 
 PrepareToRunRandomDataBackgroundUEUp30:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputData_v14/ LogDataBackgroundUEUp30_v15b/ $(EOSBase)/OutputDataBackgroundUEUp30_v15b/ $(PbPbBackgroundData)/ 200 \
+		$(YiEOS)/OutputData_v15/ LogDataBackgroundUEUp30_v15b2/ $(EOSBase)/OutputDataBackgroundUEUp30_v15b2/ $(PbPbBackgroundData)/ 200 \
 		`./Expand Setting.dh PbPbBackgroundData UEUp30`
 
 PrepareToRunRandomMCBackgroundUEDown30:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v14/ LogMCBackgroundUEDown30_v15b/ $(EOSBase)/OutputMCBackgroundUEDown30_v15b/ $(PbPbBackgroundMC)/ 20 \
+		$(YiEOS)/OutputMC_v15/ LogMCBackgroundUEDown30_v15b2/ $(EOSBase)/OutputMCBackgroundUEDown30_v15b2/ $(PbPbBackgroundMC)/ 20 \
 		`./Expand Setting.dh PbPbBackgroundMC UEDown30`
 
 PrepareToRunRandomDataBackgroundUEDown30:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputData_v14/ LogDataBackgroundUEDown30_v15b/ $(EOSBase)/OutputDataBackgroundUEDown30_v15b/ $(PbPbBackgroundData)/ 200 \
+		$(YiEOS)/OutputData_v15/ LogDataBackgroundUEDown30_v15b2/ $(EOSBase)/OutputDataBackgroundUEDown30_v15b2/ $(PbPbBackgroundData)/ 200 \
 		`./Expand Setting.dh PbPbBackgroundData UEDown30`
