@@ -93,55 +93,67 @@ TestRunRandomMCGenBackground: Execute
 		--Background $(BackgroundFiles) \
 		`./Expand Setting.dh PbPbSignalMC Nominal`
 
-EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims
-# EOSBase = /eos/cms/store/group/phys_heavyions/pchou
+# EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims
+EOSBase = /eos/cms/store/group/phys_heavyions/pchou
 
 PrepareToRun:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		5 LogData_v14/ $(EOSBase)/OutputData_v15/ \
+		5 LogData_v16/ $(EOSBase)/OutputData_v16/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalData Nominal`
 
 PrepareToRunMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogMC_v14/ $(EOSBase)/OutputMC_v15/ \
+		5 LogMC_v16/ $(EOSBase)/OutputMC_v16/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Nominal`
 
 PrepareToRunLoose:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		5 LogData_v15c/ $(EOSBase)/OutputDataLoose_v15c/ \
+		5 LogDataLoose_v16/ $(EOSBase)/OutputDataLoose_v16/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalData Loose`
 
 PrepareToRunMCLoose:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogMCLoose_v15c/ $(EOSBase)/OutputMCLoose_v15c/ \
+		5 LogMCLoose_v16/ $(EOSBase)/OutputMCLoose_v16/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Loose`
+
+PrepareToRunTight:
+	bash PrepareInput.sh \
+		'$(PbPbSignalSingleMuon)/*/' \
+		5 LogDataTight_v16/ $(EOSBase)/OutputDataTight_v16/ \
+		--Fraction 1 `./Expand Setting.dh PbPbSignalData Tight`
+
+PrepareToRunMCTight:
+	bash PrepareInput.sh \
+		$(PbPbSignalMC)/ \
+		5 LogMCTight_v16/ $(EOSBase)/OutputMCTight_v16/ \
+		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Tight`
 
 PrepareToRunGenMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogGenMC_v15/ $(EOSBase)/OutputMCGen_v15/ \
+		5 LogGenMC_v16/ $(EOSBase)/OutputMCGen_v16/ \
  		--Fraction 1 `./Expand Setting.dh PbPbSignalGenMC Nominal`
 
 PrepareToRunPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogPP_v14/ $(EOSBase)/OutputPPMC_v15/ \
+		10 LogPP_v16/ $(EOSBase)/OutputPPMC_v16/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalMC Nominal`
 
 PrepareToRunGenPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogGenPP_v15/ $(EOSBase)/OutputPPMCGen_v15/ \
+		10 LogGenPP_v16/ $(EOSBase)/OutputPPMCGen_v16/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalGenMC Nominal`
 
 PrepareToRunPPData:
 	bash PrepareInput.sh \
 		'$(PPSignalData)/*/' \
-		10 LogPPData_v14/ $(EOSBase)/OutputPPData_v15/ \
+		10 LogPPData_v16/ $(EOSBase)/OutputPPData_v16/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalData Nominal`
 
 PrepareToRunBackground:

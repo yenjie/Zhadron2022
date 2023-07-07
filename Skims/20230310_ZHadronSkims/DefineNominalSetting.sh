@@ -71,6 +71,9 @@ LooseTrack="--DoAlternateTrackSelection true --AlternateTrackSelection 1"
 DHSet Setting.dh PbPbSignalData      Loose string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack $LooseTrack"
 DHSet Setting.dh PbPbSignalMC        Loose string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack $LooseTrack"
 
+TightTrack="--DoAlternateTrackSelection true --AlternateTrackSelection 2"
+DHSet Setting.dh PbPbSignalData      Tight string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack $TightTrack"
+DHSet Setting.dh PbPbSignalMC        Tight string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack $TightTrack"
 
 # Finally set sample locations
 
