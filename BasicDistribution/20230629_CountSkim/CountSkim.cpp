@@ -67,14 +67,14 @@ int main(int argc, char *argv[])
 
 	string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions/pchou/");
    	string OutputFileName = CL.Get("Output", "SkimCount.tex");
-   	string BkgDataDir     = CL.Get("BkgDataDir", "OutputDataBackground_v15b");
-   	string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v15b");
-   //string BkgMCGenDir	  = CL.Get("BkgMCGenDir", "OutputMCbkgGen_v14");
+   	string BkgDataDir     = CL.Get("BkgDataDir", "OutputDataBackground_v15c");
+   	string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v15c");
+   //string BkgMCGenDir	  = CL.Get("BkgMCGenDir", "OutputMCGenbkg_v15c");
 
-   	string SigMCDir		  = CL.Get("SigMCDir", "OutputMC_v15");
-   	string SigPPMCDir     = CL.Get("SigPPMCDir", "OutputPPMC_v15");
-   	string SigPPDataDir	  = CL.Get("SigPPDataDir", "OutputPPData_v15");
-   	string SigDataDir	  = CL.Get("SigDataDir", "OutputData_v15");
+   	string SigMCDir		  = CL.Get("SigMCDir", "OutputMC_v16");
+   	string SigPPMCDir     = CL.Get("SigPPMCDir", "OutputPPMC_v16");
+   	string SigPPDataDir	  = CL.Get("SigPPDataDir", "OutputPPData_v16");
+   	string SigDataDir	  = CL.Get("SigDataDir", "OutputData_v16");
 
 	int CentUD            = CL.GetInteger("CentUD", 0);
 
@@ -97,16 +97,16 @@ int main(int argc, char *argv[])
 
 	cout<<"Start to add trees"<<endl;
 
-	string YiBase = "/eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/";
+	//string YiBase = "/eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/";
 
-	TreeSig->Add((YiBase + SigMCDir + "/Result*.root?#Tree").c_str());
-	TreePP0->Add((YiBase + SigPPMCDir + "/Result*.root?#Tree").c_str());
+	TreeSig->Add((InputBase + SigMCDir + "/Result*.root?#Tree").c_str());
+	TreePP0->Add((InputBase + SigPPMCDir + "/Result*.root?#Tree").c_str());
 	TreeBkg->Add((InputBase + BkgMCDir + "/Result*.root?#Tree").c_str());
-	TreeSigData->Add((YiBase + SigDataDir + "/Result*.root?#Tree").c_str());
+	TreeSigData->Add((InputBase + SigDataDir + "/Result*.root?#Tree").c_str());
 	//TreeSigData->Add((YiBase + SigDataDir + "/Result6*.root?#Tree").c_str());
 	TreeBkgData->Add((InputBase + BkgDataDir + "/Result*.root?#Tree").c_str());
 	//TreeBkgData->Add((InputBase + BkgDataDir + "/Result6*.root?#Tree").c_str());
-	TreePP0Data->Add((YiBase + SigPPDataDir + "/Result*.root?#Tree").c_str());
+	TreePP0Data->Add((InputBase + SigPPDataDir + "/Result*.root?#Tree").c_str());
 	//TreePP0Data->Add((YiBase + SigPPDataDir + "/Result6*.root?#Tree").c_str());
 
 	cout<<"Trees added"<<endl;
@@ -125,6 +125,8 @@ int main(int argc, char *argv[])
    	}
 
 	// Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
+
+   int tablesize = 3;
 	vector<Configuration> C;
 
 	C.push_back(Configuration(40,200,0,30,1,2));
@@ -142,14 +144,14 @@ int main(int argc, char *argv[])
 	C.push_back(Configuration(40,200,50,90,4,10));
 	C.push_back(Configuration(40,200,50,90,10,20));
 	C.push_back(Configuration(40,200,50,90,20,50));
-
+/*
 	C.push_back(Configuration(20,2000,0,10,10,20));
 	C.push_back(Configuration(20,2000,0,10,20,50));
 	C.push_back(Configuration(20,2000,0,10,50,100));
 	C.push_back(Configuration(20,2000,0,90,10,20));
 	C.push_back(Configuration(20,2000,0,90,20,50));
 	C.push_back(Configuration(20,2000,0,90,50,100));
-
+*/
 	//vector<TDirectory *>     Folder;
 
 	vector<TH1D> VecHNSig;
@@ -745,8 +747,12 @@ int main(int argc, char *argv[])
 
 	for(int iC = 0; iC < (int)C.size(); iC++){
 
-		fout<<"\\begin{tabular}{|l|c|c|c|c|}"<<endl;
-
+		if(iC%tablesize==0){
+			fout<<"\\begin{table}[h!]"<<endl;
+			fout<<"\\centering"<<endl;
+		
+			fout<<"\\begin{tabular}{|l|c|c|c|c|}"<<endl;
+		}
     	fout<<"\\multicolumn{5}{l}{ HFShift = "<<HFShift<<", HFTolerance = "<<HFTolerance<<"}\\\\"<<std::endl;
     	fout<<"\\multicolumn{5}{l}{ $"<<C[iC].ZPTMin<<" < p_{T}^{Z} < "<<C[iC].ZPTMax<<", "<<C[iC].CentMin<<" < Centrality < "<<C[iC].CentMax<<", "<<C[iC].TrackPTMin<<" < p_{T}^{trk} < "<<C[iC].TrackPTMax<<"$}\\\\"<<std::endl;
 
@@ -794,8 +800,8 @@ int main(int argc, char *argv[])
 	
 		fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig MC" <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg MC" <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig-Bkg MC" <<setw(2)<<"&"<<left<<setw(15)<< "ppMC NPU=0" <<"\\\\"<<endl;
 		fout<<left<<setw(15)<<"$N_Z$ (unweighted)"<<setw(2)<<"&"<<left<<setw(15)<< z1N0          <<setw(2)<<"&"<<left<<setw(15)<< z2N0          <<setw(2)<<"&"<<left<<setw(15)<< z1N0-z2N0         <<setw(2)<<"&"<<left<<setw(15)<< z4N0         <<"\\\\"<<endl;
-		fout<<left<<setw(15)<<"N_{evt} (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z1N           <<setw(2)<<"&"<<left<<setw(15)<< z2N           <<setw(2)<<"&"<<left<<setw(15)<< z1N-z2N           <<setw(2)<<"&"<<left<<setw(15)<< z4N          <<"\\\\"<<endl;
-		fout<<left<<setw(15)<< "N_{trk}/N_{evt}"  <<setw(2)<<"&"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"&"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"&"<<left<<setw(15)<< t1N/z1N-t2N/z2N   <<setw(2)<<"&"<<left<<setw(15)<< t4N/z4N      <<"\\\\"<<endl;
+		fout<<left<<setw(15)<<"$N_{evt}$ (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z1N           <<setw(2)<<"&"<<left<<setw(15)<< z2N           <<setw(2)<<"&"<<left<<setw(15)<< z1N-z2N           <<setw(2)<<"&"<<left<<setw(15)<< z4N          <<"\\\\"<<endl;
+		fout<<left<<setw(15)<< "$N_{trk}/N_{evt}$"  <<setw(2)<<"&"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"&"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"&"<<left<<setw(15)<< t1N/z1N-t2N/z2N   <<setw(2)<<"&"<<left<<setw(15)<< t4N/z4N      <<"\\\\"<<endl;
 		fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"&"<<left<<setw(15)<< t1E/z1N       <<setw(2)<<"&"<<left<<setw(15)<< t2E/z2N       <<setw(2)<<"&"<<left<<setw(15)<< sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N)) <<setw(2)<<"&"<<left<<setw(15)<< t4E/z4N <<"\\\\"<<endl;
 	
 		//fout<<"--------------------------------------"<<std::endl;
@@ -803,13 +809,17 @@ int main(int argc, char *argv[])
 	
 		fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig-Bkg Data"<<setw(2)<<"&"<<left<<setw(15)<< "pp Data NPU=0" <<"\\\\"<<endl;
 		fout<<left<<setw(15)<<"$N_Z$ (unweighted)"<<setw(2)<<"&"<<left<<setw(15)<< z6N0           <<setw(2)<<"&"<<left<<setw(15)<< z7N0           <<setw(2)<<"&"<<left<<setw(15)<< z6N0-z7N0          <<setw(2)<<"&"<<left<<setw(15)<< z8N0            <<"\\\\"<<endl;
-		fout<<left<<setw(15)<<"N_{evt} (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z6N            <<setw(2)<<"&"<<left<<setw(15)<< z7N            <<setw(2)<<"&"<<left<<setw(15)<< z6N-z7N            <<setw(2)<<"&"<<left<<setw(15)<< z8N             <<"\\\\"<<endl;
-		fout<<left<<setw(15)<< "N_{trk}/N_{evt}"  <<setw(2)<<"&"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"&"<<left<<setw(15)<< t6N/z6N-t7N/z7N    <<setw(2)<<"&"<<left<<setw(15)<< t8N/z8N         <<"\\\\"<<endl;
+		fout<<left<<setw(15)<<"$N_{evt}$ (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z6N            <<setw(2)<<"&"<<left<<setw(15)<< z7N            <<setw(2)<<"&"<<left<<setw(15)<< z6N-z7N            <<setw(2)<<"&"<<left<<setw(15)<< z8N             <<"\\\\"<<endl;
+		fout<<left<<setw(15)<< "$N_{trk}/N_{evt}$"  <<setw(2)<<"&"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"&"<<left<<setw(15)<< t6N/z6N-t7N/z7N    <<setw(2)<<"&"<<left<<setw(15)<< t8N/z8N         <<"\\\\"<<endl;
 		fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"&"<<left<<setw(15)<< t6E/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7E/z7N        <<setw(2)<<"&"<<left<<setw(15)<< sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N)) <<setw(2)<<"&"<<left<<setw(15)<< t8E/z8N <<"\\\\"<<endl;
 	
 		//fout<<"======================================"<<std::endl;
 		fout<<"\\hline\\hline"<<std::endl;
-		fout<<"\\end{tabular}"<<std::endl;
+		if(iC%tablesize==0){
+			fout<<"\\end{tabular}"<<std::endl;
+			fout<<"\\end{table}"<<std::endl;
+			fout<<"\\clearpage"<<std::endl;
+		}
 		string OutputFileNameBkup = OutputFileName;
 		OutputFileNameBkup.replace(OutputFileNameBkup.end()-4,OutputFileNameBkup.end(),"_bkup.txt");
 	
