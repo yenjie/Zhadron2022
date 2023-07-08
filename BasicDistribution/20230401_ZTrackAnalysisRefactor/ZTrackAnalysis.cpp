@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 {
    CommandLine CL(argc, argv);
 
-   string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions_ops/pchou/OutputMC_old/");
+   string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions/pchou/OutputMC_v16/");
    string OutputFileName = CL.Get("Output", "Plots.root");
    double Fraction       = CL.GetDouble("Fraction", 1.00);
    bool IgnoreCentrality = CL.GetBool("IgnoreCentrality", false);
