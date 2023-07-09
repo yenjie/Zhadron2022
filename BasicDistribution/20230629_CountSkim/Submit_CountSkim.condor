@@ -1,10 +1,10 @@
-executable   = ./do_CountSkim001.sh
+executable   = ./do_CountSkim.sh
 
 arguments    = $(ProcId)
 
-output       = ./SkimCount/log/20230709_001/CountSkim.$(ClusterId).$(ProcId).out
-error        = ./SkimCount/log/20230709_001/CountSkim.$(ClusterId).$(ProcId).err
-log          = ./SkimCount/log/20230709_001/CountSkim.$(ClusterId).$(ProcId).log
+output       = ./SkimCount/log/20230709_1/CountSkim.$(ClusterId).$(ProcId).out
+error        = ./SkimCount/log/20230709_1/CountSkim.$(ClusterId).$(ProcId).err
+log          = ./SkimCount/log/20230709_1/CountSkim.$(ClusterId).$(ProcId).log
 
 request_cpus   = 10
 
