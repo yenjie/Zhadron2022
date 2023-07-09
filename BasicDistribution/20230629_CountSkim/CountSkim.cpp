@@ -19,6 +19,7 @@ using namespace std;
 #include "CommandLine.h"
 #include "ProgressBar.h"
 
+#include "DataHelper.h"
 
 struct Configuration;
 int main(int argc, char *argv[]);
@@ -66,15 +67,15 @@ int main(int argc, char *argv[])
 	CommandLine CL(argc, argv);
 
 	string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions/pchou/");
-   	string OutputFileName = CL.Get("Output", "SkimCount.tex");
-   	string BkgDataDir     = CL.Get("BkgDataDir", "OutputDataBackground_v15c");
-   	string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v15c");
+   string OutputFileName = CL.Get("Output", "SkimCount.tex");
+   string BkgDataDir     = CL.Get("BkgDataDir", "OutputDataBackground_v15c");
+   string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v15c");
    //string BkgMCGenDir	  = CL.Get("BkgMCGenDir", "OutputMCGenbkg_v15c");
 
-   	string SigMCDir		  = CL.Get("SigMCDir", "OutputMC_v16");
-   	string SigPPMCDir     = CL.Get("SigPPMCDir", "OutputPPMC_v16");
-   	string SigPPDataDir	  = CL.Get("SigPPDataDir", "OutputPPData_v16");
-   	string SigDataDir	  = CL.Get("SigDataDir", "OutputData_v16");
+   string SigMCDir		  = CL.Get("SigMCDir", "OutputMC_v16");
+   string SigPPMCDir     = CL.Get("SigPPMCDir", "OutputPPMC_v16");
+   string SigPPDataDir	  = CL.Get("SigPPDataDir", "OutputPPData_v16");
+   string SigDataDir	  = CL.Get("SigDataDir", "OutputData_v16");
 
 	int CentUD            = CL.GetInteger("CentUD", 0);
 
@@ -113,16 +114,16 @@ int main(int argc, char *argv[])
 
 	double cent[201];
 
-   	for(int i=0;i<201;i++){
-   		if(CentUD==0)
-   			cent[i]=BinEdge[i];
-   		else if(CentUD==1)
-   			cent[i]=BinEdgeUp[i];
-   		else if(CentUD==2)
-   			cent[i]=BinEdgeDown[i];
-   		else
-   			cent[i]=0;
-   	}
+   for(int i=0;i<201;i++){
+   	if(CentUD==0)
+   		cent[i]=BinEdge[i];
+   	else if(CentUD==1)
+   		cent[i]=BinEdgeUp[i];
+   	else if(CentUD==2)
+   		cent[i]=BinEdgeDown[i];
+   	else
+   		cent[i]=0;
+   }
 
 	// Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
 
@@ -216,32 +217,32 @@ int main(int argc, char *argv[])
 	float hiHF, SignalVZ;
 	int NPU;
 
-    vector<double> *ZMass       = nullptr;
+   vector<double> *ZMass       = nullptr;
 	vector<double> *ZPT         = nullptr;
-    vector<bool> *TrackMuTagged = nullptr;
-    vector<double> *TrackPT     = nullptr;
+   vector<bool> *TrackMuTagged = nullptr;
+   vector<double> *TrackPT     = nullptr;
 
-    float NCollWeight;
-    float ZWeight, VZWeight;
-    vector<double> *trackWeight = nullptr;
-    vector<double> *trackResidualWeight = nullptr;
+   float NCollWeight;
+   float ZWeight, VZWeight;
+   vector<double> *trackWeight = nullptr;
+   vector<double> *trackResidualWeight = nullptr;
 
-    float ExtraZWeight[12];
+   float ExtraZWeight[12];
    
 	TreeSig->SetBranchAddress("zPt",                 &ZPT);
 	TreeSig->SetBranchAddress("zMass",               &ZMass);
 	TreeSig->SetBranchAddress("hiHF",                &hiHF);
-   	TreeSig->SetBranchAddress("SignalVZ",            &SignalVZ);
+   TreeSig->SetBranchAddress("SignalVZ",            &SignalVZ);
 	TreeSig->SetBranchAddress("trackPt",             &TrackPT);
 
 	TreeSig->SetBranchAddress("NCollWeight",         &NCollWeight);
-    TreeSig->SetBranchAddress("ZWeight",             &ZWeight);
-    TreeSig->SetBranchAddress("VZWeight",            &VZWeight);
-    TreeSig->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
-    TreeSig->SetBranchAddress("trackWeight",         &trackWeight);
-    TreeSig->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+   TreeSig->SetBranchAddress("ZWeight",             &ZWeight);
+   TreeSig->SetBranchAddress("VZWeight",            &VZWeight);
+   TreeSig->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
+   TreeSig->SetBranchAddress("trackWeight",         &trackWeight);
+   TreeSig->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
 
-    if(TreeSig->GetBranch("trackMuTagged")) TreeSig->SetBranchAddress("trackMuTagged", &TrackMuTagged);
+   if(TreeSig->GetBranch("trackMuTagged")) TreeSig->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
 	int EntryCount = TreeSig->GetEntries() * Fraction;
 	ProgressBar Bar(cout, EntryCount);
@@ -258,76 +259,72 @@ int main(int argc, char *argv[])
 
 		TreeSig->GetEntry(iE);
 
-
 		for(int iC = 0; iC < (int)C.size(); iC++){
 
 			bool ZMassRange = false;
-         	if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
-             ZMassRange = true;
+         if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
+          ZMassRange = true;
 
-         	bool ZPTRange = false;
-         	if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
-         	   ZPTRange = true;
+         bool ZPTRange = false;
+         if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
+            ZPTRange = true;
 
-         	bool CentRange = false;
+         bool CentRange = false;
 			if(hiHF <= cent[200-(int) (2*C[iC].CentMin)] && hiHF > cent[200-(int) (2*C[iC].CentMax)])
-           		CentRange = true;
+         	CentRange = true;
 
-         	bool VZRange = false;
-         	if(SignalVZ > VZMin && SignalVZ < VZMax)
-           		VZRange = true;
+         bool VZRange = false;
+         if(SignalVZ > VZMin && SignalVZ < VZMax)
+         	VZRange = true;
 
-           	if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
-           		continue;
+         if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
+         	continue;
 
-           	if(ZWtID==-1) 
-           		VecHNSig1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
-           	else
-           		VecHNSig1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+         if(ZWtID==-1) 
+         	VecHNSig1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNSig1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
 
 			int NTrack = 0;
-         	if(TrackPT != nullptr)
-            	NTrack = TrackPT->size();
+         if(TrackPT != nullptr)
+         	NTrack = TrackPT->size();
 
-         	for(int iT = 0; iT < NTrack; iT++)
-         	{
-         		bool TrackPTRange = false;
-         		if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
-         			TrackPTRange = true;
+         for(int iT = 0; iT < NTrack; iT++)
+         {
+         	bool TrackPTRange = false;
+         	if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
+         		TrackPTRange = true;
 
-         		bool TrackNotCloseToMuon = true;
-         		if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
-               		TrackNotCloseToMuon = false;
+         	bool TrackNotCloseToMuon = true;
+         	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
+            	TrackNotCloseToMuon = false;
 
-               	if(!(TrackPTRange && TrackNotCloseToMuon)) 
-           			continue;
+            if(!(TrackPTRange && TrackNotCloseToMuon)) 
+         		continue;
 
-           		if(ZWtID==-1) 
-           			VecHNSig[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
-           	    else
-           			VecHNSig[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
+         	if(ZWtID==-1) 
+         		VecHNSig[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
+            else
+         		VecHNSig[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
-
-
 		}
-
 	}
 
 	TreeBkg->SetBranchAddress("zPt",                 &ZPT);
 	TreeBkg->SetBranchAddress("zMass",               &ZMass);
 	TreeBkg->SetBranchAddress("hiHF",                &hiHF);
-   	TreeBkg->SetBranchAddress("SignalVZ",            &SignalVZ);
+   TreeBkg->SetBranchAddress("SignalVZ",            &SignalVZ);
 	TreeBkg->SetBranchAddress("trackPt",             &TrackPT);
 
 	TreeBkg->SetBranchAddress("NCollWeight",         &NCollWeight);
-    TreeBkg->SetBranchAddress("ZWeight",             &ZWeight);
-    TreeBkg->SetBranchAddress("VZWeight",            &VZWeight);
-    TreeBkg->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
-    TreeBkg->SetBranchAddress("trackWeight",         &trackWeight);
-    TreeBkg->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+   TreeBkg->SetBranchAddress("ZWeight",             &ZWeight);
+   TreeBkg->SetBranchAddress("VZWeight",            &VZWeight);
+   TreeBkg->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
+   TreeBkg->SetBranchAddress("trackWeight",         &trackWeight);
+   TreeBkg->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
 
-    if(TreeBkg->GetBranch("trackMuTagged")) TreeBkg->SetBranchAddress("trackMuTagged", &TrackMuTagged);
+   if(TreeBkg->GetBranch("trackMuTagged")) TreeBkg->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
 	EntryCount = TreeBkg->GetEntries() * Fraction;
 	ProgressBar Bar1(cout, EntryCount);
@@ -344,78 +341,74 @@ int main(int argc, char *argv[])
 
 		TreeBkg->GetEntry(iE);
 
-
 		for(int iC = 0; iC < (int)C.size(); iC++){
 
 			bool ZMassRange = false;
-         	if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
-             ZMassRange = true;
+         if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
+          ZMassRange = true;
 
-         	bool ZPTRange = false;
-         	if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
-         	   ZPTRange = true;
+         bool ZPTRange = false;
+         if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
+            ZPTRange = true;
 
-         	bool CentRange = false;
+         bool CentRange = false;
 			if(hiHF <= cent[200-(int) (2*C[iC].CentMin)] && hiHF > cent[200-(int) (2*C[iC].CentMax)])
-           		CentRange = true;
+         	CentRange = true;
 
-         	bool VZRange = false;
-         	if(SignalVZ > VZMin && SignalVZ < VZMax)
-           		VZRange = true;
+         bool VZRange = false;
+         if(SignalVZ > VZMin && SignalVZ < VZMax)
+         	VZRange = true;
 
-           	if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
-           		continue;
+         if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
+         	continue;
 
-           	if(ZWtID==-1) 
-           		VecHNBkg1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
-           	else
-           		VecHNBkg1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+         if(ZWtID==-1) 
+         	VecHNBkg1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNBkg1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
 
 
 			int NTrack = 0;
-         	if(TrackPT != nullptr)
-            	NTrack = TrackPT->size();
+         if(TrackPT != nullptr)
+         	NTrack = TrackPT->size();
 
-         	for(int iT = 0; iT < NTrack; iT++)
-         	{
-         		bool TrackPTRange = false;
-         		if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
-         			TrackPTRange = true;
+         for(int iT = 0; iT < NTrack; iT++)
+         {
+         	bool TrackPTRange = false;
+         	if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
+         		TrackPTRange = true;
 
-         		bool TrackNotCloseToMuon = true;
-         		if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
-               		TrackNotCloseToMuon = false;
+         	bool TrackNotCloseToMuon = true;
+         	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
+            	TrackNotCloseToMuon = false;
 
-               	if(!(TrackPTRange && TrackNotCloseToMuon)) 
-           			continue;
+            if(!(TrackPTRange && TrackNotCloseToMuon)) 
+         		continue;
 
-           		if(ZWtID==-1) 
-           			VecHNBkg[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
-           	    else
-           			VecHNBkg[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
+         	if(ZWtID==-1) 
+         		VecHNBkg[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
+            else
+         		VecHNBkg[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
-
-
 		}
-
 	}
 
 	TreePP0->SetBranchAddress("zPt",                 &ZPT);
 	TreePP0->SetBranchAddress("zMass",               &ZMass);
 	TreePP0->SetBranchAddress("hiHF",                &hiHF);
-   	TreePP0->SetBranchAddress("NPU",                 &NPU);
-   	TreePP0->SetBranchAddress("SignalVZ",            &SignalVZ);
+   TreePP0->SetBranchAddress("NPU",                 &NPU);
+   TreePP0->SetBranchAddress("SignalVZ",            &SignalVZ);
 	TreePP0->SetBranchAddress("trackPt",             &TrackPT);
 
 	TreePP0->SetBranchAddress("NCollWeight",         &NCollWeight);
-    TreePP0->SetBranchAddress("ZWeight",             &ZWeight);
-    TreePP0->SetBranchAddress("VZWeight",            &VZWeight);
-    TreePP0->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
-    TreePP0->SetBranchAddress("trackWeight",         &trackWeight);
-    TreePP0->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+   TreePP0->SetBranchAddress("ZWeight",             &ZWeight);
+   TreePP0->SetBranchAddress("VZWeight",            &VZWeight);
+   TreePP0->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
+   TreePP0->SetBranchAddress("trackWeight",         &trackWeight);
+   TreePP0->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
 
-    if(TreePP0->GetBranch("trackMuTagged")) TreePP0->SetBranchAddress("trackMuTagged", &TrackMuTagged);
+   if(TreePP0->GetBranch("trackMuTagged")) TreePP0->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
 	EntryCount = TreePP0->GetEntries() * Fraction;
 	ProgressBar Bar2(cout, EntryCount);
@@ -432,77 +425,73 @@ int main(int argc, char *argv[])
 
 		TreePP0->GetEntry(iE);
 
-
 		for(int iC = 0; iC < (int)C.size(); iC++){
 
 			bool ZMassRange = false;
-         	if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
-             ZMassRange = true;
+         if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
+          ZMassRange = true;
 
-         	bool ZPTRange = false;
-         	if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
-         	   ZPTRange = true;
+         bool ZPTRange = false;
+         if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
+            ZPTRange = true;
 
-         	bool VZRange = false;
-         	if(SignalVZ > VZMin && SignalVZ < VZMax)
-           		VZRange = true;
+         bool VZRange = false;
+         if(SignalVZ > VZMin && SignalVZ < VZMax)
+         	VZRange = true;
 
-           	bool ppNPUcut = false;
-           	if(ppNPU==0 && NPU == 0 || ppNPU!=0)
-           		ppNPUcut = true;
+         bool ppNPUcut = false;
+         if(ppNPU==0 && NPU == 0 || ppNPU!=0)
+         	ppNPUcut = true;
 
-           	if(!(ZMassRange && ZPTRange && VZRange && ppNPUcut)) 
-           		continue;
+         if(!(ZMassRange && ZPTRange && VZRange && ppNPUcut)) 
+         	continue;
 
-           	if(ZWtID==-1) 
-           		VecHNPP01[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
-           	else
-           		VecHNPP01[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+         if(ZWtID==-1) 
+         	VecHNPP01[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNPP01[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
 
 
 			int NTrack = 0;
-         	if(TrackPT != nullptr)
-            	NTrack = TrackPT->size();
+         if(TrackPT != nullptr)
+         	NTrack = TrackPT->size();
 
-         	for(int iT = 0; iT < NTrack; iT++)
-         	{
-         		bool TrackPTRange = false;
-         		if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
-         			TrackPTRange = true;
+         for(int iT = 0; iT < NTrack; iT++)
+         {
+         	bool TrackPTRange = false;
+         	if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
+         		TrackPTRange = true;
 
-         		bool TrackNotCloseToMuon = true;
-         		if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
-               		TrackNotCloseToMuon = false;
+         	bool TrackNotCloseToMuon = true;
+         	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
+            	TrackNotCloseToMuon = false;
 
-               	if(!(TrackPTRange && TrackNotCloseToMuon)) 
-           			continue;
+            if(!(TrackPTRange && TrackNotCloseToMuon)) 
+         		continue;
 
-           		if(ZWtID==-1) 
-           			VecHNPP0[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
-           	    else
-           			VecHNPP0[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
+         	if(ZWtID==-1) 
+         		VecHNPP0[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
+            else
+         		VecHNPP0[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
-
-
 		}
-
 	}
 
 	TreeSigData->SetBranchAddress("zPt",                 &ZPT);
 	TreeSigData->SetBranchAddress("zMass",               &ZMass);
 	TreeSigData->SetBranchAddress("hiHF",                &hiHF);
-   	TreeSigData->SetBranchAddress("SignalVZ",            &SignalVZ);
+   TreeSigData->SetBranchAddress("SignalVZ",            &SignalVZ);
 	TreeSigData->SetBranchAddress("trackPt",             &TrackPT);
 
 	TreeSigData->SetBranchAddress("NCollWeight",         &NCollWeight);
-    TreeSigData->SetBranchAddress("ZWeight",             &ZWeight);
-    TreeSigData->SetBranchAddress("VZWeight",            &VZWeight);
-    TreeSigData->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
-    TreeSigData->SetBranchAddress("trackWeight",         &trackWeight);
-    TreeSigData->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+   TreeSigData->SetBranchAddress("ZWeight",             &ZWeight);
+   TreeSigData->SetBranchAddress("VZWeight",            &VZWeight);
+   TreeSigData->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
+   TreeSigData->SetBranchAddress("trackWeight",         &trackWeight);
+   TreeSigData->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
 
-    if(TreeSigData->GetBranch("trackMuTagged")) TreeSigData->SetBranchAddress("trackMuTagged", &TrackMuTagged);
+   if(TreeSigData->GetBranch("trackMuTagged")) TreeSigData->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
 	EntryCount = TreeSigData->GetEntries() * Fraction;
 	ProgressBar Bar3(cout, EntryCount);
@@ -519,76 +508,72 @@ int main(int argc, char *argv[])
 
 		TreeSigData->GetEntry(iE);
 
-
 		for(int iC = 0; iC < (int)C.size(); iC++){
 
 			bool ZMassRange = false;
-         	if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
-             ZMassRange = true;
+         if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
+          ZMassRange = true;
 
-         	bool ZPTRange = false;
-         	if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
-         	   ZPTRange = true;
+         bool ZPTRange = false;
+         if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
+            ZPTRange = true;
 
-         	bool CentRange = false;
+         bool CentRange = false;
 			if(hiHF <= cent[200-(int) (2*C[iC].CentMin)] && hiHF > cent[200-(int) (2*C[iC].CentMax)])
-           		CentRange = true;
+         	CentRange = true;
 
-         	bool VZRange = false;
-         	if(SignalVZ > VZMin && SignalVZ < VZMax)
-           		VZRange = true;
+         bool VZRange = false;
+         if(SignalVZ > VZMin && SignalVZ < VZMax)
+         	VZRange = true;
 
-           	if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
+         if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
+         	continue;
+
+         if(ZWtID==-1) 
+         	VecHNSigData1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNSigData1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+
+			int NTrack = 0;
+         if(TrackPT != nullptr)
+            NTrack = TrackPT->size();
+
+         for(int iT = 0; iT < NTrack; iT++)
+         {
+         	bool TrackPTRange = false;
+         	if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
+         		TrackPTRange = true;
+
+         	bool TrackNotCloseToMuon = true;
+         	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
+            	TrackNotCloseToMuon = false;
+
+            if(!(TrackPTRange && TrackNotCloseToMuon)) 
            		continue;
 
            	if(ZWtID==-1) 
-           		VecHNSigData1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+           		VecHNSigData[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
            	else
-           		VecHNSigData1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
-
-			int NTrack = 0;
-         	if(TrackPT != nullptr)
-            	NTrack = TrackPT->size();
-
-         	for(int iT = 0; iT < NTrack; iT++)
-         	{
-         		bool TrackPTRange = false;
-         		if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
-         			TrackPTRange = true;
-
-         		bool TrackNotCloseToMuon = true;
-         		if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
-               		TrackNotCloseToMuon = false;
-
-               	if(!(TrackPTRange && TrackNotCloseToMuon)) 
-           			continue;
-
-           		if(ZWtID==-1) 
-           			VecHNSigData[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
-           	    else
-           			VecHNSigData[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
+           		VecHNSigData[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
-
-
 		}
-
 	}
 
 	TreeBkgData->SetBranchAddress("zPt",                 &ZPT);
 	TreeBkgData->SetBranchAddress("zMass",               &ZMass);
 	TreeBkgData->SetBranchAddress("hiHF",                &hiHF);
-   	TreeBkgData->SetBranchAddress("SignalVZ",            &SignalVZ);
+   TreeBkgData->SetBranchAddress("SignalVZ",            &SignalVZ);
 	TreeBkgData->SetBranchAddress("trackPt",             &TrackPT);
 
 	TreeBkgData->SetBranchAddress("NCollWeight",         &NCollWeight);
-    TreeBkgData->SetBranchAddress("ZWeight",             &ZWeight);
-    TreeBkgData->SetBranchAddress("VZWeight",            &VZWeight);
-    TreeBkgData->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
-    TreeBkgData->SetBranchAddress("trackWeight",         &trackWeight);
-    TreeBkgData->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+   TreeBkgData->SetBranchAddress("ZWeight",             &ZWeight);
+   TreeBkgData->SetBranchAddress("VZWeight",            &VZWeight);
+   TreeBkgData->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
+   TreeBkgData->SetBranchAddress("trackWeight",         &trackWeight);
+   TreeBkgData->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
 
-    if(TreeBkgData->GetBranch("trackMuTagged")) TreeBkgData->SetBranchAddress("trackMuTagged", &TrackMuTagged);
+   if(TreeBkgData->GetBranch("trackMuTagged")) TreeBkgData->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
 	EntryCount = TreeBkgData->GetEntries() * Fraction;
 	ProgressBar Bar4(cout, EntryCount);
@@ -607,75 +592,70 @@ int main(int argc, char *argv[])
 
 
 		for(int iC = 0; iC < (int)C.size(); iC++){
-
 			bool ZMassRange = false;
-         	if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
-             ZMassRange = true;
+         if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
+          ZMassRange = true;
 
-         	bool ZPTRange = false;
-         	if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
-         	   ZPTRange = true;
+         bool ZPTRange = false;
+         if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
+            ZPTRange = true;
 
-         	bool CentRange = false;
+         bool CentRange = false;
 			if(hiHF <= cent[200-(int) (2*C[iC].CentMin)] && hiHF > cent[200-(int) (2*C[iC].CentMax)])
-           		CentRange = true;
+         	CentRange = true;
 
-         	bool VZRange = false;
-         	if(SignalVZ > VZMin && SignalVZ < VZMax)
-           		VZRange = true;
+         bool VZRange = false;
+         if(SignalVZ > VZMin && SignalVZ < VZMax)
+         	VZRange = true;
 
-           	if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
-           		continue;
+         if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
+         	continue;
 
-           	if(ZWtID==-1) 
-           		VecHNBkgData1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
-           	else
-           		VecHNBkgData1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
-
+         if(ZWtID==-1) 
+         	VecHNBkgData1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNBkgData1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
 
 			int NTrack = 0;
-         	if(TrackPT != nullptr)
-            	NTrack = TrackPT->size();
+         if(TrackPT != nullptr)
+         	NTrack = TrackPT->size();
 
-         	for(int iT = 0; iT < NTrack; iT++)
-         	{
-         		bool TrackPTRange = false;
-         		if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
-         			TrackPTRange = true;
+         for(int iT = 0; iT < NTrack; iT++)
+         {
+         	bool TrackPTRange = false;
+         	if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
+         		TrackPTRange = true;
 
-         		bool TrackNotCloseToMuon = true;
-         		if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
-               		TrackNotCloseToMuon = false;
+         	bool TrackNotCloseToMuon = true;
+         	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
+            	TrackNotCloseToMuon = false;
 
-               	if(!(TrackPTRange && TrackNotCloseToMuon)) 
-           			continue;
+            if(!(TrackPTRange && TrackNotCloseToMuon)) 
+         		continue;
 
-           		if(ZWtID==-1) 
-           			VecHNBkgData[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
-           	    else
-           			VecHNBkgData[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
+         	if(ZWtID==-1) 
+         		VecHNBkgData[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
+            else
+         		VecHNBkgData[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
-
-
 		}
-
 	}
 
 	TreePP0Data->SetBranchAddress("zPt",                 &ZPT);
 	TreePP0Data->SetBranchAddress("zMass",               &ZMass);
 	TreePP0Data->SetBranchAddress("hiHF",                &hiHF);
-   	TreePP0Data->SetBranchAddress("SignalVZ",            &SignalVZ);
+   TreePP0Data->SetBranchAddress("SignalVZ",            &SignalVZ);
 	TreePP0Data->SetBranchAddress("trackPt",             &TrackPT);
 
 	TreePP0Data->SetBranchAddress("NCollWeight",         &NCollWeight);
-    TreePP0Data->SetBranchAddress("ZWeight",             &ZWeight);
-    TreePP0Data->SetBranchAddress("VZWeight",            &VZWeight);
-    TreePP0Data->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
-    TreePP0Data->SetBranchAddress("trackWeight",         &trackWeight);
-    TreePP0Data->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+   TreePP0Data->SetBranchAddress("ZWeight",             &ZWeight);
+   TreePP0Data->SetBranchAddress("VZWeight",            &VZWeight);
+   TreePP0Data->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
+   TreePP0Data->SetBranchAddress("trackWeight",         &trackWeight);
+   TreePP0Data->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
 
-    if(TreePP0Data->GetBranch("trackMuTagged")) TreePP0Data->SetBranchAddress("trackMuTagged", &TrackMuTagged);
+   if(TreePP0Data->GetBranch("trackMuTagged")) TreePP0Data->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
 	EntryCount = TreePP0Data->GetEntries() * Fraction;
 	ProgressBar Bar5(cout, EntryCount);
@@ -696,61 +676,61 @@ int main(int argc, char *argv[])
 		for(int iC = 0; iC < (int)C.size(); iC++){
 
 			bool ZMassRange = false;
-         	if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
-             ZMassRange = true;
 
-         	bool ZPTRange = false;
-         	if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
-         	   ZPTRange = true;
+         if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
+          ZMassRange = true;
 
-         	bool VZRange = false;
-         	if(SignalVZ > VZMin && SignalVZ < VZMax)
-           		VZRange = true;
+         bool ZPTRange = false;
+         if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
+            ZPTRange = true;
 
-           	if(!(ZMassRange && ZPTRange && VZRange)) 
-           		continue;
+         bool VZRange = false;
+         if(SignalVZ > VZMin && SignalVZ < VZMax)
+         	VZRange = true;
 
-           	if(ZWtID==-1) 
-           		VecHNPP0Data1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
-           	else
-           		VecHNPP0Data1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+         if(!(ZMassRange && ZPTRange && VZRange)) 
+         	continue;
 
+         if(ZWtID==-1) 
+         	VecHNPP0Data1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNPP0Data1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
 
 			int NTrack = 0;
-         	if(TrackPT != nullptr)
-            	NTrack = TrackPT->size();
+         if(TrackPT != nullptr)
+         	NTrack = TrackPT->size();
 
-         	for(int iT = 0; iT < NTrack; iT++)
-         	{
-         		bool TrackPTRange = false;
-         		if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
-         			TrackPTRange = true;
+         for(int iT = 0; iT < NTrack; iT++)
+         {
+         	bool TrackPTRange = false;
+         	if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
+         		TrackPTRange = true;
 
-         		bool TrackNotCloseToMuon = true;
-         		if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
-               		TrackNotCloseToMuon = false;
+         	bool TrackNotCloseToMuon = true;
+         	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
+            		TrackNotCloseToMuon = false;
 
-               	if(!(TrackPTRange && TrackNotCloseToMuon)) 
-           			continue;
+            if(!(TrackPTRange && TrackNotCloseToMuon)) 
+         		continue;
 
-           		if(ZWtID==-1) 
-           			VecHNPP0Data[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
-           	    else
-           			VecHNPP0Data[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
+         	if(ZWtID==-1) 
+         		VecHNPP0Data[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
+            else
+         		VecHNPP0Data[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
-
-
 		}
-
 	}
+
+	string OutputDHName = OutputFileName;
+	OutputDHName.resize(OutputDHName.size()-4);
+	DataHelper DHFile(OutputDHName + ".dh");
 
 	for(int iC = 0; iC < (int)C.size(); iC++){
 
 		if(iC%tablesize==0){
 			fout<<"\\begin{table}[h!]"<<endl;
 			fout<<"\\centering"<<endl;
-		
 			fout<<"\\begin{tabular}{|l|c|c|c|c|}"<<endl;
 		}
     	fout<<"\\multicolumn{5}{l}{ HFShift = "<<HFShift<<", HFTolerance = "<<HFTolerance<<"}\\\\"<<std::endl;
@@ -793,39 +773,83 @@ int main(int argc, char *argv[])
 
 		double et1 = t1E/t1N, et2 = t2E/t2N, et4 = t4E/t4N, et6 = t6E/t6N, et7 = t7E/t7N, et8 = t8E/t8N;
 		double ez1 = z1E/z1N, ez2 = z2E/z2N, ez4 = z4E/z4N, ez6 = z6E/z6N, ez7 = z7E/z7N, ez8 = z8E/z8N;
-
 	
 		//fout<<"======================================"<<std::endl;
 		fout<<"\\hline\\hline"<<std::endl;
 	
-		fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig MC" <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg MC" <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig-Bkg MC" <<setw(2)<<"&"<<left<<setw(15)<< "ppMC NPU=0" <<"\\\\"<<endl;
-		fout<<left<<setw(15)<<"$N_Z$ (unweighted)"<<setw(2)<<"&"<<left<<setw(15)<< z1N0          <<setw(2)<<"&"<<left<<setw(15)<< z2N0          <<setw(2)<<"&"<<left<<setw(15)<< z1N0-z2N0         <<setw(2)<<"&"<<left<<setw(15)<< z4N0         <<"\\\\"<<endl;
-		fout<<left<<setw(15)<<"$N_{evt}$ (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z1N           <<setw(2)<<"&"<<left<<setw(15)<< z2N           <<setw(2)<<"&"<<left<<setw(15)<< z1N-z2N           <<setw(2)<<"&"<<left<<setw(15)<< z4N          <<"\\\\"<<endl;
-		fout<<left<<setw(15)<< "$N_{trk}/N_{evt}$"  <<setw(2)<<"&"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"&"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"&"<<left<<setw(15)<< t1N/z1N-t2N/z2N   <<setw(2)<<"&"<<left<<setw(15)<< t4N/z4N      <<"\\\\"<<endl;
-		fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"&"<<left<<setw(15)<< t1E/z1N       <<setw(2)<<"&"<<left<<setw(15)<< t2E/z2N       <<setw(2)<<"&"<<left<<setw(15)<< sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N)) <<setw(2)<<"&"<<left<<setw(15)<< t4E/z4N <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "Sample"              <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig MC" <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg MC" <<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg MC" <<setw(2)<<"&"<<left<<setw(15)<< "ppMC NPU=0" <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_Z$ (unweighted)"  <<setw(2)<<"&"<<left<<setw(15)<< z1N0          <<setw(2)<<"&"<<left<<setw(15)<< z2N0          <<setw(2)<<"&"<<left<<setw(20)<< z1N0-z2N0         <<setw(2)<<"&"<<left<<setw(15)<< z4N0         <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_{evt}$ (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z1N           <<setw(2)<<"&"<<left<<setw(15)<< z2N           <<setw(2)<<"&"<<left<<setw(20)<< z1N-z2N           <<setw(2)<<"&"<<left<<setw(15)<< z4N          <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_{trk}/N_{evt}$"   <<setw(2)<<"&"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"&"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"&"<<left<<setw(20)<< t1N/z1N-t2N/z2N   <<setw(2)<<"&"<<left<<setw(15)<< t4N/z4N      <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "Error"     	         <<setw(2)<<"&"<<left<<setw(15)<< t1E/z1N       <<setw(2)<<"&"<<left<<setw(15)<< t2E/z2N       <<setw(2)<<"&"<<left<<setw(20)<< sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N)) <<setw(2)<<"&"<<left<<setw(15)<< t4E/z4N <<"\\\\"<<endl;
 	
 		//fout<<"--------------------------------------"<<std::endl;
 		fout<<"\\hline"<<std::endl;
 	
-		fout<<left<<setw(15)<< "Sample"           <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig-Bkg Data"<<setw(2)<<"&"<<left<<setw(15)<< "pp Data NPU=0" <<"\\\\"<<endl;
-		fout<<left<<setw(15)<<"$N_Z$ (unweighted)"<<setw(2)<<"&"<<left<<setw(15)<< z6N0           <<setw(2)<<"&"<<left<<setw(15)<< z7N0           <<setw(2)<<"&"<<left<<setw(15)<< z6N0-z7N0          <<setw(2)<<"&"<<left<<setw(15)<< z8N0            <<"\\\\"<<endl;
-		fout<<left<<setw(15)<<"$N_{evt}$ (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z6N            <<setw(2)<<"&"<<left<<setw(15)<< z7N            <<setw(2)<<"&"<<left<<setw(15)<< z6N-z7N            <<setw(2)<<"&"<<left<<setw(15)<< z8N             <<"\\\\"<<endl;
-		fout<<left<<setw(15)<< "$N_{trk}/N_{evt}$"  <<setw(2)<<"&"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"&"<<left<<setw(15)<< t6N/z6N-t7N/z7N    <<setw(2)<<"&"<<left<<setw(15)<< t8N/z8N         <<"\\\\"<<endl;
-		fout<<left<<setw(15)<< "Error"     	      <<setw(2)<<"&"<<left<<setw(15)<< t6E/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7E/z7N        <<setw(2)<<"&"<<left<<setw(15)<< sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N)) <<setw(2)<<"&"<<left<<setw(15)<< t8E/z8N <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "Sample"              <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg Data"<<setw(2)<<"&"<<left<<setw(15)<< "pp Data NPU=0" <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_Z$ (unweighted)"  <<setw(2)<<"&"<<left<<setw(15)<< z6N0           <<setw(2)<<"&"<<left<<setw(15)<< z7N0           <<setw(2)<<"&"<<left<<setw(20)<< z6N0-z7N0          <<setw(2)<<"&"<<left<<setw(15)<< z8N0            <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_{evt}$ (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z6N            <<setw(2)<<"&"<<left<<setw(15)<< z7N            <<setw(2)<<"&"<<left<<setw(20)<< z6N-z7N            <<setw(2)<<"&"<<left<<setw(15)<< z8N             <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_{trk}/N_{evt}$"   <<setw(2)<<"&"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"&"<<left<<setw(20)<< t6N/z6N-t7N/z7N    <<setw(2)<<"&"<<left<<setw(15)<< t8N/z8N         <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "Error"     	         <<setw(2)<<"&"<<left<<setw(15)<< t6E/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7E/z7N        <<setw(2)<<"&"<<left<<setw(20)<< sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N)) <<setw(2)<<"&"<<left<<setw(15)<< t8E/z8N <<"\\\\"<<endl;
 	
 		//fout<<"======================================"<<std::endl;
 		fout<<"\\hline\\hline"<<std::endl;
-		if(iC%tablesize==0){
+		if(iC%tablesize==tablesize-1||iC==(int)C.size()-1){
 			fout<<"\\end{tabular}"<<std::endl;
 			fout<<"\\end{table}"<<std::endl;
 			fout<<"\\clearpage"<<std::endl;
 		}
-		string OutputFileNameBkup = OutputFileName;
-		OutputFileNameBkup.replace(OutputFileNameBkup.end()-4,OutputFileNameBkup.end(),"_bkup.txt");
-	
-		gSystem->Exec(("cp " + OutputFileName + " " + OutputFileNameBkup).c_str());
 
+		string FolderName =
+		Form("Count_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",
+			C[iC].ZPTMin, C[iC].ZPTMax,
+			C[iC].CentMin, C[iC].CentMax,
+			C[iC].TrackPTMin, C[iC].TrackPTMax);
+		replace(FolderName.begin(), FolderName.end(), '.', 'p');
 
+		DHFile[FolderName]["PbPb MC Sig NZ"] = z1N0;
+		DHFile[FolderName]["PbPb MC Bkg NZ"] = z2N0;
+		DHFile[FolderName]["PbPb MC Sig-Bkg NZ"] = z1N0-z2N0;
+		DHFile[FolderName]["pp MC NZ"] = z4N0;
+
+		DHFile[FolderName]["PbPb MC Sig Nevt"] = z1N;
+		DHFile[FolderName]["PbPb MC Bkg Nevt"] = z2N;
+		DHFile[FolderName]["PbPb MC Sig-Bkg Nevt"] = z1N-z2N;
+		DHFile[FolderName]["pp MC Nevt"] = z4N;
+
+		DHFile[FolderName]["PbPb MC Sig Ntrk/Nevt"] = t1N/z1N;
+		DHFile[FolderName]["PbPb MC Bkg Ntrk/Nevt"] = t2N/z2N;
+		DHFile[FolderName]["PbPb MC Sig-Bkg Ntrk/Nevt"] = t1N/z1N-t2N/z2N;
+		DHFile[FolderName]["pp MC Ntrk/Nevt"] = t4N/z4N;
+
+		DHFile[FolderName]["PbPb MC Sig Ntrk/Nevt Error"] = t1E/z1N;
+		DHFile[FolderName]["PbPb MC Bkg Ntrk/Nevt Error"] = t2E/z2N;
+		DHFile[FolderName]["PbPb MC Sig-Bkg Ntrk/Nevt Error"] = sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N));
+		DHFile[FolderName]["pp MC Ntrk/Nevt Error"] = t4E/z4N;
+
+		DHFile[FolderName]["PbPb Data Sig NZ"] = z6N0;
+		DHFile[FolderName]["PbPb Data Bkg NZ"] = z7N0;
+		DHFile[FolderName]["PbPb Data Sig-Bkg NZ"] = z6N0-z7N0;
+		DHFile[FolderName]["pp Data NZ"] = z8N0;
+
+		DHFile[FolderName]["PbPb Data Sig Nevt"] = z6N;
+		DHFile[FolderName]["PbPb Data Bkg Nevt"] = z7N;
+		DHFile[FolderName]["PbPb Data Sig-Bkg Nevt"] = z6N-z7N;
+		DHFile[FolderName]["pp Data Nevt"] = z8N;
+
+		DHFile[FolderName]["PbPb Data Sig Ntrk/Nevt"] = t6N/z6N;
+		DHFile[FolderName]["PbPb Data Bkg Ntrk/Nevt"] = t7N/z7N;
+		DHFile[FolderName]["PbPb Data Sig-Bkg Ntrk/Nevt"] = t6N/z6N-t7N/z7N;
+		DHFile[FolderName]["pp Data Ntrk/Nevt"] = t8N/z8N;
+
+		DHFile[FolderName]["PbPb Data Sig Ntrk/Nevt Error"] = t6E/z6N;
+		DHFile[FolderName]["PbPb Data Bkg Ntrk/Nevt Error"] = t7E/z7N;
+		DHFile[FolderName]["PbPb Data Sig-Bkg Ntrk/Nevt Error"] = sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N));
+		DHFile[FolderName]["pp Data Ntrk/Nevt Error"] = t8E/z8N;
+
+		//string OutputFileNameBkup = OutputFileName;
+		//OutputFileNameBkup.replace(OutputFileNameBkup.end()-4,OutputFileNameBkup.end(),"_bkup.txt");
+		//gSystem->Exec(("cp " + OutputFileName + " " + OutputFileNameBkup).c_str());
 	}
-
+	DHFile.SaveToFile(); 
 }

@@ -1,8 +1,8 @@
 default: CountSkim
 
 CountSkim: ExecuteCount
-	mkdir -p SkimCount/20230709
-	mkdir -p SkimCount/log/20230709
+	mkdir -p SkimCount/20230709_1
+	mkdir -p SkimCount/log/20230709_1
 	condor_submit Submit_CountSkim.condor
 
 ExecuteCount: CountSkim.cpp
