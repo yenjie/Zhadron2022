@@ -13,6 +13,6 @@ initialdir = /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
-+JobFlavour = "microcentury"
++JobFlavour = "tomorrow"
 
 queue 28
