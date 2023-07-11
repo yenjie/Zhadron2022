@@ -7,7 +7,7 @@ Prepare:
 	ln -sf /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/ YiOutput
 
 TestRun: Execute
-	./Execute --Input PinChunOutput/OutputData_v14/Result14.root --Output Test.root
+	./Execute --Input PinChunOutput/OutputData_v16/Result14.root --Output Test.root
 
 TestRunPlot: ExecutePlot
 	./ExecutePlot --Tag Centrality_0_30_ZPT_40_200_TrackPT_10_20_PV_0_1      --Output Plots_0_30_40_1_2.pdf
@@ -58,85 +58,85 @@ RunNoResidual: RunMCNoResidual RunPPMCNoResidual
 RunHiBin: RunDataHiBinUp RunDataHiBinDown RunDataMixHiBinUp RunDataMixHiBinDown
 
 RunData: Execute
-	./Execute --Input `ls PinChunOutput/OutputData_v14/*root | tr '\n' ','` --Output Data.root --IsPP false --IsMC false
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data.root --IsPP false --IsMC false
 
 RunDataMix: Execute
-	./Execute --Input `ls PinChunOutput/OutputDatabkg_v15/*root | tr '\n' ','` --Output DataMix.root --IsPP false --IsMC false
+	./Execute --Input `ls PinChunOutput/OutputDataBackground_v15c/*root | tr '\n' ','` --Output DataMix.root --IsPP false --IsMC false
 
 RunDataMixUE: Execute
-	./Execute --Input `ls PinChunOutput/OutputDatabkgUEUp25_v14/*root | tr '\n' ','` --Output DataMixUEUp25.root --IsPP false --IsMC false
-	./Execute --Input `ls PinChunOutput/OutputDatabkgUEDown25_v14/*root | tr '\n' ','` --Output DataMixUEDown25.root --IsPP false --IsMC false
+	./Execute --Input `ls PinChunOutput/OutputDataBackgroundUEUp25_v15c/*root | tr '\n' ','` --Output DataMixUEUp25.root --IsPP false --IsMC false
+	./Execute --Input `ls PinChunOutput/OutputDataBackgroundUEDown25_v15c/*root | tr '\n' ','` --Output DataMixUEDown25.root --IsPP false --IsMC false
 
 RunDataHiBinUp: Execute
-	./Execute --Input `ls PinChunOutput/OutputData_v14/*root | tr '\n' ','` --Output DataHiBinUp.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation 1
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataHiBinUp.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation 1
 
 RunDataHiBinDown: Execute
-	./Execute --Input `ls PinChunOutput/OutputData_v14/*root | tr '\n' ','` --Output DataHiBinDown.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation -1
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataHiBinDown.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation -1
 
 RunDataMixHiBinUp: Execute
-	./Execute --Input `ls PinChunOutput/OutputDatabkg_v14/*root | tr '\n' ','` --Output DataMixHiBinUp.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation 1
+	./Execute --Input `ls PinChunOutput/OutputDataBackground_v15c/*root | tr '\n' ','` --Output DataMixHiBinUp.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation 1
 
 RunDataMixHiBinDown: Execute
-	./Execute --Input `ls PinChunOutput/OutputDatabkg_v14/*root | tr '\n' ','` --Output DataMixHiBinDown.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation -1
+	./Execute --Input `ls PinChunOutput/OutputDataBackground_v15c/*root | tr '\n' ','` --Output DataMixHiBinDown.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation -1
 
 RunMC: Execute
-	time ./Execute --Input `ls PinChunOutput/OutputMC_v14/*root | tr '\n' ','` --Output MC.root --IsPP false --IsMC true --Fraction 0.2 
+	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC.root --IsPP false --IsMC true --Fraction 0.2 
 
 RunMCMix: Execute
 	# ./Execute --Input `ls YiOutput/OutputMCBackground_v15/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 0.1
-	# time ./Execute --Input `ls PinChunOutput/OutputMCBackground_v15/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 0.2
-	time ./Execute --Input `ls YiOutputNew/OutputMCBackground_v15/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 1.0
+	time ./Execute --Input `ls PinChunOutput/OutputMCBackground_v15c/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 1.0
+	#time ./Execute --Input `ls YiOutputNew/OutputMCBackground_v15/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 1.0
 
 RunMCMixAdHoc: Execute
 	# ./Execute --Input `ls YiOutput/OutputMCBackground_v15/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 0.1
-	time ./Execute --Input `ls PinChunOutput/OutputMCBackground_v15/*root | tr '\n' ','` --Output MCMixAdHoc.root --IsPP false --IsMC true --Fraction 0.2 --DoAdHocSignalHF true
+	time ./Execute --Input `ls PinChunOutput/OutputMCBackground_v15c/*root | tr '\n' ','` --Output MCMixAdHoc.root --IsPP false --IsMC true --Fraction 0.2 --DoAdHocSignalHF true
 
 RunMCMixUE: Execute
-	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEUp25_v14/*root | tr '\n' ','` --Output MCMixUEUp25.root --IsPP false --IsMC true
-	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEDown25_v14/*root | tr '\n' ','` --Output MCMixUEDown25.root --IsPP false --IsMC true
+	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEUp25_v15c/*root | tr '\n' ','` --Output MCMixUEUp25.root --IsPP false --IsMC true
+	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEDown25_v15c/*root | tr '\n' ','` --Output MCMixUEDown25.root --IsPP false --IsMC true
 
 RunPPMC: Execute
-	./Execute --Input `ls PinChunOutput/OutputPPMC_v14/*root | tr '\n' ','` --Output PPMC.root --Fraction 1.0 --IsPP true --IsMC true
+	./Execute --Input `ls PinChunOutput/OutputPPMC_v16/*root | tr '\n' ','` --Output PPMC.root --Fraction 1.0 --IsPP true --IsMC true
 
 RunPPData: Execute
-	./Execute --Input `ls PinChunOutput/OutputPPData_v14/*root | tr '\n' ','` --Output PPData.root --Fraction 1.0 --IsPP true --IsMC false
+	./Execute --Input `ls PinChunOutput/OutputPPData_v16/*root | tr '\n' ','` --Output PPData.root --Fraction 1.0 --IsPP true --IsMC false
 
 RunPPGen: Execute
-	./Execute --Input `ls PinChunOutput/OutputPPMCGen_v14/*root | tr '\n' ','` --Output PPMCGen.root --Fraction 1.0 --IsPP true --IsMC true --DoGen true
+	./Execute --Input `ls PinChunOutput/OutputPPMCGen_v16/*root | tr '\n' ','` --Output PPMCGen.root --Fraction 1.0 --IsPP true --IsMC true --DoGen true
 
 RunMCGen: Execute
-	./Execute --Input `ls PinChunOutput/OutputMCGen_v14/*root | tr '\n' ','` --Output MCGen.root --IsPP false --IsMC true --Fraction 1.0 --DoGen true
+	./Execute --Input `ls PinChunOutput/OutputMCGen_v16/*root | tr '\n' ','` --Output MCGen.root --IsPP false --IsMC true --Fraction 1.0 --DoGen true
 
 RunMCSignalGen: Execute
-	./Execute --Input `ls PinChunOutput/OutputMCGen_v14/*root | tr '\n' ','` --Output MCSignalGen.root --IsPP false --IsMC true --Fraction 1.0 --DoGen true --DoSignalEvent true
+	./Execute --Input `ls PinChunOutput/OutputMCGen_v16/*root | tr '\n' ','` --Output MCSignalGen.root --IsPP false --IsMC true --Fraction 1.0 --DoGen true --DoSignalEvent true
 
 RunMCNoResidual: Execute
-	./Execute --Input `ls PinChunOutput/OutputMC_v14/*root | tr '\n' ','` --Output MCNoResidual.root --IsPP false --IsMC true --Fraction 1.0 --SkipResidual true
+	./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MCNoResidual.root --IsPP false --IsMC true --Fraction 1.0 --SkipResidual true
 
 RunPPMCNoResidual: Execute
-	./Execute --Input `ls PinChunOutput/OutputPPMC_v14/*root | tr '\n' ','` --Output PPMCNoResidual.root --Fraction 1.0 --IsPP true --IsMC true --SkipResidual true
+	./Execute --Input `ls PinChunOutput/OutputPPMC_v16/*root | tr '\n' ','` --Output PPMCNoResidual.root --Fraction 1.0 --IsPP true --IsMC true --SkipResidual true
 
 RunMuMatch: Execute
-	./Execute --Input `ls PinChunOutput/OutputData_v14/*root | tr '\n' ','` --Output DataMuMatch.root --IsPP false --IsMC false --AlternateMuTag true --MuTagRange 0.0025
-	./Execute --Input `ls PinChunOutput/OutputPPData_v14/*root | tr '\n' ','` --Output PPDataMuMatch.root --Fraction 1.0 --IsPP true --IsMC false --AlternateMuTag true --MuTagRange 0.0025
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataMuMatch.root --IsPP false --IsMC false --AlternateMuTag true --MuTagRange 0.0025
+	./Execute --Input `ls PinChunOutput/OutputPPData_v16/*root | tr '\n' ','` --Output PPDataMuMatch.root --Fraction 1.0 --IsPP true --IsMC false --AlternateMuTag true --MuTagRange 0.0025
 
 RunExtraZWeight: Execute
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight0.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 0
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight1.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 1
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight2.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 2
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight3.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 3
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight4.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 4
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight5.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 5
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight6.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 6
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight7.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 7
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight8.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 8
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight9.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 9
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight10.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 10
-	./Execute --Input `ls YiOutput/OutputData_v15/*root | tr '\n' ','` --Output DataExtraZWeight11.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 11
-	./Execute --Input `ls YiOutput/OutputPPData_v15/*root | tr '\n' ','` --Output PPDataExtraZWeight0.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 0
-	./Execute --Input `ls YiOutput/OutputPPData_v15/*root | tr '\n' ','` --Output PPDataExtraZWeight1.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 1
-	./Execute --Input `ls YiOutput/OutputPPData_v15/*root | tr '\n' ','` --Output PPDataExtraZWeight2.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 2
-	./Execute --Input `ls YiOutput/OutputPPData_v15/*root | tr '\n' ','` --Output PPDataExtraZWeight3.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 3
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight0.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 0
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight1.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 1
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight2.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 2
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight3.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 3
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight4.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 4
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight5.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 5
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight6.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 6
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight7.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 7
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight8.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 8
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight9.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 9
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight10.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 10
+	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output DataExtraZWeight11.root -IsPP false --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 11
+	./Execute --Input `ls PinChunOutput/OutputPPData_v16/*root | tr '\n' ','` --Output PPDataExtraZWeight0.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 0
+	./Execute --Input `ls PinChunOutput/OutputPPData_v16/*root | tr '\n' ','` --Output PPDataExtraZWeight1.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 1
+	./Execute --Input `ls PinChunOutput/OutputPPData_v16/*root | tr '\n' ','` --Output PPDataExtraZWeight2.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 2
+	./Execute --Input `ls PinChunOutput/OutputPPData_v16/*root | tr '\n' ','` --Output PPDataExtraZWeight3.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 3
 
 ExecutePlot: MakePlots.cpp
 	g++ MakePlots.cpp -o ExecutePlot `root-config --cflags --libs` \
