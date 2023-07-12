@@ -45,7 +45,7 @@ Execute: FillHistogram.cpp
 	g++ FillHistogram.cpp -o Execute `root-config --cflags --libs` \
 		-I$(ProjectBase)/CommonCode/include $(ProjectBase)/CommonCode/library/*.o
 
-RunAll: RunMix RunNoMix RunGen RunNoResidual RunHiBin RunMuMatch RunDataMixUE RunExtraZWeight RunMCMixUE
+RunAll: RunMix RunNoMix RunGen RunNoResidual RunHiBin RunMuMatch RunDataMixUE RunExtraZWeight RunMCMixUEUp RunMCMixUEDown
 
 RunMix: RunDataMix RunMCMix
 
@@ -91,8 +91,10 @@ RunMCMixAdHoc: Execute
 	# ./Execute --Input `ls YiOutput/OutputMCBackground_v15/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 0.1
 	time ./Execute --Input `ls PinChunOutput/OutputMCBackground_v15c/*root | tr '\n' ','` --Output MCMixAdHoc.root --IsPP false --IsMC true --Fraction 0.2 --DoAdHocSignalHF true
 
-RunMCMixUE: Execute
+RunMCMixUEUp: Execute
 	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEUp25_v15c/*root | tr '\n' ','` --Output MCMixUEUp25.root --IsPP false --IsMC true
+
+RunMCMixUEDown: Execute
 	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEDown25_v15c/*root | tr '\n' ','` --Output MCMixUEDown25.root --IsPP false --IsMC true
 
 RunPPMC: Execute
