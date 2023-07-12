@@ -45,7 +45,7 @@ Execute: FillHistogram.cpp
 	g++ FillHistogram.cpp -o Execute `root-config --cflags --libs` \
 		-I$(ProjectBase)/CommonCode/include $(ProjectBase)/CommonCode/library/*.o
 
-RunAll: RunMix RunNoMix RunGen RunNoResidual RunHiBin RunMuMatch RunDataMixUE RunExtraZWeight RunMCMixUEUp RunMCMixUEDown
+RunAll: RunMix RunNoMix RunGen RunNoResidual RunHiBin RunMuMatch RunDataMixUE RunExtraZWeight RunMCMixUEUp RunMCMixUEDown RunMCLoose RunMCTight RunDataLoose RunDataTight
 
 RunMix: RunDataMix RunMCMix
 
@@ -80,7 +80,7 @@ RunDataMixHiBinDown: Execute
 	./Execute --Input `ls PinChunOutput/OutputDataBackground_v15c/*root | tr '\n' ','` --Output DataMixHiBinDown.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation -1
 
 RunMC: Execute
-	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC.root --IsPP false --IsMC true --Fraction 0.2 
+	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC.root --IsPP false --IsMC true --Fraction 1.0
 
 RunMCMix: Execute
 	# ./Execute --Input `ls YiOutput/OutputMCBackground_v15/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 0.1
@@ -89,7 +89,7 @@ RunMCMix: Execute
 
 RunMCMixAdHoc: Execute
 	# ./Execute --Input `ls YiOutput/OutputMCBackground_v15/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 0.1
-	time ./Execute --Input `ls PinChunOutput/OutputMCBackground_v15c/*root | tr '\n' ','` --Output MCMixAdHoc.root --IsPP false --IsMC true --Fraction 0.2 --DoAdHocSignalHF true
+	time ./Execute --Input `ls PinChunOutput/OutputMCBackground_v15c/*root | tr '\n' ','` --Output MCMixAdHoc.root --IsPP false --IsMC true --Fraction 1.0 --DoAdHocSignalHF true
 
 RunMCMixUEUp: Execute
 	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEUp25_v15c/*root | tr '\n' ','` --Output MCMixUEUp25.root --IsPP false --IsMC true
@@ -139,6 +139,18 @@ RunExtraZWeight: Execute
 	./Execute --Input `ls PinChunOutput/OutputPPData_v16/*root | tr '\n' ','` --Output PPDataExtraZWeight1.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 1
 	./Execute --Input `ls PinChunOutput/OutputPPData_v16/*root | tr '\n' ','` --Output PPDataExtraZWeight2.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 2
 	./Execute --Input `ls PinChunOutput/OutputPPData_v16/*root | tr '\n' ','` --Output PPDataExtraZWeight3.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 3
+
+RunMCLoose: Execute
+	./Execute --Input `ls PinChunOutput/OutputMCLoose_v16/*root | tr '\n' ','` --Output MCLoose.root --IsPP false --IsMC true
+
+RunMCTight: Execute
+	time ./Execute --Input `ls PinChunOutput/OutputMCTight_v16/*root | tr '\n' ','` --Output MCTight.root --IsPP false --IsMC true
+
+RunDataLoose: Execute
+	./Execute --Input `ls PinChunOutput/OutputDataLoose_v16/*root | tr '\n' ','` --Output DataLoose.root --IsPP false --IsMC false
+
+RunDataTight: Execute
+	time ./Execute --Input `ls PinChunOutput/OutputDataTight_v16/*root | tr '\n' ','` --Output DataTight.root --IsPP false --IsMC false
 
 ExecutePlot: MakePlots.cpp
 	g++ MakePlots.cpp -o ExecutePlot `root-config --cflags --libs` \
