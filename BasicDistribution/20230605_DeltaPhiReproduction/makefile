@@ -45,7 +45,7 @@ Execute: FillHistogram.cpp
 	g++ FillHistogram.cpp -o Execute `root-config --cflags --libs` \
 		-I$(ProjectBase)/CommonCode/include $(ProjectBase)/CommonCode/library/*.o
 
-RunAll: RunMix RunNoMix RunGen RunNoResidual RunHiBin RunMuMatch RunDataMixUE RunExtraZWeight RunMCMixUEUp RunMCMixUEDown RunMCLoose RunMCTight RunDataLoose RunDataTight
+RunAll: RunMix RunNoMix RunGen RunNoResidual RunHiBin RunMuMatch RunDataMixUE RunExtraZWeight RunMCMixUEUp RunMCMixUEDown RunMCLoose RunMCTight RunDataLoose RunDataTight RunVZ
 
 RunMix: RunDataMix RunMCMix
 
@@ -56,6 +56,8 @@ RunGen: RunPPGen RunMCGen RunMCSignalGen
 RunNoResidual: RunMCNoResidual RunPPMCNoResidual
 
 RunHiBin: RunDataHiBinUp RunDataHiBinDown RunDataMixHiBinUp RunDataMixHiBinDown
+
+RunVZ: RunDataVZ RunMCVZ
 
 RunData: Execute
 	./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data.root --IsPP false --IsMC false
@@ -141,16 +143,28 @@ RunExtraZWeight: Execute
 	./Execute --Input `ls PinChunOutput/OutputPPData_v16/*root | tr '\n' ','` --Output PPDataExtraZWeight3.root -IsPP true --IsMC false --DoExtraZWeight true --ExtraZWeightIndex 3
 
 RunMCLoose: Execute
-	./Execute --Input `ls PinChunOutput/OutputMCLoose_v16/*root | tr '\n' ','` --Output MCLoose.root --IsPP false --IsMC true
+	time ./Execute --Input `ls PinChunOutput/OutputMCLoose_v16/*root | tr '\n' ','` --Output MCLoose.root --IsPP false --IsMC true
 
 RunMCTight: Execute
 	time ./Execute --Input `ls PinChunOutput/OutputMCTight_v16/*root | tr '\n' ','` --Output MCTight.root --IsPP false --IsMC true
 
 RunDataLoose: Execute
-	./Execute --Input `ls PinChunOutput/OutputDataLoose_v16/*root | tr '\n' ','` --Output DataLoose.root --IsPP false --IsMC false
+	time ./Execute --Input `ls PinChunOutput/OutputDataLoose_v16/*root | tr '\n' ','` --Output DataLoose.root --IsPP false --IsMC false
 
 RunDataTight: Execute
 	time ./Execute --Input `ls PinChunOutput/OutputDataTight_v16/*root | tr '\n' ','` --Output DataTight.root --IsPP false --IsMC false
+
+RunMCVZ: Execute
+	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ1.root --IsPP false --IsMC true --Fraction 1.0  --VZMax -5
+	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ2.root --IsPP false --IsMC true --Fraction 1.0  --VZMin -5 --VZMax 0
+	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ3.root --IsPP false --IsMC true --Fraction 1.0  --VZMin 0 --VZMax 5
+	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ4.root --IsPP false --IsMC true --Fraction 1.0  --VZMin 5
+
+RunDataVZ: Execute
+	time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ1.root --IsPP false --IsMC false --Fraction 1.0  --VZMax -5
+	time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ2.root --IsPP false --IsMC false --Fraction 1.0  --VZMin -5 --VZMax 0
+	time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ3.root --IsPP false --IsMC false --Fraction 1.0  --VZMin 0 --VZMax 5
+	time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ4.root --IsPP false --IsMC false --Fraction 1.0  --VZMin 5
 
 ExecutePlot: MakePlots.cpp
 	g++ MakePlots.cpp -o ExecutePlot `root-config --cflags --libs` \

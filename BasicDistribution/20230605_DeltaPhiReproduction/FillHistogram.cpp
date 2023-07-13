@@ -49,6 +49,8 @@ int main(int argc, char *argv[])
    bool DoExtraZWeight           = CL.GetBool("DoExtraZWeight", false);
    int ExtraZWeightIndex         = DoExtraZWeight ? CL.GetInt("ExtraZWeightIndex") : 0;
    bool DoAdHocSignalHF          = CL.GetBool("DoAdHocSignalHF", false);
+   double VZMin                  = CL.GetDouble("VZMin",-10000);
+   double VZMax                  = CL.GetDouble("VZMax",10000);
 
    vector<Configuration> Cs;
 
@@ -170,6 +172,8 @@ int main(int argc, char *argv[])
             if(ZPT >= Cs[iC].ZPTMax)                            continue;
             if(M.NVertex < Cs[iC].NPVMin)                       continue;
             if(M.NVertex > Cs[iC].NPVMax)                       continue;
+            if(M.SignalVZ < VZMin)                              continue;
+            if(M.SignalVZ > VZMax)                              continue;
             
             HN[iC]->Fill(0.0, EventWeight);
             HHiBin[iC]->Fill(M.hiBin, EventWeight);
@@ -214,6 +218,8 @@ int main(int argc, char *argv[])
                if(M.trackPt->at(iT) >= Cs[iC].PTMax)                  continue;
                if(DoGen == false && M.NVertex < Cs[iC].NPVMin)        continue;
                if(DoGen == false && M.NVertex > Cs[iC].NPVMax)        continue;
+               if(M.SignalVZ < VZMin)                                 continue;
+               if(M.SignalVZ > VZMax)                                 continue;
 
                HDeltaPhi[iC]->Fill(fabs(TrackDPhi), TrackWeight);
                HDeltaEta[iC]->Fill(fabs(TrackDEta), TrackWeight);
