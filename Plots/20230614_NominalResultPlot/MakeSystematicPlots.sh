@@ -161,5 +161,34 @@ do
       --ToPlot "DeltaY" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $PlottingY
+
+   # Track selection
+   ./Execute --OutputBase Plots/SysPbPbTrk$Suffix \
+      --DataFiles Root/Data.root,Root/DataLoose.root,Root/DataTight.root --SkipSystematics true \
+      --CurveLabels "Nominal PbPb","Loose track selection","Tight track selection" \
+      --ToPlot "DeltaPhi" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+   ./Execute --OutputBase Plots/SysPbPbYTrk$Suffix \
+      --DataFiles Root/Data.root,Root/DataLoose.root,Root/DataTight.root --SkipSystematics true \
+      --CurveLabels "Nominal PbPb","Loose track selection","Tight track selection" \
+      --ToPlot "DeltaY" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $PlottingY
+
+   # VZ cut
+   ./Execute --OutputBase Plots/SysPbPbVZ$Suffix \
+      --DataFiles Root/Data.root,Root/Data_VZ1.root,Root/Data_VZ2.root,Root/Data_VZ3.root,Root/Data_VZ4.root --SkipSystematics true \
+      --CurveLabels "Nominal PbPb","v_{z} < -5 cm","-5 < v_{z} < 0 cm","0 < v_{z} < 5 cm","v_{z} > 5 cm" \
+      --ToPlot "DeltaPhi" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+   ./Execute --OutputBase Plots/SysPbPbYVZ$Suffix \
+      --DataFiles Root/Data.root,Root/Data_VZ1.root,Root/Data_VZ2.root,Root/Data_VZ3.root,Root/Data_VZ4.root --SkipSystematics true \
+      --CurveLabels "Nominal PbPb","v_{z} < -5 cm","-5 < v_{z} < 0 cm","0 < v_{z} < 5 cm","v_{z} > 5 cm" \
+      --ToPlot "DeltaY" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $PlottingY
+
 done
    
