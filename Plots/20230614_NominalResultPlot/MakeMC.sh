@@ -88,7 +88,75 @@ do
       --ToPlot "DeltaEta" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
+
+   Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -5 --YMax 10 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
+
+   ./Execute --OutputBase Plots/ResultMCY$Suffix \
+      --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
+      --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
+      --CurveLabels "pp","PbPb","PbPb UE+2.5%","PbPb UE-2.5%" \
+      --ToPlot "DeltaY" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+   ./Execute --OutputBase Plots/ResultMCYJetSide$Suffix \
+      --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
+      --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
+      --CurveLabels "pp","PbPb","PbPb UE+2.5%","PbPb UE-2.5%" \
+      --ToPlot "DeltaYJetSide" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+   ./Execute --OutputBase Plots/ResultMCYZSide$Suffix \
+      --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
+      --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
+      --CurveLabels "pp","PbPb","PbPb UE+2.5%","PbPb UE-2.5%" \
+      --ToPlot "DeltaYZSide" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+
+   ./Execute --OutputBase Plots/ResultMCYOnePercent$Suffix \
+      --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
+      --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
+      --SubtractFudgeFactor 1.01 \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
+      --CurveLabels "pp","PbPb","PbPb UE+2.5%","PbPb UE-2.5%" \
+      --ToPlot "DeltaY" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+   ./Execute --OutputBase Plots/ResultMCYTwoPercent$Suffix \
+      --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
+      --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
+      --SubtractFudgeFactor 1.02 \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
+      --CurveLabels "pp","PbPb","PbPb UE+2.5%","PbPb UE-2.5%" \
+      --ToPlot "DeltaY" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+   ./Execute --OutputBase Plots/ResultMCYThreePercent$Suffix \
+      --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
+      --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
+      --SubtractFudgeFactor 1.03 \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
+      --CurveLabels "pp","PbPb","PbPb UE+2.5%","PbPb UE-2.5%" \
+      --ToPlot "DeltaY" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
    
+   Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin 0 --YMax 30 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
+   
+   ./Execute --OutputBase Plots/ResultMCYNoSubtract$Suffix \
+      --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root,Root/MCMix.root --SkipSystematics true --SkipSelfSubtract true \
+      --SubtractFiles None,None,Root/MCMix.root,Root/MCMixUEDown25.root,None --SkipSubtract false \
+      --SubtractFudgeFactor 1.00 \
+      --CurveLabels "pp","PbPb","PbPb Subtracted","PbPb Subtracted (-2.5%)","PbPb Mix" \
+      --ToPlot "DeltaY" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+
+
+
    Plotting="--XAxisLabel |#Delta#phi_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin 0 --YMax 30 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
    
    ./Execute --OutputBase Plots/ResultMCNoSubtract$Suffix \

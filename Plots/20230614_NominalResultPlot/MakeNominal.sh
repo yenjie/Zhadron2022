@@ -50,6 +50,33 @@ do
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
 
+   Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -5 --YMax 10 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
+
+   ./Execute --OutputBase Plots/ResultNominalY$Suffix \
+      --DataFiles Root/PPData.root,Root/Data.root \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
+      --CurveLabels "pp","PbPb" \
+      --ToPlot "DeltaY" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+   ./Execute --OutputBase Plots/ResultNominalYJetSide$Suffix \
+      --DataFiles Root/PPData.root,Root/Data.root \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
+      --CurveLabels "pp","PbPb" \
+      --ToPlot "DeltaYJetSide" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+   ./Execute --OutputBase Plots/ResultNominalYZSide$Suffix \
+      --DataFiles Root/PPData.root,Root/Data.root \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
+      --CurveLabels "pp","PbPb" \
+      --ToPlot "DeltaYZSide" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+
 done
 
 
