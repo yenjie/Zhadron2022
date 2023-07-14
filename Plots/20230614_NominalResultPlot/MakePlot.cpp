@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
    vector<string> ExtraInfo       = CL.GetStringVector("ExtraInfo",
    vector<string>
    {
-      "200 > p_{T}^{Z} > 40 GeV",
+      "40 < p_{T}^{Z} < 200 GeV",
       ""
    });
 
