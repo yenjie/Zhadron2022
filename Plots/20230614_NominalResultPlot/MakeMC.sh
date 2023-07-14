@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p Plots
+mkdir -p Plots/ResultMC
 
 for CRange in 0:30 0:10 10:30 30:90 30:50 50:90
 do
@@ -15,7 +15,7 @@ do
    Plotting="--XAxisLabel |#Delta#phi_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.1415926535 --YMin -5 --YMax 10 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
    Suffix="C$CMin$CMax"
 
-   ./Execute --OutputBase Plots/ResultMC$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMC$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
       --CurveLabels "pp","PbPb" \
@@ -25,7 +25,7 @@ do
 
    Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -5 --YMax 10 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
 
-   ./Execute --OutputBase Plots/ResultMCEta$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCEta$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
@@ -33,7 +33,7 @@ do
       --ToPlot "DeltaEta" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultMCEtaJetSide$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCEtaJetSide$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
@@ -41,7 +41,7 @@ do
       --ToPlot "DeltaEtaJetSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultMCEtaZSide$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCEtaZSide$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
@@ -50,7 +50,7 @@ do
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
 
-   ./Execute --OutputBase Plots/ResultMCEtaOnePercent$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCEtaOnePercent$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SubtractFudgeFactor 1.01 \
@@ -59,7 +59,7 @@ do
       --ToPlot "DeltaEta" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultMCEtaTwoPercent$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCEtaTwoPercent$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SubtractFudgeFactor 1.02 \
@@ -68,7 +68,7 @@ do
       --ToPlot "DeltaEta" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultMCEtaThreePercent$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCEtaThreePercent$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SubtractFudgeFactor 1.03 \
@@ -80,7 +80,7 @@ do
    
    Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin 0 --YMax 30 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
    
-   ./Execute --OutputBase Plots/ResultMCEtaNoSubtract$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCEtaNoSubtract$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root,Root/MCMix.root --SkipSystematics true --SkipSelfSubtract true \
       --SubtractFiles None,None,Root/MCMix.root,Root/MCMixUEDown25.root,None --SkipSubtract false \
       --SubtractFudgeFactor 1.00 \
@@ -91,7 +91,7 @@ do
 
    Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -5 --YMax 10 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
 
-   ./Execute --OutputBase Plots/ResultMCY$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCY$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
@@ -99,7 +99,7 @@ do
       --ToPlot "DeltaY" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultMCYJetSide$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCYJetSide$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
@@ -107,7 +107,7 @@ do
       --ToPlot "DeltaYJetSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultMCYZSide$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCYZSide$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root,None,None --SkipSystematics false \
@@ -116,7 +116,7 @@ do
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
 
-   ./Execute --OutputBase Plots/ResultMCYOnePercent$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCYOnePercent$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SubtractFudgeFactor 1.01 \
@@ -125,7 +125,7 @@ do
       --ToPlot "DeltaY" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultMCYTwoPercent$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCYTwoPercent$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SubtractFudgeFactor 1.02 \
@@ -134,7 +134,7 @@ do
       --ToPlot "DeltaY" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultMCYThreePercent$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCYThreePercent$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root \
       --SubtractFiles None,Root/MCMix.root,Root/MCMixUEUp25.root,Root/MCMixUEDown25.root --SkipSubtract false \
       --SubtractFudgeFactor 1.03 \
@@ -146,7 +146,7 @@ do
    
    Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin 0 --YMax 30 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
    
-   ./Execute --OutputBase Plots/ResultMCYNoSubtract$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCYNoSubtract$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root,Root/MCMix.root --SkipSystematics true --SkipSelfSubtract true \
       --SubtractFiles None,None,Root/MCMix.root,Root/MCMixUEDown25.root,None --SkipSubtract false \
       --SubtractFudgeFactor 1.00 \
@@ -159,7 +159,7 @@ do
 
    Plotting="--XAxisLabel |#Delta#phi_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin 0 --YMax 30 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
    
-   ./Execute --OutputBase Plots/ResultMCNoSubtract$Suffix \
+   ./Execute --OutputBase Plots/ResultMC/ResultMCNoSubtract$Suffix \
       --DataFiles Root/PPMC.root,Root/MC.root,Root/MC.root,Root/MC.root,Root/MCMix.root --SkipSystematics true --SkipSelfSubtract true \
       --SubtractFiles None,None,Root/MCMix.root,Root/MCMixUEDown25.root,None --SkipSubtract false \
       --SubtractFudgeFactor 1.00 \

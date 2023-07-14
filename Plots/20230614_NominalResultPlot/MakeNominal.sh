@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p Plots
+mkdir -p Plots/ResultNominal
 
 for CRange in 0:30 0:10 10:30 30:90 30:50 50:90
 do
@@ -15,7 +15,7 @@ do
    Plotting="--XAxisLabel |#Delta#phi_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.1415926535 --YMin -5 --YMax 10 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
    Suffix="C$CMin$CMax"
 
-   ./Execute --OutputBase Plots/ResultNominal$Suffix \
+   ./Execute --OutputBase Plots/ResultNominal/ResultNominal$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
       --CurveLabels "pp","PbPb" \
@@ -25,7 +25,7 @@ do
 
    Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -5 --YMax 10 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
 
-   ./Execute --OutputBase Plots/ResultNominalEta$Suffix \
+   ./Execute --OutputBase Plots/ResultNominal/ResultNominalEta$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
@@ -33,7 +33,7 @@ do
       --ToPlot "DeltaEta" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultNominalEtaJetSide$Suffix \
+   ./Execute --OutputBase Plots/ResultNominal/ResultNominalEtaJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
@@ -41,7 +41,7 @@ do
       --ToPlot "DeltaEtaJetSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultNominalEtaZSide$Suffix \
+   ./Execute --OutputBase Plots/ResultNominal/ResultNominalEtaZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
@@ -52,7 +52,7 @@ do
 
    Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -5 --YMax 10 --RMin -5 --RMax 5 --LegendLeft 0.08 --LegendBottom 0.40"
 
-   ./Execute --OutputBase Plots/ResultNominalY$Suffix \
+   ./Execute --OutputBase Plots/ResultNominal/ResultNominalY$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
@@ -60,7 +60,7 @@ do
       --ToPlot "DeltaY" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultNominalYJetSide$Suffix \
+   ./Execute --OutputBase Plots/ResultNominal/ResultNominalYJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
@@ -68,7 +68,7 @@ do
       --ToPlot "DeltaYJetSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase Plots/ResultNominalYZSide$Suffix \
+   ./Execute --OutputBase Plots/ResultNominal/ResultNominalYZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
