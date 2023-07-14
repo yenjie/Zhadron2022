@@ -139,5 +139,5 @@ mkdir -p Sys
    --DirectMode true --Scheme DirectMaximum
 
 # Now we combine everything
-./ExecuteCombine --File Sys/PbPbMuMatch.root,Sys/PbPbUE25.root,Sys/PbPbSFCombined1.root,Sys/PbPbSFCombined2.root,Sys/PbPbSFCombined3.root,Sys/PbPbHiBin.root,Sys/PbPbTrackSel.root --Output Sys/PbPbAll.root
+./ExecuteCombine --File Sys/PbPbMuMatch.root,Sys/PbPbUE25.root,Sys/PbPbSFCombined1.root,Sys/PbPbSFCombined2.root,Sys/PbPbSFCombined3.root,Sys/PbPbHiBin.root,Sys/PbPbLoose.root --Output Sys/PbPbAll.root
 ./ExecuteCombine --File Sys/PPMuMatch.root,Sys/PPPU.root --Output Sys/PPAll.root
