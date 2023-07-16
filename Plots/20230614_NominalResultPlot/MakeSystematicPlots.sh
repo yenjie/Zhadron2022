@@ -13,7 +13,7 @@ do
    PPExtraInfo="40 < p_{T}^{Z} < 200 GeV"
    ExtraInfo="40 < p_{T}^{Z} < 200 GeV,${CMin}-${CMax}%"
    Plotting="--XAxisLabel |#Delta#phi_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.1415926535 --YMin -7 --YMax 10 --RMin -1.9 --RMax 1.9 --LegendLeft 0.08 --LegendBottom 0.40"
-   PlottingY="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -30 --YMax 50 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
+   PlottingY="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -80 --YMax 100 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
 
    Suffix="C${CMin}${CMax}"
    
