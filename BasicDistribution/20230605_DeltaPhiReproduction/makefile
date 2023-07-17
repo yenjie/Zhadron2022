@@ -155,16 +155,20 @@ RunDataTight: Execute
 	time ./Execute --Input `ls PinChunOutput/OutputDataTight_v16/*root | tr '\n' ','` --Output DataTight.root --IsPP false --IsMC false
 
 RunMCVZ: Execute
-	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ1.root --IsPP false --IsMC true --Fraction 1.0  --VZMax -5
-	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ2.root --IsPP false --IsMC true --Fraction 1.0  --VZMin -5 --VZMax 0
-	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ3.root --IsPP false --IsMC true --Fraction 1.0  --VZMin 0 --VZMax 5
-	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ4.root --IsPP false --IsMC true --Fraction 1.0  --VZMin 5
+	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ10.root --IsPP false --IsMC false --Fraction 1.0  --VZMin -10 --VZMax 10
+	time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ20.root --IsPP false --IsMC false --Fraction 1.0  --VZMin -20 --VZMax 20
+	#time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ1.root --IsPP false --IsMC true --Fraction 1.0  --VZMax -5
+	#time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ2.root --IsPP false --IsMC true --Fraction 1.0  --VZMin -5 --VZMax 0
+	#time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ3.root --IsPP false --IsMC true --Fraction 1.0  --VZMin 0 --VZMax 5
+	#time ./Execute --Input `ls PinChunOutput/OutputMC_v16/*root | tr '\n' ','` --Output MC_VZ4.root --IsPP false --IsMC true --Fraction 1.0  --VZMin 5
 
 RunDataVZ: Execute
-	time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ1.root --IsPP false --IsMC false --Fraction 1.0  --VZMax -5
-	time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ2.root --IsPP false --IsMC false --Fraction 1.0  --VZMin -5 --VZMax 0
-	time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ3.root --IsPP false --IsMC false --Fraction 1.0  --VZMin 0 --VZMax 5
-	time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ4.root --IsPP false --IsMC false --Fraction 1.0  --VZMin 5
+	time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ10.root --IsPP false --IsMC false --Fraction 1.0  --VZMin -10 --VZMax 10
+	time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ20.root --IsPP false --IsMC false --Fraction 1.0  --VZMin -20 --VZMax 20
+	#time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ1.root --IsPP false --IsMC false --Fraction 1.0  --VZMax -5
+	#time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ2.root --IsPP false --IsMC false --Fraction 1.0  --VZMin -5 --VZMax 0
+	#time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ3.root --IsPP false --IsMC false --Fraction 1.0  --VZMin 0 --VZMax 5
+	#time ./Execute --Input `ls PinChunOutput/OutputData_v16/*root | tr '\n' ','` --Output Data_VZ4.root --IsPP false --IsMC false --Fraction 1.0  --VZMin 5
 
 ExecutePlot: MakePlots.cpp
 	g++ MakePlots.cpp -o ExecutePlot `root-config --cflags --libs` \

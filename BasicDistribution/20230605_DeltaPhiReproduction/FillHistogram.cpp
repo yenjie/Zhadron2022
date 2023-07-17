@@ -49,8 +49,8 @@ int main(int argc, char *argv[])
    bool DoExtraZWeight           = CL.GetBool("DoExtraZWeight", false);
    int ExtraZWeightIndex         = DoExtraZWeight ? CL.GetInt("ExtraZWeightIndex") : 0;
    bool DoAdHocSignalHF          = CL.GetBool("DoAdHocSignalHF", false);
-   double VZMin                  = CL.GetDouble("VZMin",-10000);
-   double VZMax                  = CL.GetDouble("VZMax",10000);
+   double VZMin                  = CL.GetDouble("VZMin",-15);
+   double VZMax                  = CL.GetDouble("VZMax",15);
 
    vector<Configuration> Cs;
 
