@@ -20,25 +20,25 @@ do
    # Muon matching
    ./Execute --OutputBase Plots/Sys/SysPbPbMuMatch$Suffix \
       --DataFiles Root/Data.root,Root/DataMuMatch.root --SkipSystematics true \
-      --CurveLabels "Nominal PbPb","Muon match" \
+      --CurveLabels "Nominal PbPb (#Delta R > 0.01)","Muon match (#Delta R > 0.0025)" \
       --ToPlot "DeltaPhi" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
    ./Execute --OutputBase Plots/Sys/SysPPMuMatch \
       --DataFiles Root/PPData.root,Root/PPDataMuMatch.root --SkipSystematics true \
-      --CurveLabels "Nominal pp","Muon match" \
+      --CurveLabels "Nominal pp (#Delta R > 0.01)","Muon match (#Delta R > 0.0025)" \
       --ToPlot "DeltaPhi" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$PPExtraInfo" \
       $Plotting
    ./Execute --OutputBase Plots/Sys/SysPbPbYMuMatch$Suffix \
       --DataFiles Root/Data.root,Root/DataMuMatch.root --SkipSystematics true \
-      --CurveLabels "Nominal PbPb","Muon match" \
+      --CurveLabels "Nominal PbPb (#Delta R > 0.01)","Muon match (#Delta R > 0.0025)" \
       --ToPlot "DeltaY" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $PlottingY
    ./Execute --OutputBase Plots/Sys/SysPPYMuMatch \
       --DataFiles Root/PPData.root,Root/PPDataMuMatch.root --SkipSystematics true \
-      --CurveLabels "Nominal pp","Muon match" \
+      --CurveLabels "Nominal pp (#Delta R > 0.01)","Muon match (#Delta R > 0.0025)" \
       --ToPlot "DeltaY" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$PPExtraInfo" \
       $PlottingY
