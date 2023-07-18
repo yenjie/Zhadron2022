@@ -105,27 +105,27 @@ mkdir -p Sys
    --DirectMode true --Scheme DirectMaximum
 
 # vz cut
-./Execute --Variation Root/Data_VZ1.root --Reference Root/Data.root \
-   --Output Sys/PbPbVZ1.root \
-   --Scheme Maximum
-./Execute --Variation Root/Data_VZ2.root --Reference Root/Data.root \
-   --Output Sys/PbPbVZ2.root \
-   --Scheme Maximum
-./Execute --Variation Root/Data_VZ3.root --Reference Root/Data.root \
-   --Output Sys/PbPbVZ3.root \
-   --Scheme Maximum
-./Execute --Variation Root/Data_VZ4.root --Reference Root/Data.root \
-   --Output Sys/PbPbVZ4.root \
-   --Scheme Maximum
-./Execute --Variation Sys/PbPbVZ1.root --Reference Sys/PbPbVZ2.root \
-   --Output Sys/PbPbVZ12.root \
-   --DirectMode true --Scheme DirectMaximum
-./Execute --Variation Sys/PbPbVZ3.root --Reference Sys/PbPbVZ4.root \
-   --Output Sys/PbPbVZ34.root \
-   --DirectMode true --Scheme DirectMaximum
-./Execute --Variation Sys/PbPbVZ12.root --Reference Sys/PbPbVZ34.root \
-   --Output Sys/PbPbVZ.root \
-   --DirectMode true --Scheme DirectMaximum
+# ./Execute --Variation Root/Data_VZ1.root --Reference Root/Data.root \
+#    --Output Sys/PbPbVZ1.root \
+#    --Scheme Maximum
+# ./Execute --Variation Root/Data_VZ2.root --Reference Root/Data.root \
+#    --Output Sys/PbPbVZ2.root \
+#    --Scheme Maximum
+# ./Execute --Variation Root/Data_VZ3.root --Reference Root/Data.root \
+#    --Output Sys/PbPbVZ3.root \
+#    --Scheme Maximum
+# ./Execute --Variation Root/Data_VZ4.root --Reference Root/Data.root \
+#    --Output Sys/PbPbVZ4.root \
+#    --Scheme Maximum
+# ./Execute --Variation Sys/PbPbVZ1.root --Reference Sys/PbPbVZ2.root \
+#    --Output Sys/PbPbVZ12.root \
+#    --DirectMode true --Scheme DirectMaximum
+# ./Execute --Variation Sys/PbPbVZ3.root --Reference Sys/PbPbVZ4.root \
+#    --Output Sys/PbPbVZ34.root \
+#    --DirectMode true --Scheme DirectMaximum
+# ./Execute --Variation Sys/PbPbVZ12.root --Reference Sys/PbPbVZ34.root \
+#    --Output Sys/PbPbVZ.root \
+#    --DirectMode true --Scheme DirectMaximum
 
 #tight/loose track selection
 ./Execute --Variation Root/DataLoose.root --Reference Root/Data.root \
