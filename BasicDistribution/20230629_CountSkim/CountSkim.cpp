@@ -283,10 +283,7 @@ int main(int argc, char *argv[])
          if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
          	continue;
 
-         if(ZWtID==-1) 
-         	VecHNSig1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
-         else
-         	VecHNSig1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+         bool SomethingPassed = false;
 
 			int NTrack = 0;
          if(TrackPT != nullptr)
@@ -302,8 +299,14 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             	TrackNotCloseToMuon = false;
 
-            if(!(TrackPTRange && TrackNotCloseToMuon)) 
-         		continue;
+            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange;
+            bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
+
+         	if(PassEvent)
+               SomethingPassed = true;
+
+            if(!PassEverything) 
+            	continue;
 
          	if(ZWtID==-1) 
          		VecHNSig[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
@@ -311,6 +314,14 @@ int main(int argc, char *argv[])
          		VecHNSig[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
+
+			if(!SomethingPassed)
+				continue;
+
+			if(ZWtID==-1) 
+         	VecHNSig1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNSig1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
 		}
 	}
 
@@ -348,7 +359,7 @@ int main(int argc, char *argv[])
 
 			bool ZMassRange = false;
          if(ZMass != nullptr && ZMass->size() > 0 && ZMass->at(0) > 60)
-          ZMassRange = true;
+            ZMassRange = true;
 
          bool ZPTRange = false;
          if(ZPT != nullptr && ZPT->size() > 0 && ZPT->at(0) > C[iC].ZPTMin && ZPT->at(0) <= C[iC].ZPTMax)
@@ -365,11 +376,7 @@ int main(int argc, char *argv[])
          if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
          	continue;
 
-         if(ZWtID==-1) 
-         	VecHNBkg1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
-         else
-         	VecHNBkg1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
-
+         bool SomethingPassed = false;
 
 			int NTrack = 0;
          if(TrackPT != nullptr)
@@ -385,8 +392,14 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             	TrackNotCloseToMuon = false;
 
-            if(!(TrackPTRange && TrackNotCloseToMuon)) 
-         		continue;
+            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange;
+            bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
+
+         	if(PassEvent)
+               SomethingPassed = true;
+
+            if(!PassEverything) 
+            	continue;
 
          	if(ZWtID==-1) 
          		VecHNBkg[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
@@ -394,6 +407,15 @@ int main(int argc, char *argv[])
          		VecHNBkg[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
+
+			if(!SomethingPassed)
+				continue;
+
+			if(ZWtID==-1) 
+         	VecHNBkg1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNBkg1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+
 		}
 	}
 
@@ -449,11 +471,7 @@ int main(int argc, char *argv[])
          if(!(ZMassRange && ZPTRange && VZRange && ppNPUcut)) 
          	continue;
 
-         if(ZWtID==-1) 
-         	VecHNPP01[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
-         else
-         	VecHNPP01[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
-
+         bool SomethingPassed = false;
 
 			int NTrack = 0;
          if(TrackPT != nullptr)
@@ -469,8 +487,14 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             	TrackNotCloseToMuon = false;
 
-            if(!(TrackPTRange && TrackNotCloseToMuon)) 
-         		continue;
+            bool PassEvent = ZMassRange && ZPTRange && VZRange && ppNPUcut;
+            bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
+
+         	if(PassEvent)
+               SomethingPassed = true;
+
+            if(!PassEverything) 
+            	continue;
 
          	if(ZWtID==-1) 
          		VecHNPP0[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
@@ -478,6 +502,15 @@ int main(int argc, char *argv[])
          		VecHNPP0[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
+
+			if(!SomethingPassed)
+				continue;
+
+			if(ZWtID==-1) 
+         	VecHNPP01[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNPP01[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+
 		}
 	}
 
@@ -532,11 +565,8 @@ int main(int argc, char *argv[])
          if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
          	continue;
 
-         if(ZWtID==-1) 
-         	VecHNSigData1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
-         else
-         	VecHNSigData1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
-
+         bool SomethingPassed = false;
+         
 			int NTrack = 0;
          if(TrackPT != nullptr)
             NTrack = TrackPT->size();
@@ -551,8 +581,14 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             	TrackNotCloseToMuon = false;
 
-            if(!(TrackPTRange && TrackNotCloseToMuon)) 
-           		continue;
+            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange;
+            bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
+
+         	if(PassEvent)
+               SomethingPassed = true;
+
+            if(!PassEverything) 
+            	continue;
 
            	if(ZWtID==-1) 
            		VecHNSigData[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
@@ -560,6 +596,15 @@ int main(int argc, char *argv[])
            		VecHNSigData[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
+
+			if(!SomethingPassed)
+				continue;
+
+			if(ZWtID==-1) 
+         	VecHNSigData1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNSigData1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+
 		}
 	}
 
@@ -614,11 +659,8 @@ int main(int argc, char *argv[])
          if(!(ZMassRange && ZPTRange && CentRange && VZRange)) 
          	continue;
 
-         if(ZWtID==-1) 
-         	VecHNBkgData1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
-         else
-         	VecHNBkgData1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
-
+         bool SomethingPassed = false;
+         
 			int NTrack = 0;
          if(TrackPT != nullptr)
          	NTrack = TrackPT->size();
@@ -633,8 +675,14 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             	TrackNotCloseToMuon = false;
 
-            if(!(TrackPTRange && TrackNotCloseToMuon)) 
-         		continue;
+            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange;
+            bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
+
+         	if(PassEvent)
+               SomethingPassed = true;
+
+            if(!PassEverything) 
+            	continue;
 
          	if(ZWtID==-1) 
          		VecHNBkgData[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
@@ -642,6 +690,15 @@ int main(int argc, char *argv[])
          		VecHNBkgData[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
+
+			if(!SomethingPassed)
+				continue;
+
+			if(ZWtID==-1) 
+         	VecHNBkgData1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNBkgData1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+
 		}
 	}
 
@@ -694,10 +751,7 @@ int main(int argc, char *argv[])
          if(!(ZMassRange && ZPTRange && VZRange)) 
          	continue;
 
-         if(ZWtID==-1) 
-         	VecHNPP0Data1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
-         else
-         	VecHNPP0Data1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+         bool SomethingPassed = false;
 
 			int NTrack = 0;
          if(TrackPT != nullptr)
@@ -713,8 +767,14 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             		TrackNotCloseToMuon = false;
 
-            if(!(TrackPTRange && TrackNotCloseToMuon)) 
-         		continue;
+         	bool PassEvent = ZMassRange && ZPTRange && VZRange;
+            bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
+
+         	if(PassEvent)
+               SomethingPassed = true;
+
+            if(!PassEverything) 
+            	continue;
 
          	if(ZWtID==-1) 
          		VecHNPP0Data[iC].Fill(0.,NCollWeight*ZWeight*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
@@ -722,6 +782,15 @@ int main(int argc, char *argv[])
          		VecHNPP0Data[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight*(trackWeight->at(iT))*(trackResidualWeight->at(iT)));
 
 			}
+
+			if(!SomethingPassed)
+				continue;
+
+			if(ZWtID==-1) 
+         	VecHNPP0Data1[iC].Fill(0.,NCollWeight*ZWeight*VZWeight);
+         else
+         	VecHNPP0Data1[iC].Fill(0.,NCollWeight*ZWeight*ExtraZWeight[ZWtID]*VZWeight);
+
 		}
 	}
 
@@ -776,7 +845,7 @@ int main(int argc, char *argv[])
 
 		double et1 = t1E/t1N, et2 = t2E/t2N, et4 = t4E/t4N, et6 = t6E/t6N, et7 = t7E/t7N, et8 = t8E/t8N;
 		double ez1 = z1E/z1N, ez2 = z2E/z2N, ez4 = z4E/z4N, ez6 = z6E/z6N, ez7 = z7E/z7N, ez8 = z8E/z8N;
-	
+	/*
 		//fout<<"======================================"<<std::endl;
 		fout<<"\\hline\\hline"<<std::endl;
 	
@@ -794,7 +863,23 @@ int main(int argc, char *argv[])
 		fout<<left<<setw(20)<< "$N_{evt}$ (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z6N            <<setw(2)<<"&"<<left<<setw(15)<< "-"            <<setw(2)<<"&"<<left<<setw(20)<< "-"            <<setw(2)<<"&"<<left<<setw(15)<< z8N             <<"\\\\"<<endl;
 		fout<<left<<setw(20)<< "$N_{trk}/N_{evt}$"   <<setw(2)<<"&"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"&"<<left<<setw(20)<< t6N/z6N-t7N/z7N    <<setw(2)<<"&"<<left<<setw(15)<< t8N/z8N         <<"\\\\"<<endl;
 		fout<<left<<setw(20)<< "Error"     	         <<setw(2)<<"&"<<left<<setw(15)<< t6E/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7E/z7N        <<setw(2)<<"&"<<left<<setw(20)<< sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N)) <<setw(2)<<"&"<<left<<setw(15)<< t8E/z8N <<"\\\\"<<endl;
+	*/
+
+	//fout<<"======================================"<<std::endl;
+		fout<<"\\hline\\hline"<<std::endl;
 	
+		fout<<left<<setw(20)<< "Sample"              <<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg MC" <<setw(2)<<"&"<<left<<setw(15)<< "pp MC" <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_{trk}/N_{evt}$"   <<setw(2)<<"&"<<left<<setw(20)<< t1N/z1N-t2N/z2N   <<setw(2)<<"&"<<left<<setw(15)<< t4N/z4N      <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "Error"     	         <<setw(2)<<"&"<<left<<setw(20)<< sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N)) <<setw(2)<<"&"<<left<<setw(15)<< t4E/z4N <<"\\\\"<<endl;
+	
+		//fout<<"--------------------------------------"<<std::endl;
+		fout<<"\\hline"<<std::endl;
+	
+		fout<<left<<setw(20)<< "Sample"              <<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg Data"<<setw(2)<<"&"<<left<<setw(15)<< "pp Data" <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_{trk}/N_{evt}$"   <<setw(2)<<"&"<<left<<setw(20)<< t6N/z6N-t7N/z7N    <<setw(2)<<"&"<<left<<setw(15)<< t8N/z8N         <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "Error"     	         <<setw(2)<<"&"<<left<<setw(20)<< sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N)) <<setw(2)<<"&"<<left<<setw(15)<< t8E/z8N <<"\\\\"<<endl;
+	
+
 		//fout<<"======================================"<<std::endl;
 		fout<<"\\hline\\hline"<<std::endl;
 		if(iC%tablesize==tablesize-1||iC==(int)C.size()-1){
