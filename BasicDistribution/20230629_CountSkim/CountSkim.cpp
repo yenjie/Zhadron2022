@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
 
 	// Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
 
-   int tablesize = 3;
+   int tablesize = 6;
 	vector<Configuration> C;
 
 	C.push_back(Configuration(40,200,0,10,1,2));
@@ -868,17 +868,10 @@ int main(int argc, char *argv[])
 	//fout<<"======================================"<<std::endl;
 		fout<<"\\hline\\hline"<<std::endl;
 	
-		fout<<left<<setw(20)<< "Sample"              <<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg MC" <<setw(2)<<"&"<<left<<setw(15)<< "pp MC" <<"\\\\"<<endl;
-		fout<<left<<setw(20)<< "$N_{trk}/N_{evt}$"   <<setw(2)<<"&"<<left<<setw(20)<< t1N/z1N-t2N/z2N   <<setw(2)<<"&"<<left<<setw(15)<< t4N/z4N      <<"\\\\"<<endl;
-		fout<<left<<setw(20)<< "Error"     	         <<setw(2)<<"&"<<left<<setw(20)<< sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N)) <<setw(2)<<"&"<<left<<setw(15)<< t4E/z4N <<"\\\\"<<endl;
-	
-		//fout<<"--------------------------------------"<<std::endl;
+		fout<<left<<setw(20)<< "Sample"              <<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg MC" 									 <<setw(2)<<"&"<<left<<setw(15)<< "pp MC" <<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg Data"									 <<setw(2)<<"&"<<left<<setw(15)<< "pp Data" <<"\\\\"<<endl;
 		fout<<"\\hline"<<std::endl;
-	
-		fout<<left<<setw(20)<< "Sample"              <<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg Data"<<setw(2)<<"&"<<left<<setw(15)<< "pp Data" <<"\\\\"<<endl;
-		fout<<left<<setw(20)<< "$N_{trk}/N_{evt}$"   <<setw(2)<<"&"<<left<<setw(20)<< t6N/z6N-t7N/z7N    <<setw(2)<<"&"<<left<<setw(15)<< t8N/z8N         <<"\\\\"<<endl;
-		fout<<left<<setw(20)<< "Error"     	         <<setw(2)<<"&"<<left<<setw(20)<< sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N)) <<setw(2)<<"&"<<left<<setw(15)<< t8E/z8N <<"\\\\"<<endl;
-	
+		fout<<left<<setw(20)<< "$N_{trk}/N_{evt}$"   <<setw(2)<<"&"<<left<<setw(20)<< t1N/z1N-t2N/z2N   									 <<setw(2)<<"&"<<left<<setw(15)<< t4N/z4N <<setw(2)<<"&"<<left<<setw(20)<< t6N/z6N-t7N/z7N    									 <<setw(2)<<"&"<<left<<setw(15)<< t8N/z8N   <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "Error"     	         <<setw(2)<<"&"<<left<<setw(20)<< sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N)) <<setw(2)<<"&"<<left<<setw(15)<< t4E/z4N <<setw(2)<<"&"<<left<<setw(20)<< sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N)) <<setw(2)<<"&"<<left<<setw(15)<< t8E/z8N   <<"\\\\"<<endl;
 
 		//fout<<"======================================"<<std::endl;
 		fout<<"\\hline\\hline"<<std::endl;

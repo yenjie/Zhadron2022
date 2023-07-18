@@ -14,6 +14,7 @@ cd /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_Cou
 mkdir -p SkimCount/20230718
 mkdir -p SkimCount/log/20230718
 
+
 if [ $1 -eq 0 ]
 then
 	./ExecuteCount --Output SkimCount/20230718/SkimCount_nominal_centN-v15c.tex -Fraction 1 -CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c
@@ -79,23 +80,17 @@ then
 	./ExecuteCount --Output SkimCount/20230718/SkimCount_ZWt11-v15c.tex -Fraction 1 --ZWtID 11 --CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c
 elif [ $1 -eq 21 ]
 then
-	./ExecuteCount --Output SkimCount/20230718/SkimCount_ppNPUall-v15c.tex -Fraction 1 --ppNPU 1 --CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c
+	./ExecuteCount --Output SkimCount/20230718/SkimCount_ppNPU0-v15c.tex -Fraction 1 --ppNPU 0 --CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c
 elif [ $1 -eq 22 ]
 then
-	./ExecuteCount --Output SkimCount/20230718/SkimCount_VZ1-v15c.tex -Fraction 1 --VZMax -5 --CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c
+	./ExecuteCount --Output SkimCount/20230718/SkimCount_VZ10-v15c.tex -Fraction 1 --VZMin -10 --VZMax 10 --CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c
 elif [ $1 -eq 23 ]
 then
-	./ExecuteCount --Output SkimCount/20230718/SkimCount_VZ2-v15c.tex -Fraction 1 --VZMin -5 --VZMax 0 --CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c
+	./ExecuteCount --Output SkimCount/20230718/SkimCount_VZ20-v15c.tex -Fraction 1 --VZMin -20 --VZMax 20 --CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c
 elif [ $1 -eq 24 ]
 then
-	./ExecuteCount --Output SkimCount/20230718/SkimCount_VZ3-v15c.tex -Fraction 1 --VZMin 0 --VZMax 5 --CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c
-elif [ $1 -eq 25 ]
-then
-	./ExecuteCount --Output SkimCount/20230718/SkimCount_VZ4-v15c.tex -Fraction 1 --VZMin 5 --CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c
-elif [ $1 -eq 26 ]
-then
 	./ExecuteCount --Output SkimCount/20230718/SkimCount_loose-v15c.tex -Fraction 1 --CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c --SigMCDir OutputMCLoose_v16 --SigDataDir OutputDataLoose_v16
-elif [ $1 -eq 27 ]
+elif [ $1 -eq 25 ]
 then
 	./ExecuteCount --Output SkimCount/20230718/SkimCount_tight-v15c.tex -Fraction 1 --CentUD 0 --HFShift 682 --HFShiftData 660 --Tolerance 187.5 --BkgDataDir OutputDataBackground_v15c --BkgMCDir OutputMCBackground_v15c --SigMCDir OutputMCTight_v16 --SigDataDir OutputDataTight_v16
 else
