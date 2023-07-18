@@ -177,15 +177,27 @@ do
       $PlottingY
 
    # VZ cut
+   #./Execute --OutputBase Plots/Sys/SysPbPbVZ$Suffix \
+   #   --DataFiles Root/Data.root,Root/Data_VZ1.root,Root/Data_VZ2.root,Root/Data_VZ3.root,Root/Data_VZ4.root --SkipSystematics true \
+   #   --CurveLabels "Nominal PbPb","v_{z} < -5 cm","-5 < v_{z} < 0 cm","0 < v_{z} < 5 cm","v_{z} > 5 cm" \
+   #   --ToPlot "DeltaPhi" \
+   #   --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+   #   $Plotting
+   #./Execute --OutputBase Plots/Sys/SysPbPbYVZ$Suffix \
+   #   --DataFiles Root/Data.root,Root/Data_VZ1.root,Root/Data_VZ2.root,Root/Data_VZ3.root,Root/Data_VZ4.root --SkipSystematics true \
+   #   --CurveLabels "Nominal PbPb","v_{z} < -5 cm","-5 < v_{z} < 0 cm","0 < v_{z} < 5 cm","v_{z} > 5 cm" \
+   #   --ToPlot "DeltaY" \
+   #   --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+   #   $PlottingY
    ./Execute --OutputBase Plots/Sys/SysPbPbVZ$Suffix \
-      --DataFiles Root/Data.root,Root/Data_VZ1.root,Root/Data_VZ2.root,Root/Data_VZ3.root,Root/Data_VZ4.root --SkipSystematics true \
-      --CurveLabels "Nominal PbPb","v_{z} < -5 cm","-5 < v_{z} < 0 cm","0 < v_{z} < 5 cm","v_{z} > 5 cm" \
+      --DataFiles Root/Data.root,Root/Data_VZ10.root,Root/Data_VZ20.root --SkipSystematics true \
+      --CurveLabels "Nominal PbPb","|v_{z}| < 10 cm","|v_{z}| < 20 cm" \
       --ToPlot "DeltaPhi" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
    ./Execute --OutputBase Plots/Sys/SysPbPbYVZ$Suffix \
-      --DataFiles Root/Data.root,Root/Data_VZ1.root,Root/Data_VZ2.root,Root/Data_VZ3.root,Root/Data_VZ4.root --SkipSystematics true \
-      --CurveLabels "Nominal PbPb","v_{z} < -5 cm","-5 < v_{z} < 0 cm","0 < v_{z} < 5 cm","v_{z} > 5 cm" \
+      --DataFiles Root/Data.root,Root/Data_VZ10.root,Root/Data_VZ20.root --SkipSystematics true \
+      --CurveLabels "Nominal PbPb","|v_{z}| < 10 cm","|v_{z}| < 20 cm" \
       --ToPlot "DeltaY" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $PlottingY
