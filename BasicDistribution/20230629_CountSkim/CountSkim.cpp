@@ -88,8 +88,8 @@ int main(int argc, char *argv[])
   //HFToleranceFraction   = CL.GetDouble("ToleranceFraction");
 
 	int ZWtID			  = CL.GetInteger("ZWtID",-1);
-	double VZMin		  = CL.GetDouble("VZMin",-10000);
-	double VZMax		  = CL.GetDouble("VZMax",10000);
+	double VZMin		  = CL.GetDouble("VZMin",-15);
+	double VZMax		  = CL.GetDouble("VZMax",15);
 
 	int ppNPU			  = CL.GetInteger("ppNPU",1);
 
