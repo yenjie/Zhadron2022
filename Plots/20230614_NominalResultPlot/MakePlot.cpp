@@ -71,15 +71,15 @@ int main(int argc, char *argv[])
    vector<string> ExtraInfo       = CL.GetStringVector("ExtraInfo",
    vector<string>
    {
-      "p_{T}^{Z} > 40 GeV",
+      "40 < p_{T}^{Z} < 200 GeV",
       ""
    });
 
    if(SystematicFiles.size() == 0)
       SkipSystematics = true;
 
-   string PbPbLumi = "1.X nb^{-1}";
-   string PPLumi = "3XX pb^{-1}";
+   string PbPbLumi = "1.70 nb^{-1}";
+   string PPLumi = "304 pb^{-1}";
 
    int NFile = DataFiles.size();
    int NColumn = Tags.size();

@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 {
    CommandLine CL(argc, argv);
 
-   string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions_ops/pchou/OutputMC_old/");
+   string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions/pchou/OutputMC_v16/");
    string OutputFileName = CL.Get("Output", "Plots.root");
    double Fraction       = CL.GetDouble("Fraction", 1.00);
    bool IgnoreCentrality = CL.GetBool("IgnoreCentrality", false);
@@ -57,6 +57,36 @@ int main(int argc, char *argv[])
    
    // Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
    vector<Configuration> C;
+
+   //C.push_back(Configuration(40, 30, 2000,  0, 30,  1, 1000));
+   //C.push_back(Configuration(40, 30, 2000, 30, 50,  1, 1000));
+   //C.push_back(Configuration(40, 30, 2000, 50, 90,  1, 1000));
+
+   C.push_back(Configuration(40, 30, 2000,  0, 90,  1, 1000));
+
+   C.push_back(Configuration(40, 30, 2000,  0, 10,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000, 10, 30,  1, 1000));
+
+
+   C.push_back(Configuration(40, 30, 2000,  9, 10,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  8,  9,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  7,  8,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  6,  7,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  5,  6,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  4,  5,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  3,  4,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  2,  3,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  1,  2,  1, 1000));
+
+   C.push_back(Configuration(40, 30, 2000,  8, 10,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  6,  8,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  4,  6,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  2,  4,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,0.5,  2,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  7, 10,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  4,  7,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  1,  4,  1, 1000));
+   
    
    C.push_back(Configuration(40, 20, 2000,  0, 90,  0, 1000));
    C.push_back(Configuration(40,  5, 2000,  0, 90,  0, 1000));
@@ -152,6 +182,7 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 20, 2000,  0, 10, 50,  100));
    C.push_back(Configuration(40, 20, 2000, 10, 30, 50,  100));
    C.push_back(Configuration(40, 20, 2000, 30, 50, 50,  100));
+   
 
 
 
@@ -312,7 +343,7 @@ int main(int argc, char *argv[])
    double maxMoreOppositeWTADPhi;
 
    float NCollWeight;
-   float ZWeight;
+   float ZWeight, VZWeight;
    vector<double> *trackWeight = nullptr;
    vector<double> *trackResidualWeight = nullptr;
 
@@ -334,6 +365,8 @@ int main(int argc, char *argv[])
 
    Tree->SetBranchAddress("NCollWeight",            &NCollWeight);
    Tree->SetBranchAddress("ZWeight",                &ZWeight);
+   Tree->SetBranchAddress("VZWeight",               &VZWeight);
+   
 
    Tree->SetBranchAddress("trackWeight",            &trackWeight);
    Tree->SetBranchAddress("trackResidualWeight",    &trackResidualWeight);
@@ -439,7 +472,7 @@ int main(int argc, char *argv[])
             bool PassEvent = ZMassRange && ZPTRange && CentRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
-            double weight = (trackWeight->at(iT))*(trackResidualWeight->at(iT))*NCollWeight*ZWeight;
+            double weight = (trackWeight->at(iT))*(trackResidualWeight->at(iT))*NCollWeight*ZWeight*VZWeight;
             //double weight = NCollWeight;
             //double weight = trackWeight->at(iT);
 
@@ -549,34 +582,34 @@ int main(int argc, char *argv[])
 
          if(SomethingPassed == true)
          {
-            EventCount[iC] = EventCount[iC] + NCollWeight*ZWeight;
-            HEventCount[iC]->Fill(0., NCollWeight*ZWeight);
+            EventCount[iC] = EventCount[iC] + NCollWeight*ZWeight*VZWeight;
+            HEventCount[iC]->Fill(0., NCollWeight*ZWeight*VZWeight);
             
-            HZPT[iC]->Fill(ZPT_0, NCollWeight*ZWeight);
-            HZEta[iC]->Fill(ZEta_0, NCollWeight*ZWeight);
-            HZPhi[iC]->Fill(ZPhi_0, NCollWeight*ZWeight);
-            HZMass[iC]->Fill(ZMass_0, NCollWeight*ZWeight);
-            HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight*ZWeight);
+            HZPT[iC]->Fill(ZPT_0, NCollWeight*ZWeight*VZWeight);
+            HZEta[iC]->Fill(ZEta_0, NCollWeight*ZWeight*VZWeight);
+            HZPhi[iC]->Fill(ZPhi_0, NCollWeight*ZWeight*VZWeight);
+            HZMass[iC]->Fill(ZMass_0, NCollWeight*ZWeight*VZWeight);
+            HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight*ZWeight*VZWeight);
 
             if(genZEta->size() > 0){
-               GenEventCount[iC] = GenEventCount[iC] + NCollWeight*ZWeight;
-               HGenEventCount[iC]->Fill(0., NCollWeight*ZWeight);
-               HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight*ZWeight);
-               HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight*ZWeight);
-               HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight*ZWeight);
+               GenEventCount[iC] = GenEventCount[iC] + NCollWeight*ZWeight*VZWeight;
+               HGenEventCount[iC]->Fill(0., NCollWeight*ZWeight*VZWeight);
+               HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight*ZWeight*VZWeight);
+               HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight*ZWeight*VZWeight);
+               HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight*ZWeight*VZWeight);
             }
             
             if(fabs(maxDEta + ZEta_0)<M_PI/2)
-               HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta_0, PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight*ZWeight);
+               HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta_0, PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight*ZWeight*VZWeight);
             
             if(fabs(maxOppositeDEta + ZEta_0)<M_PI/2)
-               HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta_0, PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight*ZWeight);
+               HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta_0, PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight*ZWeight*VZWeight);
             
             if(fabs(maxOppositeWTADEta + ZEta_0)<M_PI/2)
-               HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta_0, PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
+               HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta_0, PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight*VZWeight);
             
             if(fabs(maxMoreOppositeWTADEta + ZEta_0)<M_PI/2)
-               HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta_0, PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
+               HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta_0, PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight*VZWeight);
          }
       }
    }

@@ -49,6 +49,8 @@ int main(int argc, char *argv[])
    bool DoExtraZWeight           = CL.GetBool("DoExtraZWeight", false);
    int ExtraZWeightIndex         = DoExtraZWeight ? CL.GetInt("ExtraZWeightIndex") : 0;
    bool DoAdHocSignalHF          = CL.GetBool("DoAdHocSignalHF", false);
+   double VZMin                  = CL.GetDouble("VZMin",-15);
+   double VZMax                  = CL.GetDouble("VZMax",15);
 
    vector<Configuration> Cs;
 
@@ -86,6 +88,9 @@ int main(int argc, char *argv[])
    vector<TH1D *> HDeltaEta;
    vector<TH1D *> HDeltaEtaZSide;
    vector<TH1D *> HDeltaEtaJetSide;
+   vector<TH1D *> HDeltaY;
+   vector<TH1D *> HDeltaYZSide;
+   vector<TH1D *> HDeltaYJetSide;
    vector<TH1D *> HHiBin;
    vector<TH1D *> HHiHF;
    vector<TH1D *> HSignalHF;
@@ -97,6 +102,9 @@ int main(int argc, char *argv[])
       HDeltaEta.push_back(new TH1D(Form("HDeltaEta_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
       HDeltaEtaZSide.push_back(new TH1D(Form("HDeltaEtaZSide_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
       HDeltaEtaJetSide.push_back(new TH1D(Form("HDeltaEtaJetSide_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
+      HDeltaY.push_back(new TH1D(Form("HDeltaY_%s", C.Tag.c_str()), ";|#Deltay|;", 10, 0, 3.5));
+      HDeltaYZSide.push_back(new TH1D(Form("HDeltaYZSide_%s", C.Tag.c_str()), ";|#Deltay|;", 10, 0, 3.5));
+      HDeltaYJetSide.push_back(new TH1D(Form("HDeltaYJetSide_%s", C.Tag.c_str()), ";|#Deltay|;", 10, 0, 3.5));
       HHiBin.push_back(new TH1D(Form("HHiBin_%s", C.Tag.c_str()), ";hiBin;", 200, 0, 200));
       HHiHF.push_back(new TH1D(Form("HHiHF_%s", C.Tag.c_str()), ";hiHF;", 400, HiHFBins));
       HSignalHF.push_back(new TH1D(Form("HSignalHF_%s", C.Tag.c_str()), ";SumHF;", 400, SignalHFBins));
@@ -134,6 +142,7 @@ int main(int argc, char *argv[])
          double ZPT  = DoGen ? M.genZPt->at(0)  : M.zPt->at(0);
          double ZEta = DoGen ? M.genZEta->at(0) : M.zEta->at(0);
          double ZPhi = DoGen ? M.genZPhi->at(0) : M.zPhi->at(0);
+         double ZMass= DoGen ? M.genZMass->at(0): M.zMass->at(0);
 
          double Mu1Eta = DoGen ? M.genMuEta1->at(0) : M.muEta1->at(0);
          double Mu1Phi = DoGen ? M.genMuPhi1->at(0) : M.muPhi1->at(0);
@@ -163,6 +172,8 @@ int main(int argc, char *argv[])
             if(ZPT >= Cs[iC].ZPTMax)                            continue;
             if(M.NVertex < Cs[iC].NPVMin)                       continue;
             if(M.NVertex > Cs[iC].NPVMax)                       continue;
+            if(M.SignalVZ < VZMin)                              continue;
+            if(M.SignalVZ > VZMax)                              continue;
             
             HN[iC]->Fill(0.0, EventWeight);
             HHiBin[iC]->Fill(M.hiBin, EventWeight);
@@ -207,13 +218,28 @@ int main(int argc, char *argv[])
                if(M.trackPt->at(iT) >= Cs[iC].PTMax)                  continue;
                if(DoGen == false && M.NVertex < Cs[iC].NPVMin)        continue;
                if(DoGen == false && M.NVertex > Cs[iC].NPVMax)        continue;
+               if(M.SignalVZ < VZMin)                                 continue;
+               if(M.SignalVZ > VZMax)                                 continue;
 
                HDeltaPhi[iC]->Fill(fabs(TrackDPhi), TrackWeight);
                HDeltaEta[iC]->Fill(fabs(TrackDEta), TrackWeight);
-               if(fabs(TrackDPhi) < M_PI / 2)
+
+               double zP = ZPT*cosh(ZEta);
+               double zPz = ZPT*sinh(ZEta);
+               double zE = sqrt(zP*zP+ZMass*ZMass);
+               double zY = 0.5*log((zE+zPz)/(zE-zPz));
+               double TrackDY = TrackEta - zY;
+
+               HDeltaY[iC]->Fill(fabs(TrackDY), TrackWeight);
+
+               if(fabs(TrackDPhi) < M_PI / 2){
                   HDeltaEtaZSide[iC]->Fill(fabs(TrackDEta), TrackWeight);
-               else
+                  HDeltaYZSide[iC]->Fill(fabs(TrackDY), TrackWeight);
+               }
+               else{
                   HDeltaEtaJetSide[iC]->Fill(fabs(TrackDEta), TrackWeight);
+                  HDeltaYJetSide[iC]->Fill(fabs(TrackDY), TrackWeight);
+               }
             }   
          }
       }
@@ -229,6 +255,9 @@ int main(int argc, char *argv[])
       HDeltaEta[i]->Write();
       HDeltaEtaZSide[i]->Write();
       HDeltaEtaJetSide[i]->Write();
+      HDeltaY[i]->Write();
+      HDeltaYZSide[i]->Write();
+      HDeltaYJetSide[i]->Write();
       HHiBin[i]->Write();
       HHiHF[i]->Write();
       HSignalHF[i]->Write();

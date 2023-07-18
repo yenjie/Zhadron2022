@@ -1,4 +1,4 @@
-executable   = ./do_ZTrackAna.sh
+executable   = ./do_ZTrackAna_bkg.sh
 
 arguments    = $(ProcId)
 
@@ -13,6 +13,6 @@ initialdir = /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
-+JobFlavour = "tomorrow"
++JobFlavour = "nextweek"
 
-queue 14
+queue 4

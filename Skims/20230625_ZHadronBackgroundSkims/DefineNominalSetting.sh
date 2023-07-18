@@ -27,23 +27,23 @@ GenTrack="--DoTrackEfficiency false --TrackEfficiencyPath ${ProjectBase}/CommonC
 PPRecoTrack="--DoTrackEfficiency true --TrackEfficiencyPath ${ProjectBase}/CommonCode/root/ --DoTrackResidual true --TrackResidualPath $TrackResidualPathPP"
 PbPbRecoTrack="--DoTrackEfficiency true --TrackEfficiencyPath ${ProjectBase}/CommonCode/root/ --DoTrackResidual true --TrackResidualPath $TrackResidualPathPbPb"
 
-BackgroundMC="   --DoBackground true --HFShift 682  --Tolerance 90 --ToleranceFraction 0.005 --Oversample 10 --HFCeiling 134000"
-BackgroundGenMC="--DoBackground true --HFShift 1083 --Tolerance 90 --ToleranceFraction 0.005 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-BackgroundData=" --DoBackground true --HFShift 660  --Tolerance 75 --ToleranceFraction 0.005 --Oversample 25 --HFCeiling  70000"
+BackgroundMC="   --DoBackground true --HFShift 682  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMC="--DoBackground true --HFShift 1083 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundData=" --DoBackground true --HFShift 660  --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
-BackgroundMCUEUp25="     --DoBackground true --HFShift 699   --Tolerance 90 --ToleranceFraction 0.05 --Oversample 10 --HFCeiling 134000"
-BackgroundGenMCUEUp25="  --DoBackground true --HFShift 1110  --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-BackgroundDataUEUp25="   --DoBackground true --HFShift 676.5 --Tolerance 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
-BackgroundMCUEDown25="   --DoBackground true --HFShift 665   --Tolerance 20 --ToleranceFraction 0.05 --Oversample 10 --HFCeiling 134000"
-BackgroundGenMCUEDown25="--DoBackground true --HFShift 1056  --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-BackgroundDataUEDown25=" --DoBackground true --HFShift 643.5 --Tolerance 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
+BackgroundMCUEUp25="     --DoBackground true --HFShift 699   --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMCUEUp25="  --DoBackground true --HFShift 1110  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundDataUEUp25="   --DoBackground true --HFShift 676.5 --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
+BackgroundMCUEDown25="   --DoBackground true --HFShift 665   --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMCUEDown25="--DoBackground true --HFShift 1056  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundDataUEDown25=" --DoBackground true --HFShift 643.5 --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
-BackgroundMCUEUp30="     --DoBackground true --HFShift 702.5  --Tolerance 20 --ToleranceFraction 0.05 --Oversample 10 --HFCeiling 134000"
-BackgroundGenMCUEUp30="  --DoBackground true --HFShift 1115.5 --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-BackgroundDataUEUp30="   --DoBackground true --HFShift 680    --Tolerance 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
-BackgroundMCUEDown30="   --DoBackground true --HFShift 661.5  --Tolerance 20 --ToleranceFraction 0.05 --Oversample 10 --HFCeiling 134000"
-BackgroundGenMCUEDown30="--DoBackground true --HFShift 1050.5 --Tolerance 10 --ToleranceFraction 0.01 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-BackgroundDataUEDown30=" --DoBackground true --HFShift 640.2  --Tolerance 0  --ToleranceFraction 0.01 --Oversample 10 --HFCeiling  70000"
+BackgroundMCUEUp30="     --DoBackground true --HFShift 702.5  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMCUEUp30="  --DoBackground true --HFShift 1115.5 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundDataUEUp30="   --DoBackground true --HFShift 680    --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
+BackgroundMCUEDown30="   --DoBackground true --HFShift 661.5  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMCUEDown30="--DoBackground true --HFShift 1050.5 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundDataUEDown30=" --DoBackground true --HFShift 640.2  --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
 DHSet Setting.dh PPSignalMC          Nominal string "$Common $MC    --IsPP true  $AODPF     $PPJetMC      $PPRecoTrack"
 DHSet Setting.dh PPSignalGenMC       Nominal string "$Common $MCGen --IsPP true  $AODPF     $PPJetMC      $GenTrack"
@@ -67,17 +67,10 @@ DHSet Setting.dh PbPbBackgroundMC    UEDown30 string "$Common $MC    --IsPP fals
 DHSet Setting.dh PbPbBackgroundGenMC UEDown30 string "$Common $MCGen --IsPP false $MiniAODPF $PbPbJetMC    $GenTrack       $BackgroundGenMCUEDown30"
 DHSet Setting.dh PbPbBackgroundData  UEDown30 string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack  $BackgroundDataUEDown30"
 
-LooseTrack="--DoAlternateTrackSelection true --AlternateTrackSelection 1"
-DHSet Setting.dh PbPbSignalData      Loose string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack $LooseTrack"
-DHSet Setting.dh PbPbSignalMC        Loose string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack $LooseTrack"
-
-TightTrack="--DoAlternateTrackSelection true --AlternateTrackSelection 2"
-DHSet Setting.dh PbPbSignalData      Tight string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack $TightTrack"
-DHSet Setting.dh PbPbSignalMC        Tight string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack $TightTrack"
 
 # Finally set sample locations
 
-# DHSet Setting.dh Sample PbPbBackgroundData string /eos/cms/store/group/phys_heavyions/mitaylor/PhotonJet/HIMinimumBias4/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HIMinimumBias4/20230203PbPbMB/230203_165233/0000/
+#DHSet Setting.dh Sample PbPbBackgroundData string /eos/cms/store/group/phys_heavyions/mitaylor/PhotonJet/HIMinimumBias4/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HIMinimumBias4/20230203PbPbMB/230203_165233/0000/
 DHSet Setting.dh Sample PbPbBackgroundData string /eos/cms/store/group/phys_heavyions/chenyi/Samples/store/user/mitaylor/PhotonJet/HIMinimumBias4/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HIMinimumBias4/20230130PbPbMB/230130_223511/
 DHSet Setting.dh Sample PbPbSignalData string /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/HISingleMuon/HIRun2018A-PbPb18_MiniAODv1-v1/MINIAOD/HISingleMuon/20230501_ZHadronSingleMuonWithMuTree/230501_155126/
 DHSet Setting.dh Sample PbPbSignalMC string /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Forest/DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8/HINPbPbSpring21MiniAOD-mva98_112X_upgrade2018_realistic_HI_v9-v1/MINIAODSIM/DYJetsToLL_MLL-50_TuneCP5_HydjetDrumMB_5p02TeV-amcatnloFXFX-pythia8/20230501_ZHadronMCDY/230501_155504/0000/
