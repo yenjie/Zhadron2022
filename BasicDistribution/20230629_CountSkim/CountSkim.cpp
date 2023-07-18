@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
 	double VZMin		  = CL.GetDouble("VZMin",-10000);
 	double VZMax		  = CL.GetDouble("VZMax",10000);
 
-	int ppNPU			  = CL.GetInteger("ppNPU",0);
+	int ppNPU			  = CL.GetInteger("ppNPU",1);
 
 	ofstream fout;
 	fout.open(OutputFileName);
@@ -130,21 +130,24 @@ int main(int argc, char *argv[])
    int tablesize = 3;
 	vector<Configuration> C;
 
-	C.push_back(Configuration(40,200,0,30,1,2));
-	C.push_back(Configuration(40,200,0,30,2,4));
-	C.push_back(Configuration(40,200,0,30,4,10));
-	C.push_back(Configuration(40,200,0,30,10,20));
-	C.push_back(Configuration(40,200,0,30,20,50));
+	C.push_back(Configuration(40,200,0,10,1,2));
+	C.push_back(Configuration(40,200,0,10,2,4));
+	C.push_back(Configuration(40,200,0,10,4,10));
+	C.push_back(Configuration(40,200,10,30,1,2));
+	C.push_back(Configuration(40,200,10,30,2,4));
+	C.push_back(Configuration(40,200,10,30,4,10));
+	//C.push_back(Configuration(40,200,0,30,10,20));
+	//C.push_back(Configuration(40,200,0,30,20,50));
 	C.push_back(Configuration(40,200,30,50,1,2));
 	C.push_back(Configuration(40,200,30,50,2,4));
 	C.push_back(Configuration(40,200,30,50,4,10));
-	C.push_back(Configuration(40,200,30,50,10,20));
-	C.push_back(Configuration(40,200,30,50,20,50));
+	//C.push_back(Configuration(40,200,30,50,10,20));
+	//C.push_back(Configuration(40,200,30,50,20,50));
 	C.push_back(Configuration(40,200,50,90,1,2));
 	C.push_back(Configuration(40,200,50,90,2,4));
 	C.push_back(Configuration(40,200,50,90,4,10));
-	C.push_back(Configuration(40,200,50,90,10,20));
-	C.push_back(Configuration(40,200,50,90,20,50));
+	//C.push_back(Configuration(40,200,50,90,10,20));
+	//C.push_back(Configuration(40,200,50,90,20,50));
 /*
 	C.push_back(Configuration(20,2000,0,10,10,20));
 	C.push_back(Configuration(20,2000,0,10,20,50));
@@ -734,7 +737,7 @@ int main(int argc, char *argv[])
 			fout<<"\\begin{tabular}{|l|c|c|c|c|}"<<endl;
 		}
     	fout<<"\\multicolumn{5}{l}{ HFShift = "<<HFShift<<", HFTolerance = "<<HFTolerance<<"}\\\\"<<std::endl;
-    	fout<<"\\multicolumn{5}{l}{ $"<<C[iC].ZPTMin<<" < p_{T}^{Z} < "<<C[iC].ZPTMax<<", "<<C[iC].CentMin<<" < Centrality < "<<C[iC].CentMax<<", "<<C[iC].TrackPTMin<<" < p_{T}^{trk} < "<<C[iC].TrackPTMax<<"$}\\\\"<<std::endl;
+    	fout<<"\\multicolumn{5}{l}{ $"<<C[iC].ZPTMin<<" < p_{T}^{Z} < "<<C[iC].ZPTMax<<", "<<C[iC].CentMin<<" <$ Centrality $< "<<C[iC].CentMax<<", "<<C[iC].TrackPTMin<<" < p_{T}^{trk} < "<<C[iC].TrackPTMax<<"$}\\\\"<<std::endl;
 
 		double t1N = VecHNSig[iC].GetBinContent(1);
 		double t2N = VecHNBkg[iC].GetBinContent(1);
@@ -777,18 +780,18 @@ int main(int argc, char *argv[])
 		//fout<<"======================================"<<std::endl;
 		fout<<"\\hline\\hline"<<std::endl;
 	
-		fout<<left<<setw(20)<< "Sample"              <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig MC" <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg MC" <<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg MC" <<setw(2)<<"&"<<left<<setw(15)<< "ppMC NPU=0" <<"\\\\"<<endl;
-		fout<<left<<setw(20)<< "$N_Z$ (unweighted)"  <<setw(2)<<"&"<<left<<setw(15)<< z1N0          <<setw(2)<<"&"<<left<<setw(15)<< z2N0          <<setw(2)<<"&"<<left<<setw(20)<< z1N0-z2N0         <<setw(2)<<"&"<<left<<setw(15)<< z4N0         <<"\\\\"<<endl;
-		fout<<left<<setw(20)<< "$N_{evt}$ (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z1N           <<setw(2)<<"&"<<left<<setw(15)<< z2N           <<setw(2)<<"&"<<left<<setw(20)<< z1N-z2N           <<setw(2)<<"&"<<left<<setw(15)<< z4N          <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "Sample"              <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig MC" <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg MC" <<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg MC" <<setw(2)<<"&"<<left<<setw(15)<< "pp MC" <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_Z$ (unweighted)"  <<setw(2)<<"&"<<left<<setw(15)<< z1N0          <<setw(2)<<"&"<<left<<setw(15)<< "-"           <<setw(2)<<"&"<<left<<setw(20)<< "-"         <<setw(2)<<"&"<<left<<setw(15)<< z4N0         <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_{evt}$ (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z1N           <<setw(2)<<"&"<<left<<setw(15)<< "-"           <<setw(2)<<"&"<<left<<setw(20)<< "-"           <<setw(2)<<"&"<<left<<setw(15)<< z4N          <<"\\\\"<<endl;
 		fout<<left<<setw(20)<< "$N_{trk}/N_{evt}$"   <<setw(2)<<"&"<<left<<setw(15)<< t1N/z1N       <<setw(2)<<"&"<<left<<setw(15)<< t2N/z2N       <<setw(2)<<"&"<<left<<setw(20)<< t1N/z1N-t2N/z2N   <<setw(2)<<"&"<<left<<setw(15)<< t4N/z4N      <<"\\\\"<<endl;
 		fout<<left<<setw(20)<< "Error"     	         <<setw(2)<<"&"<<left<<setw(15)<< t1E/z1N       <<setw(2)<<"&"<<left<<setw(15)<< t2E/z2N       <<setw(2)<<"&"<<left<<setw(20)<< sqrt((t1E/z1N)*(t1E/z1N)+(t2E/z2N)*(t2E/z2N)) <<setw(2)<<"&"<<left<<setw(15)<< t4E/z4N <<"\\\\"<<endl;
 	
 		//fout<<"--------------------------------------"<<std::endl;
 		fout<<"\\hline"<<std::endl;
 	
-		fout<<left<<setw(20)<< "Sample"              <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg Data"<<setw(2)<<"&"<<left<<setw(15)<< "pp Data NPU=0" <<"\\\\"<<endl;
-		fout<<left<<setw(20)<< "$N_Z$ (unweighted)"  <<setw(2)<<"&"<<left<<setw(15)<< z6N0           <<setw(2)<<"&"<<left<<setw(15)<< z7N0           <<setw(2)<<"&"<<left<<setw(20)<< z6N0-z7N0          <<setw(2)<<"&"<<left<<setw(15)<< z8N0            <<"\\\\"<<endl;
-		fout<<left<<setw(20)<< "$N_{evt}$ (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z6N            <<setw(2)<<"&"<<left<<setw(15)<< z7N            <<setw(2)<<"&"<<left<<setw(20)<< z6N-z7N            <<setw(2)<<"&"<<left<<setw(15)<< z8N             <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "Sample"              <<setw(2)<<"&"<<left<<setw(15)<< "PbPb Sig Data"<<setw(2)<<"&"<<left<<setw(15)<< "PbPb Bkg Data"<<setw(2)<<"&"<<left<<setw(20)<< "PbPb Sig-Bkg Data"<<setw(2)<<"&"<<left<<setw(15)<< "pp Data" <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_Z$ (unweighted)"  <<setw(2)<<"&"<<left<<setw(15)<< z6N0           <<setw(2)<<"&"<<left<<setw(15)<< "-"           <<setw(2)<<"&"<<left<<setw(20)<< "-"          <<setw(2)<<"&"<<left<<setw(15)<< z8N0            <<"\\\\"<<endl;
+		fout<<left<<setw(20)<< "$N_{evt}$ (weighted)"<<setw(2)<<"&"<<left<<setw(15)<< z6N            <<setw(2)<<"&"<<left<<setw(15)<< "-"            <<setw(2)<<"&"<<left<<setw(20)<< "-"            <<setw(2)<<"&"<<left<<setw(15)<< z8N             <<"\\\\"<<endl;
 		fout<<left<<setw(20)<< "$N_{trk}/N_{evt}$"   <<setw(2)<<"&"<<left<<setw(15)<< t6N/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7N/z7N        <<setw(2)<<"&"<<left<<setw(20)<< t6N/z6N-t7N/z7N    <<setw(2)<<"&"<<left<<setw(15)<< t8N/z8N         <<"\\\\"<<endl;
 		fout<<left<<setw(20)<< "Error"     	         <<setw(2)<<"&"<<left<<setw(15)<< t6E/z6N        <<setw(2)<<"&"<<left<<setw(15)<< t7E/z7N        <<setw(2)<<"&"<<left<<setw(20)<< sqrt((t6E/z6N)*(t6E/z6N)+(t7E/z7N)*(t7E/z7N)) <<setw(2)<<"&"<<left<<setw(15)<< t8E/z8N <<"\\\\"<<endl;
 	
