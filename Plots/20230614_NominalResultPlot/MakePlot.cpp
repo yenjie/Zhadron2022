@@ -176,6 +176,9 @@ int main(int argc, char *argv[])
          XMarginLeft + XPadWidth * iC, XMarginBottom,
          XMarginLeft + XPadWidth * (iC + 1), XMarginBottom + XRPadHeight);
 
+      if(LogScale == true)
+         Pad[iC]->SetLogy();
+
       SetPad(Pad[iC]);
       SetPad(RPad[iC]);
    }
@@ -331,9 +334,6 @@ int main(int argc, char *argv[])
    {
       Pad[iC]->cd();
       HWorld[iC]->Draw("axis");
-      
-      if(LogScale == true)
-         Pad[iC]->SetLogy();
 
       for(int iF = 0; iF < NFile; iF++)
       {
