@@ -271,10 +271,10 @@ int main(int argc, char *argv[])
                HData[iC][iF]->Add(HSubtract, -1 * SubtractFudgeFactor);
          }
          
-         if(SkipSelfSubtract == false)
+         if(SkipSelfSubtract == false && iF == 1)
             HistogramSelfSubtract(HData[iC][iF]);
 
-         if(SkipShifting == false)
+         if(SkipShifting == false && iF == 1)
             HistogramShifting(HData[iC][iF],TagShift,ShiftFile);
          
          // PrintHistogram(File[iF], Form("H%s_%s", ToPlot.c_str(), Tag.c_str()));
