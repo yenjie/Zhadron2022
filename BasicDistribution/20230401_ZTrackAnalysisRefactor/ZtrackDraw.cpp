@@ -59,8 +59,8 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v16/20230716";
-const char *typeofdata1 = "v16_20230716";
+const char *typeofdata = "v16/20230719";
+const char *typeofdata1 = "v16_20230719";
 const char *typeofdatatext = "single muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -1044,11 +1044,13 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
      hpp_phi_com->Fill(newX, y);
    }
 */
+
+   /*
    hMC_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
    hMC_bkg_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
    hMC_sb_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
    hpp_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
-
+*/
 
    max1 = hMC_phi_com->GetMaximum();
    max2 = hMC_bkg_phi_com->GetMaximum();
@@ -3406,11 +3408,11 @@ int main(int argc, char *argv[]){
    ZtrackDraw_single(40, 20, 2000, 30, 50, 10,   20);
    ZtrackDraw_single(40, 20, 2000, 50, 90, 10,   20);
 
-   ZtrackDraw_single(40, 40, 200,  0, 30, 1, 1000);
-   ZtrackDraw_single(40, 40, 200,  0, 10, 1, 1000);
-   ZtrackDraw_single(40, 40, 200, 10, 30, 1, 1000);
-   ZtrackDraw_single(40, 40, 200, 30, 50, 1, 1000);
-   ZtrackDraw_single(40, 40, 200, 50, 90, 1, 1000);
+   //ZtrackDraw_single(40, 40, 200,  0, 30, 1, 1000);
+   //ZtrackDraw_single(40, 40, 200,  0, 10, 1, 1000);
+   //ZtrackDraw_single(40, 40, 200, 10, 30, 1, 1000);
+   //ZtrackDraw_single(40, 40, 200, 30, 50, 1, 1000);
+   //ZtrackDraw_single(40, 40, 200, 50, 90, 1, 1000);
 
    file_sigMC->Close();
    file_bkgMC->Close();
