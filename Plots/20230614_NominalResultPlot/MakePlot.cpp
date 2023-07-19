@@ -27,6 +27,7 @@ void HistogramSelfSubtract(TH1D *H);
 TH1D *SubtractHistogram(TH1D *H, TH1D *HRef);
 void PrintHistogram(TFile *F, string Name);
 void PrintHistogram(TH1D *H);
+void HistogramShifting(TH1D *H, string TagShift, DataHelper ShiftFile);
 
 int main(int argc, char *argv[])
 {
