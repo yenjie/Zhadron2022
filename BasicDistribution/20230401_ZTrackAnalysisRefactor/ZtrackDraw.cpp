@@ -1045,12 +1045,12 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    }
 */
 
-   /*
+   
    hMC_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
    hMC_bkg_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
    hMC_sb_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
    hpp_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
-*/
+
 
    max1 = hMC_phi_com->GetMaximum();
    max2 = hMC_bkg_phi_com->GetMaximum();
@@ -3348,31 +3348,6 @@ int main(int argc, char *argv[]){
    file_bkgMCgen = TFile::Open("GraphMCBackgroundGen_v15c.root","read");
 
 /*
-   ZtrackDraw_single(40, 20, 2000,  0, 90,  0, 1000);
-   ZtrackDraw_single(40,  5, 2000,  0, 90,  0, 1000);
-
-   ZtrackDraw_single(40, 20, 2000,  0, 90,  1,    2);
-   ZtrackDraw_single(40, 20, 2000,  0, 90,  2,    5);
-   ZtrackDraw_single(40, 20, 2000,  0, 90,  5,   10);
-
-   ZtrackDraw_single(40, 20, 2000,  0, 90,  4,    5);
-   ZtrackDraw_single(40, 20, 2000,  0, 90,  5,    7);
-   ZtrackDraw_single(40, 20, 2000,  0, 90,  7,   10);
-
-   //ZtrackDraw_single(40, 20, 2000,  0, 30,  1,    2);
-   //ZtrackDraw_single(40, 20, 2000,  0, 30,  2,    5);
-   //ZtrackDraw_single(40, 20, 2000,  0, 30,  5,   10);
-*/
-   ZtrackDraw_single(40, 20, 2000,  0, 30,  4,    5);
-   ZtrackDraw_single(40, 20, 2000,  0, 30,  5,    7);
-   ZtrackDraw_single(40, 20, 2000,  0, 30,  7,   10);
-
-
-   /*
-   ZtrackDraw_single(40, 30,   40,  0, 90,  0, 1000);
-   ZtrackDraw_single(40, 40,   60,  0, 90,  0, 1000);
-   ZtrackDraw_single(40, 60,   80,  0, 90,  0, 1000);
-   ZtrackDraw_single(40, 80,  100,  0, 90,  0, 1000);*/
    ZtrackDraw_single(40, 20, 2000,  0, 10,  0, 1000);
    ZtrackDraw_single(40, 20, 2000, 10, 30,  0, 1000);
    ZtrackDraw_single(40, 20, 2000, 30, 50,  0, 1000);
@@ -3383,38 +3358,16 @@ int main(int argc, char *argv[]){
    ZtrackDraw_single(40, 20, 2000,  0, 90, 10,   20);
    ZtrackDraw_single(40, 20, 2000,  0, 90, 20,   50);
    ZtrackDraw_single(40, 20, 2000,  0, 90, 50,  100);
-   /*
-   ZtrackDraw_single(40, 40, 2000, 50, 90,  0, 1000);
-   ZtrackDraw_single(40, 20, 2000, 50, 90,  1,    2);
-   ZtrackDraw_single(40, 40, 2000, 50, 90,  1,    2);
-   ZtrackDraw_single(40, 20, 2000, 50, 90,  2,    5);
-   ZtrackDraw_single(40, 40, 2000, 50, 90,  2,    5);
-   ZtrackDraw_single(40, 20, 2000, 50, 90,  5,   10);
-   ZtrackDraw_single(40, 40, 2000, 50, 90,  5,   10);
-   ZtrackDraw_single(40, 20, 2000, 50, 90, 20,   50);
-   ZtrackDraw_single(40, 40, 2000, 50, 90, 20,   50);
-   ZtrackDraw_single(40, 20, 2000, 50, 90, 50,  100);
-   ZtrackDraw_single(40, 40, 2000, 50, 90, 50,  100);*/
+*/
    ZtrackDraw_single(40, 30, 2000,  0, 30,  1, 1000);
    ZtrackDraw_single(40, 30, 2000, 30, 50,  1, 1000);
    ZtrackDraw_single(40, 30, 2000, 50, 90,  1, 1000);
-
-/* 
-   ZtrackDraw_single(40,  5, 2000,  0, 90,  5,   10);
-   ZtrackDraw_single(40,  5, 2000,  0, 90, 10,   20);
-   ZtrackDraw_single(40,  5, 2000,  0, 90, 20,   50);
-   ZtrackDraw_single(40,  5, 2000,  0, 90, 50,  100);
-*/
-
-   ZtrackDraw_single(40, 10, 2000,  0, 90,  2, 1000);
-
-   //ZtrackDraw_single(40, 20, 2000,  0, 10, 10,   20);
-
+/*
    ZtrackDraw_single(40, 20, 2000,  0, 10, 10,   20);
    ZtrackDraw_single(40, 20, 2000, 10, 30, 10,   20);
    ZtrackDraw_single(40, 20, 2000, 30, 50, 10,   20);
    ZtrackDraw_single(40, 20, 2000, 50, 90, 10,   20);
-
+*/
    //ZtrackDraw_single(40, 40, 200,  0, 30, 1, 1000);
    //ZtrackDraw_single(40, 40, 200,  0, 10, 1, 1000);
    //ZtrackDraw_single(40, 40, 200, 10, 30, 1, 1000);
