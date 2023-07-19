@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
    string OutputBase = CL.Get("OutputBase", "Plot");
    string ShiftFileName = CL.Get("ShiftFileName", "/afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_CountSkim/SkimCount/20230718/SkimCount_nominal_centN-v15c.dh");
 
-   bool LogScale                  = CL.GetBool("LogScale", false);
+   //bool LogScale                  = CL.GetBool("LogScale", false);
 
    vector<string> DataFiles       = CL.GetStringVector("DataFiles",
       vector<string>{"Root/PPData.root", "Root/Data.root"});
@@ -176,8 +176,8 @@ int main(int argc, char *argv[])
          XMarginLeft + XPadWidth * iC, XMarginBottom,
          XMarginLeft + XPadWidth * (iC + 1), XMarginBottom + XRPadHeight);
 
-      if(LogScale == true)
-         Pad[iC]->SetLogy();
+      //if(LogScale == true)
+      //   Pad[iC]->SetLogy();
 
       SetPad(Pad[iC]);
       SetPad(RPad[iC]);
