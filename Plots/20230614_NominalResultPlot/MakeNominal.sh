@@ -54,7 +54,7 @@ do
 
    ./Execute --OutputBase Plots/ResultNominal/ResultNominalY$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract true --SkipSelfSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaY" \
@@ -62,7 +62,7 @@ do
       $Plotting
    ./Execute --OutputBase Plots/ResultNominal/ResultNominalYJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract true --SkipSelfSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaYJetSide" \
@@ -70,12 +70,13 @@ do
       $Plotting
    ./Execute --OutputBase Plots/ResultNominal/ResultNominalYZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract true --SkipSelfSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaYZSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
+
 
 done
 
