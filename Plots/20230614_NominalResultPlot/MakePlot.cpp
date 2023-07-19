@@ -12,6 +12,8 @@ using namespace std;
 #include "TGraph.h"
 #include "TLegend.h"
 
+#include "DataHelper.h"
+
 #include "CommandLine.h"
 #include "SetStyle.h"
 
@@ -33,6 +35,7 @@ int main(int argc, char *argv[])
    CommandLine CL(argc, argv);
 
    string OutputBase = CL.Get("OutputBase", "Plot");
+   string ShiftFileName = CL.Get("ShiftFileName", "/afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_CountSkim/SkimCount/20230718/SkimCount_nominal_centN-v15c.dh");
 
    vector<string> DataFiles       = CL.GetStringVector("DataFiles",
       vector<string>{"Root/PPData.root", "Root/Data.root"});
@@ -42,6 +45,7 @@ int main(int argc, char *argv[])
    double SubtractFudgeFactor     = CL.GetDouble("SubtractFudgeFactor", 1.00);
    bool SkipSelfSubtract          = CL.GetBool("SkipSelfSubtract", false);
    bool SkipSystematics           = CL.GetBool("SkipSystematics", false);
+   bool SkipShifting              = CL.GetBool("SkipShifting", true);
    vector<string> SystematicFiles = (SkipSystematics == false) ? CL.GetStringVector("SystematicFiles") : vector<string>();
    vector<string> CurveLabels     = CL.GetStringVector("CurveLabels",
       vector<string>{"pp", "PbPb 0-30%"});
@@ -55,6 +59,15 @@ int main(int argc, char *argv[])
       // "Centrality_30_90_ZPT_40_200_TrackPT_10_20_PV_0_10",
       // "Centrality_30_90_ZPT_40_200_TrackPT_20_50_PV_0_10",
       // "Centrality_30_90_ZPT_40_200_TrackPT_50_100_PV_0_10"
+   });
+
+   vector<string> TagShifts = CL.GetStringVector("TagShifts",
+   vector<string>
+   {
+      "Count_ZPT_40_200_Cent_0_10_TrackPT_1p00_2p00",
+      "Count_ZPT_40_200_Cent_0_10_TrackPT_2p00_4p00",
+      "Count_ZPT_40_200_Cent_0_10_TrackPT_4p00_10p00",
+
    });
    vector<string> SecondTags      = CL.GetStringVector("SecondTags", vector<string>());
    vector<string> Labels          = CL.GetStringVector("Labels",
@@ -225,6 +238,9 @@ int main(int argc, char *argv[])
 
    // Retrieve histograms
    vector<vector<TH1D *>> HData(NColumn);
+
+   DataHelper ShiftFile(ShiftFileName);
+
    for(int iC = 0; iC < NColumn; iC++)
    {
       HData[iC].resize(NFile);
@@ -232,6 +248,7 @@ int main(int argc, char *argv[])
       for(int iF = 0; iF < NFile; iF++)
       {
          string Tag = Tags[iC];
+         string TagShift = TagShifts[iC];
          if(SecondTags.size() == NColumn && iF == 1)
             Tag = SecondTags[iC];
             
@@ -250,6 +267,9 @@ int main(int argc, char *argv[])
          
          if(SkipSelfSubtract == false)
             HistogramSelfSubtract(HData[iC][iF]);
+
+         if(SkipShifting == false)
+            HistogramShifting(HData[iC][iF],TagShift,ShiftFile);
          
          // PrintHistogram(File[iF], Form("H%s_%s", ToPlot.c_str(), Tag.c_str()));
          // PrintHistogram(HData[iC][iF]);
@@ -469,6 +489,26 @@ TH1D *BuildSystematics(TFile *F, TH1D *H, string ToPlot, string Tag, int Color)
    return HResult;
 }
 
+void HistogramShifting(TH1D *H, string TagShift, DataHelper ShiftFile)
+{
+   if(H == nullptr)
+      return;
+
+   double SumX = 0;
+   double SumXY = ShiftFile[TagShift]["PbPb MC Sig Ntrk/Nevt"].GetRepresentation();
+
+   for(int i = 1; i <= H->GetNbinsX(); i++)
+   {
+      double XMin = H->GetXaxis()->GetBinLowEdge(i);
+      double XMax = H->GetXaxis()->GetBinUpEdge(i);
+      SumX = SumX + (XMax - XMin);
+   }
+
+   double Mean = SumXY / SumX;
+   for(int i = 1; i <= H->GetNbinsX(); i++)
+      H->SetBinContent(i, H->GetBinContent(i) + Mean);
+
+}
 void HistogramSelfSubtract(TH1D *H)
 {
    if(H == nullptr)

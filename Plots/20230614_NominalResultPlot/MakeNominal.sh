@@ -14,13 +14,14 @@ do
    ExtraInfo="40 < p_{T}^{Z} < 200 GeV,${CMin}-${CMax}%"
    Plotting="--XAxisLabel |#Delta#phi_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.1415926535 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
    Suffix="C$CMin$CMax"
+   TagShifts=Count_ZPT_40_200_Cent_0_10_TrackPT_1p00_2p00,Count_ZPT_40_200_Cent_${CMin}_${CMax}_TrackPT_2p00_4p00,Count_ZPT_40_200_Cent_${CMin}_${CMax}_TrackPT_4p00_10p00,
 
    ./Execute --OutputBase Plots/ResultNominal/ResultNominal$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaPhi" \
-      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" --TagShifts "$TagShifts" --SkipShifting false \
       $Plotting
 
    #Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
@@ -54,7 +55,7 @@ do
 
    ./Execute --OutputBase Plots/ResultNominal/ResultNominalY$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract true --SkipSelfSubtract false \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaY" \
@@ -62,7 +63,7 @@ do
       $Plotting
    ./Execute --OutputBase Plots/ResultNominal/ResultNominalYJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract true --SkipSelfSubtract false \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaYJetSide" \
@@ -70,7 +71,7 @@ do
       $Plotting
    ./Execute --OutputBase Plots/ResultNominal/ResultNominalYZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract true --SkipSelfSubtract false \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaYZSide" \
