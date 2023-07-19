@@ -27,7 +27,7 @@ void HistogramSelfSubtract(TH1D *H);
 TH1D *SubtractHistogram(TH1D *H, TH1D *HRef);
 void PrintHistogram(TFile *F, string Name);
 void PrintHistogram(TH1D *H);
-void HistogramShifting(TH1D *H, string TagShift, DataHelper ShiftFile);
+void HistogramShifting(TH1D *H, string TagShift, DataHelper ShiftFile, int iF);
 
 int main(int argc, char *argv[])
 {
@@ -271,11 +271,11 @@ int main(int argc, char *argv[])
                HData[iC][iF]->Add(HSubtract, -1 * SubtractFudgeFactor);
          }
          
-         if(SkipSelfSubtract == false && iF == 1)
+         if(SkipSelfSubtract == false)
             HistogramSelfSubtract(HData[iC][iF]);
 
-         if(SkipShifting == false && iF == 1)
-            HistogramShifting(HData[iC][iF],TagShift,ShiftFile);
+         if(SkipShifting == false)
+            HistogramShifting(HData[iC][iF],TagShift,ShiftFile,iF);
          
          // PrintHistogram(File[iF], Form("H%s_%s", ToPlot.c_str(), Tag.c_str()));
          // PrintHistogram(HData[iC][iF]);
@@ -495,13 +495,19 @@ TH1D *BuildSystematics(TFile *F, TH1D *H, string ToPlot, string Tag, int Color)
    return HResult;
 }
 
-void HistogramShifting(TH1D *H, string TagShift, DataHelper ShiftFile)
+void HistogramShifting(TH1D *H, string TagShift, DataHelper ShiftFile, int iF)
 {
    if(H == nullptr)
       return;
 
    double SumX = 0;
-   double SumXY = std::stod(ShiftFile[TagShift]["PbPb MC Sig-Bkg Ntrk/Nevt"].GetRepresentation());
+   double SumXY = 0;
+   if(iF==1) 
+      SumXY = std::stod(ShiftFile[TagShift]["PbPb Data Sig-Bkg Ntrk/Nevt"].GetRepresentation());
+   else if(iF==0)
+      SumXY = std::stod(ShiftFile[TagShift]["pp Data Ntrk/Nevt"].GetRepresentation());
+   else
+      SumXY = 0;
 
    for(int i = 1; i <= H->GetNbinsX(); i++)
    {
