@@ -38,6 +38,8 @@ int main(int argc, char *argv[])
    string OutputBase = CL.Get("OutputBase", "Plot");
    string ShiftFileName = CL.Get("ShiftFileName", "/afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_CountSkim/SkimCount/20230718/SkimCount_nominal_centN-v15c.dh");
 
+   bool LogScale                  = CL.GetBool("LogScale", false);
+
    vector<string> DataFiles       = CL.GetStringVector("DataFiles",
       vector<string>{"Root/PPData.root", "Root/Data.root"});
    bool SkipSubtract              = CL.GetBool("SkipSubtract", true);
@@ -329,6 +331,9 @@ int main(int argc, char *argv[])
    {
       Pad[iC]->cd();
       HWorld[iC]->Draw("axis");
+      
+      if(LogScale == true)
+         Pad[iC]->SetLogy();
 
       for(int iF = 0; iF < NFile; iF++)
       {
