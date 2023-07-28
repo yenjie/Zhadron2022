@@ -51,7 +51,7 @@ do
    #   --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
    #   $Plotting
 
-   Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -6 --YMax 15 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
+   Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -200 --YMax 200 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
 
    ./Execute --OutputBase Plots/ResultNominal/ResultNominalY$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
