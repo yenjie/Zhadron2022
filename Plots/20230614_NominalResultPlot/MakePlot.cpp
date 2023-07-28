@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
    if(SystematicFiles.size() == 0)
       SkipSystematics = true;
 
-   string PbPbLumi = "1.70 nb^{-1}";
+   string PbPbLumi = "1.67 nb^{-1}";
    string PPLumi = "304 pb^{-1}";
 
    int NFile = DataFiles.size();
