@@ -63,7 +63,7 @@ then
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCBackgroundUEUp25_v15c/ --Output GraphMCBackgroundUEUp25_v15c-1.root --Fraction 1
 elif [ $1 -eq 16 ]
 then
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDataBackgroundUEDown25_v15c/ --Output OutputDataBackgroundUEDown25_v15c-1.root --Fraction 1
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDataBackgroundUEDown25_v15c/ --Output GraphDataBackgroundUEDown25_v15c-1.root --Fraction 1
 elif [ $1 -eq 17 ]
 then
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCBackgroundUEDown25_v15c/ --Output GraphMCBackgroundUEDown25_v15c-1.root --Fraction 1
