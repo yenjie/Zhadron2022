@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
    //C.push_back(Configuration(40, 30, 2000,  0, 30,  1, 1000));
    //C.push_back(Configuration(40, 30, 2000, 30, 50,  1, 1000));
    //C.push_back(Configuration(40, 30, 2000, 50, 90,  1, 1000));
-
+/*
    C.push_back(Configuration(40, 20,   40,  0, 30, 1, 1000));
    C.push_back(Configuration(40, 20,   40,  0, 10, 1, 1000));
    C.push_back(Configuration(40, 20,   40, 10, 30, 1, 1000));
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 20,   40, 50, 90, 1, 1000));
    C.push_back(Configuration(40, 20,   40, 30, 90, 1, 1000));
    C.push_back(Configuration(40, 20,   40,  0, 90, 1, 1000));
-
+*/
    C.push_back(Configuration(40, 40,  200,  0, 30, 1, 1000));
    C.push_back(Configuration(40, 40,  200,  0, 10, 1, 1000));
    C.push_back(Configuration(40, 40,  200, 10, 30, 1, 1000));
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 40,  200, 50, 90, 1, 1000));
    C.push_back(Configuration(40, 40,  200, 30, 90, 1, 1000));
    C.push_back(Configuration(40, 40,  200,  0, 90, 1, 1000));
-
+/*
    C.push_back(Configuration(40, 20,  200,  0, 30, 1, 1000));
    C.push_back(Configuration(40, 20,  200,  0, 10, 1, 1000));
    C.push_back(Configuration(40, 20,  200, 10, 30, 1, 1000));
@@ -101,32 +101,32 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 30, 2000, 50, 90, 1, 1000));
    C.push_back(Configuration(40, 30, 2000, 30, 90, 1, 1000));
    C.push_back(Configuration(40, 30, 2000,  0, 90, 1, 1000));
-
+*/
 
    C.push_back(Configuration(40, 40,  200,  0, 10, 1, 2));
    C.push_back(Configuration(40, 40,  200, 10, 30, 1, 2));
    C.push_back(Configuration(40, 40,  200, 30, 50, 1, 2));
    C.push_back(Configuration(40, 40,  200, 50, 90, 1, 2));
    C.push_back(Configuration(40, 40,  200,  0, 90, 1, 2));
-   C.push_back(Configuration(40, 40,  200,  0, 30, 1, 2));
-   C.push_back(Configuration(40, 40,  200, 30, 90, 1, 2));
+   //C.push_back(Configuration(40, 40,  200,  0, 30, 1, 2));
+   //C.push_back(Configuration(40, 40,  200, 30, 90, 1, 2));
 
    C.push_back(Configuration(40, 40,  200,  0, 10, 2, 4));
    C.push_back(Configuration(40, 40,  200, 10, 30, 2, 4));
    C.push_back(Configuration(40, 40,  200, 30, 50, 2, 4));
    C.push_back(Configuration(40, 40,  200, 50, 90, 2, 4));
    C.push_back(Configuration(40, 40,  200,  0, 90, 2, 4));
-   C.push_back(Configuration(40, 40,  200,  0, 30, 2, 4));
-   C.push_back(Configuration(40, 40,  200, 30, 90, 2, 4));
+   //C.push_back(Configuration(40, 40,  200,  0, 30, 2, 4));
+   //C.push_back(Configuration(40, 40,  200, 30, 90, 2, 4));
 
    C.push_back(Configuration(40, 40,  200,  0, 10, 4, 10));
    C.push_back(Configuration(40, 40,  200, 10, 30, 4, 10));
    C.push_back(Configuration(40, 40,  200, 30, 50, 4, 10));
    C.push_back(Configuration(40, 40,  200, 50, 90, 4, 10));
    C.push_back(Configuration(40, 40,  200,  0, 90, 4, 10));
-   C.push_back(Configuration(40, 40,  200,  0, 30, 4, 10));
-   C.push_back(Configuration(40, 40,  200, 30, 90, 4, 10));
-
+   //C.push_back(Configuration(40, 40,  200,  0, 30, 4, 10));
+   //C.push_back(Configuration(40, 40,  200, 30, 90, 4, 10));
+/*
    C.push_back(Configuration(40, 40,  200,  0, 10, 4, 6));
    C.push_back(Configuration(40, 40,  200, 10, 30, 4, 6));
    C.push_back(Configuration(40, 40,  200, 30, 50, 4, 6));
@@ -393,7 +393,7 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 20,  40,  0, 30, 50, 100));
    C.push_back(Configuration(40, 20,  40, 30, 90, 50, 100));
 
-
+*/
 /*
    C.push_back(Configuration(40, 30, 2000,  9, 10,  1, 1000));
    C.push_back(Configuration(40, 30, 2000,  8,  9,  1, 1000));
