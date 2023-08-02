@@ -647,12 +647,12 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt->SetTextSize(0.03);
    pt->SetNDC(kTRUE);
 
-   TLatex *pt2 = new TLatex(0.18,0.82,Form("%.1f < Z p_{T} < %.1f",ptL,ptH));
+   TLatex *pt2 = new TLatex(0.18,0.82,Form("%.1f < Z p_{T} < %.1f GeV",ptL,ptH));
    pt2->SetTextFont(42);
    pt2->SetTextSize(0.03);
    pt2->SetNDC(kTRUE);
 
-   TLatex *pt3 = new TLatex(0.18,0.76,Form("%.1f < Track p_{T} < %.1f",TptL,TptH));
+   TLatex *pt3 = new TLatex(0.18,0.76,Form("%.1f < Track p_{T} < %.1f GeV",TptL,TptH));
    pt3->SetTextFont(42);
    pt3->SetTextSize(0.03);
    pt3->SetNDC(kTRUE);
@@ -662,12 +662,12 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    pt3d->SetTextSize(0.03);
    pt3d->SetNDC(kTRUE);
 
-   TLatex *pt3d2 = new TLatex(0.03,0.88,Form("%.1f < Z p_{T} < %.1f",ptL,ptH));
+   TLatex *pt3d2 = new TLatex(0.03,0.88,Form("%.1f < Z p_{T} < %.1f GeV",ptL,ptH));
    pt3d2->SetTextFont(42);
    pt3d2->SetTextSize(0.03);
    pt3d2->SetNDC(kTRUE);
 
-   TLatex *pt3d3 = new TLatex(0.03,0.82,Form("%.1f < Track p_{T} < %.1f",TptL,TptH));
+   TLatex *pt3d3 = new TLatex(0.03,0.82,Form("%.1f < Track p_{T} < %.1f GeV",TptL,TptH));
    pt3d3->SetTextFont(42);
    pt3d3->SetTextSize(0.03);
    pt3d3->SetNDC(kTRUE);
