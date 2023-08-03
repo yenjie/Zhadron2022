@@ -1265,4 +1265,4 @@ int main(int argc, char *argv[]){
   ZcheckBasic_single(40, 40, 200, 50, 90,  1, 1000);
 
   return 0;
-}z
+}
