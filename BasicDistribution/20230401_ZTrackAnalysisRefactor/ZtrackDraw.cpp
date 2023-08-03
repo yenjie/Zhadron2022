@@ -59,8 +59,8 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v16/20230802";
-const char *typeofdata1 = "v16_20230802";
+const char *typeofdata = "v16/20230803/tight";
+const char *typeofdata1 = "v16_20230803_tight";
 const char *typeofdatatext = "single muon";
 
 void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -3338,9 +3338,9 @@ int main(int argc, char *argv[]){
 
    style();
 
-   file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v16-1.root","read");
+   file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalTight_v16-1.root","read");
    file_bkgMC = TFile::Open("GraphMCBackground_v15c-2.root","read");
-   file_sigDA = TFile::Open("~/eos_base/BasicPlots/GraphDataSignal_v16-1.root","read");
+   file_sigDA = TFile::Open("~/eos_base/BasicPlots/GraphDataSignalTight_v16-1.root","read");
    file_bkgDA = TFile::Open("~/eos_base/BasicPlots/GraphDataBackground_v15c-1.root","read");
    file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v16-1.root","read");
 
