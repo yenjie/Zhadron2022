@@ -12,8 +12,8 @@ do
    Labels="1 < p_{T}^{trk} < 2 GeV","2 < p_{T}^{trk} < 4 GeV","4 < p_{T}^{trk} < 10 GeV"
    PPExtraInfo="40 < p_{T}^{Z} < 200 GeV"
    ExtraInfo="40 < p_{T}^{Z} < 200 GeV,${CMin}-${CMax}%"
-   Plotting="--XAxisLabel |#Delta#phi_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Ratio --XMin 0 --XMax 3.1415926535 --YMin -7 --YMax 10 --RMin -1.9 --RMax 1.9 --LegendLeft 0.08 --LegendBottom 0.40"
-   PlottingY="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Ratio --XMin 0 --XMax 3.2 --YMin -200 --YMax 200 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
+   Plotting="--XAxisLabel |#Delta#phi_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Ratio --XMin 0 --XMax 3.1415926535 --YMin -7 --YMax 10 --RMin 0 --RMax 2 --LegendLeft 0.08 --LegendBottom 0.40"
+   PlottingY="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Ratio --XMin 0 --XMax 3.2 --YMin -200 --YMax 200 --RMin 0 --RMax 2 --LegendLeft 0.08 --LegendBottom 0.40"
 
    Suffix="C${CMin}${CMax}"
    

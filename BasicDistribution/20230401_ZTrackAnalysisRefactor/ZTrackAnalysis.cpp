@@ -520,6 +520,7 @@ int main(int argc, char *argv[])
    vector<TH1D *>           HGenEventCount;
    vector<TH1D *>           HZPT;
    vector<TH1D *>           HZEta;
+   vector<TH1D *>           HZY;
    vector<TH1D *>           HZPhi;
    vector<TH2D *>           HZEtaPhi;
    vector<TH1D *>           HGenZEta;
@@ -579,6 +580,7 @@ int main(int argc, char *argv[])
       HGenEventCount.push_back(new TH1D("HGenEventCount", "", 1, 0, 1));
       
       HZPT.push_back(new TH1D("HZPT", "Z candidate PT", 100, 0, 200));
+      HZY.push_back(new TH1D("HZY", "Z candidate y", 100, -3.2, 3.2));
       HZEta.push_back(new TH1D("HZEta", "Z candidate eta", 100, -3.2, 3.2));
       HZPhi.push_back(new TH1D("HZPhi", "Z candidate phi", 100, -M_PI, M_PI));
       HZEtaPhi.push_back(new TH2D("HZEtaPhi", "Z candidate eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
@@ -907,6 +909,12 @@ int main(int argc, char *argv[])
             }
          }
 
+         double zP = ZPT_0*cosh(ZEta_0);
+         double zPz = ZPT_0*sinh(ZEta_0);
+         double zE = sqrt(zP*zP+ZMass_0*ZMass_0);
+         double zY = 0.5*log((zE+zPz)/(zE-zPz));
+         //double TrackDY = TrackEta - zY;
+
          if(SomethingPassed == true)
          {
             EventCount[iC] = EventCount[iC] + NCollWeight*ZWeight*VZWeight;
@@ -915,6 +923,7 @@ int main(int argc, char *argv[])
             HZPT[iC]->Fill(ZPT_0, NCollWeight*ZWeight*VZWeight);
             HZEta[iC]->Fill(ZEta_0, NCollWeight*ZWeight*VZWeight);
             HZPhi[iC]->Fill(ZPhi_0, NCollWeight*ZWeight*VZWeight);
+            HZY[iC]->Fill(zY, NCollWeight*ZWeight*VZWeight);
             HZMass[iC]->Fill(ZMass_0, NCollWeight*ZWeight*VZWeight);
             HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight*ZWeight*VZWeight);
 
@@ -954,6 +963,7 @@ int main(int argc, char *argv[])
       HEventCount[iC]->Write();
       HGenEventCount[iC]->Write();
       HZPT[iC]->Write();
+      HZY[iC]->Write();
       HZEta[iC]->Write();
       HZPhi[iC]->Write();
       HZEtaPhi[iC]->Write();
