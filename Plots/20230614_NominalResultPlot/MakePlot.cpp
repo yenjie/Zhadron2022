@@ -25,6 +25,7 @@ TH1D *GetHistogram(TFile *F, string ToPlot, string Tag, int Color);
 TH1D *BuildSystematics(TFile *F, TH1D *H, string ToPlot, string Tag, int Color);
 void HistogramSelfSubtract(TH1D *H);
 TH1D *SubtractHistogram(TH1D *H, TH1D *HRef);
+TH1D *DivideHistogram(TH1D *H, TH1D *HRef);
 void PrintHistogram(TFile *F, string Name);
 void PrintHistogram(TH1D *H);
 void HistogramShifting(TH1D *H, string TagShift, DataHelper ShiftFile, int iF);
@@ -49,6 +50,7 @@ int main(int argc, char *argv[])
    bool SkipSelfSubtract          = CL.GetBool("SkipSelfSubtract", false);
    bool SkipSystematics           = CL.GetBool("SkipSystematics", false);
    bool SkipShifting              = CL.GetBool("SkipShifting", true);
+   bool CompareDivide             = CL.GetBool("CompareDivide", false);
    vector<string> SystematicFiles = (SkipSystematics == false) ? CL.GetStringVector("SystematicFiles") : vector<string>();
    vector<string> CurveLabels     = CL.GetStringVector("CurveLabels",
       vector<string>{"pp", "PbPb 0-30%"});
@@ -316,9 +318,15 @@ int main(int argc, char *argv[])
       HDataSysDiff[iC].resize(NFile);
       for(int iF = 0; iF < NFile; iF++)
       {
-         HDataDiff[iC][iF] = SubtractHistogram(HData[iC][iF], HData[iC][0]);
-         if(SkipSystematics == false && HDataSys[iC][iF] != nullptr)
-            HDataSysDiff[iC][iF] = SubtractHistogram(HDataSys[iC][iF], HData[iC][0]);
+         if(CompareDivide == false){
+            HDataDiff[iC][iF] = SubtractHistogram(HData[iC][iF], HData[iC][0]);
+            if(SkipSystematics == false && HDataSys[iC][iF] != nullptr)
+               HDataSysDiff[iC][iF] = SubtractHistogram(HDataSys[iC][iF], HData[iC][0]);
+         }else{
+            HDataDiff[iC][iF] = DivideHistogram(HData[iC][iF], HData[iC][0]);
+            if(SkipSystematics == false && HDataSys[iC][iF] != nullptr)
+               HDataSysDiff[iC][iF] = DivideHistogram(HDataSys[iC][iF], HData[iC][0]);
+         }         
       }
    }
 
@@ -563,6 +571,23 @@ TH1D *SubtractHistogram(TH1D *H, TH1D *HRef)
    for(int i = 1; i <= N; i++)
    {
       HDiff->SetBinContent(i, H->GetBinContent(i) - HRef->GetBinContent(i));
+      HDiff->SetBinError(i, H->GetBinError(i));
+   }
+
+   return HDiff;
+}
+
+TH1D *DivideHistogram(TH1D *H, TH1D *HRef)
+{
+   int N = H->GetNbinsX();
+
+   static int ID = 0;
+   ID = ID + 1;
+   TH1D *HDiff = (TH1D *)H->Clone(Form("HDiff%d", ID));
+
+   for(int i = 1; i <= N; i++)
+   {
+      HDiff->SetBinContent(i, H->GetBinContent(i) / HRef->GetBinContent(i));
       HDiff->SetBinError(i, H->GetBinError(i));
    }
 
