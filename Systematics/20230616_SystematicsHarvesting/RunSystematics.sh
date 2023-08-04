@@ -93,6 +93,29 @@ mkdir -p Sys
    --Output Sys/PbPbSFCombined3.root \
    --DirectMode true --Scheme DirectQuadraticSum
 
+#ppSF
+./Execute --Variation Root/PPDataExtraZWeight0.root --Reference Root/PPData.root \
+   --Output Sys/PPSF0.root \
+   --Scheme Maximum
+./Execute --Variation Root/PPDataExtraZWeight1.root --Reference Root/PPData.root \
+   --Output Sys/PPSF1.root \
+   --Scheme Maximum
+./Execute --Variation Root/PPDataExtraZWeight2.root --Reference Root/PPData.root \
+   --Output Sys/PPSF2.root \
+   --Scheme Maximum
+./Execute --Variation Root/PPDataExtraZWeight3.root --Reference Root/PPData.root \
+   --Output Sys/PPSF3.root \
+   --Scheme Maximum
+./Execute --Variation Sys/PPSF0.root --Reference Sys/PPSF1.root \
+   --Output Sys/PPSFSys1.root \
+   --DirectMode true --Scheme DirectMaximum
+./Execute --Variation Sys/PPSF2.root --Reference Sys/PPSF3.root \
+   --Output Sys/PPSFSys2.root \
+   --DirectMode true --Scheme DirectMaximum
+./Execute --Variation Sys/PPSFSys1.root --Reference Sys/PPSFSys2.root \
+   --Output Sys/PbPbSFCombined.root \
+   --DirectMode true --Scheme DirectQuadraticSum
+
 # Centrality definition
 ./Execute --Variation Root/DataHiBinUp.root --Reference Root/Data.root \
    --Output Sys/PbPbHiBinUp.root \
