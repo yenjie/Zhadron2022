@@ -588,7 +588,7 @@ TH1D *DivideHistogram(TH1D *H, TH1D *HRef)
    for(int i = 1; i <= N; i++)
    {
       HDiff->SetBinContent(i, H->GetBinContent(i) / HRef->GetBinContent(i));
-      HDiff->SetBinError(i, H->GetBinError(i));
+      HDiff->SetBinError(i, H->GetBinError(i)/ HRef->GetBinContent(i));
    }
 
    return HDiff;
