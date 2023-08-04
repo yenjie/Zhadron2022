@@ -15,16 +15,22 @@ mkdir -p log
 
 if [ $1 -eq 0 ]
 then
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDataLoose_v16/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphDataSignalLoose_v16-1.root --Fraction 1
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputData_v16/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphDataSignal_v16-2.root --Fraction 1
 elif [ $1 -eq 1 ]
 then
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDataTight_v16/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphDataSignalTight_v15c-1.root --Fraction 1
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMC_v16/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphMCSignal_v16-2.root --Fraction 1
 elif [ $1 -eq 2 ]
 then
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCLoose_v16/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphMCSignalLoose_v16-1.root --Fraction 1
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDataLoose_v16/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphDataSignalLoose_v16-2.root --Fraction 1
 elif [ $1 -eq 3 ]
 then
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCTight_v16/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphMCSignalTight_v15c-1.root --Fraction 1
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDataTight_v16/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphDataSignalTight_v16-2.root --Fraction 1
+elif [ $1 -eq 4 ]
+then
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCLoose_v16/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphMCSignalLoose_v16-2.root --Fraction 1
+elif [ $1 -eq 5 ]
+then
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCTight_v16/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphMCSignalTight_v16-2.root --Fraction 1
 else
 	echo "Input number exceeded"
 fi
