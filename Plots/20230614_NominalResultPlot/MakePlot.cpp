@@ -12,6 +12,8 @@ using namespace std;
 #include "TGraph.h"
 #include "TLegend.h"
 
+#include "DataHelper.h"
+
 #include "CommandLine.h"
 #include "SetStyle.h"
 
@@ -23,8 +25,10 @@ TH1D *GetHistogram(TFile *F, string ToPlot, string Tag, int Color);
 TH1D *BuildSystematics(TFile *F, TH1D *H, string ToPlot, string Tag, int Color);
 void HistogramSelfSubtract(TH1D *H);
 TH1D *SubtractHistogram(TH1D *H, TH1D *HRef);
+TH1D *DivideHistogram(TH1D *H, TH1D *HRef);
 void PrintHistogram(TFile *F, string Name);
 void PrintHistogram(TH1D *H);
+void HistogramShifting(TH1D *H, string TagShift, DataHelper ShiftFile, int iF);
 
 int main(int argc, char *argv[])
 {
@@ -33,6 +37,9 @@ int main(int argc, char *argv[])
    CommandLine CL(argc, argv);
 
    string OutputBase = CL.Get("OutputBase", "Plot");
+   string ShiftFileName = CL.Get("ShiftFileName", "/afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_CountSkim/SkimCount/20230718/SkimCount_nominal_centN-v15c.dh");
+
+   //bool LogScale                  = CL.GetBool("LogScale", false);
 
    vector<string> DataFiles       = CL.GetStringVector("DataFiles",
       vector<string>{"Root/PPData.root", "Root/Data.root"});
@@ -42,6 +49,8 @@ int main(int argc, char *argv[])
    double SubtractFudgeFactor     = CL.GetDouble("SubtractFudgeFactor", 1.00);
    bool SkipSelfSubtract          = CL.GetBool("SkipSelfSubtract", false);
    bool SkipSystematics           = CL.GetBool("SkipSystematics", false);
+   bool SkipShifting              = CL.GetBool("SkipShifting", true);
+   bool CompareDivide             = CL.GetBool("CompareDivide", false);
    vector<string> SystematicFiles = (SkipSystematics == false) ? CL.GetStringVector("SystematicFiles") : vector<string>();
    vector<string> CurveLabels     = CL.GetStringVector("CurveLabels",
       vector<string>{"pp", "PbPb 0-30%"});
@@ -55,6 +64,15 @@ int main(int argc, char *argv[])
       // "Centrality_30_90_ZPT_40_200_TrackPT_10_20_PV_0_10",
       // "Centrality_30_90_ZPT_40_200_TrackPT_20_50_PV_0_10",
       // "Centrality_30_90_ZPT_40_200_TrackPT_50_100_PV_0_10"
+   });
+
+   vector<string> TagShifts = CL.GetStringVector("TagShifts",
+   vector<string>
+   {
+      "Count_ZPT_40_200_Cent_0_10_TrackPT_1p00_2p00",
+      "Count_ZPT_40_200_Cent_0_10_TrackPT_2p00_4p00",
+      "Count_ZPT_40_200_Cent_0_10_TrackPT_4p00_10p00",
+
    });
    vector<string> SecondTags      = CL.GetStringVector("SecondTags", vector<string>());
    vector<string> Labels          = CL.GetStringVector("Labels",
@@ -78,8 +96,8 @@ int main(int argc, char *argv[])
    if(SystematicFiles.size() == 0)
       SkipSystematics = true;
 
-   string PbPbLumi = "1.70 nb^{-1}";
-   string PPLumi = "304 pb^{-1}";
+   string PbPbLumi = "1.67 nb^{-1}";
+   string PPLumi = "301 pb^{-1}";
 
    int NFile = DataFiles.size();
    int NColumn = Tags.size();
@@ -160,6 +178,9 @@ int main(int argc, char *argv[])
          XMarginLeft + XPadWidth * iC, XMarginBottom,
          XMarginLeft + XPadWidth * (iC + 1), XMarginBottom + XRPadHeight);
 
+      //if(LogScale == true)
+      //   Pad[iC]->SetLogy();
+
       SetPad(Pad[iC]);
       SetPad(RPad[iC]);
    }
@@ -225,6 +246,9 @@ int main(int argc, char *argv[])
 
    // Retrieve histograms
    vector<vector<TH1D *>> HData(NColumn);
+
+   DataHelper ShiftFile(ShiftFileName);
+
    for(int iC = 0; iC < NColumn; iC++)
    {
       HData[iC].resize(NFile);
@@ -232,6 +256,7 @@ int main(int argc, char *argv[])
       for(int iF = 0; iF < NFile; iF++)
       {
          string Tag = Tags[iC];
+         string TagShift = TagShifts[iC];
          if(SecondTags.size() == NColumn && iF == 1)
             Tag = SecondTags[iC];
             
@@ -250,6 +275,9 @@ int main(int argc, char *argv[])
          
          if(SkipSelfSubtract == false)
             HistogramSelfSubtract(HData[iC][iF]);
+
+         if(SkipShifting == false)
+            HistogramShifting(HData[iC][iF],TagShift,ShiftFile,iF);
          
          // PrintHistogram(File[iF], Form("H%s_%s", ToPlot.c_str(), Tag.c_str()));
          // PrintHistogram(HData[iC][iF]);
@@ -290,9 +318,15 @@ int main(int argc, char *argv[])
       HDataSysDiff[iC].resize(NFile);
       for(int iF = 0; iF < NFile; iF++)
       {
-         HDataDiff[iC][iF] = SubtractHistogram(HData[iC][iF], HData[iC][0]);
-         if(SkipSystematics == false && HDataSys[iC][iF] != nullptr)
-            HDataSysDiff[iC][iF] = SubtractHistogram(HDataSys[iC][iF], HData[iC][0]);
+         if(CompareDivide == false){
+            HDataDiff[iC][iF] = SubtractHistogram(HData[iC][iF], HData[iC][0]);
+            if(SkipSystematics == false && HDataSys[iC][iF] != nullptr)
+               HDataSysDiff[iC][iF] = SubtractHistogram(HDataSys[iC][iF], HData[iC][0]);
+         }else{
+            HDataDiff[iC][iF] = DivideHistogram(HData[iC][iF], HData[iC][0]);
+            if(SkipSystematics == false && HDataSys[iC][iF] != nullptr)
+               HDataSysDiff[iC][iF] = DivideHistogram(HDataSys[iC][iF], HData[iC][0]);
+         }         
       }
    }
 
@@ -469,6 +503,41 @@ TH1D *BuildSystematics(TFile *F, TH1D *H, string ToPlot, string Tag, int Color)
    return HResult;
 }
 
+void HistogramShifting(TH1D *H, string TagShift, DataHelper ShiftFile, int iF)
+{
+   if(H == nullptr)
+      return;
+
+   double SumX = 0;
+   double SumXY = 0;
+   double ErrXY = 0;
+   if(iF==1) {
+      SumXY = std::stod(ShiftFile[TagShift]["PbPb Data Sig-Bkg Ntrk/Nevt"].GetRepresentation());
+      ErrXY = std::stod(ShiftFile[TagShift]["PbPb Data Sig-Bkg Ntrk/Nevt Error"].GetRepresentation());
+      ErrXY = sqrt(ErrXY*ErrXY+SumXY*SumXY*0.05*0.05);
+   }else if(iF==0){
+      SumXY = std::stod(ShiftFile[TagShift]["pp Data Ntrk/Nevt"].GetRepresentation());
+      ErrXY = std::stod(ShiftFile[TagShift]["pp Data Ntrk/Nevt Error"].GetRepresentation());
+      ErrXY = sqrt(ErrXY*ErrXY+SumXY*SumXY*0.024*0.024);
+   }else{
+      SumXY = 0;
+   }
+
+   for(int i = 1; i <= H->GetNbinsX(); i++)
+   {
+      double XMin = H->GetXaxis()->GetBinLowEdge(i);
+      double XMax = H->GetXaxis()->GetBinUpEdge(i);
+      SumX = SumX + (XMax - XMin);
+   }
+
+   double Mean = SumXY / SumX;
+   double Err = ErrXY / SumX;
+   for(int i = 1; i <= H->GetNbinsX(); i++){
+      H->SetBinContent(i, H->GetBinContent(i) + Mean);
+      H->SetBinError(i,sqrt(H->GetBinError(i)*H->GetBinError(i) + Err*Err));
+   }
+
+}
 void HistogramSelfSubtract(TH1D *H)
 {
    if(H == nullptr)
@@ -503,6 +572,23 @@ TH1D *SubtractHistogram(TH1D *H, TH1D *HRef)
    {
       HDiff->SetBinContent(i, H->GetBinContent(i) - HRef->GetBinContent(i));
       HDiff->SetBinError(i, H->GetBinError(i));
+   }
+
+   return HDiff;
+}
+
+TH1D *DivideHistogram(TH1D *H, TH1D *HRef)
+{
+   int N = H->GetNbinsX();
+
+   static int ID = 0;
+   ID = ID + 1;
+   TH1D *HDiff = (TH1D *)H->Clone(Form("HDiff%d", ID));
+
+   for(int i = 1; i <= N; i++)
+   {
+      HDiff->SetBinContent(i, H->GetBinContent(i) / HRef->GetBinContent(i));
+      HDiff->SetBinError(i, H->GetBinError(i)/ HRef->GetBinContent(i));
    }
 
    return HDiff;

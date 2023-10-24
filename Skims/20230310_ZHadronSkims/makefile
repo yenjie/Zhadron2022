@@ -99,61 +99,61 @@ EOSBase = /eos/cms/store/group/phys_heavyions/pchou
 PrepareToRun:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		5 LogData_v16/ $(EOSBase)/OutputData_v16/ \
+		5 LogData_v17/ $(EOSBase)/OutputData_v17/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalData Nominal`
 
 PrepareToRunMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogMC_v16/ $(EOSBase)/OutputMC_v16/ \
+		5 LogMC_v17/ $(EOSBase)/OutputMC_v17/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Nominal`
 
 PrepareToRunLoose:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		5 LogDataLoose_v16/ $(EOSBase)/OutputDataLoose_v16/ \
+		5 LogDataLoose_v17/ $(EOSBase)/OutputDataLoose_v17/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalData Loose`
 
 PrepareToRunMCLoose:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogMCLoose_v16/ $(EOSBase)/OutputMCLoose_v16/ \
+		5 LogMCLoose_v17/ $(EOSBase)/OutputMCLoose_v17/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Loose`
 
 PrepareToRunTight:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		5 LogDataTight_v16/ $(EOSBase)/OutputDataTight_v16/ \
+		5 LogDataTight_v17/ $(EOSBase)/OutputDataTight_v17/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalData Tight`
 
 PrepareToRunMCTight:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogMCTight_v16/ $(EOSBase)/OutputMCTight_v16/ \
+		5 LogMCTight_v17/ $(EOSBase)/OutputMCTight_v17/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Tight`
 
 PrepareToRunGenMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogGenMC_v16/ $(EOSBase)/OutputMCGen_v16/ \
+		5 LogGenMC_v17/ $(EOSBase)/OutputMCGen_v17/ \
  		--Fraction 1 `./Expand Setting.dh PbPbSignalGenMC Nominal`
 
 PrepareToRunPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogPP_v16/ $(EOSBase)/OutputPPMC_v16/ \
+		10 LogPP_v17/ $(EOSBase)/OutputPPMC_v17/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalMC Nominal`
 
 PrepareToRunGenPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogGenPP_v16/ $(EOSBase)/OutputPPMCGen_v16/ \
+		10 LogGenPP_v17/ $(EOSBase)/OutputPPMCGen_v17/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalGenMC Nominal`
 
 PrepareToRunPPData:
 	bash PrepareInput.sh \
 		'$(PPSignalData)/*/' \
-		10 LogPPData_v16/ $(EOSBase)/OutputPPData_v16/ \
+		10 LogPPData_v17/ $(EOSBase)/OutputPPData_v17/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalData Nominal`
 
 PrepareToRunBackground:

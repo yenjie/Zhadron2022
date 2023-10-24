@@ -61,13 +61,340 @@ int main(int argc, char *argv[])
    //C.push_back(Configuration(40, 30, 2000,  0, 30,  1, 1000));
    //C.push_back(Configuration(40, 30, 2000, 30, 50,  1, 1000));
    //C.push_back(Configuration(40, 30, 2000, 50, 90,  1, 1000));
+/*
+   C.push_back(Configuration(40, 20,   40,  0, 30, 1, 1000));
+   C.push_back(Configuration(40, 20,   40,  0, 10, 1, 1000));
+   C.push_back(Configuration(40, 20,   40, 10, 30, 1, 1000));
+   C.push_back(Configuration(40, 20,   40, 30, 50, 1, 1000));
+   C.push_back(Configuration(40, 20,   40, 50, 90, 1, 1000));
+   C.push_back(Configuration(40, 20,   40, 30, 90, 1, 1000));
+   C.push_back(Configuration(40, 20,   40,  0, 90, 1, 1000));
+*/
+   C.push_back(Configuration(40, 40,  200,  0, 30, 1, 1000));
+   C.push_back(Configuration(40, 40,  200,  0, 10, 1, 1000));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 1, 1000));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 1, 1000));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 1, 1000));
+   C.push_back(Configuration(40, 40,  200, 30, 90, 1, 1000));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 1, 1000));
+/*
+   C.push_back(Configuration(40, 20,  200,  0, 30, 1, 1000));
+   C.push_back(Configuration(40, 20,  200,  0, 10, 1, 1000));
+   C.push_back(Configuration(40, 20,  200, 10, 30, 1, 1000));
+   C.push_back(Configuration(40, 20,  200, 30, 50, 1, 1000));
+   C.push_back(Configuration(40, 20,  200, 50, 90, 1, 1000));
+   C.push_back(Configuration(40, 20,  200, 30, 90, 1, 1000));
+   C.push_back(Configuration(40, 20,  200,  0, 90, 1, 1000));
 
-   C.push_back(Configuration(40, 30, 2000,  0, 90,  1, 1000));
+   C.push_back(Configuration(40, 30,  200,  0, 30, 1, 1000));
+   C.push_back(Configuration(40, 30,  200,  0, 10, 1, 1000));
+   C.push_back(Configuration(40, 30,  200, 10, 30, 1, 1000));
+   C.push_back(Configuration(40, 30,  200, 30, 50, 1, 1000));
+   C.push_back(Configuration(40, 30,  200, 50, 90, 1, 1000));
+   C.push_back(Configuration(40, 30,  200, 30, 90, 1, 1000));
+   C.push_back(Configuration(40, 30,  200,  0, 90, 1, 1000));
 
-   C.push_back(Configuration(40, 30, 2000,  0, 10,  1, 1000));
-   C.push_back(Configuration(40, 30, 2000, 10, 30,  1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  0, 30, 1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  0, 10, 1, 1000));
+   C.push_back(Configuration(40, 30, 2000, 10, 30, 1, 1000));
+   C.push_back(Configuration(40, 30, 2000, 30, 50, 1, 1000));
+   C.push_back(Configuration(40, 30, 2000, 50, 90, 1, 1000));
+   C.push_back(Configuration(40, 30, 2000, 30, 90, 1, 1000));
+   C.push_back(Configuration(40, 30, 2000,  0, 90, 1, 1000));
+*/
+
+   C.push_back(Configuration(40, 40,  200,  0, 10, 1, 2));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 1, 2));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 1, 2));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 1, 2));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 1, 2));
+   //C.push_back(Configuration(40, 40,  200,  0, 30, 1, 2));
+   //C.push_back(Configuration(40, 40,  200, 30, 90, 1, 2));
+
+   C.push_back(Configuration(40, 40,  200,  0, 10, 2, 4));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 2, 4));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 2, 4));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 2, 4));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 2, 4));
+   //C.push_back(Configuration(40, 40,  200,  0, 30, 2, 4));
+   //C.push_back(Configuration(40, 40,  200, 30, 90, 2, 4));
+
+   C.push_back(Configuration(40, 40,  200,  0, 10, 4, 10));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 4, 10));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 4, 10));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 4, 10));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 4, 10));
+   //C.push_back(Configuration(40, 40,  200,  0, 30, 4, 10));
+   //C.push_back(Configuration(40, 40,  200, 30, 90, 4, 10));
+/*
+   C.push_back(Configuration(40, 40,  200,  0, 10, 4, 6));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 4, 6));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 4, 6));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 4, 6));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 4, 6));
+   C.push_back(Configuration(40, 40,  200,  0, 30, 4, 6));
+   C.push_back(Configuration(40, 40,  200, 30, 90, 4, 6));
+
+   C.push_back(Configuration(40, 40,  200,  0, 10, 6, 8));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 6, 8));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 6, 8));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 6, 8));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 6, 8));
+   C.push_back(Configuration(40, 40,  200,  0, 30, 6, 8));
+   C.push_back(Configuration(40, 40,  200, 30, 90, 6, 8));
+
+   C.push_back(Configuration(40, 40,  200,  0, 10, 8, 10));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 8, 10));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 8, 10));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 8, 10));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 8, 10));
+   C.push_back(Configuration(40, 40,  200,  0, 30, 8, 10));
+   C.push_back(Configuration(40, 40,  200, 30, 90, 8, 10));
+
+   C.push_back(Configuration(40, 40,  200,  0, 10, 10, 20));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 10, 20));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 10, 20));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 10, 20));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 10, 20));
+   C.push_back(Configuration(40, 40,  200,  0, 30, 10, 20));
+   C.push_back(Configuration(40, 40,  200, 30, 90, 10, 20));
+
+   C.push_back(Configuration(40, 40,  200,  0, 10, 20, 50));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 20, 50));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 20, 50));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 20, 50));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 20, 50));
+   C.push_back(Configuration(40, 40,  200,  0, 30, 20, 50));
+   C.push_back(Configuration(40, 40,  200, 30, 90, 20, 50));
+
+   C.push_back(Configuration(40, 40,  200,  0, 10, 50, 100));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 50, 100));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 50, 100));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 50, 100));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 50, 100));
+   C.push_back(Configuration(40, 40,  200,  0, 30, 50, 100));
+   C.push_back(Configuration(40, 40,  200, 30, 90, 50, 100));
 
 
+   C.push_back(Configuration(40, 20,  200,  0, 10, 1, 2));
+   C.push_back(Configuration(40, 20,  200, 10, 30, 1, 2));
+   C.push_back(Configuration(40, 20,  200, 30, 50, 1, 2));
+   C.push_back(Configuration(40, 20,  200, 50, 90, 1, 2));
+   C.push_back(Configuration(40, 20,  200,  0, 90, 1, 2));
+   C.push_back(Configuration(40, 20,  200,  0, 30, 1, 2));
+   C.push_back(Configuration(40, 20,  200, 30, 90, 1, 2));
+
+   C.push_back(Configuration(40, 20,  200,  0, 10, 2, 4));
+   C.push_back(Configuration(40, 20,  200, 10, 30, 2, 4));
+   C.push_back(Configuration(40, 20,  200, 30, 50, 2, 4));
+   C.push_back(Configuration(40, 20,  200, 50, 90, 2, 4));
+   C.push_back(Configuration(40, 20,  200,  0, 90, 2, 4));
+   C.push_back(Configuration(40, 20,  200,  0, 30, 2, 4));
+   C.push_back(Configuration(40, 20,  200, 30, 90, 2, 4));
+
+   C.push_back(Configuration(40, 20,  200,  0, 10, 4, 10));
+   C.push_back(Configuration(40, 20,  200, 10, 30, 4, 10));
+   C.push_back(Configuration(40, 20,  200, 30, 50, 4, 10));
+   C.push_back(Configuration(40, 20,  200, 50, 90, 4, 10));
+   C.push_back(Configuration(40, 20,  200,  0, 90, 4, 10));
+   C.push_back(Configuration(40, 20,  200,  0, 30, 4, 10));
+   C.push_back(Configuration(40, 20,  200, 30, 90, 4, 10));
+
+   C.push_back(Configuration(40, 20,  200,  0, 10, 4, 6));
+   C.push_back(Configuration(40, 20,  200, 10, 30, 4, 6));
+   C.push_back(Configuration(40, 20,  200, 30, 50, 4, 6));
+   C.push_back(Configuration(40, 20,  200, 50, 90, 4, 6));
+   C.push_back(Configuration(40, 20,  200,  0, 90, 4, 6));
+   C.push_back(Configuration(40, 20,  200,  0, 30, 4, 6));
+   C.push_back(Configuration(40, 20,  200, 30, 90, 4, 6));
+
+   C.push_back(Configuration(40, 20,  200,  0, 10, 6, 8));
+   C.push_back(Configuration(40, 20,  200, 10, 30, 6, 8));
+   C.push_back(Configuration(40, 20,  200, 30, 50, 6, 8));
+   C.push_back(Configuration(40, 20,  200, 50, 90, 6, 8));
+   C.push_back(Configuration(40, 20,  200,  0, 90, 6, 8));
+   C.push_back(Configuration(40, 20,  200,  0, 30, 6, 8));
+   C.push_back(Configuration(40, 20,  200, 30, 90, 6, 8));
+
+   C.push_back(Configuration(40, 20,  200,  0, 10, 8, 10));
+   C.push_back(Configuration(40, 20,  200, 10, 30, 8, 10));
+   C.push_back(Configuration(40, 20,  200, 30, 50, 8, 10));
+   C.push_back(Configuration(40, 20,  200, 50, 90, 8, 10));
+   C.push_back(Configuration(40, 20,  200,  0, 90, 8, 10));
+   C.push_back(Configuration(40, 20,  200,  0, 30, 8, 10));
+   C.push_back(Configuration(40, 20,  200, 30, 90, 8, 10));
+
+   C.push_back(Configuration(40, 20,  200,  0, 10, 10, 20));
+   C.push_back(Configuration(40, 20,  200, 10, 30, 10, 20));
+   C.push_back(Configuration(40, 20,  200, 30, 50, 10, 20));
+   C.push_back(Configuration(40, 20,  200, 50, 90, 10, 20));
+   C.push_back(Configuration(40, 20,  200,  0, 90, 10, 20));
+   C.push_back(Configuration(40, 20,  200,  0, 30, 10, 20));
+   C.push_back(Configuration(40, 20,  200, 30, 90, 10, 20));
+
+   C.push_back(Configuration(40, 20,  200,  0, 10, 20, 50));
+   C.push_back(Configuration(40, 20,  200, 10, 30, 20, 50));
+   C.push_back(Configuration(40, 20,  200, 30, 50, 20, 50));
+   C.push_back(Configuration(40, 20,  200, 50, 90, 20, 50));
+   C.push_back(Configuration(40, 20,  200,  0, 90, 20, 50));
+   C.push_back(Configuration(40, 20,  200,  0, 30, 20, 50));
+   C.push_back(Configuration(40, 20,  200, 30, 90, 20, 50));
+
+   C.push_back(Configuration(40, 20,  200,  0, 10, 50, 100));
+   C.push_back(Configuration(40, 20,  200, 10, 30, 50, 100));
+   C.push_back(Configuration(40, 20,  200, 30, 50, 50, 100));
+   C.push_back(Configuration(40, 20,  200, 50, 90, 50, 100));
+   C.push_back(Configuration(40, 20,  200,  0, 90, 50, 100));
+   C.push_back(Configuration(40, 20,  200,  0, 30, 50, 100));
+   C.push_back(Configuration(40, 20,  200, 30, 90, 50, 100));
+
+
+   C.push_back(Configuration(40, 30,  200,  0, 10, 1, 2));
+   C.push_back(Configuration(40, 30,  200, 10, 30, 1, 2));
+   C.push_back(Configuration(40, 30,  200, 30, 50, 1, 2));
+   C.push_back(Configuration(40, 30,  200, 50, 90, 1, 2));
+   C.push_back(Configuration(40, 30,  200,  0, 90, 1, 2));
+   C.push_back(Configuration(40, 30,  200,  0, 30, 1, 2));
+   C.push_back(Configuration(40, 30,  200, 30, 90, 1, 2));
+
+   C.push_back(Configuration(40, 30,  200,  0, 10, 2, 4));
+   C.push_back(Configuration(40, 30,  200, 10, 30, 2, 4));
+   C.push_back(Configuration(40, 30,  200, 30, 50, 2, 4));
+   C.push_back(Configuration(40, 30,  200, 50, 90, 2, 4));
+   C.push_back(Configuration(40, 30,  200,  0, 90, 2, 4));
+   C.push_back(Configuration(40, 30,  200,  0, 30, 2, 4));
+   C.push_back(Configuration(40, 30,  200, 30, 90, 2, 4));
+
+   C.push_back(Configuration(40, 30,  200,  0, 10, 4, 10));
+   C.push_back(Configuration(40, 30,  200, 10, 30, 4, 10));
+   C.push_back(Configuration(40, 30,  200, 30, 50, 4, 10));
+   C.push_back(Configuration(40, 30,  200, 50, 90, 4, 10));
+   C.push_back(Configuration(40, 30,  200,  0, 90, 4, 10));
+   C.push_back(Configuration(40, 30,  200,  0, 30, 4, 10));
+   C.push_back(Configuration(40, 30,  200, 30, 90, 4, 10));
+
+   C.push_back(Configuration(40, 30,  200,  0, 10, 4, 6));
+   C.push_back(Configuration(40, 30,  200, 10, 30, 4, 6));
+   C.push_back(Configuration(40, 30,  200, 30, 50, 4, 6));
+   C.push_back(Configuration(40, 30,  200, 50, 90, 4, 6));
+   C.push_back(Configuration(40, 30,  200,  0, 90, 4, 6));
+   C.push_back(Configuration(40, 30,  200,  0, 30, 4, 6));
+   C.push_back(Configuration(40, 30,  200, 30, 90, 4, 6));
+
+   C.push_back(Configuration(40, 30,  200,  0, 10, 6, 8));
+   C.push_back(Configuration(40, 30,  200, 10, 30, 6, 8));
+   C.push_back(Configuration(40, 30,  200, 30, 50, 6, 8));
+   C.push_back(Configuration(40, 30,  200, 50, 90, 6, 8));
+   C.push_back(Configuration(40, 30,  200,  0, 90, 6, 8));
+   C.push_back(Configuration(40, 30,  200,  0, 30, 6, 8));
+   C.push_back(Configuration(40, 30,  200, 30, 90, 6, 8));
+
+   C.push_back(Configuration(40, 30,  200,  0, 10, 8, 10));
+   C.push_back(Configuration(40, 30,  200, 10, 30, 8, 10));
+   C.push_back(Configuration(40, 30,  200, 30, 50, 8, 10));
+   C.push_back(Configuration(40, 30,  200, 50, 90, 8, 10));
+   C.push_back(Configuration(40, 30,  200,  0, 90, 8, 10));
+   C.push_back(Configuration(40, 30,  200,  0, 30, 8, 10));
+   C.push_back(Configuration(40, 30,  200, 30, 90, 8, 10));
+
+   C.push_back(Configuration(40, 30,  200,  0, 10, 10, 20));
+   C.push_back(Configuration(40, 30,  200, 10, 30, 10, 20));
+   C.push_back(Configuration(40, 30,  200, 30, 50, 10, 20));
+   C.push_back(Configuration(40, 30,  200, 50, 90, 10, 20));
+   C.push_back(Configuration(40, 30,  200,  0, 90, 10, 20));
+   C.push_back(Configuration(40, 30,  200,  0, 30, 10, 20));
+   C.push_back(Configuration(40, 30,  200, 30, 90, 10, 20));
+
+   C.push_back(Configuration(40, 30,  200,  0, 10, 20, 50));
+   C.push_back(Configuration(40, 30,  200, 10, 30, 20, 50));
+   C.push_back(Configuration(40, 30,  200, 30, 50, 20, 50));
+   C.push_back(Configuration(40, 30,  200, 50, 90, 20, 50));
+   C.push_back(Configuration(40, 30,  200,  0, 90, 20, 50));
+   C.push_back(Configuration(40, 30,  200,  0, 30, 20, 50));
+   C.push_back(Configuration(40, 30,  200, 30, 90, 20, 50));
+
+   C.push_back(Configuration(40, 30,  200,  0, 10, 50, 100));
+   C.push_back(Configuration(40, 30,  200, 10, 30, 50, 100));
+   C.push_back(Configuration(40, 30,  200, 30, 50, 50, 100));
+   C.push_back(Configuration(40, 30,  200, 50, 90, 50, 100));
+   C.push_back(Configuration(40, 30,  200,  0, 90, 50, 100));
+   C.push_back(Configuration(40, 30,  200,  0, 30, 50, 100));
+   C.push_back(Configuration(40, 30,  200, 30, 90, 50, 100));
+
+   C.push_back(Configuration(40, 20,  40,  0, 10, 1, 2));
+   C.push_back(Configuration(40, 20,  40, 10, 30, 1, 2));
+   C.push_back(Configuration(40, 20,  40, 30, 50, 1, 2));
+   C.push_back(Configuration(40, 20,  40, 50, 90, 1, 2));
+   C.push_back(Configuration(40, 20,  40,  0, 90, 1, 2));
+   C.push_back(Configuration(40, 20,  40,  0, 30, 1, 2));
+   C.push_back(Configuration(40, 20,  40, 30, 90, 1, 2));
+
+   C.push_back(Configuration(40, 20,  40,  0, 10, 2, 4));
+   C.push_back(Configuration(40, 20,  40, 10, 30, 2, 4));
+   C.push_back(Configuration(40, 20,  40, 30, 50, 2, 4));
+   C.push_back(Configuration(40, 20,  40, 50, 90, 2, 4));
+   C.push_back(Configuration(40, 20,  40,  0, 90, 2, 4));
+   C.push_back(Configuration(40, 20,  40,  0, 30, 2, 4));
+   C.push_back(Configuration(40, 20,  40, 30, 90, 2, 4));
+
+   C.push_back(Configuration(40, 20,  40,  0, 10, 4, 10));
+   C.push_back(Configuration(40, 20,  40, 10, 30, 4, 10));
+   C.push_back(Configuration(40, 20,  40, 30, 50, 4, 10));
+   C.push_back(Configuration(40, 20,  40, 50, 90, 4, 10));
+   C.push_back(Configuration(40, 20,  40,  0, 90, 4, 10));
+   C.push_back(Configuration(40, 20,  40,  0, 30, 4, 10));
+   C.push_back(Configuration(40, 20,  40, 30, 90, 4, 10));
+
+   C.push_back(Configuration(40, 20,  40,  0, 10, 4, 6));
+   C.push_back(Configuration(40, 20,  40, 10, 30, 4, 6));
+   C.push_back(Configuration(40, 20,  40, 30, 50, 4, 6));
+   C.push_back(Configuration(40, 20,  40, 50, 90, 4, 6));
+   C.push_back(Configuration(40, 20,  40,  0, 90, 4, 6));
+   C.push_back(Configuration(40, 20,  40,  0, 30, 4, 6));
+   C.push_back(Configuration(40, 20,  40, 30, 90, 4, 6));
+
+   C.push_back(Configuration(40, 20,  40,  0, 10, 6, 8));
+   C.push_back(Configuration(40, 20,  40, 10, 30, 6, 8));
+   C.push_back(Configuration(40, 20,  40, 30, 50, 6, 8));
+   C.push_back(Configuration(40, 20,  40, 50, 90, 6, 8));
+   C.push_back(Configuration(40, 20,  40,  0, 90, 6, 8));
+   C.push_back(Configuration(40, 20,  40,  0, 30, 6, 8));
+   C.push_back(Configuration(40, 20,  40, 30, 90, 6, 8));
+
+   C.push_back(Configuration(40, 20,  40,  0, 10, 8, 10));
+   C.push_back(Configuration(40, 20,  40, 10, 30, 8, 10));
+   C.push_back(Configuration(40, 20,  40, 30, 50, 8, 10));
+   C.push_back(Configuration(40, 20,  40, 50, 90, 8, 10));
+   C.push_back(Configuration(40, 20,  40,  0, 90, 8, 10));
+   C.push_back(Configuration(40, 20,  40,  0, 30, 8, 10));
+   C.push_back(Configuration(40, 20,  40, 30, 90, 8, 10));
+
+   C.push_back(Configuration(40, 20,  40,  0, 10, 10, 20));
+   C.push_back(Configuration(40, 20,  40, 10, 30, 10, 20));
+   C.push_back(Configuration(40, 20,  40, 30, 50, 10, 20));
+   C.push_back(Configuration(40, 20,  40, 50, 90, 10, 20));
+   C.push_back(Configuration(40, 20,  40,  0, 90, 10, 20));
+   C.push_back(Configuration(40, 20,  40,  0, 30, 10, 20));
+   C.push_back(Configuration(40, 20,  40, 30, 90, 10, 20));
+
+   C.push_back(Configuration(40, 20,  40,  0, 10, 20, 50));
+   C.push_back(Configuration(40, 20,  40, 10, 30, 20, 50));
+   C.push_back(Configuration(40, 20,  40, 30, 50, 20, 50));
+   C.push_back(Configuration(40, 20,  40, 50, 90, 20, 50));
+   C.push_back(Configuration(40, 20,  40,  0, 90, 20, 50));
+   C.push_back(Configuration(40, 20,  40,  0, 30, 20, 50));
+   C.push_back(Configuration(40, 20,  40, 30, 90, 20, 50));
+
+   C.push_back(Configuration(40, 20,  40,  0, 10, 50, 100));
+   C.push_back(Configuration(40, 20,  40, 10, 30, 50, 100));
+   C.push_back(Configuration(40, 20,  40, 30, 50, 50, 100));
+   C.push_back(Configuration(40, 20,  40, 50, 90, 50, 100));
+   C.push_back(Configuration(40, 20,  40,  0, 90, 50, 100));
+   C.push_back(Configuration(40, 20,  40,  0, 30, 50, 100));
+   C.push_back(Configuration(40, 20,  40, 30, 90, 50, 100));
+
+*/
+/*
    C.push_back(Configuration(40, 30, 2000,  9, 10,  1, 1000));
    C.push_back(Configuration(40, 30, 2000,  8,  9,  1, 1000));
    C.push_back(Configuration(40, 30, 2000,  7,  8,  1, 1000));
@@ -183,7 +510,7 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 20, 2000, 10, 30, 50,  100));
    C.push_back(Configuration(40, 20, 2000, 30, 50, 50,  100));
    
-
+*/
 
 
    vector<TDirectory *>     Folder;
@@ -193,6 +520,7 @@ int main(int argc, char *argv[])
    vector<TH1D *>           HGenEventCount;
    vector<TH1D *>           HZPT;
    vector<TH1D *>           HZEta;
+   vector<TH1D *>           HZY;
    vector<TH1D *>           HZPhi;
    vector<TH2D *>           HZEtaPhi;
    vector<TH1D *>           HGenZEta;
@@ -252,6 +580,7 @@ int main(int argc, char *argv[])
       HGenEventCount.push_back(new TH1D("HGenEventCount", "", 1, 0, 1));
       
       HZPT.push_back(new TH1D("HZPT", "Z candidate PT", 100, 0, 200));
+      HZY.push_back(new TH1D("HZY", "Z candidate y", 100, -3.2, 3.2));
       HZEta.push_back(new TH1D("HZEta", "Z candidate eta", 100, -3.2, 3.2));
       HZPhi.push_back(new TH1D("HZPhi", "Z candidate phi", 100, -M_PI, M_PI));
       HZEtaPhi.push_back(new TH2D("HZEtaPhi", "Z candidate eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
@@ -580,6 +909,12 @@ int main(int argc, char *argv[])
             }
          }
 
+         double zP = ZPT_0*cosh(ZEta_0);
+         double zPz = ZPT_0*sinh(ZEta_0);
+         double zE = sqrt(zP*zP+ZMass_0*ZMass_0);
+         double zY = 0.5*log((zE+zPz)/(zE-zPz));
+         //double TrackDY = TrackEta - zY;
+
          if(SomethingPassed == true)
          {
             EventCount[iC] = EventCount[iC] + NCollWeight*ZWeight*VZWeight;
@@ -588,6 +923,7 @@ int main(int argc, char *argv[])
             HZPT[iC]->Fill(ZPT_0, NCollWeight*ZWeight*VZWeight);
             HZEta[iC]->Fill(ZEta_0, NCollWeight*ZWeight*VZWeight);
             HZPhi[iC]->Fill(ZPhi_0, NCollWeight*ZWeight*VZWeight);
+            HZY[iC]->Fill(zY, NCollWeight*ZWeight*VZWeight);
             HZMass[iC]->Fill(ZMass_0, NCollWeight*ZWeight*VZWeight);
             HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight*ZWeight*VZWeight);
 
@@ -627,6 +963,7 @@ int main(int argc, char *argv[])
       HEventCount[iC]->Write();
       HGenEventCount[iC]->Write();
       HZPT[iC]->Write();
+      HZY[iC]->Write();
       HZEta[iC]->Write();
       HZPhi[iC]->Write();
       HZEtaPhi[iC]->Write();

@@ -59,7 +59,8 @@
    * Adding different types of track selection (loose/tight)
 * Version 16 - 2023 Jun 29
    * Replacing Z weight for data with correct trigger treatment
-
+* Version 17 - 2023 Aug 10
+   * Replacing DimuonPassTightCut for dxy and dz with absolute values
 
 ## Arguments
 
