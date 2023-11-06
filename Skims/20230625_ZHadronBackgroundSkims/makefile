@@ -36,6 +36,14 @@ TestRunMCGenBackground: Execute
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root,$(PbPbBackgroundMC)/HiForestMiniAOD_14.root,$(PbPbBackgroundMC)/HiForestMiniAOD_15.root,$(PbPbBackgroundMC)/HiForestMiniAOD_16.root \
 		--ReuseBackground true
 
+
+TestRunRandomMCSigBkg: Execute
+	./Execute --Input $(EOSBase)/OutputMC_v17/Result10.root \
+		--Output /tmp/$(USER)/TestMCSigBkg.root --Fraction 0.1 \
+		`./Expand Setting.dh PbPbSignalMC Nominal` \
+		--Background $(PbPbSignalMC)/HiForestMiniAOD_10.root,$(PbPbSignalMC)/HiForestMiniAOD_14.root,$(PbPbSignalMC)/HiForestMiniAOD_15.root,$(PbPbSignalMC)/HiForestMiniAOD_16.root \
+		--ReuseBackground true
+
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(EOSBase)/OutputMC_v17/ LogMCBackground_v17/ $(EOSBase)/OutputMCBackground_v17/ $(PbPbBackgroundMC)/ 20 \
@@ -90,3 +98,18 @@ PrepareToRunRandomDataBackgroundUEDown30:
 	bash PrepareInputRandomBackground.sh \
 		$(EOSBase)/OutputData_v17/ LogDataBackgroundUEDown30_v17/ $(EOSBase)/OutputDataBackgroundUEDown30_v17/ $(PbPbBackgroundData)/ 200 \
 		`./Expand Setting.dh PbPbBackgroundData UEDown30`
+
+PrepareToRunRandomMCSigBkg:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputMC_v17/ LogMCSigBkg_v17/ $(EOSBase)/OutputMCSigBkg_v17/ $(PbPbSignalMC)/ 20 \
+		`./Expand Setting.dh PbPbSignalMC Nominal`
+
+PrepareToRunRandomDataSigBkg:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputData_v17/ LogDataSigBkg_v17/ $(EOSBase)/OutputDataSigBkg_v17/ $(PbPbSignalSingleMuon)/ 200 \
+		`./Expand Setting.dh PbPbSignalData Nominal`
+
+PrepareToRunRandomMCGenSigBkg:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputMCGen_v17/ LogMCGenSigBkg_v17/ $(EOSBase)/OutputMCSigBkg_v17/ $(PbPbSignalMC)/ 20 \
+		`./Expand Setting.dh PbPbSignalGenMC Nominal`
