@@ -193,6 +193,8 @@ int main(int argc, char *argv[])
             TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "Tight", false, TrackEfficiencyPath);
       }
    }
+
+   cout<<"TrackResidualPath = "<<TrackResidualPath<<endl;
    TrackResidualCentralityCorrector TrackResidual(TrackResidualPath);
 
    // Do some pre-caching if we read background files.
