@@ -20,7 +20,7 @@ Execute: DoZHadronSkim.cpp
 
 TestRun: Execute
 	./Execute --Input $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_14.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 0.1 \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.2 \
 		`./Expand Setting.dh PbPbSignalData Nominal`
 	
 TestRunMC: Execute
