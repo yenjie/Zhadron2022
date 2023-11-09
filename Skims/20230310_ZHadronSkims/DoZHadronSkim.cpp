@@ -194,9 +194,9 @@ int main(int argc, char *argv[])
       }
    }
 
-   for(int iTRP=0;iTRP<TrackResidualPath.size();iTRP++)
-      cout<<"TrackResidualPath = "<<TrackResidualPath[iTRP]<<endl;
-   
+   //for(int iTRP=0;iTRP<TrackResidualPath.size();iTRP++)
+   //   cout<<"TrackResidualPath = "<<TrackResidualPath[iTRP]<<endl;
+
    TrackResidualCentralityCorrector TrackResidual(TrackResidualPath);
 
    // Do some pre-caching if we read background files.
