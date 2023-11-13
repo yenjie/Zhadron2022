@@ -389,9 +389,9 @@ int main(int argc, char *argv[])
       }
 
       if(iC==0 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[1].compare("0-10%")==0){
-         g12->Draw("P");
+         g12->Draw("L");
       }else if(iC==1 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[1].compare("0-10%")==0){
-         g24->Draw("P");
+         g24->Draw("L");
       }
 
       RPad[iC]->cd();
