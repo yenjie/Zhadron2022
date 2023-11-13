@@ -395,9 +395,9 @@ int main(int argc, char *argv[])
          HDataDiff[iC][iF]->Draw("same");
       }
 
-      if(iC==0 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[i].compare("40 < p_{T}^{Z} < 200 GeV,0-10%")==0){
+      if(iC==0 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[1].compare("0-10%")==0){
          g12->Draw();
-      }else if(iC==1 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[i].compare("40 < p_{T}^{Z} < 200 GeV,0-10%")==0){
+      }else if(iC==1 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[1].compare("0-10%")==0){
          g24->Draw();
       }
    }
