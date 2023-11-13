@@ -385,6 +385,7 @@ int main(int argc, char *argv[])
       {
          for(int iF = 0; iF < NFile; iF++)
             Legend.AddEntry(HData[iC][iF], CurveLabels[iF].c_str(), "pl");
+         Legend.AddEntry(g12, "Theory prediction", "l");
          Legend.Draw();
       }
 
