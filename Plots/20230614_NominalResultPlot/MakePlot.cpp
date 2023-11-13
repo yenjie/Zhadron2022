@@ -344,8 +344,8 @@ int main(int argc, char *argv[])
    auto g12 = new TGraph(9,x,y12);
    auto g24 = new TGraph(9,x,y24);
 
-   g12->SetLineWidth(3);
-   g24->SetLineWidth(3);
+   g12->SetLineWidth(1);
+   g24->SetLineWidth(1);
 
    g12->SetLineColor(kGreen);
    g24->SetLineColor(kGreen);
@@ -389,9 +389,9 @@ int main(int argc, char *argv[])
       }
 
       if(iC==0 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[1].compare("0-10%")==0){
-         g12->Draw();
+         g12->Draw("same");
       }else if(iC==1 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[1].compare("0-10%")==0){
-         g24->Draw();
+         g24->Draw("same");
       }
 
       RPad[iC]->cd();
