@@ -337,6 +337,19 @@ int main(int argc, char *argv[])
    Legend.SetBorderSize(0);
    Legend.SetFillStyle(0);
 
+   double x[9] = {2.349999999999999867e-01 , 7.049999999999999600e-01 , 1.175000000000000044e+00 , 1.645000000000000018e+00 , 2.040000000000000036e+00 , 2.354999999999999982e+00 , 2.669999999999999929e+00 , 2.904999999999999805e+00 , 3.060000000000000053e+00 };
+   double y24[9] = {7.836891324048251839e-01, 8.314701080954287615e-01, 9.302873851791002568e-01, 1.118398389215367272e+00, 1.431325590865351272e+00, 1.929228093985401848e+00, 2.826899540479912432e+00, 4.130493143300970615e+00, 5.211521328579531875e+00};
+   double y12[9] = {3.209130112267858159e+00, 3.413356794170638864e+00, 3.738047789508202712e+00, 4.408176202331031135e+00, 5.299470850309038639e+00, 6.318805394385380581e+00, 7.963200037766525519e+00, 9.373303726595484164e+00, 1.009497352789722946e+01};
+
+   auto g12 = new TGraph(9,x,y12);
+   auto g24 = new TGraph(9,x,y24);
+
+   g12->SetLineWidth(3);
+   g24->SetLineWidth(3);
+
+   g12->SetLineColor(kGreen);
+   g24->SetLineColor(kGreen);
+
    // Draw things
    for(int iC = 0; iC < NColumn; iC++)
    {
@@ -380,6 +393,12 @@ int main(int argc, char *argv[])
          if(SkipSystematics == false && HDataSysDiff[iC][iF] != nullptr)
             HDataSysDiff[iC][iF]->Draw("same e2");
          HDataDiff[iC][iF]->Draw("same");
+      }
+
+      if(iC==0 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo.compare("40 < p_{T}^{Z} < 200 GeV,0-10%")==0){
+         g12->Draw();
+      }else if(iC==1 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo.compare("40 < p_{T}^{Z} < 200 GeV,0-10%")==0){
+         g24->Draw();
       }
    }
 
