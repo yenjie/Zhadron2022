@@ -12,7 +12,7 @@ do
    Labels="1 < p_{T}^{trk} < 2 GeV","2 < p_{T}^{trk} < 4 GeV","4 < p_{T}^{trk} < 10 GeV"
    PPExtraInfo="40 < p_{T}^{Z} < 200 GeV"
    ExtraInfo="40 < p_{T}^{Z} < 200 GeV,${CMin}-${CMax}%"
-   Plotting="--XAxisLabel |#Delta#phi_{trk,Z}| --YAxisLabel dN_{ch}/d#Delta#phi/Z event --RAxisLabel Difference --XMin 0 --XMax 3.1415926535 --YMin -6 --YMax 15 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
+   Plotting="--XAxisLabel |#Delta#phi_{trk,Z}| --YAxisLabel dN_{ch}/d#Delta#phi/N_{Z} --RAxisLabel Difference --XMin 0 --XMax 3.1415926535 --YMin -6 --YMax 15 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
    Suffix="C$CMin$CMax"
    TagShifts=Count_ZPT_40_200_Cent_0_10_TrackPT_1p00_2p00,Count_ZPT_40_200_Cent_${CMin}_${CMax}_TrackPT_2p00_4p00,Count_ZPT_40_200_Cent_${CMin}_${CMax}_TrackPT_4p00_10p00,
 
@@ -52,7 +52,7 @@ do
    #   --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
    #   $Plotting
 
-   Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel dN_{ch}/d#Deltay/Z event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
+   Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel dN_{ch}/d#Deltay/N_{Z} --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
 
    ./Execute --OutputBase Plots/ResultNominal/ResultNominalY$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
