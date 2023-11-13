@@ -350,6 +350,9 @@ int main(int argc, char *argv[])
    g12->SetLineColor(kGreen);
    g24->SetLineColor(kGreen);
 
+   g12->SetTitle("");
+   g24->SetTitle("");
+
    // Draw things
    for(int iC = 0; iC < NColumn; iC++)
    {
@@ -385,6 +388,12 @@ int main(int argc, char *argv[])
          Legend.Draw();
       }
 
+      if(iC==0 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[1].compare("0-10%")==0){
+         g12->Draw();
+      }else if(iC==1 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[1].compare("0-10%")==0){
+         g24->Draw();
+      }
+
       RPad[iC]->cd();
       HRWorld[iC]->Draw("axis");
       
@@ -395,11 +404,7 @@ int main(int argc, char *argv[])
          HDataDiff[iC][iF]->Draw("same");
       }
 
-      if(iC==0 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[1].compare("0-10%")==0){
-         g12->Draw();
-      }else if(iC==1 &&ToPlot.compare("DeltaPhi")==0&&ExtraInfo[1].compare("0-10%")==0){
-         g24->Draw();
-      }
+      
    }
 
    // Finally we have the plots
