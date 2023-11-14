@@ -348,7 +348,7 @@ int main(int argc, char *argv[])
    double xeta[21], yeta12[21], yeta24[21];
 
    for(int iE=0;iE<20;iE++){
-      xeta[iE] = (xeta0[iE]+xeta0[40-iE])/2;
+      xeta[iE] = (fabs(xeta0[iE])+fabs(xeta0[40-iE]))/2;
       yeta12[iE] = (yeta012[iE]+yeta012[40-iE])/2;
       yeta24[iE] = (yeta024[iE]+yeta024[40-iE])/2;
    }
