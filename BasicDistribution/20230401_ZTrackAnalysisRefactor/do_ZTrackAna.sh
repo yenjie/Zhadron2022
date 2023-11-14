@@ -7,6 +7,8 @@ cd $CMSSWDir
 
 cmsenv
 
+cd /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/
+
 source /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/SetupAnalysis.sh
 
 cd /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230401_ZTrackAnalysisRefactor
