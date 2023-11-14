@@ -381,6 +381,15 @@ int main(int argc, char *argv[])
    for(int iF = 0; iF < NFile; iF++){
       HData[0][iF]->Rebin(2);
       HDataSys[0][iF]->Rebin(2);
+
+      HData[0][iF]->Scale(1./2);
+      HDataSys[0][iF]->Scale(1./2);
+
+      HDataSysDiff[iC][iF]->Rebin(2);
+      HDataDiff[iC][iF]->Rebin(2);
+
+      HDataSysDiff[iC][iF]->Scale(1./2);
+      HDataDiff[iC][iF]->Scale(1./2);
    }
 
    // Draw things
