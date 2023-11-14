@@ -111,5 +111,5 @@ PrepareToRunRandomDataSigBkg:
 
 PrepareToRunRandomMCGenSigBkg:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMCGen_v17_PFmuon/ LogMCGenSigBkg_v17_PFmuon/ $(EOSBase)/OutputMCSigBkg_v17_PFmuon/ $(PbPbSignalMC)/ 20 \
+		$(EOSBase)/OutputMCGen_v17_PFmuon/ LogMCGenSigBkg_v17_PFmuon/ $(EOSBase)/OutputMCGenSigBkg_v17_PFmuon/ $(PbPbSignalMC)/ 20 \
 		`./Expand Setting.dh PbPbSignalGenMC Nominal`
