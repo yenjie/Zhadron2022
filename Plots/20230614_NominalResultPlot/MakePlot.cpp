@@ -377,6 +377,12 @@ int main(int argc, char *argv[])
    geta12->SetTitle("");
    geta24->SetTitle("");
 
+   // Merge bins for the lowest pT region
+   for(int iF = 0; iF < NFile; iF++){
+      HData[0][iF]->Rebin(2);
+      HDataSys[0][iF]->Rebin(2);
+   }
+
    // Draw things
    for(int iC = 0; iC < NColumn; iC++)
    {
