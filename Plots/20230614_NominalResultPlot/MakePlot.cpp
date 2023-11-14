@@ -348,8 +348,8 @@ int main(int argc, char *argv[])
    auto g12 = new TGraph(9,x,y12);
    auto g24 = new TGraph(9,x,y24);
 
-   auto geta12 = new TGraph(9,xeta,yeta12);
-   auto geta24 = new TGraph(9,xeta,yeta24);
+   auto geta12 = new TGraph(41,xeta,yeta12);
+   auto geta24 = new TGraph(41,xeta,yeta24);
 
    g12->SetLineWidth(2);
    g24->SetLineWidth(2);
