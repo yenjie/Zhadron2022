@@ -79,6 +79,33 @@ do
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
 
+   Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel dN_{ch}/d#Delta#eta/N_{Z} --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
+
+   ./Execute --OutputBase Plots/ResultNominal/ResultNominalEta$Suffix \
+      --DataFiles Root/PPData.root,Root/Data.root \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
+      --CurveLabels "pp","PbPb" \
+      --ToPlot "DeltaEta" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+   ./Execute --OutputBase Plots/ResultNominal/ResultNominalEtaJetSide$Suffix \
+      --DataFiles Root/PPData.root,Root/Data.root \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
+      --CurveLabels "pp","PbPb" \
+      --ToPlot "DeltaEtaJetSide" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+   ./Execute --OutputBase Plots/ResultNominal/ResultNominalEtaZSide$Suffix \
+      --DataFiles Root/PPData.root,Root/Data.root \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
+      --CurveLabels "pp","PbPb" \
+      --ToPlot "DeltaEtaZSide" \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
+      $Plotting
+
 
 done
 
