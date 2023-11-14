@@ -8,8 +8,8 @@ PPSignalData         := $(shell DHQuery Setting.dh Sample PPSignalData)
 
 #YiEOS =  /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/
 #EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230625_ZHadronSkims
-#EOSBase = /eos/cms/store/group/phys_heavyions/pchou
-EOSBase = /eos/home-p/pchou
+EOSBase = /eos/cms/store/group/phys_heavyions/pchou
+#EOSBase = /eos/home-p/pchou
 
 default: Prepare TestRun
 
