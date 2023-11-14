@@ -385,11 +385,11 @@ int main(int argc, char *argv[])
       HData[0][iF]->Scale(1./2);
       HDataSys[0][iF]->Scale(1./2);
 
-      HDataSysDiff[iC][iF]->Rebin(2);
-      HDataDiff[iC][iF]->Rebin(2);
+      HDataSysDiff[0][iF]->Rebin(2);
+      HDataDiff[0][iF]->Rebin(2);
 
-      HDataSysDiff[iC][iF]->Scale(1./2);
-      HDataDiff[iC][iF]->Scale(1./2);
+      HDataSysDiff[0][iF]->Scale(1./2);
+      HDataDiff[0][iF]->Scale(1./2);
    }
 
    // Draw things
