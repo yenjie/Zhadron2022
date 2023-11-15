@@ -229,8 +229,8 @@ int main(int argc, char *argv[])
                double zE = sqrt(zP*zP+ZMass*ZMass);
                double zY = 0.5*log((zE+zPz)/(zE-zPz));
 
-               double trkP = trackPt*cosh(TrackEta);
-               double trkPz = trackPt*sinh(TrackEta);
+               double trkP = M.trackPt->at(iT) *cosh(TrackEta);
+               double trkPz = M.trackPt->at(iT) *sinh(TrackEta);
 
                double piMass = 0.13957039;
 
