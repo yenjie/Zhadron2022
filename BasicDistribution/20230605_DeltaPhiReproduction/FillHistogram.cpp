@@ -228,7 +228,18 @@ int main(int argc, char *argv[])
                double zPz = ZPT*sinh(ZEta);
                double zE = sqrt(zP*zP+ZMass*ZMass);
                double zY = 0.5*log((zE+zPz)/(zE-zPz));
-               double TrackDY = TrackEta - zY;
+
+               double trkP = trackPt*cosh(TrackEta);
+               double trkPz = trackPt*sinh(TrackEta);
+
+               double piMass = 0.13957039;
+
+               double trkE = sqrt(trkP*trkP+piMass*piMass);
+               double trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
+
+
+               //double TrackDY = TrackEta - zY;
+               double TrackDY = trkY - zY;
 
                HDeltaY[iC]->Fill(fabs(TrackDY), TrackWeight);
 
