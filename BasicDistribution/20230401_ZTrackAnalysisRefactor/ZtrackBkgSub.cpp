@@ -90,6 +90,12 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_phi->SetName("hMC_phi");
    hpp_phi->SetName("hpp_phi");
 
+   TH1D* hMC_phi_gen = (TH1D*) file_sigMCgen->Get(Form("%s/HPhi", FolderName.c_str()));
+   TH1D* hMC_bkg_phi_gen = (TH1D*) file_bkgMCgen->Get(Form("%s/HPhi", FolderName.c_str()));
+
+   hMC_phi_gen->SetName("hMC_phi");
+   hMC_bkg_phi_gen->SetName("hMC_phi");
+
    TH1D* hData_bkg_eta = (TH1D*) file_bkgDA->Get(Form("%s/HEta", FolderName.c_str()));
    TH1D* hMC_bkg_eta = (TH1D*) file_bkgMC->Get(Form("%s/HEta", FolderName.c_str()));
 
@@ -166,11 +172,15 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_phi->Scale(1./tD_tN/binphi);
    hMC_phi->Scale(1./tM_tN/binphi);
 
+   hMC_phi_gen->Scale(1./tM_tNgen/binphi);
+
    hData_bkg_eta->Scale(1./tDb_tN/bineta);
    hMC_bkg_eta->Scale(1./tMb_tN/bineta);
 
    hData_bkg_phi->Scale(1./tDb_tN/binphi);
    hMC_bkg_phi->Scale(1./tMb_tN/binphi);
+
+   hMC_bkg_phi_gen->Scale(1./tMb_tNgen/binphi);
 
    hpp_phi->Scale(1./tpM_tN/binphi);
    hpp_eta->Scale(1./tpM_tN/bineta);
@@ -179,6 +189,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    TH1D *hMC_sb_eta = (TH1D*) hMC_eta->Clone("hMC_sb_eta");
    TH1D *hData_sb_phi = (TH1D*) hData_phi->Clone("hData_sb_phi");
    TH1D *hMC_sb_phi = (TH1D*) hMC_phi->Clone("hMC_sb_phi");
+
+   TH1D *hMC_sb_phi_gen = (TH1D*) hMC_phi_gen->Clone("hMC_sb_phi_gen");
 
    TH1D *hData_sbr_eta = (TH1D*) hData_eta->Clone("hData_sbr_eta");
    TH1D *hMC_sbr_eta = (TH1D*) hMC_eta->Clone("hMC_sbr_eta");
@@ -189,6 +201,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_eta->Add(hMC_bkg_eta,-1);
    hData_sb_phi->Add(hData_bkg_phi,-1);
    hMC_sb_phi->Add(hMC_bkg_phi,-1);
+
+   hMC_sb_phi_gen->Add(hMC_bkg_phi_gen,-1);
 
    hData_sbr_eta->Divide(hData_bkg_eta);
    hMC_sbr_eta->Divide(hMC_bkg_eta);
@@ -216,10 +230,14 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sbr_eta->SetMarkerStyle(24);
    hMC_sbr_phi->SetMarkerStyle(24);
 
+   hMC_sb_phi_gen->SetMarkerStyle(24);
+
    hData_eta->SetMarkerColor(kBlack);
    hMC_eta->SetMarkerColor(kRed);
    hData_phi->SetMarkerColor(kBlack);
    hMC_phi->SetMarkerColor(kRed);
+
+
 
    hData_eta->SetLineColor(kBlack);
    hMC_eta->SetLineColor(kRed);
@@ -255,6 +273,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sbr_eta->SetLineColor(kRed);
    hData_sbr_phi->SetLineColor(kBlack);
    hMC_sbr_phi->SetLineColor(kRed);
+
+   hMC_sb_phi_gen->SetLineColor(kGreen);
 
    if(TptL==0) TptL=TptL_min;
 
@@ -330,6 +350,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_bkg_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
    hMC_sb_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
    hpp_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
+   hMC_sb_phi_gen->GetXaxis()->SetRangeUser(0,M_PI);
 
 
    double max1 = hMC_phi_com->GetMaximum();
@@ -349,6 +370,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_phi_com->SetMarkerStyle(kFullCircle);
 
    hpp_phi_com->SetLineWidth(2);
+   hMC_sb_phi_gen->SetLineWidth(2);
 
    
    if(max1<max2) hMC_bkg_phi_com->Draw("ep");
@@ -358,6 +380,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hMC_sb_phi_com->Draw("ep same");
    hpp_phi_com->Draw("hist same");
+   hMC_sb_phi_gen->Draw("hist same");
 
    if(max1<max2) max1=max2;
 
@@ -365,12 +388,14 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_bkg_phi_com->SetXTitle("#Delta#phi_{Z,track}");
    hMC_phi_com->SetYTitle("dN/d#Delta#phi");
    hMC_bkg_phi_com->SetYTitle("dN/d#Delta#phi");
+   hMC_sb_phi_gen->SetYTitle("dN/d#Delta#phi");
 
-   TLegend leg1(0.58,0.68,0.98,0.9);
+   TLegend leg1(0.58,0.65,0.98,0.95);
    leg1.AddEntry(hMC_phi_com ,"raw","lep");
    leg1.AddEntry(hMC_bkg_phi_com ,"bkg","lep");
    leg1.AddEntry(hMC_sb_phi_com ,"raw-bkg","lep");
    leg1.AddEntry(hpp_phi_com ,"pp","l");
+   leg1.AddEntry(hMC_sb_phi_gen,"raw-bkg GEN","lep")
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
@@ -405,6 +430,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_bkg_phi_com->SetMinimum(0);
    hMC_sb_phi_com->SetMinimum(0);
    hpp_phi_com->SetMinimum(0);
+   hMC_sb_phi_gen->SetMinimum(0);
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    gPad->SetLogy();
@@ -412,6 +438,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_bkg_phi_com->SetMinimum(0.01);
    hMC_sb_phi_com->SetMinimum(0.01);
    hpp_phi_com->SetMinimum(0.01);
+   hMC_sb_phi_gen->SetMinimum(0.01);
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/Ztrack_%s_comlog_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicomlog.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    gPad->SetLogy(0);
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/pdf/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
