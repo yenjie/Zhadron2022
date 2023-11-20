@@ -353,7 +353,7 @@ int main(int argc, char *argv[])
       yeta24[iE] = (yeta024[iE]+yeta024[40-iE]);
    }
 
-   xeta[20] = xeta0[20]; yeta12[20] = yeta012[20]; yeta24[20] = yeta024[20];
+   xeta[20] = xeta0[20]*2; yeta12[20] = yeta012[20]*2; yeta24[20] = yeta024[20]*2;
 
    auto g12 = new TGraph(9,x,y12);
    auto g24 = new TGraph(9,x,y24);
