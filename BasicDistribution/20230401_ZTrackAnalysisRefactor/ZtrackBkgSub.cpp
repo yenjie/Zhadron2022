@@ -383,7 +383,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hMC_sb_phi_com->Draw("ep same");
    hpp_phi_com->Draw("hist same");
-   hMC_phi_gen->Draw("hist same");
+   hMC_sb_phi_gen->Draw("hist same");
+   //hMC_phi_gen->Draw("hist same");
 
    if(max1<max2) max1=max2;
 
@@ -398,7 +399,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    leg1.AddEntry(hMC_bkg_phi_com ,"bkg","lep");
    leg1.AddEntry(hMC_sb_phi_com ,"raw-bkg","lep");
    leg1.AddEntry(hpp_phi_com ,"pp","l");
-   leg1.AddEntry(hMC_phi_gen,"sig GEN","lep");
+   leg1.AddEntry(hMC_sb_phi_gen,"raw-bkg GEN","lep");
+   //leg1.AddEntry(hMC_phi_gen,"sig GEN","lep");
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
@@ -434,6 +436,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_phi_com->SetMinimum(0);
    hpp_phi_com->SetMinimum(0);
    hMC_sb_phi_gen->SetMinimum(0);
+   hMC_phi_gen->SetMinimum(0);
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    gPad->SetLogy();
@@ -442,6 +445,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_phi_com->SetMinimum(0.01);
    hpp_phi_com->SetMinimum(0.01);
    hMC_sb_phi_gen->SetMinimum(0.01);
+   hMC_phi_gen->SetMinimum(0.01);
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/Ztrack_%s_comlog_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicomlog.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    gPad->SetLogy(0);
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/pdf/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
