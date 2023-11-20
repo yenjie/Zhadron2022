@@ -90,6 +90,18 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_phi->SetName("hMC_phi");
    hpp_phi->SetName("hpp_phi");
 
+   TH1D* hData_bkg_eta = (TH1D*) file_bkgDA->Get(Form("%s/HEta", FolderName.c_str()));
+   TH1D* hMC_bkg_eta = (TH1D*) file_bkgMC->Get(Form("%s/HEta", FolderName.c_str()));
+
+   hData_bkg_eta->SetName("hData_bkg_eta");
+   hMC_bkg_eta->SetName("hMC_bkg_eta");
+
+   TH1D* hData_bkg_phi = (TH1D*) file_bkgDA->Get(Form("%s/HPhi", FolderName.c_str()));
+   TH1D* hMC_bkg_phi = (TH1D*) file_bkgMC->Get(Form("%s/HPhi", FolderName.c_str()));
+
+   hData_bkg_phi->SetName("hData_bkg_phi");
+   hMC_bkg_phi->SetName("hMC_bkg_phi");
+
 
    std::cout<<"Setting histograms..."<<std::endl;
 
@@ -320,8 +332,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hpp_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
 
 
-   max1 = hMC_phi_com->GetMaximum();
-   max2 = hMC_bkg_phi_com->GetMaximum();
+   double max1 = hMC_phi_com->GetMaximum();
+   double max2 = hMC_bkg_phi_com->GetMaximum();
 
    hMC_phi_com->SetMarkerColor(kBlack);
    hMC_bkg_phi_com->SetMarkerColor(kBlue);
