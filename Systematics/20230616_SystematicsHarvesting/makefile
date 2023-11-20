@@ -2,12 +2,12 @@
 default: Prepare TestRunCombine
 
 Prepare:
-	ln -sf $(ProjectBase)/BasicDistribution/20230605_DeltaPhiReproduction/ Root
+	ln -sf $(ProjectBase)/BasicDistribution/20230605_DeltaPhiReproduction/oldroot/v16/ Root
 
 TestRun: Execute
 	./Execute
 
-RunSystematics: Execute ExecuteCombine
+RunSystematics: Prepare Execute ExecuteCombine
 	bash RunSystematics.sh
 
 TestRunCombine: ExecuteCombine
