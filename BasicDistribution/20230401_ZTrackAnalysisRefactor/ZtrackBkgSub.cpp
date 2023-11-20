@@ -351,6 +351,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
    hpp_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
    hMC_sb_phi_gen->GetXaxis()->SetRangeUser(0,M_PI);
+   hMC_phi_gen->GetXaxis()->SetRangeUser(0,M_PI);
 
 
    double max1 = hMC_phi_com->GetMaximum();
@@ -364,6 +365,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_bkg_phi_com->SetLineColor(kBlue);
    hMC_sb_phi_com->SetLineColor(kRed);
    hpp_phi_com->SetLineColor(kBlack);
+   hMC_phi_gen->SetLineColor(kGreen);
 
    hMC_phi_com->SetMarkerStyle(kFullCircle);
    hMC_bkg_phi_com->SetMarkerStyle(kFullCircle);
@@ -371,6 +373,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hpp_phi_com->SetLineWidth(2);
    hMC_sb_phi_gen->SetLineWidth(2);
+   hMC_phi_gen->SetLineWidth(2);
 
    
    if(max1<max2) hMC_bkg_phi_com->Draw("ep");
@@ -380,7 +383,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    hMC_sb_phi_com->Draw("ep same");
    hpp_phi_com->Draw("hist same");
-   hMC_sb_phi_gen->Draw("hist same");
+   hMC_phi_gen->Draw("hist same");
 
    if(max1<max2) max1=max2;
 
@@ -395,7 +398,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    leg1.AddEntry(hMC_bkg_phi_com ,"bkg","lep");
    leg1.AddEntry(hMC_sb_phi_com ,"raw-bkg","lep");
    leg1.AddEntry(hpp_phi_com ,"pp","l");
-   leg1.AddEntry(hMC_sb_phi_gen,"raw-bkg GEN","lep");
+   leg1.AddEntry(hMC_phi_gen,"sig GEN","lep");
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
@@ -459,7 +462,8 @@ int main(int argc, char *argv[]){
    file_bkgDA = TFile::Open("~/eos_base/BasicPlots/GraphDataBackground_v17_PFmuon.root","read");
    file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
 
-   file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
+   //file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
+   file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal0Sub_v17_PFmuon.root","read");
    file_bkgMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundGen_v17_PFmuon.root","read");
 
 /*
