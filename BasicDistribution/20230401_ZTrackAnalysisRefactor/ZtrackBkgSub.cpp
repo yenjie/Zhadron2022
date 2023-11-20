@@ -401,6 +401,11 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    //ptN0->Draw();
 
+   MC_phi_com->SetMinimum(0);
+   hMC_bkg_phi_com->SetMinimum(0);
+   hMC_sb_phi_com->SetMinimum(0);
+   hpp_phi_com->SetMinimum(0);
+
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/Dphi/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    gPad->SetLogy();
    hMC_phi_com->SetMinimum(0.01);
