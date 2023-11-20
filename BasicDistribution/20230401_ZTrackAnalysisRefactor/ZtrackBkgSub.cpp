@@ -401,7 +401,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    //ptN0->Draw();
 
-   MC_phi_com->SetMinimum(0);
+   hMC_phi_com->SetMinimum(0);
    hMC_bkg_phi_com->SetMinimum(0);
    hMC_sb_phi_com->SetMinimum(0);
    hpp_phi_com->SetMinimum(0);
