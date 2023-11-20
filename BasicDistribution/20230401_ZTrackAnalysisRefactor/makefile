@@ -104,3 +104,12 @@ DrawProj: ExecuteDrawProj
 ExecuteDrawProj: ZtrackProj.cpp
 	g++ ZtrackProj.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o ExecuteDrawProj `root-config --cflags --libs` -std=c++17
+
+DrawBkgSub: ExecuteBkgSub
+	./ExecuteBkgSub
+
+ExecuteDrawProj: ZtrackBkgSub.cpp
+	g++ ZtrackBkgSub.cpp -I. -I$(ProjectBase)/CommonCode/include \
+		-o ExecuteBkgSub `root-config --cflags --libs` -std=c++17
+
+
