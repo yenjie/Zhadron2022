@@ -412,9 +412,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    //std::cout<<"max1 = "<<max1<<std::endl;
    //hMC_phi_com->SetMinimum(0);
-   hMC_phi_com->SetMaximum(max1);
+   hMC_phi_com->SetMaximum(1.6*max1);
    //hMC_bkg_phi_com->SetMinimum(0);
-   hMC_bkg_phi_com->SetMaximum(max1);
+   hMC_bkg_phi_com->SetMaximum(1.6*max1);
 /*
    if(ptL==30&&centL==0&&centH==30){
     hMC_phi_com->SetMaximum(max1);
@@ -446,6 +446,15 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hpp_phi_com->SetMinimum(0.01);
    hMC_sb_phi_gen->SetMinimum(0.01);
    hMC_phi_gen->SetMinimum(0.01);
+
+
+   hMC_phi_com->SetMaximum(10000);
+   hMC_bkg_phi_com->SetMaximum(10000);
+   hMC_sb_phi_com->SetMaximum(10000);
+   hpp_phi_com->SetMaximum(10000);
+   hMC_sb_phi_gen->SetMaximum(10000);
+   hMC_phi_gen->SetMaximum(10000);
+
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_comlog_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicomlog.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    gPad->SetLogy(0);
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/pdf/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
