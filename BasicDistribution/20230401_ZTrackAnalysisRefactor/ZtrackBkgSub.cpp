@@ -448,12 +448,12 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_phi_gen->SetMinimum(0.01);
 
 
-   hMC_phi_com->SetMaximum(10000);
-   hMC_bkg_phi_com->SetMaximum(10000);
-   hMC_sb_phi_com->SetMaximum(10000);
-   hpp_phi_com->SetMaximum(10000);
-   hMC_sb_phi_gen->SetMaximum(10000);
-   hMC_phi_gen->SetMaximum(10000);
+   hMC_phi_com->SetMaximum(1000000);
+   hMC_bkg_phi_com->SetMaximum(1000000);
+   hMC_sb_phi_com->SetMaximum(1000000);
+   hpp_phi_com->SetMaximum(1000000);
+   hMC_sb_phi_gen->SetMaximum(1000000);
+   hMC_phi_gen->SetMaximum(1000000);
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_comlog_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicomlog.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    gPad->SetLogy(0);
