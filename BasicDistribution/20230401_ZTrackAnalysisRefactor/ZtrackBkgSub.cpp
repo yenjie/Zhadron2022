@@ -52,8 +52,8 @@ void style(){
 
 TFile *file_sigMC;
 TFile *file_bkgMC;
-TFile *file_sigDA;
-TFile *file_bkgDA;
+//TFile *file_sigDA;
+//TFile *file_bkgDA;
 TFile *file_ppMC;
 
 TFile *file_sigMCgen;
@@ -74,19 +74,19 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    std::string FolderName = Form("Plot_ZPT_%.0f_%.0f_Cent_%.0f_%.0f_TrackPT_%.2f_%.2f",ptL,ptH,centL,centH,TptL,TptH);
    std::replace(FolderName.begin(), FolderName.end(), '.', 'p');
 
-   TH1D* hData_eta = (TH1D*) file_sigDA->Get(Form("%s/HEta", FolderName.c_str()));
-   TH1D* hMC_eta = (TH1D*) file_sigMC->Get(Form("%s/HEta", FolderName.c_str()));
-   TH1D* hpp_eta = (TH1D*) file_ppMC->Get(Form("%s/HEta", FolderName.c_str()));
+   //TH1D* hData_eta = (TH1D*) file_sigDA->Get(Form("%s/HEta", FolderName.c_str()));
+   //TH1D* hMC_eta = (TH1D*) file_sigMC->Get(Form("%s/HEta", FolderName.c_str()));
+   //TH1D* hpp_eta = (TH1D*) file_ppMC->Get(Form("%s/HEta", FolderName.c_str()));
 
-   hData_eta->SetName("hData_eta");
-   hMC_eta->SetName("hMC_eta");
-   hpp_eta->SetName("hpp_eta");
+   //hData_eta->SetName("hData_eta");
+   //hMC_eta->SetName("hMC_eta");
+   //hpp_eta->SetName("hpp_eta");
 
-   TH1D* hData_phi = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderName.c_str()));
+   //TH1D* hData_phi = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderName.c_str()));
    TH1D* hMC_phi = (TH1D*) file_sigMC->Get(Form("%s/HPhi", FolderName.c_str()));
    TH1D* hpp_phi = (TH1D*) file_ppMC->Get(Form("%s/HPhi", FolderName.c_str()));
 
-   hData_phi->SetName("hData_phi");
+   //hData_phi->SetName("hData_phi");
    hMC_phi->SetName("hMC_phi");
    hpp_phi->SetName("hpp_phi");
 
@@ -96,16 +96,16 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_phi_gen->SetName("hMC_phi");
    hMC_bkg_phi_gen->SetName("hMC_phi");
 
-   TH1D* hData_bkg_eta = (TH1D*) file_bkgDA->Get(Form("%s/HEta", FolderName.c_str()));
-   TH1D* hMC_bkg_eta = (TH1D*) file_bkgMC->Get(Form("%s/HEta", FolderName.c_str()));
+   //TH1D* hData_bkg_eta = (TH1D*) file_bkgDA->Get(Form("%s/HEta", FolderName.c_str()));
+   //TH1D* hMC_bkg_eta = (TH1D*) file_bkgMC->Get(Form("%s/HEta", FolderName.c_str()));
 
-   hData_bkg_eta->SetName("hData_bkg_eta");
-   hMC_bkg_eta->SetName("hMC_bkg_eta");
+   //hData_bkg_eta->SetName("hData_bkg_eta");
+   //hMC_bkg_eta->SetName("hMC_bkg_eta");
 
-   TH1D* hData_bkg_phi = (TH1D*) file_bkgDA->Get(Form("%s/HPhi", FolderName.c_str()));
+   //TH1D* hData_bkg_phi = (TH1D*) file_bkgDA->Get(Form("%s/HPhi", FolderName.c_str()));
    TH1D* hMC_bkg_phi = (TH1D*) file_bkgMC->Get(Form("%s/HPhi", FolderName.c_str()));
 
-   hData_bkg_phi->SetName("hData_bkg_phi");
+   //hData_bkg_phi->SetName("hData_bkg_phi");
    hMC_bkg_phi->SetName("hMC_bkg_phi");
 
 
@@ -127,36 +127,36 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    std::cout<<"Getting Entries..."<<std::endl;
 
-   TNamed *nD_tN  = (TNamed *) file_sigDA->Get(Form("%s/EntryCount",FolderName.c_str()));
+   //TNamed *nD_tN  = (TNamed *) file_sigDA->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nM_tN  = (TNamed *) file_sigMC->Get(Form("%s/EntryCount",FolderName.c_str()));
-   TNamed *nDb_tN = (TNamed *) file_bkgDA->Get(Form("%s/EntryCount",FolderName.c_str()));
+   //TNamed *nDb_tN = (TNamed *) file_bkgDA->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
    TNamed *npM_tN = (TNamed *) file_ppMC->Get(Form("%s/EntryCount",FolderName.c_str()));
 
    TNamed *nM_tNgen  = (TNamed *) file_sigMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
    TNamed *nMb_tNgen = (TNamed *) file_bkgMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
 
-   std::string sD_tN  = (std::string) nD_tN->GetTitle();
+   //std::string sD_tN  = (std::string) nD_tN->GetTitle();
    std::string sM_tN  = (std::string) nM_tN->GetTitle();
-   std::string sDb_tN = (std::string) nDb_tN->GetTitle();
+   //std::string sDb_tN = (std::string) nDb_tN->GetTitle();
    std::string sMb_tN = (std::string) nMb_tN->GetTitle();
    std::string spM_tN = (std::string) npM_tN->GetTitle();
 
    std::string sM_tNgen  = (std::string) nM_tNgen->GetTitle();
    std::string sMb_tNgen = (std::string) nMb_tNgen->GetTitle();
 
-   float tD_tN  = std::stof(sD_tN);
+   //float tD_tN  = std::stof(sD_tN);
    float tM_tN  = std::stof(sM_tN);
-   float tDb_tN = std::stof(sDb_tN);
+   //float tDb_tN = std::stof(sDb_tN);
    float tMb_tN = std::stof(sMb_tN);
    float tpM_tN = std::stof(spM_tN);
 
    float tM_tNgen  = std::stof(sM_tNgen);
    float tMb_tNgen = std::stof(sMb_tNgen);
 
-   std::cout<<"tD_tN = "<<tD_tN<<std::endl;
+   //std::cout<<"tD_tN = "<<tD_tN<<std::endl;
    std::cout<<"tM_tN = "<<tM_tN<<std::endl;
-   std::cout<<"tDb_tN = "<<tDb_tN<<std::endl;
+   //std::cout<<"tDb_tN = "<<tDb_tN<<std::endl;
    std::cout<<"tMb_tN = "<<tMb_tN<<std::endl;
    std::cout<<"tpM_tN = "<<tpM_tN<<std::endl;
 
@@ -166,124 +166,117 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    double bineta = 0.032, binphi = M_PI/50;
    double bineta2d = 6.4/150, binphi2d = M_PI/75;
 
-   hData_eta->Scale(1./tD_tN/bineta);
-   hMC_eta->Scale(1./tM_tN/bineta);
+   //hData_eta->Scale(1./tD_tN/bineta);
+   //hMC_eta->Scale(1./tM_tN/bineta);
 
-   hData_phi->Scale(1./tD_tN/binphi);
+   //hData_phi->Scale(1./tD_tN/binphi);
    hMC_phi->Scale(1./tM_tN/binphi);
 
    hMC_phi_gen->Scale(1./tM_tNgen/binphi);
 
-   hData_bkg_eta->Scale(1./tDb_tN/bineta);
-   hMC_bkg_eta->Scale(1./tMb_tN/bineta);
+   //hData_bkg_eta->Scale(1./tDb_tN/bineta);
+   //hMC_bkg_eta->Scale(1./tMb_tN/bineta);
 
-   hData_bkg_phi->Scale(1./tDb_tN/binphi);
+   //hData_bkg_phi->Scale(1./tDb_tN/binphi);
    hMC_bkg_phi->Scale(1./tMb_tN/binphi);
 
    hMC_bkg_phi_gen->Scale(1./tMb_tNgen/binphi);
 
    hpp_phi->Scale(1./tpM_tN/binphi);
-   hpp_eta->Scale(1./tpM_tN/bineta);
+   //hpp_eta->Scale(1./tpM_tN/bineta);
 
-   TH1D *hData_sb_eta = (TH1D*) hData_eta->Clone("hData_sb_eta");
-   TH1D *hMC_sb_eta = (TH1D*) hMC_eta->Clone("hMC_sb_eta");
-   TH1D *hData_sb_phi = (TH1D*) hData_phi->Clone("hData_sb_phi");
+   //TH1D *hData_sb_eta = (TH1D*) hData_eta->Clone("hData_sb_eta");
+   //TH1D *hMC_sb_eta = (TH1D*) hMC_eta->Clone("hMC_sb_eta");
+   //TH1D *hData_sb_phi = (TH1D*) hData_phi->Clone("hData_sb_phi");
    TH1D *hMC_sb_phi = (TH1D*) hMC_phi->Clone("hMC_sb_phi");
 
    TH1D *hMC_sb_phi_gen = (TH1D*) hMC_phi_gen->Clone("hMC_sb_phi_gen");
 
-   TH1D *hData_sbr_eta = (TH1D*) hData_eta->Clone("hData_sbr_eta");
-   TH1D *hMC_sbr_eta = (TH1D*) hMC_eta->Clone("hMC_sbr_eta");
-   TH1D *hData_sbr_phi = (TH1D*) hData_phi->Clone("hData_sbr_phi");
+   //TH1D *hData_sbr_eta = (TH1D*) hData_eta->Clone("hData_sbr_eta");
+   //TH1D *hMC_sbr_eta = (TH1D*) hMC_eta->Clone("hMC_sbr_eta");
+   //TH1D *hData_sbr_phi = (TH1D*) hData_phi->Clone("hData_sbr_phi");
    TH1D *hMC_sbr_phi = (TH1D*) hMC_phi->Clone("hMC_sbr_phi");
 
-   hData_sb_eta->Add(hData_bkg_eta,-1);
-   hMC_sb_eta->Add(hMC_bkg_eta,-1);
-   hData_sb_phi->Add(hData_bkg_phi,-1);
+   //hData_sb_eta->Add(hData_bkg_eta,-1);
+   //hMC_sb_eta->Add(hMC_bkg_eta,-1);
+   //hData_sb_phi->Add(hData_bkg_phi,-1);
    hMC_sb_phi->Add(hMC_bkg_phi,-1);
 
    hMC_sb_phi_gen->Add(hMC_bkg_phi_gen,-1);
 
-   hData_sbr_eta->Divide(hData_bkg_eta);
-   hMC_sbr_eta->Divide(hMC_bkg_eta);
-   hData_sbr_phi->Divide(hData_bkg_phi);
+   //hData_sbr_eta->Divide(hData_bkg_eta);
+   //hMC_sbr_eta->Divide(hMC_bkg_eta);
+   //hData_sbr_phi->Divide(hData_bkg_phi);
    hMC_sbr_phi->Divide(hMC_bkg_phi);
 
-   int countD0 = hData_eta->GetEntries();
-   std::cout<<"Data 0 = "<<countD0<<std::endl;
-   int countM0 = hMC_eta->GetEntries();
+   //int countD0 = hData_phi->GetEntries();
+   //std::cout<<"Data 0 = "<<countD0<<std::endl;
+   int countM0 = hMC_phi->GetEntries();
    std::cout<<"MC 0 = "<<countM0<<std::endl;
 
-   int countDb = hData_bkg_eta->GetEntries();
-   std::cout<<"Data Bkg = "<<countDb<<std::endl;
-   int countMb = hMC_bkg_eta->GetEntries();
+   //int countDb = hData_bkg_phi->GetEntries();
+   //std::cout<<"Data Bkg = "<<countDb<<std::endl;
+   int countMb = hMC_bkg_phi->GetEntries();
    std::cout<<"MC Bkg = "<<countMb<<std::endl;
 
    std::cout<<"Drawing..."<<std::endl;
 
-   hMC_eta->SetMarkerStyle(24);
+   //hMC_eta->SetMarkerStyle(24);
    hMC_phi->SetMarkerStyle(24);
-   hMC_bkg_eta->SetMarkerStyle(24);
+   //hMC_bkg_eta->SetMarkerStyle(24);
    hMC_bkg_phi->SetMarkerStyle(24);
-   hMC_sb_eta->SetMarkerStyle(24);
+   //hMC_sb_eta->SetMarkerStyle(24);
    hMC_sb_phi->SetMarkerStyle(24);
-   hMC_sbr_eta->SetMarkerStyle(24);
+   //hMC_sbr_eta->SetMarkerStyle(24);
    hMC_sbr_phi->SetMarkerStyle(24);
 
    hMC_sb_phi_gen->SetMarkerStyle(24);
 
-   hData_eta->SetMarkerColor(kBlack);
-   hMC_eta->SetMarkerColor(kRed);
-   hData_phi->SetMarkerColor(kBlack);
+   //hData_eta->SetMarkerColor(kBlack);
+   //hMC_eta->SetMarkerColor(kRed);
+   //hData_phi->SetMarkerColor(kBlack);
    hMC_phi->SetMarkerColor(kRed);
 
 
 
-   hData_eta->SetLineColor(kBlack);
-   hMC_eta->SetLineColor(kRed);
-   hData_phi->SetLineColor(kBlack);
+   //hData_eta->SetLineColor(kBlack);
+   //hMC_eta->SetLineColor(kRed);
+   //hData_phi->SetLineColor(kBlack);
    hMC_phi->SetLineColor(kRed);
 
-   hData_bkg_eta->SetMarkerColor(kBlack);
-   hMC_bkg_eta->SetMarkerColor(kRed);
-   hData_bkg_phi->SetMarkerColor(kBlack);
+   //hData_bkg_eta->SetMarkerColor(kBlack);
+   //hMC_bkg_eta->SetMarkerColor(kRed);
+   //hData_bkg_phi->SetMarkerColor(kBlack);
    hMC_bkg_phi->SetMarkerColor(kRed);
 
-   hData_bkg_eta->SetLineColor(kBlack);
-   hMC_bkg_eta->SetLineColor(kRed);
-   hData_bkg_phi->SetLineColor(kBlack);
+   //hData_bkg_eta->SetLineColor(kBlack);
+   //hMC_bkg_eta->SetLineColor(kRed);
+   //hData_bkg_phi->SetLineColor(kBlack);
    hMC_bkg_phi->SetLineColor(kRed);
 
-   hData_sb_eta->SetMarkerColor(kBlack);
-   hMC_sb_eta->SetMarkerColor(kRed);
-   hData_sb_phi->SetMarkerColor(kBlack);
+   //hData_sb_eta->SetMarkerColor(kBlack);
+   //hMC_sb_eta->SetMarkerColor(kRed);
+   //hData_sb_phi->SetMarkerColor(kBlack);
    hMC_sb_phi->SetMarkerColor(kRed);
 
-   hData_sb_eta->SetLineColor(kBlack);
-   hMC_sb_eta->SetLineColor(kRed);
-   hData_sb_phi->SetLineColor(kBlack);
+   //hData_sb_eta->SetLineColor(kBlack);
+   //hMC_sb_eta->SetLineColor(kRed);
+   //hData_sb_phi->SetLineColor(kBlack);
    hMC_sb_phi->SetLineColor(kRed);
 
-   hData_sbr_eta->SetMarkerColor(kBlack);
-   hMC_sbr_eta->SetMarkerColor(kRed);
-   hData_sbr_phi->SetMarkerColor(kBlack);
+   //hData_sbr_eta->SetMarkerColor(kBlack);
+   //hMC_sbr_eta->SetMarkerColor(kRed);
+   //hData_sbr_phi->SetMarkerColor(kBlack);
    hMC_sbr_phi->SetMarkerColor(kRed);
 
-   hData_sbr_eta->SetLineColor(kBlack);
-   hMC_sbr_eta->SetLineColor(kRed);
-   hData_sbr_phi->SetLineColor(kBlack);
+   //hData_sbr_eta->SetLineColor(kBlack);
+   //hMC_sbr_eta->SetLineColor(kRed);
+   //hData_sbr_phi->SetLineColor(kBlack);
    hMC_sbr_phi->SetLineColor(kRed);
 
    hMC_sb_phi_gen->SetLineColor(kGreen);
 
    if(TptL==0) TptL=TptL_min;
-
-   TLegend leg(0.58,0.78,0.98,0.9);
-   leg.AddEntry(hMC_eta ,"Monte Carlo: DYLL","lep");
-   leg.AddEntry(hData_eta ,Form("Data: %s",typeofdatatext),"lep");
-   leg.SetFillColorAlpha(kWhite,0);
-   leg.SetLineColor(kBlack);
-   leg.SetLineWidth(1);
 
    TLatex *pt = new TLatex(0.18,0.88,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
    pt->SetTextFont(42);
@@ -471,8 +464,8 @@ int main(int argc, char *argv[]){
 
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
    file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17_PFmuon.root","read");
-   file_sigDA = TFile::Open("~/eos_base/BasicPlots/GraphDataSignal_v17_PFmuon.root","read");
-   file_bkgDA = TFile::Open("~/eos_base/BasicPlots/GraphDataBackground_v17_PFmuon.root","read");
+   //file_sigDA = TFile::Open("~/eos_base/BasicPlots/GraphDataSignal_v17_PFmuon.root","read");
+   //file_bkgDA = TFile::Open("~/eos_base/BasicPlots/GraphDataBackground_v17_PFmuon.root","read");
    file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
 
    file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
@@ -509,8 +502,8 @@ int main(int argc, char *argv[]){
 
    file_sigMC->Close();
    file_bkgMC->Close();
-   file_sigDA->Close();
-   file_bkgDA->Close();
+   //file_sigDA->Close();
+   //file_bkgDA->Close();
    file_ppMC->Close();
 
    file_sigMCgen->Close();
