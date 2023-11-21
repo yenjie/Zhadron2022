@@ -17,7 +17,7 @@
 double TptL_min = 0.5;
 
 int main(int argc, char *argv[]);
-void ZtrackDraw_single(int binnum,float ptL,float ptH,float centL,float centH,float TptL,float TptH);
+void ZtrackBkg_single(int binnum,float ptL,float ptH,float centL,float centH,float TptL,float TptH);
 
 void style(){
 
@@ -63,7 +63,7 @@ const char *typeofdata = "v17_PFMuon/20231121";
 const char *typeofdata1 = "v17_PF_20231121";
 const char *typeofdatatext = "single muon";
 
-void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
+void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
 {
 
    std::cout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
@@ -473,32 +473,32 @@ int main(int argc, char *argv[]){
    file_bkgMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundGen_v17_PFmuon.root","read");
 
 /*
-   ZtrackDraw_single(40, 20, 2000,  0, 10,  0, 1000);
-   ZtrackDraw_single(40, 20, 2000, 10, 30,  0, 1000);
-   ZtrackDraw_single(40, 20, 2000, 30, 50,  0, 1000);
-   ZtrackDraw_single(40, 20, 2000, 50, 90,  0, 1000);
-   ZtrackDraw_single(40, 20, 2000,  0, 90,  1,    2);
-   ZtrackDraw_single(40, 20, 2000,  0, 90,  2,    5);
-   ZtrackDraw_single(40, 20, 2000,  0, 90,  5,   10);
-   ZtrackDraw_single(40, 20, 2000,  0, 90, 10,   20);
-   ZtrackDraw_single(40, 20, 2000,  0, 90, 20,   50);
-   ZtrackDraw_single(40, 20, 2000,  0, 90, 50,  100);
+   ZtrackBkg_single(40, 20, 2000,  0, 10,  0, 1000);
+   ZtrackBkg_single(40, 20, 2000, 10, 30,  0, 1000);
+   ZtrackBkg_single(40, 20, 2000, 30, 50,  0, 1000);
+   ZtrackBkg_single(40, 20, 2000, 50, 90,  0, 1000);
+   ZtrackBkg_single(40, 20, 2000,  0, 90,  1,    2);
+   ZtrackBkg_single(40, 20, 2000,  0, 90,  2,    5);
+   ZtrackBkg_single(40, 20, 2000,  0, 90,  5,   10);
+   ZtrackBkg_single(40, 20, 2000,  0, 90, 10,   20);
+   ZtrackBkg_single(40, 20, 2000,  0, 90, 20,   50);
+   ZtrackBkg_single(40, 20, 2000,  0, 90, 50,  100);
 */
-   ZtrackDraw_single(40, 40, 200,  0, 10,  1, 1000);
-   ZtrackDraw_single(40, 40, 200, 10, 30,  1, 1000);
-   ZtrackDraw_single(40, 40, 200, 30, 50,  1, 1000);
-   ZtrackDraw_single(40, 40, 200, 50, 90,  1, 1000);
+   ZtrackBkg_single(40, 40, 200,  0, 10,  1, 1000);
+   ZtrackBkg_single(40, 40, 200, 10, 30,  1, 1000);
+   ZtrackBkg_single(40, 40, 200, 30, 50,  1, 1000);
+   ZtrackBkg_single(40, 40, 200, 50, 90,  1, 1000);
 /*
-   ZtrackDraw_single(40, 20, 2000,  0, 10, 10,   20);
-   ZtrackDraw_single(40, 20, 2000, 10, 30, 10,   20);
-   ZtrackDraw_single(40, 20, 2000, 30, 50, 10,   20);
-   ZtrackDraw_single(40, 20, 2000, 50, 90, 10,   20);
+   ZtrackBkg_single(40, 20, 2000,  0, 10, 10,   20);
+   ZtrackBkg_single(40, 20, 2000, 10, 30, 10,   20);
+   ZtrackBkg_single(40, 20, 2000, 30, 50, 10,   20);
+   ZtrackBkg_single(40, 20, 2000, 50, 90, 10,   20);
 */
-   //ZtrackDraw_single(40, 40, 200,  0, 30, 1, 1000);
-   //ZtrackDraw_single(40, 40, 200,  0, 10, 1, 1000);
-   //ZtrackDraw_single(40, 40, 200, 10, 30, 1, 1000);
-   //ZtrackDraw_single(40, 40, 200, 30, 50, 1, 1000);
-   //ZtrackDraw_single(40, 40, 200, 50, 90, 1, 1000);
+   //ZtrackBkg_single(40, 40, 200,  0, 30, 1, 1000);
+   //ZtrackBkg_single(40, 40, 200,  0, 10, 1, 1000);
+   //ZtrackBkg_single(40, 40, 200, 10, 30, 1, 1000);
+   //ZtrackBkg_single(40, 40, 200, 30, 50, 1, 1000);
+   //ZtrackBkg_single(40, 40, 200, 50, 90, 1, 1000);
 
    file_sigMC->Close();
    file_bkgMC->Close();
