@@ -59,8 +59,8 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v17_PFMuon/20231123/UEDown25";
-const char *typeofdata1 = "v17_PF_20231123_UEDown25";
+const char *typeofdata = "v17_PFMuon/20231123/UEUp25";
+const char *typeofdata1 = "v17_PF_20231123_UEUp25";
 const char *typeofdatatext = "single muon";
 
 void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -389,7 +389,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    TLegend leg1(0.58,0.65,0.98,0.95);
    leg1.AddEntry(hMC_phi_com ,"raw","lep");
-   leg1.AddEntry(hMC_bkg_phi_com ,"bkg (UEDown25)","lep");
+   leg1.AddEntry(hMC_bkg_phi_com ,"bkg (UEUp25)","lep");
    leg1.AddEntry(hMC_sb_phi_com ,"raw-bkg","lep");
    leg1.AddEntry(hpp_phi_com ,"pp","l");
    //leg1.AddEntry(hMC_sb_phi_gen,"raw-bkg GEN","lep");
@@ -463,7 +463,7 @@ int main(int argc, char *argv[]){
    style();
 
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
-   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundUEDown25_v17_PFmuon.root","read");
+   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundUEUp25_v17_PFmuon.root","read");
    //file_sigDA = TFile::Open("~/eos_base/BasicPlots/GraphDataSignal_v17_PFmuon.root","read");
    //file_bkgDA = TFile::Open("~/eos_base/BasicPlots/GraphDataBackground_v17_PFmuon.root","read");
    file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
