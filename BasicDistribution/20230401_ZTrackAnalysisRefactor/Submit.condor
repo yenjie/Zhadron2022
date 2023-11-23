@@ -1,4 +1,4 @@
-executable   = ./do_ZTrackAna.sh
+executable   = ./do_ZTrackAna1.sh
 
 arguments    = $(ProcId)
 
@@ -15,4 +15,4 @@ when_to_transfer_output = ON_EXIT
 
 +JobFlavour = "nextweek"
 
-queue 23
+queue 12
