@@ -73,7 +73,12 @@ DHSet Setting.dh PbPbBackgroundData  UEUp30   string "$Common $Data  --IsPP fals
 DHSet Setting.dh PbPbBackgroundMC    UEDown30 string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack  $BackgroundMCUEDown30"
 DHSet Setting.dh PbPbBackgroundGenMC UEDown30 string "$Common $MCGen --IsPP false $MiniAODPF $PbPbJetMC    $GenTrack       $BackgroundGenMCUEDown30"
 DHSet Setting.dh PbPbBackgroundData  UEDown30 string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack  $BackgroundDataUEDown30"
-
+DHSet Setting.dh PbPbBackgroundMC    UEUp50   string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack  $BackgroundMCUEUp50"
+DHSet Setting.dh PbPbBackgroundGenMC UEUp50   string "$Common $MCGen --IsPP false $MiniAODPF $PbPbJetMC    $GenTrack       $BackgroundGenMCUEUp50"
+DHSet Setting.dh PbPbBackgroundData  UEUp50   string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack  $BackgroundDataUEUp50"
+DHSet Setting.dh PbPbBackgroundMC    UEDown50 string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack  $BackgroundMCUEDown50"
+DHSet Setting.dh PbPbBackgroundGenMC UEDown50 string "$Common $MCGen --IsPP false $MiniAODPF $PbPbJetMC    $GenTrack       $BackgroundGenMCUEDown50"
+DHSet Setting.dh PbPbBackgroundData  UEDown50 string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack  $BackgroundDataUEDown50"
 
 # Finally set sample locations
 
