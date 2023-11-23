@@ -1,11 +1,13 @@
 #!/bin/sh
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 
-CMSSWDir=/afs/cern.ch/user/p/pchou/CMSSW_12_5_2_patch1/src
+CMSSWDir=/afs/cern.ch/user/p/pchou/CMSSW_13_2_3/src
 
 cd $CMSSWDir
 
 cmsenv
+
+cd /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/
 
 source /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/SetupAnalysis.sh
 
