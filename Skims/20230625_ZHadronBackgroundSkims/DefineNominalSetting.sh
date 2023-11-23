@@ -52,6 +52,20 @@ BackgroundMCUEDown50="   --DoBackground true --HFShift 647.9  --Tolerance 187.5 
 BackgroundGenMCUEDown50="--DoBackground true --HFShift 1028.9 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
 BackgroundDataUEDown50=" --DoBackground true --HFShift 627  --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
+BackgroundMCUEUp100="     --DoBackground true --HFShift 750.2  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMCUEUp100="  --DoBackground true --HFShift 1191.3 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundDataUEUp100="   --DoBackground true --HFShift 726    --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
+BackgroundMCUEDown100="   --DoBackground true --HFShift 613.8  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMCUEDown100="--DoBackground true --HFShift 974.7 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundDataUEDown100=" --DoBackground true --HFShift 594  --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
+
+BackgroundMCUEUp200="     --DoBackground true --HFShift 818.4  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMCUEUp200="  --DoBackground true --HFShift 1299.6 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundDataUEUp200="   --DoBackground true --HFShift 792    --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
+BackgroundMCUEDown200="   --DoBackground true --HFShift 545.6  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMCUEDown200="--DoBackground true --HFShift 866.4 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundDataUEDown200=" --DoBackground true --HFShift 528  --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
+
 DHSet Setting.dh PPSignalMC          Nominal string "$Common $MC    --IsPP true  $AODPF     $PPJetMC      $PPRecoTrack"
 DHSet Setting.dh PPSignalGenMC       Nominal string "$Common $MCGen --IsPP true  $AODPF     $PPJetMC      $GenTrack"
 DHSet Setting.dh PPSignalData        Nominal string "$Common $Data  --IsPP true  $AODPF     $PbPbJetData  $PPRecoTrack"
@@ -79,6 +93,18 @@ DHSet Setting.dh PbPbBackgroundData  UEUp50   string "$Common $Data  --IsPP fals
 DHSet Setting.dh PbPbBackgroundMC    UEDown50 string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack  $BackgroundMCUEDown50"
 DHSet Setting.dh PbPbBackgroundGenMC UEDown50 string "$Common $MCGen --IsPP false $MiniAODPF $PbPbJetMC    $GenTrack       $BackgroundGenMCUEDown50"
 DHSet Setting.dh PbPbBackgroundData  UEDown50 string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack  $BackgroundDataUEDown50"
+DHSet Setting.dh PbPbBackgroundMC    UEUp100   string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack  $BackgroundMCUEUp100"
+DHSet Setting.dh PbPbBackgroundGenMC UEUp100   string "$Common $MCGen --IsPP false $MiniAODPF $PbPbJetMC    $GenTrack       $BackgroundGenMCUEUp100"
+DHSet Setting.dh PbPbBackgroundData  UEUp100   string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack  $BackgroundDataUEUp100"
+DHSet Setting.dh PbPbBackgroundMC    UEDown100 string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack  $BackgroundMCUEDown100"
+DHSet Setting.dh PbPbBackgroundGenMC UEDown100 string "$Common $MCGen --IsPP false $MiniAODPF $PbPbJetMC    $GenTrack       $BackgroundGenMCUEDown100"
+DHSet Setting.dh PbPbBackgroundData  UEDown100 string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack  $BackgroundDataUEDown100"
+DHSet Setting.dh PbPbBackgroundMC    UEUp200   string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack  $BackgroundMCUEUp200"
+DHSet Setting.dh PbPbBackgroundGenMC UEUp200   string "$Common $MCGen --IsPP false $MiniAODPF $PbPbJetMC    $GenTrack       $BackgroundGenMCUEUp200"
+DHSet Setting.dh PbPbBackgroundData  UEUp200   string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack  $BackgroundDataUEUp200"
+DHSet Setting.dh PbPbBackgroundMC    UEDown200 string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack  $BackgroundMCUEDown200"
+DHSet Setting.dh PbPbBackgroundGenMC UEDown200 string "$Common $MCGen --IsPP false $MiniAODPF $PbPbJetMC    $GenTrack       $BackgroundGenMCUEDown200"
+DHSet Setting.dh PbPbBackgroundData  UEDown200 string "$Common $Data  --IsPP false $MiniAODPF $PbPbJetData  $PbPbRecoTrack  $BackgroundDataUEDown200"
 
 # Finally set sample locations
 
