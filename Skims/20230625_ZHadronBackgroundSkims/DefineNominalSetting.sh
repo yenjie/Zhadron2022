@@ -45,6 +45,13 @@ BackgroundMCUEDown30="   --DoBackground true --HFShift 661.5  --Tolerance 187.5 
 BackgroundGenMCUEDown30="--DoBackground true --HFShift 1050.5 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
 BackgroundDataUEDown30=" --DoBackground true --HFShift 640.2  --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
+BackgroundMCUEUp50="     --DoBackground true --HFShift 716.1  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMCUEUp50="  --DoBackground true --HFShift 1137.2 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundDataUEUp50="   --DoBackground true --HFShift 693    --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
+BackgroundMCUEDown50="   --DoBackground true --HFShift 647.9  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMCUEDown50="--DoBackground true --HFShift 1028.9 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundDataUEDown50=" --DoBackground true --HFShift 627  --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
+
 DHSet Setting.dh PPSignalMC          Nominal string "$Common $MC    --IsPP true  $AODPF     $PPJetMC      $PPRecoTrack"
 DHSet Setting.dh PPSignalGenMC       Nominal string "$Common $MCGen --IsPP true  $AODPF     $PPJetMC      $GenTrack"
 DHSet Setting.dh PPSignalData        Nominal string "$Common $Data  --IsPP true  $AODPF     $PbPbJetData  $PPRecoTrack"
