@@ -17,7 +17,7 @@ mkdir -p log
 
 if [ $1 -eq 0 ]
 then
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDataBackgroundUEUp50_v17_PFmuon/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphDataBackgroundUEUp50_v17_PFmuon.root --Fraction 1
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCBackgroundUEUp50_v17_PFmuon/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphMCBackgroundUEUp50_v17_PFmuon.root --Fraction 1
 elif [ $1 -eq 1 ]
 then
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputMCBackgroundUEDown50_v17_PFmuon/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphMCBackgroundUEDown50_v17_PFmuon.root --Fraction 1
