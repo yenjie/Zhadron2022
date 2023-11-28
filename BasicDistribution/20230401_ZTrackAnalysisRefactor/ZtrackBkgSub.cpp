@@ -394,7 +394,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    //leg1.AddEntry(hpp_phi_com ,"pp","l");
    //leg1.AddEntry(hMC_sb_phi_gen,"raw-bkg GEN","lep");
    //leg1.AddEntry(hMC_phi_gen,"sig GEN","lep");
-   leg1.AddEntry(hpp_phi_com ,"sig GEN","lep");
+   leg1.AddEntry(hpp_phi_com ,"sig GEN","l");
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
