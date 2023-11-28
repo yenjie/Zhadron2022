@@ -59,8 +59,8 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v17_PFMuon/20231128";
-const char *typeofdata1 = "v17_PF_20231128";
+const char *typeofdata = "v17_PFMuon/20231128/GEN";
+const char *typeofdata1 = "v17_PF_20231128_GEN";
 const char *typeofdatatext = "single muon";
 
 void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -377,7 +377,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_sb_phi_com->Draw("ep same");
    hpp_phi_com->Draw("hist same");
    //hMC_sb_phi_gen->Draw("hist same");
-   hMC_phi_gen->Draw("hist same");
+   //hMC_phi_gen->Draw("hist same");
 
    if(max1<max2) max1=max2;
 
@@ -388,12 +388,13 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_sb_phi_gen->SetYTitle("dN/d#Delta#phi");
 
    TLegend leg1(0.58,0.65,0.98,0.95);
-   leg1.AddEntry(hMC_phi_com ,"raw","lep");
-   leg1.AddEntry(hMC_bkg_phi_com ,"bkg","lep");
-   leg1.AddEntry(hMC_sb_phi_com ,"raw-bkg","lep");
-   leg1.AddEntry(hpp_phi_com ,"pp","l");
+   leg1.AddEntry(hMC_phi_com ,"GEN raw","lep");
+   leg1.AddEntry(hMC_bkg_phi_com ,"GEN bkg","lep");
+   leg1.AddEntry(hMC_sb_phi_com ,"GEN raw-bkg","lep");
+   //leg1.AddEntry(hpp_phi_com ,"pp","l");
    //leg1.AddEntry(hMC_sb_phi_gen,"raw-bkg GEN","lep");
-   leg1.AddEntry(hMC_phi_gen,"sig GEN","lep");
+   //leg1.AddEntry(hMC_phi_gen,"sig GEN","lep");
+   leg1.AddEntry(hpp_phi_com ,"sig GEN","lep");
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
@@ -462,15 +463,19 @@ int main(int argc, char *argv[]){
 
    style();
 
-   file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
-   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17_PFmuon.root","read");
+   //file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
+   //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17_PFmuon.root","read");
    //file_sigDA = TFile::Open("~/eos_base/BasicPlots/GraphDataSignal_v17_PFmuon.root","read");
    //file_bkgDA = TFile::Open("~/eos_base/BasicPlots/GraphDataBackground_v17_PFmuon.root","read");
-   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
+   //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
 
    //file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
    file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen0Sub_v17_PFmuon.root","read");
    file_bkgMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundGen_v17_PFmuon.root","read");
+
+   file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
+   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundGen_v17_PFmuon.root","read");
+   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen0Sub_v17_PFmuon.root","read");
 
 /*
    ZtrackBkg_single(40, 20, 2000,  0, 10,  0, 1000);
