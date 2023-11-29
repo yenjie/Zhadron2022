@@ -44,6 +44,13 @@ TestRunRandomMCSigBkg: Execute
 		--Background $(PbPbSignalMC)/HiForestMiniAOD_10.root,$(PbPbSignalMC)/HiForestMiniAOD_14.root,$(PbPbSignalMC)/HiForestMiniAOD_15.root,$(PbPbSignalMC)/HiForestMiniAOD_16.root \
 		--ReuseBackground true
 
+TestRunRandomDataSigBkg: Execute
+	./Execute --Input $(EOSBase)/OutputData_v17_PFmuon/Result10.root \
+		--Output /tmp/$(USER)/TestDataSigBkg.root --Fraction 0.1 \
+		`./Expand Setting.dh PbPbSignalData Nominal` \
+		--Background $(PbPbSignalSingleMuon)/HiForestMiniAOD_10.root,$(PbPbSignalSingleMuon)/HiForestMiniAOD_14.root,$(PbPbSignalSingleMuon)/HiForestMiniAOD_15.root,$(PbPbSignalSingleMuon)/HiForestMiniAOD_16.root \
+		--ReuseBackground true
+		
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17_PFmuon/ $(EOSBase)/OutputMCBackground_v17_PFmuon/ $(PbPbBackgroundMC)/ 20 \
