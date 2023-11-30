@@ -43,7 +43,7 @@ void style(){
 
   //gStyle->SetPadTopMargin(0.05);
   //gStyle->SetPadBottomMargin(0.15);
-  //gStyle->SetPadLeftMargin(0.15);
+  gStyle->SetPadLeftMargin(15);
   //gStyle->SetPadRightMargin(0.05);
 
   gStyle->SetLineScalePS(1.5);
@@ -115,7 +115,6 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    c->SetFrameBorderSize(0);
    c->SetLeftMargin(1);
-   c->SetPadLeftMargin(10);
 
    SetPad(Pad);
    SetPad(RPad);
