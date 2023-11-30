@@ -441,8 +441,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    horiz_line->SetLineColor(kBlack);
    PbPb_to_pp->SetLineColor(kRed);
 
-   hMC_phi->SetXTitle("#Delta#phi_{Z,track}");
-   hMC_phi->SetYTitle("PbPb raw-bkg / pp");
+   PbPb_to_pp->SetXTitle("#Delta#phi_{Z,track}");
+   PbPb_to_pp->SetYTitle("PbPb raw-bkg / pp");
 
    PbPb_to_pp->Draw("ep");
    horiz_line->Draw("hist same");
