@@ -55,7 +55,7 @@ void SetPad(TPad *P)
 {
    if(P == nullptr)
       return;
-   P->SetLeftMargin(-10);
+   P->SetLeftMargin(0);
    //P->SetTopMargin(0);
    P->SetRightMargin(0);
    //P->SetBottomMargin(0);
@@ -82,7 +82,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    std::cout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
    
-   double MarginLeft    = 0;
+   double MarginLeft    = 100;
    double MarginRight   = 50;
    double MarginTop     = 0;
    double MarginBottom  = 50;
