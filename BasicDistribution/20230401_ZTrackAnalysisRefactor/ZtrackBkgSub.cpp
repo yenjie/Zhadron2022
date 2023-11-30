@@ -55,7 +55,7 @@ void SetPad(TPad *P)
 {
    if(P == nullptr)
       return;
-   P->SetLeftMargin(200);
+   P->SetLeftMargin(500);
    //P->SetTopMargin(0);
    P->SetRightMargin(0);
    //P->SetBottomMargin(0);
