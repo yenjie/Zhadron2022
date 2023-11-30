@@ -82,7 +82,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    std::cout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
    
-   double MarginLeft    = 100;
+   double MarginLeft    = 50;
    double MarginRight   = 50;
    double MarginTop     = 0;
    double MarginBottom  = 50;
