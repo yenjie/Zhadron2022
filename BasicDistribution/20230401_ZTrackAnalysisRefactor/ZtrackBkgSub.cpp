@@ -112,6 +112,9 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    //SetPad(Pad);
    //SetPad(RPad);
 
+   Pad->Draw();
+   RPad->Draw();
+
 
    std::cout<<"Getting histograms..."<<std::endl;
 
