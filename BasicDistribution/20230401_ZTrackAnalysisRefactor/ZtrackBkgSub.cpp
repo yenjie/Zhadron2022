@@ -127,32 +127,17 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    std::cout<<"Getting Entries..."<<std::endl;
 
-   //TNamed *nD_tN  = (TNamed *) file_sigDA->Get(Form("%s/EntryCount",FolderName.c_str()));
-   TNamed *nM_tN  = (TNamed *) file_sigMC->Get(Form("%s/EntryCount",FolderName.c_str()));
-   //TNamed *nDb_tN = (TNamed *) file_bkgDA->Get(Form("%s/EntryCount",FolderName.c_str()));
-   TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
-   TNamed *npM_tN = (TNamed *) file_ppMC->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *npM_tN    = (TH1D *) file_ppMC->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *nM_tNgen  = (TH1D *) file_sigMCgen->Get(Form("%s/GenEntryCount",HGenEventCount.c_str()));
+   TH1D *nMb_tNgen = (TH1D *) file_bkgMCgen->Get(Form("%s/GenEntryCount",HGenEventCount.c_str()));
 
-   TNamed *nM_tNgen  = (TNamed *) file_sigMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
-   TNamed *nMb_tNgen = (TNamed *) file_bkgMCgen->Get(Form("%s/GenEntryCount",FolderName.c_str()));
-
-   //std::string sD_tN  = (std::string) nD_tN->GetTitle();
-   std::string sM_tN  = (std::string) nM_tN->GetTitle();
-   //std::string sDb_tN = (std::string) nDb_tN->GetTitle();
-   std::string sMb_tN = (std::string) nMb_tN->GetTitle();
-   std::string spM_tN = (std::string) npM_tN->GetTitle();
-
-   std::string sM_tNgen  = (std::string) nM_tNgen->GetTitle();
-   std::string sMb_tNgen = (std::string) nMb_tNgen->GetTitle();
-
-   //float tD_tN  = std::stof(sD_tN);
-   float tM_tN  = std::stof(sM_tN);
-   //float tDb_tN = std::stof(sDb_tN);
-   float tMb_tN = std::stof(sMb_tN);
-   float tpM_tN = std::stof(spM_tN);
-
-   float tM_tNgen  = std::stof(sM_tNgen);
-   float tMb_tNgen = std::stof(sMb_tNgen);
+   double tM_tN     =     nM_tN->GetBinContent(1);
+   double tMb_tN    =    nMb_tN->GetBinContent(1);
+   double tpM_tN    =    npM_tN->GetBinContent(1);
+   double tM_tNgen  =  nM_tNgen->GetBinContent(1);
+   double tMb_tNgen = nMb_tNgen->GetBinContent(1);
 
    //std::cout<<"tD_tN = "<<tD_tN<<std::endl;
    std::cout<<"tM_tN = "<<tM_tN<<std::endl;
