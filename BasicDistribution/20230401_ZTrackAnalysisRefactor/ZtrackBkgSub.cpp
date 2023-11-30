@@ -361,8 +361,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    
    Pad->cd();
 
-   if(max1<max2) hMC_bkg_phi->Draw("Aep");
-   else hMC_phi->Draw("Aep");
+   if(max1<max2) hMC_bkg_phi->Draw("ep");
+   else hMC_phi->Draw("ep");
    hMC_phi->Draw("ep same");
    hMC_bkg_phi->Draw("ep same");
 
@@ -427,8 +427,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_phi_gen->SetMinimum(0);
 
 
-   Pad->Update();
-   Pad->RedrawAxis();
+   //Pad->Update();
+   //Pad->RedrawAxis();
 
    RPad->cd();
 
@@ -444,13 +444,13 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_phi->SetXTitle("#Delta#phi_{Z,track}");
    hMC_phi->SetYTitle("PbPb raw-bkg / pp");
 
-   PbPb_to_pp->Draw("Aep");
+   PbPb_to_pp->Draw("ep");
    horiz_line->Draw("hist same");
 
    //PbPb_to_pp->Draw("axis same");
 
-   RPad->Update();
-   RPad->RedrawAxis();
+   //RPad->Update();
+   //RPad->RedrawAxis();
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    
