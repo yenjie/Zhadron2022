@@ -361,8 +361,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    
    Pad->cd();
 
-   if(max1<max2) hMC_bkg_phi->Draw("aep");
-   else hMC_phi->Draw("ep");
+   if(max1<max2) hMC_bkg_phi->Draw("Aep");
+   else hMC_phi->Draw("Aep");
    hMC_phi->Draw("ep same");
    hMC_bkg_phi->Draw("ep same");
 
@@ -444,7 +444,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_phi->SetXTitle("#Delta#phi_{Z,track}");
    hMC_phi->SetYTitle("PbPb raw-bkg / pp");
 
-   PbPb_to_pp->Draw("ep");
+   PbPb_to_pp->Draw("Aep");
    horiz_line->Draw("hist same");
 
    //PbPb_to_pp->Draw("axis same");
