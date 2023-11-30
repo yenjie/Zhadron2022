@@ -89,7 +89,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    double PadHeight     = 500;
    double RPadHeight    = 200;
 
-   double CanvasWidth   = MarginLeft + PadWidth * NColumn + MarginRight;
+   double CanvasWidth   = MarginLeft + PadWidth + MarginRight;
    double CanvasHeight  = MarginTop + PadHeight + RPadHeight + MarginBottom;
 
    double XMarginLeft   = MarginLeft / CanvasWidth;
