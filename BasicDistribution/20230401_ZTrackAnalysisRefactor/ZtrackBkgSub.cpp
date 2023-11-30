@@ -90,7 +90,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    double PadHeight     = 500;
    double RPadHeight    = 200;
 
-   double CanvasWidth   = MarginLeft + PadWidth + MarginRight;
+   double CanvasWidth   = MarginLeft + PadWidth + MarginRight+50;
    double CanvasHeight  = MarginTop + PadHeight + RPadHeight + MarginBottom;
 
    double XMarginLeft   = MarginLeft / CanvasWidth;
@@ -101,7 +101,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    double XPadHeight    = PadHeight / CanvasHeight;
    double XRPadHeight   = RPadHeight/ CanvasHeight;
 
-   TCanvas *c = new TCanvas("c","",CanvasWidth+50, CanvasHeight);
+   TCanvas *c = new TCanvas("c","",CanvasWidth, CanvasHeight);
 
    TPad* Pad = new TPad("Pad", "",
          50+XMarginLeft, XMarginBottom + XRPadHeight,
