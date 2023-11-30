@@ -323,17 +323,17 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    if(TptL==0) TptL=TptL_min;
 
-   TLatex *pt = new TLatex(0.18,0.88,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
+   TLatex *pt = new TLatex(0.18,0.82,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
    pt->SetTextFont(42);
    pt->SetTextSize(0.03);
    pt->SetNDC(kTRUE);
 
-   TLatex *pt2 = new TLatex(0.18,0.82,Form("%.1f < Z p_{T} < %.1f GeV",ptL,ptH));
+   TLatex *pt2 = new TLatex(0.18,0.76,Form("%.1f < Z p_{T} < %.1f GeV",ptL,ptH));
    pt2->SetTextFont(42);
    pt2->SetTextSize(0.03);
    pt2->SetNDC(kTRUE);
 
-   TLatex *pt3 = new TLatex(0.18,0.76,Form("%.1f < Track p_{T} < %.1f GeV",TptL,TptH));
+   TLatex *pt3 = new TLatex(0.18,0.7,Form("%.1f < Track p_{T} < %.1f GeV",TptL,TptH));
    pt3->SetTextFont(42);
    pt3->SetTextSize(0.03);
    pt3->SetNDC(kTRUE);
@@ -397,7 +397,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    //hMC_phi->Draw("axis same");
 
-   TLegend leg1(0.58,0.65,0.98,0.95);
+   TLegend leg1(0.58,0.65,0.98,0.9);
    leg1.AddEntry(hMC_phi ,"raw","lep");
    leg1.AddEntry(hMC_bkg_phi ,"bkg","lep");
    leg1.AddEntry(hMC_sb_phi ,"raw-bkg","lep");
@@ -458,7 +458,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    PbPb_to_pp->SetLineColor(kRed);
 
    PbPb_to_pp->SetXTitle("#Delta#phi_{Z,track}");
-   PbPb_to_pp->SetYTitle("PbPb raw-bkg / pp");
+   PbPb_to_pp->SetYTitle("PbPb r-b / pp");
 
    PbPb_to_pp->Draw("ep");
    horiz_line->Draw("hist same");
