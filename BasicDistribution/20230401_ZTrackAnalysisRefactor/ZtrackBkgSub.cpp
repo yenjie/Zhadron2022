@@ -114,7 +114,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    std::cout<<"GetBorderSize c: "<<c->GetBorderSize()<<std::endl;
 
    c->SetFrameBorderSize(0);
-   //c->SetLeftMargin(0);
+   c->SetLeftMargin(1);
 
    SetPad(Pad);
    SetPad(RPad);
@@ -460,7 +460,6 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    PbPb_to_pp->SetXTitle("#Delta#phi_{Z,track}");
    PbPb_to_pp->SetYTitle("PbPb raw-bkg / pp");
-   PbPb_to_pp->GetYaxis()->SetTitleOffset(2.);
 
    PbPb_to_pp->Draw("ep");
    horiz_line->Draw("hist same");
