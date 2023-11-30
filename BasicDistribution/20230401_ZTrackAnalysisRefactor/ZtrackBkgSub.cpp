@@ -397,7 +397,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    //hMC_phi->Draw("axis same");
 
-   TLegend leg1(0.68,0.65,0.98,0.9);
+   TLegend leg1(0.68,0.62,0.98,0.88);
    leg1.AddEntry(hMC_phi ,"raw","lep");
    leg1.AddEntry(hMC_bkg_phi ,"bkg","lep");
    leg1.AddEntry(hMC_sb_phi ,"raw-bkg","lep");
@@ -462,6 +462,11 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    PbPb_to_pp->SetXTitle("#Delta#phi_{Z,track}");
    //PbPb_to_pp->SetYTitle("PbPb r-b / pp");
    PbPb_to_pp->SetYTitle("(PbPb r-b) - pp");
+
+   TLatex *xlab = new TLatex(0.9,0.1,"#Delta#phi_{Z,track}");
+   xlab->SetTextFont(42);
+   xlab->SetTextSize(0.05);
+   xlab->SetNDC(kTRUE);
 
    PbPb_to_pp->Draw("ep");
    horiz_line->Draw("hist same");
