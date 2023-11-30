@@ -59,8 +59,8 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v17_PFMuon/20231129/SigBkg_notpp0Sub";
-const char *typeofdata1 = "v17_PF_20231129_SigBkg_notpp0Sub";
+const char *typeofdata = "v17_PFMuon/20231130/SigBkg";
+const char *typeofdata1 = "v17_PF_20231130_SigBkg";
 const char *typeofdatatext = "single muon";
 
 void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -297,104 +297,66 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/BkgSub",typeofdata));
 
+   //hMC_phi->GetXaxis()->SetRangeUser(0,M_PI);
+   //hMC_bkg_phi->GetXaxis()->SetRangeUser(0,M_PI);
+   //hMC_sb_phi->GetXaxis()->SetRangeUser(0,M_PI);
+   //hpp_phi->GetXaxis()->SetRangeUser(0,M_PI);
+   //hMC_sb_phi_gen->GetXaxis()->SetRangeUser(0,M_PI);
+   //hMC_phi_gen->GetXaxis()->SetRangeUser(0,M_PI);
 
-   TH1D *hMC_phi_com = (TH1D*) hMC_phi->Clone("hMC_phi_com");
-   TH1D *hMC_bkg_phi_com = (TH1D*) hMC_bkg_phi->Clone("hMC_bkg_phi_com");
-   TH1D *hMC_sb_phi_com = (TH1D*) hMC_sb_phi->Clone("hMC_sb_phi_com");
-   TH1D *hpp_phi_com = (TH1D*) hpp_phi->Clone("hpp_phi_com");
-/*
-   TH1D *hMC_phi_com = new TH1D("hMC_phi_com","",20,0,M_PI);
-   TH1D *hMC_bkg_phi_com = new TH1D("hMC_bkg_phi_com","",20,0,M_PI);
-   TH1D *hMC_sb_phi_com = new TH1D("hMC_sb_phi_com","",20,0,M_PI);
-   TH1D *hpp_phi_com = new TH1D("hpp_phi_com","",20,0,M_PI);
+   double max1 = hMC_phi->GetMaximum();
+   double max2 = hMC_bkg_phi->GetMaximum();
 
-   for (int bin=1; bin<=hMC_phi->GetNbinsX(); bin++) {
-     double x = hMC_phi->GetBinCenter(bin);
-     double y = hMC_phi->GetBinContent(bin);
-     //double err = hMC_phi->SetBinError(bin);
-     double newX = (x < 0) ? fabs(x) : ((x > M_PI) ? 2*M_PI - x : x); // apply the modifications
-     hMC_phi_com->Fill(newX, y);
-   }
+   hMC_phi->SetMarkerColor(kBlack);
+   hMC_bkg_phi->SetMarkerColor(kBlue);
+   hMC_sb_phi->SetMarkerColor(kRed);
 
-   for (int bin=1; bin<=hMC_bkg_phi->GetNbinsX(); bin++) {
-     double x = hMC_bkg_phi->GetBinCenter(bin);
-     double y = hMC_bkg_phi->GetBinContent(bin);
-     double newX = (x < 0) ? fabs(x) : ((x > M_PI) ? 2*M_PI - x : x); // apply the modifications
-     hMC_bkg_phi_com->Fill(newX, y);
-   }
+   cout<< "hMC_phi->Integral() = "<< hMC_phi->Integral();
+   cout<< ", hMC_bkg_phi->Integral() = "<< hMC_bkg_phi->Integral();
+   cout<< ", hMC_sb_phi->Integral() = "<< hMC_sb_phi->Integral();
+   cout<< ", hpp_phi->Integral() = "<< hpp_phi->Integral()<<endl;
 
-   for (int bin=1; bin<=hMC_sb_phi->GetNbinsX(); bin++) {
-     double x = hMC_sb_phi->GetBinCenter(bin);
-     double y = hMC_sb_phi->GetBinContent(bin);
-     double newX = (x < 0) ? fabs(x) : ((x > M_PI) ? 2*M_PI - x : x); // apply the modifications
-     hMC_sb_phi_com->Fill(newX, y);
-   }
-
-   for (int bin=1; bin<=hpp_phi->GetNbinsX(); bin++) {
-     double x = hpp_phi->GetBinCenter(bin);
-     double y = hpp_phi->GetBinContent(bin);
-     double newX = (x < 0) ? fabs(x) : ((x > M_PI) ? 2*M_PI - x : x); // apply the modifications
-     hpp_phi_com->Fill(newX, y);
-   }
-*/
-
-   
-   hMC_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
-   hMC_bkg_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
-   hMC_sb_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
-   hpp_phi_com->GetXaxis()->SetRangeUser(0,M_PI);
-   hMC_sb_phi_gen->GetXaxis()->SetRangeUser(0,M_PI);
-   hMC_phi_gen->GetXaxis()->SetRangeUser(0,M_PI);
-
-
-   double max1 = hMC_phi_com->GetMaximum();
-   double max2 = hMC_bkg_phi_com->GetMaximum();
-
-   hMC_phi_com->SetMarkerColor(kBlack);
-   hMC_bkg_phi_com->SetMarkerColor(kBlue);
-   hMC_sb_phi_com->SetMarkerColor(kRed);
-
-   hMC_phi_com->SetLineColor(kBlack);
-   hMC_bkg_phi_com->SetLineColor(kBlue);
-   hMC_sb_phi_com->SetLineColor(kRed);
-   hpp_phi_com->SetLineColor(kBlack);
+   hMC_phi->SetLineColor(kBlack);
+   hMC_bkg_phi->SetLineColor(kBlue);
+   hMC_sb_phi->SetLineColor(kRed);
+   hpp_phi->SetLineColor(kBlack);
    hMC_phi_gen->SetLineColor(kGreen);
 
-   hMC_phi_com->SetMarkerStyle(kFullCircle);
-   hMC_bkg_phi_com->SetMarkerStyle(kFullCircle);
-   hMC_sb_phi_com->SetMarkerStyle(kFullCircle);
+   hMC_phi->SetMarkerStyle(kFullCircle);
+   hMC_bkg_phi->SetMarkerStyle(kFullCircle);
+   hMC_sb_phi->SetMarkerStyle(kFullCircle);
 
-   hpp_phi_com->SetLineWidth(2);
+   hpp_phi->SetLineWidth(2);
    hMC_sb_phi_gen->SetLineWidth(2);
    hMC_phi_gen->SetLineWidth(2);
 
    
-   if(max1<max2) hMC_bkg_phi_com->Draw("ep");
-   else hMC_phi_com->Draw("ep");
-   hMC_phi_com->Draw("ep same");
-   hMC_bkg_phi_com->Draw("ep same");
+   if(max1<max2) hMC_bkg_phi->Draw("ep");
+   else hMC_phi->Draw("ep");
+   hMC_phi->Draw("ep same");
+   hMC_bkg_phi->Draw("ep same");
 
-   hMC_sb_phi_com->Draw("ep same");
-   hpp_phi_com->Draw("hist same");
+   hMC_sb_phi->Draw("ep same");
+   hpp_phi->Draw("hist same");
    //hMC_sb_phi_gen->Draw("hist same");
    //hMC_phi_gen->Draw("hist same");
 
    if(max1<max2) max1=max2;
 
-   hMC_phi_com->SetXTitle("#Delta#phi_{Z,track}");
-   hMC_bkg_phi_com->SetXTitle("#Delta#phi_{Z,track}");
-   hMC_phi_com->SetYTitle("dN/d#Delta#phi");
-   hMC_bkg_phi_com->SetYTitle("dN/d#Delta#phi");
+   hMC_phi->SetXTitle("#Delta#phi_{Z,track}");
+   hMC_bkg_phi->SetXTitle("#Delta#phi_{Z,track}");
+   hMC_phi->SetYTitle("dN/d#Delta#phi");
+   hMC_bkg_phi->SetYTitle("dN/d#Delta#phi");
    hMC_sb_phi_gen->SetYTitle("dN/d#Delta#phi");
 
    TLegend leg1(0.58,0.65,0.98,0.95);
-   leg1.AddEntry(hMC_phi_com ,"raw","lep");
-   leg1.AddEntry(hMC_bkg_phi_com ,"bkg","lep");
-   leg1.AddEntry(hMC_sb_phi_com ,"raw-bkg","lep");
-   leg1.AddEntry(hpp_phi_com ,"pp","l");
+   leg1.AddEntry(hMC_phi ,"raw","lep");
+   leg1.AddEntry(hMC_bkg_phi ,"bkg","lep");
+   leg1.AddEntry(hMC_sb_phi ,"raw-bkg","lep");
+   leg1.AddEntry(hpp_phi ,"pp","l");
    //leg1.AddEntry(hMC_sb_phi_gen,"raw-bkg GEN","lep");
    //leg1.AddEntry(hMC_phi_gen,"sig GEN","lep");
-   //leg1.AddEntry(hpp_phi_com ,"sig GEN","l");
+   //leg1.AddEntry(hpp_phi ,"sig GEN","l");
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
@@ -405,47 +367,47 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    pt3->Draw();
 
    //std::cout<<"max1 = "<<max1<<std::endl;
-   //hMC_phi_com->SetMinimum(0);
-   hMC_phi_com->SetMaximum(1.6*max1);
-   //hMC_bkg_phi_com->SetMinimum(0);
-   hMC_bkg_phi_com->SetMaximum(1.6*max1);
+   //hMC_phi->SetMinimum(0);
+   hMC_phi->SetMaximum(1.6*max1);
+   //hMC_bkg_phi->SetMinimum(0);
+   hMC_bkg_phi->SetMaximum(1.6*max1);
 /*
    if(ptL==30&&centL==0&&centH==30){
-    hMC_phi_com->SetMaximum(max1);
-    hMC_bkg_phi_com->SetMaximum(max1);
+    hMC_phi->SetMaximum(max1);
+    hMC_bkg_phi->SetMaximum(max1);
    }else if(ptL==30&&centL==30&&centH==50){
-    hMC_phi_com->SetMaximum(max1/1.6);
-    hMC_bkg_phi_com->SetMaximum(max1/1.6);
+    hMC_phi->SetMaximum(max1/1.6);
+    hMC_bkg_phi->SetMaximum(max1/1.6);
    }
 */
-   //hMC_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
-   //hMC_bkg_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
-   //hMC_sb_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
-   //hpp_phi_com->GetYaxis()->SetRangeUser(0,max1/1.6);
+   //hMC_phi->GetYaxis()->SetRangeUser(0,max1/1.6);
+   //hMC_bkg_phi->GetYaxis()->SetRangeUser(0,max1/1.6);
+   //hMC_sb_phi->GetYaxis()->SetRangeUser(0,max1/1.6);
+   //hpp_phi->GetYaxis()->SetRangeUser(0,max1/1.6);
 
    //ptN0->Draw();
 
-   hMC_phi_com->SetMinimum(0);
-   hMC_bkg_phi_com->SetMinimum(0);
-   hMC_sb_phi_com->SetMinimum(0);
-   hpp_phi_com->SetMinimum(0);
+   hMC_phi->SetMinimum(0);
+   hMC_bkg_phi->SetMinimum(0);
+   hMC_sb_phi->SetMinimum(0);
+   hpp_phi->SetMinimum(0);
    hMC_sb_phi_gen->SetMinimum(0);
    hMC_phi_gen->SetMinimum(0);
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    gPad->SetLogy();
-   hMC_phi_com->SetMinimum(0.01);
-   hMC_bkg_phi_com->SetMinimum(0.01);
-   hMC_sb_phi_com->SetMinimum(0.01);
-   hpp_phi_com->SetMinimum(0.01);
+   hMC_phi->SetMinimum(0.01);
+   hMC_bkg_phi->SetMinimum(0.01);
+   hMC_sb_phi->SetMinimum(0.01);
+   hpp_phi->SetMinimum(0.01);
    hMC_sb_phi_gen->SetMinimum(0.01);
    hMC_phi_gen->SetMinimum(0.01);
 
 
-   hMC_phi_com->SetMaximum(1000000);
-   hMC_bkg_phi_com->SetMaximum(1000000);
-   hMC_sb_phi_com->SetMaximum(1000000);
-   hpp_phi_com->SetMaximum(1000000);
+   hMC_phi->SetMaximum(1000000);
+   hMC_bkg_phi->SetMaximum(1000000);
+   hMC_sb_phi->SetMaximum(1000000);
+   hpp_phi->SetMaximum(1000000);
    hMC_sb_phi_gen->SetMaximum(1000000);
    hMC_phi_gen->SetMaximum(1000000);
 
@@ -467,8 +429,8 @@ int main(int argc, char *argv[]){
    file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17_PFmuon.root","read");
    //file_sigDA = TFile::Open("~/eos_base/BasicPlots/GraphDataSignal_v17_PFmuon.root","read");
    //file_bkgDA = TFile::Open("~/eos_base/BasicPlots/GraphDataBackground_v17_PFmuon.root","read");
-   //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
-   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon.root","read");
+   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
+   //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon.root","read");
 
    //file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
    file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen0Sub_v17_PFmuon.root","read");
@@ -491,9 +453,9 @@ int main(int argc, char *argv[]){
    ZtrackBkg_single(40, 20, 2000,  0, 90, 50,  100);
 */
    ZtrackBkg_single(40, 40, 200,  0, 10,  1, 1000);
-   ZtrackBkg_single(40, 40, 200, 10, 30,  1, 1000);
-   ZtrackBkg_single(40, 40, 200, 30, 50,  1, 1000);
-   ZtrackBkg_single(40, 40, 200, 50, 90,  1, 1000);
+   //ZtrackBkg_single(40, 40, 200, 10, 30,  1, 1000);
+   //ZtrackBkg_single(40, 40, 200, 30, 50,  1, 1000);
+   //ZtrackBkg_single(40, 40, 200, 50, 90,  1, 1000);
 /*
    ZtrackBkg_single(40, 20, 2000,  0, 10, 10,   20);
    ZtrackBkg_single(40, 20, 2000, 10, 30, 10,   20);
