@@ -83,14 +83,14 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    std::cout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
    
    double MarginLeft    = 50;
-   double MarginRight   = 0;
+   double MarginRight   = 5;
    double MarginTop     = 0;
    double MarginBottom  = 50;
    double PadWidth      = 500;
    double PadHeight     = 500;
    double RPadHeight    = 200;
 
-   double CanvasWidth   = MarginLeft + PadWidth + MarginRight;
+   double CanvasWidth   = MarginLeft + PadWidth + MarginRight + 100;
    double CanvasHeight  = MarginTop + PadHeight + RPadHeight + MarginBottom;
 
    double XMarginLeft   = MarginLeft / CanvasWidth;
