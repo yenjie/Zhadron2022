@@ -468,7 +468,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    TLatex *xlab = new TLatex(0.8,0.2,"#Delta#phi_{Z,track}");
    xlab->SetTextFont(43);
-   xlab->SetTextSize(0.05);
+   xlab->SetTextSize(5);
    xlab->SetNDC(kTRUE);
    xlab->Draw();
 
