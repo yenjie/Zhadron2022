@@ -61,6 +61,7 @@ void SetPad(TPad *P)
    //P->SetBottomMargin(0);
    //P->SetTickx(false);
    //P->SetTicky(false);
+   P->SetBorderSize(0)
    P->Draw();
 }
 
