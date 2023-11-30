@@ -40,10 +40,10 @@ void style(){
   gStyle->SetLegendBorderSize(0);
   gStyle->SetLegendFillColor(kWhite);
 
-  gStyle->SetPadTopMargin(0.05);
-  gStyle->SetPadBottomMargin(0.15);
-  gStyle->SetPadLeftMargin(0.15);
-  gStyle->SetPadRightMargin(0.05);
+  //gStyle->SetPadTopMargin(0.05);
+  //gStyle->SetPadBottomMargin(0.15);
+  //gStyle->SetPadLeftMargin(0.15);
+  //gStyle->SetPadRightMargin(0.05);
 
   gStyle->SetLineScalePS(1.5);
 
@@ -81,10 +81,10 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    std::cout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
    
-   double MarginLeft    = 100;
+   double MarginLeft    = 50;
    double MarginRight   = 50;
    double MarginTop     = 50;
-   double MarginBottom  = 150;
+   double MarginBottom  = 50;
    double PadWidth      = 500;
    double PadHeight     = 500;
    double RPadHeight    = 200;
