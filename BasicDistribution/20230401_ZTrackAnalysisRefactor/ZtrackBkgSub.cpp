@@ -58,8 +58,8 @@ void SetPad(TPad *P)
    P->SetTopMargin(0);
    P->SetRightMargin(0);
    P->SetBottomMargin(0);
-   P->SetTickx(false);
-   P->SetTicky(false);
+   //P->SetTickx(false);
+   //P->SetTicky(false);
    P->Draw();
 }
 
