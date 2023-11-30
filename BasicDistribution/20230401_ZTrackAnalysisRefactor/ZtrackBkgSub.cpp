@@ -427,6 +427,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_phi_gen->SetMinimum(0);
 
 
+   Pad->Update();
 
    RPad->cd();
 
@@ -446,6 +447,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    horiz_line->Draw("hist same");
 
    //PbPb_to_pp->Draw("axis same");
+
+   RPad->Update();
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    Pad->SetLogy();
