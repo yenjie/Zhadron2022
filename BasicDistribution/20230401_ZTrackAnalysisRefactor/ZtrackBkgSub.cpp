@@ -136,18 +136,18 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    std::cout<<"a"<<std::endl;
 
    float tM_tN     =     nM_tN->GetBinContent(1);
-   float tMb_tN    =    nMb_tN->GetBinContent(1);
-   float tpM_tN    =    npM_tN->GetBinContent(1);
-   float tM_tNgen  =  nM_tNgen->GetBinContent(1);
-   float tMb_tNgen = nMb_tNgen->GetBinContent(1);
-
-   //std::cout<<"tD_tN = "<<tD_tN<<std::endl;
    std::cout<<"tM_tN = "<<tM_tN<<std::endl;
-   //std::cout<<"tDb_tN = "<<tDb_tN<<std::endl;
+   
+   float tMb_tN    =    nMb_tN->GetBinContent(1);
    std::cout<<"tMb_tN = "<<tMb_tN<<std::endl;
+   
+   float tpM_tN    =    npM_tN->GetBinContent(1);
    std::cout<<"tpM_tN = "<<tpM_tN<<std::endl;
-
+   
+   float tM_tNgen  =  nM_tNgen->GetBinContent(1);
    std::cout<<"tM_tNgen = "<<tM_tNgen<<std::endl;
+   
+   float tMb_tNgen = nMb_tNgen->GetBinContent(1); 
    std::cout<<"tMb_tNgen = "<<tMb_tNgen<<std::endl;
 
    double bineta = 0.032, binphi = M_PI/50;
