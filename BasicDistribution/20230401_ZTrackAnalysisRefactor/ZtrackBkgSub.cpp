@@ -130,8 +130,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HEventCount",FolderName.c_str()));
    TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HEventCount",FolderName.c_str()));
    TH1D *npM_tN    = (TH1D *) file_ppMC->Get(Form("%s/HEventCount",FolderName.c_str()));
-   TH1D *nM_tNgen  = (TH1D *) file_sigMCgen->Get(Form("%s/GenEntryCount",HGenEventCount.c_str()));
-   TH1D *nMb_tNgen = (TH1D *) file_bkgMCgen->Get(Form("%s/GenEntryCount",HGenEventCount.c_str()));
+   TH1D *nM_tNgen  = (TH1D *) file_sigMCgen->Get(Form("%s/HGenEntryCount",FolderName.c_str()));
+   TH1D *nMb_tNgen = (TH1D *) file_bkgMCgen->Get(Form("%s/HGenEntryCount",FolderName.c_str()));
 
    double tM_tN     =     nM_tN->GetBinContent(1);
    double tMb_tN    =    nMb_tN->GetBinContent(1);
