@@ -114,6 +114,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    std::cout<<"GetBorderSize c: "<<c->GetBorderSize()<<std::endl;
 
    c->SetBorderMode(-1);
+   c->SetLeftMargin(0);
 
    SetPad(Pad);
    SetPad(RPad);
