@@ -40,10 +40,10 @@ void style(){
   gStyle->SetLegendBorderSize(0);
   gStyle->SetLegendFillColor(kWhite);
 
-  gStyle->SetPadTopMargin(0.05);
-  gStyle->SetPadBottomMargin(0.15);
-  gStyle->SetPadLeftMargin(0.15);
-  gStyle->SetPadRightMargin(0.05);
+  //gStyle->SetPadTopMargin(0.05);
+  //gStyle->SetPadBottomMargin(0.15);
+  //gStyle->SetPadLeftMargin(0.15);
+  //gStyle->SetPadRightMargin(0.05);
 
   gStyle->SetLineScalePS(1.5);
 
