@@ -444,7 +444,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    horiz_line->Draw("hist same");
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
-   gPad->SetLogy();
+   Pad->SetLogy();
    hMC_phi->SetMinimum(0.01);
    hMC_bkg_phi->SetMinimum(0.01);
    hMC_sb_phi->SetMinimum(0.01);
