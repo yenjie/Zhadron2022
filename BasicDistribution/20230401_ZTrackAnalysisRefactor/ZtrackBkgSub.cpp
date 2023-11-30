@@ -128,6 +128,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    RPad->SetTopMargin(0);
    Pad->SetBottomMargin(0);
+   Pad->SetLeftMargin(1);
 
    //Pad->Draw();
    //RPad->Draw();
