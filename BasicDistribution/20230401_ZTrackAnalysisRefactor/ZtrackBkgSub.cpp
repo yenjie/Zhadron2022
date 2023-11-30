@@ -55,7 +55,7 @@ void SetPad(TPad *P)
    if(P == nullptr)
       return;
    //P->SetLeftMargin(0);
-   P->SetTopMargin(0);
+   //P->SetTopMargin(0);
    P->SetRightMargin(0);
    //P->SetBottomMargin(0);
    //P->SetTickx(false);
@@ -111,6 +111,9 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    SetPad(Pad);
    SetPad(RPad);
+
+   RPad->SetTopMargin(0);
+   Pad->SetBottomMargin(0);
 
    //Pad->Draw();
    //RPad->Draw();
