@@ -115,6 +115,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    c->SetFrameBorderSize(0);
    c->SetLeftMargin(1);
+   c->SetPadLeftMargin(10);
 
    SetPad(Pad);
    SetPad(RPad);
