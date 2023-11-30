@@ -110,10 +110,12 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
          XMarginLeft, XMarginBottom,
          XMarginLeft + XPadWidth , XMarginBottom + XRPadHeight);
 
+   gPad->SetLeftMargin(0);
+   
    SetPad(Pad);
    SetPad(RPad);
 
-   Pad->SetLeftMargin(0);
+   
 
    RPad->SetTopMargin(0);
    Pad->SetBottomMargin(0);
