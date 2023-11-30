@@ -463,14 +463,14 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    //PbPb_to_pp->SetYTitle("PbPb r-b / pp");
    PbPb_to_pp->SetYTitle("(PbPb r-b) - pp");
 
+   PbPb_to_pp->Draw("ep");
+   horiz_line->Draw("hist same");
+
    TLatex *xlab = new TLatex(0.8,0.2,"#Delta#phi_{Z,track}");
    xlab->SetTextFont(43);
    xlab->SetTextSize(0.05);
    xlab->SetNDC(kTRUE);
    xlab->Draw();
-
-   PbPb_to_pp->Draw("ep");
-   horiz_line->Draw("hist same");
 
    //PbPb_to_pp->Draw("axis same");
 
