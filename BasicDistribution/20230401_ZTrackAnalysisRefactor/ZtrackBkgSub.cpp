@@ -133,11 +133,11 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    TH1D *nM_tNgen  = (TH1D *) file_sigMCgen->Get(Form("%s/HGenEntryCount",FolderName.c_str()));
    TH1D *nMb_tNgen = (TH1D *) file_bkgMCgen->Get(Form("%s/HGenEntryCount",FolderName.c_str()));
 
-   double tM_tN     =     nM_tN->GetBinContent(1);
-   double tMb_tN    =    nMb_tN->GetBinContent(1);
-   double tpM_tN    =    npM_tN->GetBinContent(1);
-   double tM_tNgen  =  nM_tNgen->GetBinContent(1);
-   double tMb_tNgen = nMb_tNgen->GetBinContent(1);
+   float tM_tN     =     nM_tN->GetBinContent(1);
+   float tMb_tN    =    nMb_tN->GetBinContent(1);
+   float tpM_tN    =    npM_tN->GetBinContent(1);
+   float tM_tNgen  =  nM_tNgen->GetBinContent(1);
+   float tMb_tNgen = nMb_tNgen->GetBinContent(1);
 
    //std::cout<<"tD_tN = "<<tD_tN<<std::endl;
    std::cout<<"tM_tN = "<<tM_tN<<std::endl;
