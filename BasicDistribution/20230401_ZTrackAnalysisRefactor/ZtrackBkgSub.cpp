@@ -55,8 +55,8 @@ void SetPad(TPad *P)
    if(P == nullptr)
       return;
    //P->SetLeftMargin(0);
-   //P->SetTopMargin(0);
-   //P->SetRightMargin(0);
+   P->SetTopMargin(0);
+   P->SetRightMargin(0);
    //P->SetBottomMargin(0);
    //P->SetTickx(false);
    //P->SetTicky(false);
