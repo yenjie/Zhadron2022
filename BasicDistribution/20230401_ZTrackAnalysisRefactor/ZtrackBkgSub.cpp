@@ -460,6 +460,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    PbPb_to_pp->SetXTitle("#Delta#phi_{Z,track}");
    PbPb_to_pp->SetYTitle("PbPb raw-bkg / pp");
+   PbPb_to_pp->GetYaxis()->SetTitleOffset(2.);
 
    PbPb_to_pp->Draw("ep");
    horiz_line->Draw("hist same");
