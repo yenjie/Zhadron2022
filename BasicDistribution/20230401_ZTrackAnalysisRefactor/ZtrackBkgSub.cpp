@@ -43,7 +43,7 @@ void style(){
 
   //gStyle->SetPadTopMargin(0.05);
   //gStyle->SetPadBottomMargin(0.15);
-  //gStyle->SetPadLeftMargin(0.15);
+  gStyle->SetPadLeftMargin(200);
   //gStyle->SetPadRightMargin(0.05);
 
   gStyle->SetLineScalePS(1.5);
@@ -55,7 +55,7 @@ void SetPad(TPad *P)
 {
    if(P == nullptr)
       return;
-   P->SetLeftMargin(500);
+   //P->SetLeftMargin(500);
    //P->SetTopMargin(0);
    P->SetRightMargin(0);
    //P->SetBottomMargin(0);
