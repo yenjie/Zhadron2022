@@ -43,7 +43,7 @@ void style(){
 
   //gStyle->SetPadTopMargin(0.05);
   //gStyle->SetPadBottomMargin(0.15);
-  gStyle->SetPadLeftMargin(200);
+  //gStyle->SetPadLeftMargin(0.15);
   //gStyle->SetPadRightMargin(0.05);
 
   gStyle->SetLineScalePS(1.5);
@@ -61,7 +61,6 @@ void SetPad(TPad *P)
    //P->SetBottomMargin(0);
    //P->SetTickx(false);
    //P->SetTicky(false);
-   P->SetBorderSize(100);
    P->Draw();
 }
 
@@ -91,7 +90,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    double PadHeight     = 500;
    double RPadHeight    = 200;
 
-   double CanvasWidth   = MarginLeft + PadWidth + MarginRight;
+   double CanvasWidth   = MarginLeft + PadWidth + MarginRight + 50;
    double CanvasHeight  = MarginTop + PadHeight + RPadHeight + MarginBottom;
 
    double XMarginLeft   = MarginLeft / CanvasWidth;
