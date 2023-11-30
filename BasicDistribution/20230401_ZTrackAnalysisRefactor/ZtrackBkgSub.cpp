@@ -34,9 +34,9 @@ void style(){
   gStyle->SetCanvasColor(kWhite);
   gStyle->SetOptStat(0); /*don't show statistics box*/
   gStyle->SetOptTitle(0); /*don't show histogram titles*/
-  gStyle->SetTitleSize(48, "xyz");
+  gStyle->SetTitleSize(24, "xyz");
   gStyle->SetTitleOffset(1, "xyz");
-  gStyle->SetLabelSize(36, "xyz");
+  gStyle->SetLabelSize(12, "xyz");
   gStyle->SetLegendBorderSize(0);
   gStyle->SetLegendFillColor(kWhite);
 
@@ -424,22 +424,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_sb_phi_gen->SetMinimum(0);
    hMC_phi_gen->SetMinimum(0);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
-   gPad->SetLogy();
-   hMC_phi->SetMinimum(0.01);
-   hMC_bkg_phi->SetMinimum(0.01);
-   hMC_sb_phi->SetMinimum(0.01);
-   hpp_phi->SetMinimum(0.01);
-   hMC_sb_phi_gen->SetMinimum(0.01);
-   hMC_phi_gen->SetMinimum(0.01);
 
-
-   hMC_phi->SetMaximum(1000000);
-   hMC_bkg_phi->SetMaximum(1000000);
-   hMC_sb_phi->SetMaximum(1000000);
-   hpp_phi->SetMaximum(1000000);
-   hMC_sb_phi_gen->SetMaximum(1000000);
-   hMC_phi_gen->SetMaximum(1000000);
 
    RPad->cd();
 
@@ -457,6 +442,23 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    PbPb_to_pp->Draw("ep");
    horiz_line->Draw("hist same");
+
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   gPad->SetLogy();
+   hMC_phi->SetMinimum(0.01);
+   hMC_bkg_phi->SetMinimum(0.01);
+   hMC_sb_phi->SetMinimum(0.01);
+   hpp_phi->SetMinimum(0.01);
+   hMC_sb_phi_gen->SetMinimum(0.01);
+   hMC_phi_gen->SetMinimum(0.01);
+
+
+   hMC_phi->SetMaximum(1000000);
+   hMC_bkg_phi->SetMaximum(1000000);
+   hMC_sb_phi->SetMaximum(1000000);
+   hpp_phi->SetMaximum(1000000);
+   hMC_sb_phi_gen->SetMaximum(1000000);
+   hMC_phi_gen->SetMaximum(1000000);
 
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_comlog_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicomlog.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
