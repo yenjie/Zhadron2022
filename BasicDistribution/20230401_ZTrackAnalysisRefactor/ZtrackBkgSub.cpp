@@ -90,7 +90,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    double PadHeight     = 500;
    double RPadHeight    = 200;
 
-   double CanvasWidth   = MarginLeft + PadWidth + MarginRight+50;
+   double CanvasWidth   = MarginLeft + PadWidth + MarginRight;
    double CanvasHeight  = MarginTop + PadHeight + RPadHeight + MarginBottom;
 
    double XMarginLeft   = MarginLeft / CanvasWidth;
@@ -104,11 +104,11 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    TCanvas *c = new TCanvas("c","",CanvasWidth, CanvasHeight);
 
    TPad* Pad = new TPad("Pad", "",
-         50+XMarginLeft, XMarginBottom + XRPadHeight,
-         50+XMarginLeft + XPadWidth , XMarginBottom + XRPadHeight + XPadHeight);
+         XMarginLeft, XMarginBottom + XRPadHeight,
+         XMarginLeft + XPadWidth , XMarginBottom + XRPadHeight + XPadHeight);
    TPad* RPad = new TPad("RPad", "",
-         50+XMarginLeft, XMarginBottom,
-         50+XMarginLeft + XPadWidth , XMarginBottom + XRPadHeight);
+         XMarginLeft, XMarginBottom,
+         XMarginLeft + XPadWidth , XMarginBottom + XRPadHeight);
 
    std::cout<<"GetBorderMode c: "<<c->GetBorderMode()<<std::endl;
    std::cout<<"GetBorderSize c: "<<c->GetBorderSize()<<std::endl;
