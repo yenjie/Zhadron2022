@@ -35,7 +35,8 @@ void style(){
   gStyle->SetOptStat(0); /*don't show statistics box*/
   gStyle->SetOptTitle(0); /*don't show histogram titles*/
   gStyle->SetTitleSize(36, "xyz");
-  gStyle->SetTitleOffset(1, "xyz");
+  gStyle->SetTitleOffset(1, "yz");
+  gStyle->SetTitleOffset(0.5, "x");
   gStyle->SetLabelSize(24, "xyz");
   gStyle->SetLegendBorderSize(0);
   gStyle->SetLegendFillColor(kWhite);
@@ -86,8 +87,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    double MarginTop     = 0;
    double MarginBottom  = 50;
    double PadWidth      = 800;
-   double PadHeight     = 1000;
-   double RPadHeight    = 400;
+   double PadHeight     = 800;
+   double RPadHeight    = 250;
 
    double CanvasWidth   = MarginLeft + PadWidth + MarginRight;
    double CanvasHeight  = MarginTop + PadHeight + RPadHeight + MarginBottom;
