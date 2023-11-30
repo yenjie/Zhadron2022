@@ -373,11 +373,13 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    if(max1<max2) max1=max2;
 
-   hMC_phi->SetXTitle("#Delta#phi_{Z,track}");
-   hMC_bkg_phi->SetXTitle("#Delta#phi_{Z,track}");
+   //hMC_phi->SetXTitle("#Delta#phi_{Z,track}");
+   //hMC_bkg_phi->SetXTitle("#Delta#phi_{Z,track}");
    hMC_phi->SetYTitle("dN/d#Delta#phi");
    hMC_bkg_phi->SetYTitle("dN/d#Delta#phi");
    hMC_sb_phi_gen->SetYTitle("dN/d#Delta#phi");
+
+   hMC_phi->Draw("axis same");
 
    TLegend leg1(0.58,0.65,0.98,0.95);
    leg1.AddEntry(hMC_phi ,"raw","lep");
@@ -442,6 +444,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    PbPb_to_pp->Draw("ep");
    horiz_line->Draw("hist same");
+
+   PbPb_to_pp->Draw("axis same");
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    Pad->SetLogy();
