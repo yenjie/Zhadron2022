@@ -311,10 +311,10 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_bkg_phi->SetMarkerColor(kBlue);
    hMC_sb_phi->SetMarkerColor(kRed);
 
-   cout<< "hMC_phi->Integral() = "<< hMC_phi->Integral();
-   cout<< ", hMC_bkg_phi->Integral() = "<< hMC_bkg_phi->Integral();
-   cout<< ", hMC_sb_phi->Integral() = "<< hMC_sb_phi->Integral();
-   cout<< ", hpp_phi->Integral() = "<< hpp_phi->Integral()<<endl;
+   std::cout<< "hMC_phi->Integral() = "<< hMC_phi->Integral();
+   std::cout<< ", hMC_bkg_phi->Integral() = "<< hMC_bkg_phi->Integral();
+   std::cout<< ", hMC_sb_phi->Integral() = "<< hMC_sb_phi->Integral();
+   std::cout<< ", hpp_phi->Integral() = "<< hpp_phi->Integral()<<std::endl;
 
    hMC_phi->SetLineColor(kBlack);
    hMC_bkg_phi->SetLineColor(kBlue);
