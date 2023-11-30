@@ -397,7 +397,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    //hMC_phi->Draw("axis same");
 
-   TLegend leg1(0.58,0.65,0.98,0.9);
+   TLegend leg1(0.68,0.65,0.98,0.9);
    leg1.AddEntry(hMC_phi ,"raw","lep");
    leg1.AddEntry(hMC_bkg_phi ,"bkg","lep");
    leg1.AddEntry(hMC_sb_phi ,"raw-bkg","lep");
@@ -449,16 +449,19 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    RPad->cd();
 
    TH1D *PbPb_to_pp = (TH1D*) hMC_sb_phi->Clone("PbPb_to_pp");
-   PbPb_to_pp->Divide(hpp_phi);
+   //PbPb_to_pp->Divide(hpp_phi);
+   PbPb_to_pp->Add(hpp_phi,-1);
 
    TH1D *horiz_line = (TH1D*) hMC_sb_phi->Clone("horiz_line");
-   horiz_line->Divide(hMC_sb_phi);
+   //horiz_line->Divide(hMC_sb_phi);
+   horiz_line->Add(hMC_sb_phi,-1);
 
    horiz_line->SetLineColor(kBlack);
    PbPb_to_pp->SetLineColor(kRed);
 
    PbPb_to_pp->SetXTitle("#Delta#phi_{Z,track}");
-   PbPb_to_pp->SetYTitle("PbPb r-b / pp");
+   //PbPb_to_pp->SetYTitle("PbPb r-b / pp");
+   PbPb_to_pp->SetYTitle("(PbPb r-b) - pp");
 
    PbPb_to_pp->Draw("ep");
    horiz_line->Draw("hist same");
