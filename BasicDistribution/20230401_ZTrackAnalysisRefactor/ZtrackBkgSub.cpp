@@ -361,8 +361,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    
    Pad->cd();
 
-   if(max1<max2) hMC_bkg_phi->Draw("ep");
-   else hMC_phi->Draw("ep");
+   if(max1<max2) hMC_bkg_phi->Draw("aep");
+   else hMC_phi->Draw("aep");
    hMC_phi->Draw("ep same");
    hMC_bkg_phi->Draw("ep same");
 
@@ -379,7 +379,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_bkg_phi->SetYTitle("dN/d#Delta#phi");
    hMC_sb_phi_gen->SetYTitle("dN/d#Delta#phi");
 
-   hMC_phi->Draw("axis same");
+   //hMC_phi->Draw("axis same");
 
    TLegend leg1(0.58,0.65,0.98,0.95);
    leg1.AddEntry(hMC_phi ,"raw","lep");
@@ -442,10 +442,10 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_phi->SetXTitle("#Delta#phi_{Z,track}");
    hMC_phi->SetYTitle("PbPb raw-bkg / pp");
 
-   PbPb_to_pp->Draw("ep");
+   PbPb_to_pp->Draw("aep");
    horiz_line->Draw("hist same");
 
-   PbPb_to_pp->Draw("axis same");
+   //PbPb_to_pp->Draw("axis same");
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    Pad->SetLogy();
@@ -477,7 +477,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
 int main(int argc, char *argv[]){
 
-   //style();
+   style();
 
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
    file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17_PFmuon.root","read");
