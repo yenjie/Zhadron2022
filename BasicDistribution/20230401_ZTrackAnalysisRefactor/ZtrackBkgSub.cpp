@@ -477,7 +477,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
 int main(int argc, char *argv[]){
 
-   style();
+   //style();
 
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
    file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17_PFmuon.root","read");
