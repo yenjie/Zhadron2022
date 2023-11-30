@@ -50,6 +50,19 @@ void style(){
   gROOT->ForceStyle();
 }
 
+void SetPad(TPad *P)
+{
+   if(P == nullptr)
+      return;
+   P->SetLeftMargin(0);
+   P->SetTopMargin(0);
+   P->SetRightMargin(0);
+   P->SetBottomMargin(0);
+   P->SetTickx(false);
+   P->SetTicky(false);
+   P->Draw();
+}
+
 TFile *file_sigMC;
 TFile *file_bkgMC;
 //TFile *file_sigDA;
@@ -67,7 +80,38 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 {
 
    std::cout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
-   TCanvas *c = new TCanvas("c","",800,800);
+   
+   double MarginLeft    = 100;
+   double MarginRight   = 50;
+   double MarginTop     = 50;
+   double MarginBottom  = 100;
+   double PadWidth      = 500;
+   double PadHeight     = 500;
+   double RPadHeight    = 200;
+
+   double CanvasWidth   = MarginLeft + PadWidth * NColumn + MarginRight;
+   double CanvasHeight  = MarginTop + PadHeight + RPadHeight + MarginBottom;
+
+   double XMarginLeft   = MarginLeft / CanvasWidth;
+   double XMarginRight  = MarginRight / CanvasWidth;
+   double XMarginTop    = MarginTop / CanvasHeight;
+   double XMarginBottom = MarginBottom / CanvasHeight;
+   double XPadWidth     = PadWidth / CanvasWidth;
+   double XPadHeight    = PadHeight / CanvasHeight;
+   double XRPadHeight   = RPadHeight/ CanvasHeight;
+
+   TCanvas *c = new TCanvas("c","",CanvasWidth, CanvasHeight);
+
+   TPad* Pad = new TPad("Pad", "",
+         XMarginLeft, XMarginBottom + XRPadHeight,
+         XMarginLeft + XPadWidth , XMarginBottom + XRPadHeight + XPadHeight);
+   TPad* RPad = new TPad("RPad", "",
+         XMarginLeft, XMarginBottom,
+         XMarginLeft + XPadWidth , XMarginBottom + XRPadHeight);
+
+   SetPad(Pad);
+   SetPad(RPad);
+
 
    std::cout<<"Getting histograms..."<<std::endl;
 
@@ -311,8 +355,9 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hpp_phi->SetLineWidth(2);
    hMC_sb_phi_gen->SetLineWidth(2);
    hMC_phi_gen->SetLineWidth(2);
-
    
+   Pad->cd();
+
    if(max1<max2) hMC_bkg_phi->Draw("ep");
    else hMC_phi->Draw("ep");
    hMC_phi->Draw("ep same");
@@ -393,8 +438,26 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_sb_phi_gen->SetMaximum(1000000);
    hMC_phi_gen->SetMaximum(1000000);
 
+   RPad->cd();
+
+   TH1D *PbPb_to_pp = (TH1D*) hMC_sb_phi->Clone("PbPb_to_pp");
+   PbPb_to_pp->Divide(hpp_phi);
+
+   TH1D *horiz_line = (TH1D*) hMC_sb_phi->Clone("horiz_line");
+   horiz_line->Divide(hMC_sb_phi);
+
+   horiz_line->SetLineColor(kBlack);
+   PbPb_to_pp->SetLineColor(kRed);
+
+   hMC_phi->SetXTitle("#Delta#phi_{Z,track}");
+   hMC_phi->SetYTitle("PbPb raw-bkg / pp");
+
+   PbPb_to_pp->Draw("ep");
+   horiz_line->Draw("hist same");
+
+
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/Ztrack_%s_comlog_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicomlog.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
-   gPad->SetLogy(0);
+   Pad->SetLogy(0);
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/pdf/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BkgSub/C/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.C",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
