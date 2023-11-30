@@ -86,8 +86,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    double MarginTop     = 0;
    double MarginBottom  = 50;
    double PadWidth      = 800;
-   double PadHeight     = 800;
-   double RPadHeight    = 300;
+   double PadHeight     = 1000;
+   double RPadHeight    = 400;
 
    double CanvasWidth   = MarginLeft + PadWidth + MarginRight;
    double CanvasHeight  = MarginTop + PadHeight + RPadHeight + MarginBottom;
