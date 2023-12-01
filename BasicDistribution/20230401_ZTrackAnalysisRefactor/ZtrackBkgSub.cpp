@@ -366,12 +366,12 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    std::cout<< ", hMC_sb_phi->Integral() = "<< hMC_sb_phi->Integral();
    std::cout<< ", hpp_phi->Integral() = "<< hpp_phi->Integral()<<std::endl;
 
-   TLatex *ptInt1 = new TLatex(0.15,0.46,Form("#Sigma Raw = %.1f,  #Sigma Bkg = %.1f",hMC_phi->Integral(),hMC_bkg_phi->Integral()));
+   TLatex *ptInt1 = new TLatex(0.15,0.46,Form("#Sigma raw = %.1f,  #Sigma bkg = %.1f",hMC_phi->Integral(),hMC_bkg_phi->Integral()));
    ptInt1->SetTextFont(42);
    ptInt1->SetTextSize(0.03);
    ptInt1->SetNDC(kTRUE);
 
-   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (R-B) = %.1f,  #Sigma pp = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
+   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  #Sigma pp = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
    ptInt2->SetTextFont(42);
    ptInt2->SetTextSize(0.03);
    ptInt2->SetNDC(kTRUE);
