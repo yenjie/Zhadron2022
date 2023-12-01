@@ -73,8 +73,8 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v17_PFMuon/20231130/SigBkg";
-const char *typeofdata1 = "v17_PF_20231130_SigBkg";
+const char *typeofdata = "v17_PFMuon/20231201";
+const char *typeofdata1 = "v17_PF_20231201_SigBkg";
 const char *typeofdatatext = "single muon";
 
 void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -323,17 +323,22 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    if(TptL==0) TptL=TptL_min;
 
-   TLatex *pt = new TLatex(0.18,0.82,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
+   TLatex *pt0 = new TLatex(0.15,0.82,"Z - Z #times Z");
+   pt0->SetTextFont(42);
+   pt0->SetTextSize(0.03);
+   pt0->SetNDC(kTRUE);
+
+   TLatex *pt = new TLatex(0.15,0.76,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
    pt->SetTextFont(42);
    pt->SetTextSize(0.03);
    pt->SetNDC(kTRUE);
 
-   TLatex *pt2 = new TLatex(0.18,0.76,Form("%.1f < Z p_{T} < %.1f GeV",ptL,ptH));
+   TLatex *pt2 = new TLatex(0.15,0.70,Form("%.1f < Z p_{T} < %.1f GeV",ptL,ptH));
    pt2->SetTextFont(42);
    pt2->SetTextSize(0.03);
    pt2->SetNDC(kTRUE);
 
-   TLatex *pt3 = new TLatex(0.18,0.7,Form("%.1f < Track p_{T} < %.1f GeV",TptL,TptH));
+   TLatex *pt3 = new TLatex(0.15,0.64,Form("%.1f < Track p_{T} < %.1f GeV",TptL,TptH));
    pt3->SetTextFont(42);
    pt3->SetTextSize(0.03);
    pt3->SetNDC(kTRUE);
@@ -360,6 +365,18 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    std::cout<< ", hMC_bkg_phi->Integral() = "<< hMC_bkg_phi->Integral();
    std::cout<< ", hMC_sb_phi->Integral() = "<< hMC_sb_phi->Integral();
    std::cout<< ", hpp_phi->Integral() = "<< hpp_phi->Integral()<<std::endl;
+
+   TLatex *ptInt1 = new TLatex(0.15,0.46,Form("#Sigma Raw = %.1f,  #Sigma Bkg = %.1f",hMC_phi->Integral(),hMC_bkg_phi->Integral()));
+   pt->SetTextFont(42);
+   pt->SetTextSize(0.03);
+   pt->SetNDC(kTRUE);
+
+   TLatex *pt2 = new TLatex(0.15,0.40,Form("#Sigma (R-B) = %.1f,  #Sigma pp = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
+   pt2->SetTextFont(42);
+   pt2->SetTextSize(0.03);
+   pt2->SetNDC(kTRUE);
+
+
 
    hMC_phi->SetLineColor(kBlack);
    hMC_bkg_phi->SetLineColor(kBlue);
@@ -410,6 +427,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    leg1.SetLineWidth(1);
    leg1.Draw();
 
+   pt0->Draw();
    pt->Draw();
    pt2->Draw();
    pt3->Draw();
