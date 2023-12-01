@@ -371,10 +371,10 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    pt->SetTextSize(0.03);
    pt->SetNDC(kTRUE);
 
-   TLatex *pt2 = new TLatex(0.15,0.40,Form("#Sigma (R-B) = %.1f,  #Sigma pp = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
-   pt2->SetTextFont(42);
-   pt2->SetTextSize(0.03);
-   pt2->SetNDC(kTRUE);
+   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (R-B) = %.1f,  #Sigma pp = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
+   ptInt2->SetTextFont(42);
+   ptInt2->SetTextSize(0.03);
+   ptInt2->SetNDC(kTRUE);
 
 
 
@@ -431,6 +431,9 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    pt->Draw();
    pt2->Draw();
    pt3->Draw();
+
+   ptInt1->Draw();
+   ptInt2->Draw();
 
    //std::cout<<"max1 = "<<max1<<std::endl;
    //hMC_phi->SetMinimum(0);
