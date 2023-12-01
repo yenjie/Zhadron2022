@@ -323,7 +323,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    if(TptL==0) TptL=TptL_min;
 
-   TLatex *pt0 = new TLatex(0.15,0.82,"HFShift +2.5%%");
+   TLatex *pt0 = new TLatex(0.15,0.82,"HFShift +2.5%");
    pt0->SetTextFont(42);
    pt0->SetTextSize(0.03);
    pt0->SetNDC(kTRUE);
