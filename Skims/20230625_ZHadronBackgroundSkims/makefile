@@ -140,3 +140,13 @@ PrepareToRunRandomMCGenSigBkg:
 	bash PrepareInputRandomBackground.sh \
 		$(EOSBase)/OutputMCGen_v17_PFmuon/ LogMCGenSigBkg_v17_PFmuon/ $(EOSBase)/OutputMCGenSigBkg_v17_PFmuon/ $(PbPbSignalMC)/ 10 \
 		`./Expand Setting.dh PbPbSignalGenMC Nominal`
+
+PrepareToRunRandomPPMCSigBkg:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputPPMC_v17_PFmuon/ LogPPMCSigBkg_v17_PFmuon/ $(EOSBase)/OutputPPMCSigBkg_v17_PFmuon/ $(PPSignalMC)/ 10 \
+		`./Expand Setting.dh PPSignalMC Nominal`
+
+PrepareToRunRandomPPDataSigBkg:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputPPData_v17_PFmuon/ LogPPDataSigBkg_v17_PFmuon/ $(EOSBase)/OutputPPDataSigBkg_v17_PFmuon/ '$(PPSignalData)/*/' 200 \
+		`./Expand Setting.dh PPSignalData Nominal`
