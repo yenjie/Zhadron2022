@@ -106,6 +106,16 @@ PrepareToRunRandomDataBackgroundUEDown30:
 		$(EOSBase)/OutputData_v17_PFmuon/ LogDataBackgroundUEDown30_v17_PFmuon/ $(EOSBase)/OutputDataBackgroundUEDown30_v17_PFmuon/ $(PbPbBackgroundData)/ 200 \
 		`./Expand Setting.dh PbPbBackgroundData UEDown30`
 
+PrepareToRunRandomMCBackgroundUEUp50:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackgroundUEUp50_v17_PFmuon/ $(EOSBase)/OutputMCBackgroundUEUp50_v17_PFmuon/ $(PbPbBackgroundMC)/ 20 \
+		`./Expand Setting.dh PbPbBackgroundMC UEUp50`
+
+PrepareToRunRandomMCBackgroundUEDown50:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackgroundUEDown50_v17_PFmuon/ $(EOSBase)/OutputMCBackgroundUEDown50_v17_PFmuon/ $(PbPbBackgroundMC)/ 20 \
+		`./Expand Setting.dh PbPbBackgroundMC UEDown50`
+
 PrepareToRunRandomMCBackgroundUEUp100:
 	bash PrepareInputRandomBackground.sh \
 		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackgroundUEUp100_v17_PFmuon/ $(EOSBase)/OutputMCBackgroundUEUp100_v17_PFmuon/ $(PbPbBackgroundMC)/ 20 \
@@ -125,6 +135,21 @@ PrepareToRunRandomMCBackgroundUEDown200:
 	bash PrepareInputRandomBackground.sh \
 		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackgroundUEDown200_v17_PFmuon/ $(EOSBase)/OutputMCBackgroundUEDown200_v17_PFmuon/ $(PbPbBackgroundMC)/ 20 \
 		`./Expand Setting.dh PbPbBackgroundMC UEDown200`
+
+PrepareToRunRandomMCBackgroundUEUp500:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackgroundUEUp500_v17_PFmuon/ $(EOSBase)/OutputMCBackgroundUEUp500_v17_PFmuon/ $(PbPbBackgroundMC)/ 20 \
+		`./Expand Setting.dh PbPbBackgroundMC UEUp500`
+
+PrepareToRunRandomMCBackgroundUEDown500:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackgroundUEDown500_v17_PFmuon/ $(EOSBase)/OutputMCBackgroundUEDown500_v17_PFmuon/ $(PbPbBackgroundMC)/ 20 \
+		`./Expand Setting.dh PbPbBackgroundMC UEDown500`
+
+PrepareToRunRandomMCBackgroundUEUp1000:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackgroundUEUp1000_v17_PFmuon/ $(EOSBase)/OutputMCBackgroundUEUp1000_v17_PFmuon/ $(PbPbBackgroundMC)/ 20 \
+		`./Expand Setting.dh PbPbBackgroundMC UEUp1000`
 
 PrepareToRunRandomMCSigBkg:
 	bash PrepareInputRandomBackground.sh \
