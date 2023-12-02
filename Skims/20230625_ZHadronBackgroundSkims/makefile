@@ -151,6 +151,11 @@ PrepareToRunRandomMCBackgroundUEUp1000:
 		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackgroundUEUp1000_v17_PFmuon/ $(EOSBase)/OutputMCBackgroundUEUp1000_v17_PFmuon/ $(PbPbBackgroundMC)/ 20 \
 		`./Expand Setting.dh PbPbBackgroundMC UEUp1000`
 
+PrepareToRunRandomMCBackgroundUEDown1000:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackgroundUEDown1000_v17_PFmuon/ $(EOSBase)/OutputMCBackgroundUEDown1000_v17_PFmuon/ $(PbPbBackgroundMC)/ 20 \
+		`./Expand Setting.dh PbPbBackgroundMC UEDown1000`
+
 PrepareToRunRandomMCSigBkg:
 	bash PrepareInputRandomBackground.sh \
 		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCSigBkg_v17_PFmuon/ $(EOSBase)/OutputMCSigBkg_v17_PFmuon/ $(PbPbSignalMC)/ 10 \

@@ -76,6 +76,9 @@ BackgroundDataUEDown500=" --DoBackground true --HFShift 330  --Tolerance 150   -
 BackgroundMCUEUp1000="     --DoBackground true --HFShift 1364 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
 BackgroundGenMCUEUp1000="  --DoBackground true --HFShift 2166 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
 BackgroundDataUEUp1000="   --DoBackground true --HFShift 1320 --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
+BackgroundMCUEDown1000="     --DoBackground true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
+BackgroundGenMCUEDown1000="  --DoBackground true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundDataUEDown1000="   --DoBackground true --HFShift 0 --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
 PPSigBkgMC="   --DoBackground true --HFShift 0  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
 PPSigBkgGenMC="--DoBackground true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
