@@ -469,12 +469,12 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    //ptN0->Draw();
 
-   hMC_phi->SetMinimum(0);
-   hMC_bkg_phi->SetMinimum(0);
-   hMC_sb_phi->SetMinimum(0);
-   hpp_phi->SetMinimum(0);
-   hMC_sb_phi_gen->SetMinimum(0);
-   hMC_phi_gen->SetMinimum(0);
+   hMC_phi->SetMinimum(-10);
+   hMC_bkg_phi->SetMinimum(-10);
+   hMC_sb_phi->SetMinimum(-10);
+   hpp_phi->SetMinimum(-10);
+   hMC_sb_phi_gen->SetMinimum(-10);
+   hMC_phi_gen->SetMinimum(-10);
 
 
    //Pad->Update();
