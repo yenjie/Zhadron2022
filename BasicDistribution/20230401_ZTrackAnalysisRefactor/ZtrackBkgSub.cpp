@@ -69,12 +69,13 @@ TFile *file_bkgMC;
 //TFile *file_sigDA;
 //TFile *file_bkgDA;
 TFile *file_ppMC;
+TFile *file_ppbkgMC;
 
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v17_PFMuon/20231201";
-const char *typeofdata1 = "v17_PF_20231201_UEUp500";
+const char *typeofdata = "v17_PFMuon/20231203";
+const char *typeofdata1 = "v17_PF_20231203_MCSigBkg";
 const char *typeofdatatext = "single muon";
 
 void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -148,10 +149,13 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    //TH1D* hData_phi = (TH1D*) file_sigDA->Get(Form("%s/HPhi", FolderName.c_str()));
    TH1D* hMC_phi = (TH1D*) file_sigMC->Get(Form("%s/HPhi", FolderName.c_str()));
    TH1D* hpp_phi = (TH1D*) file_ppMC->Get(Form("%s/HPhi", FolderName.c_str()));
+   TH1D* hpp_bkg_phi = (TH1D*) file_ppbkgMC->Get(Form("%s/HPhi", FolderName.c_str()));
+   
 
    //hData_phi->SetName("hData_phi");
    hMC_phi->SetName("hMC_phi");
    hpp_phi->SetName("hpp_phi");
+   hpp_bkg_phi->SetName("hpp_bkg_phi");
 
    TH1D* hMC_phi_gen = (TH1D*) file_sigMCgen->Get(Form("%s/HPhi", FolderName.c_str()));
    TH1D* hMC_bkg_phi_gen = (TH1D*) file_bkgMCgen->Get(Form("%s/HPhi", FolderName.c_str()));
@@ -193,18 +197,22 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HEventCount",FolderName.c_str()));
    TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HEventCount",FolderName.c_str()));
    TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HEventCount",FolderName.c_str()));
+   
    TH1D *nM_tNgen  = (TH1D *) file_sigMCgen->Get(Form("%s/HGenEventCount",FolderName.c_str()));
    TH1D *nMb_tNgen = (TH1D *) file_bkgMCgen->Get(Form("%s/HGenEventCount",FolderName.c_str()));
 
    float tM_tN     =     nM_tN->GetBinContent(1);
    float tMb_tN    =    nMb_tN->GetBinContent(1);
    float tpM_tN    =    npM_tN->GetBinContent(1);  
+   float tpb_tN    =    npb_tN->GetBinContent(1);  
    float tM_tNgen  =  nM_tNgen->GetBinContent(1);
    float tMb_tNgen = nMb_tNgen->GetBinContent(1); 
    
    std::cout<<"tM_tN = "<<tM_tN<<std::endl;
    std::cout<<"tMb_tN = "<<tMb_tN<<std::endl;
    std::cout<<"tpM_tN = "<<tpM_tN<<std::endl;
+   std::cout<<"tpb_tN = "<<tpb_tN<<std::endl;
    std::cout<<"tM_tNgen = "<<tM_tNgen<<std::endl;
    std::cout<<"tMb_tNgen = "<<tMb_tNgen<<std::endl;
 
@@ -228,6 +236,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_bkg_phi_gen->Scale(1./tMb_tNgen/binphi);
 
    hpp_phi->Scale(1./tpM_tN/binphi);
+   hpp_bkg_phi->Scale(1./tpb_tN/binphi);
    //hpp_eta->Scale(1./tpM_tN/bineta);
 
    //TH1D *hData_sb_eta = (TH1D*) hData_eta->Clone("hData_sb_eta");
@@ -236,6 +245,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    TH1D *hMC_sb_phi = (TH1D*) hMC_phi->Clone("hMC_sb_phi");
 
    TH1D *hMC_sb_phi_gen = (TH1D*) hMC_phi_gen->Clone("hMC_sb_phi_gen");
+
+   //TH1D *hpp_sb_phi = (TH1D*) hpp_phi->Clone("hpp_sb_phi");
 
    //TH1D *hData_sbr_eta = (TH1D*) hData_eta->Clone("hData_sbr_eta");
    //TH1D *hMC_sbr_eta = (TH1D*) hMC_eta->Clone("hMC_sbr_eta");
@@ -248,6 +259,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_sb_phi->Add(hMC_bkg_phi,-1);
 
    hMC_sb_phi_gen->Add(hMC_bkg_phi_gen,-1);
+
+   hpp_phi->Add(hpp_bkg_phi,-1);
 
    //hData_sbr_eta->Divide(hData_bkg_eta);
    //hMC_sbr_eta->Divide(hMC_bkg_eta);
@@ -323,7 +336,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    if(TptL==0) TptL=TptL_min;
 
-   TLatex *pt0 = new TLatex(0.15,0.82,"HFShift +50.0%");
+   TLatex *pt0 = new TLatex(0.15,0.82,"Z - Z #times Z (MC)");
    pt0->SetTextFont(42);
    pt0->SetTextSize(0.03);
    pt0->SetNDC(kTRUE);
@@ -371,7 +384,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    ptInt1->SetTextSize(0.03);
    ptInt1->SetNDC(kTRUE);
 
-   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  #Sigma pp = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
+   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  #Sigma pp (raw-bkg) = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
    ptInt2->SetTextFont(42);
    ptInt2->SetTextSize(0.03);
    ptInt2->SetNDC(kTRUE);
@@ -418,7 +431,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    leg1.AddEntry(hMC_phi ,"raw","lep");
    leg1.AddEntry(hMC_bkg_phi ,"bkg","lep");
    leg1.AddEntry(hMC_sb_phi ,"raw-bkg","lep");
-   leg1.AddEntry(hpp_phi ,"pp","l");
+   leg1.AddEntry(hpp_phi ,"pp raw-bkg","l");
    //leg1.AddEntry(hMC_sb_phi_gen,"raw-bkg GEN","lep");
    //leg1.AddEntry(hMC_phi_gen,"sig GEN","lep");
    //leg1.AddEntry(hpp_phi ,"sig GEN","l");
@@ -482,7 +495,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    PbPb_to_pp->SetXTitle("#Delta#phi_{Z,track}");
    //PbPb_to_pp->SetYTitle("PbPb r-b / pp");
-   PbPb_to_pp->SetYTitle("(PbPb r-b) - pp");
+   PbPb_to_pp->SetYTitle("(PbPb r-b) - (pp r-b)");
 
    PbPb_to_pp->Draw("ep");
    horiz_line->Draw("hist same");
@@ -532,12 +545,14 @@ int main(int argc, char *argv[]){
    style();
 
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
-   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundUEUp500_v17_PFmuon.root","read");
+   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17_PFmuon.root","read");
    //file_sigDA = TFile::Open("~/eos_base/BasicPlots/GraphDataSignal_v17_PFmuon.root","read");
    //file_bkgDA = TFile::Open("~/eos_base/BasicPlots/GraphDataBackground_v17_PFmuon.root","read");
-   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
-   //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon.root","read");
+   //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
+   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon.root","read");
    //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPData_v17_PFmuon.root","read");
+
+   file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17_PFmuon.root","read");
 
    file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
    //file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen0Sub_v17_PFmuon.root","read");
@@ -580,6 +595,7 @@ int main(int argc, char *argv[]){
    //file_sigDA->Close();
    //file_bkgDA->Close();
    file_ppMC->Close();
+   file_ppbkgMC->Close();
 
    file_sigMCgen->Close();
    file_bkgMCgen->Close();
