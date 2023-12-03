@@ -17,10 +17,10 @@ mkdir -p log
 
 if [ $1 -eq 0 ]
 then
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPDataSigBkg_v17_PFmuon/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphPPDataSigBkg_v17_PFmuon.root --Fraction 1
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPDataSigBkg_v17_PFmuon/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphPPDataSigBkg_v17_PFmuon_IgnoreCentrality.root --Fraction 1 --IgnoreCentrality true
 elif [ $1 -eq 1 ]
 then
-	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCSigBkg_v17_PFmuon/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphPPMCSigBkg_v17_PFmuon.root --Fraction 1
+	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputPPMCSigBkg_v17_PFmuon/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphPPMCSigBkg_v17_PFmuon_IgnoreCentrality.root --Fraction 1 --IgnoreCentrality true
 elif [ $1 -eq 2 ]
 then
 	./Execute --InputBase /eos/cms/store/group/phys_heavyions/pchou/OutputDataSigBkg_v17_PFmuon/ --Output /eos/cms/store/group/phys_heavyions/pchou/BasicPlots/GraphDataSigBkg_v17_PFmuon.root --Fraction 1
