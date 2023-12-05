@@ -74,8 +74,8 @@ TFile *file_ppbkgMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v17_PFMuon/20231203";
-const char *typeofdata1 = "v17_PF_20231203_DataSigBkg";
+const char *typeofdata = "v17_PFMuon/20231205";
+const char *typeofdata1 = "v17_PF_20231205_DataSigBkg";
 const char *typeofdatatext = "single muon";
 
 void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -575,6 +575,10 @@ int main(int argc, char *argv[]){
    ZtrackBkg_single(40, 20, 2000,  0, 90, 50,  100);
 */
    ZtrackBkg_single(40, 40, 200,  0, 10,  1, 1000);
+
+   ZtrackBkg_single(40, 40, 200,  0, 10,  1, 2);
+   ZtrackBkg_single(40, 40, 200,  0, 10,  2, 4);
+   ZtrackBkg_single(40, 40, 200,  0, 10,  4, 10);
    //ZtrackBkg_single(40, 40, 200, 10, 30,  1, 1000);
    //ZtrackBkg_single(40, 40, 200, 30, 50,  1, 1000);
    //ZtrackBkg_single(40, 40, 200, 50, 90,  1, 1000);
