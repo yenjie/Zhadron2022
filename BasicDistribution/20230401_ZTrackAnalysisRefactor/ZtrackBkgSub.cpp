@@ -75,7 +75,7 @@ TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
 const char *typeofdata = "v17_PFMuon/20231205";
-const char *typeofdata1 = "v17_PF_20231205_MCSigBkg";
+const char *typeofdata1 = "v17_PF_20231205_Nominal";
 const char *typeofdatatext = "single muon";
 
 void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
@@ -260,7 +260,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    hMC_sb_phi_gen->Add(hMC_bkg_phi_gen,-1);
 
-   hpp_phi->Add(hpp_bkg_phi,-1);
+   //hpp_phi->Add(hpp_bkg_phi,-1);
 
    //hData_sbr_eta->Divide(hData_bkg_eta);
    //hMC_sbr_eta->Divide(hMC_bkg_eta);
@@ -336,7 +336,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    if(TptL==0) TptL=TptL_min;
 
-   TLatex *pt0 = new TLatex(0.15,0.82,"Z - Z #times Z (MC)");
+   //TLatex *pt0 = new TLatex(0.15,0.82,"Z - Z #times Z (MC)");
+   TLatex *pt0 = new TLatex(0.15,0.82,"Nominal MC");
    pt0->SetTextFont(42);
    pt0->SetTextSize(0.03);
    pt0->SetNDC(kTRUE);
@@ -431,7 +432,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    leg1.AddEntry(hMC_phi ,"raw","lep");
    leg1.AddEntry(hMC_bkg_phi ,"bkg","lep");
    leg1.AddEntry(hMC_sb_phi ,"raw-bkg","lep");
-   leg1.AddEntry(hpp_phi ,"pp raw-bkg","l");
+   //leg1.AddEntry(hpp_phi ,"pp raw-bkg","l");
+   leg1.AddEntry(hpp_phi ,"pp","l");
    //leg1.AddEntry(hMC_sb_phi_gen,"raw-bkg GEN","lep");
    //leg1.AddEntry(hMC_phi_gen,"sig GEN","lep");
    //leg1.AddEntry(hpp_phi ,"sig GEN","l");
@@ -545,7 +547,7 @@ int main(int argc, char *argv[]){
    style();
 
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
-   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17_PFmuon.root","read");
+   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17_PFmuon.root","read");
    //file_sigDA = TFile::Open("~/eos_base/BasicPlots/GraphDataSignal_v17_PFmuon.root","read");
    //file_bkgDA = TFile::Open("~/eos_base/BasicPlots/GraphDataBackground_v17_PFmuon.root","read");
    //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
