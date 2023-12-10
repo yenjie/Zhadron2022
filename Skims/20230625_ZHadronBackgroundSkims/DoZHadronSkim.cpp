@@ -30,6 +30,9 @@ int main(int argc, char *argv[]);
 int FindFirstAbove(vector<EventIndex> &Indices, double X);
 double GetHFSum(PFTreeMessenger *M);
 double GetGenHFSum(GenParticleTreeMessenger *M);
+bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &MSignalMu, 
+   SkimTreeMessenger &MSignalSkim, TriggerTreeMessenger &MSignalTrigger, 
+   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel);
 
 struct EventIndex
 {
@@ -91,6 +94,8 @@ int main(int argc, char *argv[])
    int NBackground                    = BackgroundFileNames.size();
    double Oversample                  = CL.GetInteger("Oversample", 1);
    bool ReuseBackground               = CL.GetBool("ReuseBackground", false);
+
+   bool CheckForBackgroundZ           = CL.GetBool("CheckForBackgroundZ", false);
 
    TrkEff2017pp *TrackEfficiencyPP = nullptr;
    TrkEff2018PbPb *TrackEfficiencyPbPb = nullptr;
@@ -185,6 +190,7 @@ int main(int argc, char *argv[])
    Key = "HFCeiling";               Value = InfoString(HFCeiling);               InfoTree.Fill();
    Key = "Oversample";              Value = InfoString(Oversample);              InfoTree.Fill();
    Key = "ReuseBackground";         Value = InfoString(ReuseBackground);         InfoTree.Fill();
+   Key = "CheckForBackgroundZ";     Value = InfoString(CheckForBackgroundZ);     InfoTree.Fill();
 
    TH2D H2D("H2D", "", 100, -6, 6, 100, -M_PI, M_PI);
 
@@ -213,6 +219,11 @@ int main(int argc, char *argv[])
       GenParticleTreeMessenger MGen(InputFile);
       PFTreeMessenger          MPF(InputFile, PFTreeName);
 
+      HiEventTreeMessenger     MSignalEvent(InputFile);
+      MuTreeMessenger          MSignalMu(InputFile);
+      SkimTreeMessenger        MSignalSkim(InputFile);
+      TriggerTreeMessenger     MSignalTrigger(InputFile);
+
       // Start looping over events
       int EntryCount = MEvent.GetEntries();
       ProgressBar Bar(cout, EntryCount);
@@ -238,6 +249,13 @@ int main(int argc, char *argv[])
          else
             MTrack.GetEntry(iE);
          MPF.GetEntry(iE);
+
+
+         bool Z_passed = EventPassesZ(iE, MSignalEvent, MSignalMu, MSignalSkim, MSignalTrigger, 
+            IsPP, IsData, DoMCHiBinShift, DoGenLevel);
+
+         if(CheckForBackgroundZ == true && Z_passed == false)
+            continue;
 
          // Now we find if there is a signal event that this background event can be matched to
 
@@ -508,3 +526,131 @@ double GetGenHFSum(GenParticleTreeMessenger *M)
 }
 
 
+bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &MSignalMu, 
+   SkimTreeMessenger &MSignalSkim, TriggerTreeMessenger &MSignalTrigger, 
+   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel)
+{
+
+   bool Z_passed = true;
+
+   TLorentzVector VGenZ, VGenMu1, VGenMu2;
+
+   MSignalEvent.GetEntry(iE);
+   MSignalMu.GetEntry(iE);
+   MSignalSkim.GetEntry(iE);
+   MSignalTrigger.GetEntry(iE);
+
+
+   if(IsPP == false && IsData == false && DoMCHiBinShift == true)   // PbPb MC, we shift 1.5% as per Kaya
+   {
+      MSignalEvent.hiBin = MSignalEvent.hiBin - MCHiBinShift;
+      if(MSignalEvent.hiBin < 0)   // too central, skip
+         Z_passed = false;
+   }
+
+   // Do event selection and triggers
+   if(IsPP == true)
+   {
+      if(IsData == true)
+      {
+         int pprimaryVertexFilter = MSignalSkim.PVFilter;
+         int beamScrapingFilter = MSignalSkim.BeamScrapingFilter;
+
+         // Event selection criteria
+         //    see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
+         if(pprimaryVertexFilter == 0 || beamScrapingFilter == 0)
+            Z_passed = false;
+
+         //HLT trigger to select dimuon events, see Kaya's note: AN2019_143_v12, p.5
+         int HLT_HIL2Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL2Mu12");
+         int HLT_HIL3Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL3Mu12");
+         if(HLT_HIL3Mu12 == 0 && HLT_HIL2Mu12 == 0)
+            Z_passed = false;
+      }
+   }
+   else
+   {
+      if(IsData == true)
+      {
+         int pprimaryVertexFilter = MSignalSkim.PVFilter;
+         int phfCoincFilter2Th4 = MSignalSkim.HFCoincidenceFilter2Th4;
+         int pclusterCompatibilityFilter = MSignalSkim.ClusterCompatibilityFilter;
+
+         // Event selection criteria
+         //    see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
+         if(pprimaryVertexFilter == 0 || phfCoincFilter2Th4 == 0 || pclusterCompatibilityFilter == 0)
+            Z_passed = false;
+
+         //HLT trigger to select dimuon events, see Kaya's note: AN2019_143_v12, p.5
+         int HLT_HIL3Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL3Mu12");
+         if(HLT_HIL3Mu12 == 0)
+            Z_passed = false;
+      }
+   }
+
+   // Loop over gen muons
+   if(DoGenLevel == true && MSignalMu.NGen > 1)
+   {
+      for(int igen1 = 0; igen1 < MSignalMu.NGen; igen1++)
+      {
+         // We only want muon from Z's
+         if(MSignalMu.GenMom[igen1] != 23)
+            Z_passed = false;
+         if(MSignalMu.GenPT[igen1] < 20)
+            Z_passed = false;
+         if(fabs(MSignalMu.GenEta[igen1]) > 2.4)
+            Z_passed = false;
+
+         VGenMu1.SetPtEtaPhiM(MSignalMu.GenPT[igen1],
+               MSignalMu.GenEta[igen1],
+               MSignalMu.GenPhi[igen1],
+               M_MU);
+
+         for(int igen2 = igen1 + 1; igen2 < MSignalMu.NGen; igen2++)
+         {
+            // We only want muon from Z's
+            if(MSignalMu.GenMom[igen2] != 23)
+               Z_passed = false;
+            if(MSignalMu.GenPT[igen2] < 20)
+               Z_passed = false;
+            if(fabs(MSignalMu.GenEta[igen2]) > 2.4)
+               Z_passed = false;
+
+            VGenMu2.SetPtEtaPhiM(MSignalMu.GenPT[igen2],
+                  MSignalMu.GenEta[igen2],
+                  MSignalMu.GenPhi[igen2],
+                  M_MU);
+
+            VGenZ = VGenMu1 + VGenMu2;
+
+            if(VGenZ.M() < 60 || VGenZ.M() > 120)
+               Z_passed = false;
+            if(fabs(VGenZ.Rapidity()) > 2.4)
+               Z_passed = false;
+
+         }
+      }
+   }
+
+   // Loop over reco dimuon pairs
+   for(int ipair = 0; ipair < MSignalMu.NDi; ipair++)
+   {
+      // We want opposite-charge muons with some basic kinematic cuts
+      if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])        Z_passed = false;
+      if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                             Z_passed = false;
+      if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                             Z_passed = false;
+      if(fabs(MSignalMu.DiPT1[ipair]) < 20)                               Z_passed = false;
+      if(fabs(MSignalMu.DiPT2[ipair]) < 20)                               Z_passed = false;
+      if(MSignalMu.DimuonPassTightCut(ipair) == false)                    Z_passed = false;
+      if(MSignalMu.DiMass[ipair] < 60 || MSignalMu.DiMass[ipair] > 120)   Z_passed = false;
+      
+      TLorentzVector Mu1, Mu2;
+      Mu1.SetPtEtaPhiM(MSignalMu.DiPT1[ipair], MSignalMu.DiEta1[ipair], MSignalMu.DiPhi1[ipair], M_MU);
+      Mu2.SetPtEtaPhiM(MSignalMu.DiPT2[ipair], MSignalMu.DiEta2[ipair], MSignalMu.DiPhi2[ipair], M_MU);
+      TLorentzVector Z = Mu1 + Mu2;
+      if(fabs(Z.Rapidity()) > 2.4)
+         Z_passed = false;
+   }
+
+   return Z_passed;   
+}
