@@ -32,7 +32,7 @@ double GetHFSum(PFTreeMessenger *M);
 double GetGenHFSum(GenParticleTreeMessenger *M);
 bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &MSignalMu, 
    SkimTreeMessenger &MSignalSkim, TriggerTreeMessenger &MSignalTrigger, 
-   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel);
+   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel, double MCHiBinShift);
 
 struct EventIndex
 {
@@ -532,7 +532,7 @@ double GetGenHFSum(GenParticleTreeMessenger *M)
 
 bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &MSignalMu, 
    SkimTreeMessenger &MSignalSkim, TriggerTreeMessenger &MSignalTrigger, 
-   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel)
+   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel, double MCHiBinShift)
 {
 
    bool Z_passed = true;
