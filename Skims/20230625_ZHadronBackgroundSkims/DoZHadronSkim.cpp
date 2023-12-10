@@ -97,6 +97,10 @@ int main(int argc, char *argv[])
 
    bool CheckForBackgroundZ           = CL.GetBool("CheckForBackgroundZ", false);
 
+   bool DoMCHiBinShift                = CL.GetBool("DoMCHiBinShift", true);
+   double MCHiBinShift                = DoMCHiBinShift ? CL.GetDouble("MCHiBinShift", 3) : 0;
+
+
    TrkEff2017pp *TrackEfficiencyPP = nullptr;
    TrkEff2018PbPb *TrackEfficiencyPbPb = nullptr;
    if(DoTrackEfficiency == true)
