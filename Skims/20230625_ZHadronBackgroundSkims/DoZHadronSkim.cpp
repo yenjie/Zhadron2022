@@ -256,7 +256,7 @@ int main(int argc, char *argv[])
 
 
          bool Z_passed = EventPassesZ(iE, MSignalEvent, MSignalMu, MSignalSkim, MSignalTrigger, 
-            IsPP, IsData, DoMCHiBinShift, DoGenLevel);
+            IsPP, IsData, DoMCHiBinShift, DoGenLevel, MCHiBinShift);
 
          if(CheckForBackgroundZ == true && Z_passed == false)
             continue;
