@@ -259,7 +259,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    hMC_sb_phi_gen->Add(hMC_bkg_phi_gen,-1);
 
-   //hpp_phi->Add(hpp_bkg_phi,-1);
+   hpp_phi->Add(hpp_bkg_phi,-1);
 
    //hData_sbr_eta->Divide(hData_bkg_eta);
    //hMC_sbr_eta->Divide(hMC_bkg_eta);
@@ -335,8 +335,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    if(TptL==0) TptL=TptL_min;
 
-   //TLatex *pt0 = new TLatex(0.15,0.82,"Z - Z #times Z (MC)");
-   TLatex *pt0 = new TLatex(0.15,0.82,"Nominal MC GEN (Pythia+Hydjet)");
+   TLatex *pt0 = new TLatex(0.15,0.82,"Z - Z #times Z (MC)");
+   //TLatex *pt0 = new TLatex(0.15,0.82,"Nominal MC GEN (Pythia+Hydjet)");
    pt0->SetTextFont(42);
    pt0->SetTextSize(0.03);
    pt0->SetNDC(kTRUE);
