@@ -32,7 +32,7 @@ double GetHFSum(PFTreeMessenger *M);
 double GetGenHFSum(GenParticleTreeMessenger *M);
 bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &MSignalMu, 
    SkimTreeMessenger &MSignalSkim, TriggerTreeMessenger &MSignalTrigger, 
-   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel, double MCHiBinShift);
+   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel, double MCHiBinShift, double MaximumCentrality);
 
 struct EventIndex
 {
@@ -99,6 +99,8 @@ int main(int argc, char *argv[])
 
    bool DoMCHiBinShift                = CL.GetBool("DoMCHiBinShift", true);
    double MCHiBinShift                = DoMCHiBinShift ? CL.GetDouble("MCHiBinShift", 3) : 0;
+
+   double MaximumCentrality           = CL.GetDouble("MaximumCentrality", 1000);
 
 
    TrkEff2017pp *TrackEfficiencyPP = nullptr;
@@ -195,6 +197,7 @@ int main(int argc, char *argv[])
    Key = "Oversample";              Value = InfoString(Oversample);              InfoTree.Fill();
    Key = "ReuseBackground";         Value = InfoString(ReuseBackground);         InfoTree.Fill();
    Key = "CheckForBackgroundZ";     Value = InfoString(CheckForBackgroundZ);     InfoTree.Fill();
+   Key = "MaximumCentrality";       Value = InfoString(MaximumCentrality);       InfoTree.Fill();
 
    TH2D H2D("H2D", "", 100, -6, 6, 100, -M_PI, M_PI);
 
@@ -254,9 +257,11 @@ int main(int argc, char *argv[])
             MTrack.GetEntry(iE);
          MPF.GetEntry(iE);
 
+         if(MEvent.hiBin > MaximumCentrality * 2)
+            continue;
 
          bool Z_passed = EventPassesZ(iE, MSignalEvent, MSignalMu, MSignalSkim, MSignalTrigger, 
-            IsPP, IsData, DoMCHiBinShift, DoGenLevel, MCHiBinShift);
+            IsPP, IsData, DoMCHiBinShift, DoGenLevel, MCHiBinShift, MaximumCentrality);
 
          if(CheckForBackgroundZ == true && Z_passed == false)
             continue;
@@ -532,7 +537,7 @@ double GetGenHFSum(GenParticleTreeMessenger *M)
 
 bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &MSignalMu, 
    SkimTreeMessenger &MSignalSkim, TriggerTreeMessenger &MSignalTrigger, 
-   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel, double MCHiBinShift)
+   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel, double MCHiBinShift, double MaximumCentrality)
 {
 
    bool Z_passed = true;
@@ -548,7 +553,7 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
    if(IsPP == false && IsData == false && DoMCHiBinShift == true)   // PbPb MC, we shift 1.5% as per Kaya
    {
       MSignalEvent.hiBin = MSignalEvent.hiBin - MCHiBinShift;
-      if(MSignalEvent.hiBin < 0)   // too central, skip
+      if((MSignalEvent.hiBin < 0) || (MSignalEvent.hiBin > MaximumCentrality*2) )   // too central, skip
          Z_passed = false;
    }
 
