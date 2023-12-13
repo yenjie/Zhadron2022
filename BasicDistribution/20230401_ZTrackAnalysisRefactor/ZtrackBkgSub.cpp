@@ -74,8 +74,8 @@ TFile *file_ppbkgMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v17_PFMuon/20231212";
-const char *typeofdata1 = "v17_PF_20231212_MCGENsigbkg";
+const char *typeofdata = "v17_PFMuon/20231213";
+const char *typeofdata1 = "v17_PF_20231213_MCCent10";
 
 void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
 {
@@ -193,10 +193,10 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    std::cout<<"Getting Entries..."<<std::endl;
 
-   TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HGenEventCount",FolderName.c_str()));
-   TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HGenEventCount",FolderName.c_str()));
-   TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HGenEventCount",FolderName.c_str()));
-   TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HGenEventCount",FolderName.c_str()));
+   TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HEventCount",FolderName.c_str()));
    
    TH1D *nM_tNgen  = (TH1D *) file_sigMCgen->Get(Form("%s/HGenEventCount",FolderName.c_str()));
    TH1D *nMb_tNgen = (TH1D *) file_bkgMCgen->Get(Form("%s/HGenEventCount",FolderName.c_str()));
@@ -335,7 +335,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    if(TptL==0) TptL=TptL_min;
 
-   TLatex *pt0 = new TLatex(0.15,0.82,"Z - Z #times Z (MC Gen)");
+   TLatex *pt0 = new TLatex(0.15,0.82,"Z - Z #times Z (MC)");
    //TLatex *pt0 = new TLatex(0.15,0.82,"Nominal MC GEN (Pythia+Hydjet)");
    pt0->SetTextFont(42);
    pt0->SetTextSize(0.03);
@@ -545,15 +545,15 @@ int main(int argc, char *argv[]){
 
    style();
 
-   file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
-   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCGenSigBkg_v17_checkz.root","read");
+   file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
+   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17_Cent10.root","read");
    //file_sigDA = TFile::Open("~/eos_base/BasicPlots/GraphDataSignal_v17_PFmuon.root","read");
    //file_bkgDA = TFile::Open("~/eos_base/BasicPlots/GraphDataBackground_v17_PFmuon.root","read");
    //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
-   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCGen_v17_PFmuon.root","read");
+   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon.root","read");
    //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPData_v17_PFmuon.root","read");
 
-   file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17_checkz.root","read");
+   file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17_Cent10.root","read");
 
    file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
    //file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen0Sub_v17_PFmuon.root","read");
