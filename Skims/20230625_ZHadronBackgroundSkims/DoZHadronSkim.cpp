@@ -600,15 +600,17 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
    // Loop over gen muons
    if(DoGenLevel == true && MSignalMu.NGen > 1)
    {
+
+      bool isgoodgen = false;
       for(int igen1 = 0; igen1 < MSignalMu.NGen; igen1++)
       {
          // We only want muon from Z's
          if(MSignalMu.GenMom[igen1] != 23)
-            Z_passed = false;
+            continue;
          if(MSignalMu.GenPT[igen1] < 20)
-            Z_passed = false;
+            continue;
          if(fabs(MSignalMu.GenEta[igen1]) > 2.4)
-            Z_passed = false;
+            continue;
 
          VGenMu1.SetPtEtaPhiM(MSignalMu.GenPT[igen1],
                MSignalMu.GenEta[igen1],
@@ -619,11 +621,11 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
          {
             // We only want muon from Z's
             if(MSignalMu.GenMom[igen2] != 23)
-               Z_passed = false;
+               continue;
             if(MSignalMu.GenPT[igen2] < 20)
-               Z_passed = false;
+               continue;
             if(fabs(MSignalMu.GenEta[igen2]) > 2.4)
-               Z_passed = false;
+               continue;
 
             VGenMu2.SetPtEtaPhiM(MSignalMu.GenPT[igen2],
                   MSignalMu.GenEta[igen2],
@@ -633,33 +635,46 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
             VGenZ = VGenMu1 + VGenMu2;
 
             if(VGenZ.M() < 60 || VGenZ.M() > 120)
-               Z_passed = false;
+               continue;
             if(fabs(VGenZ.Rapidity()) > 2.4)
-               Z_passed = false;
+               continue;
+
+            isgoodgen = true;
 
          }
       }
+
+      if(!isgoodgen)
+         Z_passed = false;
    }
 
    // Loop over reco dimuon pairs
+
+   bool isgooddimuon = false;
    for(int ipair = 0; ipair < MSignalMu.NDi; ipair++)
    {
       // We want opposite-charge muons with some basic kinematic cuts
-      if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])        Z_passed = false;
-      if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                             Z_passed = false;
-      if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                             Z_passed = false;
-      if(fabs(MSignalMu.DiPT1[ipair]) < 20)                               Z_passed = false;
-      if(fabs(MSignalMu.DiPT2[ipair]) < 20)                               Z_passed = false;
-      if(MSignalMu.DimuonPassTightCut(ipair) == false)                    Z_passed = false;
-      if(MSignalMu.DiMass[ipair] < 60 || MSignalMu.DiMass[ipair] > 120)   Z_passed = false;
+      if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])        continue;
+      if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                             continue;
+      if(fabs(MSignalMu.DiEta2[ipair]) > 2.4)                             continue;
+      if(fabs(MSignalMu.DiPT1[ipair]) < 20)                               continue;
+      if(fabs(MSignalMu.DiPT2[ipair]) < 20)                               continue;
+      if(MSignalMu.DimuonPassTightCut(ipair) == false)                    continue;
+      if(MSignalMu.DiMass[ipair] < 60 || MSignalMu.DiMass[ipair] > 120)   continue;
       
       TLorentzVector Mu1, Mu2;
       Mu1.SetPtEtaPhiM(MSignalMu.DiPT1[ipair], MSignalMu.DiEta1[ipair], MSignalMu.DiPhi1[ipair], M_MU);
       Mu2.SetPtEtaPhiM(MSignalMu.DiPT2[ipair], MSignalMu.DiEta2[ipair], MSignalMu.DiPhi2[ipair], M_MU);
       TLorentzVector Z = Mu1 + Mu2;
       if(fabs(Z.Rapidity()) > 2.4)
-         Z_passed = false;
+         continue;
+
+      isgooddimuon = true;
+      
    }
+
+   if(!isgooddimuon)
+      Z_passed = false;
 
    return Z_passed;   
 }
