@@ -17,4 +17,4 @@ when_to_transfer_output = ON_EXIT
 
 +JobFlavour = "nextweek"
 
-queue 2
+queue 7

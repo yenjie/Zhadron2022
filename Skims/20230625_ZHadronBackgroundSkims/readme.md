@@ -6,3 +6,5 @@
    * added loose/tight tracks
 * Version 17 - Aug 10, 2023
    * Replacing DimuonPassTightCut for dxy and dz with absolute values
+* Version 17b - Dec 14, 2023
+   * Self-mixing version.

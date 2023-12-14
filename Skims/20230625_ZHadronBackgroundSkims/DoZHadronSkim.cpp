@@ -55,7 +55,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V17";
+   string Version = "V17b";
 
    CommandLine CL(argc, argv);
 
@@ -670,7 +670,7 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
          continue;
 
       isgooddimuon = true;
-      
+
    }
 
    if(!isgooddimuon)
