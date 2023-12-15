@@ -32,7 +32,8 @@ double GetHFSum(PFTreeMessenger *M);
 double GetGenHFSum(GenParticleTreeMessenger *M);
 bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &MSignalMu, 
    SkimTreeMessenger &MSignalSkim, TriggerTreeMessenger &MSignalTrigger, 
-   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel, double MCHiBinShift, double MaximumCentrality);
+   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel, double MCHiBinShift, double MaximumCentrality,
+   int& i_gen1, int& i_gen2, int& i_pair );
 
 struct EventIndex
 {
@@ -260,8 +261,12 @@ int main(int argc, char *argv[])
          if(MEvent.hiBin > MaximumCentrality * 2)
             continue;
 
+         int i_gen1 = -1, i_gen2 = -1, i_pair = -1;
+
          bool Z_passed = EventPassesZ(iE, MSignalEvent, MSignalMu, MSignalSkim, MSignalTrigger, 
-            IsPP, IsData, DoMCHiBinShift, DoGenLevel, MCHiBinShift, MaximumCentrality);
+            IsPP, IsData, DoMCHiBinShift, DoGenLevel, MCHiBinShift, MaximumCentrality, i_gen1, i_gen2, i_pair);
+
+         MSignalMu.GetEntry(iE);
 
          if(CheckForBackgroundZ == true && Z_passed == false)
             continue;
@@ -356,6 +361,18 @@ int main(int argc, char *argv[])
                double Mu1Phi = DoGenCorrelation ? MZHadron.genMuPhi1->at(0) : MZHadron.muPhi1->at(0);
                double Mu2Eta = DoGenCorrelation ? MZHadron.genMuEta2->at(0) : MZHadron.muEta2->at(0);
                double Mu2Phi = DoGenCorrelation ? MZHadron.genMuPhi2->at(0) : MZHadron.muPhi2->at(0);
+
+               if(i_gen1 == -1 || i_gen2 == -1 || i_pair == -1)
+                  continue;
+
+               double SigMu1Eta = DoGenCorrelation ? MSignalMu.GenEta[i_gen1] : MSignalMu.DiEta1[i_pair];
+               double SigMu1Phi = DoGenCorrelation ? MSignalMu.GenPhi[i_gen1] : MSignalMu.DiPhi1[i_pair];
+               double SigMu2Eta = DoGenCorrelation ? MSignalMu.GenEta[i_gen2] : MSignalMu.DiEta2[i_pair];
+               double SigMu2Phi = DoGenCorrelation ? MSignalMu.GenPhi[i_gen2] : MSignalMu.DiPhi2[i_pair];
+
+
+               if(fabs(Mu1Eta-SigMu1Eta)<0.0001 && fabs(Mu2Eta-SigMu2Eta)<0.0001 && fabs(Mu1Phi-SigMu1Phi)<0.0001 && fabs(Mu2Phi-SigMu2Phi)<0.0001)
+                  continue;
 
                double DeltaEtaMu1 = TrackEta - Mu1Eta;
                double DeltaEtaMu2 = TrackEta - Mu2Eta;
@@ -537,7 +554,8 @@ double GetGenHFSum(GenParticleTreeMessenger *M)
 
 bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &MSignalMu, 
    SkimTreeMessenger &MSignalSkim, TriggerTreeMessenger &MSignalTrigger, 
-   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel, double MCHiBinShift, double MaximumCentrality)
+   bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel, double MCHiBinShift, double MaximumCentrality,
+   int& i_gen1, int& i_gen2, int& i_pair)
 {
 
    bool Z_passed = true;
@@ -641,6 +659,12 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
 
             isgoodgen = true;
 
+            // We are only taking the first Z.
+            if(i_gen1==-1)
+               i_gen1 = igen1;
+            if(i_gen2==-1)
+               i_gen2 = igen2;
+
          }
       }
 
@@ -670,6 +694,10 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
          continue;
 
       isgooddimuon = true;
+
+      // We are only taking the first Z candidate.
+      if(i_pair==-1)
+         i_pair = ipair;
 
    }
 
