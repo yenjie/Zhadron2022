@@ -246,7 +246,7 @@ int main(int argc, char *argv[])
       for(int iE = 0; iE < EntryCount; iE++)
       {
          // Progress bar stuff
-         if(EntryCount < 300 || (iE % (EntryCount / 250)) == 0)
+         if(WithProgressBar && (EntryCount < 300 || (iE % (EntryCount / 250)) == 0))
          {
             Bar.Update(iE);
             Bar.Print();
@@ -442,10 +442,11 @@ int main(int argc, char *argv[])
          }
       }
 
-      Bar.Update(EntryCount);
-      Bar.Print();
-      Bar.PrintLine();
-
+      if(WithProgressBar){
+         Bar.Update(EntryCount);
+         Bar.Print();
+         Bar.PrintLine();
+      }
       InputFile.Close();
    
       int NonMatchedCount = 0;
