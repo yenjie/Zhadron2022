@@ -237,12 +237,10 @@ int main(int argc, char *argv[])
       // Start looping over events
       int EntryCount = MEvent.GetEntries();
 
-      if(WithProgressBar){
-         ProgressBar Bar(cout, EntryCount);
-         Bar.SetStyle(-1);
-         // Bar.SetStyle(6);
-      }
-      
+      ProgressBar Bar(cout, EntryCount);
+      Bar.SetStyle(-1);
+      // Bar.SetStyle(6);
+
       for(int iE = 0; iE < EntryCount; iE++)
       {
          // Progress bar stuff
