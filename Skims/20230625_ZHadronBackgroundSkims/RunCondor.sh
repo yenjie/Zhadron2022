@@ -31,6 +31,8 @@ cp $CurrentFolder/Execute .
 ./Execute --Output Temp${ID}.root $@
 rm ./Execute
 
+echo "Moving Temp${ID}.root to ${Output} ..."
+
 mv Temp${ID}.root $Output
 
 
