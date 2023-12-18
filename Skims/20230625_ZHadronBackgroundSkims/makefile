@@ -163,7 +163,7 @@ PrepareToRunRandomMCSigBkg:
 
 PrepareToRunRandomDataSigBkg:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputData_v17_PFmuon/ LogDataSigBkg_v17b_checkz/ $(EOSBase)/OutputDataSigBkg_v17b_checkz/ '$(PbPbSignalSingleMuon)/*/' 200 \
+		$(EOSBase)/OutputData_v17_PFmuon/ LogDataSigBkg_v17b_rejz/ $(EOSBase)/OutputDataSigBkg_v17b_rejz/ '$(PbPbSignalSingleMuon)/*/' 200 \
 		`./Expand Setting.dh PbPbSignalData Nominal`
 
 PrepareToRunRandomMCGenSigBkg:
@@ -178,7 +178,7 @@ PrepareToRunRandomPPMCSigBkg:
 
 PrepareToRunRandomPPDataSigBkg:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputPPData_v17_PFmuon/ LogPPDataSigBkg_v17b_checkz/ $(EOSBase)/OutputPPDataSigBkg_v17b_checkz/ '$(PPSignalData)/*/' 200 \
+		$(EOSBase)/OutputPPData_v17_PFmuon/ LogPPDataSigBkg_v17b_rejz/ $(EOSBase)/OutputPPDataSigBkg_v17b_rejz/ '$(PPSignalData)/*/' 200 \
 		`./Expand Setting.dh PPSignalData Nominal`
 
 PrepareToRunRandomMCSigBkgCent10:

@@ -81,12 +81,12 @@ BackgroundGenMCUEDown1000="  --DoBackground true --HFShift 0 --Tolerance 187.5 -
 BackgroundDataUEDown1000="   --DoBackground true --HFShift 0 --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
 PPSigBkgMC="   --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
-PPSigBkgGenMC="--DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 50 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-PPSigBkgData=" --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 50 --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
+PPSigBkgGenMC="--DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+PPSigBkgData=" --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 150 --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
 SigBkgMC="   --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
-SigBkgGenMC="--DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 50 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
-SigBkgData=" --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 50 --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
+SigBkgGenMC="--DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+SigBkgData=" --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 150 --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
 PPSigBkgMCCent10=" --DoBackground true --CheckForBackgroundZ true --HFShift 0  --Tolerance 10000000 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000 --MaximumCentrality 10"
 SigBkgMCCent10="   --DoBackground true --CheckForBackgroundZ true --HFShift 0  --Tolerance 10000000 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000 --MaximumCentrality 10"
