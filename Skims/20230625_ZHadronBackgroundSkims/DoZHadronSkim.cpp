@@ -261,6 +261,8 @@ int main(int argc, char *argv[])
             MTrack.GetEntry(iE);
          MPF.GetEntry(iE);
 
+         cout<<"MEvent.vz = "<<MEvent.vz<<", MEvent.hiBin = "<<MEvent.hiBin<<", MEvent.hiHF = "<<MEvent.hiHF<<endl;
+
          if(MEvent.hiBin > MaximumCentrality * 2)
             continue;
 
@@ -299,10 +301,8 @@ int main(int argc, char *argv[])
             if(fabs(SignalVZ - VZ) > VZTolerance)
                continue;
 
-            cout<<"SignalVZ = "<<SignalVZ<<", VZ = "<<VZ<<", VZTolerance = "<<VZTolerance<<endl;
+            //cout<<"SignalVZ = "<<SignalVZ<<", VZ = "<<VZ<<", VZTolerance = "<<VZTolerance<<endl;
 
-            cout<<"MEvent.vz = "<<MEvent.vz<<", MEvent.hiBin = "<<MEvent.hiBin<<", MEvent.hiHF = "<<MEvent.hiHF<<endl;
-            
 
             // cout << "We have a match!  Signal (" << SignalHF << " " << SignalVZ << "), Background (" << SumHF << " " << VZ << ")" << endl;
 
