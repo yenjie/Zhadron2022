@@ -300,7 +300,10 @@ int main(int argc, char *argv[])
                continue;
 
             cout<<"SignalVZ = "<<SignalVZ<<", VZ = "<<VZ<<", VZTolerance = "<<VZTolerance<<endl;
+
+            cout<<"MEvent.vz = "<<MEvent.vz<<", MEvent.hiBin = "<<MEvent.hiBin<<", MEvent.hiHF = "<<MEvent.hiHF<<endl;
             
+
             // cout << "We have a match!  Signal (" << SignalHF << " " << SignalVZ << "), Background (" << SumHF << " " << VZ << ")" << endl;
 
             // we have a winner!
