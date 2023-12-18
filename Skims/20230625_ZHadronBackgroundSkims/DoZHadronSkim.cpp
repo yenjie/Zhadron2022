@@ -299,6 +299,8 @@ int main(int argc, char *argv[])
             if(fabs(SignalVZ - VZ) > VZTolerance)
                continue;
 
+            cout<<"SignalVZ = "<<SignalVZ<<", VZ = "<<VZ<<", VZTolerance = "<<VZTolerance<<endl;
+            
             // cout << "We have a match!  Signal (" << SignalHF << " " << SignalVZ << "), Background (" << SumHF << " " << VZ << ")" << endl;
 
             // we have a winner!
