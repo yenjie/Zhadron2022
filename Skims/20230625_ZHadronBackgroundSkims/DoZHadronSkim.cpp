@@ -229,7 +229,7 @@ int main(int argc, char *argv[])
       GenParticleTreeMessenger MGen(InputFile);
       PFTreeMessenger          MPF(InputFile, PFTreeName);
 
-      HiEventTreeMessenger     MSignalEvent(InputFile);
+      //HiEventTreeMessenger     MSignalEvent(InputFile);
       MuTreeMessenger          MSignalMu(InputFile);
       SkimTreeMessenger        MSignalSkim(InputFile);
       TriggerTreeMessenger     MSignalTrigger(InputFile);
@@ -268,7 +268,7 @@ int main(int argc, char *argv[])
 
          int i_gen1 = -1, i_gen2 = -1, i_pair = -1;
 
-         bool Z_passed = EventPassesZ(iE, MSignalEvent, MSignalMu, MSignalSkim, MSignalTrigger, 
+         bool Z_passed = EventPassesZ(iE, MEvent, MSignalMu, MSignalSkim, MSignalTrigger, 
             IsPP, IsData, DoMCHiBinShift, DoGenLevel, MCHiBinShift, MaximumCentrality, i_gen1, i_gen2, i_pair);
 
          MSignalMu.GetEntry(iE);
