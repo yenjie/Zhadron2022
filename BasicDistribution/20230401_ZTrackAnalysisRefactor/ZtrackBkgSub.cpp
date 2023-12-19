@@ -74,8 +74,8 @@ TFile *file_ppbkgMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v17b_PFMuon/20231218";
-const char *typeofdata1 = "ov1_50";
+const char *typeofdata = "v17c_PFMuon/20231219";
+const char *typeofdata1 = "v17c_01";
 
 void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
 {
