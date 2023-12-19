@@ -34,8 +34,7 @@ echo "Universe              = vanilla"                         > $Condor
 echo "Executable            = $PWD/RunCondor.sh"               >> $Condor
 echo "should_transfer_files = NO"                              >> $Condor
 echo "requirements = (OpSysAndVer =?= \"AlmaLinux9\")"         >> $Condor
-#echo "MY.WantOS             = \"el9\""                         >> $Condor
-echo "+JobFlavour           = \"tomorrow\""                   >> $Condor
+echo "+JobFlavour           = \"testmatch\""                   >> $Condor
 echo                                                           >> $Condor
 
 Count=0

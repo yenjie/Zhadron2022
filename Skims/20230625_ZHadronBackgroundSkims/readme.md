@@ -8,3 +8,5 @@
    * Replacing DimuonPassTightCut for dxy and dz with absolute values
 * Version 17b - Dec 14, 2023
    * Self-mixing version.
+* Version 17c - Dec 19, 2023
+   * Reject if the samples to-be mixed correspond to the same Z. Also some bug fix.

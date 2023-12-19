@@ -56,7 +56,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V17b";
+   string Version = "V17c";
 
    CommandLine CL(argc, argv);
 
@@ -261,7 +261,7 @@ int main(int argc, char *argv[])
             MTrack.GetEntry(iE);
          MPF.GetEntry(iE);
 
-         cout<<"MEvent.vz = "<<MEvent.vz<<", MEvent.hiBin = "<<MEvent.hiBin<<", MEvent.hiHF = "<<MEvent.hiHF<<endl;
+         //cout<<"MEvent.vz = "<<MEvent.vz<<", MEvent.hiBin = "<<MEvent.hiBin<<", MEvent.hiHF = "<<MEvent.hiHF<<endl;
 
          if(MEvent.hiBin > MaximumCentrality * 2)
             continue;
