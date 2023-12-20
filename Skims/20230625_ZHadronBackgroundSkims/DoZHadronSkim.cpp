@@ -372,20 +372,18 @@ int main(int argc, char *argv[])
 
                cout<<"a"<<endl;
 
-               cout<<"i_gen1 = "<<i_gen1<<", i_gen2 = "<<i_gen2<<", i_pair = "<<i_pair<<endl;
+               if(CheckForBackgroundZ && ((DoGenCorrelation && i_gen1 != -1 && i_gen2 != -1 ) || (!DoGenCorrelation && i_pair != -1)) ){
 
-               if(i_gen1 == -1 || i_gen2 == -1 || i_pair == -1)
-                  continue;
-
-               double SigMu1Eta = DoGenCorrelation ? MSignalMu.GenEta[i_gen1] : MSignalMu.DiEta1[i_pair];
-               double SigMu1Phi = DoGenCorrelation ? MSignalMu.GenPhi[i_gen1] : MSignalMu.DiPhi1[i_pair];
-               double SigMu2Eta = DoGenCorrelation ? MSignalMu.GenEta[i_gen2] : MSignalMu.DiEta2[i_pair];
-               double SigMu2Phi = DoGenCorrelation ? MSignalMu.GenPhi[i_gen2] : MSignalMu.DiPhi2[i_pair];
+                  double SigMu1Eta = DoGenCorrelation ? MSignalMu.GenEta[i_gen1] : MSignalMu.DiEta1[i_pair];
+                  double SigMu1Phi = DoGenCorrelation ? MSignalMu.GenPhi[i_gen1] : MSignalMu.DiPhi1[i_pair];
+                  double SigMu2Eta = DoGenCorrelation ? MSignalMu.GenEta[i_gen2] : MSignalMu.DiEta2[i_pair];
+                  double SigMu2Phi = DoGenCorrelation ? MSignalMu.GenPhi[i_gen2] : MSignalMu.DiPhi2[i_pair];
+               
+                  if(fabs(Mu1Eta-SigMu1Eta)<0.0001 && fabs(Mu2Eta-SigMu2Eta)<0.0001 && fabs(Mu1Phi-SigMu1Phi)<0.0001 && fabs(Mu2Phi-SigMu2Phi)<0.0001)
+                     continue;
+               }
 
                cout<<"b"<<endl;
-
-               if(fabs(Mu1Eta-SigMu1Eta)<0.0001 && fabs(Mu2Eta-SigMu2Eta)<0.0001 && fabs(Mu1Phi-SigMu1Phi)<0.0001 && fabs(Mu2Phi-SigMu2Phi)<0.0001)
-                  continue;
 
                double DeltaEtaMu1 = TrackEta - Mu1Eta;
                double DeltaEtaMu2 = TrackEta - Mu2Eta;
@@ -676,9 +674,9 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
             isgoodgen = true;
 
             // We are only taking the first Z.
-            if(i_gen1==-1)
+            if(i_gen1 == -1)
                i_gen1 = igen1;
-            if(i_gen2==-1)
+            if(i_gen2 == -1)
                i_gen2 = igen2;
 
          }
