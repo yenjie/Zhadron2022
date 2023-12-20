@@ -40,7 +40,7 @@ echo                                                           >> $Condor
 Count=0
 for i in `ls $Directory/*root`
 do
-   BackgroundFiles=`ls $BackgroundFolder/* | shuf | head -n$BackgroundCount | tr '\n' ',' | sed "s/,$//"`
+   BackgroundFiles=`ls $BackgroundFolder/*.root | shuf | head -n$BackgroundCount | tr '\n' ',' | sed "s/,$//"`
 
    echo "Arguments = $PWD $ProjectBase $CMSSW_BASE $OutputBase/Result${Count}.root $Count --Background $BackgroundFiles --Input $i $@" >> $Condor
    echo "Output    = $ScriptFolder/Part${Count}.out"                                         >> $Condor
