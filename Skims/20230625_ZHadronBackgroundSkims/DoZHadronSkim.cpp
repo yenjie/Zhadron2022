@@ -372,6 +372,8 @@ int main(int argc, char *argv[])
 
                cout<<"a"<<endl;
 
+               cout<<"i_gen1 = "<<i_gen1<<", i_gen2 = "<<i_gen2<<", i_pair = "<<i_pair<<endl;
+
                if(i_gen1 == -1 || i_gen2 == -1 || i_pair == -1)
                   continue;
 
