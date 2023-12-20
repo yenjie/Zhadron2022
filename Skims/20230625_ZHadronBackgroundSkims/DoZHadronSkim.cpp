@@ -370,6 +370,8 @@ int main(int argc, char *argv[])
                double Mu2Eta = DoGenCorrelation ? MZHadron.genMuEta2->at(0) : MZHadron.muEta2->at(0);
                double Mu2Phi = DoGenCorrelation ? MZHadron.genMuPhi2->at(0) : MZHadron.muPhi2->at(0);
 
+               cout<<"a"<<endl;
+
                if(i_gen1 == -1 || i_gen2 == -1 || i_pair == -1)
                   continue;
 
@@ -378,6 +380,7 @@ int main(int argc, char *argv[])
                double SigMu2Eta = DoGenCorrelation ? MSignalMu.GenEta[i_gen2] : MSignalMu.DiEta2[i_pair];
                double SigMu2Phi = DoGenCorrelation ? MSignalMu.GenPhi[i_gen2] : MSignalMu.DiPhi2[i_pair];
 
+               cout<<"b"<<endl;
 
                if(fabs(Mu1Eta-SigMu1Eta)<0.0001 && fabs(Mu2Eta-SigMu2Eta)<0.0001 && fabs(Mu1Phi-SigMu1Phi)<0.0001 && fabs(Mu2Phi-SigMu2Phi)<0.0001)
                   continue;
@@ -396,6 +399,8 @@ int main(int argc, char *argv[])
 
                double ZEta = DoGenCorrelation ? MZHadron.genZEta->at(0) : MZHadron.zEta->at(0);
                double ZPhi = DoGenCorrelation ? MZHadron.genZPhi->at(0) : MZHadron.zPhi->at(0);
+
+               cout<<"TrackEta = "<<TrackEta<<", ZEta = "<<ZEta<<endl;
 
                double deltaEta = TrackEta - ZEta;
                double deltaPhi = DeltaPhi(TrackPhi, ZPhi);
