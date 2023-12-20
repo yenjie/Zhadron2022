@@ -10,3 +10,5 @@
    * Self-mixing version.
 * Version 17c - Dec 19, 2023
    * Reject if the samples to-be mixed correspond to the same Z. Also some bug fix.
+* Version 17d - Dec 20, 2023
+   * Bug fix for same-Z rejection.
