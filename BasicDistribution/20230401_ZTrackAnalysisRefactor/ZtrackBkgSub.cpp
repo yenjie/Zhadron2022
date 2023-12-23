@@ -75,7 +75,7 @@ TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
 const char *typeofdata = "v17d_PFMuon/20231223";
-const char *typeofdata1 = "SigBkg";
+const char *typeofdata1 = "nominal";
 
 void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
 {
