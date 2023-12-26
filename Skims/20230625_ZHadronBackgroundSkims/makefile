@@ -108,7 +108,7 @@ PrepareToRunRandomDataBackgroundUEDown30:
 
 PrepareToRunRandomMCSigBkg:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCSigBkg_v17d_PFmuon_300/ $(EOSBase)/OutputMCSigBkg_v17d_PFmuon_300/ $(PbPbSignalMC)/ 300 \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCSigBkg_v17d_PFmuon_442/ $(EOSBase)/OutputMCSigBkg_v17d_PFmuon_442/ $(PbPbSignalMC)/ 442 \
 		`./Expand Setting.dh PbPbSignalMC Nominal`
 
 PrepareToRunRandomDataSigBkg:
@@ -133,7 +133,7 @@ PrepareToRunRandomPPDataSigBkg:
 
 PrepareToRunRandomMCSigBkgCent10:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCSigBkg_v17d_Cent10_300/ $(EOSBase)/OutputMCSigBkg_v17d_Cent10_300/ $(PbPbSignalMC)/ 300 \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCSigBkg_v17d_Cent10_442/ $(EOSBase)/OutputMCSigBkg_v17d_Cent10_442/ $(PbPbSignalMC)/ 442 \
 		`./Expand Setting.dh PbPbSignalMCCent10 Nominal`
 
 PrepareToRunRandomPPMCSigBkgCent10:
