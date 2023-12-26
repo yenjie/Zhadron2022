@@ -74,8 +74,8 @@ TFile *file_ppbkgMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v17d_PFMuon/20231223";
-const char *typeofdata1 = "nominal";
+const char *typeofdata = "v17d_PFMuon/20231225";
+const char *typeofdata1 = "sigbkg_01";
 
 void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000)
 {
@@ -259,7 +259,7 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    hMC_sb_phi_gen->Add(hMC_bkg_phi_gen,-1);
 
-   //hpp_phi->Add(hpp_bkg_phi,-1); //SigBkg
+   hpp_phi->Add(hpp_bkg_phi,-1); //SigBkg
 
    //hData_sbr_eta->Divide(hData_bkg_eta);
    //hMC_sbr_eta->Divide(hMC_bkg_eta);
@@ -335,8 +335,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    if(TptL==0) TptL=TptL_min;
 
-   TLatex *pt0 = new TLatex(0.15,0.82,"Nominal MC");
-   //TLatex *pt0 = new TLatex(0.15,0.82,"Z - Z #times Z (MC)");
+   //TLatex *pt0 = new TLatex(0.15,0.82,"Nominal MC");
+   TLatex *pt0 = new TLatex(0.15,0.82,"Z - Z #times Z (MC)");
    //TLatex *pt0 = new TLatex(0.15,0.82,"Nominal MC GEN (Pythia+Hydjet)");
    pt0->SetTextFont(42);
    pt0->SetTextSize(0.03);
@@ -385,8 +385,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    ptInt1->SetTextSize(0.03);
    ptInt1->SetNDC(kTRUE);
 
-   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  #Sigma pp = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
-   //TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  #Sigma pp (raw-bkg) = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
+   //TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  #Sigma pp = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
+   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  #Sigma pp (raw-bkg) = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
    ptInt2->SetTextFont(42);
    ptInt2->SetTextSize(0.03);
    ptInt2->SetNDC(kTRUE);
@@ -433,8 +433,8 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    leg1.AddEntry(hMC_phi ,"raw","lep");
    leg1.AddEntry(hMC_bkg_phi ,"bkg","lep");
    leg1.AddEntry(hMC_sb_phi ,"raw-bkg","lep");
-   //leg1.AddEntry(hpp_phi ,"pp raw-bkg","l");
-   leg1.AddEntry(hpp_phi ,"pp","l");
+   leg1.AddEntry(hpp_phi ,"pp raw-bkg","l");
+   //leg1.AddEntry(hpp_phi ,"pp","l");
    //leg1.AddEntry(hMC_sb_phi_gen,"raw-bkg GEN","lep");
    //leg1.AddEntry(hMC_phi_gen,"sig GEN","lep");
    //leg1.AddEntry(hpp_phi ,"sig GEN","l");
@@ -548,14 +548,15 @@ int main(int argc, char *argv[]){
    style();
 
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
-   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_PFmuon.root","read");
+   //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_PFmuon.root","read");
+   file_bkgMC = TFile::Open("GraphMCSigBkg_v17d_PFmuon_300_01.root","read");
    //file_sigDA = TFile::Open("~/eos_base/BasicPlots/GraphDataSignal_v17_PFmuon.root","read");
    //file_bkgDA = TFile::Open("~/eos_base/BasicPlots/GraphDataBackground_v17_PFmuon.root","read");
    //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
    file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon.root","read");
    //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPData_v17_PFmuon.root","read");
 
-   file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17d_PFmuon.root","read");
+   file_ppbkgMC  = TFile::Open("GraphPPMCSigBkg_v17d_PFmuon_143.root","read");
 
    file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
    //file_sigMCgen = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen0Sub_v17_PFmuon.root","read");
