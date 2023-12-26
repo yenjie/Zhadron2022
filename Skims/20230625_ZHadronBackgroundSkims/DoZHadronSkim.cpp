@@ -316,8 +316,26 @@ int main(int argc, char *argv[])
             MZHadron.CopyNonTrack(MSignalZHadron);   // this needs to be implemented
             MZHadron.BackgroundHF = SumHF;
 
+            double Mu1Eta = DoGenCorrelation ? MZHadron.genMuEta1->at(0) : MZHadron.muEta1->at(0);
+            double Mu1Phi = DoGenCorrelation ? MZHadron.genMuPhi1->at(0) : MZHadron.muPhi1->at(0);
+            double Mu2Eta = DoGenCorrelation ? MZHadron.genMuEta2->at(0) : MZHadron.muEta2->at(0);
+            double Mu2Phi = DoGenCorrelation ? MZHadron.genMuPhi2->at(0) : MZHadron.muPhi2->at(0);
+
+            if(CheckForBackgroundZ && ((DoGenCorrelation && i_gen1 != -1 && i_gen2 != -1 ) || (!DoGenCorrelation && i_pair != -1)) ){
+
+               double SigMu1Eta = DoGenCorrelation ? MSignalMu.GenEta[i_gen1] : MSignalMu.DiEta1[i_pair];
+               double SigMu1Phi = DoGenCorrelation ? MSignalMu.GenPhi[i_gen1] : MSignalMu.DiPhi1[i_pair];
+               double SigMu2Eta = DoGenCorrelation ? MSignalMu.GenEta[i_gen2] : MSignalMu.DiEta2[i_pair];
+               double SigMu2Phi = DoGenCorrelation ? MSignalMu.GenPhi[i_gen2] : MSignalMu.DiPhi2[i_pair];
+            
+               if(fabs(Mu1Eta-SigMu1Eta)<0.0001 && fabs(Mu2Eta-SigMu2Eta)<0.0001 && fabs(Mu1Phi-SigMu1Phi)<0.0001 && fabs(Mu2Phi-SigMu2Phi)<0.0001)
+                  continue;
+            }
+
             // Copy over background tracks
             int NTrack = DoGenCorrelation ? MGen.Mult : (IsPP ? MTrackPP.nTrk : MTrack.TrackPT->size());
+
+
             for(int itrack = 0; itrack < NTrack; itrack++)
             {
                if(DoGenCorrelation == false)   // track selection on reco
@@ -368,21 +386,6 @@ int main(int argc, char *argv[])
                int TrackCharge = DoGenCorrelation ? MGen.Charge->at(itrack) : (IsPP ? MTrackPP.trkCharge[itrack] : MTrack.TrackCharge->at(itrack));
                int SubEvent    = DoGenCorrelation ? (MGen.SubEvent->at(itrack) + 1) : (IsPP ? 0 : 1);
 
-               double Mu1Eta = DoGenCorrelation ? MZHadron.genMuEta1->at(0) : MZHadron.muEta1->at(0);
-               double Mu1Phi = DoGenCorrelation ? MZHadron.genMuPhi1->at(0) : MZHadron.muPhi1->at(0);
-               double Mu2Eta = DoGenCorrelation ? MZHadron.genMuEta2->at(0) : MZHadron.muEta2->at(0);
-               double Mu2Phi = DoGenCorrelation ? MZHadron.genMuPhi2->at(0) : MZHadron.muPhi2->at(0);
-
-               if(CheckForBackgroundZ && ((DoGenCorrelation && i_gen1 != -1 && i_gen2 != -1 ) || (!DoGenCorrelation && i_pair != -1)) ){
-
-                  double SigMu1Eta = DoGenCorrelation ? MSignalMu.GenEta[i_gen1] : MSignalMu.DiEta1[i_pair];
-                  double SigMu1Phi = DoGenCorrelation ? MSignalMu.GenPhi[i_gen1] : MSignalMu.DiPhi1[i_pair];
-                  double SigMu2Eta = DoGenCorrelation ? MSignalMu.GenEta[i_gen2] : MSignalMu.DiEta2[i_pair];
-                  double SigMu2Phi = DoGenCorrelation ? MSignalMu.GenPhi[i_gen2] : MSignalMu.DiPhi2[i_pair];
-               
-                  if(fabs(Mu1Eta-SigMu1Eta)<0.0001 && fabs(Mu2Eta-SigMu2Eta)<0.0001 && fabs(Mu1Phi-SigMu1Phi)<0.0001 && fabs(Mu2Phi-SigMu2Phi)<0.0001)
-                     continue;
-               }
 
                double DeltaEtaMu1 = TrackEta - Mu1Eta;
                double DeltaEtaMu2 = TrackEta - Mu2Eta;
@@ -585,7 +588,10 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
    {
       MSignalEvent.hiBin = MSignalEvent.hiBin - MCHiBinShift;
       if((MSignalEvent.hiBin < 0) || (MSignalEvent.hiBin > MaximumCentrality*2) )   // too central, skip
+      {   
          Z_passed = false;
+         return false;
+      }
    }
 
    // Do event selection and triggers
@@ -599,13 +605,19 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
          // Event selection criteria
          //    see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
          if(pprimaryVertexFilter == 0 || beamScrapingFilter == 0)
+         {   
             Z_passed = false;
+            return false;
+         }
 
          //HLT trigger to select dimuon events, see Kaya's note: AN2019_143_v12, p.5
          int HLT_HIL2Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL2Mu12");
          int HLT_HIL3Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL3Mu12");
          if(HLT_HIL3Mu12 == 0 && HLT_HIL2Mu12 == 0)
+         {   
             Z_passed = false;
+            return false;
+         }
       }
    }
    else
@@ -619,12 +631,18 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
          // Event selection criteria
          //    see https://twiki.cern.ch/twiki/bin/viewauth/CMS/HIPhotonJe5TeVpp2017PbPb2018
          if(pprimaryVertexFilter == 0 || phfCoincFilter2Th4 == 0 || pclusterCompatibilityFilter == 0)
+         {   
             Z_passed = false;
+            return false;
+         }
 
          //HLT trigger to select dimuon events, see Kaya's note: AN2019_143_v12, p.5
          int HLT_HIL3Mu12 = MSignalTrigger.CheckTriggerStartWith("HLT_HIL3Mu12");
          if(HLT_HIL3Mu12 == 0)
+         {   
             Z_passed = false;
+            return false;
+         }
       }
    }
 
@@ -682,7 +700,10 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
       }
 
       if(!isgoodgen)
+      {   
          Z_passed = false;
+         return false;
+      }
    }
 
    // Loop over reco dimuon pairs
@@ -715,7 +736,10 @@ bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &M
    }
 
    if(!isgooddimuon)
+   {   
       Z_passed = false;
+      return false;
+   }
 
    return Z_passed;   
 }
