@@ -397,8 +397,15 @@ void ZtrackBkg_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    ptInt1->SetTextSize(0.03);
    ptInt1->SetNDC(kTRUE);
 
+   string pptext;
+
+   if(selfmix)
+      pptext = "#Sigma pp (raw-bkg)";
+   else
+      pptext = "#Sigma pp";
+
    //TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  #Sigma pp = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
-   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  #Sigma pp (raw-bkg) = %.1f",hMC_sb_phi->Integral(),hpp_phi->Integral()));
+   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  %s = %.1f",hMC_sb_phi->Integral(),pptext.c_str(),hpp_phi->Integral()));
    ptInt2->SetTextFont(42);
    ptInt2->SetTextSize(0.03);
    ptInt2->SetNDC(kTRUE);
