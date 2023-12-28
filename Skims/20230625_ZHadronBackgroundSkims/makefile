@@ -53,7 +53,7 @@ TestRunRandomDataSigBkg: Execute
 
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17d_PFmuon_cent10/ $(EOSBase)/OutputMCBackground_v17d_PFmuon_cent10/ $(PbPbBackgroundMC)/ 37 \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17d_cent10_matched/ $(EOSBase)/OutputMCBackground_v17d_cent10_matched/ $(PbPbBackgroundMC)/ 37 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
 PrepareToRunRandomDataBackground:
