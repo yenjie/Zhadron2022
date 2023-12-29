@@ -85,7 +85,7 @@ PPSigBkgMC="   --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tole
 PPSigBkgGenMC="--DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
 PPSigBkgData=" --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 150 --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
-SigBkgMC="   --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 5 --HFCeiling 134000"
+SigBkgMC="   --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 134000"
 SigBkgGenMC="--DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
 SigBkgData=" --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 150 --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
