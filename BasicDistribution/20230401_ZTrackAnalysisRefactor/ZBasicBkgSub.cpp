@@ -373,8 +373,8 @@ void ZBasicBkgSub_loop(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    double bineta = 0.032, binphi = M_PI/50;
 
    string HistName[] = {"HZEta", "HZPhi", "HTrackEta", "HTrackPhi"};
-   string XTitleName[] = {"#eta_{Z}", "#phi_{Z}", "#eta_{track}", "#phi_{track}"}
-   string YTitleName[] = {"dN/d#eta", "dN/d#phi", "dN/d#eta", "dN/d#phi"}
+   string XTitleName[] = {"#eta_{Z}", "#phi_{Z}", "#eta_{track}", "#phi_{track}"};
+   string YTitleName[] = {"dN/d#eta", "dN/d#phi", "dN/d#eta", "dN/d#phi"};
    double bin_width[] = {bineta, binphi, bineta, binphi};
 
    int i_draw = sizeof(HistName)/sizeof(HistName[0]);
