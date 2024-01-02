@@ -321,10 +321,17 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    hMC_phi->SetMaximum(1.6*max1);
    hMC_bkg_phi->SetMaximum(1.6*max1);
 
-   hMC_phi->SetMinimum(-1.6*min1);
-   hMC_bkg_phi->SetMinimum(-1.6*min1);
-   hMC_sb_phi->SetMinimum(-1.6*min1);
-   hpp_phi->SetMinimum(-1.6*min1);
+   if(min1<0){
+      hMC_phi->SetMinimum(1.6*min1);
+      hMC_bkg_phi->SetMinimum(1.6*min1);
+      hMC_sb_phi->SetMinimum(1.6*min1);
+      hpp_phi->SetMinimum(1.6*min1);
+   }else{
+      hMC_phi->SetMinimum(0);
+      hMC_bkg_phi->SetMinimum(0);
+      hMC_sb_phi->SetMinimum(0);
+      hpp_phi->SetMinimum(0);
+   }
 
    RPad->cd();
 
