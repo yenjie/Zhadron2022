@@ -174,16 +174,15 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    hpp_phi->Scale(1./tpM_tN/bin_width);
    hpp_bkg_phi->Scale(1./tpb_tN/bin_width);
 
-   hData_Zeta->Rebin(rebinnum);
-   hMC_Zeta->Rebin(rebinnum);
-   hpp_Zeta->Rebin(rebinnum);
-   hMC_Zeta_gen0Sub->Rebin(rebinnum);
+   hMC_phi->Rebin(rebinnum);
+   hMC_bkg_phi->Rebin(rebinnum);
+   hpp_phi->Rebin(rebinnum);
+   hpp_bkg_phi->Rebin(rebinnum);
 
-   hData_Zeta->Scale(1./rebinnum);
-   hMC_Zeta->Scale(1./rebinnum);
-   hpp_Zeta->Scale(1./rebinnum);
-   hMC_Zeta_gen0Sub->Scale(1./rebinnum);
-
+   hMC_phi->Scale(1./rebinnum);
+   hMC_bkg_phi->Scale(1./rebinnum);
+   hpp_phi->Scale(1./rebinnum);
+   hpp_bkg_phi->Scale(1./rebinnum);
 
    TH1D *hMC_sb_phi = (TH1D*) hMC_phi->Clone("hMC_sb_phi");
 
