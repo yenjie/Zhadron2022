@@ -233,7 +233,7 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
 
    // == Start drawing == //
 
-   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/BkgSub",typeofdata));
+   gSystem->Exec(Form("mkdir -p /eos/user/p/pchou/figs/track/%s/BasicBkgSub/%s",typeofdata,HistName.c_str()));
 
    double max1 = hMC_phi->GetMaximum();
    double max2 = hMC_bkg_phi->GetMaximum();
@@ -345,7 +345,7 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    PbPb_to_pp->Draw("ep");
    horiz_line->Draw("hist same");
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BasicBkgSub/%s/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f.png",typeofdata,typeofdata1,HistName.c_str(),ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BasicBkgSub/%s/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f.png",typeofdata,HistName.c_str(),typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    
    Pad->SetLogy();
    hMC_phi->SetMinimum(0.01);
@@ -358,7 +358,7 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    hMC_sb_phi->SetMaximum(1000*max1);
    hpp_phi->SetMaximum(1000*max1);
 
-   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BasicBkgSub/%s/Ztrack_%s_comlog_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_log.png",typeofdata,typeofdata1,HistName.c_str(),ptL,ptH,centL,centH,TptL,TptH)); 
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BasicBkgSub/%s/Ztrack_%s_comlog_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_log.png",typeofdata,HistName.c_str(),typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BasicBkgSub/%s/pdf/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.pdf",typeofdata,typeofdata1,HistName.c_str(),ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BasicBkgSub/%s/C/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Dphicom.C",typeofdata,typeofdata1,HistName.c_str(),ptL,ptH,centL,centH,TptL,TptH)); 
 
