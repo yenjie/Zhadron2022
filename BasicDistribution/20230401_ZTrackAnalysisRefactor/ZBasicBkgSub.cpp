@@ -274,8 +274,13 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    hMC_sb_phi->SetMarkerStyle(kFullCircle);
 
    hpp_phi->SetLineWidth(2);
+
+   double min1 = hMC_sb_phi->GetMinimum();
+   double min2 = hpp_phi->GetMinimum();
    
    Pad->cd();
+
+   if(min1>min2) min1=min2;
 
    if(max1<max2) hMC_bkg_phi->Draw("ep");
    else hMC_phi->Draw("ep");
@@ -316,10 +321,10 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    hMC_phi->SetMaximum(1.6*max1);
    hMC_bkg_phi->SetMaximum(1.6*max1);
 
-   hMC_phi->SetMinimum(-10);
-   hMC_bkg_phi->SetMinimum(-10);
-   hMC_sb_phi->SetMinimum(-10);
-   hpp_phi->SetMinimum(-10);
+   hMC_phi->SetMinimum(-1.6*min1);
+   hMC_bkg_phi->SetMinimum(-1.6*min1);
+   hMC_sb_phi->SetMinimum(-1.6*min1);
+   hpp_phi->SetMinimum(-1.6*min1);
 
    RPad->cd();
 
