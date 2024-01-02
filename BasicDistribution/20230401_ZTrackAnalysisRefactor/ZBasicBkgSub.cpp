@@ -20,7 +20,7 @@ double TptL_min = 0.5;
 
 int main(int argc, char *argv[]);
 void ZBasicBkgSub_single(int binnum,float ptL,float ptH,float centL,float centH,float TptL,float TptH,
-   string HistName, double bin_width, string XTitleName, string YTitleName);
+   string HistName, double bin_width, string XTitleName, string YTitleName, int rebinnum);
 void ZBasicBkgSub_loop(int binnum,float ptL,float ptH,float centL,float centH,float TptL,float TptH);
 
 void style(){
@@ -80,7 +80,7 @@ const char *typeofdata1 = "350_ov5";
 bool selfmix = true;
 
 void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000, 
-   string HistName="HPhi", double bin_width=M_PI/50, string XTitleName = "#Delta#phi_{Z,track}", string YTitleName = "dN/d#Delta#phi")
+   string HistName="HPhi", double bin_width=M_PI/50, string XTitleName = "#Delta#phi_{Z,track}", string YTitleName = "dN/d#Delta#phi", int rebinnum=1)
 {
    style();
    std::cout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
@@ -173,6 +173,16 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    hMC_bkg_phi->Scale(1./tMb_tN/bin_width);
    hpp_phi->Scale(1./tpM_tN/bin_width);
    hpp_bkg_phi->Scale(1./tpb_tN/bin_width);
+
+   hData_Zeta->Rebin(rebinnum);
+   hMC_Zeta->Rebin(rebinnum);
+   hpp_Zeta->Rebin(rebinnum);
+   hMC_Zeta_gen0Sub->Rebin(rebinnum);
+
+   hData_Zeta->Scale(1./rebinnum);
+   hMC_Zeta->Scale(1./rebinnum);
+   hpp_Zeta->Scale(1./rebinnum);
+   hMC_Zeta_gen0Sub->Scale(1./rebinnum);
 
 
    TH1D *hMC_sb_phi = (TH1D*) hMC_phi->Clone("hMC_sb_phi");
@@ -360,10 +370,18 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/BasicBkgSub/%s/Ztrack_%s_com_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f.png",typeofdata,HistName.c_str(),typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    
    Pad->SetLogy();
-   hMC_phi->SetMinimum(0.01);
-   hMC_bkg_phi->SetMinimum(0.01);
-   hMC_sb_phi->SetMinimum(0.01);
-   hpp_phi->SetMinimum(0.01);
+
+   if(min1>0){
+      hMC_phi->SetMinimum(0.5*min1);
+      hMC_bkg_phi->SetMinimum(0.5*min1);
+      hMC_sb_phi->SetMinimum(0.5*min1);
+      hpp_phi->SetMinimum(0.5*min1);
+   }else{
+      hMC_phi->SetMinimum(0.01);
+      hMC_bkg_phi->SetMinimum(0.01);
+      hMC_sb_phi->SetMinimum(0.01);
+      hpp_phi->SetMinimum(0.01);
+   }
 
    hMC_phi->SetMaximum(1000*max1);
    hMC_bkg_phi->SetMaximum(1000*max1);
@@ -388,11 +406,13 @@ void ZBasicBkgSub_loop(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    string XTitleName[] = {"#eta_{Z}", "#phi_{Z}", "#eta_{track}", "#phi_{track}"};
    string YTitleName[] = {"dN/d#eta", "dN/d#phi", "dN/d#eta", "dN/d#phi"};
    double bin_width[] = {bineta, binphi, bineta, binphi};
+   int rebin_num[] = {2, 2, 2, 2};
 
    int i_draw = sizeof(HistName)/sizeof(HistName[0]);
 
    for(int i=0; i<i_draw; i++)
-      ZBasicBkgSub_single(binnum, ptL, ptH, centL, centH, TptL, TptH, HistName[i], bin_width[i], XTitleName[i], YTitleName[i]);
+      ZBasicBkgSub_single(binnum, ptL, ptH, centL, centH, TptL, TptH, 
+         HistName[i], bin_width[i], XTitleName[i], YTitleName[i], rebin_num[i]);
 
 }
 
