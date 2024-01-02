@@ -402,8 +402,8 @@ void ZBasicBkgSub_loop(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    double bineta = 0.032, binphi = M_PI/50;
 
    string HistName[] = {"HZEta", "HZPhi", "HTrackEta", "HTrackPhi", "HEta", "HPhi"};
-   string XTitleName[] = {"#eta_{Z}", "#phi_{Z}", "#eta_{track}", "#phi_{track}", "#Delta#phi_{Z,track}", "#Delta#phi_{Z,track}"};
-   string YTitleName[] = {"dN/d#eta", "dN/d#phi", "dN/d#eta", "dN/d#phi", "dN/d#Delta#phi", "dN/d#Delta#phi"};
+   string XTitleName[] = {"#eta_{Z}", "#phi_{Z}", "#eta_{track}", "#phi_{track}", "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}"};
+   string YTitleName[] = {"dN/d#eta", "dN/d#phi", "dN/d#eta", "dN/d#phi", "dN/d#Delta#eta", "dN/d#Delta#phi"};
    double bin_width[] = {bineta, binphi, bineta, binphi, bineta, binphi};
    int rebin_num[] = {2, 2, 2, 2, 1, 1};
 
