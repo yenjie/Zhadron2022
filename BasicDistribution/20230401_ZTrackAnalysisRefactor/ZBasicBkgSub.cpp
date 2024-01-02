@@ -21,7 +21,7 @@ double TptL_min = 0.5;
 int main(int argc, char *argv[]);
 void ZBasicBkgSub_single(int binnum,float ptL,float ptH,float centL,float centH,float TptL,float TptH,
    string HistName, double bin_width, string XTitleName, string YTitleName);
-void ZBasicBkgSub_loop(int binnum,float ptL,float ptH,float centL,float centH,float TptL,float TptH)
+void ZBasicBkgSub_loop(int binnum,float ptL,float ptH,float centL,float centH,float TptL,float TptH);
 
 void style(){
 
@@ -379,7 +379,7 @@ void ZBasicBkgSub_loop(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    int i_draw = sizeof(HistName)/sizeof(HistName[0]);
 
-   for(int i==0;i<i_draw;i++)
+   for(int i=0; i<i_draw; i++)
       ZBasicBkgSub_single(binnum, ptL, ptH, centL, centH, TptL, TptH, HistName[i], bin_width[i], XTitleName[i], YTitleName[i]);
 
 }
