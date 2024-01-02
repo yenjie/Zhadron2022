@@ -112,4 +112,9 @@ ExecuteBkgSub: ZtrackBkgSub.cpp
 	g++ ZtrackBkgSub.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o ExecuteBkgSub `root-config --cflags --libs` -std=c++17
 
+DrawBkgSub: ExecuteBasicBkgSub
+	./ExecuteBasicBkgSub
 
+ExecuteBkgSub: ZBasicBkgSub.cpp
+	g++ ZBasicBkgSub.cpp -I. -I$(ProjectBase)/CommonCode/include \
+		-o ExecuteBasicBkgSub `root-config --cflags --libs` -std=c++17
