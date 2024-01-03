@@ -20,7 +20,7 @@ double TptL_min = 0.5;
 
 int main(int argc, char *argv[]);
 void ZBasicBkgSub_single(int binnum,float ptL,float ptH,float centL,float centH,float TptL,float TptH,
-   string HistName, double bin_width, string XTitleName, string YTitleName, int rebinnum);
+   string HistName, string XTitleName, string YTitleName, int rebinnum);
 void ZBasicBkgSub_loop(int binnum,float ptL,float ptH,float centL,float centH,float TptL,float TptH);
 
 void style(){
@@ -83,7 +83,7 @@ const char *typeofdata1 = "37_ov10";
 bool selfmix = false;
 
 void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000, 
-   string HistName="HPhi", double bin_width=M_PI/50, string XTitleName = "#Delta#phi_{Z,track}", string YTitleName = "dN/d#Delta#phi", int rebinnum=1)
+   string HistName="HPhi", string XTitleName = "#Delta#phi_{Z,track}", string YTitleName = "dN/d#Delta#phi", int rebinnum=1)
 {
    style();
    std::cout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
@@ -172,6 +172,8 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    std::cout<<"tpM_tN = "<<tpM_tN<<std::endl;
    std::cout<<"tpb_tN = "<<tpb_tN<<std::endl;
 
+   double bin_width = hMC_phi->GetBinWidth(1);
+
    hMC_phi->Scale(1./tM_tN/bin_width);
    hMC_bkg_phi->Scale(1./tMb_tN/bin_width);
    hpp_phi->Scale(1./tpM_tN/bin_width);
@@ -254,12 +256,14 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    hMC_bkg_phi->SetMarkerColor(kBlue);
    hMC_sb_phi->SetMarkerColor(kRed);
 
+   std::cout<< "bin_width = " << bin_width;
+   std::cout<< ", rebinnum = " << rebinnum << std::endl;
    std::cout<< "hMC_phi->Integral() = "<< hMC_phi->Integral();
    std::cout<< ", hMC_bkg_phi->Integral() = "<< hMC_bkg_phi->Integral();
    std::cout<< ", hMC_sb_phi->Integral() = "<< hMC_sb_phi->Integral();
    std::cout<< ", hpp_phi->Integral() = "<< hpp_phi->Integral()<<std::endl;
 
-   TLatex *ptInt1 = new TLatex(0.15,0.46,Form("#Sigma raw = %.1f,  #Sigma bkg = %.1f",hMC_phi->Integral(),hMC_bkg_phi->Integral()));
+   TLatex *ptInt1 = new TLatex(0.15,0.46,Form("#Sigma raw = %.1f,  #Sigma bkg = %.1f",hMC_phi->Integral()*bin_width*rebinnum,hMC_bkg_phi->Integral()*bin_width*rebinnum));
    ptInt1->SetTextFont(42);
    ptInt1->SetTextSize(0.03);
    ptInt1->SetNDC(kTRUE);
@@ -271,7 +275,7 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    else
       pptext = "#Sigma pp";
 
-   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  %s = %.1f",hMC_sb_phi->Integral(),pptext.c_str(),hpp_phi->Integral()));
+   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  %s = %.1f",hMC_sb_phi->Integral()*bin_width*rebinnum,pptext.c_str(),hpp_phi->Integral()*bin_width*rebinnum));
    ptInt2->SetTextFont(42);
    ptInt2->SetTextSize(0.03);
    ptInt2->SetNDC(kTRUE);
@@ -407,14 +411,13 @@ void ZBasicBkgSub_loop(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    string HistName[] = {"HZEta", "HZPhi", "HTrackEta", "HTrackPhi", "HEta", "HPhi"};
    string XTitleName[] = {"#eta_{Z}", "#phi_{Z}", "#eta_{track}", "#phi_{track}", "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}"};
    string YTitleName[] = {"dN/d#eta", "dN/d#phi", "dN/d#eta", "dN/d#phi", "dN/d#Delta#eta", "dN/d#Delta#phi"};
-   double bin_width[] = {bineta, binphi, bineta, binphi, bineta, binphi};
    int rebin_num[] = {2, 2, 2, 2, 1, 1};
 
    int i_draw = sizeof(HistName)/sizeof(HistName[0]);
 
    for(int i=0; i<i_draw; i++)
       ZBasicBkgSub_single(binnum, ptL, ptH, centL, centH, TptL, TptH, 
-         HistName[i], bin_width[i], XTitleName[i], YTitleName[i], rebin_num[i]);
+         HistName[i], XTitleName[i], YTitleName[i], rebin_num[i]);
 
 }
 
