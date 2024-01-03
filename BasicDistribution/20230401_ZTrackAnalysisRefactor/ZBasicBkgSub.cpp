@@ -77,8 +77,8 @@ TFile *file_ppbkgMC;
 //const char *typeofdata = "v17d_PFMuon/20240103/nominal_ov1";
 //const char *typeofdata1 = "37_ov1";
 
-const char *typeofdata = "v17d_PFMuon/20240103/SigBkg";
-const char *typeofdata1 = "350_ov5";
+const char *typeofdata = "v17d_PFMuon/20240103/SigBkg_300";
+const char *typeofdata1 = "300_ov10";
 
 bool selfmix = true;
 
@@ -428,7 +428,7 @@ int main(int argc, char *argv[]){
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
    
    if(selfmix)
-      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17d_PFmuon_350_ov5.root","read");
+      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17d_PFmuon_300.root","read");
    else
       file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_PFmuon_ov1.root","read");
    
