@@ -74,8 +74,8 @@ TFile *file_ppMC;
 TFile *file_ppbkgMC;
 
 
-const char *typeofdata = "v17d_PFMuon/20240102/nominal_noVZ";
-const char *typeofdata1 = "37_ov1_noVZ";
+const char *typeofdata = "v17d_PFMuon/20240102/nominal";
+const char *typeofdata1 = "37_ov10";
 
 //const char *typeofdata = "v17d_PFMuon/20240102/SigBkg";
 //const char *typeofdata1 = "350_ov5";
