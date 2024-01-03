@@ -442,8 +442,8 @@ int main(int argc, char *argv[]){
    file_ppMC->Close();
    file_ppbkgMC->Close();
 
-   gSystem->Exec(Form("convert +append /eos/user/p/pchou/figs/track/%s/BasicBkgSub*Eta/*40_200_0_10_1_2.png /eos/user/p/pchou/figs/track/%s/BasicBkgSub/Eta_merge.png",typeofdata,typeofdata));
-   gSystem->Exec(Form("convert +append /eos/user/p/pchou/figs/track/%s/BasicBkgSub*Phi/*40_200_0_10_1_2.png /eos/user/p/pchou/figs/track/%s/BasicBkgSub/Phi_merge.png",typeofdata,typeofdata));
+   gSystem->Exec(Form("convert +append /eos/user/p/pchou/figs/track/%s/BasicBkgSub/*Eta/*40_200_0_10_1_2.png /eos/user/p/pchou/figs/track/%s/BasicBkgSub/Eta_merge.png",typeofdata,typeofdata));
+   gSystem->Exec(Form("convert +append /eos/user/p/pchou/figs/track/%s/BasicBkgSub/*Phi/*40_200_0_10_1_2.png /eos/user/p/pchou/figs/track/%s/BasicBkgSub/Phi_merge.png",typeofdata,typeofdata));
    gSystem->Exec(Form("convert -append /eos/user/p/pchou/figs/track/%s/BasicBkgSub/*_merge.png /eos/user/p/pchou/figs/track/%s/BasicBkgSub/merge.png",typeofdata,typeofdata));
 
    return 0;
