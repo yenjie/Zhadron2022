@@ -74,13 +74,13 @@ TFile *file_ppMC;
 TFile *file_ppbkgMC;
 
 
-const char *typeofdata = "v17d_PFMuon/20240103/nominal_ov1";
-const char *typeofdata1 = "37_ov1";
+//const char *typeofdata = "v17d_PFMuon/20240103/nominal_ov1";
+//const char *typeofdata1 = "37_ov1";
 
-//const char *typeofdata = "v17d_PFMuon/20240102/SigBkg";
-//const char *typeofdata1 = "350_ov5";
+const char *typeofdata = "v17d_PFMuon/20240103/SigBkg";
+const char *typeofdata1 = "350_ov5";
 
-bool selfmix = false;
+bool selfmix = true;
 
 void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000, 
    string HistName="HPhi", string XTitleName = "#Delta#phi_{Z,track}", string YTitleName = "dN/d#Delta#phi", int rebinnum=1)
