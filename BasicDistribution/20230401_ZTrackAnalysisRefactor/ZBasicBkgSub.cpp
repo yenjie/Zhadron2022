@@ -363,7 +363,7 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    if(selfmix)
       PbPb_to_pp->SetYTitle("(PbPb r-b) - (pp r-b)");
    else
-      PbPb_to_pp->SetYTitle("PbPb r-b / pp");
+      PbPb_to_pp->SetYTitle("(PbPb r-b) - pp");
    
 
    PbPb_to_pp->Draw("ep");
@@ -427,7 +427,7 @@ int main(int argc, char *argv[]){
    if(selfmix)
       file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17d_PFmuon_350_ov5.root","read");
    else
-      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_noVZ.root","read");
+      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_PFmuon.root","read");
    
    file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
    file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17d_Cent10_143.root","read");
@@ -441,6 +441,10 @@ int main(int argc, char *argv[]){
    file_bkgMC->Close();
    file_ppMC->Close();
    file_ppbkgMC->Close();
+
+   gSystem->Exec(Form("convert +append /eos/user/p/pchou/figs/track/%s/BasicBkgSub*Eta/*40_200_0_10_1_2.png /eos/user/p/pchou/figs/track/%s/BasicBkgSub/Eta_merge.png",typeofdata,typeofdata));
+   gSystem->Exec(Form("convert +append /eos/user/p/pchou/figs/track/%s/BasicBkgSub*Phi/*40_200_0_10_1_2.png /eos/user/p/pchou/figs/track/%s/BasicBkgSub/Phi_merge.png",typeofdata,typeofdata));
+   gSystem->Exec(Form("convert -append /eos/user/p/pchou/figs/track/%s/BasicBkgSub/*_merge.png /eos/user/p/pchou/figs/track/%s/BasicBkgSub/merge.png",typeofdata,typeofdata));
 
    return 0;
 
