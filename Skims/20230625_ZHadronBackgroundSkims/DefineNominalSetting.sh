@@ -85,12 +85,12 @@ PPSigBkgMC="   --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tole
 PPSigBkgGenMC="--DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
 PPSigBkgData=" --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 150 --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
-SigBkgMC="   --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 1875 --ToleranceFraction 0.001 --Oversample 5 --HFCeiling 134000"
+SigBkgMC="   --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 1875 --ToleranceFraction 0.001 --Oversample 25 --HFCeiling 134000"
 SigBkgGenMC="--DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
 SigBkgData=" --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolerance 150 --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
 PPSigBkgMCCent10=" --DoBackground true --CheckForBackgroundZ true --HFShift 0  --Tolerance 10000000 --ToleranceFraction 0.001 --VZTolerance 10000000 --Oversample 10 --HFCeiling 134000 --MaximumCentrality 10"
-SigBkgMCCent10="   --DoBackground true --CheckForBackgroundZ true --HFShift 0  --Tolerance 1875 --ToleranceFraction 0.001 --VZTolerance 2 --Oversample 5 --HFCeiling 134000 --MaximumCentrality 10"
+SigBkgMCCent10="   --DoBackground true --CheckForBackgroundZ true --HFShift 0  --Tolerance 1875 --ToleranceFraction 0.001 --VZTolerance 2 --Oversample 25 --HFCeiling 134000 --MaximumCentrality 10"
 
 DHSet Setting.dh PPSignalMCCent10    Nominal string "$Common $MC    --IsPP true  $AODPF     $PPJetMC      $PbPbRecoTrack  $PPSigBkgMCCent10"
 DHSet Setting.dh PbPbSignalMCCent10  Nominal string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack  $SigBkgMCCent10"
