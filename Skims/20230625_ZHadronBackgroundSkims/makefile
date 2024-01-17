@@ -41,8 +41,8 @@ TestRunRandomMCSigBkg: Execute
 	./Execute --Input $(EOSBase)/OutputMC_v17_PFmuon/Result10.root \
 		--Output /tmp/$(USER)/TestMCSigBkg.root --Fraction 0.1 \
 		`./Expand Setting.dh PbPbSignalMC Nominal` \
-		--Background $(PbPbSignalMC)/HiForestMiniAOD_10.root,$(PbPbSignalMC)/HiForestMiniAOD_14.root,$(PbPbSignalMC)/HiForestMiniAOD_15.root,$(PbPbSignalMC)/HiForestMiniAOD_16.root \
-		--ReuseBackground true --CheckForBackgroundZ true --WithProgressBar true
+		--Background $(PbPbSignalMC)/HiForestMiniAOD_12.root,$(PbPbSignalMC)/HiForestMiniAOD_24.root,$(PbPbSignalMC)/HiForestMiniAOD_35.root,$(PbPbSignalMC)/HiForestMiniAOD_46.root,$(PbPbSignalMC)/HiForestMiniAOD_60.root \
+		--ReuseBackground false --CheckForBackgroundZ true --WithProgressBar true
 
 TestRunRandomDataSigBkg: Execute
 	./Execute --Input $(EOSBase)/OutputData_v17_PFmuon/Result10.root \
