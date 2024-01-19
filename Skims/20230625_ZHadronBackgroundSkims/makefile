@@ -37,18 +37,32 @@ TestRunMCGenBackground: Execute
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root,$(PbPbBackgroundMC)/HiForestMiniAOD_14.root,$(PbPbBackgroundMC)/HiForestMiniAOD_15.root,$(PbPbBackgroundMC)/HiForestMiniAOD_16.root \
 		--ReuseBackground true --WithProgressBar true
 
-TestRunRandomMCSigBkg: Execute
+TestRunMCSigBkg: Execute
 	./Execute --Input $(EOSBase)/OutputMC_v17_PFmuon/Result73.root \
 		--Output /tmp/$(USER)/TestMCSigBkg.root --Fraction 0.1 \
 		`./Expand Setting.dh PbPbSignalMC Nominal` \
 		--Background $(PbPbSignalMC)/HiForestMiniAOD_12.root,$(PbPbSignalMC)/HiForestMiniAOD_24.root,$(PbPbSignalMC)/HiForestMiniAOD_35.root,$(PbPbSignalMC)/HiForestMiniAOD_46.root,$(PbPbSignalMC)/HiForestMiniAOD_60.root \
 		--ReuseBackground false --CheckForBackgroundZ true --WithProgressBar true
 
-TestRunRandomDataSigBkg: Execute
+TestRunDataSigBkg: Execute
 	./Execute --Input $(EOSBase)/OutputData_v17_PFmuon/Result10.root \
 		--Output /tmp/$(USER)/TestDataSigBkg.root --Fraction 0.1 \
 		`./Expand Setting.dh PbPbSignalData Nominal` \
 		--Background $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_10.root,$(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_14.root,$(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_15.root,$(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_16.root \
+		--ReuseBackground true --CheckForBackgroundZ true --WithProgressBar true
+
+TestRunPPMCSigBkg: Execute
+	./Execute --Input $(EOSBase)/OutputPPMC_v17_PFmuon/Result73.root \
+		--Output /tmp/$(USER)/TestPPMCSigBkg.root --Fraction 0.1 \
+		`./Expand Setting.dh PPSignalMC Nominal` \
+		--Background $(PPSignalMC)/HiForestMiniAOD_12.root,$(PPSignalMC)/HiForestMiniAOD_24.root,$(PPSignalMC)/HiForestMiniAOD_35.root,$(PPSignalMC)/HiForestMiniAOD_46.root,$(PPSignalMC)/HiForestMiniAOD_60.root \
+		--ReuseBackground true --CheckForBackgroundZ true --WithProgressBar true
+
+TestRunPPDataSigBkg: Execute
+	./Execute --Input $(EOSBase)/OutputPPData_v17_PFmuon/Result73.root \
+		--Output /tmp/$(USER)/TestPPDataSigBkg.root --Fraction 0.1 \
+		`./Expand Setting.dh PPSignalData Nominal` \
+		--Background $(PPSignalData)/HiForestMiniAOD_12.root,$(PPSignalData)/HiForestMiniAOD_24.root,$(PPSignalData)/HiForestMiniAOD_35.root,$(PPSignalData)/HiForestMiniAOD_46.root,$(PPSignalData)/HiForestMiniAOD_60.root \
 		--ReuseBackground true --CheckForBackgroundZ true --WithProgressBar true
 
 PrepareToRunRandomMCBackground:
@@ -113,12 +127,12 @@ PrepareToRunRandomMCSigBkg:
 
 PrepareToRunRandomDataSigBkg:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputData_v17_PFmuon/ LogDataSigBkg_v17d_PFmuon/ $(EOSBase)/OutputDataSigBkg_v17d_PFmuon/ '$(PbPbSignalSingleMuon)/*/' 200 \
+		$(EOSBase)/OutputData_v17_PFmuon/ LogDataSigBkg_v17d_PFmuon_10HF/ $(EOSBase)/OutputDataSigBkg_v17d_PFmuon_10HF/ '$(PbPbSignalSingleMuon)/*/' 200 \
 		`./Expand Setting.dh PbPbSignalData Nominal`
 
 PrepareToRunRandomMCGenSigBkg:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMCGen_v17_PFmuon/ LogMCGenSigBkg_v17d_PFmuon/ $(EOSBase)/OutputMCGenSigBkg_v17d_PFmuon/ $(PbPbSignalMC)/ 50 \
+		$(EOSBase)/OutputMCGen_v17_PFmuon/ LogMCGenSigBkg_v17d_PFmuon_10HF/ $(EOSBase)/OutputMCGenSigBkg_v17d_PFmuon_10HF/ $(PbPbSignalMC)/ 50 \
 		`./Expand Setting.dh PbPbSignalGenMC Nominal`
 
 PrepareToRunRandomPPMCSigBkg:
@@ -128,7 +142,7 @@ PrepareToRunRandomPPMCSigBkg:
 
 PrepareToRunRandomPPDataSigBkg:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputPPData_v17_PFmuon/ LogPPDataSigBkg_v17d_PFmuon/ $(EOSBase)/OutputPPDataSigBkg_v17d_PFmuon/ '$(PPSignalData)/*/' 200 \
+		$(EOSBase)/OutputPPData_v17_PFmuon/ LogPPDataSigBkg_v17d_PFmuon_10HF/ $(EOSBase)/OutputPPDataSigBkg_v17d_PFmuon_10HF/ '$(PPSignalData)/*/' 200 \
 		`./Expand Setting.dh PPSignalData Nominal`
 
 PrepareToRunRandomMCSigBkgCent10:
