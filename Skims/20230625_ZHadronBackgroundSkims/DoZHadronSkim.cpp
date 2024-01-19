@@ -154,7 +154,7 @@ int main(int argc, char *argv[])
       if(MSignalZHadron.SignalHF < HFShift)
          continue;
 
-      if((MSignalZHadron.hiBin < 0) || (MSignalZHadron.hiBin > MaximumCentrality*2) )   // too central, skip
+      if(!IsPP && ((MSignalZHadron.hiBin < 0) || (MSignalZHadron.hiBin > MaximumCentrality*2)) )   // too central, skip
          continue;
       
       SignalIndex.push_back(Index);
