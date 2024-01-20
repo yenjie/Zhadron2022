@@ -63,7 +63,7 @@ RunData: Execute
 	./Execute --Input `ls PinChunOutput/OutputData_v17_PFmuon/*root | tr '\n' ','` --Output Data.root --IsPP false --IsMC false
 
 RunDataMix: Execute
-	./Execute --Input `ls PinChunOutput/OutputDataBackground_v17_PFmuon/*root | tr '\n' ','` --Output DataMix.root --IsPP false --IsMC false
+	./Execute --Input `ls PinChunOutput/OutputDataSigBkg_v17d_PFmuon_10HF/*root | tr '\n' ','` --Output DataMix.root --IsPP false --IsMC false
 
 RunDataMixUE: Execute
 	./Execute --Input `ls PinChunOutput/OutputDataBackgroundUEUp25_v17_PFmuon/*root | tr '\n' ','` --Output DataMixUEUp25.root --IsPP false --IsMC false
@@ -76,22 +76,22 @@ RunDataHiBinDown: Execute
 	./Execute --Input `ls PinChunOutput/OutputData_v17_PFmuon/*root | tr '\n' ','` --Output DataHiBinDown.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation -1
 
 RunDataMixHiBinUp: Execute
-	./Execute --Input `ls PinChunOutput/OutputDataBackground_v17_PFmuon/*root | tr '\n' ','` --Output DataMixHiBinUp.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation 1
+	./Execute --Input `ls PinChunOutput/OutputDataSigBkg_v17d_PFmuon_10HF/*root | tr '\n' ','` --Output DataMixHiBinUp.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation 1
 
 RunDataMixHiBinDown: Execute
-	./Execute --Input `ls PinChunOutput/OutputDataBackground_v17_PFmuon/*root | tr '\n' ','` --Output DataMixHiBinDown.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation -1
+	./Execute --Input `ls PinChunOutput/OutputDataSigBkg_v17d_PFmuon_10HF/*root | tr '\n' ','` --Output DataMixHiBinDown.root --IsPP false --IsMC false --RedoHiBin true --HiBinVariation -1
 
 RunMC: Execute
 	time ./Execute --Input `ls PinChunOutput/OutputMC_v17_PFmuon/*root | tr '\n' ','` --Output MC.root --IsPP false --IsMC true --Fraction 1.0
 
 RunMCMix: Execute
 	# ./Execute --Input `ls YiOutput/OutputMCBackground_v17_PFmuon/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 0.1
-	time ./Execute --Input `ls PinChunOutput/OutputMCBackground_v17_PFmuon/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 1.0
+	time ./Execute --Input `ls PinChunOutput/OutputMCSigBkg_v17d_PFmuon_350_ov5_10HF/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 1.0
 	#time ./Execute --Input `ls YiOutputNew/OutputMCBackground_v17_PFmuon/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 1.0
 
 RunMCMixAdHoc: Execute
 	# ./Execute --Input `ls YiOutput/OutputMCBackground_v17_PFmuon/*root | tr '\n' ','` --Output MCMix.root --IsPP false --IsMC true --Fraction 0.1
-	time ./Execute --Input `ls PinChunOutput/OutputMCBackground_v17_PFmuon/*root | tr '\n' ','` --Output MCMixAdHoc.root --IsPP false --IsMC true --Fraction 1.0 --DoAdHocSignalHF true
+	time ./Execute --Input `ls PinChunOutput/OutputMCSigBkg_v17d_PFmuon_350_ov5_10HF/*root | tr '\n' ','` --Output MCMixAdHoc.root --IsPP false --IsMC true --Fraction 1.0 --DoAdHocSignalHF true
 
 RunMCMixUEUp: Execute
 	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEUp25_v17_PFmuon/*root | tr '\n' ','` --Output MCMixUEUp25.root --IsPP false --IsMC true
