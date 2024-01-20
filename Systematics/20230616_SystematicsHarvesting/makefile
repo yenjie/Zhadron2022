@@ -2,7 +2,7 @@
 default: Prepare TestRunCombine
 
 Prepare:
-	ln -sf $(ProjectBase)/BasicDistribution/20230605_DeltaPhiReproduction/oldroot/v16 Root
+	ln -sf $(ProjectBase)/BasicDistribution/20230605_DeltaPhiReproduction/ Root
 
 TestRun: Execute
 	./Execute
