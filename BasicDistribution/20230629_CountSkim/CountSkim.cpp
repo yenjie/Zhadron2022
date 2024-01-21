@@ -68,14 +68,14 @@ int main(int argc, char *argv[])
 
 	string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions/pchou/");
    string OutputFileName = CL.Get("Output", "SkimCount.tex");
-   string BkgDataDir     = CL.Get("BkgDataDir", "OutputDataBackground_v15c");
-   string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v15c");
+   string BkgDataDir     = CL.Get("BkgDataDir", "OutputDataBackground_v17_PFmuon");
+   string BkgMCDir		  = CL.Get("BkgMCDir", "OutputMCBackground_v17d_PFmuon");
    //string BkgMCGenDir	  = CL.Get("BkgMCGenDir", "OutputMCGenbkg_v15c");
 
-   string SigMCDir		  = CL.Get("SigMCDir", "OutputMC_v16");
-   string SigPPMCDir     = CL.Get("SigPPMCDir", "OutputPPMC_v16");
-   string SigPPDataDir	  = CL.Get("SigPPDataDir", "OutputPPData_v16");
-   string SigDataDir	  = CL.Get("SigDataDir", "OutputData_v16");
+   string SigMCDir		  = CL.Get("SigMCDir", "OutputMC_v17_PFmuon");
+   string SigPPMCDir     = CL.Get("SigPPMCDir", "OutputPPMC_v17_PFmuon");
+   string SigPPDataDir	  = CL.Get("SigPPDataDir", "OutputPPData_v17_PFmuon");
+   string SigDataDir	  = CL.Get("SigDataDir", "OutputData_v17_PFmuon");
 
 	int CentUD            = CL.GetInteger("CentUD", 0);
 
