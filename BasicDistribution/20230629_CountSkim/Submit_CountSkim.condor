@@ -2,9 +2,9 @@ executable   = ./do_CountSkim.sh
 
 arguments    = $(ProcId)
 
-output       = ./SkimCount/log/20240120/CountSkim.$(ClusterId).$(ProcId).out
-error        = ./SkimCount/log/20240120/CountSkim.$(ClusterId).$(ProcId).err
-log          = ./SkimCount/log/20240120/CountSkim.$(ClusterId).$(ProcId).log
+output       = ./SkimCount/log/20240121/CountSkim.$(ClusterId).$(ProcId).out
+error        = ./SkimCount/log/20240121/CountSkim.$(ClusterId).$(ProcId).err
+log          = ./SkimCount/log/20240121/CountSkim.$(ClusterId).$(ProcId).log
 
 request_cpus   = 10
 
