@@ -22,7 +22,7 @@ do
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaPhi" \
-      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" --TagShifts "$TagShifts" --SkipShifting false \
+      --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" --TagShifts "$TagShifts" --SkipShifting true \
       $Plotting
 
    #Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
@@ -57,7 +57,7 @@ do
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_NoShiftNoSelfSub_UE/ResultNominalY$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
-      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting true \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaY" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
@@ -65,7 +65,7 @@ do
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_NoShiftNoSelfSub_UE/ResultNominalYJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
-      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting true \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaYJetSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
@@ -73,7 +73,7 @@ do
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_NoShiftNoSelfSub_UE/ResultNominalYZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
-      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting true \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaYZSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
@@ -84,7 +84,7 @@ do
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_NoShiftNoSelfSub_UE/ResultNominalEta$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
-      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting true \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaEta" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
@@ -92,7 +92,7 @@ do
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_NoShiftNoSelfSub_UE/ResultNominalEtaJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
-      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting true \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaEtaJetSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
@@ -100,7 +100,7 @@ do
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_NoShiftNoSelfSub_UE/ResultNominalEtaZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
-      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
+      --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting true \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaEtaZSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
