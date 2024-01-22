@@ -7,7 +7,7 @@ Prepare:
 	ln -sf /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/ YiOutput
 
 TestRun: Execute
-	./Execute --Input PinChunOutput/OutputData_v16/Result14.root --Output Test.root
+	./Execute --Input PinChunOutput/OutputData_v17_PFmuon/Result14.root --Output Test.root
 
 TestRunPlot: ExecutePlot
 	./ExecutePlot --Tag Centrality_0_30_ZPT_40_200_TrackPT_10_20_PV_0_1      --Output Plots_0_30_40_1_2.pdf
@@ -94,10 +94,10 @@ RunMCMixAdHoc: Execute
 	time ./Execute --Input `ls PinChunOutput/OutputMCSigBkg_v17d_PFmuon_350_ov5_10HF/*root | tr '\n' ','` --Output MCMixAdHoc.root --IsPP false --IsMC true --Fraction 1.0 --DoAdHocSignalHF true
 
 RunMCMixUEUp: Execute
-	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEUp25_v17_PFmuon/*root | tr '\n' ','` --Output MCMixUEUp25.root --IsPP false --IsMC true
+	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEUp25_v17d_PFmuon/*root | tr '\n' ','` --Output MCMixUEUp25.root --IsPP false --IsMC true
 
 RunMCMixUEDown: Execute
-	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEDown25_v17_PFmuon/*root | tr '\n' ','` --Output MCMixUEDown25.root --IsPP false --IsMC true
+	./Execute --Input `ls PinChunOutput/OutputMCBackgroundUEDown25_v17d_PFmuon/*root | tr '\n' ','` --Output MCMixUEDown25.root --IsPP false --IsMC true
 
 RunPPMC: Execute
 	./Execute --Input `ls PinChunOutput/OutputPPMC_v17_PFmuon/*root | tr '\n' ','` --Output PPMC.root --Fraction 1.0 --IsPP true --IsMC true
