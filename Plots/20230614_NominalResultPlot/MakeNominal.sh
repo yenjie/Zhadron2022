@@ -18,7 +18,7 @@ do
 
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_WithSelfSub_UE/ResultNominal$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract true \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaPhi" \
@@ -29,7 +29,7 @@ do
 #
    #./Execute --OutputBase Plots/ResultNominal/v17/ResultNominalEta$Suffix \
    #   --DataFiles Root/PPData.root,Root/Data.root \
-   #   --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract true \
+   #   --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
    #   --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
    #   --CurveLabels "pp","PbPb" \
    #   --ToPlot "DeltaEta" \
@@ -37,7 +37,7 @@ do
    #   $Plotting
    #./Execute --OutputBase Plots/ResultNominal/v17/ResultNominalEtaJetSide$Suffix \
    #   --DataFiles Root/PPData.root,Root/Data.root \
-   #   --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract true \
+   #   --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
    #   --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
    #   --CurveLabels "pp","PbPb" \
    #   --ToPlot "DeltaEtaJetSide" \
@@ -45,7 +45,7 @@ do
    #   $Plotting
    #./Execute --OutputBase Plots/ResultNominal/v17/ResultNominalEtaZSide$Suffix \
    #   --DataFiles Root/PPData.root,Root/Data.root \
-   #   --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract true \
+   #   --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
    #   --SystematicFiles Sys/PPAll.root,Sys/PbPbAll.root --SkipSystematics false \
    #   --CurveLabels "pp","PbPb" \
    #   --ToPlot "DeltaEtaZSide" \
@@ -56,7 +56,7 @@ do
 
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_WithSelfSub_UE/ResultNominalY$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract true \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaY" \
@@ -64,7 +64,7 @@ do
       $Plotting
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_WithSelfSub_UE/ResultNominalYJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract true \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaYJetSide" \
@@ -72,7 +72,7 @@ do
       $Plotting
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_WithSelfSub_UE/ResultNominalYZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract true \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaYZSide" \
@@ -83,7 +83,7 @@ do
 
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_WithSelfSub_UE/ResultNominalEta$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract true \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaEta" \
@@ -91,7 +91,7 @@ do
       $Plotting
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_WithSelfSub_UE/ResultNominalEtaJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract true \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaEtaJetSide" \
@@ -99,7 +99,7 @@ do
       $Plotting
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_WithSelfSub_UE/ResultNominalEtaZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
-      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract true \
+      --SubtractFiles None,Root/DataMix.root --SkipSubtract false --WithSelfSubtract false \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaEtaZSide" \
