@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p /eos/user/p/pchou/figs/ResultNominal/v17d_SkipSelfSub_UE
+mkdir -p /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_SkipSelfSub_UE
 
 for CRange in 0:10 10:30 30:50 50:90
 do
@@ -16,7 +16,7 @@ do
    Suffix="C$CMin$CMax"
    TagShifts=Count_ZPT_40_200_Cent_0_10_TrackPT_1p00_2p00,Count_ZPT_40_200_Cent_${CMin}_${CMax}_TrackPT_2p00_4p00,Count_ZPT_40_200_Cent_${CMin}_${CMax}_TrackPT_4p00_10p00,
 
-   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/v17d_SkipSelfSub_UE/ResultNominal$Suffix \
+   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_SkipSelfSub_UE/ResultNominal$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false \
@@ -54,7 +54,7 @@ do
 
    Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel dN_{ch}/d#Deltay/N_{Z} --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
 
-   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/v17d_SkipSelfSub_UE/ResultNominalY$Suffix \
+   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_SkipSelfSub_UE/ResultNominalY$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
@@ -62,7 +62,7 @@ do
       --ToPlot "DeltaY" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/v17d_SkipSelfSub_UE/ResultNominalYJetSide$Suffix \
+   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_SkipSelfSub_UE/ResultNominalYJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
@@ -70,7 +70,7 @@ do
       --ToPlot "DeltaYJetSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/v17d_SkipSelfSub_UE/ResultNominalYZSide$Suffix \
+   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_SkipSelfSub_UE/ResultNominalYZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
@@ -81,7 +81,7 @@ do
 
    Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel dN_{ch}/d#Delta#eta/N_{Z} --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
 
-   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/v17d_SkipSelfSub_UE/ResultNominalEta$Suffix \
+   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_SkipSelfSub_UE/ResultNominalEta$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
@@ -89,7 +89,7 @@ do
       --ToPlot "DeltaEta" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/v17d_SkipSelfSub_UE/ResultNominalEtaJetSide$Suffix \
+   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_SkipSelfSub_UE/ResultNominalEtaJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
@@ -97,7 +97,7 @@ do
       --ToPlot "DeltaEtaJetSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
       $Plotting
-   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/v17d_SkipSelfSub_UE/ResultNominalEtaZSide$Suffix \
+   ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240122/v17d_SkipSelfSub_UE/ResultNominalEtaZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
       --SubtractFiles None,Root/DataMix.root --SkipSubtract false --SkipSelfSubtract true \
       --SystematicFiles Sys/PPAll.root,Sys/PbPbAll_UE.root --SkipSystematics false  --TagShifts "$TagShifts" --SkipShifting false \
