@@ -348,12 +348,12 @@ int main(int argc, char *argv[])
    double xeta[21], yeta12[21], yeta24[21];
 
    for(int iE=0;iE<20;iE++){
-      xeta[iE] = (fabs(xeta0[iE])+fabs(xeta0[40-iE]));
+      xeta[iE] = (fabs(xeta0[iE])+fabs(xeta0[40-iE]))/2;
       yeta12[iE] = (yeta012[iE]+yeta012[40-iE]);
       yeta24[iE] = (yeta024[iE]+yeta024[40-iE]);
    }
 
-   xeta[20] = xeta0[20]*2; yeta12[20] = yeta012[20]*2; yeta24[20] = yeta024[20]*2;
+   xeta[20] = fabs(xeta0[20]); yeta12[20] = yeta012[20]*2; yeta24[20] = yeta024[20]*2;
 
    auto g12 = new TGraph(9,x,y12);
    auto g24 = new TGraph(9,x,y24);
