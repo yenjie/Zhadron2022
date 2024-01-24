@@ -61,7 +61,6 @@ do
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaY" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
-      #--ShiftFileName /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_CountSkim/SkimCount/20240121/SkimCount_nominal_centN-v17d-dy.dh \
       $Plotting
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240124/v17d_WithShiftNoSelfSub_UE_3/ResultNominalYJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
@@ -70,7 +69,6 @@ do
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaYJetSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
-      #--ShiftFileName /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_CountSkim/SkimCount/20240121/SkimCount_nominal_centN-v17d-dy.dh \
       $Plotting
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240124/v17d_WithShiftNoSelfSub_UE_3/ResultNominalYZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
@@ -79,7 +77,6 @@ do
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaYZSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
-      #--ShiftFileName /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_CountSkim/SkimCount/20240121/SkimCount_nominal_centN-v17d-dy.dh \
       $Plotting
 
    Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel dN_{ch}/d#Delta#eta/N_{Z} --RAxisLabel Difference --XMin 0 --XMax 3.5 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
@@ -91,7 +88,6 @@ do
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaEta" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
-      #--ShiftFileName /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_CountSkim/SkimCount/20240121/SkimCount_nominal_centN-v17d-deta.dh \
       $Plotting
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240124/v17d_WithShiftNoSelfSub_UE_3/ResultNominalEtaJetSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
@@ -100,7 +96,6 @@ do
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaEtaJetSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
-      #--ShiftFileName /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_CountSkim/SkimCount/20240121/SkimCount_nominal_centN-v17d-deta.dh \
       $Plotting
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240124/v17d_WithShiftNoSelfSub_UE_3/ResultNominalEtaZSide$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
@@ -109,7 +104,6 @@ do
       --CurveLabels "pp","PbPb" \
       --ToPlot "DeltaEtaZSide" \
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
-      #--ShiftFileName /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_CountSkim/SkimCount/20240121/SkimCount_nominal_centN-v17d-deta.dh \
       $Plotting
 
 
