@@ -347,11 +347,11 @@ int main(int argc, char *argv[])
    
    double xeta[21], yeta12[21], yeta24[21];
 
-   double SumXY_0 = std::stod(ShiftFile[TagShifts[0]]["PbPb Data Sig-Bkg NZ"].GetRepresentation()) / 41;
-   double SumXY_1 = std::stod(ShiftFile[TagShifts[1]]["PbPb Data Sig-Bkg NZ"].GetRepresentation()) / 41;
+   double SumXY_0 = 1; //std::stod(ShiftFile[TagShifts[0]]["PbPb Data Sig-Bkg NZ"].GetRepresentation()) / 41;
+   double SumXY_1 = 1; //std::stod(ShiftFile[TagShifts[1]]["PbPb Data Sig-Bkg NZ"].GetRepresentation()) / 41;
 
    std::cout<< "SumXY_0 = "<<SumXY_0<<std::endl;
-   
+
    for(int iE=0;iE<20;iE++){
       xeta[iE] = (fabs(xeta0[iE])+fabs(xeta0[40-iE]))/2;
       yeta12[iE] = (yeta012[iE]+yeta012[40-iE])*SumXY_0;
