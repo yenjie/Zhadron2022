@@ -352,6 +352,34 @@ int main(int argc, char *argv[])
 
    std::cout<< "SumXY_0 = "<<SumXY_0<<std::endl;
 
+   double sum12=0, sum24=0, sumeta12=0, sumeta24=0, sumeta12_phi=0, sumeta24_phi=0;
+
+   for(int iE=0;iE<9;iE++){
+      sum12+=y12[iE];
+      sum24+=y24[iE];
+   }
+   sum12*=(x[1]-x[0]);
+   sum24*=(x[1]-x[0]);
+
+   for(int iE=0;iE<41;iE++){
+      sumeta12+=yeta012[iE];
+      sumeta24+=yeta024[iE];
+      if(fabs(xeta0[iE]) < 2.4){
+         sumeta12_phi+=yeta012[iE];
+         sumeta24_phi+=yeta024[iE];
+      }
+   }
+   sumeta12*=(xeta[1]-xeta[0]);
+   sumeta24*=(xeta[1]-xeta[0]);
+   sumeta12_phi*=(xeta[1]-xeta[0]);
+   sumeta24_phi*=(xeta[1]-xeta[0]);
+
+   std::cout<<"sum12 = "<<sum12<<", sum24 = "<<sum24<<std::endl;
+   std::cout<<"sumeta12 = "<<sumeta12<<", sumeta24 = "<<sumeta24<<std::endl;
+   std::cout<<"sumeta12_phi = "<<sumeta12_phi<<", sumeta24_phi = "<<sumeta24_phi<<std::endl;
+
+
+
    for(int iE=0;iE<20;iE++){
       xeta[iE] = (fabs(xeta0[iE])+fabs(xeta0[40-iE]))/2;
       yeta12[iE] = (yeta012[iE]+yeta012[40-iE])*SumXY_0;
