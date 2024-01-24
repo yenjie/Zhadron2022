@@ -56,6 +56,9 @@ int main(int argc, char *argv[])
 {
 
 	cout<<"hi"<<endl;
+
+	double piMass = 0.13957039;
+
 	TChain *TreeSig = new TChain("Tree"); 
 	TChain *TreeBkg = new TChain("Tree"); 
 	TChain *TreePP0 = new TChain("Tree"); 
@@ -92,6 +95,9 @@ int main(int argc, char *argv[])
 	double VZMax		  = CL.GetDouble("VZMax",15);
 
 	int ppNPU			  = CL.GetInteger("ppNPU",1);
+
+	bool IsDeltaEta     = CL.GetBool("IsDeltaEta", false);
+	bool IsDeltaY       = CL.GetBool("IsDeltaY", false);
 
 	ofstream fout;
 	fout.open(OutputFileName);
@@ -216,6 +222,7 @@ int main(int argc, char *argv[])
 		VecHNPP0Data1.push_back(HNPP0Data1); HNPP0Data1.Reset();
 	}
 
+	double zP, zPz, zE, zY, trkP, trkPz, trkE, trkY, TrackEta;
 
 	float hiHF, SignalVZ;
 	int NPU;
@@ -244,6 +251,12 @@ int main(int argc, char *argv[])
    TreeSig->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
    TreeSig->SetBranchAddress("trackWeight",         &trackWeight);
    TreeSig->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+
+   vector<double> *ZEta       = nullptr;
+   vector<double> *trackDeta  = nullptr;
+
+   TreeSig->SetBranchAddress("zEta",      &ZEta);
+   TreeSig->SetBranchAddress("trackDeta", &trackDeta);
 
    if(TreeSig->GetBranch("trackMuTagged")) TreeSig->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
@@ -299,7 +312,28 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             	TrackNotCloseToMuon = false;
 
-            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange;
+            zP = ZPT->at(0)*cosh(ZEta->at(0));
+   			zPz = ZPT->at(0)*sinh(ZEta->at(0));
+   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zY = 0.5*log((zE+zPz)/(zE-zPz));
+			
+				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+
+   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
+   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+			
+   			trkE = sqrt(trkP*trkP+piMass*piMass);
+   			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
+
+   			bool IsHistRange = true;
+
+   			if(IsDeltaEta && fabs(ZEta->at(0)) > 3.5)
+   				IsHistRange = false;
+
+   			if(IsDeltaY && fabs(trkY - zY) > 3.5)
+   				IsHistRange = false;
+
+            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange && IsHistRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
          	if(PassEvent)
@@ -337,6 +371,9 @@ int main(int argc, char *argv[])
    TreeBkg->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
    TreeBkg->SetBranchAddress("trackWeight",         &trackWeight);
    TreeBkg->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+
+   TreeBkg->SetBranchAddress("zEta",      &ZEta);
+   TreeBkg->SetBranchAddress("trackDeta", &trackDeta);
 
    if(TreeBkg->GetBranch("trackMuTagged")) TreeBkg->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
@@ -392,7 +429,28 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             	TrackNotCloseToMuon = false;
 
-            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange;
+            zP = ZPT->at(0)*cosh(ZEta->at(0));
+   			zPz = ZPT->at(0)*sinh(ZEta->at(0));
+   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zY = 0.5*log((zE+zPz)/(zE-zPz));
+			
+				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+
+   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
+   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+			
+   			trkE = sqrt(trkP*trkP+piMass*piMass);
+   			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
+
+   			bool IsHistRange = true;
+
+   			if(IsDeltaEta && fabs(ZEta->at(0)) > 3.5)
+   				IsHistRange = false;
+
+   			if(IsDeltaY && fabs(trkY - zY) > 3.5)
+   				IsHistRange = false;
+
+            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange && IsHistRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
          	if(PassEvent)
@@ -432,6 +490,9 @@ int main(int argc, char *argv[])
    TreePP0->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
    TreePP0->SetBranchAddress("trackWeight",         &trackWeight);
    TreePP0->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+
+   TreePP0->SetBranchAddress("zEta",      &ZEta);
+   TreePP0->SetBranchAddress("trackDeta", &trackDeta);
 
    if(TreePP0->GetBranch("trackMuTagged")) TreePP0->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
@@ -487,7 +548,28 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             	TrackNotCloseToMuon = false;
 
-            bool PassEvent = ZMassRange && ZPTRange && VZRange && ppNPUcut;
+            zP = ZPT->at(0)*cosh(ZEta->at(0));
+   			zPz = ZPT->at(0)*sinh(ZEta->at(0));
+   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zY = 0.5*log((zE+zPz)/(zE-zPz));
+			
+				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+
+   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
+   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+			
+   			trkE = sqrt(trkP*trkP+piMass*piMass);
+   			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
+
+   			bool IsHistRange = true;
+
+   			if(IsDeltaEta && fabs(ZEta->at(0)) > 3.5)
+   				IsHistRange = false;
+
+   			if(IsDeltaY && fabs(trkY - zY) > 3.5)
+   				IsHistRange = false;
+
+            bool PassEvent = ZMassRange && ZPTRange && VZRange && ppNPUcut && IsHistRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
          	if(PassEvent)
@@ -526,6 +608,9 @@ int main(int argc, char *argv[])
    TreeSigData->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
    TreeSigData->SetBranchAddress("trackWeight",         &trackWeight);
    TreeSigData->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+
+   TreeSigData->SetBranchAddress("zEta",      &ZEta);
+   TreeSigData->SetBranchAddress("trackDeta", &trackDeta);
 
    if(TreeSigData->GetBranch("trackMuTagged")) TreeSigData->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
@@ -581,7 +666,28 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             	TrackNotCloseToMuon = false;
 
-            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange;
+            zP = ZPT->at(0)*cosh(ZEta->at(0));
+   			zPz = ZPT->at(0)*sinh(ZEta->at(0));
+   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zY = 0.5*log((zE+zPz)/(zE-zPz));
+			
+				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+
+   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
+   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+			
+   			trkE = sqrt(trkP*trkP+piMass*piMass);
+   			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
+
+   			bool IsHistRange = true;
+
+   			if(IsDeltaEta && fabs(ZEta->at(0)) > 3.5)
+   				IsHistRange = false;
+
+   			if(IsDeltaY && fabs(trkY - zY) > 3.5)
+   				IsHistRange = false;
+
+            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange && IsHistRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
          	if(PassEvent)
@@ -620,6 +726,9 @@ int main(int argc, char *argv[])
    TreeBkgData->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
    TreeBkgData->SetBranchAddress("trackWeight",         &trackWeight);
    TreeBkgData->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+
+   TreeBkgData->SetBranchAddress("zEta",      &ZEta);
+   TreeBkgData->SetBranchAddress("trackDeta", &trackDeta);
 
    if(TreeBkgData->GetBranch("trackMuTagged")) TreeBkgData->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
@@ -675,7 +784,28 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             	TrackNotCloseToMuon = false;
 
-            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange;
+            zP = ZPT->at(0)*cosh(ZEta->at(0));
+   			zPz = ZPT->at(0)*sinh(ZEta->at(0));
+   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zY = 0.5*log((zE+zPz)/(zE-zPz));
+			
+				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+
+   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
+   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+			
+   			trkE = sqrt(trkP*trkP+piMass*piMass);
+   			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
+
+   			bool IsHistRange = true;
+
+   			if(IsDeltaEta && fabs(ZEta->at(0)) > 3.5)
+   				IsHistRange = false;
+
+   			if(IsDeltaY && fabs(trkY - zY) > 3.5)
+   				IsHistRange = false;
+
+            bool PassEvent = ZMassRange && ZPTRange && CentRange && VZRange && IsHistRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
          	if(PassEvent)
@@ -714,6 +844,9 @@ int main(int argc, char *argv[])
    TreePP0Data->SetBranchAddress("ExtraZWeight",        &ExtraZWeight);
    TreePP0Data->SetBranchAddress("trackWeight",         &trackWeight);
    TreePP0Data->SetBranchAddress("trackResidualWeight", &trackResidualWeight);
+
+   TreePP0Data->SetBranchAddress("zEta",      &ZEta);
+   TreePP0Data->SetBranchAddress("trackDeta", &trackDeta);
 
    if(TreePP0Data->GetBranch("trackMuTagged")) TreePP0Data->SetBranchAddress("trackMuTagged", &TrackMuTagged);
 
@@ -767,7 +900,28 @@ int main(int argc, char *argv[])
          	if(TrackMuTagged != nullptr && TrackMuTagged->at(iT) == true)
             		TrackNotCloseToMuon = false;
 
-         	bool PassEvent = ZMassRange && ZPTRange && VZRange;
+            zP = ZPT->at(0)*cosh(ZEta->at(0));
+   			zPz = ZPT->at(0)*sinh(ZEta->at(0));
+   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zY = 0.5*log((zE+zPz)/(zE-zPz));
+			
+				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+
+   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
+   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+			
+   			trkE = sqrt(trkP*trkP+piMass*piMass);
+   			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
+
+   			bool IsHistRange = true;
+
+   			if(IsDeltaEta && fabs(ZEta->at(0)) > 3.5)
+   				IsHistRange = false;
+
+   			if(IsDeltaY && fabs(trkY - zY) > 3.5)
+   				IsHistRange = false;
+
+         	bool PassEvent = ZMassRange && ZPTRange && VZRange && IsHistRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
          	if(PassEvent)
