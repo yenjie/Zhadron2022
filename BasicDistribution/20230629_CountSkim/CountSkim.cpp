@@ -314,13 +314,13 @@ int main(int argc, char *argv[])
 
             zP = ZPT->at(0)*cosh(ZEta->at(0));
    			zPz = ZPT->at(0)*sinh(ZEta->at(0));
-   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zE = sqrt(zP*zP+ZMass->at(0) * ZMass->at(0));
    			zY = 0.5*log((zE+zPz)/(zE-zPz));
 			
-				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+				TrackEta = trackDeta->at(iT) + ZEta->at(0);
 
-   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
-   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+   			trkP = TrackPT->at(iT) *cosh(TrackEta);
+   			trkPz = TrackPT->at(iT) *sinh(TrackEta);
 			
    			trkE = sqrt(trkP*trkP+piMass*piMass);
    			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
@@ -431,13 +431,13 @@ int main(int argc, char *argv[])
 
             zP = ZPT->at(0)*cosh(ZEta->at(0));
    			zPz = ZPT->at(0)*sinh(ZEta->at(0));
-   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zE = sqrt(zP*zP+ZMass->at(0) * ZMass->at(0));
    			zY = 0.5*log((zE+zPz)/(zE-zPz));
 			
-				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+				TrackEta = trackDeta->at(iT) + ZEta->at(0);
 
-   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
-   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+   			trkP = TrackPT->at(iT) *cosh(TrackEta);
+   			trkPz = TrackPT->at(iT) *sinh(TrackEta);
 			
    			trkE = sqrt(trkP*trkP+piMass*piMass);
    			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
@@ -550,13 +550,13 @@ int main(int argc, char *argv[])
 
             zP = ZPT->at(0)*cosh(ZEta->at(0));
    			zPz = ZPT->at(0)*sinh(ZEta->at(0));
-   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zE = sqrt(zP*zP+ZMass->at(0) * ZMass->at(0));
    			zY = 0.5*log((zE+zPz)/(zE-zPz));
 			
-				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+				TrackEta = trackDeta->at(iT) + ZEta->at(0);
 
-   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
-   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+   			trkP = TrackPT->at(iT) *cosh(TrackEta);
+   			trkPz = TrackPT->at(iT) *sinh(TrackEta);
 			
    			trkE = sqrt(trkP*trkP+piMass*piMass);
    			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
@@ -668,13 +668,13 @@ int main(int argc, char *argv[])
 
             zP = ZPT->at(0)*cosh(ZEta->at(0));
    			zPz = ZPT->at(0)*sinh(ZEta->at(0));
-   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zE = sqrt(zP*zP+ZMass->at(0) * ZMass->at(0));
    			zY = 0.5*log((zE+zPz)/(zE-zPz));
 			
-				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+				TrackEta = trackDeta->at(iT) + ZEta->at(0);
 
-   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
-   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+   			trkP = TrackPT->at(iT) *cosh(TrackEta);
+   			trkPz = TrackPT->at(iT) *sinh(TrackEta);
 			
    			trkE = sqrt(trkP*trkP+piMass*piMass);
    			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
@@ -786,13 +786,13 @@ int main(int argc, char *argv[])
 
             zP = ZPT->at(0)*cosh(ZEta->at(0));
    			zPz = ZPT->at(0)*sinh(ZEta->at(0));
-   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zE = sqrt(zP*zP+ZMass->at(0) * ZMass->at(0));
    			zY = 0.5*log((zE+zPz)/(zE-zPz));
 			
-				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+				TrackEta = trackDeta->at(iT) + ZEta->at(0);
 
-   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
-   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+   			trkP = TrackPT->at(iT) *cosh(TrackEta);
+   			trkPz = TrackPT->at(iT) *sinh(TrackEta);
 			
    			trkE = sqrt(trkP*trkP+piMass*piMass);
    			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
@@ -902,13 +902,13 @@ int main(int argc, char *argv[])
 
             zP = ZPT->at(0)*cosh(ZEta->at(0));
    			zPz = ZPT->at(0)*sinh(ZEta->at(0));
-   			zE = sqrt(zP*zP+ZMass*ZMass);
+   			zE = sqrt(zP*zP+ZMass->at(0) * ZMass->at(0));
    			zY = 0.5*log((zE+zPz)/(zE-zPz));
 			
-				TrackEta = M.trackDeta->at(iT) + ZEta->at(0);
+				TrackEta = trackDeta->at(iT) + ZEta->at(0);
 
-   			trkP = M.trackPt->at(iT) *cosh(TrackEta);
-   			trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+   			trkP = TrackPT->at(iT) *cosh(TrackEta);
+   			trkPz = TrackPT->at(iT) *sinh(TrackEta);
 			
    			trkE = sqrt(trkP*trkP+piMass*piMass);
    			trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
