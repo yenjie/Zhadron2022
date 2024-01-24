@@ -25,7 +25,7 @@ do
       --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" --TagShifts "$TagShifts" --SkipShifting false \
       $Plotting
 
-   #Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
+   #Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel <#DeltaN_{ch}>/event --RAxisLabel Difference --XMin 0 --XMax 3.5 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
 #
    #./Execute --OutputBase Plots/ResultNominal/v17/ResultNominalEta$Suffix \
    #   --DataFiles Root/PPData.root,Root/Data.root \
@@ -52,7 +52,7 @@ do
    #   --Tags "$Tags" --Labels "$Labels" --ExtraInfo "$ExtraInfo" \
    #   $Plotting
 
-   Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel dN_{ch}/d#Deltay/N_{Z} --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
+   Plotting="--XAxisLabel |#Deltay_{trk,Z}| --YAxisLabel dN_{ch}/d#Deltay/N_{Z} --RAxisLabel Difference --XMin 0 --XMax 3.5 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
 
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240124/v17d_WithShiftNoSelfSub_UE_2/ResultNominalY$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
@@ -82,7 +82,7 @@ do
       --ShiftFileName /afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230629_CountSkim/SkimCount/20240121/SkimCount_nominal_centN-v17d-dy.dh \
       $Plotting
 
-   Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel dN_{ch}/d#Delta#eta/N_{Z} --RAxisLabel Difference --XMin 0 --XMax 3.2 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
+   Plotting="--XAxisLabel |#Delta#eta_{trk,Z}| --YAxisLabel dN_{ch}/d#Delta#eta/N_{Z} --RAxisLabel Difference --XMin 0 --XMax 3.5 --YMin -6 --YMax 12 --RMin -7 --RMax 7 --LegendLeft 0.08 --LegendBottom 0.40"
 
    ./Execute --OutputBase /eos/user/p/pchou/figs/ResultNominal/20240124/v17d_WithShiftNoSelfSub_UE_2/ResultNominalEta$Suffix \
       --DataFiles Root/PPData.root,Root/Data.root \
