@@ -369,10 +369,10 @@ int main(int argc, char *argv[])
          sumeta24_phi+=yeta024[iE];
       }
    }
-   sumeta12*=(xeta[1]-xeta[0]);
-   sumeta24*=(xeta[1]-xeta[0]);
-   sumeta12_phi*=(xeta[1]-xeta[0]);
-   sumeta24_phi*=(xeta[1]-xeta[0]);
+   sumeta12+=(xeta[1]-xeta[0]);
+   sumeta24+=(xeta[1]-xeta[0]);
+   sumeta12_phi+=(xeta[1]-xeta[0]);
+   sumeta24_phi+=(xeta[1]-xeta[0]);
 
    std::cout<<"sum12 = "<<sum12<<", sum24 = "<<sum24<<std::endl;
    std::cout<<"sumeta12 = "<<sumeta12<<", sumeta24 = "<<sumeta24<<std::endl;
