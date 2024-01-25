@@ -74,13 +74,13 @@ TFile *file_ppMC;
 TFile *file_ppbkgMC;
 
 
-//const char *typeofdata = "v17d_PFMuon/20240103/nominal_ov1";
-//const char *typeofdata1 = "37_ov1";
+const char *typeofdata = "v17d_PFMuon/20240125/nominal_ov10_10HF";
+const char *typeofdata1 = "37_ov10_10HF";
 
-const char *typeofdata = "v17d_PFMuon/20240119/SigBkg_ov20_10HF";
-const char *typeofdata1 = "350_ov20_pp10HF";
+//const char *typeofdata = "v17d_PFMuon/20240119/SigBkg_ov20_10HF";
+//const char *typeofdata1 = "350_ov20_pp10HF";
 
-bool selfmix = true;
+bool selfmix = false;
 
 void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,float centH=90,float TptL=0,float TptH=10000, 
    string HistName="HPhi", string XTitleName = "#Delta#phi_{Z,track}", string YTitleName = "dN/d#Delta#phi", int rebinnum=1)
@@ -430,7 +430,7 @@ int main(int argc, char *argv[]){
    if(selfmix)
       file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17d_PFmuon_350_10HF_ov20.root","read");
    else
-      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_PFmuon_ov1.root","read");
+      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_10HF.root","read");
    
    file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
    file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17d_PFmuon_143_10HF.root","read");
