@@ -75,9 +75,9 @@ TFile *file_ppbkgMC;
 
 
 //const char *typeofdata = "v17d_PFMuon/20240126/nominal_ov10_10HF_GEN_PP";
-const char *typeofdata = "v17d_PFMuon/20240126/test";
+const char *typeofdata = "v17d_PFMuon/20240126/test1HF";
 
-const char *typeofdata1 = "37_ov10_10HF_GEN_PP";
+const char *typeofdata1 = "37_ov10_GEN_PP";
 
 //const char *typeofdata = "v17d_PFMuon/20240119/SigBkg_ov20_10HF";
 //const char *typeofdata1 = "350_ov20_pp10HF";
