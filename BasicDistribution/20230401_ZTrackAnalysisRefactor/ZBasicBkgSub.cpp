@@ -74,7 +74,9 @@ TFile *file_ppMC;
 TFile *file_ppbkgMC;
 
 
-const char *typeofdata = "v17d_PFMuon/20240126/nominal_ov10_10HF_GEN_PP";
+//const char *typeofdata = "v17d_PFMuon/20240126/nominal_ov10_10HF_GEN_PP";
+const char *typeofdata = "v17d_PFMuon/20240126/test";
+
 const char *typeofdata1 = "37_ov10_10HF_GEN_PP";
 
 //const char *typeofdata = "v17d_PFMuon/20240119/SigBkg_ov20_10HF";
@@ -157,10 +159,10 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
 
    std::cout<<"Getting Entries..."<<std::endl;
 
-   TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HGenEventCount",FolderName.c_str()));
-   TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HGenEventCount",FolderName.c_str()));
-   TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HGenEventCount",FolderName.c_str()));
-   TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HGenEventCount",FolderName.c_str()));
+   TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HEventCount",FolderName.c_str()));
    
    float tM_tN     =     nM_tN->GetBinContent(1);
    float tMb_tN    =    nMb_tN->GetBinContent(1);
