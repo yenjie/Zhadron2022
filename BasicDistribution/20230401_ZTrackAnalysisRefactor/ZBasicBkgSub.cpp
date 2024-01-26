@@ -74,8 +74,8 @@ TFile *file_ppMC;
 TFile *file_ppbkgMC;
 
 
-const char *typeofdata = "v17d_PFMuon/20240125/nominal_ov10_10HF";
-const char *typeofdata1 = "37_ov10_10HF";
+const char *typeofdata = "v17d_PFMuon/20240126/nominal_ov10_10HF_GEN_Pythia";
+const char *typeofdata1 = "37_ov10_10HF_GEN_Pythia";
 
 //const char *typeofdata = "v17d_PFMuon/20240119/SigBkg_ov20_10HF";
 //const char *typeofdata1 = "350_ov20_pp10HF";
@@ -157,10 +157,10 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
 
    std::cout<<"Getting Entries..."<<std::endl;
 
-   TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HEventCount",FolderName.c_str()));
-   TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HEventCount",FolderName.c_str()));
-   TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HEventCount",FolderName.c_str()));
-   TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HGenEventCount",FolderName.c_str()));
+   TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HGenEventCount",FolderName.c_str()));
+   TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HGenEventCount",FolderName.c_str()));
+   TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HGenEventCount",FolderName.c_str()));
    
    float tM_tN     =     nM_tN->GetBinContent(1);
    float tMb_tN    =    nMb_tN->GetBinContent(1);
@@ -222,7 +222,7 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    if(selfmix)
       typeofsample = "Z - Z #times Z (MC)";
    else
-      typeofsample = "Nominal MC";
+      typeofsample = "Nominal MC Gen";
 
    TLatex *pt0 = new TLatex(0.15,0.82,typeofsample.c_str());
    //TLatex *pt0 = new TLatex(0.15,0.82,"Nominal MC GEN (Pythia+Hydjet)");
@@ -273,7 +273,7 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    if(selfmix)
       pptext = "#Sigma pp (raw-bkg)";
    else
-      pptext = "#Sigma pp";
+      pptext = "#Sigma sig pythia";
 
    TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  %s = %.1f",hMC_sb_phi->Integral()*bin_width*rebinnum,pptext.c_str(),hpp_phi->Integral()*bin_width*rebinnum));
    ptInt2->SetTextFont(42);
@@ -312,14 +312,14 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    hMC_bkg_phi->SetYTitle(YTitleName.c_str());
 
    TLegend leg1(0.68,0.62,0.98,0.88);
-   leg1.AddEntry(hMC_phi ,"raw","lep");
-   leg1.AddEntry(hMC_bkg_phi ,"bkg","lep");
-   leg1.AddEntry(hMC_sb_phi ,"raw-bkg","lep");
+   leg1.AddEntry(hMC_phi ,"raw GEN","lep");
+   leg1.AddEntry(hMC_bkg_phi ,"bkg GEN","lep");
+   leg1.AddEntry(hMC_sb_phi ,"raw GEN-bkg GEN","lep");
    if(selfmix)
       leg1.AddEntry(hpp_phi ,"pp raw-bkg","l");
    else
-      leg1.AddEntry(hpp_phi ,"pp","l");
-   //leg1.AddEntry(hpp_phi ,"sig GEN","l");
+      //leg1.AddEntry(hpp_phi ,"pp","l");
+      leg1.AddEntry(hpp_phi ,"sig GEN","l");
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
@@ -408,7 +408,7 @@ void ZBasicBkgSub_loop(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    double bineta = 0.032, binphi = M_PI/50;
 
-   string HistName[] = {"HZEta", "HZPhi", "HTrackEta", "HTrackPhi", "HEta", "HPhi"};
+   string HistName[] = {"HGenZEta", "HGenZPhi", "HGenTrackEta", "HGenTrackPhi", "HEta", "HPhi"};
    string XTitleName[] = {"#eta_{Z}", "#phi_{Z}", "#eta_{track}", "#phi_{track}", "#Delta#eta_{Z,track}", "#Delta#phi_{Z,track}"};
    string YTitleName[] = {"dN/d#eta", "dN/d#phi", "dN/d#eta", "dN/d#phi", "dN/d#Delta#eta", "dN/d#Delta#phi"};
    int rebin_num[] = {2, 2, 2, 2, 1, 1};
@@ -425,14 +425,18 @@ int main(int argc, char *argv[]){
 
    style();
 
-   file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
+   //file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
+   file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
    
    if(selfmix)
       file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17d_PFmuon_350_10HF_ov20.root","read");
    else
-      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_10HF.root","read");
+      //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_10HF.root","read");
+      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCGenbkg_v17d_10HF.root","read");
    
-   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC0Sub_v17_PFmuon.root","read");
+   //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon.root","read");
+   //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCGen_v17_PFmuon.root","read");
+   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen0Sub_v17_PFmuon.root","read");
    file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17d_PFmuon_143_10HF.root","read");
    //file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17d_Cent10_143.root","read");
 
