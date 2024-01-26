@@ -74,8 +74,8 @@ TFile *file_ppMC;
 TFile *file_ppbkgMC;
 
 
-const char *typeofdata = "v17d_PFMuon/20240126/nominal_ov10_10HF_GEN_Pythia";
-const char *typeofdata1 = "37_ov10_10HF_GEN_Pythia";
+const char *typeofdata = "v17d_PFMuon/20240126/nominal_ov10_10HF_GEN_PP";
+const char *typeofdata1 = "37_ov10_10HF_GEN_PP";
 
 //const char *typeofdata = "v17d_PFMuon/20240119/SigBkg_ov20_10HF";
 //const char *typeofdata1 = "350_ov20_pp10HF";
@@ -273,7 +273,7 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    if(selfmix)
       pptext = "#Sigma pp (raw-bkg)";
    else
-      pptext = "#Sigma sig pythia";
+      pptext = "#Sigma pp";
 
    TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  %s = %.1f",hMC_sb_phi->Integral()*bin_width*rebinnum,pptext.c_str(),hpp_phi->Integral()*bin_width*rebinnum));
    ptInt2->SetTextFont(42);
@@ -318,8 +318,8 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    if(selfmix)
       leg1.AddEntry(hpp_phi ,"pp raw-bkg","l");
    else
-      //leg1.AddEntry(hpp_phi ,"pp","l");
-      leg1.AddEntry(hpp_phi ,"sig GEN","l");
+      leg1.AddEntry(hpp_phi ,"pp GEN","l");
+      //leg1.AddEntry(hpp_phi ,"sig GEN","l");
    leg1.SetFillColorAlpha(kWhite,0);
    leg1.SetLineColor(kBlack);
    leg1.SetLineWidth(1);
@@ -435,8 +435,8 @@ int main(int argc, char *argv[]){
       file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundGen_v17_PFmuon.root","read");
    
    //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon.root","read");
-   //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCGen_v17_PFmuon.root","read");
-   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen0Sub_v17_PFmuon.root","read");
+   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCGen_v17_PFmuon.root","read");
+   //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen0Sub_v17_PFmuon.root","read");
    file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17d_PFmuon_143_10HF.root","read");
    //file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17d_Cent10_143.root","read");
 
