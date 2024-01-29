@@ -159,10 +159,10 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
 
    std::cout<<"Getting Entries..."<<std::endl;
 
-   TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HEventCount",FolderName.c_str()));
-   TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HEventCount",FolderName.c_str()));
-   TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HEventCount",FolderName.c_str()));
-   TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HEventCount",FolderName.c_str()));
+   TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HGenEventCount",FolderName.c_str()));
+   TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HGenEventCount",FolderName.c_str()));
+   TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HGenEventCount",FolderName.c_str()));
+   TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HGenEventCount",FolderName.c_str()));
    
    float tM_tN     =     nM_tN->GetBinContent(1);
    float tMb_tN    =    nMb_tN->GetBinContent(1);
@@ -449,7 +449,7 @@ int main(int argc, char *argv[]){
 
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17.root","read");
    file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundGen_v17.root","read");
-   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17.root","read");
+   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCGen_v17.root","read");
 
    ZBasicBkgSub_loop(40, 40, 200,  0, 10,  1, 1000);
    ZBasicBkgSub_loop(40, 40, 200,  0, 10,  1, 2);
