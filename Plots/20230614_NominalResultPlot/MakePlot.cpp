@@ -431,6 +431,10 @@ int main(int argc, char *argv[])
       Pad[iC]->cd();
       HWorld[iC]->Draw("axis");
 
+      TLine *l1 = new TLine(XMin,0,XMax,0);
+      l1->SetLineWidth(2);
+      l1->Draw();
+
       for(int iF = 0; iF < NFile; iF++)
       {
          if(SkipSystematics == false && HDataSys[iC][iF] != nullptr)
