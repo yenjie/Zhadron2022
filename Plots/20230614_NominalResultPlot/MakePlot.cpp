@@ -624,9 +624,9 @@ void HistogramShifting(TH1D *H, string TagShift, DataHelper ShiftFile, int iF)
       ErrXY = std::stod(ShiftFile[TagShift]["PbPb Data Sig-Bkg Ntrk/Nevt Error"].GetRepresentation());
       ErrXY = sqrt(ErrXY*ErrXY+SumXY*SumXY*0.05*0.05);
    }else if(iF==0){
-      SumXY = 0;//std::stod(ShiftFile[TagShift]["pp Data Ntrk/Nevt"].GetRepresentation());
-      ErrXY = 0;//std::stod(ShiftFile[TagShift]["pp Data Ntrk/Nevt Error"].GetRepresentation());
-      ErrXY = 0;//sqrt(ErrXY*ErrXY+SumXY*SumXY*0.024*0.024);
+      SumXY = std::stod(ShiftFile[TagShift]["pp Data Ntrk/Nevt"].GetRepresentation());
+      ErrXY = std::stod(ShiftFile[TagShift]["pp Data Ntrk/Nevt Error"].GetRepresentation());
+      ErrXY = sqrt(ErrXY*ErrXY+SumXY*SumXY*0.024*0.024);
    }else{
       SumXY = 0;
    }
