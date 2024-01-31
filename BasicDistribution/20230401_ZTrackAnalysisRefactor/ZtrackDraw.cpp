@@ -1676,8 +1676,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(2);
    hData_sb_etaphi_1->Draw("COLZ");
-   hData_sb_etaphi_1->GetYaxis()->SetTitle("Signal - Background MC #Delta#phi_{Z,track}");
-   hData_sb_etaphi_1->GetXaxis()->SetTitle("Signal - Background MC #Delta#eta_{Z,track}");
+   hData_sb_etaphi_1->GetYaxis()->SetTitle("Signal - Background Data #Delta#phi_{Z,track}");
+   hData_sb_etaphi_1->GetXaxis()->SetTitle("Signal - Background Data #Delta#eta_{Z,track}");
    hData_sb_etaphi_1->GetXaxis()->SetTitleSize(24);
    hData_sb_etaphi_1->GetYaxis()->SetTitleSize(24);
    hData_sb_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
