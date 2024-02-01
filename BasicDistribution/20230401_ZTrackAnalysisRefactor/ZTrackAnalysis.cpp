@@ -52,6 +52,9 @@ int main(int argc, char *argv[])
    double Fraction       = CL.GetDouble("Fraction", 1.00);
    bool IgnoreCentrality = CL.GetBool("IgnoreCentrality", false);
    bool OnlyZeroSub      = CL.GetBool("OnlyZeroSub", false);
+   bool OnlyOneSub       = CL.GetBool("OnlyOneSub", false);
+   bool NoZeroSub        = CL.GetBool("NoZeroSub", false);
+   bool NoOneSub         = CL.GetBool("NoOneSub", false);
    bool DoGenCorrelation = CL.GetBool("DoGenCorrelation", false);
    bool DoSingleFile     = CL.GetBool("DoSingleFile", false);
    
@@ -370,6 +373,9 @@ int main(int argc, char *argv[])
          for(int iT = 0; iT < NTrack; iT++)
          {
             if(OnlyZeroSub == true && DoGenCorrelation == true && subevent->at(iT) != 0) continue;
+            if(OnlyOneSub == true && DoGenCorrelation == true && subevent->at(iT) != 1) continue;
+            if(NoZeroSub == true && DoGenCorrelation == true && subevent->at(iT) == 0) continue;
+            if(NoOneSub == true && DoGenCorrelation == true && subevent->at(iT) == 1) continue;
 
             bool TrackPTRange = false;
             if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
