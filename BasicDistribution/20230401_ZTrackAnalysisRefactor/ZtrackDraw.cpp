@@ -1662,8 +1662,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_etaphi_1->GetXaxis()->SetTitle("Signal - Background MC #Delta#eta_{Z,track}");
    hMC_sb_etaphi_1->GetXaxis()->SetTitleSize(24);
    hMC_sb_etaphi_1->GetYaxis()->SetTitleSize(24);
-   hMC_sb_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
-   hMC_sb_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hMC_sb_etaphi_1->GetXaxis()->SetTitleOffset(2.0);
+   hMC_sb_etaphi_1->GetYaxis()->SetTitleOffset(2.0);
    hMC_sb_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
 
@@ -1680,8 +1680,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_sb_etaphi_1->GetXaxis()->SetTitle("Signal - Background Data #Delta#eta_{Z,track}");
    hData_sb_etaphi_1->GetXaxis()->SetTitleSize(24);
    hData_sb_etaphi_1->GetYaxis()->SetTitleSize(24);
-   hData_sb_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
-   hData_sb_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hData_sb_etaphi_1->GetXaxis()->SetTitleOffset(2.0);
+   hData_sb_etaphi_1->GetYaxis()->SetTitleOffset(2.0);
    hData_sb_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
    hData_sb_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
 
@@ -1696,8 +1696,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track} (NPU=0)");
    hpp_etaphi_1->GetXaxis()->SetTitleSize(24);
    hpp_etaphi_1->GetYaxis()->SetTitleSize(24);
-   hpp_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
-   hpp_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hpp_etaphi_1->GetXaxis()->SetTitleOffset(2.0);
+   hpp_etaphi_1->GetYaxis()->SetTitleOffset(2.0);
    hpp_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
    hpp_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
 
@@ -1776,8 +1776,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_etaphi_1->GetXaxis()->SetTitle("Signal - Background MC #Delta#eta_{Z,track}");
    hMC_sb_etaphi_1->GetXaxis()->SetTitleSize(24);
    hMC_sb_etaphi_1->GetYaxis()->SetTitleSize(24);
-   hMC_sb_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
-   hMC_sb_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hMC_sb_etaphi_1->GetXaxis()->SetTitleOffset(2.0);
+   hMC_sb_etaphi_1->GetYaxis()->SetTitleOffset(2.0);
    hMC_sb_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
 
@@ -1794,8 +1794,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sbr_etaphi_1->GetXaxis()->SetTitle("Signal/Background MC #Delta#eta_{Z,track}");
    hMC_sbr_etaphi_1->GetXaxis()->SetTitleSize(24);
    hMC_sbr_etaphi_1->GetYaxis()->SetTitleSize(24);
-   hMC_sbr_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
-   hMC_sbr_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hMC_sbr_etaphi_1->GetXaxis()->SetTitleOffset(2.0);
+   hMC_sbr_etaphi_1->GetYaxis()->SetTitleOffset(2.0);
    hMC_sbr_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sbr_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
 
@@ -1810,8 +1810,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track} (NPU=0)");
    hpp_etaphi_1->GetXaxis()->SetTitleSize(24);
    hpp_etaphi_1->GetYaxis()->SetTitleSize(24);
-   hpp_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
-   hpp_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hpp_etaphi_1->GetXaxis()->SetTitleOffset(2.0);
+   hpp_etaphi_1->GetYaxis()->SetTitleOffset(2.0);
    hpp_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
    hpp_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
 
@@ -3336,7 +3336,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
 int main(int argc, char *argv[]){
 
-   //style();
+   style();
 
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
    file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_10HF.root","read");
@@ -3359,15 +3359,15 @@ int main(int argc, char *argv[]){
    ZtrackDraw_single(40, 20, 2000,  0, 90, 20,   50);
    ZtrackDraw_single(40, 20, 2000,  0, 90, 50,  100);
 */
-   ZtrackDraw_single(40, 40, 200,  0, 10,  1, 1000);
-   ZtrackDraw_single(40, 40, 200, 10, 30,  1, 1000);
-   ZtrackDraw_single(40, 40, 200, 30, 50,  1, 1000);
-   ZtrackDraw_single(40, 40, 200, 50, 90,  1, 1000);
-
-   ZtrackDraw_single(40, 40, 200,  0, 10,  1, 1000);
-   ZtrackDraw_single(40, 40, 200,  0, 10,  1, 2);
-   ZtrackDraw_single(40, 40, 200,  0, 10,  2, 4);
-   ZtrackDraw_single(40, 40, 200,  0, 10,  4, 10);
+   //ZtrackDraw_single(40, 40, 200,  0, 10,  1, 1000);
+   //ZtrackDraw_single(40, 40, 200, 10, 30,  1, 1000);
+   //ZtrackDraw_single(40, 40, 200, 30, 50,  1, 1000);
+   //ZtrackDraw_single(40, 40, 200, 50, 90,  1, 1000);
+//
+   //ZtrackDraw_single(40, 40, 200,  0, 10,  1, 1000);
+   //ZtrackDraw_single(40, 40, 200,  0, 10,  1, 2);
+   //ZtrackDraw_single(40, 40, 200,  0, 10,  2, 4);
+   //ZtrackDraw_single(40, 40, 200,  0, 10,  4, 10);
 
    ZtrackDraw_single(40, 40, 200,  0, 90,  1, 2);
 /*
