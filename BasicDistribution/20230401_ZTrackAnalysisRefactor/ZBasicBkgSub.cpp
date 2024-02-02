@@ -75,8 +75,8 @@ TFile *file_ppbkgMC;
 
 
 //const char *typeofdata = "v17d_PFMuon/20240126/nominal_ov10_10HF_GEN_PP";
-const char *typeofdata = "testBkgSub/20240202/v17d_1Sub";
-const char *typeofdata1 = "test";
+const char *typeofdata = "testBkgSub/20240202/v17d_No1Sub";
+const char *typeofdata1 = "no1sub";
 //const char *typeofdata1 = "37_ov10_GEN_PP";
 
 //const char *typeofdata = "v17d_PFMuon/20240119/SigBkg_ov20_10HF";
@@ -315,7 +315,7 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
 
    TLegend leg1(0.68,0.62,0.98,0.88);
    leg1.AddEntry(hMC_phi ,"raw GEN","lep");
-   leg1.AddEntry(hMC_bkg_phi ,"bkg GEN (subevt=0)","lep");
+   leg1.AddEntry(hMC_bkg_phi ,"bkg GEN (subevt#neq0)","lep");
    leg1.AddEntry(hMC_sb_phi ,"raw GEN-bkg GEN","lep");
    if(selfmix)
       leg1.AddEntry(hpp_phi ,"pp raw-bkg","l");
@@ -448,7 +448,7 @@ int main(int argc, char *argv[]){
 
 
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
-   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCGenbkg_v17d_10HF_1Sub.root","read");
+   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCGenbkg_v17d_10HF_No1Sub.root","read");
    file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCGen_v17_PFmuon.root","read");
 
    ZBasicBkgSub_loop(40, 40, 200,  0, 10,  1, 1000);
