@@ -62,9 +62,9 @@ int main(int argc, char *argv[])
    vector<Configuration> C;
 
 
-   C.push_back(Configuration(40, 40,  200,  0, 10, 1, 2));
+   //C.push_back(Configuration(40, 40,  200,  0, 10, 1, 2));
 
-   /*
+   
    C.push_back(Configuration(40, 40,  200,  0, 30, 1, 1000));
    C.push_back(Configuration(40, 40,  200,  0, 10, 1, 1000));
    C.push_back(Configuration(40, 40,  200, 10, 30, 1, 1000));
@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 40,  200, 30, 50, 4, 10));
    C.push_back(Configuration(40, 40,  200, 50, 90, 4, 10));
    C.push_back(Configuration(40, 40,  200,  0, 90, 4, 10));
-*/
+
    
    vector<TDirectory *>     Folder;
    vector<double>           EventCount;
