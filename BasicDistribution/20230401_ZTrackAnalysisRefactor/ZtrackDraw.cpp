@@ -43,7 +43,7 @@ void style(){
   gStyle->SetPadTopMargin(0.05);
   gStyle->SetPadBottomMargin(0.15);
   gStyle->SetPadLeftMargin(0.15);
-  gStyle->SetPadRightMargin(0.05);
+  gStyle->SetPadRightMargin(0.10);
 
   gStyle->SetLineScalePS(1.5);
 
@@ -59,7 +59,7 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v17d/20240131";
+const char *typeofdata = "v17d/20240203";
 const char *typeofdata1 = "v17d_PFmuon_10HF";
 const char *typeofdatatext = "single muon";
 
