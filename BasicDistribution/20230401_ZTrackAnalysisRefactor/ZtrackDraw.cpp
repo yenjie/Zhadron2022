@@ -3370,7 +3370,7 @@ int main(int argc, char *argv[]){
    //ZtrackDraw_single(40, 40, 200,  0, 10,  2, 4);
    //ZtrackDraw_single(40, 40, 200,  0, 10,  4, 10);
 
-   //ZtrackDraw_single(40, 40, 200,  0, 90,  1, 2);
+   ZtrackDraw_single(40, 40, 200,  0, 90,  1, 2);
 /*
    ZtrackDraw_single(40, 20, 2000,  0, 10, 10,   20);
    ZtrackDraw_single(40, 20, 2000, 10, 30, 10,   20);
