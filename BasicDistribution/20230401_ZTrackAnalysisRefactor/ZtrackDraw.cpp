@@ -1439,8 +1439,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_etaphi_gen->Draw("lego20");
    hMC_etaphi_gen->GetYaxis()->SetTitle("Signal MC gen #Delta#phi_{Z,track}");
    hMC_etaphi_gen->GetXaxis()->SetTitle("Signal MC gen #Delta#eta_{Z,track}");
-   hMC_etaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_etaphi_gen->GetYaxis()->SetTitleSize(30);
+   hMC_etaphi_gen->GetXaxis()->SetTitleSize(24);
+   hMC_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_etaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_etaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -1457,8 +1457,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_bkg_etaphi_gen->Draw("lego20");
    hMC_bkg_etaphi_gen->GetYaxis()->SetTitle("Backgrond MC gen #Delta#phi_{Z,track}");
    hMC_bkg_etaphi_gen->GetXaxis()->SetTitle("Backgrond MC gen #Delta#eta_{Z,track}");
-   hMC_bkg_etaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_bkg_etaphi_gen->GetYaxis()->SetTitleSize(30);
+   hMC_bkg_etaphi_gen->GetXaxis()->SetTitleSize(24);
+   hMC_bkg_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_bkg_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_bkg_etaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_bkg_etaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -1480,8 +1480,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_etaphi_gen->Draw("lego20");
    hMC_sb_etaphi_gen->GetYaxis()->SetTitle("Signal-Background MC gen #Delta#phi_{Z,track}");
    hMC_sb_etaphi_gen->GetXaxis()->SetTitle("Signal-Background MC gen #Delta#eta_{Z,track}");
-   hMC_sb_etaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_sb_etaphi_gen->GetYaxis()->SetTitleSize(30);
+   hMC_sb_etaphi_gen->GetXaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_sb_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_sb_etaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_sb_etaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -1498,8 +1498,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sbr_etaphi_gen->Draw("lego20");
    hMC_sbr_etaphi_gen->GetYaxis()->SetTitle("Signal/Backgrond MC gen #Delta#phi_{Z,track}");
    hMC_sbr_etaphi_gen->GetXaxis()->SetTitle("Signal/Backgrond MC gen #Delta#eta_{Z,track}");
-   hMC_sbr_etaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_sbr_etaphi_gen->GetYaxis()->SetTitleSize(30);
+   hMC_sbr_etaphi_gen->GetXaxis()->SetTitleSize(24);
+   hMC_sbr_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_sbr_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_sbr_etaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_sbr_etaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -1521,8 +1521,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_etaphi_gen->Draw("COLZ");
    hMC_etaphi_gen->GetYaxis()->SetTitle("Signal MC gen #Delta#phi_{Z,track}");
    hMC_etaphi_gen->GetXaxis()->SetTitle("Signal MC gen #Delta#eta_{Z,track}");
-   hMC_etaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_etaphi_gen->GetYaxis()->SetTitleSize(30);
+   hMC_etaphi_gen->GetXaxis()->SetTitleSize(24);
+   hMC_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_etaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_etaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -1539,8 +1539,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_bkg_etaphi_gen->Draw("COLZ");
    hMC_bkg_etaphi_gen->GetYaxis()->SetTitle("Backgrond MC gen #Delta#phi_{Z,track}");
    hMC_bkg_etaphi_gen->GetXaxis()->SetTitle("Backgrond MC gen #Delta#eta_{Z,track}");
-   hMC_bkg_etaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_bkg_etaphi_gen->GetYaxis()->SetTitleSize(30);
+   hMC_bkg_etaphi_gen->GetXaxis()->SetTitleSize(24);
+   hMC_bkg_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_bkg_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_bkg_etaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_bkg_etaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -1562,8 +1562,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_etaphi_gen->Draw("COLZ");
    hMC_sb_etaphi_gen->GetYaxis()->SetTitle("Signal-Background MC gen #Delta#phi_{Z,track}");
    hMC_sb_etaphi_gen->GetXaxis()->SetTitle("Signal-Background MC gen #Delta#eta_{Z,track}");
-   hMC_sb_etaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_sb_etaphi_gen->GetYaxis()->SetTitleSize(30);
+   hMC_sb_etaphi_gen->GetXaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_sb_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_sb_etaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_sb_etaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
@@ -1580,8 +1580,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sbr_etaphi_gen->Draw("COLZ");
    hMC_sbr_etaphi_gen->GetYaxis()->SetTitle("Signal/Backgrond MC gen #Delta#phi_{Z,track}");
    hMC_sbr_etaphi_gen->GetXaxis()->SetTitle("Signal/Backgrond MC gen #Delta#eta_{Z,track}");
-   hMC_sbr_etaphi_gen->GetXaxis()->SetTitleSize(30);
-   hMC_sbr_etaphi_gen->GetYaxis()->SetTitleSize(30);
+   hMC_sbr_etaphi_gen->GetXaxis()->SetTitleSize(24);
+   hMC_sbr_etaphi_gen->GetYaxis()->SetTitleSize(24);
    hMC_sbr_etaphi_gen->GetXaxis()->SetTitleOffset(3.0);
    hMC_sbr_etaphi_gen->GetYaxis()->SetTitleOffset(2.5);
    hMC_sbr_etaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
