@@ -1528,9 +1528,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_etaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_etaphi_gen->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
 
-   pt3d->Draw();
-   pt3d2->Draw();
-   pt3d3->Draw();
+   pt->Draw();
+   pt2->Draw();
+   pt3->Draw();
 
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
@@ -1569,9 +1569,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_etaphi_gen->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_etaphi_gen->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
 
-   pt3d->Draw();
-   pt3d2->Draw();
-   pt3d3->Draw();
+   pt->Draw();
+   pt2->Draw();
+   pt3->Draw();
 
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
@@ -1668,9 +1668,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
 
-   pt3d->Draw();
-   pt3d2->Draw();
-   pt3d3->Draw();
+   pt->Draw();
+   pt2->Draw();
+   pt3->Draw();
 
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
@@ -1782,9 +1782,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hMC_sb_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
 
-   pt3d->Draw();
-   pt3d2->Draw();
-   pt3d3->Draw();
+   pt->Draw();
+   pt2->Draw();
+   pt3->Draw();
 
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
