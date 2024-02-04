@@ -315,7 +315,8 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
 
    TLegend leg1(0.68,0.62,0.98,0.88);
    leg1.AddEntry(hMC_phi ,"raw","lep");
-   leg1.AddEntry(hMC_bkg_phi ,"bkg (subevt#neq0)","lep");
+   leg1.AddEntry(hMC_bkg_phi ,"bkg","lep");
+   //leg1.AddEntry(hMC_bkg_phi ,"bkg (subevt#neq0)","lep");
    leg1.AddEntry(hMC_sb_phi ,"raw-bkg","lep");
    if(selfmix)
       leg1.AddEntry(hpp_phi ,"pp raw-bkg","l");
