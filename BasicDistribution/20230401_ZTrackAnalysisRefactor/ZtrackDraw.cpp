@@ -60,7 +60,7 @@ TFile *file_ppMC;
 TFile *file_sigMCgen;
 TFile *file_bkgMCgen;
 
-const char *typeofdata = "v17d/20240204";
+const char *typeofdata = "v17d/20240205";
 const char *typeofdata1 = "v17d_PFmuon_SigBkg";
 const char *typeofdatatext = "single muon";
 
@@ -1824,6 +1824,130 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_pp_COLZ.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/pdf/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_pp_COLZ.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/C/Ztrack_%s_sbr_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_pp_COLZ.C",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->Clear();
+
+   c->Divide(3);
+   c->cd(1);
+
+   hMC_sb_etaphi_1->Draw("lego20");
+   hMC_sb_etaphi_1->GetYaxis()->SetTitle("Signal - Background MC #Delta#phi_{Z,track}");
+   hMC_sb_etaphi_1->GetXaxis()->SetTitle("Signal - Background MC #Delta#eta_{Z,track}");
+   hMC_sb_etaphi_1->GetXaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_1->GetYaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
+   hMC_sb_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hMC_sb_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_sb_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
+
+   pt3d->Draw();
+   pt3d2->Draw();
+   pt3d3->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(2);
+   hpp_etaphi_1->Draw("lego20");
+   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track} (NPU=0)");
+   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track} (NPU=0)");
+   hpp_etaphi_1->GetXaxis()->SetTitleSize(24);
+   hpp_etaphi_1->GetYaxis()->SetTitleSize(24);
+   hpp_etaphi_1->GetXaxis()->SetTitleOffset(3.0);
+   hpp_etaphi_1->GetYaxis()->SetTitleOffset(2.5);
+   hpp_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hpp_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
+
+   //ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(3);
+
+   TH2D *hMC_sb_etaphi_2 = (TH2D*) hMC_sb_etaphi_1->Clone("hMC_sb_etaphi_2");
+
+   hMC_sb_etaphi_2->Add(hpp_etaphi_1,-1);
+
+   hMC_sb_etaphi_2->Draw("lego20");
+   hMC_sb_etaphi_2->GetYaxis()->SetTitle("PbPb S-B MC - pp MC #Delta#phi_{Z,track}");
+   hMC_sb_etaphi_2->GetXaxis()->SetTitle("PbPb S-B MC - pp MC #Delta#eta_{Z,track}");
+   hMC_sb_etaphi_2->GetXaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_2->GetYaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_2->GetXaxis()->SetTitleOffset(3.0);
+   hMC_sb_etaphi_2->GetYaxis()->SetTitleOffset(2.5);
+   hMC_sb_etaphi_2->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_sb_etaphi_2->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
+
+   //ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/Ztrack_%s_ppsb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/pdf/Ztrack_%s_ppsb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/C/Ztrack_%s_ppsb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi.C",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   c->Clear();
+
+   c->Divide(3);
+   c->cd(1);
+
+   hMC_sb_etaphi_1->Draw("COLZ");
+   hMC_sb_etaphi_1->GetYaxis()->SetTitle("Signal - Background MC #Delta#phi_{Z,track}");
+   hMC_sb_etaphi_1->GetXaxis()->SetTitle("Signal - Background MC #Delta#eta_{Z,track}");
+   hMC_sb_etaphi_1->GetXaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_1->GetYaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_1->GetXaxis()->SetTitleOffset(2.0);
+   hMC_sb_etaphi_1->GetYaxis()->SetTitleOffset(2.0);
+   hMC_sb_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_sb_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
+
+   pt->Draw();
+   pt2->Draw();
+   pt3->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(2);
+   hpp_etaphi_1->Draw("COLZ");
+   hpp_etaphi_1->GetYaxis()->SetTitle("pp MC #Delta#phi_{Z,track} (NPU=0)");
+   hpp_etaphi_1->GetXaxis()->SetTitle("pp MC #Delta#eta_{Z,track} (NPU=0)");
+   hpp_etaphi_1->GetXaxis()->SetTitleSize(24);
+   hpp_etaphi_1->GetYaxis()->SetTitleSize(24);
+   hpp_etaphi_1->GetXaxis()->SetTitleOffset(2.0);
+   hpp_etaphi_1->GetYaxis()->SetTitleOffset(2.0);
+   hpp_etaphi_1->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hpp_etaphi_1->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
+
+   //ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->cd(3);
+
+   TH2D *hMC_sb_etaphi_2 = (TH2D*) hMC_sb_etaphi_1->Clone("hMC_sb_etaphi_2");
+
+   hMC_sb_etaphi_2->Add(hpp_etaphi_1,-1);
+
+   hMC_sb_etaphi_2->Draw("COLZ");
+   hMC_sb_etaphi_2->GetYaxis()->SetTitle("PbPb S-B MC - pp MC #Delta#phi_{Z,track}");
+   hMC_sb_etaphi_2->GetXaxis()->SetTitle("PbPb S-B MC - pp MC #Delta#eta_{Z,track}");
+   hMC_sb_etaphi_2->GetXaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_2->GetYaxis()->SetTitleSize(24);
+   hMC_sb_etaphi_2->GetXaxis()->SetTitleOffset(2.0);
+   hMC_sb_etaphi_2->GetYaxis()->SetTitleOffset(2.0);
+   hMC_sb_etaphi_2->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_sb_etaphi_2->GetZaxis()->SetTitle("dN/d#Delta#etad#Delta#phi");
+
+   //ptN0->Draw();
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
+   c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/Ztrack_%s_ppsb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_COLZ.png",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/pdf/Ztrack_%s_ppsb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_COLZ.pdf",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
+   //c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/pp/C/Ztrack_%s_ppsb_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_Detaphi_COLZ.C",typeofdata,typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    c->Clear();
 
    c->SetCanvasSize(1400,800);
