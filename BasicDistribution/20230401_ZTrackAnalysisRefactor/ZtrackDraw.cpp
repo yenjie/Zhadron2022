@@ -412,7 +412,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_ZWTAMoreetaphi->Scale(1./25);
    hData_Zbkg_WTAMoreetaphi->Scale(1./25);
 
-   TH1D *hpp_etaphi_2 = (TH1D*) hpp_etaphi_1->Clone("hpp_etaphi_2");
+   TH2D *hpp_etaphi_2 = (TH2D*) hpp_etaphi_1->Clone("hpp_etaphi_2");
 
    hpp_etaphi_1->Rebin2D(4,4);
 
