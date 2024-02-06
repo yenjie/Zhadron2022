@@ -38,7 +38,7 @@ void style(){
   gStyle->SetCanvasColor(kWhite);
   gStyle->SetOptStat(0); /*don't show statistics box*/
   gStyle->SetOptTitle(0); /*don't show histogram titles*/
-  gStyle->SetTitleSize(36, "xyz");
+  gStyle->SetTitleSize(24, "xyz");
   gStyle->SetTitleOffset(1, "xyz");
   gStyle->SetLabelSize(24, "xy");
   gStyle->SetLabelSize(20, "z");
@@ -208,7 +208,7 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    pt0->SetTextSize(0.03);
    pt0->SetNDC(kTRUE);
 
-   TLatex *pt = new TLatex(0.3,0.97,Form("%.0f %%< Centrality < %.0f %%, %.1f < Z p_{T} < %.1f GeV, %.1f < Track p_{T} < %.1f GeV",centL,centH,ptL,ptH,TptL,TptH));
+   TLatex *pt = new TLatex(0.1,0.97,Form("%.0f %%< Cent. < %.0f %%, %.1f < p_{T,Z} < %.1f GeV, %.1f < p_{T,trk} < %.1f GeV",centL,centH,ptL,ptH,TptL,TptH));
    pt->SetTextFont(42);
    pt->SetTextSize(0.03);
    pt->SetNDC(kTRUE);
@@ -251,15 +251,12 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_sb_phi->Draw("lego20");
    hMC_sb_phi->GetYaxis()->SetTitle(("Signal - Background MC " + YTitleName).c_str());
    hMC_sb_phi->GetXaxis()->SetTitle(("Signal - Background MC " + XTitleName).c_str());
-   hMC_sb_phi->GetXaxis()->SetTitleSize(24);
-   hMC_sb_phi->GetYaxis()->SetTitleSize(24);
    hMC_sb_phi->GetXaxis()->SetTitleOffset(3.0);
    hMC_sb_phi->GetYaxis()->SetTitleOffset(2.5);
    hMC_sb_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
 
    pt0->Draw();
-   pt->Draw();
 
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
@@ -276,14 +273,12 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
       hpp_phi->GetXaxis()->SetTitle(("pp MC " + XTitleName).c_str());
    }
 
-   hpp_phi->GetXaxis()->SetTitleSize(24);
-   hpp_phi->GetYaxis()->SetTitleSize(24);
    hpp_phi->GetXaxis()->SetTitleOffset(3.0);
    hpp_phi->GetYaxis()->SetTitleOffset(2.5);
    hpp_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hpp_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
 
-   //ptN0->Draw();
+   pt->Draw();
 
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
@@ -299,14 +294,12 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
       hMC_sbp_phi->GetYaxis()->SetTitle(("PbPb-pp MC " + YTitleName).c_str());
       hMC_sbp_phi->GetXaxis()->SetTitle(("PbPb-pp MC " + XTitleName).c_str());
    }
-   hMC_sbp_phi->GetXaxis()->SetTitleSize(24);
-   hMC_sbp_phi->GetYaxis()->SetTitleSize(24);
+
    hMC_sbp_phi->GetXaxis()->SetTitleOffset(3.0);
    hMC_sbp_phi->GetYaxis()->SetTitleOffset(2.5);
    hMC_sbp_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sbp_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
 
-   //ptN0->Draw();
 
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
@@ -321,15 +314,13 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_sb_phi->Draw("COLZ");
    hMC_sb_phi->GetYaxis()->SetTitle(("Signal - Background MC " + YTitleName).c_str());
    hMC_sb_phi->GetXaxis()->SetTitle(("Signal - Background MC " + XTitleName).c_str());
-   hMC_sb_phi->GetXaxis()->SetTitleSize(24);
-   hMC_sb_phi->GetYaxis()->SetTitleSize(24);
+
    hMC_sb_phi->GetXaxis()->SetTitleOffset(2.0);
    hMC_sb_phi->GetYaxis()->SetTitleOffset(2.0);
    hMC_sb_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
 
    pt0->Draw();
-   pt->Draw();
 
 
    gPad->SetTheta(60.839);
@@ -346,14 +337,13 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
       hpp_phi->GetYaxis()->SetTitle(("pp MC " + YTitleName).c_str());
       hpp_phi->GetXaxis()->SetTitle(("pp MC " + XTitleName).c_str());
    }
-   hpp_phi->GetXaxis()->SetTitleSize(24);
-   hpp_phi->GetYaxis()->SetTitleSize(24);
+
    hpp_phi->GetXaxis()->SetTitleOffset(2.0);
    hpp_phi->GetYaxis()->SetTitleOffset(2.0);
    hpp_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hpp_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
 
-   //ptN0->Draw();
+   pt->Draw();
 
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
@@ -365,14 +355,12 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_sbp_phi->GetYaxis()->SetTitle(("PbPb-pp MC " + YTitleName).c_str());
    hMC_sbp_phi->GetXaxis()->SetTitle(("PbPb-pp MC " + XTitleName).c_str());
 
-   hMC_sbp_phi->GetXaxis()->SetTitleSize(24);
-   hMC_sbp_phi->GetYaxis()->SetTitleSize(24);
+
    hMC_sbp_phi->GetXaxis()->SetTitleOffset(2.0);
    hMC_sbp_phi->GetYaxis()->SetTitleOffset(2.0);
    hMC_sbp_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sbp_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
 
-   //ptN0->Draw();
 
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
