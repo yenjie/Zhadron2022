@@ -37,7 +37,7 @@ void style(){
   gStyle->SetTitleSize(48, "xyz");
   gStyle->SetTitleOffset(1, "xyz");
   gStyle->SetLabelSize(36, "xy");
-  gStyle->SetLabelSize(24, "z");
+  gStyle->SetLabelSize(20, "z");
   gStyle->SetLegendBorderSize(0);
   gStyle->SetLegendFillColor(kWhite);
 
