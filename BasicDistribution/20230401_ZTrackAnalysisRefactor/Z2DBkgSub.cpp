@@ -74,10 +74,10 @@ TFile *file_ppMC;
 TFile *file_ppbkgMC;
 
 
-const char *typeofdata = "v17d_PFMuon/20240205/nominal_ov10_10HF_RECO_PP";
+const char *typeofdata = "v17d_PFMuon/20240206/nominal_ov10_10HF_RECO";
 //const char *typeofdata = "testBkgSub/20240204/v17d_No1Sub";
 //const char *typeofdata1 = "no1sub";
-const char *typeofdata1 = "37_ov10_RECO_PP";
+const char *typeofdata1 = "37_ov10_RECO";
 
 //const char *typeofdata = "v17d_PFMuon/20240204/SigBkg_ov20_10HF";
 //const char *typeofdata1 = "350_ov20_pp10HF";
@@ -90,7 +90,7 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    style();
    std::cout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
    
-   TCanvas *c = new TCanvas("c","",2000, 800);
+   TCanvas *c = new TCanvas("c","",1600, 1600);
 
    std::cout<<"Getting histograms..."<<std::endl;
 
@@ -173,6 +173,9 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    TH2D *hMC_sbp_phi = (TH2D*) hMC_sb_phi->Clone("hMC_sbp_phi");
    hMC_sbp_phi->Add(hpp_phi,-1);
 
+   TH2D *hMC_sbpr_phi = (TH2D*) hMC_sb_phi->Clone("hMC_sbpr_phi");
+   hMC_sbpr_phi->Divide(hpp_phi);
+
 
    int countM0 = hMC_phi->GetEntries();
    std::cout<<"MC 0 = "<<countM0<<std::endl;
@@ -245,7 +248,7 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    double min1 = hMC_sb_phi->GetMinimum();
    double min2 = hpp_phi->GetMinimum();
    
-   c->Divide(3);
+   c->Divide(2,2);
    c->cd(1);
 
    hMC_sb_phi->Draw("lego20");
@@ -304,11 +307,32 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
 
+   c->cd(4);
+
+   hMC_sbpr_phi->Draw("lego20");
+
+   if(selfmix){
+      hMC_sbpr_phi->GetYaxis()->SetTitle(("PbPb/pp MC " + YTitleName).c_str());
+      hMC_sbpr_phi->GetXaxis()->SetTitle(("PbPb/pp MC " + XTitleName).c_str());
+   }else{
+      hMC_sbpr_phi->GetYaxis()->SetTitle(("PbPb/pp MC " + YTitleName).c_str());
+      hMC_sbpr_phi->GetXaxis()->SetTitle(("PbPb/pp MC " + XTitleName).c_str());
+   }
+
+   hMC_sbpr_phi->GetXaxis()->SetTitleOffset(3.0);
+   hMC_sbpr_phi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_sbpr_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_sbpr_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
+
+
+   gPad->SetTheta(60.839);
+   gPad->SetPhi(38.0172);
+
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/2DBkgSub/%s/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f.png",typeofdata,HistName.c_str(),typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    
    c->Clear();
 
-   c->Divide(3);
+   c->Divide(2,2);
    c->cd(1);
 
    hMC_sb_phi->Draw("COLZ");
@@ -321,10 +345,6 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_sb_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
 
    pt0->Draw();
-
-
-   gPad->SetTheta(60.839);
-   gPad->SetPhi(38.0172);
 
    c->cd(2);
 
@@ -345,9 +365,6 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    pt->Draw();
 
-   gPad->SetTheta(60.839);
-   gPad->SetPhi(38.0172);
-
    c->cd(3);
 
    hMC_sbp_phi->Draw("COLZ");
@@ -361,9 +378,19 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_sbp_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sbp_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
 
+   c->cd(4);
 
-   gPad->SetTheta(60.839);
-   gPad->SetPhi(38.0172);
+   hMC_sbpr_phi->Draw("COLZ");
+
+   hMC_sbpr_phi->GetYaxis()->SetTitle(("PbPb/pp MC " + YTitleName).c_str());
+   hMC_sbpr_phi->GetXaxis()->SetTitle(("PbPb/pp MC " + XTitleName).c_str());
+
+
+   hMC_sbpr_phi->GetXaxis()->SetTitleOffset(2.0);
+   hMC_sbpr_phi->GetYaxis()->SetTitleOffset(2.0);
+   hMC_sbpr_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
+   hMC_sbpr_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
+
 
    c->SaveAs(Form("/eos/user/p/pchou/figs/track/%s/2DBkgSub/%s/Ztrack_%s_%.0f_%.0f_%.0f_%.0f_%.0f_%.0f_COLZ.png",typeofdata,HistName.c_str(),typeofdata1,ptL,ptH,centL,centH,TptL,TptH)); 
    
