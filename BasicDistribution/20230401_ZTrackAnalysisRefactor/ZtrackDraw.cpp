@@ -1926,10 +1926,6 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    c->cd(3);
 
-   TH2D *hMC_sb_etaphi_2 = (TH2D*) hMC_sb_etaphi_1->Clone("hMC_sb_etaphi_2");
-
-   hMC_sb_etaphi_2->Add(hpp_etaphi_1,-1);
-
    hMC_sb_etaphi_2->Draw("COLZ");
    hMC_sb_etaphi_2->GetYaxis()->SetTitle("PbPb S-B MC - pp MC #Delta#phi_{Z,track}");
    hMC_sb_etaphi_2->GetXaxis()->SetTitle("PbPb S-B MC - pp MC #Delta#eta_{Z,track}");
