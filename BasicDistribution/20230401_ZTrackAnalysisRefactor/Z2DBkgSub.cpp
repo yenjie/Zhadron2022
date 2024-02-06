@@ -380,7 +380,7 @@ void Z2DBkgSub_loop(int binnum=40,float ptL=20,float ptH=2000,float centL=0,floa
    string XTitleName[] = {"#eta_{Z}", "#eta_{track}", "#Delta#eta_{Z,track}"};
    string YTitleName[] = {"#phi_{Z}", "#phi_{track}", "#Delta#phi_{Z,track}"};
    string ZTitleName[] = {"dN/d#etad#phi", "dN/d#etad#phi","dN/d#Delta#etad#Delta#phi"};
-   int rebin_num[] = {5,5,5};
+   int rebin_num[] = {10,10,10};
 
    int i_draw = sizeof(HistName)/sizeof(HistName[0]);
 
