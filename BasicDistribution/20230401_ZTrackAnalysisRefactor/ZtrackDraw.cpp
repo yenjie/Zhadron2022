@@ -412,6 +412,8 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    hData_ZWTAMoreetaphi->Scale(1./25);
    hData_Zbkg_WTAMoreetaphi->Scale(1./25);
 
+   TH1D *hpp_etaphi_2 = (TH1D*) hpp_etaphi_1->Clone("hpp_etaphi_2");
+
    hpp_etaphi_1->Rebin2D(4,4);
 
    hMC_MuDetaphi->Rebin2D(4,4);
@@ -426,6 +428,9 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
    
    hMC_etaphi_gen->Scale(1./16);
    hMC_bkg_etaphi_gen->Scale(1./16);
+
+   hpp_etaphi_2->Rebin2D(10,10);
+   hpp_etaphi_2->Scale(1./100);
 
    hMC_etaphi_1->Rebin2D(10,10);
    hMC_bkg_etaphi_1->Rebin2D(10,10);
@@ -1866,7 +1871,7 @@ void ZtrackDraw_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,f
 
    TH2D *hMC_sb_etaphi_2 = (TH2D*) hMC_sb_etaphi_1->Clone("hMC_sb_etaphi_2");
 
-   hMC_sb_etaphi_2->Add(hpp_etaphi_1,-1);
+   hMC_sb_etaphi_2->Add(hpp_etaphi_2,-1);
 
    hMC_sb_etaphi_2->Draw("lego20");
    hMC_sb_etaphi_2->GetYaxis()->SetTitle("PbPb S-B MC - pp MC #Delta#phi_{Z,track}");
