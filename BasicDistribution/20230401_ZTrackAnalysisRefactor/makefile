@@ -118,3 +118,10 @@ DrawBasicBkgSub: ExecuteBasicBkgSub
 ExecuteBasicBkgSub: ZBasicBkgSub.cpp
 	g++ ZBasicBkgSub.cpp -I. -I$(ProjectBase)/CommonCode/include \
 		-o ExecuteBasicBkgSub `root-config --cflags --libs` -std=c++17
+
+Draw2DBkgSub: Execute2DBkgSub
+	./Execute2DBkgSub
+
+Execute2DBkgSub: Z2DBkgSub.cpp
+	g++ Z2DBkgSub.cpp -I. -I$(ProjectBase)/CommonCode/include \
+		-o Execute2DBkgSub `root-config --cflags --libs` -std=c++17
