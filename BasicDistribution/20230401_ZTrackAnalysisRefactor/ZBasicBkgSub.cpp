@@ -74,10 +74,11 @@ TFile *file_ppMC;
 TFile *file_ppbkgMC;
 
 
-const char *typeofdata = "v17d_PFMuon/20240204/nominal_ov10_10HF_RECO_PP";
+const char *typeofdata = "v17d_PFMuon/20240206/nominal_sigNo0Sub";
 //const char *typeofdata = "testBkgSub/20240204/v17d_No1Sub";
 //const char *typeofdata1 = "no1sub";
-const char *typeofdata1 = "37_ov10_RECO_PP";
+//const char *typeofdata1 = "37_ov10_RECO_PP";
+const char *typeofdata1 = "igNo0Sub";
 
 //const char *typeofdata = "v17d_PFMuon/20240204/SigBkg_ov20_10HF";
 //const char *typeofdata1 = "350_ov20_pp10HF";
@@ -432,13 +433,16 @@ int main(int argc, char *argv[]){
    file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
    //file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
    
-   if(selfmix)
-      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17d_PFmuon_350_10HF_ov20.root","read");
-   else
-      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_10HF.root","read");
-      //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundGen_v17_PFmuon.root","read");
-      //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCGenbkg_v17d_10HF.root","read");
-   
+  // if(selfmix)
+  //    file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17d_PFmuon_350_10HF_ov20.root","read");
+  // else
+  //    file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_10HF.root","read");
+  //    //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundGen_v17_PFmuon.root","read");
+  //    //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCGenbkg_v17d_10HF.root","read");
+  // 
+
+   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_No0Sub_v17_PFmuon.root","read");
+
    file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon.root","read");
    //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCGen_v17_PFmuon.root","read");
    //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen0Sub_v17_PFmuon.root","read");
