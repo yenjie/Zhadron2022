@@ -39,16 +39,16 @@ void style(){
   gStyle->SetOptStat(0); /*don't show statistics box*/
   gStyle->SetOptTitle(0); /*don't show histogram titles*/
   gStyle->SetTitleSize(36, "xyz");
-  gStyle->SetTitleOffset(1, "yz");
-  gStyle->SetTitleOffset(-0.5, "x");
-  gStyle->SetLabelSize(24, "xyz");
+  gStyle->SetTitleOffset(1, "xyz");
+  gStyle->SetLabelSize(24, "xy");
+  gStyle->SetLabelSize(20, "z");
   gStyle->SetLegendBorderSize(0);
   gStyle->SetLegendFillColor(kWhite);
 
   gStyle->SetPadTopMargin(0.05);
   gStyle->SetPadBottomMargin(0.15);
   gStyle->SetPadLeftMargin(0.15);
-  gStyle->SetPadRightMargin(0.05);
+  gStyle->SetPadRightMargin(0.15);
 
   gStyle->SetLineScalePS(1.5);
 
@@ -202,26 +202,16 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    else
       typeofsample = "Nominal MC Reco";
 
-   TLatex *pt0 = new TLatex(0.15,0.82,typeofsample.c_str());
+   TLatex *pt0 = new TLatex(0.1,0.97,typeofsample.c_str());
    //TLatex *pt0 = new TLatex(0.15,0.82,"Nominal MC GEN (Pythia+Hydjet)");
    pt0->SetTextFont(42);
    pt0->SetTextSize(0.03);
    pt0->SetNDC(kTRUE);
 
-   TLatex *pt = new TLatex(0.15,0.76,Form("%.0f %%< Centrality < %.0f %%",centL,centH));
+   TLatex *pt = new TLatex(0.3,0.97,Form("%.0f %%< Centrality < %.0f %%, %.1f < Z p_{T} < %.1f GeV, %.1f < Track p_{T} < %.1f GeV",centL,centH,ptL,ptH,TptL,TptH));
    pt->SetTextFont(42);
    pt->SetTextSize(0.03);
    pt->SetNDC(kTRUE);
-
-   TLatex *pt2 = new TLatex(0.15,0.70,Form("%.1f < Z p_{T} < %.1f GeV",ptL,ptH));
-   pt2->SetTextFont(42);
-   pt2->SetTextSize(0.03);
-   pt2->SetNDC(kTRUE);
-
-   TLatex *pt3 = new TLatex(0.15,0.64,Form("%.1f < Track p_{T} < %.1f GeV",TptL,TptH));
-   pt3->SetTextFont(42);
-   pt3->SetTextSize(0.03);
-   pt3->SetNDC(kTRUE);
 
    // == Start drawing == //
 
@@ -240,23 +230,6 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    std::cout<< ", hMC_bkg_phi->Integral() = "<< hMC_bkg_phi->Integral();
    std::cout<< ", hMC_sb_phi->Integral() = "<< hMC_sb_phi->Integral();
    std::cout<< ", hpp_phi->Integral() = "<< hpp_phi->Integral()<<std::endl;
-
-   TLatex *ptInt1 = new TLatex(0.15,0.46,Form("#Sigma raw = %.1f,  #Sigma bkg = %.1f",hMC_phi->Integral()*bin_width*rebinnum,hMC_bkg_phi->Integral()*bin_width*rebinnum));
-   ptInt1->SetTextFont(42);
-   ptInt1->SetTextSize(0.03);
-   ptInt1->SetNDC(kTRUE);
-
-   string pptext;
-
-   if(selfmix)
-      pptext = "#Sigma pp (raw-bkg)";
-   else
-      pptext = "#Sigma pp";
-
-   TLatex *ptInt2 = new TLatex(0.15,0.40,Form("#Sigma (raw-bkg) = %.1f,  %s = %.1f",hMC_sb_phi->Integral()*bin_width*rebinnum,pptext.c_str(),hpp_phi->Integral()*bin_width*rebinnum));
-   ptInt2->SetTextFont(42);
-   ptInt2->SetTextSize(0.03);
-   ptInt2->SetNDC(kTRUE);
 
    hMC_phi->SetLineColor(kBlack);
    hMC_bkg_phi->SetLineColor(kBlue);
@@ -280,19 +253,13 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    hMC_sb_phi->GetXaxis()->SetTitle(("Signal - Background MC " + XTitleName).c_str());
    hMC_sb_phi->GetXaxis()->SetTitleSize(24);
    hMC_sb_phi->GetYaxis()->SetTitleSize(24);
-   hMC_sb_phi->GetXaxis()->SetTitleOffset(2.0);
-   hMC_sb_phi->GetYaxis()->SetTitleOffset(2.0);
+   hMC_sb_phi->GetXaxis()->SetTitleOffset(3.0);
+   hMC_sb_phi->GetYaxis()->SetTitleOffset(2.5);
    hMC_sb_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sb_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
 
    pt0->Draw();
    pt->Draw();
-   pt2->Draw();
-   pt3->Draw();
-
-   ptInt1->Draw();
-   ptInt2->Draw();
-
 
    gPad->SetTheta(60.839);
    gPad->SetPhi(38.0172);
@@ -308,6 +275,7 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
       hpp_phi->GetYaxis()->SetTitle(("pp MC " + YTitleName).c_str());
       hpp_phi->GetXaxis()->SetTitle(("pp MC " + XTitleName).c_str());
    }
+
    hpp_phi->GetXaxis()->SetTitleSize(24);
    hpp_phi->GetYaxis()->SetTitleSize(24);
    hpp_phi->GetXaxis()->SetTitleOffset(3.0);
@@ -362,11 +330,6 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    pt0->Draw();
    pt->Draw();
-   pt2->Draw();
-   pt3->Draw();
-
-   ptInt1->Draw();
-   ptInt2->Draw();
 
 
    gPad->SetTheta(60.839);
@@ -385,8 +348,8 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
    }
    hpp_phi->GetXaxis()->SetTitleSize(24);
    hpp_phi->GetYaxis()->SetTitleSize(24);
-   hpp_phi->GetXaxis()->SetTitleOffset(3.0);
-   hpp_phi->GetYaxis()->SetTitleOffset(2.5);
+   hpp_phi->GetXaxis()->SetTitleOffset(2.0);
+   hpp_phi->GetYaxis()->SetTitleOffset(2.0);
    hpp_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hpp_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
 
@@ -404,8 +367,8 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    hMC_sbp_phi->GetXaxis()->SetTitleSize(24);
    hMC_sbp_phi->GetYaxis()->SetTitleSize(24);
-   hMC_sbp_phi->GetXaxis()->SetTitleOffset(3.0);
-   hMC_sbp_phi->GetYaxis()->SetTitleOffset(2.5);
+   hMC_sbp_phi->GetXaxis()->SetTitleOffset(2.0);
+   hMC_sbp_phi->GetYaxis()->SetTitleOffset(2.0);
    hMC_sbp_phi->GetXaxis()->SetNdivisions(50205,kFALSE);
    hMC_sbp_phi->GetZaxis()->SetTitle(ZTitleName.c_str());
 
