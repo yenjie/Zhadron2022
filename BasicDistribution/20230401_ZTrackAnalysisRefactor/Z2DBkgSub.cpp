@@ -89,7 +89,7 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 {
    style();
    std::cout<<"ptL = "<<ptL<<", ptH = "<<ptH<<", centL = "<<centL<<", centH = "<<centH<<", TptL = "<<TptL<<", TptH = "<<TptH<<std::endl;
-   s
+   
    TCanvas *c = new TCanvas("c","",2000, 800);
 
    std::cout<<"Getting histograms..."<<std::endl;
