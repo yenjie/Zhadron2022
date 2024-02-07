@@ -307,6 +307,12 @@ void Z2DBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0,fl
 
    c->cd(4);
 
+   if(hMC_sbpr_phi->GetMaximum()>2)
+      hMC_sbpr_phi->SetMaximum(2);
+
+   if(hMC_sbpr_phi->GetMinimum()<-2)
+      hMC_sbpr_phi->SetMinimum(-2);
+   
    hMC_sbpr_phi->Draw("lego20");
 
    if(selfmix){
