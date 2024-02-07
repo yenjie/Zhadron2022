@@ -98,6 +98,8 @@ int main(int argc, char *argv[])
 
    
    vector<TDirectory *>     Folder;
+   vector<double>           TotalEventCount;
+   vector<TH1D *>           HTotalEventCount;
    vector<double>           EventCount;
    vector<TH1D *>           HEventCount;
    vector<double>           GenEventCount;
@@ -158,6 +160,8 @@ int main(int argc, char *argv[])
       Folder.push_back(OutputFile.mkdir(FolderName.c_str()));
       
       Folder[iC]->cd();
+      TotalEventCount.push_back(0);
+      HTotalEventCount.push_back(new TH1D("HTotalEventCount", "", 1, 0, 1));
       EventCount.push_back(0);
       HEventCount.push_back(new TH1D("HEventCount", "", 1, 0, 1));
       GenEventCount.push_back(0);
@@ -502,6 +506,9 @@ int main(int argc, char *argv[])
          double zY = 0.5*log((zE+zPz)/(zE-zPz));
          //double TrackDY = TrackEta - zY;
 
+         TotalEventCount[iC] = TotalEventCount[iC] + NCollWeight*ZWeight*VZWeight;
+         HTotalEventCount[iC]->Fill(0., NCollWeight*ZWeight*VZWeight);
+
          if(SomethingPassed == true)
          {
             EventCount[iC] = EventCount[iC] + NCollWeight*ZWeight*VZWeight;
@@ -543,6 +550,8 @@ int main(int argc, char *argv[])
    for(int iC = 0; iC < (int)C.size(); iC++)
    {
       Folder[iC]->cd();
+      TNamed NTot("TotalEntryCount", Form("%f", TotalEventCount[iC]));
+      NTot.Write();
       TNamed N("EntryCount", Form("%f", EventCount[iC]));
       N.Write();
       TNamed NGen("GenEntryCount", Form("%f", GenEventCount[iC]));
