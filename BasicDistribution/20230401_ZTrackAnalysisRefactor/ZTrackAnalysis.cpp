@@ -79,6 +79,9 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 40,  200, 30, 50, 1, 2));
    C.push_back(Configuration(40, 40,  200, 50, 90, 1, 2));
    C.push_back(Configuration(40, 40,  200,  0, 90, 1, 2));
+
+   C.push_back(Configuration(40, 40,  200,  0, 100, 1, 2));
+
    //C.push_back(Configuration(40, 40,  200,  0, 30, 1, 2));
    //C.push_back(Configuration(40, 40,  200, 30, 90, 1, 2));
 
@@ -100,6 +103,8 @@ int main(int argc, char *argv[])
    vector<TDirectory *>     Folder;
    vector<double>           TotalEventCount;
    vector<TH1D *>           HTotalEventCount;
+   vector<double>           TotalZEventCount;
+   vector<TH1D *>           HTotalZEventCount;
    vector<double>           EventCount;
    vector<TH1D *>           HEventCount;
    vector<double>           GenEventCount;
@@ -162,6 +167,8 @@ int main(int argc, char *argv[])
       Folder[iC]->cd();
       TotalEventCount.push_back(0);
       HTotalEventCount.push_back(new TH1D("HTotalEventCount", "", 1, 0, 1));
+      TotalZEventCount.push_back(0);
+      HTotalZEventCount.push_back(new TH1D("HTotalZEventCount", "", 1, 0, 1));
       EventCount.push_back(0);
       HEventCount.push_back(new TH1D("HEventCount", "", 1, 0, 1));
       GenEventCount.push_back(0);
@@ -351,6 +358,9 @@ int main(int argc, char *argv[])
          if(IgnoreCentrality == true)
             CentRange = true;
 
+         TotalEventCount[iC] = TotalEventCount[iC] + NCollWeight*ZWeight*VZWeight;
+         HTotalEventCount[iC]->Fill(0., NCollWeight*ZWeight*VZWeight);
+
          // If we know that the Z candidate is not in range, no need to loop over tracks!
          // Saves a tiny bit of time
          if(!(ZMassRange && ZPTRange && CentRange))
@@ -506,8 +516,8 @@ int main(int argc, char *argv[])
          double zY = 0.5*log((zE+zPz)/(zE-zPz));
          //double TrackDY = TrackEta - zY;
 
-         TotalEventCount[iC] = TotalEventCount[iC] + NCollWeight*ZWeight*VZWeight;
-         HTotalEventCount[iC]->Fill(0., NCollWeight*ZWeight*VZWeight);
+        TotalZEventCount[iC] = TotalZEventCount[iC] + NCollWeight*ZWeight*VZWeight;
+        HTotalZEventCount[iC]->Fill(0., NCollWeight*ZWeight*VZWeight);
 
          if(SomethingPassed == true)
          {
@@ -552,6 +562,8 @@ int main(int argc, char *argv[])
       Folder[iC]->cd();
       TNamed NTot("TotalEntryCount", Form("%f", TotalEventCount[iC]));
       NTot.Write();
+      TNamed NTotZ("TotalZEntryCount", Form("%f", TotalZEventCount[iC]));
+      NTotZ.Write();
       TNamed N("EntryCount", Form("%f", EventCount[iC]));
       N.Write();
       TNamed NGen("GenEntryCount", Form("%f", GenEventCount[iC]));
