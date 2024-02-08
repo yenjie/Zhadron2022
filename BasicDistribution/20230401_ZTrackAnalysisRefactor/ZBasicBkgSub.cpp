@@ -161,16 +161,31 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
 
    std::cout<<"Getting Entries..."<<std::endl;
 
-   TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HTotalEventCount",FolderName.c_str()));
-   TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HTotalEventCount",FolderName.c_str()));
-   TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HTotalEventCount",FolderName.c_str()));
-   TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HTotalEventCount",FolderName.c_str()));
+   //TH1D *nM_tN     = (TH1D *) file_sigMC->Get(Form("%s/HTotalEventCount",FolderName.c_str()));
+   //TH1D *nMb_tN    = (TH1D *) file_bkgMC->Get(Form("%s/HTotalEventCount",FolderName.c_str()));
+   //TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HTotalEventCount",FolderName.c_str()));
+   //TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HTotalEventCount",FolderName.c_str()));
    
-   float tM_tN     =     nM_tN->GetBinContent(1);
-   float tMb_tN    =    nMb_tN->GetBinContent(1);
-   float tpM_tN    =    npM_tN->GetBinContent(1);  
-   float tpb_tN    =    npb_tN->GetBinContent(1);  
-   
+   TNamed *nM_tN  = (TNamed *) file_sigMC->Get(Form("%s/TotalEntryCount",FolderName.c_str()));
+   TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/TotalEntryCount",FolderName.c_str()));
+   TNamed *npM_tN = (TNamed *) file_ppMC->Get(Form("%s/TotalEntryCount",FolderName.c_str()));
+   TNamed *npb_tN = (TNamed *) file_ppbkgMC->Get(Form("%s/TotalEntryCount",FolderName.c_str()));
+
+   std::string sM_tN  = (std::string) nM_tN->GetTitle();
+   std::string sMb_tN = (std::string) nMb_tN->GetTitle();
+   std::string spM_tN = (std::string) npM_tN->GetTitle();
+   std::string spb_tN = (std::string) npb_tN->GetTitle();
+
+   //float tM_tN     =     nM_tN->GetBinContent(1);
+   //float tMb_tN    =    nMb_tN->GetBinContent(1);
+   //float tpM_tN    =    npM_tN->GetBinContent(1);  
+   //float tpb_tN    =    npb_tN->GetBinContent(1);  
+
+   float tM_tN  = std::stof(sM_tN);
+   float tMb_tN = std::stof(sMb_tN);
+   float tpM_tN = std::stof(spM_tN);
+   float tpb_tN = std::stof(spb_tN);
+
    std::cout<<"tM_tN = "<<tM_tN<<std::endl;
    std::cout<<"tMb_tN = "<<tMb_tN<<std::endl;
    std::cout<<"tpM_tN = "<<tpM_tN<<std::endl;
