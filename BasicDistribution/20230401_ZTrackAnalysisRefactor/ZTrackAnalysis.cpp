@@ -570,6 +570,8 @@ int main(int argc, char *argv[])
       NGen.Write();
       HEventCount[iC]->Write();
       HGenEventCount[iC]->Write();
+      HTotalZEventCount[iC]->Write();
+      HTotalEventCount[iC]->Write();
       HZPT[iC]->Write();
       HZY[iC]->Write();
       HZEta[iC]->Write();
