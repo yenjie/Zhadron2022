@@ -74,11 +74,12 @@ TFile *file_ppMC;
 TFile *file_ppbkgMC;
 
 
-const char *typeofdata = "v17d_PFMuon/20240206/nominal_sigNo0Sub";
+const char *typeofdata = "v17d_PFMuon/20240208/nom_EvtCnt";
 //const char *typeofdata = "testBkgSub/20240204/v17d_No1Sub";
 //const char *typeofdata1 = "no1sub";
 //const char *typeofdata1 = "37_ov10_RECO_PP";
-const char *typeofdata1 = "SigNo0Sub";
+//const char *typeofdata1 = "SigNo0Sub";
+const char *typeofdata1 = "37_ov10_GEN";
 
 //const char *typeofdata = "v17d_PFMuon/20240204/SigBkg_ov20_10HF";
 //const char *typeofdata1 = "350_ov20_pp10HF";
@@ -316,9 +317,9 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
 
    TLegend leg1(0.68,0.62,0.98,0.88);
    leg1.AddEntry(hMC_phi ,"raw Gen","lep");
-   //leg1.AddEntry(hMC_bkg_phi ,"bkg Gen","lep");
+   leg1.AddEntry(hMC_bkg_phi ,"bkg Gen","lep");
    //leg1.AddEntry(hMC_bkg_phi ,"bkg (subevt#neq0)","lep");
-   leg1.AddEntry(hMC_bkg_phi ,"raw Gen (subevt#neq0)","lep");
+   //leg1.AddEntry(hMC_bkg_phi ,"raw Gen (subevt#neq0)","lep");
    leg1.AddEntry(hMC_sb_phi ,"raw-bkg Gen","lep");
    if(selfmix)
       leg1.AddEntry(hpp_phi ,"pp raw-bkg Gen","l");
@@ -434,20 +435,20 @@ int main(int argc, char *argv[]){
 
 
    //file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v17_PFmuon.root","read");
-   file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon.root","read");
+   file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v17_PFmuon_ZTot.root","read");
    
-  // if(selfmix)
-  //    file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17d_PFmuon_350_10HF_ov20.root","read");
-  // else
-  //    file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_10HF.root","read");
-  //    //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundGen_v17_PFmuon.root","read");
-  //    //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCGenbkg_v17d_10HF.root","read");
-  // 
+   if(selfmix)
+      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17d_PFmuon_350_10HF_ov20.root","read");
+   else
+      //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v17d_10HF.root","read");
+      file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackgroundGen_v17d_10HF_ZTot_01.root","read");
+      //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCGenbkg_v17d_10HF.root","read");
+   
 
-   file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_No0Sub_v17_PFmuon.root","read");
+   //file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_No0Sub_v17_PFmuon.root","read");
 
    //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon.root","read");
-   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCGen_v17_PFmuon.root","read");
+   file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCGen_v17_PFmuon_ZTot.root","read");
    //file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen0Sub_v17_PFmuon.root","read");
    
 
@@ -465,6 +466,7 @@ int main(int argc, char *argv[]){
    ZBasicBkgSub_loop(40, 40, 200,  0, 10,  4, 10);
 
    ZBasicBkgSub_loop(40, 40, 200,  0, 90,  1, 2);
+   ZBasicBkgSub_loop(40, 40, 200,  0, 100,  1, 2);
 
    file_sigMC->Close();
    file_bkgMC->Close();
