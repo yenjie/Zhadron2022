@@ -74,7 +74,7 @@ TFile *file_ppMC;
 TFile *file_ppbkgMC;
 
 
-const char *typeofdata = "v17d_PFMuon/20240208/MBreco_TotZEvtCnt";
+const char *typeofdata = "v17d_PFMuon/20240208/MBreco_EvtCnt";
 //const char *typeofdata = "testBkgSub/20240204/v17d_No1Sub";
 //const char *typeofdata1 = "no1sub";
 //const char *typeofdata1 = "37_ov10_RECO_PP";
@@ -151,10 +151,10 @@ void ZBasicBkgSub_single(int binnum=40,float ptL=20,float ptH=2000,float centL=0
    //TH1D *npM_tN    = (TH1D *) file_ppMC ->Get(Form("%s/HTotalEventCount",FolderName.c_str()));
    //TH1D *npb_tN    = (TH1D *) file_ppbkgMC ->Get(Form("%s/HTotalEventCount",FolderName.c_str()));
    
-   TNamed *nM_tN  = (TNamed *) file_sigMC->Get(Form("%s/TotalZEntryCount",FolderName.c_str()));
-   TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/TotalZEntryCount",FolderName.c_str()));
-   TNamed *npM_tN = (TNamed *) file_ppMC->Get(Form("%s/TotalZEntryCount",FolderName.c_str()));
-   TNamed *npb_tN = (TNamed *) file_ppbkgMC->Get(Form("%s/TotalZEntryCount",FolderName.c_str()));
+   TNamed *nM_tN  = (TNamed *) file_sigMC->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *nMb_tN = (TNamed *) file_bkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *npM_tN = (TNamed *) file_ppMC->Get(Form("%s/EntryCount",FolderName.c_str()));
+   TNamed *npb_tN = (TNamed *) file_ppbkgMC->Get(Form("%s/EntryCount",FolderName.c_str()));
 
    std::string sM_tN  = (std::string) nM_tN->GetTitle();
    std::string sMb_tN = (std::string) nMb_tN->GetTitle();
