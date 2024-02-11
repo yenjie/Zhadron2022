@@ -20,22 +20,22 @@ Execute: DoZHadronSkim.cpp
 
 TestRun: Execute
 	./Execute --Input $(PbPbSignalSingleMuon)/0000/HiForestMiniAOD_867.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 1 \
+		--Output /tmp/$(USER)/Test.root --Fraction 1 --WithProgressBar true \
 		`./Expand Setting.dh PbPbSignalData Nominal`
 	
 TestRunMC: Execute
 	time ./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_211.root \
-		--Output /tmp/$(USER)/TestMC.root --Fraction 0.02 \
+		--Output /tmp/$(USER)/TestMC.root --Fraction 0.02 --WithProgressBar true \
 		`./Expand Setting.dh PbPbSignalMC Nominal`
 
 TestRunGen: Execute
 	./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_114.root \
-		--Output /tmp/$(USER)/TestGenMC.root --Fraction 0.1 \
+		--Output /tmp/$(USER)/TestGenMC.root --Fraction 0.1 --WithProgressBar true \
 		`./Expand Setting.dh PbPbSignalGenMC Nominal`
 
 TestRunGenPP: Execute
 	./Execute --Input `ls $(PPSignalMC)/*root | head -n 2 | tr '\n' ','` \
-		--Output /tmp/$(USER)/TestGenPP.root --Fraction 1 \
+		--Output /tmp/$(USER)/TestGenPP.root --Fraction 1 --WithProgressBar true \
 		`./Expand Setting.dh PPSignalGenMC Nominal`
 
 TestRunBackground: Execute
@@ -46,12 +46,12 @@ TestRunBackground: Execute
 
 TestRunPP: Execute
 	./Execute --Input `ls $(PPSignalMC)/*root | head -n 2 | tr '\n' ','` \
-		--Output /tmp/$(USER)/TestPP.root --Fraction 0.1 \
+		--Output /tmp/$(USER)/TestPP.root --Fraction 0.1 --WithProgressBar true \
 		`./Expand Setting.dh PPSignalMC Nominal`
 
 TestRunPPData: Execute
 	./Execute --Input $(PPSignalData)/0000/HiForestAOD_12.root \
-		--Output /tmp/$(USER)/Test.root --Fraction 0.1 \
+		--Output /tmp/$(USER)/Test.root --Fraction 0.1 --WithProgressBar true \
 		`./Expand Setting.dh PPSignalData Nominal`
 
 TestRunBackgroundSimple: Execute
