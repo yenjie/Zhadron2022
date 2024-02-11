@@ -141,6 +141,8 @@ int main(int argc, char *argv[])
    bool DoCS                          = CL.GetBool("DoCS", false);
    string RhoTreeName                 = CL.Get("RhoTree", "hiPuRhoAnalyzer/t");
 
+   bool WithProgressBar               = CL.GetBool("WithProgressBar", false);
+
    // Assert(!(IsPP == true && IsData == true), "Data selections for pp not implemented yet");
    Assert(!(DoGenCorrelation == true && DoGenLevel == false), "You need to turn on gen level to do gen correlation!");
    if(DoTrackResidual == true)
@@ -325,7 +327,7 @@ int main(int argc, char *argv[])
       for(int iE = 0; iE < EntryCount; iE++)
       {
          // Progress bar stuff
-         if(EntryCount < 300 || (iE % (EntryCount / 250)) == 0)
+         if(WithProgressBar && (EntryCount < 300 || (iE % (EntryCount / 250)) == 0))
          {
             Bar.Update(iE);
             Bar.Print();
@@ -1225,9 +1227,11 @@ int main(int argc, char *argv[])
          }
       }
 
-      Bar.Update(EntryCount);
-      Bar.Print();
-      Bar.PrintLine();
+      if(WithProgressBar){
+         Bar.Update(EntryCount);
+         Bar.Print();
+         Bar.PrintLine();
+      }
 
       InputFile.Close();
    }

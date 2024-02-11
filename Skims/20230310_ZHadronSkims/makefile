@@ -94,20 +94,20 @@ TestRunRandomMCGenBackground: Execute
 		`./Expand Setting.dh PbPbSignalMC Nominal`
 
 # EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims
-# EOSBase = /eos/cms/store/group/phys_heavyions/pchou
-EOSBase = /eos/home-p/pchou
-AFSBase = /afs/cern.ch/user/p/pchou
+EOSBase = /eos/cms/store/group/phys_heavyions/pchou
+# EOSBase = /eos/home-p/pchou
+# AFSBase = /afs/cern.ch/user/p/pchou
 
 PrepareToRun:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		5 LogData_v17_PFmuon/ $(EOSBase)/OutputData_v17_PFmuon/ \
+		5 LogData_v17d_PFmuon/ $(EOSBase)/OutputData_v17d_PFmuon/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalData Nominal`
 
 PrepareToRunMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogMC_v17_PFmuon/ $(EOSBase)/OutputMC_v17_PFmuon/ \
+		5 LogMC_v17d_PFmuon/ $(EOSBase)/OutputMC_v17d_PFmuon/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Nominal`
 
 PrepareToRunLoose:
@@ -137,25 +137,25 @@ PrepareToRunMCTight:
 PrepareToRunGenMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogGenMC_v17_PFmuon/ $(EOSBase)/OutputMCGen_v17_PFmuon/ \
+		5 LogGenMC_v17d_PFmuon/ $(EOSBase)/OutputMCGen_v17d_PFmuon/ \
  		--Fraction 1 `./Expand Setting.dh PbPbSignalGenMC Nominal`
 
 PrepareToRunPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogPP_v17_PFmuon/ $(EOSBase)/OutputPPMC_v17_PFmuon/ \
+		10 LogPP_v17d_PFmuon/ $(EOSBase)/OutputPPMC_v17d_PFmuon/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalMC Nominal`
 
 PrepareToRunGenPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogGenPP_v17_PFmuon/ $(EOSBase)/OutputPPMCGen_v17_PFmuon/ \
+		10 LogGenPP_v17d_PFmuon/ $(EOSBase)/OutputPPMCGen_v17d_PFmuon/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalGenMC Nominal`
 
 PrepareToRunPPData:
 	bash PrepareInput.sh \
 		'$(PPSignalData)/*/' \
-		10 LogPPData_v17_PFmuon/ $(EOSBase)/OutputPPData_v17_PFmuon/ \
+		10 LogPPData_v17d_PFmuon/ $(EOSBase)/OutputPPData_v17d_PFmuon/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalData Nominal`
 
 PrepareToRunBackground:
