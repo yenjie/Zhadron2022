@@ -25,7 +25,7 @@ TestRun: Execute
 	
 TestRunMC: Execute
 	time ./Execute --Input $(PbPbSignalMC)/HiForestMiniAOD_144.root,$(PbPbSignalMC)/HiForestMiniAOD_145.root,$(PbPbSignalMC)/HiForestMiniAOD_146.root,$(PbPbSignalMC)/HiForestMiniAOD_147.root,$(PbPbSignalMC)/HiForestMiniAOD_148.root \
-		--Output TestMC_10.root --Fraction 1 --WithProgressBar true \
+		--Output TestMC10.root --Fraction 1 --WithProgressBar true \
 		`./Expand Setting.dh PbPbSignalMC Nominal`
 
 TestRunGen: Execute
