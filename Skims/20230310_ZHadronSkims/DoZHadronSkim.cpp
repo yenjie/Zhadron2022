@@ -522,8 +522,11 @@ int main(int argc, char *argv[])
             }
    
             // Loop over reco dimuon pairs
-            for(int ipair = 0; ipair < MSignalMu.NDi; ipair++)
+            //for(int ipair = 0; ipair < MSignalMu.NDi; ipair++)
+
+            for(int ipair = 0; ipair < 1; ipair++)
             {
+               if(MSignalMu.NDi < 1) continue;
                // We want opposite-charge muons with some basic kinematic cuts
                if(MSignalMu.DiCharge1[ipair] == MSignalMu.DiCharge2[ipair])        continue;
                if(fabs(MSignalMu.DiEta1[ipair]) > 2.4)                             continue;
