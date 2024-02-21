@@ -29,7 +29,7 @@ PbPbRecoTrack="--DoTrackEfficiency true --TrackEfficiencyPath ${ProjectBase}/Com
 
 BackgroundMC="   --DoBackground true --HFShift 682  --Tolerance 1875 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000" # --MaximumCentrality 10
 #BackgroundMC="   --DoBackground true --HFShift 682  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 134000"
-BackgroundGenMC="--DoBackground true --HFShift 1083 --Tolerance 1875 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundGenMC="--DoBackground true --HFShift 1083 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 2"
 BackgroundData=" --DoBackground true --HFShift 660  --Tolerance 1500   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
 BackgroundMCUEUp25="     --DoBackground true --HFShift 699   --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
@@ -92,9 +92,11 @@ SigBkgData=" --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolera
 PPSigBkgMCCent10=" --DoBackground true --CheckForBackgroundZ true --HFShift 0  --Tolerance 10000000 --ToleranceFraction 0.001 --VZTolerance 10000000 --Oversample 10 --HFCeiling 134000 --MaximumCentrality 10"
 SigBkgMCCent10="   --DoBackground true --CheckForBackgroundZ true --HFShift 0  --Tolerance 1875 --ToleranceFraction 0.001 --VZTolerance 2 --Oversample 20 --HFCeiling 134000 --MaximumCentrality 10"
 
+BackgroundGenMCCent10="--DoBackground true --HFShift 1083 --Tolerance 10000000 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000000 --MaximumCentrality 10"
+
 DHSet Setting.dh PPSignalMCCent10    Nominal string "$Common $MC    --IsPP true  $AODPF     $PPJetMC      $PbPbRecoTrack  $PPSigBkgMCCent10"
 DHSet Setting.dh PbPbSignalMCCent10  Nominal string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack  $SigBkgMCCent10"
-
+DHSet Setting.dh PbPbBackgroundGenMCCent10 Nominal string "$Common $MCGen --IsPP false $MiniAODPF $PbPbJetMC    $GenTrack       $BackgroundGenMCCent10"
 DHSet Setting.dh PPSignalMC          Nominal string "$Common $MC    --IsPP true  $AODPF     $PPJetMC      $PbPbRecoTrack  $PPSigBkgMC"
 DHSet Setting.dh PPSignalGenMC       Nominal string "$Common $MCGen --IsPP true  $AODPF     $PPJetMC      $GenTrack       $PPSigBkgGenMC"
 DHSet Setting.dh PPSignalData        Nominal string "$Common $Data  --IsPP true  $AODPF     $PbPbJetData  $PbPbRecoTrack  $PPSigBkgData"
