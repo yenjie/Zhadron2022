@@ -77,7 +77,7 @@ PrepareToRunRandomDataBackground:
 
 PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMCGen_v17_PFmuon/ LogMCGenbkg_v17d_221017/ $(EOSBase)/OutputMCGenbkg_v17d_221017/ $(PbPbBackgroundMC)/ 7 \
+		$(EOSBase)/OutputMCGen_v17_PFmuon/ LogMCGenbkg_v17d_221017_10HF/ $(EOSBase)/OutputMCGenbkg_v17d_221017_10HF/ $(PbPbBackgroundMC)/ 7 \
 		`./Expand Setting.dh PbPbBackgroundGenMC Nominal`
 
 PrepareToRunRandomMCRecGenBackground:

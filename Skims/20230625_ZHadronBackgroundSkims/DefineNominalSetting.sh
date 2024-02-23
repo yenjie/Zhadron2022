@@ -29,7 +29,7 @@ PbPbRecoTrack="--DoTrackEfficiency true --TrackEfficiencyPath ${ProjectBase}/Com
 
 BackgroundMC="   --DoBackground true --HFShift 682  --Tolerance 1875 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000" # --MaximumCentrality 10
 #BackgroundMC="   --DoBackground true --HFShift 682  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 134000"
-BackgroundGenMC="--DoBackground true --HFShift 1083 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 2"
+BackgroundGenMC="--DoBackground true --HFShift 1083 --Tolerance 1875 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 156000 --VZTolerance 2"
 BackgroundData=" --DoBackground true --HFShift 660  --Tolerance 1500   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
 BackgroundMCUEUp25="     --DoBackground true --HFShift 699   --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
