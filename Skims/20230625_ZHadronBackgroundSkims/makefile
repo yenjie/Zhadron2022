@@ -3,6 +3,7 @@ PbPbSignalDoubleMuon  = /eos/cms/store/group/phys_heavyions/chenyi/PbPb2018/Fore
 PbPbSignalSingleMuon := $(shell DHQuery Setting.dh Sample PbPbSignalData)
 PbPbSignalMC         := $(shell DHQuery Setting.dh Sample PbPbSignalMC)
 PbPbBackgroundMC     := $(shell DHQuery Setting.dh Sample PbPbBackgroundMC)
+PbPbBackgroundPJMC   := $(shell DHQuery Setting.dh Sample PbPbBackgroundPJMC)
 PPSignalMC           := $(shell DHQuery Setting.dh Sample PPSignalMC)
 PPSignalData         := $(shell DHQuery Setting.dh Sample PPSignalData)
 
@@ -67,7 +68,12 @@ TestRunPPDataSigBkg: Execute
 
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17d_10HF/ $(EOSBase)/OutputMCBackground_v17d_10HF/ $(PbPbBackgroundMC)/ 37 \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17d_221017/ $(EOSBase)/OutputMCBackground_v17d_221017/ $(PbPbBackgroundMC)/ 7 \
+		`./Expand Setting.dh PbPbBackgroundMC Nominal`
+
+PrepareToRunRandomPJMCBackground:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17d_PJov1/ $(EOSBase)/OutputMCBackground_v17d_PJov1/ $(PbPbBackgroundPJMC)/ 37 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
 PrepareToRunRandomDataBackground:
@@ -78,6 +84,11 @@ PrepareToRunRandomDataBackground:
 PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
 		$(EOSBase)/OutputMCGen_v17_PFmuon/ LogMCGenbkg_v17d_221017_10HF/ $(EOSBase)/OutputMCGenbkg_v17d_221017_10HF/ $(PbPbBackgroundMC)/ 7 \
+		`./Expand Setting.dh PbPbBackgroundGenMC Nominal`
+
+PrepareToRunRandomPJMCGenBackground:
+	bash PrepareInputRandomBackground.sh \
+		$(EOSBase)/OutputMCGen_v17_PFmuon/ LogMCGenbkg_v17d_PJov1/ $(EOSBase)/OutputMCGenbkg_v17d_PJov1/ $(PbPbBackgroundPJMC)/ 37 \
 		`./Expand Setting.dh PbPbBackgroundGenMC Nominal`
 
 PrepareToRunRandomMCRecGenBackground:
