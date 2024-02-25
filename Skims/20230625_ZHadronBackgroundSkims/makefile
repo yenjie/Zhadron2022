@@ -68,7 +68,8 @@ TestRunPPDataSigBkg: Execute
 
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17d_221017_10HF/ $(EOSBase)/OutputMCBackground_v17d_221017_10HF/ $(PbPbBackgroundMC)/ 7 \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17d_221017_10HF_01/ $(EOSBase)/OutputMCBackground_v17d_221017_10HF_01/ $(PbPbBackgroundMC)/ 7 \
+		 --Fraction 0.1 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
 PrepareToRunRandomPJMCBackground:
