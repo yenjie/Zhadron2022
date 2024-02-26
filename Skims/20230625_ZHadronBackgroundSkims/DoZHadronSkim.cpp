@@ -132,9 +132,17 @@ int main(int argc, char *argv[])
 
    vector<EventIndex> SignalIndex;
    map<EventIndex, int> SignalCount;
-   int SignalEntryCount = MSignalZHadron.GetEntries() * Fraction;
+   int SignalEntryCount = MSignalZHadron.GetEntries();// * Fraction;
+
+   gRandom->SetSeed(0);
+
+
    for(int iE = 0; iE < SignalEntryCount; iE++)
    {
+
+      if(iE % (int) (1/Fraction) != 0)
+         continue;
+
       MSignalZHadron.GetEntry(iE);
 
       EventIndex Index;

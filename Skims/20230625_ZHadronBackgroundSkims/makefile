@@ -10,7 +10,7 @@ PPSignalData         := $(shell DHQuery Setting.dh Sample PPSignalData)
 #YiEOS =  /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims/
 #EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230625_ZHadronSkims
 EOSBase = /eos/cms/store/group/phys_heavyions/pchou
-#CERNBOX = /eos/home-p/pchou
+CERNBOX = /eos/home-p/pchou
 
 default: Prepare TestRun
 
@@ -68,7 +68,7 @@ TestRunPPDataSigBkg: Execute
 
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17d_221017_10HF_01/ $(EOSBase)/OutputMCBackground_v17d_221017_10HF_01/ $(PbPbBackgroundMC)/ 7 \
+		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17d_221017_10HF_Rand01/ $(CERNBOX)/OutputMCBackground_v17d_221017_10HF_Rand01/ $(PbPbBackgroundMC)/ 7 \
 		 --Fraction 0.1 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
