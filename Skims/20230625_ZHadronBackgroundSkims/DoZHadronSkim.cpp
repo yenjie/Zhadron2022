@@ -14,6 +14,8 @@ using namespace std;
 #include "TSystemDirectory.h"
 #include "TLorentzVector.h"
 
+#include "TRandom.h"
+
 #include "Messenger.h"
 #include "CommandLine.h"
 #include "CommonFunctions.h"
