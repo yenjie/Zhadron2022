@@ -108,6 +108,8 @@ int main(int argc, char *argv[])
    bool WithProgressBar               = CL.GetBool("WithProgressBar", false);
 
 
+   std::cout<<"TrackEfficiency"<<std::endl;
+   
    TrkEff2017pp *TrackEfficiencyPP = nullptr;
    TrkEff2018PbPb *TrackEfficiencyPbPb = nullptr;
    if(DoTrackEfficiency == true)
@@ -126,6 +128,9 @@ int main(int argc, char *argv[])
             TrackEfficiencyPbPb = new TrkEff2018PbPb("general", "Tight", false, TrackEfficiencyPath);
       }
    }
+
+   std::cout<<"TrackResidual"<<std::endl;
+
    TrackResidualCentralityCorrector TrackResidual(TrackResidualPath);
 
    // Let's build an index of signal.  We need (SignalHF, VertexZ)
