@@ -34,7 +34,7 @@ TestRun: Execute
 TestRunMCGenBackground: Execute
 	./Execute --Input $(EOSBase)/OutputMCGen_v17_PFmuon/Result10.root \
 		--Output /tmp/$(USER)/TestMCGen.root --Fraction 0.1 \
-		`./Expand Setting.dh PbPbBackgroundMC Nominal` \
+		`./Expand Setting.dh PbPbBackgroundGenMC Nominal` \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root,$(PbPbBackgroundMC)/HiForestMiniAOD_34.root,$(PbPbBackgroundMC)/HiForestMiniAOD_17.root,$(PbPbBackgroundMC)/HiForestMiniAOD_20.root \
 		--ReuseBackground true --WithProgressBar true
 

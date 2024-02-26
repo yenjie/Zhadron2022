@@ -129,6 +129,7 @@ int main(int argc, char *argv[])
    TrackResidualCentralityCorrector TrackResidual(TrackResidualPath);
 
    // Let's build an index of signal.  We need (SignalHF, VertexZ)
+   std::cout<<"SignalFile"<<std::endl;
    TFile SignalFile(InputFileName.c_str());
    ZHadronMessenger MSignalZHadron(SignalFile, "Tree");
 
@@ -174,6 +175,7 @@ int main(int argc, char *argv[])
    cout << "Number of signal events to be matched: " << SignalIndex.size() << endl;
 
    // Declare output files
+   std::cout<<"OutputFile"<<std::endl;
    TFile OutputFile(OutputFileName.c_str(), "RECREATE");
 
    TTree Tree("Tree", Form("Tree for ZHadron analysis, %s", Version.c_str()));
@@ -233,6 +235,7 @@ int main(int argc, char *argv[])
       MZHadron.Clear();
 
       // Get the input file
+      std::cout<<"InputFile"<<std::endl;
       TFile InputFile(BackgroundFileName.c_str());
 
       // Setup all the messengers.  In the future we'll add more for triggers etc.
