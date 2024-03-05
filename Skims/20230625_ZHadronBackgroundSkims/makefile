@@ -25,14 +25,14 @@ Execute: DoZHadronSkim.cpp
 		$(ProjectBase)/CommonCode/library/Messenger.o
 
 TestRun: Execute
-	./Execute --Input $(EOSBase)/OutputMC_v17_PFmuon/Result10.root \
+	./Execute --Input $(CERNBOX)/OutputMC_v18_PFmuon/Result10.root \
 		--Output /tmp/$(USER)/Test.root --Fraction 0.1 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal` \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root,$(PbPbBackgroundMC)/HiForestMiniAOD_14.root,$(PbPbBackgroundMC)/HiForestMiniAOD_15.root,$(PbPbBackgroundMC)/HiForestMiniAOD_16.root \
 		--ReuseBackground true --WithProgressBar true
 
 TestRunMCGenBackground: Execute
-	./Execute --Input $(EOSBase)/OutputMCGen_v17_PFmuon/Result10.root \
+	./Execute --Input $(CERNBOX)/OutputMCGen_v18_PFmuon/Result10.root \
 		--Output /tmp/$(USER)/TestMCGen.root --Fraction 0.1 \
 		`./Expand Setting.dh PbPbBackgroundGenMC Nominal` \
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_10.root,$(PbPbBackgroundMC)/HiForestMiniAOD_34.root,$(PbPbBackgroundMC)/HiForestMiniAOD_17.root,$(PbPbBackgroundMC)/HiForestMiniAOD_20.root \
@@ -68,7 +68,7 @@ TestRunPPDataSigBkg: Execute
 
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17e_230127/ $(CERNBOX)/OutputMCBackground_v17e_230127/ $(PbPbBackgroundMC)/ 37 \
+		$(CERNBOX)/OutputMC_v18_PFmuon/ LogMCBackground_v18_230127/ $(CERNBOX)/OutputMCBackground_v18_230127/ $(PbPbBackgroundMC)/ 37 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
 #PrepareToRunRandomPJMCBackground:
@@ -83,7 +83,7 @@ PrepareToRunRandomDataBackground:
 
 PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMCGen_v17_PFmuon/ LogMCGenbkg_v17e_221017_pt04/ $(CERNBOX)/OutputMCGenbkg_v17e_221017_pt04/ $(PbPbBackgroundMC)/ 7 \
+		$(CERNBOX)/OutputMCGen_v18_PFmuon/ LogMCGenbkg_v18_230127/ $(CERNBOX)/OutputMCGenbkg_v18_230127/ $(PbPbBackgroundMC)/ 37 \
 		`./Expand Setting.dh PbPbBackgroundGenMC Nominal`
 
 #PrepareToRunRandomPJMCGenBackground:

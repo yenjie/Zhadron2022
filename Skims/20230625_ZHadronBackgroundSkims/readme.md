@@ -14,3 +14,5 @@
    * Bug fix for same-Z rejection.
 * Version 17e - Feb 28, 2024
    * Bug fix for same-Z rejection.
+* Version 18 - Mar 5, 2024 
+   * Implement MinGenTrackPT and MinPFPT (only for GetHFSum).

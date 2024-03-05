@@ -30,8 +30,8 @@ using namespace std;
 struct EventIndex;
 int main(int argc, char *argv[]);
 int FindFirstAbove(vector<EventIndex> &Indices, double X);
-double GetHFSum(PFTreeMessenger *M);
-double GetGenHFSum(GenParticleTreeMessenger *M);
+double GetHFSum(PFTreeMessenger *M, double MinPFPT);
+double GetGenHFSum(GenParticleTreeMessenger *M, double MinGenTrackPT);
 bool EventPassesZ(int iE, HiEventTreeMessenger &MSignalEvent, MuTreeMessenger &MSignalMu, 
    SkimTreeMessenger &MSignalSkim, TriggerTreeMessenger &MSignalTrigger, 
    bool IsPP, bool IsData, bool DoMCHiBinShift, bool DoGenLevel, double MCHiBinShift, double MaximumCentrality,
@@ -58,7 +58,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V17e";
+   string Version = "V18";
 
    CommandLine CL(argc, argv);
 
@@ -67,6 +67,8 @@ int main(int argc, char *argv[])
    bool DoGenLevel                    = CL.GetBool("DoGenLevel", true);
    double Fraction                    = CL.GetDouble("Fraction", 1.00);
    double MinTrackPT                  = CL.GetDouble("MinTrackPT", 1.00);
+   double MinGenTrackPT               = CL.GetDouble("MinGenTrackPT", 0.40);
+   double MinPFPT                     = CL.GetDouble("MinPFPT", 0);
    bool IsData                        = CL.GetBool("IsData", false);
    bool IsPP                          = CL.GetBool("IsPP", false);
    bool DoGenCorrelation              = CL.GetBool("DoGenCorrelation", false);
@@ -201,6 +203,9 @@ int main(int argc, char *argv[])
    Key = "Output";                  Value = InfoString(OutputFileName);          InfoTree.Fill();
    Key = "DoGenLevel";              Value = InfoString(DoGenLevel);              InfoTree.Fill();
    Key = "Fraction";                Value = InfoString(Fraction);                InfoTree.Fill();
+   Key = "MinTrackPT";              Value = InfoString(MinTrackPT);              InfoTree.Fill();
+   Key = "MinGenTrackPT";           Value = InfoString(MinGenTrackPT);           InfoTree.Fill();
+   Key = "MinPFPT";                 Value = InfoString(MinPFPT);                 InfoTree.Fill();
    Key = "IsData";                  Value = InfoString(IsData);                  InfoTree.Fill();
    Key = "IsPP";                    Value = InfoString(IsPP);                    InfoTree.Fill();
    Key = "DoGenCorrelation";        Value = InfoString(DoGenCorrelation);        InfoTree.Fill();
@@ -303,7 +308,7 @@ int main(int argc, char *argv[])
 
          // Now we find if there is a signal event that this background event can be matched to
 
-         double SumHF = DoGenCorrelation ? GetGenHFSum(&MGen) : (DoSumET ? MEvent.hiHF : GetHFSum(&MPF));
+         double SumHF = DoGenCorrelation ? GetGenHFSum(&MGen, MinGenTrackPT) : (DoSumET ? MEvent.hiHF : GetHFSum(&MPF, MinPFPT));
          double VZ = MEvent.vz;
 
          double ShiftedHF = SumHF + HFShift;
@@ -360,6 +365,12 @@ int main(int argc, char *argv[])
 
             for(int itrack = 0; itrack < NTrack; itrack++)
             {
+
+               if(IsData == false && IsPP == false){
+                  if(MGen.PT->at(itrack) < MinGenTrackPT )
+                     continue;
+               }
+
                if(DoGenCorrelation == false)   // track selection on reco
                {
                   if(IsPP == true)
@@ -550,7 +561,7 @@ int FindFirstAbove(vector<EventIndex> &Indices, double X)
    return Low;
 }
 
-double GetHFSum(PFTreeMessenger *M)
+double GetHFSum(PFTreeMessenger *M, double MinPFPT)
 {
    if(M == nullptr)
       return -1;
@@ -559,7 +570,7 @@ double GetHFSum(PFTreeMessenger *M)
 
    double Sum = 0;
    for(int iPF = 0; iPF < M->ID->size(); iPF++)
-      if(fabs(M->Eta->at(iPF)) > 3 && fabs(M->Eta->at(iPF)) < 5)
+      if(fabs(M->Eta->at(iPF)) > 3 && fabs(M->Eta->at(iPF)) < 5 && M->PT->at(iPF) > MinPFPT )
          Sum = Sum + M->E->at(iPF);
 
    // cout << Sum << endl;
@@ -567,7 +578,7 @@ double GetHFSum(PFTreeMessenger *M)
    return Sum;
 }
 
-double GetGenHFSum(GenParticleTreeMessenger *M)
+double GetGenHFSum(GenParticleTreeMessenger *M, double MinGenTrackPT)
 {
    if(M == nullptr)
       return -1;
@@ -581,7 +592,7 @@ double GetGenHFSum(GenParticleTreeMessenger *M)
          continue;
       if(fabs(M->Eta->at(iGen)) > 5)
          continue;
-      if(fabs(M->PT->at(iGen)) < 0.4)
+      if(fabs(M->PT->at(iGen)) < MinGenTrackPT)
          continue;
       if(M->DaughterCount->at(iGen) > 0)
          continue;

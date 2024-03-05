@@ -97,6 +97,7 @@ TestRunRandomMCGenBackground: Execute
 EOSBase = /eos/cms/store/group/phys_heavyions/pchou
 # EOSBase = /eos/home-p/pchou
 # AFSBase = /afs/cern.ch/user/p/pchou
+CERNBOX = /eos/home-p/pchou
 
 PrepareToRun:
 	bash PrepareInput.sh \
@@ -107,7 +108,7 @@ PrepareToRun:
 PrepareToRunMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogMC_v17d_PFmuon/ $(EOSBase)/OutputMC_v17d_PFmuon/ \
+		5 LogMC_v18_PFmuon/ $(CERNBOX)/OutputMC_v18_PFmuon/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Nominal`
 
 PrepareToRunLoose:
@@ -137,7 +138,7 @@ PrepareToRunMCTight:
 PrepareToRunGenMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogGenMC_v17d_PFmuon/ $(EOSBase)/OutputMCGen_v17d_PFmuon/ \
+		5 LogGenMC_v18_PFmuon/ $(CERNBOX)/OutputMCGen_v18_PFmuon/ \
  		--Fraction 1 `./Expand Setting.dh PbPbSignalGenMC Nominal`
 
 PrepareToRunPP:
