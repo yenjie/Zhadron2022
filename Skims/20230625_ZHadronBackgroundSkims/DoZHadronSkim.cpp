@@ -581,6 +581,8 @@ double GetGenHFSum(GenParticleTreeMessenger *M)
          continue;
       if(fabs(M->Eta->at(iGen)) > 5)
          continue;
+      if(fabs(M->PT->at(iGen)) < 0.4)
+         continue;
       if(M->DaughterCount->at(iGen) > 0)
          continue;
       Sum = Sum + M->PT->at(iGen) * cosh(M->Eta->at(iGen));
