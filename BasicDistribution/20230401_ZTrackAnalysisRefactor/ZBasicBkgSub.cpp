@@ -458,7 +458,7 @@ int main(int argc, char *argv[]){
    }
 
    if(isgen)
-      file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCGen_v17_PFmuon.root","read");
+      file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon_ZTot.root","read");
    else
       file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon_ZTot.root","read");
 
