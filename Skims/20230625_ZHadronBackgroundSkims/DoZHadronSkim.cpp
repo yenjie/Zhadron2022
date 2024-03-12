@@ -58,7 +58,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V18a_test";
+   string Version = "V18a";
 
    CommandLine CL(argc, argv);
 
@@ -289,12 +289,12 @@ int main(int argc, char *argv[])
 
          //cout<<"MEvent.vz = "<<MEvent.vz<<", MEvent.hiBin = "<<MEvent.hiBin<<", MEvent.hiHF = "<<MEvent.hiHF<<endl;
 
-         //if(IsPP == false && IsData == false && DoMCHiBinShift == true)   // PbPb MC, we shift 1.5% as per Kaya
-         //{
-         //   MEvent.hiBin = MEvent.hiBin - MCHiBinShift;
-         //   if(MEvent.hiBin < 0)   // too central, skip
-         //      continue;
-         //}
+         if(IsPP == false && IsData == false && DoMCHiBinShift == true)   // PbPb MC, we shift 1.5% as per Kaya
+         {
+            MEvent.hiBin = MEvent.hiBin - MCHiBinShift;
+            if(MEvent.hiBin < 0)   // too central, skip
+               continue;
+         }
 
          if(MEvent.hiBin > MaximumCentrality * 2)
             continue;
