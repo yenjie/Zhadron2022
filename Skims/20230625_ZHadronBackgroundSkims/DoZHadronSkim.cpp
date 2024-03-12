@@ -58,7 +58,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V18a";
+   string Version = "V18a_test";
 
    CommandLine CL(argc, argv);
 
@@ -289,12 +289,12 @@ int main(int argc, char *argv[])
 
          //cout<<"MEvent.vz = "<<MEvent.vz<<", MEvent.hiBin = "<<MEvent.hiBin<<", MEvent.hiHF = "<<MEvent.hiHF<<endl;
 
-         if(IsPP == false && IsData == false && DoMCHiBinShift == true)   // PbPb MC, we shift 1.5% as per Kaya
-         {
-            MEvent.hiBin = MEvent.hiBin - MCHiBinShift;
-            if(MEvent.hiBin < 0)   // too central, skip
-               continue;
-         }
+         //if(IsPP == false && IsData == false && DoMCHiBinShift == true)   // PbPb MC, we shift 1.5% as per Kaya
+         //{
+         //   MEvent.hiBin = MEvent.hiBin - MCHiBinShift;
+         //   if(MEvent.hiBin < 0)   // too central, skip
+         //      continue;
+         //}
 
          if(MEvent.hiBin > MaximumCentrality * 2)
             continue;
@@ -315,7 +315,9 @@ int main(int argc, char *argv[])
 
          // Now we find if there is a signal event that this background event can be matched to
 
-         double SumHF = DoGenCorrelation ? GetGenHFSum(&MGen, MinGenTrackPT) : (DoSumET ? MEvent.hiHF : GetHFSum(&MPF, MinPFPT));
+         //double SumHF = DoGenCorrelation ? GetGenHFSum(&MGen, MinGenTrackPT) : (DoSumET ? MEvent.hiHF : GetHFSum(&MPF, MinPFPT));
+         double SumHF = DoGenCorrelation ? GetGenHFSum(&MGen, MinGenTrackPT) : GetHFSum(&MPF, MinPFPT);
+
          double VZ = MEvent.vz;
 
          double ShiftedHF = SumHF + HFShift;
