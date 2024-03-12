@@ -68,7 +68,7 @@ TestRunPPDataSigBkg: Execute
 
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(CERNBOX)/OutputMC_v18_PFmuon/ LogMCBackground_v18_230127/ $(CERNBOX)/OutputMCBackground_v18_230127/ $(PbPbBackgroundMC)/ 37 \
+		$(CERNBOX)/OutputMC_v18_PFmuon/ LogMCBackground_v18a_230127/ $(CERNBOX)/OutputMCBackground_v18a_230127/ $(PbPbBackgroundMC)/ 37 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
 #PrepareToRunRandomPJMCBackground:
@@ -83,7 +83,7 @@ PrepareToRunRandomDataBackground:
 
 PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(CERNBOX)/OutputMCGen_v18_PFmuon/ LogMCGenbkg_v18_230127/ $(CERNBOX)/OutputMCGenbkg_v18_230127/ $(PbPbBackgroundMC)/ 37 \
+		$(CERNBOX)/OutputMCGen_v18_PFmuon/ LogMCGenbkg_v18a_230127/ $(CERNBOX)/OutputMCGenbkg_v18a_230127/ $(PbPbBackgroundMC)/ 37 \
 		`./Expand Setting.dh PbPbBackgroundGenMC Nominal`
 
 #PrepareToRunRandomPJMCGenBackground:
