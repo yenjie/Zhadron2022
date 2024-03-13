@@ -82,6 +82,8 @@ int main(int argc, char *argv[])
    C.push_back(Configuration(40, 40,  200,  0, 90, 1, 2));
 
    C.push_back(Configuration(40, 40,  200,  0, 100, 1, 2));
+   C.push_back(Configuration(40, 40,  200,  0, 100, 2, 4));
+   C.push_back(Configuration(40, 40,  200,  0, 100, 4, 10));
 
    //C.push_back(Configuration(40, 40,  200,  0, 30, 1, 2));
    //C.push_back(Configuration(40, 40,  200, 30, 90, 1, 2));
