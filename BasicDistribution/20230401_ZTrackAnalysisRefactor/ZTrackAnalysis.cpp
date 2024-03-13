@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
    double Fraction       = CL.GetDouble("Fraction", 1.00);
    bool IgnoreCentrality = CL.GetBool("IgnoreCentrality", false);
    bool OnlyZeroSub      = CL.GetBool("OnlyZeroSub", false);
+   bool OnlyZeroNPU      = CL.GetBool("OnlyZeroNPU", false);
    bool OnlyOneSub       = CL.GetBool("OnlyOneSub", false);
    bool NoZeroSub        = CL.GetBool("NoZeroSub", false);
    bool NoOneSub         = CL.GetBool("NoOneSub", false);
@@ -332,7 +333,8 @@ int main(int argc, char *argv[])
 
       Tree->GetEntry(iE);
 
-      if(OnlyZeroSub == true && DoGenCorrelation == false && NPU != 0) continue;
+      //if(OnlyZeroSub == true && DoGenCorrelation == false && NPU != 0) continue;
+      if(OnlyZeroNPU == true && NPU != 0) continue;
 
       for(int iC = 0; iC < (int)C.size(); iC++)
       {
