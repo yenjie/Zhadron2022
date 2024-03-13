@@ -92,7 +92,7 @@ SigBkgData=" --DoBackground true --CheckForBackgroundZ true --HFShift 0 --Tolera
 PPSigBkgMCCent10=" --DoBackground true --CheckForBackgroundZ true --HFShift 0  --Tolerance 10000000 --ToleranceFraction 0.001 --VZTolerance 10000000 --Oversample 10 --HFCeiling 134000 --MaximumCentrality 10"
 SigBkgMCCent10="   --DoBackground true --CheckForBackgroundZ true --HFShift 0  --Tolerance 1875 --ToleranceFraction 0.001 --VZTolerance 2 --Oversample 20 --HFCeiling 134000 --MaximumCentrality 10"
 
-BackgroundGenMCCent10="--DoBackground true --HFShift 1083 --Tolerance 10000000 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 156000 --VZTolerance 10000000 --MaximumCentrality 10"
+BackgroundGenMCCent10="--DoBackground true --HFShift 816.7 --Tolerance 10000000 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 156000 --VZTolerance 10000000 --MaximumCentrality 10"
 
 DHSet Setting.dh PPSignalMCCent10    Nominal string "$Common $MC    --IsPP true  $AODPF     $PPJetMC      $PbPbRecoTrack  $PPSigBkgMCCent10"
 DHSet Setting.dh PbPbSignalMCCent10  Nominal string "$Common $MC    --IsPP false $MiniAODPF $PbPbJetMC    $PbPbRecoTrack  $SigBkgMCCent10"
