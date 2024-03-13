@@ -83,7 +83,7 @@ PrepareToRunRandomDataBackground:
 
 PrepareToRunRandomMCGenBackground:
 	bash PrepareInputRandomBackground.sh \
-		$(CERNBOX)/OutputMCGen_v18_PFmuon/ LogMCGenbkg_v18a_230127_8167/ $(CERNBOX)/OutputMCGenbkg_v18a_230127_8167/ $(PbPbBackgroundMC)/ 37 \
+		$(CERNBOX)/OutputMCGen_v18_PFmuon/ LogMCGenbkg_v18_230127_8167/ $(CERNBOX)/OutputMCGenbkg_v18_230127_8167/ $(PbPbBackgroundMC)/ 37 \
 		`./Expand Setting.dh PbPbBackgroundGenMC Nominal`
 
 #PrepareToRunRandomPJMCGenBackground:
