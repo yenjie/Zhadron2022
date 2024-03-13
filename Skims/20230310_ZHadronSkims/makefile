@@ -144,13 +144,13 @@ PrepareToRunGenMC:
 PrepareToRunPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogPP_v17d_PFmuon/ $(EOSBase)/OutputPPMC_v17d_PFmuon/ \
+		10 LogPP_v18_PFmuon/ $(CERNBOX)/OutputPPMC_v18_PFmuon/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalMC Nominal`
 
 PrepareToRunGenPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogGenPP_v17d_PFmuon/ $(EOSBase)/OutputPPMCGen_v17d_PFmuon/ \
+		10 LogGenPP_v18_PFmuon/ $(CERNBOX)/OutputPPMCGen_v18_PFmuon/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalGenMC Nominal`
 
 PrepareToRunPPData:
