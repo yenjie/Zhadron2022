@@ -184,7 +184,7 @@ int main(int argc, char *argv[])
       HZEtaPhi.push_back(new TH2D("HZEtaPhi", "Z candidate eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       HGenZEta.push_back(new TH1D("HGenZEta", "GEN Z eta", 100, -3.2, 3.2));
       HGenZPhi.push_back(new TH1D("HGenZPhi", "GEN Z phi", 100, -M_PI, M_PI));
-      HGenZEtaPhi.push_back(new TH2D("HGenZEtaPhi", "GEB Z eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
+      HGenZEtaPhi.push_back(new TH2D("HGenZEtaPhi", "GEN Z eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       HZMass.push_back(new TH1D("HZMass", "Z candidate mass", 100, 0, 150));
       HTrackPT.push_back(new TH1D("HTrackPT", "Track PT", 100, 0, 200));
       HTrackEta.push_back(new TH1D("HTrackEta", "Track eta", 100, -3.2, 3.2));
