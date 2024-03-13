@@ -98,7 +98,7 @@ PrepareToRunRandomMCRecGenBackground:
 
 PrepareToRunRandomMCGenBackgroundCent10:
 	bash PrepareInputRandomBackground.sh \
-		$(EOSBase)/OutputMCGen_v17_PFmuon/ LogMCGenbkg_v17e_221017_cent10/ $(CERNBOX)/OutputMCGenbkg_v17e_221017_cent10/ $(PbPbBackgroundMC)/ 7 \
+		$(CERNBOX)/OutputMCGen_v18_PFmuon/ LogMCGenbkg_v18a_230127_cent10/ $(CERNBOX)/OutputMCGenbkg_v18a_230127_cent10/ $(PbPbBackgroundMC)/ 37 \
 		`./Expand Setting.dh PbPbBackgroundGenMCCent10 Nominal`
 
 PrepareToRunRandomMCBackgroundUEUp25:
