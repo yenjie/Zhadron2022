@@ -444,7 +444,7 @@ int main(int argc, char *argv[]){
    style();
 
    if(isgen)
-      file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignalGen_v18.root","read");
+      file_sigMC = TFile::Open("/afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230401_ZTrackAnalysisRefactor/GraphMCSignal_v18_PFmuon_mZ.root","read");
    else
       file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v18_PFmuon.root","read");
    
@@ -458,7 +458,7 @@ int main(int argc, char *argv[]){
    }
 
    if(isgen)
-      file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon_ZTot.root","read");
+      file_ppMC  = TFile::Open("/afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230401_ZTrackAnalysisRefactor/GraphPPMCGen0NPU_v18_mZ.root","read");
    else
       file_ppMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon_ZTot.root","read");
 
