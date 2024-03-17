@@ -444,7 +444,7 @@ int main(int argc, char *argv[]){
    style();
 
    if(isgen)
-      file_sigMC = TFile::Open("/afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230401_ZTrackAnalysisRefactor/GraphMCSignal_v18_PFmuon_mZ.root","read");
+      file_sigMC = TFile::Open("/afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230401_ZTrackAnalysisRefactor/GraphMCGen_v18_PFmuon_mZ.root","read");
    else
       file_sigMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSignal_v18_PFmuon.root","read");
    
