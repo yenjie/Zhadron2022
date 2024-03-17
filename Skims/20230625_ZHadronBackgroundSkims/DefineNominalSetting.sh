@@ -33,10 +33,10 @@ BackgroundGenMC="--DoBackground true --HFShift 816.7 --Tolerance 187.5 --Toleran
 BackgroundData=" --DoBackground true --HFShift 660  --Tolerance 150.0   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
 BackgroundMCUEUp25="     --DoBackground true --HFShift 699   --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
-BackgroundGenMCUEUp25="  --DoBackground true --HFShift 1110  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundGenMCUEUp25="  --DoBackground true --HFShift 837.1  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 156000 --VZTolerance 2"
 BackgroundDataUEUp25="   --DoBackground true --HFShift 676.5 --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 BackgroundMCUEDown25="   --DoBackground true --HFShift 665   --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
-BackgroundGenMCUEDown25="--DoBackground true --HFShift 1056  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 156000 --VZTolerance 10000"
+BackgroundGenMCUEDown25="--DoBackground true --HFShift 796.3  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 156000 --VZTolerance 2"
 BackgroundDataUEDown25=" --DoBackground true --HFShift 643.5 --Tolerance 150   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
 
 BackgroundMCUEUp30="     --DoBackground true --HFShift 702.5  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 10 --HFCeiling 134000"
