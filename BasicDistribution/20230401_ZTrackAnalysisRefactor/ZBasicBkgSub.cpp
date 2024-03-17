@@ -465,7 +465,7 @@ int main(int argc, char *argv[]){
    if(selfmix)
       file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17d_PFmuon_143_10HF.root","read");
    else
-      file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCGen_v17_PFmuon.root","read");
+      file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMC_v17_PFmuon_ZTot.root","read");
 
    //file_ppbkgMC  = TFile::Open("~/eos_base/BasicPlots/GraphPPMCSigBkg_v17d_Cent10_143.root","read");
 
