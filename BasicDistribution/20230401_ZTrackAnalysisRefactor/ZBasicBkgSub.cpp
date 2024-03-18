@@ -452,7 +452,7 @@ int main(int argc, char *argv[]){
       file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCSigBkg_v17d_PFmuon_350_10HF_ov20.root","read");
    else{
       if(isgen)
-         file_bkgMC  = TFile::Open("/afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230401_ZTrackAnalysisRefactor/GraphMCBackgroundGen_8167.root","read");
+         file_bkgMC  = TFile::Open("/afs/cern.ch/user/p/pchou/PhysicsHIZHadron2022/BasicDistribution/20230401_ZTrackAnalysisRefactor/GraphMCGenbkg_v18_230127_mZ.root","read");
       else
          file_bkgMC = TFile::Open("~/eos_base/BasicPlots/GraphMCBackground_v18.root","read");
    }
