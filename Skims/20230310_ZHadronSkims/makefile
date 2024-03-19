@@ -156,7 +156,7 @@ PrepareToRunGenPP:
 PrepareToRunPPData:
 	bash PrepareInput.sh \
 		'$(PPSignalData)/*/' \
-		10 LogPPData_v17d_PFmuon/ $(EOSBase)/OutputPPData_v17d_PFmuon/ \
+		10 LogPPData_v18_PFmuon/ $(CERNBOX)/OutputPPData_v18_PFmuon/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalData Nominal`
 
 PrepareToRunBackground:
