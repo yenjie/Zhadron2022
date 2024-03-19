@@ -375,7 +375,7 @@ int main(int argc, char *argv[])
             for(int itrack = 0; itrack < NTrack; itrack++)
             {
 
-               if(IsData == false && IsPP == false){
+               if(DoGenCorrelation == true && IsData == false && IsPP == false){
                   if(MGen.PT->at(itrack) < MinGenTrackPT )
                      continue;
                }
