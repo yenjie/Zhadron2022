@@ -27,7 +27,7 @@ GenTrack="--DoTrackEfficiency false --TrackEfficiencyPath ${ProjectBase}/CommonC
 PPRecoTrack="--DoTrackEfficiency true --TrackEfficiencyPath ${ProjectBase}/CommonCode/root/ --DoTrackResidual true --TrackResidualPath $TrackResidualPathPP"
 PbPbRecoTrack="--DoTrackEfficiency true --TrackEfficiencyPath ${ProjectBase}/CommonCode/root/ --DoTrackResidual true --TrackResidualPath $TrackResidualPathPbPb"
 
-BackgroundMC="   --DoBackground true --HFShift 618.6  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 134000" # --MaximumCentrality 10
+BackgroundMC="   --DoBackground true --HFShift 742.192  --Tolerance 135.772 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 134000" # --MaximumCentrality 10
 #BackgroundMC="   --DoBackground true --HFShift 682  --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 134000"
 BackgroundGenMC="--DoBackground true --HFShift 816.7 --Tolerance 187.5 --ToleranceFraction 0.001 --Oversample 1 --HFCeiling 156000 --VZTolerance 2"
 BackgroundData=" --DoBackground true --HFShift 660  --Tolerance 150.0   --ToleranceFraction 0.001 --Oversample 25 --HFCeiling  70000"
