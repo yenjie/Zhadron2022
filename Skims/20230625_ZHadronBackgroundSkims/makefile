@@ -71,6 +71,11 @@ PrepareToRunRandomMCBackground:
 		$(CERNBOX)/OutputMC_v18_PFmuon_mZ/ LogMCBackground_v18_mZ_742_v2/ $(CERNBOX)/OutputMCBackground_v18_mZ_742_v2/ $(PbPbBackgroundMC)/ 37 \
 		`./Expand Setting.dh PbPbBackgroundMC Nominal`
 
+PrepareToRunRandomMCBackgroundCent10:
+	bash PrepareInputRandomBackground.sh \
+		$(CERNBOX)/OutputMC_v18_PFmuon_mZ/ LogMCBackground_v18_mZ_cent10/ $(CERNBOX)/OutputMCBackground_v18_mZ_cent10/ $(PbPbBackgroundMC)/ 37 \
+		`./Expand Setting.dh PbPbBackgroundMCCent10 Nominal`
+
 #PrepareToRunRandomPJMCBackground:
 #	bash PrepareInputRandomBackground.sh \
 #		$(EOSBase)/OutputMC_v17_PFmuon/ LogMCBackground_v17d_PJov1/ $(EOSBase)/OutputMCBackground_v17d_PJov1/ $(PbPbBackgroundPJMC)/ 37 \
