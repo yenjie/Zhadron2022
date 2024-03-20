@@ -93,13 +93,13 @@ EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2
 PrepareToRun:
 	bash PrepareInput.sh \
 		'$(PbPbSignalSingleMuon)/*/' \
-		5 LogData_v14/ $(EOSBase)/OutputData_v15/ \
+		5 LogData_v16/ $(EOSBase)/OutputData_v16/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalData Nominal`
 
 PrepareToRunMC:
 	bash PrepareInput.sh \
 		$(PbPbSignalMC)/ \
-		5 LogMC_v14/ $(EOSBase)/OutputMC_v15/ \
+		5 LogMC_v16/ $(EOSBase)/OutputMC_v16/ \
 		--Fraction 1 `./Expand Setting.dh PbPbSignalMC Nominal`
 
 PrepareToRunLoose:
@@ -123,7 +123,7 @@ PrepareToRunGenMC:
 PrepareToRunPP:
 	bash PrepareInput.sh \
 		$(PPSignalMC)/ \
-		10 LogPP_v14/ $(EOSBase)/OutputPPMC_v15/ \
+		10 LogPP_v16/ $(EOSBase)/OutputPPMC_v16/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalMC Nominal`
 
 PrepareToRunGenPP:
@@ -135,7 +135,7 @@ PrepareToRunGenPP:
 PrepareToRunPPData:
 	bash PrepareInput.sh \
 		'$(PPSignalData)/*/' \
-		10 LogPPData_v14/ $(EOSBase)/OutputPPData_v15/ \
+		10 LogPPData_v16/ $(EOSBase)/OutputPPData_v16/ \
  		--Fraction 1 `./Expand Setting.dh PPSignalData Nominal`
 
 PrepareToRunBackground:

@@ -49,6 +49,9 @@ int main(int argc, char *argv[])
    bool DoExtraZWeight           = CL.GetBool("DoExtraZWeight", false);
    int ExtraZWeightIndex         = DoExtraZWeight ? CL.GetInt("ExtraZWeightIndex") : 0;
    bool DoAdHocSignalHF          = CL.GetBool("DoAdHocSignalHF", false);
+   double MinVZ                  = CL.GetDouble("MinVZ", -10000);
+   double MaxVZ                  = CL.GetDouble("MaxVZ", +10000);
+   bool DoReplaceZWeight         = CL.GetBool("DoReplaceZWeight", true);
 
    vector<Configuration> Cs;
 
@@ -62,7 +65,7 @@ int main(int argc, char *argv[])
 
    // Reduced set for faster running
    vector<pair<int, int>> NPV{pair<int, int>(0, 10), pair<int, int>(0, 1)};
-   vector<pair<int, int>> Centrality{pair<int, int>(0, 10), pair<int, int>(10, 30), pair<int, int>(30, 50), pair<int, int>(50, 90), pair<int, int>(0, 30), pair<int, int>(30, 90), pair<int, int>(0, 90), pair<int, int>(0, 50)};
+   vector<pair<int, int>> Centrality{pair<int, int>(0, 10), pair<int, int>(10, 30), pair<int, int>(30, 50), pair<int, int>(50, 90), pair<int, int>(0, 30), pair<int, int>(30, 90), pair<int, int>(0, 90), pair<int, int>(0, 50), pair<int, int>(50, 70), pair<int, int>(70, 90)};
    vector<pair<double, double>> TrackPT{pair<double, double>(1, 2), pair<double, double>(10, 100), pair<double, double>(1, 100), pair<double, double>(4, 10), pair<double, double>(2, 4), pair<double, double>(1, 10)};
    vector<double> ZPTMin{30, 40, 60};
    
@@ -86,6 +89,9 @@ int main(int argc, char *argv[])
    vector<TH1D *> HDeltaEta;
    vector<TH1D *> HDeltaEtaZSide;
    vector<TH1D *> HDeltaEtaJetSide;
+   vector<TH1D *> HDeltaY;
+   vector<TH1D *> HDeltaYZSide;
+   vector<TH1D *> HDeltaYJetSide;
    vector<TH1D *> HHiBin;
    vector<TH1D *> HHiHF;
    vector<TH1D *> HSignalHF;
@@ -97,6 +103,9 @@ int main(int argc, char *argv[])
       HDeltaEta.push_back(new TH1D(Form("HDeltaEta_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
       HDeltaEtaZSide.push_back(new TH1D(Form("HDeltaEtaZSide_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
       HDeltaEtaJetSide.push_back(new TH1D(Form("HDeltaEtaJetSide_%s", C.Tag.c_str()), ";|#Delta#eta|;", 10, 0, 3.5));
+      HDeltaY.push_back(new TH1D(Form("HDeltaY_%s", C.Tag.c_str()), ";|#Deltay|;", 10, 0, 3.5));
+      HDeltaYZSide.push_back(new TH1D(Form("HDeltaYZSide_%s", C.Tag.c_str()), ";|#Deltay|;", 10, 0, 3.5));
+      HDeltaYJetSide.push_back(new TH1D(Form("HDeltaYJetSide_%s", C.Tag.c_str()), ";|#Deltay|;", 10, 0, 3.5));
       HHiBin.push_back(new TH1D(Form("HHiBin_%s", C.Tag.c_str()), ";hiBin;", 200, 0, 200));
       HHiHF.push_back(new TH1D(Form("HHiHF_%s", C.Tag.c_str()), ";hiHF;", 400, HiHFBins));
       HSignalHF.push_back(new TH1D(Form("HSignalHF_%s", C.Tag.c_str()), ";SumHF;", 400, SignalHFBins));
@@ -123,6 +132,10 @@ int main(int argc, char *argv[])
       {
          M.GetEntry(iE);
 
+         // VZ range
+         if(MinVZ >= M.VZ)   continue;
+         if(MaxVZ <= M.VZ)   continue;
+
          // hibin recalculate if needed
          if(RedoHiBin == true)
             M.hiBin = GetHiBin(M.hiHF, HiBinVariation);
@@ -131,9 +144,17 @@ int main(int argc, char *argv[])
          if(DoGen == true && M.genZPt->size() == 0)   continue;
          if(DoGen == false && M.zPt->size() == 0)     continue;
 
-         double ZPT  = DoGen ? M.genZPt->at(0)  : M.zPt->at(0);
-         double ZEta = DoGen ? M.genZEta->at(0) : M.zEta->at(0);
-         double ZPhi = DoGen ? M.genZPhi->at(0) : M.zPhi->at(0);
+         double ZPT   = DoGen ? M.genZPt->at(0)   : M.zPt->at(0);
+         double ZEta  = DoGen ? M.genZEta->at(0)  : M.zEta->at(0);
+         double ZPhi  = DoGen ? M.genZPhi->at(0)  : M.zPhi->at(0);
+         double ZMass = DoGen ? M.genZMass->at(0) : M.zMass->at(0);
+
+         double ZPZ   = ZPT * sinh(ZEta);
+         double ZP    = ZPT * cosh(ZEta);
+         double ZE    = sqrt(ZP * ZP + ZMass * ZMass);
+         double ZY    = 0.5 * log((ZE + ZPZ) / (ZE - ZPZ));
+
+         // cout << ZPZ << " " << ZEta << " " << 0.5 * log((ZP + ZPZ) / (ZP - ZPZ)) << " " << ZY << endl;
 
          double Mu1Eta = DoGen ? M.genMuEta1->at(0) : M.muEta1->at(0);
          double Mu1Phi = DoGen ? M.genMuPhi1->at(0) : M.muPhi1->at(0);
@@ -146,6 +167,14 @@ int main(int argc, char *argv[])
          double Mu2DPhi = DeltaPhi(Mu2Phi, ZPhi);
 
          double EventWeight = M.NCollWeight * M.ZWeight * M.VZWeight;
+         if(DoReplaceZWeight == true)
+         {
+            EventWeight = M.NCollWeight * M.VZWeight;
+            if(IsPP == true)
+               EventWeight = EventWeight * GetZWeightPPDataTrigger(ZPT, ZY);
+            else
+               EventWeight = EventWeight * GetZWeightPbPbDataTrigger(ZPT, ZY, M.hiBin);
+         }
          if(DoExtraZWeight == true && ExtraZWeightIndex >= 0)
             EventWeight = EventWeight * M.ExtraZWeight[ExtraZWeightIndex];
 
@@ -191,6 +220,7 @@ int main(int argc, char *argv[])
             double TrackPhi = M.trackDphi->at(iT) + ZPhi;
 
             double TrackDEta = TrackEta - ZEta;
+            double TrackDY   = TrackEta - ZY;
             double TrackDPhi = DeltaPhi(TrackPhi, ZPhi);
 
             double TrackWeight = M.trackWeight->at(iT) * M.trackResidualWeight->at(iT) * EventWeight;
@@ -209,11 +239,18 @@ int main(int argc, char *argv[])
                if(DoGen == false && M.NVertex > Cs[iC].NPVMax)        continue;
 
                HDeltaPhi[iC]->Fill(fabs(TrackDPhi), TrackWeight);
+
                HDeltaEta[iC]->Fill(fabs(TrackDEta), TrackWeight);
                if(fabs(TrackDPhi) < M_PI / 2)
                   HDeltaEtaZSide[iC]->Fill(fabs(TrackDEta), TrackWeight);
                else
                   HDeltaEtaJetSide[iC]->Fill(fabs(TrackDEta), TrackWeight);
+               
+               HDeltaY[iC]->Fill(fabs(TrackDY), TrackWeight);
+               if(fabs(TrackDPhi) < M_PI / 2)
+                  HDeltaYZSide[iC]->Fill(fabs(TrackDY), TrackWeight);
+               else
+                  HDeltaYJetSide[iC]->Fill(fabs(TrackDY), TrackWeight);
             }   
          }
       }
@@ -229,6 +266,9 @@ int main(int argc, char *argv[])
       HDeltaEta[i]->Write();
       HDeltaEtaZSide[i]->Write();
       HDeltaEtaJetSide[i]->Write();
+      HDeltaY[i]->Write();
+      HDeltaYZSide[i]->Write();
+      HDeltaYJetSide[i]->Write();
       HHiBin[i]->Write();
       HHiHF[i]->Write();
       HSignalHF[i]->Write();

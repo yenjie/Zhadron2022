@@ -24,6 +24,7 @@ TestRun: Execute
 		--Background $(PbPbBackgroundMC)/HiForestMiniAOD_14.root,$(PbPbBackgroundMC)/HiForestMiniAOD_15.root,$(PbPbBackgroundMC)/HiForestMiniAOD_16.root \
 		--ReuseBackground true
 	
+EOSYi   = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230310_ZHadronSkims
 EOSBase = /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Skims/20230625_ZHadronSkims
 PrepareToRunRandomMCBackground:
 	bash PrepareInputRandomBackground.sh \
@@ -32,7 +33,7 @@ PrepareToRunRandomMCBackground:
 
 PrepareToRunRandomDataBackground:
 	bash PrepareInputRandomBackground.sh \
-		/eos/cms/store/group/phys_heavyions/pchou/OutputData_v14/ LogDataBackground/ $(EOSBase)/OutputDataBackground_v15/ $(PbPbBackgroundData)/ 200 \
+		$(EOSYi)/OutputData_v16/ LogDataBackground/ $(EOSBase)/OutputDataBackground_v16/ $(PbPbBackgroundData)/ 200 \
 		`./Expand Setting.dh PbPbBackgroundData Nominal`
 
 

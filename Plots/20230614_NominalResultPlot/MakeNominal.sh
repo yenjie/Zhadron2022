@@ -2,7 +2,7 @@
 
 mkdir -p Plots
 
-for CRange in 0:30 0:10 10:30 30:90 30:50 50:90
+for CRange in 0:30 0:10 10:30 30:90 30:50 50:90 50:70 70:90
 do
    CMin=`echo $CRange | tr ':' ' ' | awk '{print $1}'`
    CMax=`echo $CRange | tr ':' ' ' | awk '{print $2}'`

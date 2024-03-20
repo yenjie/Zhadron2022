@@ -52,7 +52,7 @@ public:
 
 int main(int argc, char *argv[])
 {
-   string Version = "V15b";
+   string Version = "V16";
 
    CommandLine CL(argc, argv);
 
@@ -69,6 +69,7 @@ int main(int argc, char *argv[])
    double MuonVeto                    = CL.GetDouble("MuonVeto", 0.01);
    string PFTreeName                  = IsPP ? "pfcandAnalyzer/pfTree" : "particleFlowAnalyser/pftree";
    PFTreeName                         = CL.Get("PFTree", PFTreeName);
+   bool SkipEventSelection            = CL.GetBool("SkipEventSelection", false);
 
    bool DoAlternateTrackSelection     = CL.GetBool("DoAlternateTrackSelection", false);
    int AlternateTrackSelection        = DoAlternateTrackSelection ? CL.GetInt("AlternateTrackSelection") : 0;
@@ -212,6 +213,7 @@ int main(int argc, char *argv[])
       PbPbTrackTreeMessenger   MTrack(InputFile);
       GenParticleTreeMessenger MGen(InputFile);
       PFTreeMessenger          MPF(InputFile, PFTreeName);
+      SkimTreeMessenger        MSkim(InputFile);
 
       // Start looping over events
       int EntryCount = MEvent.GetEntries();
@@ -238,6 +240,28 @@ int main(int argc, char *argv[])
          else
             MTrack.GetEntry(iE);
          MPF.GetEntry(iE);
+         MSkim.GetEntry(iE);
+
+         if(SkipEventSelection == false)
+         {
+            if(IsPP == true && IsData == true)
+            {
+               int pprimaryVertexFilter = MSkim.PVFilter;
+               int beamScrapingFilter = MSkim.BeamScrapingFilter;
+
+               if(pprimaryVertexFilter == 0 || beamScrapingFilter == 0)
+                  continue;
+            }
+            if(IsPP == false && IsData == true)
+            {
+               int pprimaryVertexFilter = MSkim.PVFilter;
+               int phfCoincFilter2Th4 = MSkim.HFCoincidenceFilter2Th4;
+               int pclusterCompatibilityFilter = MSkim.ClusterCompatibilityFilter;
+
+               if(pprimaryVertexFilter == 0 || phfCoincFilter2Th4 == 0 || pclusterCompatibilityFilter == 0)
+                  continue;
+            }
+         }
 
          // Now we find if there is a signal event that this background event can be matched to
 
