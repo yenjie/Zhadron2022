@@ -49,9 +49,9 @@ int main(int argc, char *argv[])
    bool DoExtraZWeight           = CL.GetBool("DoExtraZWeight", false);
    int ExtraZWeightIndex         = DoExtraZWeight ? CL.GetInt("ExtraZWeightIndex") : 0;
    bool DoAdHocSignalHF          = CL.GetBool("DoAdHocSignalHF", false);
-   double MinVZ                  = CL.GetDouble("MinVZ", -10000);
-   double MaxVZ                  = CL.GetDouble("MaxVZ", +10000);
    bool DoReplaceZWeight         = CL.GetBool("DoReplaceZWeight", true);
+   double VZMin                  = CL.GetDouble("VZMin",-15);
+   double VZMax                  = CL.GetDouble("VZMax",15);
 
    vector<Configuration> Cs;
 
@@ -132,10 +132,6 @@ int main(int argc, char *argv[])
       {
          M.GetEntry(iE);
 
-         // VZ range
-         if(MinVZ >= M.VZ)   continue;
-         if(MaxVZ <= M.VZ)   continue;
-
          // hibin recalculate if needed
          if(RedoHiBin == true)
             M.hiBin = GetHiBin(M.hiHF, HiBinVariation);
@@ -192,6 +188,8 @@ int main(int argc, char *argv[])
             if(ZPT >= Cs[iC].ZPTMax)                            continue;
             if(M.NVertex < Cs[iC].NPVMin)                       continue;
             if(M.NVertex > Cs[iC].NPVMax)                       continue;
+            if(M.SignalVZ < VZMin)                              continue;
+            if(M.SignalVZ > VZMax)                              continue;
             
             HN[iC]->Fill(0.0, EventWeight);
             HHiBin[iC]->Fill(M.hiBin, EventWeight);
@@ -237,13 +235,37 @@ int main(int argc, char *argv[])
                if(M.trackPt->at(iT) >= Cs[iC].PTMax)                  continue;
                if(DoGen == false && M.NVertex < Cs[iC].NPVMin)        continue;
                if(DoGen == false && M.NVertex > Cs[iC].NPVMax)        continue;
+               if(M.SignalVZ < VZMin)                                 continue;
+               if(M.SignalVZ > VZMax)                                 continue;
 
                HDeltaPhi[iC]->Fill(fabs(TrackDPhi), TrackWeight);
 
                HDeltaEta[iC]->Fill(fabs(TrackDEta), TrackWeight);
-               if(fabs(TrackDPhi) < M_PI / 2)
+
+               double zP = ZPT*cosh(ZEta);
+               double zPz = ZPT*sinh(ZEta);
+               double zE = sqrt(zP*zP+ZMass*ZMass);
+               double zY = 0.5*log((zE+zPz)/(zE-zPz));
+
+               double trkP = M.trackPt->at(iT) *cosh(TrackEta);
+               double trkPz = M.trackPt->at(iT) *sinh(TrackEta);
+
+               double piMass = 0.13957039;
+
+               double trkE = sqrt(trkP*trkP+piMass*piMass);
+               double trkY = 0.5*log((trkE+trkPz)/(trkE-trkPz));
+
+
+               //double TrackDY = TrackEta - zY;
+               double TrackDY = trkY - zY;
+
+               HDeltaY[iC]->Fill(fabs(TrackDY), TrackWeight);
+
+               if(fabs(TrackDPhi) < M_PI / 2){
                   HDeltaEtaZSide[iC]->Fill(fabs(TrackDEta), TrackWeight);
-               else
+                  HDeltaYZSide[iC]->Fill(fabs(TrackDY), TrackWeight);
+               }
+               else{
                   HDeltaEtaJetSide[iC]->Fill(fabs(TrackDEta), TrackWeight);
                
                HDeltaY[iC]->Fill(fabs(TrackDY), TrackWeight);
@@ -251,6 +273,7 @@ int main(int argc, char *argv[])
                   HDeltaYZSide[iC]->Fill(fabs(TrackDY), TrackWeight);
                else
                   HDeltaYJetSide[iC]->Fill(fabs(TrackDY), TrackWeight);
+               }
             }   
          }
       }

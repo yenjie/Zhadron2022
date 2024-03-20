@@ -1513,9 +1513,9 @@ bool MuTreeMessenger::DimuonPassTightCut(int index)
       TightCut = false;
    if(DiNMatchedStations1[index] <=1 || DiNMatchedStations2[index] <= 1)
       TightCut = false;
-   if(DiDxy1[index] >= 0.2 || DiDxy2[index] >= 0.2)
+   if(fabs(DiDxy1[index]) >= 0.2 || fabs(DiDxy2[index]) >= 0.2)
       TightCut = false;
-   if(DiDz1[index] >= 0.5 || DiDz2[index] >= 0.5)
+   if(fabs(DiDz1[index]) >= 0.5 || fabs(DiDz2[index]) >= 0.5)
       TightCut = false;
    if(DiNPixHit1[index] <= 0 || DiNPixHit2[index] <= 0)
       TightCut = false;

@@ -47,121 +47,74 @@ int main(int argc, char *argv[])
 {
    CommandLine CL(argc, argv);
 
-   string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions_ops/pchou/OutputMC_old/");
+   string InputBase      = CL.Get("InputBase", "/eos/cms/store/group/phys_heavyions/pchou/OutputMC_v16/");
    string OutputFileName = CL.Get("Output", "Plots.root");
    double Fraction       = CL.GetDouble("Fraction", 1.00);
    bool IgnoreCentrality = CL.GetBool("IgnoreCentrality", false);
    bool OnlyZeroSub      = CL.GetBool("OnlyZeroSub", false);
+   bool OnlyZeroNPU      = CL.GetBool("OnlyZeroNPU", false);
+   bool OnlyOneSub       = CL.GetBool("OnlyOneSub", false);
+   bool NoZeroSub        = CL.GetBool("NoZeroSub", false);
+   bool NoOneSub         = CL.GetBool("NoOneSub", false);
    bool DoGenCorrelation = CL.GetBool("DoGenCorrelation", false);
    bool DoSingleFile     = CL.GetBool("DoSingleFile", false);
    
    // Note: fields are bin count, Z min, Z max, Cent. min, Cent. max, Track min, Track max
    vector<Configuration> C;
+
+
+   //C.push_back(Configuration(40, 40,  200,  0, 10, 1, 2));
+
    
-   C.push_back(Configuration(40, 20, 2000,  0, 90,  0, 1000));
-   C.push_back(Configuration(40,  5, 2000,  0, 90,  0, 1000));
-   C.push_back(Configuration(40,  5,   20,  0, 90,  0, 1000));
+   C.push_back(Configuration(40, 40,  200,  0, 30, 1, 1000));
+   C.push_back(Configuration(40, 40,  200,  0, 10, 1, 1000));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 1, 1000));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 1, 1000));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 1, 1000));
+   C.push_back(Configuration(40, 40,  200, 30, 90, 1, 1000));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 1, 1000));
+
+
+   C.push_back(Configuration(40, 40,  200,  0, 10, 1, 2));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 1, 2));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 1, 2));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 1, 2));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 1, 2));
+
+   C.push_back(Configuration(40, 40,  200,  0, 100, 1, 2));
+   C.push_back(Configuration(40, 40,  200,  0, 100, 2, 4));
+   C.push_back(Configuration(40, 40,  200,  0, 100, 4, 10));
+
+   //C.push_back(Configuration(40, 40,  200,  0, 30, 1, 2));
+   //C.push_back(Configuration(40, 40,  200, 30, 90, 1, 2));
+
+   C.push_back(Configuration(40, 40,  200,  0, 10, 2, 4));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 2, 4));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 2, 4));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 2, 4));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 2, 4));
+   //C.push_back(Configuration(40, 40,  200,  0, 30, 2, 4));
+   //C.push_back(Configuration(40, 40,  200, 30, 90, 2, 4));
+
+   C.push_back(Configuration(40, 40,  200,  0, 10, 4, 10));
+   C.push_back(Configuration(40, 40,  200, 10, 30, 4, 10));
+   C.push_back(Configuration(40, 40,  200, 30, 50, 4, 10));
+   C.push_back(Configuration(40, 40,  200, 50, 90, 4, 10));
+   C.push_back(Configuration(40, 40,  200,  0, 90, 4, 10));
+
    
-   C.push_back(Configuration(40, 30,   40,  0, 90,  0, 1000));
-   C.push_back(Configuration(40, 40,   60,  0, 90,  0, 1000));
-   C.push_back(Configuration(40, 60,   80,  0, 90,  0, 1000));
-   C.push_back(Configuration(40, 80,  100,  0, 90,  0, 1000));
-   C.push_back(Configuration(40, 20, 2000,  0, 10,  0, 1000));
-   C.push_back(Configuration(40, 20, 2000, 10, 30,  0, 1000));
-   C.push_back(Configuration(40, 20, 2000, 30, 50,  0, 1000));
-   C.push_back(Configuration(40, 20, 2000, 50, 90,  0, 1000));
-   C.push_back(Configuration(40, 20, 2000,  0, 90,  1,    2));
-   C.push_back(Configuration(40, 20, 2000,  0, 90,  2,    5));
-   C.push_back(Configuration(40, 20, 2000,  0, 90,  5,   10));
-   C.push_back(Configuration(40, 20, 2000,  0, 90, 10,   20));
-   C.push_back(Configuration(40, 20, 2000,  0, 90, 20,   50));
-   C.push_back(Configuration(40, 20, 2000,  0, 90, 50,  100));
-   C.push_back(Configuration(40, 40, 2000, 50, 90,  0, 1000));
-   C.push_back(Configuration(40, 20, 2000, 50, 90,  1,    2));
-   C.push_back(Configuration(40, 40, 2000, 50, 90,  1,    2));
-   C.push_back(Configuration(40, 20, 2000, 50, 90,  2,    5));
-   C.push_back(Configuration(40, 40, 2000, 50, 90,  2,    5));
-   C.push_back(Configuration(40, 20, 2000, 50, 90,  5,   10));
-   C.push_back(Configuration(40, 40, 2000, 50, 90,  5,   10));
-   C.push_back(Configuration(40, 20, 2000, 50, 90, 20,   50));
-   C.push_back(Configuration(40, 40, 2000, 50, 90, 20,   50));
-   C.push_back(Configuration(40, 20, 2000, 50, 90, 50,  100));
-   C.push_back(Configuration(40, 40, 2000, 50, 90, 50,  100));
-   C.push_back(Configuration(40, 30, 2000,  0, 30,  1, 1000));
-   C.push_back(Configuration(40, 30, 2000, 30, 50,  1, 1000));
-   C.push_back(Configuration(40, 30, 2000, 50, 90,  1, 1000));
-
-   C.push_back(Configuration(40,  5,   20,  0, 90,0.5,    2));
-   C.push_back(Configuration(40, 60, 2000,  0, 90,0.5,    2));
-   C.push_back(Configuration(40,100, 2000,  0, 90,0.5,    2));
-   C.push_back(Configuration(40,120, 2000,  0, 90,0.5,    2));
-   C.push_back(Configuration(40,  5,   20,  0, 90,  4, 1000));
-   C.push_back(Configuration(40, 60, 2000,  0, 90,  4, 1000));
-   C.push_back(Configuration(40,100, 2000,  0, 90,  4, 1000));
-   C.push_back(Configuration(40,120, 2000,  0, 90,  4, 1000));
-   C.push_back(Configuration(40,  5,   20,  0, 30,0.5,    2));
-   C.push_back(Configuration(40, 60, 2000,  0, 30,0.5,    2));
-   C.push_back(Configuration(40,100, 2000,  0, 30,0.5,    2));
-   C.push_back(Configuration(40,120, 2000,  0, 30,0.5,    2));
-   C.push_back(Configuration(40,  5,   20,  0, 30,  4, 1000));
-   C.push_back(Configuration(40, 60, 2000,  0, 30,  4, 1000));
-   C.push_back(Configuration(40,100, 2000,  0, 30,  4, 1000));
-   C.push_back(Configuration(40,120, 2000,  0, 30,  4, 1000));
-
-   C.push_back(Configuration(40, 20, 2000,  0, 90,0.5,    2));
-   C.push_back(Configuration(40,  5, 2000,  0, 90,0.5,    2));
-
-   C.push_back(Configuration(40, 20, 2000,  0, 90,  4,    5));
-   C.push_back(Configuration(40, 20, 2000,  0, 90,  5,    7));
-   C.push_back(Configuration(40, 20, 2000,  0, 90,  7,   10));
-   C.push_back(Configuration(40,  5,   20,  0, 90,  4,    5));
-   C.push_back(Configuration(40,  5,   20,  0, 90,  5,    7));
-   C.push_back(Configuration(40,  5,   20,  0, 90,  7,   10));
-
-   C.push_back(Configuration(40, 20, 2000,  0, 30,  4,    5));
-   C.push_back(Configuration(40, 20, 2000,  0, 30,  5,    7));
-   C.push_back(Configuration(40, 20, 2000,  0, 30,  7,   10));
-   C.push_back(Configuration(40,  5,   20,  0, 30,  4,    5));
-   C.push_back(Configuration(40,  5,   20,  0, 30,  5,    7));
-   C.push_back(Configuration(40,  5,   20,  0, 30,  7,   10));
-
-   C.push_back(Configuration(40, 10, 2000,  0, 90,  2, 1000));
-
-   C.push_back(Configuration(40,  5, 2000,  0, 90,  5,   10));
-   C.push_back(Configuration(40,  5, 2000,  0, 90, 10,   20));
-   C.push_back(Configuration(40,  5, 2000,  0, 90, 20,   50));
-   C.push_back(Configuration(40,  5, 2000,  0, 90, 50,  100));
-
-   C.push_back(Configuration(40, 20, 2000,  0, 10, 10,   20));
-   C.push_back(Configuration(40, 20, 2000, 10, 30, 10,   20));
-   C.push_back(Configuration(40, 20, 2000, 30, 50, 10,   20));
-   C.push_back(Configuration(40, 20, 2000, 50, 90, 10,   20));
-
-   C.push_back(Configuration(40, 20, 2000,  0, 10,  1,    2));
-   C.push_back(Configuration(40, 20, 2000, 10, 30,  1,    2));
-   C.push_back(Configuration(40, 20, 2000, 30, 50,  1,    2));
-   C.push_back(Configuration(40, 20, 2000,  0, 10,  2,    5));
-   C.push_back(Configuration(40, 20, 2000, 10, 30,  2,    5));
-   C.push_back(Configuration(40, 20, 2000, 30, 50,  2,    5));
-   C.push_back(Configuration(40, 20, 2000,  0, 10,  5,   10));
-   C.push_back(Configuration(40, 20, 2000, 10, 30,  5,   10));
-   C.push_back(Configuration(40, 20, 2000, 30, 50,  5,   10));
-   C.push_back(Configuration(40, 20, 2000,  0, 10, 20,   50));
-   C.push_back(Configuration(40, 20, 2000, 10, 30, 20,   50));
-   C.push_back(Configuration(40, 20, 2000, 30, 50, 20,   50));
-   C.push_back(Configuration(40, 20, 2000,  0, 10, 50,  100));
-   C.push_back(Configuration(40, 20, 2000, 10, 30, 50,  100));
-   C.push_back(Configuration(40, 20, 2000, 30, 50, 50,  100));
-
-
-
    vector<TDirectory *>     Folder;
+   vector<double>           TotalEventCount;
+   vector<TH1D *>           HTotalEventCount;
+   vector<double>           TotalZEventCount;
+   vector<TH1D *>           HTotalZEventCount;
    vector<double>           EventCount;
    vector<TH1D *>           HEventCount;
    vector<double>           GenEventCount;
    vector<TH1D *>           HGenEventCount;
    vector<TH1D *>           HZPT;
    vector<TH1D *>           HZEta;
+   vector<TH1D *>           HZY;
    vector<TH1D *>           HZPhi;
    vector<TH2D *>           HZEtaPhi;
    vector<TH1D *>           HGenZEta;
@@ -215,18 +168,23 @@ int main(int argc, char *argv[])
       Folder.push_back(OutputFile.mkdir(FolderName.c_str()));
       
       Folder[iC]->cd();
+      TotalEventCount.push_back(0);
+      HTotalEventCount.push_back(new TH1D("HTotalEventCount", "", 1, 0, 1));
+      TotalZEventCount.push_back(0);
+      HTotalZEventCount.push_back(new TH1D("HTotalZEventCount", "", 1, 0, 1));
       EventCount.push_back(0);
       HEventCount.push_back(new TH1D("HEventCount", "", 1, 0, 1));
       GenEventCount.push_back(0);
       HGenEventCount.push_back(new TH1D("HGenEventCount", "", 1, 0, 1));
       
       HZPT.push_back(new TH1D("HZPT", "Z candidate PT", 100, 0, 200));
+      HZY.push_back(new TH1D("HZY", "Z candidate y", 100, -3.2, 3.2));
       HZEta.push_back(new TH1D("HZEta", "Z candidate eta", 100, -3.2, 3.2));
       HZPhi.push_back(new TH1D("HZPhi", "Z candidate phi", 100, -M_PI, M_PI));
       HZEtaPhi.push_back(new TH2D("HZEtaPhi", "Z candidate eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       HGenZEta.push_back(new TH1D("HGenZEta", "GEN Z eta", 100, -3.2, 3.2));
       HGenZPhi.push_back(new TH1D("HGenZPhi", "GEN Z phi", 100, -M_PI, M_PI));
-      HGenZEtaPhi.push_back(new TH2D("HGenZEtaPhi", "GEB Z eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
+      HGenZEtaPhi.push_back(new TH2D("HGenZEtaPhi", "GEN Z eta phi", 100, -3.2, 3.2, 100, -M_PI, M_PI));
       HZMass.push_back(new TH1D("HZMass", "Z candidate mass", 100, 0, 150));
       HTrackPT.push_back(new TH1D("HTrackPT", "Track PT", 100, 0, 200));
       HTrackEta.push_back(new TH1D("HTrackEta", "Track eta", 100, -3.2, 3.2));
@@ -312,7 +270,7 @@ int main(int argc, char *argv[])
    double maxMoreOppositeWTADPhi;
 
    float NCollWeight;
-   float ZWeight;
+   float ZWeight, VZWeight;
    vector<double> *trackWeight = nullptr;
    vector<double> *trackResidualWeight = nullptr;
 
@@ -334,6 +292,8 @@ int main(int argc, char *argv[])
 
    Tree->SetBranchAddress("NCollWeight",            &NCollWeight);
    Tree->SetBranchAddress("ZWeight",                &ZWeight);
+   Tree->SetBranchAddress("VZWeight",               &VZWeight);
+   
 
    Tree->SetBranchAddress("trackWeight",            &trackWeight);
    Tree->SetBranchAddress("trackResidualWeight",    &trackResidualWeight);
@@ -375,7 +335,8 @@ int main(int argc, char *argv[])
 
       Tree->GetEntry(iE);
 
-      if(OnlyZeroSub == true && DoGenCorrelation == false && NPU != 0) continue;
+      //if(OnlyZeroSub == true && DoGenCorrelation == false && NPU != 0) continue;
+      if(OnlyZeroNPU == true && NPU != 0) continue;
 
       for(int iC = 0; iC < (int)C.size(); iC++)
       {
@@ -400,6 +361,9 @@ int main(int argc, char *argv[])
             CentRange = true;
          if(IgnoreCentrality == true)
             CentRange = true;
+
+         TotalEventCount[iC] = TotalEventCount[iC] + NCollWeight*ZWeight*VZWeight;
+         HTotalEventCount[iC]->Fill(0., NCollWeight*ZWeight*VZWeight);
 
          // If we know that the Z candidate is not in range, no need to loop over tracks!
          // Saves a tiny bit of time
@@ -427,6 +391,9 @@ int main(int argc, char *argv[])
          for(int iT = 0; iT < NTrack; iT++)
          {
             if(OnlyZeroSub == true && DoGenCorrelation == true && subevent->at(iT) != 0) continue;
+            if(OnlyOneSub == true && DoGenCorrelation == true && subevent->at(iT) != 1) continue;
+            if(NoZeroSub == true && DoGenCorrelation == true && subevent->at(iT) == 0) continue;
+            if(NoOneSub == true && DoGenCorrelation == true && subevent->at(iT) == 1) continue;
 
             bool TrackPTRange = false;
             if(TrackPT->at(iT) > C[iC].TrackPTMin && TrackPT->at(iT) < C[iC].TrackPTMax)
@@ -439,7 +406,7 @@ int main(int argc, char *argv[])
             bool PassEvent = ZMassRange && ZPTRange && CentRange;
             bool PassEverything = PassEvent && TrackPTRange && TrackNotCloseToMuon;
 
-            double weight = (trackWeight->at(iT))*(trackResidualWeight->at(iT))*NCollWeight*ZWeight;
+            double weight = (trackWeight->at(iT))*(trackResidualWeight->at(iT))*NCollWeight*ZWeight*VZWeight;
             //double weight = NCollWeight;
             //double weight = trackWeight->at(iT);
 
@@ -547,36 +514,46 @@ int main(int argc, char *argv[])
             }
          }
 
+         double zP = ZPT_0*cosh(ZEta_0);
+         double zPz = ZPT_0*sinh(ZEta_0);
+         double zE = sqrt(zP*zP+ZMass_0*ZMass_0);
+         double zY = 0.5*log((zE+zPz)/(zE-zPz));
+         //double TrackDY = TrackEta - zY;
+
+        TotalZEventCount[iC] = TotalZEventCount[iC] + NCollWeight*ZWeight*VZWeight;
+        HTotalZEventCount[iC]->Fill(0., NCollWeight*ZWeight*VZWeight);
+
          if(SomethingPassed == true)
          {
-            EventCount[iC] = EventCount[iC] + NCollWeight*ZWeight;
-            HEventCount[iC]->Fill(0., NCollWeight*ZWeight);
+            EventCount[iC] = EventCount[iC] + NCollWeight*ZWeight*VZWeight;
+            HEventCount[iC]->Fill(0., NCollWeight*ZWeight*VZWeight);
             
-            HZPT[iC]->Fill(ZPT_0, NCollWeight*ZWeight);
-            HZEta[iC]->Fill(ZEta_0, NCollWeight*ZWeight);
-            HZPhi[iC]->Fill(ZPhi_0, NCollWeight*ZWeight);
-            HZMass[iC]->Fill(ZMass_0, NCollWeight*ZWeight);
-            HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight*ZWeight);
+            HZPT[iC]->Fill(ZPT_0, NCollWeight*ZWeight*VZWeight);
+            HZEta[iC]->Fill(ZEta_0, NCollWeight*ZWeight*VZWeight);
+            HZPhi[iC]->Fill(ZPhi_0, NCollWeight*ZWeight*VZWeight);
+            HZY[iC]->Fill(zY, NCollWeight*ZWeight*VZWeight);
+            HZMass[iC]->Fill(ZMass_0, NCollWeight*ZWeight*VZWeight);
+            HZEtaPhi[iC]->Fill(ZEta_0, ZPhi_0, NCollWeight*ZWeight*VZWeight);
 
             if(genZEta->size() > 0){
-               GenEventCount[iC] = GenEventCount[iC] + NCollWeight*ZWeight;
-               HGenEventCount[iC]->Fill(0., NCollWeight*ZWeight);
-               HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight*ZWeight);
-               HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight*ZWeight);
-               HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight*ZWeight);
+               GenEventCount[iC] = GenEventCount[iC] + NCollWeight*ZWeight*VZWeight;
+               HGenEventCount[iC]->Fill(0., NCollWeight*ZWeight*VZWeight);
+               HGenZEta[iC]->Fill(genZEta->at(0), NCollWeight*ZWeight*VZWeight);
+               HGenZPhi[iC]->Fill(genZPhi->at(0), NCollWeight*ZWeight*VZWeight);
+               HGenZEtaPhi[iC]->Fill(genZEta->at(0), genZPhi->at(0), NCollWeight*ZWeight*VZWeight);
             }
             
             if(fabs(maxDEta + ZEta_0)<M_PI/2)
-               HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta_0, PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight*ZWeight);
+               HZMaxHadronEtaPhi[iC]->Fill(maxDEta + ZEta_0, PhiRangeCorrelation(maxDPhi + ZPhi_0), NCollWeight*ZWeight*VZWeight);
             
             if(fabs(maxOppositeDEta + ZEta_0)<M_PI/2)
-               HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta_0, PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight*ZWeight);
+               HZMaxOppositeHadronEtaPhi[iC]->Fill(maxOppositeDEta + ZEta_0, PhiRangeCorrelation(maxOppositeDPhi + ZPhi_0), NCollWeight*ZWeight*VZWeight);
             
             if(fabs(maxOppositeWTADEta + ZEta_0)<M_PI/2)
-               HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta_0, PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
+               HZWTAEtaPhi[iC]->Fill(maxOppositeWTADEta + ZEta_0, PhiRangeCorrelation(maxOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight*VZWeight);
             
             if(fabs(maxMoreOppositeWTADEta + ZEta_0)<M_PI/2)
-               HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta_0, PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight);
+               HZWTAMoreEtaPhi[iC]->Fill(maxMoreOppositeWTADEta + ZEta_0, PhiRangeCorrelation(maxMoreOppositeWTADPhi + ZPhi_0), NCollWeight*ZWeight*VZWeight);
          }
       }
    }
@@ -587,13 +564,20 @@ int main(int argc, char *argv[])
    for(int iC = 0; iC < (int)C.size(); iC++)
    {
       Folder[iC]->cd();
+      TNamed NTot("TotalEntryCount", Form("%f", TotalEventCount[iC]));
+      NTot.Write();
+      TNamed NTotZ("TotalZEntryCount", Form("%f", TotalZEventCount[iC]));
+      NTotZ.Write();
       TNamed N("EntryCount", Form("%f", EventCount[iC]));
       N.Write();
       TNamed NGen("GenEntryCount", Form("%f", GenEventCount[iC]));
       NGen.Write();
       HEventCount[iC]->Write();
       HGenEventCount[iC]->Write();
+      HTotalZEventCount[iC]->Write();
+      HTotalEventCount[iC]->Write();
       HZPT[iC]->Write();
+      HZY[iC]->Write();
       HZEta[iC]->Write();
       HZPhi[iC]->Write();
       HZEtaPhi[iC]->Write();
