@@ -1,0 +1,437 @@
+Universe              = vanilla
+Executable            = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency/RunCondor.sh
+should_transfer_files = NO
++JobFlavour           = "longlunch"
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result0.root 0 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_1.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_10.root --Fraction 1.00 --IsPP true
+Output    = Log//Part0.out
+Error     = Log//Part0.err
+Log       = Log//Part0.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result1.root 1 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_100.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_101.root --Fraction 1.00 --IsPP true
+Output    = Log//Part1.out
+Error     = Log//Part1.err
+Log       = Log//Part1.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result2.root 2 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_102.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_103.root --Fraction 1.00 --IsPP true
+Output    = Log//Part2.out
+Error     = Log//Part2.err
+Log       = Log//Part2.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result3.root 3 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_104.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_105.root --Fraction 1.00 --IsPP true
+Output    = Log//Part3.out
+Error     = Log//Part3.err
+Log       = Log//Part3.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result4.root 4 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_106.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_107.root --Fraction 1.00 --IsPP true
+Output    = Log//Part4.out
+Error     = Log//Part4.err
+Log       = Log//Part4.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result5.root 5 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_108.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_109.root --Fraction 1.00 --IsPP true
+Output    = Log//Part5.out
+Error     = Log//Part5.err
+Log       = Log//Part5.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result6.root 6 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_11.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_110.root --Fraction 1.00 --IsPP true
+Output    = Log//Part6.out
+Error     = Log//Part6.err
+Log       = Log//Part6.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result7.root 7 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_111.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_112.root --Fraction 1.00 --IsPP true
+Output    = Log//Part7.out
+Error     = Log//Part7.err
+Log       = Log//Part7.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result8.root 8 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_113.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_114.root --Fraction 1.00 --IsPP true
+Output    = Log//Part8.out
+Error     = Log//Part8.err
+Log       = Log//Part8.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result9.root 9 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_115.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_116.root --Fraction 1.00 --IsPP true
+Output    = Log//Part9.out
+Error     = Log//Part9.err
+Log       = Log//Part9.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result10.root 10 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_117.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_118.root --Fraction 1.00 --IsPP true
+Output    = Log//Part10.out
+Error     = Log//Part10.err
+Log       = Log//Part10.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result11.root 11 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_119.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_12.root --Fraction 1.00 --IsPP true
+Output    = Log//Part11.out
+Error     = Log//Part11.err
+Log       = Log//Part11.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result12.root 12 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_120.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_121.root --Fraction 1.00 --IsPP true
+Output    = Log//Part12.out
+Error     = Log//Part12.err
+Log       = Log//Part12.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result13.root 13 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_122.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_123.root --Fraction 1.00 --IsPP true
+Output    = Log//Part13.out
+Error     = Log//Part13.err
+Log       = Log//Part13.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result14.root 14 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_124.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_125.root --Fraction 1.00 --IsPP true
+Output    = Log//Part14.out
+Error     = Log//Part14.err
+Log       = Log//Part14.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result15.root 15 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_126.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_127.root --Fraction 1.00 --IsPP true
+Output    = Log//Part15.out
+Error     = Log//Part15.err
+Log       = Log//Part15.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result16.root 16 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_128.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_129.root --Fraction 1.00 --IsPP true
+Output    = Log//Part16.out
+Error     = Log//Part16.err
+Log       = Log//Part16.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result17.root 17 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_13.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_130.root --Fraction 1.00 --IsPP true
+Output    = Log//Part17.out
+Error     = Log//Part17.err
+Log       = Log//Part17.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result18.root 18 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_131.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_132.root --Fraction 1.00 --IsPP true
+Output    = Log//Part18.out
+Error     = Log//Part18.err
+Log       = Log//Part18.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result19.root 19 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_133.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_134.root --Fraction 1.00 --IsPP true
+Output    = Log//Part19.out
+Error     = Log//Part19.err
+Log       = Log//Part19.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result20.root 20 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_135.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_136.root --Fraction 1.00 --IsPP true
+Output    = Log//Part20.out
+Error     = Log//Part20.err
+Log       = Log//Part20.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result21.root 21 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_137.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_138.root --Fraction 1.00 --IsPP true
+Output    = Log//Part21.out
+Error     = Log//Part21.err
+Log       = Log//Part21.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result22.root 22 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_139.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_14.root --Fraction 1.00 --IsPP true
+Output    = Log//Part22.out
+Error     = Log//Part22.err
+Log       = Log//Part22.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result23.root 23 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_140.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_141.root --Fraction 1.00 --IsPP true
+Output    = Log//Part23.out
+Error     = Log//Part23.err
+Log       = Log//Part23.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result24.root 24 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_142.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_143.root --Fraction 1.00 --IsPP true
+Output    = Log//Part24.out
+Error     = Log//Part24.err
+Log       = Log//Part24.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result25.root 25 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_15.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_16.root --Fraction 1.00 --IsPP true
+Output    = Log//Part25.out
+Error     = Log//Part25.err
+Log       = Log//Part25.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result26.root 26 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_17.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_18.root --Fraction 1.00 --IsPP true
+Output    = Log//Part26.out
+Error     = Log//Part26.err
+Log       = Log//Part26.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result27.root 27 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_19.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_2.root --Fraction 1.00 --IsPP true
+Output    = Log//Part27.out
+Error     = Log//Part27.err
+Log       = Log//Part27.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result28.root 28 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_20.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_21.root --Fraction 1.00 --IsPP true
+Output    = Log//Part28.out
+Error     = Log//Part28.err
+Log       = Log//Part28.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result29.root 29 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_22.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_23.root --Fraction 1.00 --IsPP true
+Output    = Log//Part29.out
+Error     = Log//Part29.err
+Log       = Log//Part29.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result30.root 30 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_24.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_25.root --Fraction 1.00 --IsPP true
+Output    = Log//Part30.out
+Error     = Log//Part30.err
+Log       = Log//Part30.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result31.root 31 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_26.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_27.root --Fraction 1.00 --IsPP true
+Output    = Log//Part31.out
+Error     = Log//Part31.err
+Log       = Log//Part31.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result32.root 32 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_28.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_29.root --Fraction 1.00 --IsPP true
+Output    = Log//Part32.out
+Error     = Log//Part32.err
+Log       = Log//Part32.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result33.root 33 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_3.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_30.root --Fraction 1.00 --IsPP true
+Output    = Log//Part33.out
+Error     = Log//Part33.err
+Log       = Log//Part33.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result34.root 34 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_31.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_32.root --Fraction 1.00 --IsPP true
+Output    = Log//Part34.out
+Error     = Log//Part34.err
+Log       = Log//Part34.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result35.root 35 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_33.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_34.root --Fraction 1.00 --IsPP true
+Output    = Log//Part35.out
+Error     = Log//Part35.err
+Log       = Log//Part35.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result36.root 36 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_35.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_36.root --Fraction 1.00 --IsPP true
+Output    = Log//Part36.out
+Error     = Log//Part36.err
+Log       = Log//Part36.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result37.root 37 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_37.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_38.root --Fraction 1.00 --IsPP true
+Output    = Log//Part37.out
+Error     = Log//Part37.err
+Log       = Log//Part37.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result38.root 38 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_39.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_4.root --Fraction 1.00 --IsPP true
+Output    = Log//Part38.out
+Error     = Log//Part38.err
+Log       = Log//Part38.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result39.root 39 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_40.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_41.root --Fraction 1.00 --IsPP true
+Output    = Log//Part39.out
+Error     = Log//Part39.err
+Log       = Log//Part39.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result40.root 40 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_42.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_43.root --Fraction 1.00 --IsPP true
+Output    = Log//Part40.out
+Error     = Log//Part40.err
+Log       = Log//Part40.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result41.root 41 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_44.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_45.root --Fraction 1.00 --IsPP true
+Output    = Log//Part41.out
+Error     = Log//Part41.err
+Log       = Log//Part41.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result42.root 42 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_46.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_47.root --Fraction 1.00 --IsPP true
+Output    = Log//Part42.out
+Error     = Log//Part42.err
+Log       = Log//Part42.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result43.root 43 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_48.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_49.root --Fraction 1.00 --IsPP true
+Output    = Log//Part43.out
+Error     = Log//Part43.err
+Log       = Log//Part43.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result44.root 44 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_5.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_50.root --Fraction 1.00 --IsPP true
+Output    = Log//Part44.out
+Error     = Log//Part44.err
+Log       = Log//Part44.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result45.root 45 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_51.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_52.root --Fraction 1.00 --IsPP true
+Output    = Log//Part45.out
+Error     = Log//Part45.err
+Log       = Log//Part45.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result46.root 46 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_53.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_54.root --Fraction 1.00 --IsPP true
+Output    = Log//Part46.out
+Error     = Log//Part46.err
+Log       = Log//Part46.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result47.root 47 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_55.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_56.root --Fraction 1.00 --IsPP true
+Output    = Log//Part47.out
+Error     = Log//Part47.err
+Log       = Log//Part47.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result48.root 48 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_57.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_58.root --Fraction 1.00 --IsPP true
+Output    = Log//Part48.out
+Error     = Log//Part48.err
+Log       = Log//Part48.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result49.root 49 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_59.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_6.root --Fraction 1.00 --IsPP true
+Output    = Log//Part49.out
+Error     = Log//Part49.err
+Log       = Log//Part49.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result50.root 50 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_60.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_61.root --Fraction 1.00 --IsPP true
+Output    = Log//Part50.out
+Error     = Log//Part50.err
+Log       = Log//Part50.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result51.root 51 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_62.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_63.root --Fraction 1.00 --IsPP true
+Output    = Log//Part51.out
+Error     = Log//Part51.err
+Log       = Log//Part51.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result52.root 52 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_64.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_65.root --Fraction 1.00 --IsPP true
+Output    = Log//Part52.out
+Error     = Log//Part52.err
+Log       = Log//Part52.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result53.root 53 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_66.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_67.root --Fraction 1.00 --IsPP true
+Output    = Log//Part53.out
+Error     = Log//Part53.err
+Log       = Log//Part53.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result54.root 54 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_68.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_69.root --Fraction 1.00 --IsPP true
+Output    = Log//Part54.out
+Error     = Log//Part54.err
+Log       = Log//Part54.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result55.root 55 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_7.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_70.root --Fraction 1.00 --IsPP true
+Output    = Log//Part55.out
+Error     = Log//Part55.err
+Log       = Log//Part55.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result56.root 56 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_71.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_72.root --Fraction 1.00 --IsPP true
+Output    = Log//Part56.out
+Error     = Log//Part56.err
+Log       = Log//Part56.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result57.root 57 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_73.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_74.root --Fraction 1.00 --IsPP true
+Output    = Log//Part57.out
+Error     = Log//Part57.err
+Log       = Log//Part57.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result58.root 58 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_75.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_76.root --Fraction 1.00 --IsPP true
+Output    = Log//Part58.out
+Error     = Log//Part58.err
+Log       = Log//Part58.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result59.root 59 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_77.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_78.root --Fraction 1.00 --IsPP true
+Output    = Log//Part59.out
+Error     = Log//Part59.err
+Log       = Log//Part59.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result60.root 60 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_79.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_8.root --Fraction 1.00 --IsPP true
+Output    = Log//Part60.out
+Error     = Log//Part60.err
+Log       = Log//Part60.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result61.root 61 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_80.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_81.root --Fraction 1.00 --IsPP true
+Output    = Log//Part61.out
+Error     = Log//Part61.err
+Log       = Log//Part61.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result62.root 62 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_82.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_83.root --Fraction 1.00 --IsPP true
+Output    = Log//Part62.out
+Error     = Log//Part62.err
+Log       = Log//Part62.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result63.root 63 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_84.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_85.root --Fraction 1.00 --IsPP true
+Output    = Log//Part63.out
+Error     = Log//Part63.err
+Log       = Log//Part63.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result64.root 64 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_86.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_87.root --Fraction 1.00 --IsPP true
+Output    = Log//Part64.out
+Error     = Log//Part64.err
+Log       = Log//Part64.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result65.root 65 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_88.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_89.root --Fraction 1.00 --IsPP true
+Output    = Log//Part65.out
+Error     = Log//Part65.err
+Log       = Log//Part65.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result66.root 66 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_9.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_90.root --Fraction 1.00 --IsPP true
+Output    = Log//Part66.out
+Error     = Log//Part66.err
+Log       = Log//Part66.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result67.root 67 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_91.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_92.root --Fraction 1.00 --IsPP true
+Output    = Log//Part67.out
+Error     = Log//Part67.err
+Log       = Log//Part67.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result68.root 68 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_93.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_94.root --Fraction 1.00 --IsPP true
+Output    = Log//Part68.out
+Error     = Log//Part68.err
+Log       = Log//Part68.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result69.root 69 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_95.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_96.root --Fraction 1.00 --IsPP true
+Output    = Log//Part69.out
+Error     = Log//Part69.err
+Log       = Log//Part69.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result70.root 70 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_97.root,/eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_98.root --Fraction 1.00 --IsPP true
+Output    = Log//Part70.out
+Error     = Log//Part70.err
+Log       = Log//Part70.log
+Queue
+
+Arguments = /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency /afs/cern.ch/user/c/chenyi/PhysicsWorkspace/HIZHadron2022 /afs/cern.ch/work/c/chenyi/CMSSW/CMSSW_10_3_5 /eos/cms/store/group/phys_heavyions/chenyi/PhysicsWorkspace/HIZHadron2022/Corrections/20230629_ZEfficiency//pp//Result71.root 71 --Input /eos/cms/store/group/phys_heavyions/chenyi/pp2017/Forest/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/RunIIpp5Spring18DR-94X_mc2017_realistic_forppRef5TeV-v2/AODSIM/DYJetsToLL_MLL-50_TuneCP5_5020GeV-amcatnloFXFX-pythia8/20230408_ZHadronMLLWithMuTreePP/230408_215932/0000//HiForestAOD_99.root --Fraction 1.00 --IsPP true
+Output    = Log//Part71.out
+Error     = Log//Part71.err
+Log       = Log//Part71.log
+Queue
+

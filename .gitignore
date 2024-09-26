@@ -1,0 +1,7 @@
+*.pdf
+*.pyc
+*.root
+*Meow*
+*meow*
+crab.log
+crab_*
